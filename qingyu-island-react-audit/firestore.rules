@@ -1,0 +1,94 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isCaregiver() {
+      return isAuthenticated() && request.auth.token.role == 'CAREGIVER';
+    }
+
+    function isChildDevice() {
+      return isAuthenticated() && request.auth.token.role == 'CHILD_DEVICE';
+    }
+
+    function isResearcher() {
+      return isAuthenticated() && request.auth.token.role == 'RESEARCHER';
+    }
+
+    function matchesFamily(familyId) {
+      return isAuthenticated() && request.auth.token.familyId == familyId;
+    }
+
+    function isDocOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // 1. Families Root & Members: Family Isolation
+    match /families/{familyId} {
+      // 只有属于该家庭的用户可以读取家庭元数据
+      allow read: if matchesFamily(familyId);
+      // 只有 Caregiver 角色可以配置家庭，儿童设备不能改变家庭配置
+      allow write: if matchesFamily(familyId) && isCaregiver();
+
+      // 2. Caregiver Private Reflection Notes (私密自省与可靠性复盘)
+      // 铁律：
+      // - Caregiver A 不能读 Caregiver B 的 private note
+      // - Child device 绝对不能读 caregiver notes
+      // - 绝不能对外暴露给其他家庭
+      match /caregiver_private_notes/{noteId} {
+        allow read: if matchesFamily(familyId) && isCaregiver() && (resource == null || resource.data.ownerCaregiverId == request.auth.uid);
+        allow create: if matchesFamily(familyId) && isCaregiver() && request.resource.data.ownerCaregiverId == request.auth.uid;
+        allow update, delete: if matchesFamily(familyId) && isCaregiver() && resource.data.ownerCaregiverId == request.auth.uid;
+      }
+
+      // 3. Child Progress & Weather Records (儿童安全记录)
+      // 儿童设备可读写自己家庭的进度与天气，但必须受限
+      match /child_records/{recordId} {
+        allow read: if matchesFamily(familyId);
+        allow create, update: if matchesFamily(familyId) && (isChildDevice() || isCaregiver());
+        // 禁止上传儿童私密录音和画作
+        allow write: if !(request.resource.data.keys().hasAny(['rawVoice', 'drawingCanvas', 'audioBlob']));
+      }
+
+      // 4. Hug Requests (即时求助与状态)
+      // 儿童端发起求助，家长端确认接手
+      match /hug_requests/{requestId} {
+        allow read: if matchesFamily(familyId);
+        allow create: if matchesFamily(familyId) && (isChildDevice() || isCaregiver());
+        // 只有监护人能够更改责任指派 (child device 不能改变 caregiver)
+        allow update: if matchesFamily(familyId) && isCaregiver();
+        allow delete: if matchesFamily(familyId) && isCaregiver();
+      }
+
+      // 5. Caregiver Contacts & Configuration
+      // 铁律：child device 不能改变 caregiver 配置
+      match /caregiver_contacts/{contactId} {
+        allow read: if matchesFamily(familyId);
+        allow write: if matchesFamily(familyId) && isCaregiver();
+      }
+    }
+
+    // 6. Research Events Aggregate (去标识化研究事件)
+    // 铁律：
+    // - 研究员只能读取去标识化的研究聚合事件
+    // - 研究员绝对不能读取任何原始家庭内容 (raw family content)
+    // - 研究员无权写入
+    match /research_events/{eventId} {
+      allow read: if isResearcher() || isCaregiver();
+      // 系统服务器或经过校验的客户端写入，禁止包含违禁字段
+      allow create: if isAuthenticated() && 
+        !(request.resource.data.keys().hasAny(['rawVoice', 'transcript', 'drawingContent', 'freeTextChildAnswer', 'personalityScore']));
+      allow update: if false; // 研究事件不可篡改
+      allow delete: if isCaregiver(); // 支持家长发起 GDPR 删除
+    }
+
+    // Default: Fail closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

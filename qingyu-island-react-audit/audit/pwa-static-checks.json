@@ -1,0 +1,36 @@
+{
+  "kind": "asset metadata and post-build generator checks on synthetic files",
+  "passed": 6,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "manifest icon exists with declared dimensions: /pwa-icon-192.png",
+      "passed": true
+    },
+    {
+      "name": "manifest icon exists with declared dimensions: /pwa-icon-512.png",
+      "passed": true
+    },
+    {
+      "name": "manifest icon exists with declared dimensions: /pwa-icon-maskable-512.png",
+      "passed": true
+    },
+    {
+      "name": "apple-touch-icon exists as PNG",
+      "passed": true
+    },
+    {
+      "name": "post-build generator substitutes actual fixture file list and hash",
+      "passed": true
+    },
+    {
+      "name": "generated worker JavaScript syntax",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Not Vite build",
+    "Not a browser service-worker lifecycle test",
+    "No PWA installation validation"
+  ]
+}

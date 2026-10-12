@@ -1,0 +1,51 @@
+{
+  "kind": "computed token-pair contrast only",
+  "pairs": [
+    {
+      "pair": "正文/纸底",
+      "foreground": "#23483d",
+      "background": "#faf8f2",
+      "contrast": 9.572,
+      "passes_text_4_5": true
+    },
+    {
+      "pair": "辅助正文/纸底",
+      "foreground": "#54665e",
+      "background": "#faf8f2",
+      "contrast": 5.75,
+      "passes_text_4_5": true
+    },
+    {
+      "pair": "白字/主按钮",
+      "foreground": "#ffffff",
+      "background": "#305d4e",
+      "contrast": 7.496,
+      "passes_text_4_5": true
+    },
+    {
+      "pair": "白字/求助按钮",
+      "foreground": "#ffffff",
+      "background": "#ad435e",
+      "contrast": 5.613,
+      "passes_text_4_5": true
+    },
+    {
+      "pair": "白字/删除按钮",
+      "foreground": "#ffffff",
+      "background": "#953c41",
+      "contrast": 6.999,
+      "passes_text_4_5": true
+    },
+    {
+      "pair": "焦点/纸底",
+      "foreground": "#075ca6",
+      "background": "#faf8f2",
+      "contrast": 6.398,
+      "passes_text_4_5": true
+    }
+  ],
+  "limits": [
+    "Not a rendered full-app accessibility audit",
+    "Does not cover all states or disabled controls"
+  ]
+}

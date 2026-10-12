@@ -1,0 +1,74 @@
+{
+  "kind": "Static DOM/CSS fixture only; not React runtime",
+  "viewports": [
+    {
+      "viewport": 360,
+      "scrollWidth": 360,
+      "columnCount": 2,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 800
+    },
+    {
+      "viewport": 390,
+      "scrollWidth": 390,
+      "columnCount": 2,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 844
+    },
+    {
+      "viewport": 430,
+      "scrollWidth": 430,
+      "columnCount": 2,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 932
+    },
+    {
+      "viewport": 768,
+      "scrollWidth": 768,
+      "columnCount": 2,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 1024
+    },
+    {
+      "viewport": 1024,
+      "scrollWidth": 1024,
+      "columnCount": 3,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 1366
+    },
+    {
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "columnCount": 3,
+      "smallTargets": [],
+      "buttonCount": 20,
+      "dockDoesNotHideLastCard": true,
+      "pass": true,
+      "height": 960
+    }
+  ],
+  "passed": 6,
+  "failed": 0,
+  "limits": [
+    "Placeholder icon contours",
+    "No React lifecycle",
+    "No project build",
+    "No app e2e",
+    "No approved visual baseline"
+  ]
+}
