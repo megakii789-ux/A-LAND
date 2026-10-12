@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
+import { Interactive3DCard } from '../common/Interactive3DCard';
 
 export type ThinkingPosture = 'fen' | 'tong' | 'ze';
 
@@ -523,9 +524,11 @@ export const ParentingPocketTips: React.FC = () => {
           const isExpanded = expandedTipId === tip.id;
 
           return (
-            <div
+            <Interactive3DCard
               key={tip.id}
-              className="bg-white rounded-3xl border-2 border-stone-200/90 shadow-sm hover:shadow-md transition-all p-5 sm:p-6 space-y-4"
+              maxTilt={4}
+              perspective={1100}
+              className="bg-white rounded-3xl border-2 border-stone-200/90 shadow-sm hover:shadow-xl transition-all p-5 sm:p-6 space-y-4"
             >
               {/* 卡片顶栏：分类标签 + 标题 + 快捷操作 */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -664,7 +667,7 @@ export const ParentingPocketTips: React.FC = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </Interactive3DCard>
           );
         })}
       </div>

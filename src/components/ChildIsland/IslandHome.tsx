@@ -18,6 +18,7 @@ import { DifficultyBreakerModal } from './DifficultyBreaker/DifficultyBreakerMod
 import { MedalsModal } from './Medals/MedalsModal';
 import { MedalUnlockedToast } from './Medals/MedalUnlockedToast';
 import { IslandPanoramaIllustration } from './StoryGrove/StoryIllustrations';
+import { Interactive3DCard } from '../common/Interactive3DCard';
 
 /**
  * 晴雨小岛 · 儿童首页 Shell (Child Island Home Shell)
@@ -93,15 +94,22 @@ export const IslandHome: React.FC = () => {
       <div className="relative max-w-5xl mx-auto w-full pt-1 sm:pt-2 space-y-3">
           <CompanionBanner />
 
-          {/* 晴雨小岛全景插画画卷 (Island Storybook Panorama) */}
-          <div className="relative overflow-hidden rounded-3xl border-2 border-sky-200/90 shadow-md bg-white/60">
+          {/* 晴雨小岛全景插画画卷 (3D 触感全景浮层) */}
+          <Interactive3DCard
+            maxTilt={6}
+            perspective={1200}
+            className="relative overflow-hidden rounded-3xl border-2 border-sky-200/90 shadow-md hover:shadow-xl bg-white/60 transition-shadow"
+          >
             <IslandPanoramaIllustration className="w-full h-36 sm:h-48 md:h-56 object-cover" />
-            <div className="absolute bottom-2.5 left-3 sm:bottom-3 sm:left-4 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full border border-sky-200 text-xs sm:text-sm font-black text-sky-900 shadow-2xs flex items-center gap-1.5">
+            <div
+              style={{ transform: 'translateZ(26px)' }}
+              className="absolute bottom-2.5 left-3 sm:bottom-3 sm:left-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-sky-200 text-xs sm:text-sm font-black text-sky-900 shadow-md flex items-center gap-1.5"
+            >
               <span>🏝️ 晴雨小岛</span>
               <span className="text-stone-400 font-normal">·</span>
               <span className="text-stone-700 font-bold">今天也是安心探索的一天</span>
             </div>
-          </div>
+          </Interactive3DCard>
 
           {/* 2. Top Priority: Always Reachable Calm Corner (永远可达的平静角) */}
           <AlwaysReachableCalmCard onOpenCalm={() => handleOpenPlace('calm')} />

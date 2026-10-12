@@ -32,6 +32,7 @@ import { GrowthObservationLog } from './GrowthObservationLog';
 import { ParentingPocketTips } from './ParentingPocketTips';
 import { ParentMedalsWall } from './ParentMedalsWall';
 import { VoiceSystemAuditionModal } from './VoiceSystemAuditionModal';
+import { CognitiveDevelopmentEncyclopedia } from './CognitiveDevelopmentEncyclopedia';
 import { INITIAL_PARENT_MEDALS, calculateParentMedals } from '../../data/parentMedalsData';
 import { ParentMedal } from '../../types';
 
@@ -489,6 +490,9 @@ export const ParentDashboard: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* 折叠式认知发展小百科（6岁分通择发展心理学科学底座） */}
+        <CognitiveDevelopmentEncyclopedia initialExpanded={false} />
 
         {/* Navigation Tabs */}
         <div className="flex flex-wrap gap-2 p-1.5 bg-stone-200/60 rounded-2xl">

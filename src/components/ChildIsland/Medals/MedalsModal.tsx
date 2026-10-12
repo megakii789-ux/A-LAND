@@ -16,6 +16,8 @@ import { useApp } from '../../../context/AppContext';
 import { MedalRecord } from '../../../types';
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
+import { Interactive3DMedalToken } from '../../common/Interactive3DMedalToken';
+import { Interactive3DCard } from '../../common/Interactive3DCard';
 
 interface Props {
   isOpen: boolean;
@@ -247,6 +249,21 @@ export const MedalsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   ✕
                 </button>
               </div>
+            </div>
+
+            {/* 3D 物理触感印记观察台 */}
+            <div className="py-3 flex flex-col items-center justify-center bg-stone-50/80 rounded-2xl border border-stone-200/80 p-3">
+              <Interactive3DMedalToken
+                frontIcon={selectedMedal.emoji}
+                frontTitle={selectedMedal.title}
+                frontSubtitle={selectedMedal.type === 'sun' ? '☀️ 阳光思考印记' : '💧 雨滴接纳印记'}
+                backDescription={selectedMedal.meaning}
+                backAffirmation={selectedMedal.offscreenAction}
+                size="md"
+                variant={selectedMedal.type === 'sun' ? 'gold' : 'sky'}
+                isUnlocked={selectedMedal.unlocked}
+                interactiveInspect={true}
+              />
             </div>
 
             <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200 text-sm sm:text-base text-stone-800 space-y-1">

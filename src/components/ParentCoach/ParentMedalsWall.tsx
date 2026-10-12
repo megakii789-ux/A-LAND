@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { ParentMedal, ParentMedalPosture } from '../../types';
 import { sounds } from '../../utils/sound';
+import { Interactive3DCard } from '../common/Interactive3DCard';
+import { Interactive3DMedalToken } from '../common/Interactive3DMedalToken';
 
 interface Props {
   medals: ParentMedal[];
@@ -258,13 +260,15 @@ export const ParentMedalsWall: React.FC<Props> = ({
           const isJustCelebrated = justCelebratedId === medal.id;
 
           return (
-            <div
+            <Interactive3DCard
               key={medal.id}
+              maxTilt={7}
+              perspective={900}
               onClick={() => {
                 sounds.playClick();
                 setSelectedMedalId(medal.id);
               }}
-              className={`p-5 rounded-3xl border-2 transition-all cursor-pointer flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md ${styles.cardBg} ${
+              className={`p-5 rounded-3xl border-2 transition-all cursor-pointer flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl ${styles.cardBg} ${
                 isSelected ? 'ring-3 ring-amber-400 ring-offset-2' : ''
               }`}
             >
@@ -356,7 +360,7 @@ export const ParentMedalsWall: React.FC<Props> = ({
                   )}
                 </button>
               </div>
-            </div>
+            </Interactive3DCard>
           );
         })}
       </div>
@@ -406,6 +410,29 @@ export const ParentMedalsWall: React.FC<Props> = ({
                 </button>
               )}
             </div>
+          </div>
+
+          {/* 3D 实体勋章触感观察台 */}
+          <div className="py-2.5 flex flex-col items-center justify-center bg-stone-50/80 rounded-2xl border border-stone-200/80 p-3">
+            <Interactive3DMedalToken
+              frontIcon={selectedMedal.emoji}
+              frontTitle={selectedMedal.title}
+              frontSubtitle={`🏅 ${selectedMedal.postureLabel}`}
+              backDescription={selectedMedal.triggerDescription}
+              backAffirmation={selectedMedal.practicalParentTip}
+              size="md"
+              variant={
+                selectedMedal.badgeTheme === 'emerald'
+                  ? 'emerald'
+                  : selectedMedal.badgeTheme === 'sky'
+                  ? 'sky'
+                  : selectedMedal.badgeTheme === 'rose'
+                  ? 'rose'
+                  : 'gold'
+              }
+              isUnlocked={selectedMedal.unlocked}
+              interactiveInspect={true}
+            />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4 pt-1">

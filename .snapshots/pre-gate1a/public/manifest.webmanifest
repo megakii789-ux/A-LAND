@@ -1,0 +1,33 @@
+{
+  "id": "/",
+  "name": "晴雨小岛 · 6岁儿童思考成长空间",
+  "short_name": "晴雨小岛",
+  "description": "基于儿童认知发展与学习科学的思考方法与情绪成长空间。通过退后一步与分、通、择三种姿态，陪伴孩子在具体生活场景中探索思考工具。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0d9488",
+  "background_color": "#f0fdfa",
+  "categories": ["education", "kids", "lifestyle"],
+  "icons": [
+    {
+      "src": "/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

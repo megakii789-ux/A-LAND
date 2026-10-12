@@ -280,6 +280,16 @@ class SoundPlayer {
       filter.connect(ctx.destination);
     } catch {}
   }
+
+  // Kalimba bloom alias for tactile 3D interactions
+  public playKalimbaBloom() {
+    this.playWarmBloom();
+  }
+
+  // Tactile wood clack for 3D tokens and blocks
+  public playWoodClack() {
+    this.playScaleClink();
+  }
 }
 
 export const sounds = new SoundPlayer();

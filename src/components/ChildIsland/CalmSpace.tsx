@@ -17,6 +17,7 @@ import { useApp } from '../../context/AppContext';
 import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { LocationBadgeIllustration } from './StoryGrove/StoryIllustrations';
+import { Organic3DBreathingSphere } from './Organic3DBreathingSphere';
 
 interface CalmSpaceProps {
   isOpen: boolean;
@@ -211,38 +212,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
             <span>{isPaused ? '继续' : '暂停'}</span>
           </button>
 
-          {/* Breathing Circle Scale Animation */}
-          <div className="relative w-56 h-56 mx-auto flex items-center justify-center py-4" aria-hidden="true">
-            {/* Soft Ripple Halo */}
-            <div
-              className={`absolute inset-0 rounded-full transition-all duration-[3500ms] ease-in-out opacity-25 ${
-                phase === 'inhale'
-                  ? 'scale-125 bg-teal-400'
-                  : phase === 'exhale'
-                  ? 'scale-90 bg-emerald-300'
-                  : 'scale-100 bg-amber-200'
-              }`}
-            />
-
-            {/* Main Interactive Breathing Core */}
-            <div
-              className={`w-44 h-44 rounded-full flex flex-col items-center justify-center transition-all duration-[3800ms] ease-in-out shadow-xl border-4 ${
-                phase === 'inhale'
-                  ? 'scale-115 bg-linear-to-tr from-teal-200 via-emerald-100 to-amber-100 border-teal-300 shadow-teal-200'
-                  : phase === 'hold'
-                  ? 'scale-115 bg-linear-to-tr from-amber-100 via-teal-100 to-emerald-100 border-amber-300 shadow-amber-100'
-                  : phase === 'exhale'
-                  ? 'scale-85 bg-linear-to-tr from-emerald-100 via-teal-50 to-stone-100 border-emerald-200 shadow-emerald-100'
-                  : 'scale-90 bg-linear-to-tr from-teal-100 to-stone-50 border-teal-200 shadow-teal-100'
-              }`}
-            >
-              <span className="text-4xl sm:text-5xl mb-1 animate-bounce duration-1000">
-                {getThemeEmoji()}
-              </span>
-              <span className="text-base sm:text-lg font-black text-teal-900 mt-1">
-                {phase === 'inhale' ? '吸气' : phase === 'hold' ? '保住' : phase === 'exhale' ? '呼气' : '松开'}
-              </span>
-            </div>
+          {/* 3D Organic Tactile Breathing Sphere */}
+          <div className="py-2">
+            <Organic3DBreathingSphere phase={phase} theme={theme} isPaused={isPaused} />
           </div>
 
           {/* Readable Phase Text Instruction with aria-live */}
