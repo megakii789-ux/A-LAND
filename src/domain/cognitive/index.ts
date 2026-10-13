@@ -5,6 +5,8 @@
 export * from './types';
 export * from './cognitiveValidator';
 export * from './transferBridge';
+export * from './ContentAuditRegistry';
 export * from './scenarios/scenarioA_peerAskingResidence';
 export * from './scenarios/scenarioB_peerBullyingFamily';
 export * from './scenarios/scenarioC_rainyOutdoorCancel';
+

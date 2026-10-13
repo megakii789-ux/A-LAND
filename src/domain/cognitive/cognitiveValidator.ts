@@ -21,6 +21,8 @@ import {
 } from './types';
 import { isRegisteredStructureId } from '../transfer/structureRegistry';
 import { Boundary } from '../safety/types';
+import { ContentAuditRegistry } from './ContentAuditRegistry';
+
 
 /**
  * 违反宪法原则 A 的违禁词汇表 (将人和家庭整体定性/贴全局标签)
@@ -385,6 +387,14 @@ export function validateUnifiedScene(scene: unknown): SceneValidationResult {
     });
   }
 
+  // 13. Content Audit Registry Verification
+  if (!ContentAuditRegistry.canRenderContent(sceneId)) {
+    errors.push({
+      code: 'UNAUDITED_CONTENT',
+      message: `Scene "${sceneId}" does not have a valid audit record in ContentAuditRegistry.`,
+    });
+  }
+
   return {
     isValid: errors.length === 0,
     sceneId,
@@ -392,3 +402,4 @@ export function validateUnifiedScene(scene: unknown): SceneValidationResult {
     verifiedLayers,
   };
 }
+
