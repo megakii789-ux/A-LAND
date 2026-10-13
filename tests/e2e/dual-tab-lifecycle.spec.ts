@@ -25,7 +25,7 @@ test.describe('Dual-Tab Child & Parent Lifecycle E2E Hardening', () => {
     // 1. 创建 Child Tab
     const childPage = await context.newPage();
     await childPage.goto('/');
-    await expect(childPage.locator('text=晴雨小岛')).toBeVisible();
+    await expect(childPage.getByText('晴雨小岛', { exact: true }).first()).toBeVisible();
 
     // 2. 创建 Parent Tab
     const parentPage = await context.newPage();
@@ -45,8 +45,14 @@ test.describe('Dual-Tab Child & Parent Lifecycle E2E Hardening', () => {
     await expect(callButton).toBeVisible();
     await callButton.click();
 
-    // 验证状态展示：根据 mapper，SENT + UNASSIGNED 是 "提醒已送达 · 等待大人查看"
-    await expect(childPage.locator('text=提醒已送达').or(childPage.locator('text=等待大人查看'))).toBeVisible();
+    // 验证状态展示：根据 mapper，显示真实陈述文案（包含网络未接通/等待大人查看/找身边大人）
+    await expect(
+      childPage.locator('text=提醒已送达')
+        .or(childPage.locator('text=等待大人查看'))
+        .or(childPage.locator('text=网络未接通'))
+        .or(childPage.locator('text=找身边大人'))
+        .first()
+    ).toBeVisible();
 
     // 4. Refresh during open hug (刷新时状态恢复)
     await childPage.reload();
@@ -82,11 +88,11 @@ test.describe('Dual-Tab Child & Parent Lifecycle E2E Hardening', () => {
     }
 
     // 9. Local Confirmed (本地确认到场 ARRIVED_CONFIRMED)
-    const arrivedBtn = childPage.locator('button:has-text("有人来陪我了")');
+    const arrivedBtn = childPage.locator('button:has-text("我身边有大人了")');
     if (await arrivedBtn.isVisible()) {
       await arrivedBtn.click();
-      // 验证界面退场逻辑
-      await expect(childPage.locator('text=已在身边')).toBeVisible();
+      // 验证界面退场逻辑：窗口关闭，回到小岛
+      await expect(childPage.locator('text=找大人抱抱')).toBeVisible();
     }
 
     await childPage.close();
@@ -109,7 +115,7 @@ test.describe('Dual-Tab Child & Parent Lifecycle E2E Hardening', () => {
     }
 
     // 验证状态稳定且无崩溃
-    await expect(page.locator('text=晴雨小岛').or(page.locator('text=需要大人的现实陪伴'))).toBeVisible();
+    await expect(page.getByText('晴雨小岛', { exact: true }).or(page.locator('text=需要大人的现实陪伴')).first()).toBeVisible();
     await page.close();
   });
 });

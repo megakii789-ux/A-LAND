@@ -20,6 +20,8 @@ export interface HugSubmitOptions {
   isOnline: boolean;
   targetCaregiverName: string;
   requestType: HugRequestType;
+  /** 是否存在真实受信的远程推送/中继通道 (SEC-03: 当前环境默认 false) */
+  hasVerifiedRemoteRelay?: boolean;
 }
 
 export class OfflineHugController {
@@ -37,8 +39,12 @@ export class OfflineHugController {
 
     this.isSubmitting = true;
     try {
-      // 核心契约：离线时明确显示没有发送成功，绝对不得模拟成功
-      if (!options.isOnline) {
+      // SEC-03 核心契约：
+      // 1. 当前无真实远程通信服务，严禁仅凭 navigator.onLine 或随机 ID 假冒“发送成功”。
+      // 2. 只有在明确提供 hasVerifiedRemoteRelay 真实通道且在线时，才允许返回 SENT。
+      // 3. 本地无通道时，必须明确返回未向外送达 (SEND_FAILED)，引导孩子直接找身边大人。
+      if (!options.isOnline || !options.hasVerifiedRemoteRelay) {
+        this.activePendingRequestId = null;
         return {
           requestType: options.requestType,
           communication: CommunicationStatus.SEND_FAILED,
@@ -48,8 +54,8 @@ export class OfflineHugController {
         };
       }
 
-      // 在线时返回发送成功
-      const requestId = `hug_${Date.now()}`;
+      // 仅在真实可信远程中继通道下允许标记 SENT (供将来接入生产通知服务)
+      const requestId = `hug_remote_${Date.now()}`;
       this.activePendingRequestId = requestId;
       return {
         requestType: options.requestType,
@@ -111,7 +117,23 @@ export class OfflineHugController {
     try {
       const raw = sessionStorage.getItem('active_open_hug_state');
       if (!raw) return null;
-      return JSON.parse(raw) as HugDomainState;
+      const parsed = JSON.parse(raw) as HugDomainState;
+      // SEC-03 核心契约：
+      // 旧 sessionStorage 中的 SENT、ACKNOWLEDGED 或 ARRIVED_CONFIRMED 等历史模拟状态
+      // 绝对不得在刷新后假冒真实送达或真实在场结论！
+      // 必须执行确定性安全降级为 SEND_FAILED，绝不向儿童假报“消息已送达 / 大人已确认会来”。
+      if (
+        parsed.communication === CommunicationStatus.SENT ||
+        parsed.communication === CommunicationStatus.ACKNOWLEDGED ||
+        parsed.coPresence === CoPresenceStatus.ARRIVED_CONFIRMED
+      ) {
+        return {
+          ...parsed,
+          communication: CommunicationStatus.SEND_FAILED,
+          coPresence: CoPresenceStatus.NOT_PRESENT
+        };
+      }
+      return parsed;
     } catch {
       return null;
     }

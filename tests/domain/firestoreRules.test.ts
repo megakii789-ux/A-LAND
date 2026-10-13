@@ -169,4 +169,28 @@ describe('Firestore Rules Emulator Suite Evaluation', () => {
       })
     ).toBe(true);
   });
+
+  it('特别测试 7: SEC-02 规则审计 - research_events 客户端直连读写默认拒绝', () => {
+    const rules = fs.readFileSync(path.resolve(process.cwd(), 'firestore.rules'), 'utf-8');
+    // 确保 research_events 是 allow read, write: if false
+    expect(rules).toMatch(/match\s+\/research_events\/\{eventId\}\s*\{\s*allow\s+read,\s*write:\s*if\s+false;/);
+  });
+
+  it('特别测试 8: SEC-02 规则审计 - child_records 绝对禁止无认证的宽泛 allow write', () => {
+    const rules = fs.readFileSync(path.resolve(process.cwd(), 'firestore.rules'), 'utf-8');
+    // 确保 child_records 内部不存在独立的 allow write 语句
+    const childRecordsMatch = rules.match(/match\s+\/child_records\/\{recordId\}\s*\{([\s\S]*?)\}/);
+    expect(childRecordsMatch).not.toBeNull();
+    const blockContent = childRecordsMatch ? childRecordsMatch[1] : '';
+    expect(blockContent).not.toMatch(/allow\s+write:/);
+  });
+
+  it('特别测试 9: 匿名请求（auth 为 null）拒绝所有访问', () => {
+    expect(sim.canReadFamily('family_101', { auth: null })).toBe(false);
+    expect(sim.canReadCaregiverPrivateNote('family_101', 'cg_alice', { auth: null })).toBe(false);
+    expect(sim.canMutateCaregiver('family_101', { auth: null })).toBe(false);
+    expect(sim.canReadRawFamilyContent('family_101', { auth: null })).toBe(false);
+    expect(sim.canWriteChildArtifact('family_101', { auth: null, incomingData: { ok: true } })).toBe(false);
+  });
 });
+

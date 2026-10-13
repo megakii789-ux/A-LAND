@@ -83,23 +83,22 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
     };
   }, [instantDomainState]);
 
-  // 处理入口 A: 发起即时求助 (离线时绝不模拟成功，明确显示 SEND_FAILED)
+  // 处理入口 A: 发起即时求助 (SEC-03: 诚实告知儿童这里不会发消息，引导找身边大人)
   const handleStartInstantHelp = async () => {
     if (isSubmitting) return; // duplicate submit guard
     sounds.playWarmHug();
     setIsSubmitting(true);
     try {
-      const isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
       const resultState = await controllerRef.current.submitHugRequest({
-        isOnline,
+        isOnline: false,
         targetCaregiverName: targetCaregiver,
-        requestType: HugRequestType.INSTANT_HELP
+        requestType: HugRequestType.INSTANT_HELP,
+        hasVerifiedRemoteRelay: false
       });
       setInstantDomainState(resultState);
       const presentation = mapHugStateToChildPresentation(resultState);
       speechNarrator.speak(presentation.spokenText);
     } catch {
-      // 出现异常 fail closed 明确设为失败
       const fallbackState: HugDomainState = {
         requestType: HugRequestType.INSTANT_HELP,
         communication: CommunicationStatus.SEND_FAILED,
@@ -115,120 +114,43 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
     }
   };
 
-  // 处理入口 B: 发送异步想念
+  // 处理入口 B: 发送异步想念 (SEC-03: 本机小岛保存，不冒充远程送达)
   const handleSendAsyncMiss = async () => {
     if (isSubmitting) return;
     sounds.playClick();
     setIsSubmitting(true);
     try {
-      const isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
       const resultState = await controllerRef.current.submitHugRequest({
-        isOnline,
+        isOnline: false,
         targetCaregiverName: targetCaregiver,
-        requestType: HugRequestType.ASYNC_MISS
+        requestType: HugRequestType.ASYNC_MISS,
+        hasVerifiedRemoteRelay: false
       });
       setAsyncDomainState(resultState);
       const presentation = mapHugStateToChildPresentation(resultState);
+      speechNarrator.speak(presentation.spokenText);
+    } catch {
+      const fallbackState: HugDomainState = {
+        requestType: HugRequestType.ASYNC_MISS,
+        communication: CommunicationStatus.SEND_FAILED,
+        care: CareResponsibility.UNASSIGNED,
+        coPresence: CoPresenceStatus.NOT_PRESENT,
+        targetCaregiverName: targetCaregiver
+      };
+      setAsyncDomainState(fallbackState);
+      const presentation = mapHugStateToChildPresentation(fallbackState);
       speechNarrator.speak(presentation.spokenText);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // 本地 Completion：“有人来陪我了”
-  // 目的仅为结束本地支持流程；不报告谁有没有来；不向另一位家长发送对抗数据
+  // 本地 Completion：“我身边有大人了” (关闭提示，不作为远程到场证明)
   const handleLocalConfirmArrived = () => {
     sounds.playBell();
-    if (instantDomainState) {
-      const confirmedState: HugDomainState = {
-        ...instantDomainState,
-        coPresence: CoPresenceStatus.ARRIVED_CONFIRMED,
-      };
-      setInstantDomainState(confirmedState);
-      const pres = mapHugStateToChildPresentation(confirmedState);
-      speechNarrator.speak(pres.spokenText);
-
-      // 短暂显示退场提示后退出
-      setTimeout(() => {
-        setInstantDomainState(null);
-        setIsOpen(false);
-      }, 2000);
-    }
-  };
-
-  // 模拟切换 Canonical State（便于在无网络后端时验证与体验各个规范状态）
-  const handleSimulateCanonicalState = (stateNumber: number) => {
-    sounds.playClick();
-    let nextState: HugDomainState;
-    switch (stateNumber) {
-      case 1: // local/send failed
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.SEND_FAILED,
-          care: CareResponsibility.UNASSIGNED,
-          coPresence: CoPresenceStatus.NOT_PRESENT,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 2: // server accepted, unseen
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.SENT,
-          care: CareResponsibility.UNASSIGNED,
-          coPresence: CoPresenceStatus.NOT_PRESENT,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 3: // caregiver opened, unassigned
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.ACKNOWLEDGED,
-          care: CareResponsibility.UNASSIGNED,
-          coPresence: CoPresenceStatus.NOT_PRESENT,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 4: // caregiver promised self, unconfirmed
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.ACKNOWLEDGED,
-          care: CareResponsibility.ASSIGNED_SELF,
-          coPresence: CoPresenceStatus.UNCONFIRMED,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 5: // caregiver delegated, unconfirmed
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.ACKNOWLEDGED,
-          care: CareResponsibility.ASSIGNED_OTHER,
-          coPresence: CoPresenceStatus.UNCONFIRMED,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 6: // caregiver cannot attend
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.ACKNOWLEDGED,
-          care: CareResponsibility.CANNOT_ATTEND,
-          coPresence: CoPresenceStatus.NOT_PRESENT,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-      case 7: // locally confirmed
-      default:
-        nextState = {
-          requestType: HugRequestType.INSTANT_HELP,
-          communication: CommunicationStatus.ACKNOWLEDGED,
-          care: CareResponsibility.ASSIGNED_SELF,
-          coPresence: CoPresenceStatus.ARRIVED_CONFIRMED,
-          targetCaregiverName: targetCaregiver,
-        };
-        break;
-    }
-    setInstantDomainState(nextState);
-    const pres = mapHugStateToChildPresentation(nextState);
-    speechNarrator.speak(pres.spokenText);
+    speechNarrator.speak('小提醒已关闭。有大人在身边，慢慢来。');
+    setInstantDomainState(null);
+    setIsOpen(false);
   };
 
   // 通过纯函数 domain mapper 获取文案（组件不自行判断）
@@ -422,66 +344,32 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                       </div>
                     </div>
 
-                    {/* 本地 Completion：“有人来陪我了” (结束支持流程，不报告、不对抗) */}
+                    {/* 本地结束按键：结束本地求助引导 (说明本地关闭不等于远程确认到场) */}
                     <button
                       type="button"
                       onClick={handleLocalConfirmArrived}
                       className="w-full min-h-[56px] py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-sm text-base flex items-center justify-center gap-2 cursor-pointer"
-                      aria-label="有人来陪我了，结束求助"
+                      aria-label="我身边有大人了，关闭提醒"
                     >
                       <CheckCircle2 className="w-5 h-5 text-emerald-200" />
-                      <span>有人来陪我了（结束本次提醒）</span>
+                      <span>我身边有大人了（关闭提示）</span>
                     </button>
 
-                    {/* 状态模拟切换区：严格展示 7 种 Canonical States */}
-                    <div className="bg-stone-50 p-3 rounded-2xl border border-stone-200">
-                      <span className="text-xs font-bold text-stone-500 block mb-1.5">
-                        切换客观状态测试：
+                    {/* 非接触式与安全求助指引卡片 (SEC-03: 提供陪伴、说话、找老师等多种安心选择) */}
+                    <div className="bg-amber-50/90 p-4 rounded-2xl border border-amber-200/90 text-xs sm:text-sm text-stone-700 space-y-2">
+                      <span className="font-bold flex items-center gap-1.5 text-amber-900">
+                        <span>💡</span>
+                        <span>你现在可以试着这样做：</span>
                       </span>
-                      <div className="grid grid-cols-2 gap-1.5 text-xs font-bold">
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(1)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          1. 发送故障
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(2)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          2. 已达中继未看
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(3)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          3. 大人已看未指派
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(4)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          4. 承诺前来未确认
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(5)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          5. 委托他人未确认
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleSimulateCanonicalState(6)}
-                          className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 text-left hover:bg-stone-100 cursor-pointer"
-                        >
-                          6. 大人暂时抽不开身
-                        </button>
-                      </div>
+                      <ul className="list-disc list-inside space-y-1.5 text-stone-700 font-medium leading-relaxed">
+                        <li>请身边信任的大人坐在旁边陪陪你、说说话</li>
+                        <li>走到大人面前拉拉衣角，告诉大人“我需要你陪我一会儿”</li>
+                        <li>如果身边的熟悉大人在忙，可以直接找老师或其他安全大人</li>
+                        <li>也可以去绿草平静角深呼吸，摸摸安心小玩偶</li>
+                      </ul>
+                      <p className="text-[11px] text-stone-500 pt-1 border-t border-amber-200/60">
+                        提示：这里不会发消息。小岛陪伴你，最重要的事情是直接找身边看得见的大人。
+                      </p>
                     </div>
                   </div>
                 )}

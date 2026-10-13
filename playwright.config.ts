@@ -42,6 +42,12 @@ export default defineConfig({
         viewport: { width: 1024, height: 1366 },
       },
     },
+    {
+      name: 'Desktop-1440',
+      use: {
+        viewport: { width: 1440, height: 900 },
+      },
+    },
   ],
   webServer: {
     command: 'npm run start',

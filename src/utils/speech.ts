@@ -257,6 +257,7 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
 
 class SpeechNarrator {
   private isSpeaking: boolean = false;
+  private isPaused: boolean = false;
   private currentProfile: VoiceProfileType = 'warm-sister';
   private cachedVoices: DetectedVoice[] = [];
   private selectedVoice: SpeechSynthesisVoice | null = null;
@@ -264,6 +265,8 @@ class SpeechNarrator {
   private currentSegmentIndex: number = 0;
   private segmentTimer: number | null = null;
   private listeners: Set<() => void> = new Set();
+  private lastSpokenText: string = '';
+  private voiceWarning: string | null = null;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -301,6 +304,9 @@ class SpeechNarrator {
       const best = detected.find(v => v.score > 0);
       if (best && best.rawVoice) {
         this.selectedVoice = best.rawVoice;
+        this.voiceWarning = null;
+      } else if (detected.length > 0) {
+        this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
       }
 
       this.notifyListeners();
@@ -313,6 +319,19 @@ class SpeechNarrator {
         refresh();
       };
     }
+  }
+
+  public hasChineseVoice(): boolean {
+    return this.cachedVoices.some(v => v.score > 0);
+  }
+
+  public getVoiceWarning(): string | null {
+    return this.voiceWarning;
+  }
+
+  public dismissVoiceWarning(): void {
+    this.voiceWarning = null;
+    this.notifyListeners();
   }
 
   public subscribe(listener: () => void): () => void {
@@ -374,11 +393,28 @@ class SpeechNarrator {
     return cleanAndSegmentText(text);
   }
 
+  public getLastText(): string {
+    return this.lastSpokenText;
+  }
+
+  public getIsPaused(): boolean {
+    return this.isPaused;
+  }
+
   /**
    * Natural voice playback with semantic breath-pause scheduling
    */
-  public speak(text: string, onEnd?: () => void) {
+  public speak(
+    text: string,
+    onEnd?: () => void,
+    onError?: (reason: string) => void
+  ) {
+    this.lastSpokenText = text;
+
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      this.voiceWarning = '当前环境不支持语音播报功能，伴伴已为你展示字幕。';
+      this.notifyListeners();
+      if (onError) onError('SPEECH_SYNTHESIS_UNSUPPORTED');
       if (onEnd) onEnd();
       return;
     }
@@ -395,6 +431,15 @@ class SpeechNarrator {
     this.segmentQueue = segments;
     this.currentSegmentIndex = 0;
     this.isSpeaking = true;
+    this.isPaused = false;
+
+    // Check if device lacks Chinese voice resources
+    if (this.cachedVoices.length > 0 && !this.hasChineseVoice()) {
+      this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
+      this.notifyListeners();
+      if (onError) onError('NO_CHINESE_VOICE');
+    }
+
     this.notifyListeners();
 
     const config = this.getProfileConfig();
@@ -404,6 +449,7 @@ class SpeechNarrator {
 
       if (this.currentSegmentIndex >= this.segmentQueue.length) {
         this.isSpeaking = false;
+        this.isPaused = false;
         this.notifyListeners();
         if (onEnd) onEnd();
         return;
@@ -426,13 +472,12 @@ class SpeechNarrator {
           if (!this.isSpeaking) return;
 
           // Natural human breathing pause between segments (~180ms)
-          // This removes the breathless mechanical machine-gun staccato!
           this.segmentTimer = window.setTimeout(() => {
             playNextSegment();
           }, 180);
         };
 
-        utterance.onerror = () => {
+        utterance.onerror = (e) => {
           if (!this.isSpeaking) return;
           // Continue to next segment on minor transient glitch
           this.segmentTimer = window.setTimeout(() => {
@@ -441,14 +486,42 @@ class SpeechNarrator {
         };
 
         window.speechSynthesis.speak(utterance);
-      } catch {
+      } catch (err) {
         this.isSpeaking = false;
+        this.isPaused = false;
         this.notifyListeners();
+        if (onError) onError('SYNTHESIS_ERROR');
         if (onEnd) onEnd();
       }
     };
 
     playNextSegment();
+  }
+
+  public pause() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window && this.isSpeaking) {
+      try {
+        window.speechSynthesis.pause();
+        this.isPaused = true;
+        this.notifyListeners();
+      } catch {}
+    }
+  }
+
+  public resume() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window && this.isPaused) {
+      try {
+        window.speechSynthesis.resume();
+        this.isPaused = false;
+        this.notifyListeners();
+      } catch {}
+    }
+  }
+
+  public replay() {
+    if (this.lastSpokenText) {
+      this.speak(this.lastSpokenText);
+    }
   }
 
   public stop() {
@@ -466,6 +539,7 @@ class SpeechNarrator {
     }
 
     this.isSpeaking = false;
+    this.isPaused = false;
     this.notifyListeners();
   }
 

@@ -12,7 +12,7 @@ test.describe('Accessibility & Reduced Motion Hardening', () => {
   test('Child interactive elements meet 56px minimum standard and have aria-labels', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.locator('text=晴雨小岛')).toBeVisible();
+    await expect(page.getByText('晴雨小岛', { exact: true }).first()).toBeVisible();
 
     // 检查抱抱主按钮的高度与 aria-label
     const hugButton = page.locator('button[aria-label*="找大人抱抱"]');

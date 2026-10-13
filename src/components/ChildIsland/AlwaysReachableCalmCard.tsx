@@ -61,14 +61,14 @@ export const AlwaysReachableCalmCard: React.FC<Props> = ({ onOpenCalm }) => {
         <button
           type="button"
           onClick={handleSpeak}
-          className="w-11 h-11 min-w-[44px] rounded-xl bg-white/70 hover:bg-white text-emerald-800 flex items-center justify-center transition-colors cursor-pointer"
+          className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-white/80 hover:bg-white text-teal-850 flex items-center justify-center transition-colors cursor-pointer shadow-2xs border border-teal-200 focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
           title="听一听平静角介绍"
           aria-label="听一听平静角介绍"
         >
-          <Volume2 className="w-5 h-5" />
+          <Volume2 className="w-6 h-6 text-teal-900" />
         </button>
 
-        <span className="px-4 py-2.5 min-h-[48px] bg-teal-600 group-hover:bg-teal-700 text-white text-base font-black rounded-2xl shadow-xs transition-colors hidden sm:flex items-center gap-1.5">
+        <span className="px-4 py-2.5 min-h-[56px] bg-teal-600 group-hover:bg-teal-700 text-white text-base font-black rounded-2xl shadow-xs transition-colors hidden sm:flex items-center gap-1.5">
           <span>去呼吸</span>
           <span className="text-lg">🌬️</span>
         </span>

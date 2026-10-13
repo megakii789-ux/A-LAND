@@ -15,6 +15,7 @@ import {
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 import { LocationBadgeIllustration, CourageShieldIllustration } from '../StoryGrove/StoryIllustrations';
+import { FriendAsksHomeGame } from '../../InteractiveGames/FriendAsksHomeGame/FriendAsksHomeGame';
 
 interface Props {
   isOpen: boolean;
@@ -23,6 +24,7 @@ interface Props {
 
 export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [tab, setTab] = useState<'toolbox' | 'rooms' | 'blocks' | 'secretBox'>('toolbox');
+  const [isFriendAsksGameOpen, setIsFriendAsksGameOpen] = useState<boolean>(false);
 
   // Three sentences toolbox
   const [activeSentence, setActiveSentence] = useState<string>('light');
@@ -89,12 +91,47 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Storybook Hero Illustration */}
-        <div className="mb-5 rounded-2xl overflow-hidden border-2 border-rose-200 shadow-sm bg-white">
+        <div className="mb-4 rounded-2xl overflow-hidden border-2 border-rose-200 shadow-sm bg-white">
           <CourageShieldIllustration className="w-full h-32 sm:h-40 object-cover" />
         </div>
 
-        {/* Navigation Tabs - >=56px touch friendly */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-rose-100/70 rounded-2xl mb-6">
+        {/* 真实可玩互动演练横幅 */}
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setIsFriendAsksGameOpen(true);
+          }}
+          className="w-full mb-4 p-3.5 bg-linear-to-r from-rose-400 via-rose-500 to-rose-600 hover:from-rose-500 hover:to-rose-600 text-white rounded-2xl font-black text-sm sm:text-base flex items-center justify-between shadow-md transition-all active:scale-98 cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-2xl" aria-hidden="true">💬</span>
+            <span className="text-left">
+              <span>开始真实互动演练：《朋友问起我的家》</span>
+              <span className="block text-xs font-normal text-rose-100 mt-0.5">选择怎么说、跟谁说，面对起哄立刻保护自己</span>
+            </span>
+          </div>
+          <span className="text-xs bg-rose-700/60 px-3 py-1.5 rounded-full font-bold shrink-0">
+            立刻演练 →
+          </span>
+        </button>
+
+        {isFriendAsksGameOpen ? (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setIsFriendAsksGameOpen(false)}
+                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                ← 返回勇气说话屋
+              </button>
+            </div>
+            <FriendAsksHomeGame onExit={() => setIsFriendAsksGameOpen(false)} />
+          </div>
+        ) : (
+          <>
+            {/* Navigation Tabs - >=56px touch friendly */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-rose-100/70 rounded-2xl mb-6">
           <button
             onClick={() => {
               sounds.playClick();
@@ -540,6 +577,8 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               </button>
             </div>
           </div>
+        )}
+        </>
         )}
       </div>
     </div>

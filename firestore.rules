@@ -46,12 +46,13 @@ service cloud.firestore {
       }
 
       // 3. Child Progress & Weather Records (儿童安全记录)
-      // 儿童设备可读写自己家庭的进度与天气，但必须受限
+      // 儿童设备可读写自己家庭的进度与天气，但必须受限且严格隔离
       match /child_records/{recordId} {
         allow read: if matchesFamily(familyId);
-        allow create, update: if matchesFamily(familyId) && (isChildDevice() || isCaregiver());
-        // 禁止上传儿童私密录音和画作
-        allow write: if !(request.resource.data.keys().hasAny(['rawVoice', 'drawingCanvas', 'audioBlob']));
+        allow create, update: if matchesFamily(familyId) && 
+          (isChildDevice() || isCaregiver()) && 
+          !(request.resource.data.keys().hasAny(['rawVoice', 'drawingCanvas', 'audioBlob', 'freeTextChildAnswer', 'personalityScore']));
+        allow delete: if false;
       }
 
       // 4. Hug Requests (即时求助与状态)
@@ -72,18 +73,12 @@ service cloud.firestore {
       }
     }
 
-    // 6. Research Events Aggregate (去标识化研究事件)
+    // 6. Research Events: Client Direct Access Default Denied (SEC-02/P0)
     // 铁律：
-    // - 研究员只能读取去标识化的研究聚合事件
-    // - 研究员绝对不能读取任何原始家庭内容 (raw family content)
-    // - 研究员无权写入
+    // - 在建立可信服务端研究数据管线与去标识化传输前，客户端直连读写一律默认拒绝 (Fail Closed)
+    // - 不允许仅凭客户端角色名称 (RESEARCHER / CAREGIVER) 直接开放全局跨范围查询或删除
     match /research_events/{eventId} {
-      allow read: if isResearcher() || isCaregiver();
-      // 系统服务器或经过校验的客户端写入，禁止包含违禁字段
-      allow create: if isAuthenticated() && 
-        !(request.resource.data.keys().hasAny(['rawVoice', 'transcript', 'drawingContent', 'freeTextChildAnswer', 'personalityScore']));
-      allow update: if false; // 研究事件不可篡改
-      allow delete: if isCaregiver(); // 支持家长发起 GDPR 删除
+      allow read, write: if false;
     }
 
     // Default: Fail closed

@@ -16,6 +16,15 @@ import {
   INITIAL_MEDALS
 } from '../data/mockData';
 import { sounds } from '../utils/sound';
+import { speechNarrator } from '../utils/speech';
+import {
+  PersonalizationProfile,
+  loadPersonalizationProfile,
+  savePersonalizationProfile,
+  resetPersonalizationProfile,
+  clearAllPersonalizationData,
+  revokeConsentAndWipeStorage,
+} from '../domain/personalization';
 
 export type IslandPlace = 'island' | 'weather' | 'story' | 'detective' | 'courage' | 'bridge' | 'starlight' | 'calm' | 'medals';
 
@@ -73,17 +82,58 @@ interface AppContextType {
   // Starlight cabin
   starlightTraits: string[];
   addStarlightTrait: (trait: string) => void;
+
+  // SEC-05: 历史本地敏感数据隔离与清理
+  hasLegacySensitiveData: boolean;
+  clearLegacySensitiveStorage: () => void;
+
+  // AG-04B: 受控儿童个性化引擎状态与控制
+  personalization: PersonalizationProfile;
+  updatePersonalization: (partial: Partial<PersonalizationProfile>) => void;
+  resetPersonalization: () => void;
+  clearAllPersonalization: () => void;
+  revokePersonalizationConsent: () => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
 
-const STORAGE_KEY = 'sunny_rain_island_v1_state';
+const LEGACY_STORAGE_KEY = 'sunny_rain_island_v1_state';
+const SAFE_SETTINGS_STORAGE_KEY = 'aland_safe_non_sensitive_settings_v1';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentView, setCurrentView] = useState<'child' | 'parent'>('child');
   const [childPlace, setChildPlace] = useState<IslandPlace>('island');
   const [selectedLeafId, setSelectedLeafId] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  // AG-04B: 本地受控个性化偏好状态
+  const [personalization, setPersonalization] = useState<PersonalizationProfile>(() =>
+    loadPersonalizationProfile()
+  );
+
+  // 同步个性化无障碍偏好 (语音静音与减少动效)
+  useEffect(() => {
+    if (!personalization.accessibility.voiceEnabled) {
+      sounds.setMuted(true);
+      setIsMuted(true);
+    } else {
+      sounds.setMuted(false);
+      setIsMuted(false);
+    }
+
+    if (typeof document !== 'undefined') {
+      if (personalization.accessibility.reducedMotion) {
+        document.documentElement.classList.add('reduced-motion');
+      } else {
+        document.documentElement.classList.remove('reduced-motion');
+      }
+    }
+  }, [personalization.accessibility.voiceEnabled, personalization.accessibility.reducedMotion]);
+
+  // 切换场景立即停止旧语音，防止声音叠加
+  useEffect(() => {
+    speechNarrator.stop();
+  }, [childPlace, currentView]);
 
   // Weather
   const [todayWeather, setTodayWeather] = useState<WeatherRecord | null>({
@@ -131,58 +181,67 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [medals, setMedals] = useState<MedalRecord[]>(INITIAL_MEDALS);
   const [recentUnlockedMedal, setRecentUnlockedMedal] = useState<MedalRecord | null>(null);
 
-  // Load from localStorage on mount
+  const [hasLegacySensitiveData, setHasLegacySensitiveData] = useState<boolean>(false);
+
+  // SEC-05: 仅加载受控非敏感设置，敏感表达（想念、自由问答、自省）保持内存态
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.todayWeather) setTodayWeather(parsed.todayWeather);
-        if (parsed.weatherHistory) setWeatherHistory(parsed.weatherHistory);
-        if (parsed.parentObservations) setParentObservations(parsed.parentObservations);
-        if (parsed.completedLeaves) setCompletedLeaves(parsed.completedLeaves);
-        if (parsed.childQuotes) setChildQuotes(parsed.childQuotes);
+      // 1. 检查是否存在旧版持久化的敏感数据
+      const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (legacyRaw) {
+        setHasLegacySensitiveData(true);
+      }
+
+      // 2. 加载受控的最小非敏感设置 (故事完成标记、两家日程、徽章、陪伴层级)
+      const safeRaw = localStorage.getItem(SAFE_SETTINGS_STORAGE_KEY);
+      if (safeRaw) {
+        const parsed = JSON.parse(safeRaw);
+        if (Array.isArray(parsed.completedLeaves)) setCompletedLeaves(parsed.completedLeaves);
         if (parsed.tonightAt) setTonightAt(parsed.tonightAt);
-        if (parsed.packedItems) setPackedItems(parsed.packedItems);
-        if (parsed.missNotes) setMissNotes(parsed.missNotes);
-        if (parsed.starlightTraits) setStarlightTraits(parsed.starlightTraits);
+        if (typeof parsed.daysToNextSwitch === 'number') setDaysToNextSwitch(parsed.daysToNextSwitch);
+        if (Array.isArray(parsed.packedItems)) setPackedItems(parsed.packedItems);
         if (parsed.presenceTier) setPresenceTier(parsed.presenceTier);
-        if (parsed.medals) setMedals(parsed.medals);
+        if (Array.isArray(parsed.medals)) setMedals(parsed.medals);
+      } else if (legacyRaw) {
+        // 首次从旧版平滑提取非敏感字段，绝不自动持久化敏感数据
+        const legacyParsed = JSON.parse(legacyRaw);
+        if (Array.isArray(legacyParsed.completedLeaves)) setCompletedLeaves(legacyParsed.completedLeaves);
+        if (legacyParsed.tonightAt) setTonightAt(legacyParsed.tonightAt);
+        if (Array.isArray(legacyParsed.packedItems)) setPackedItems(legacyParsed.packedItems);
+        if (legacyParsed.presenceTier) setPresenceTier(legacyParsed.presenceTier);
+        if (Array.isArray(legacyParsed.medals)) setMedals(legacyParsed.medals);
       }
     } catch {}
   }, []);
 
-  // Save to localStorage
+  // SEC-05: 仅保存最小非敏感设置至本地，绝对禁止持久化儿童自由表达、想念与心理观察
   useEffect(() => {
     try {
-      const stateToSave = {
-        todayWeather,
-        weatherHistory,
-        parentObservations,
+      const safeStateToSave = {
         completedLeaves,
-        childQuotes,
         tonightAt,
+        daysToNextSwitch,
         packedItems,
-        missNotes,
-        starlightTraits,
         presenceTier,
         medals
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
+      localStorage.setItem(SAFE_SETTINGS_STORAGE_KEY, JSON.stringify(safeStateToSave));
     } catch {}
   }, [
-    todayWeather,
-    weatherHistory,
-    parentObservations,
     completedLeaves,
-    childQuotes,
     tonightAt,
+    daysToNextSwitch,
     packedItems,
-    missNotes,
-    starlightTraits,
     presenceTier,
     medals
   ]);
+
+  const clearLegacySensitiveStorage = () => {
+    try {
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      setHasLegacySensitiveData(false);
+    } catch {}
+  };
 
   const unlockMedal = (medalId: string) => {
     setMedals(prev => {
@@ -294,6 +353,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // AG-04B: 受控儿童个性化方法
+  const updatePersonalization = (partial: Partial<PersonalizationProfile>) => {
+    const updated = savePersonalizationProfile(partial);
+    setPersonalization(updated);
+  };
+
+  const resetPersonalization = () => {
+    const reset = resetPersonalizationProfile();
+    setPersonalization(reset);
+  };
+
+  const clearAllPersonalization = () => {
+    clearAllPersonalizationData();
+    setPersonalization(loadPersonalizationProfile());
+  };
+
+  const revokePersonalizationConsent = () => {
+    const revoked = revokeConsentAndWipeStorage();
+    setPersonalization(revoked);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -330,7 +410,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         medals,
         unlockMedal,
         recentUnlockedMedal,
-        dismissUnlockedMedal
+        dismissUnlockedMedal,
+        hasLegacySensitiveData,
+        clearLegacySensitiveStorage,
+        personalization,
+        updatePersonalization,
+        resetPersonalization,
+        clearAllPersonalization,
+        revokePersonalizationConsent
       }}
     >
       {children}

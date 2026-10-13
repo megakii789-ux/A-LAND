@@ -72,12 +72,9 @@ export function calculateWeeklyMetrics(params: {
   const tongCount = (tongObs?.selfInitiatedCount || 2) + Math.floor(thinkingToolPractices * 0.35);
   const zeCount = (zeObs?.selfInitiatedCount || 1) + Math.floor(thinkingToolPractices * 0.3);
 
-  // Emotional stability score: higher sunny/cloudy, plus practice self-regulation
-  const sunCloudRatio = (weatherDistribution.sunny + weatherDistribution.cloudy) / (totalWeatherLogs || 1);
-  const stabilityBase = 72;
-  const bonusPractice = Math.min(thinkingToolPractices * 2, 18);
-  const bonusHugs = Math.min(hugCount * 2, 6);
-  const emotionalStabilityScore = Math.min(98, Math.round(stabilityBase + (sunCloudRatio * 10) + (bonusPractice / 2) + bonusHugs));
+  // SEC-07: 坚决取消伪科学的情绪稳定性分数 (0-100)
+  // 遵循契约：不从点击次数或记录次数推断儿童心理特质或人格，严禁打分评级
+  const emotionalStabilityScore = 0;
 
   const unlockedMedalsCount = medals.filter(m => m.unlocked).length;
 
@@ -99,6 +96,7 @@ export function calculateWeeklyMetrics(params: {
 /**
  * Generates an evidence-based, scientifically-sound weekly report and customized coaching tips
  * based on New Beginnings program (Sandler et al.), PCIT, and child developmental psychology.
+ * SEC-07: 不进行心理学诊断或能力评判，仅客观呈现行为记录与养育支持建议。
  */
 export function generateLocalWeeklyReport(params: {
   todayWeather: WeatherRecord | null;
@@ -126,32 +124,15 @@ export function generateLocalWeeklyReport(params: {
 
   const dominantName = weatherLabelMap[metrics.primaryDominantEmotion];
 
-  // Dynamic tailoring based on emotion and practice frequency
-  let executiveSummary = '';
-  let pattern = '';
-  let bodyAwarenessNote = '';
-  let soothingCapacity = '';
-  let stageDescription = '';
-  let scaffoldingAdvice = '';
-  let suggestedFocusForNextWeek = '';
+  // SEC-07: 纯客观行为记录，不从点击次数推断心理能力或给出诊断性结论
+  const executiveSummary = `本周孩子在小岛上记录了 ${metrics.totalWeatherLogs} 次内心晴雨天气（最常记录的天气为“${dominantName}”），参与了 ${metrics.thinkingToolPractices} 次具体思考小工具的互动（分一分 ${metrics.fenCount} 次，通一通 ${metrics.tongCount} 次，择一择 ${metrics.zeCount} 次）。本周报仅客观呈现生活与思考小工具的实践记录，不作任何心理能力评分或诊断推断。`;
+  const pattern = `记录展现了真实自然的生活情绪起伏。晴雨小岛接纳所有真实感受（晴、多云、雨、雾均是正常反应），不强求孩子随时处于“开心”状态。`;
+  const bodyAwarenessNote = `引导孩子将抽象的情绪与具体的身体感受相连接（如深呼吸让肩膀松下来），帮助建立身心自我觉察。`;
+  const soothingCapacity = `自然节律观察：6岁儿童仍在情绪共同调节阶段。大人的温和稳定和在场陪伴，是孩子自然回归平静的最重要心理锚点。`;
+  const stageDescription = `【亲子脚手架共同练习期】：与孩子一起在生活中练习“分一分事实与猜测、通一通他人视角、择一择可行小步”。`;
+  const scaffoldingAdvice = `当孩子面临摩擦或突变时，大人先退后一步示范深呼吸，温和引导“我们先看清发生了什么”，给予孩子小范围自主选择权。`;
+  const suggestedFocusForNextWeek = `保持睡前 10 分钟温暖的一致性流程，倾听孩子的分享，不急于评价或纠正。`;
 
-  if (metrics.thinkingToolPractices >= 8) {
-    executiveSummary = `本周孩子的心理由“${dominantName}”主导，并在日常中高频展现出自主运用思考工具的倾向（达到 ${metrics.thinkingToolPractices} 次自主实践）。尤其在“分一分”事实与猜测方面进步斐然，面对计划突变或同伴摩擦时，情绪回弹速度比上周明显缩短。`;
-    pattern = `呈现健康的情绪波动与自主回弹曲线。虽然偶有雨天或雷雨（${metrics.weatherDistribution.rainy + metrics.weatherDistribution.stormy} 次），但孩子未陷入持久退行，而是能借由小工具将困难切碎。`;
-    bodyAwarenessNote = `孩子对身体发热、肚子紧紧等生理觉知灵敏度提升，能借助绿草平静角和深呼吸使副交感神经重新主导。`;
-    soothingCapacity = `自主平复力处于【成长进阶期】。孩子已经从“必须大人抱持”向“能自己退后一步、先深呼吸再说话”自发过渡。`;
-    stageDescription = `【脚手架稳步撤离期】：由于自主发起已超阈值，孩子正在把小岛上的“分、通、择”内在化为自己的认知习惯。`;
-    scaffoldingAdvice = `家长可以减少口头指导，多用“哇，刚才发生什么了，你怎么想的？”开放提问，把解释权和选择权留给孩子。`;
-    suggestedFocusForNextWeek = `巩固“择其一而行”的承担感，并保持睡前10分钟的高质量亲子特别时光。`;
-  } else {
-    executiveSummary = `本周孩子整体情绪基调以“${dominantName}”为主，记录了 ${metrics.totalWeatherLogs} 次内心晴雨，完成了 ${metrics.thinkingToolPractices} 次思考练习。处于“建立安全基底与思考启蒙”的关键阶段，对具象化的小工具充满好奇。`;
-    pattern = `情绪表现真实自然，换家交接日前后或玩具争抢时偶有波动。通过“抱抱键”主动发起了 ${metrics.hugCount} 次依恋寻求，展现了优秀的向内求助能力。`;
-    bodyAwarenessNote = `开始把抽象的难过与具体的生理反应（如“胸口堵堵”、“手心出汗”）相对应，这是情绪智力（EQ）萌芽的核心标志。`;
-    soothingCapacity = `平复力处于【共同调节期】。6岁孩子依然极度依赖成人温和镇定的神经系统来带动自己冷静下来。`;
-    stageDescription = `【脚手架搭建与示范期】：孩子正在熟悉“分（事实 vs 想法）”与“通（换个眼睛看）”，大人的一致性反应是最佳催化剂。`;
-    scaffoldingAdvice = `在遇到冲突时，大人先蹲下来做深呼吸，示范“按下暂停键”，不急于讲大道理。`;
-    suggestedFocusForNextWeek = `强化两个家的睡前一致性流程，在孩子情绪来临时先命名感受，不急于纠正。`;
-  }
 
   // Personalized parenting tips (循证 New Beginnings + PCIT)
   const personalizedParentingTips: WeeklyReportData['personalizedParentingTips'] = [

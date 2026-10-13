@@ -102,12 +102,25 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
       expect(presentation.spokenText).toContain('直接走到身边的大人面前');
     });
 
-    it('在线时发起即时抱抱请求：返回正常发送状态', async () => {
+    it('SEC-03: 无真实远程中继时，即使在线也严禁假冒 SENT，必须返回 SEND_FAILED', async () => {
       const controller = new OfflineHugController();
       const result = await controller.submitHugRequest({
         isOnline: true,
         targetCaregiverName: '爸爸',
-        requestType: HugRequestType.INSTANT_HELP
+        requestType: HugRequestType.INSTANT_HELP,
+        hasVerifiedRemoteRelay: false
+      });
+      expect(result.communication).toBe(CommunicationStatus.SEND_FAILED);
+      expect(result.communication).not.toBe(CommunicationStatus.SENT);
+    });
+
+    it('存在受信任真实远程中继通道时发起即时抱抱请求：返回 SENT', async () => {
+      const controller = new OfflineHugController();
+      const result = await controller.submitHugRequest({
+        isOnline: true,
+        targetCaregiverName: '爸爸',
+        requestType: HugRequestType.INSTANT_HELP,
+        hasVerifiedRemoteRelay: true
       });
       expect(result.communication).toBe(CommunicationStatus.SENT);
     });
@@ -119,17 +132,35 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
       const promise1 = controller.submitHugRequest({
         isOnline: true,
         targetCaregiverName: '妈妈',
-        requestType: HugRequestType.INSTANT_HELP
+        requestType: HugRequestType.INSTANT_HELP,
+        hasVerifiedRemoteRelay: true
       });
 
       const promise2 = controller.submitHugRequest({
         isOnline: true,
         targetCaregiverName: '妈妈',
-        requestType: HugRequestType.INSTANT_HELP
+        requestType: HugRequestType.INSTANT_HELP,
+        hasVerifiedRemoteRelay: true
       });
 
       const [res1, res2] = await Promise.allSettled([promise1, promise2]);
       expect(res1.status === 'fulfilled' || res2.status === 'fulfilled').toBe(true);
+    });
+
+    it('SEC-03: restoreActiveState 对历史 SENT 状态执行强制安全降级', () => {
+      // 模拟旧 sessionStorage 存有模拟 SENT 状态
+      sessionStorage.setItem('active_open_hug_state', JSON.stringify({
+        requestType: HugRequestType.INSTANT_HELP,
+        communication: CommunicationStatus.SENT,
+        care: CareResponsibility.ASSIGNED_SELF,
+        coPresence: CoPresenceStatus.NOT_PRESENT,
+        targetCaregiverName: '妈妈'
+      }));
+
+      const restored = OfflineHugController.restoreActiveState();
+      expect(restored).not.toBeNull();
+      expect(restored?.communication).toBe(CommunicationStatus.SEND_FAILED);
+      expect(restored?.care).toBe(CareResponsibility.ASSIGNED_SELF);
     });
 
     it('network loss during hug: 发送中突发断网降级为 SEND_FAILED', () => {

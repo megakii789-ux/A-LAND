@@ -25,6 +25,7 @@ import {
   LocationBadgeIllustration,
   DetectiveMagnifierIllustration
 } from '../StoryGrove/StoryIllustrations';
+import { CrayonDetectiveGame } from '../../InteractiveGames/CrayonDetectiveGame/CrayonDetectiveGame';
 
 interface Props {
   isOpen: boolean;
@@ -34,6 +35,7 @@ interface Props {
 export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState<'tools' | 'threeBoxes' | 'circles' | 'fourSteps'>('tools');
   const [isBreakerOpen, setIsBreakerOpen] = useState<boolean>(false);
+  const [isCrayonGameOpen, setIsCrayonGameOpen] = useState<boolean>(false);
 
   // Tool Workshop State
   const [activeTool, setActiveTool] = useState<'flag' | 'lenses' | 'coin' | 'scale' | 'fence'>('flag');
@@ -135,12 +137,47 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
         </div>
 
         {/* Storybook Hero Illustration */}
-        <div className="mb-5 rounded-2xl overflow-hidden border-2 border-amber-200 shadow-sm bg-amber-50">
+        <div className="mb-4 rounded-2xl overflow-hidden border-2 border-amber-200 shadow-sm bg-amber-50">
           <DetectiveMagnifierIllustration className="w-full h-32 sm:h-40 object-cover" />
         </div>
 
-        {/* Tab Navigation - min-h-[52px] */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-sky-100/70 rounded-2xl mb-6">
+        {/* 真实可玩探案互动横幅 */}
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setIsCrayonGameOpen(true);
+          }}
+          className="w-full mb-4 p-3.5 bg-linear-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-600 text-white rounded-2xl font-black text-sm sm:text-base flex items-center justify-between shadow-md transition-all active:scale-98 cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-2xl" aria-hidden="true">🔍</span>
+            <span className="text-left">
+              <span>开始真实探案互动：《蜡笔侦探》</span>
+              <span className="block text-xs font-normal text-amber-100 mt-0.5">用手指拖动放大镜找线索，把事实与猜测分一分</span>
+            </span>
+          </div>
+          <span className="text-xs bg-amber-700/60 px-3 py-1.5 rounded-full font-bold shrink-0">
+            立刻探索 →
+          </span>
+        </button>
+
+        {isCrayonGameOpen ? (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setIsCrayonGameOpen(false)}
+                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                ← 返回想法侦探社
+              </button>
+            </div>
+            <CrayonDetectiveGame onExit={() => setIsCrayonGameOpen(false)} />
+          </div>
+        ) : (
+          <>
+            {/* Tab Navigation - min-h-[52px] */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-sky-100/70 rounded-2xl mb-6">
           <button
             onClick={() => {
               sounds.playClick();
@@ -787,6 +824,8 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               ))}
             </div>
           </div>
+        )}
+        </>
         )}
 
         {/* Difficulty Breaker Modal */}

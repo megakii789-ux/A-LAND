@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Volume2,
   VolumeX,
@@ -8,12 +8,14 @@ import {
   Shield,
   HelpCircle,
   HardDrive,
+  Lock,
   X
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ParentGateModal } from './ParentGateModal';
 import { GoogleDriveModal } from './GoogleDrive/GoogleDriveModal';
 import { sounds } from '../utils/sound';
+import { lockParentAccess } from '../domain/privacy/parentAccess';
 
 export const Navbar: React.FC = () => {
   const {
@@ -27,11 +29,30 @@ export const Navbar: React.FC = () => {
   } = useApp();
 
   const [isGateOpen, setIsGateOpen] = useState(false);
+
+
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isDriveOpen, setIsDriveOpen] = useState(false);
 
+  // SEC-06: 离开成人工作台、页面隐藏或生命周期变化时立即锁定
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        lockParentAccess();
+        if (currentView === 'parent') {
+          setCurrentView('child');
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [currentView, setCurrentView]);
+
   const handleSwitchToParent = () => {
     if (currentView === 'parent') {
+      lockParentAccess();
       setCurrentView('child');
     } else {
       setIsGateOpen(true);
@@ -42,6 +63,7 @@ export const Navbar: React.FC = () => {
     setIsGateOpen(false);
     setCurrentView('parent');
   };
+
 
   return (
     <>
@@ -101,18 +123,18 @@ export const Navbar: React.FC = () => {
               {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </button>
 
-            {/* Google Drive Cloud Backup button */}
+            {/* Data & Backup Privacy Info button */}
             <button
               onClick={() => {
                 sounds.playClick();
                 setIsDriveOpen(true);
               }}
-              className="h-11 sm:h-10 px-2.5 sm:px-3 rounded-xl border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-blue-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
-              title="Google 云端硬盘备份"
-              aria-label="Google 云端硬盘备份，打开云端备份档案管理弹窗"
+              className="h-11 sm:h-10 px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
+              title="数据安全与备份说明"
+              aria-label="数据安全与备份说明，打开数据隐私说明弹窗"
             >
-              <HardDrive className="w-4 h-4 text-blue-600" />
-              <span className="hidden md:inline">云端备份</span>
+              <Lock className="w-4 h-4 text-stone-600" />
+              <span className="hidden md:inline">数据说明</span>
             </button>
 
             {/* Framework About info */}

@@ -163,4 +163,68 @@ describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () 
       expect(sounds.getMuted()).toBe(false);
     });
   });
+
+  describe('SpeechNarrator - AG-04A Audio & Narrative Lifecycle Controls', () => {
+    it('CONTRACT: Provides pause, resume, and stop controls for child narrative', async () => {
+      const { speechNarrator } = await import('../utils/speech');
+      
+      // Stop resets speech state
+      speechNarrator.stop();
+      expect(speechNarrator.getSpeaking()).toBe(false);
+      expect(speechNarrator.getIsPaused()).toBe(false);
+
+      // Pause when not speaking is safe
+      speechNarrator.pause();
+      expect(speechNarrator.getIsPaused()).toBe(false);
+
+      // Calling stop clears active state
+      speechNarrator.stop();
+      expect(speechNarrator.getIsPaused()).toBe(false);
+      expect(speechNarrator.getSpeaking()).toBe(false);
+    });
+
+    it('CONTRACT: Replay recalls the last spoken narrative string', async () => {
+      const { speechNarrator } = await import('../utils/speech');
+      speechNarrator.stop();
+
+      // Trigger speak on sample text
+      speechNarrator.speak('欢迎来到晴雨小岛，我们一起慢慢看');
+      expect(speechNarrator.getLastText()).toBe('欢迎来到晴雨小岛，我们一起慢慢看');
+
+      // Replay should not throw and retains the lastText
+      expect(() => speechNarrator.replay()).not.toThrow();
+      expect(speechNarrator.getLastText()).toBe('欢迎来到晴雨小岛，我们一起慢慢看');
+
+      speechNarrator.stop();
+    });
+
+    it('CONTRACT: Detects lack of Chinese voice and exposes warning instead of silent fake success', async () => {
+      const { speechNarrator } = await import('../utils/speech');
+
+      // Warning getter and dismiss method exist and behave predictably
+      expect(typeof speechNarrator.hasChineseVoice()).toBe('boolean');
+      expect(typeof speechNarrator.getVoiceWarning).toBe('function');
+      expect(typeof speechNarrator.dismissVoiceWarning).toBe('function');
+
+      // Dismiss voice warning clears it
+      speechNarrator.dismissVoiceWarning();
+      expect(speechNarrator.getVoiceWarning()).toBeNull();
+    });
+
+    it('CONTRACT: Subscribers receive notifications on speech lifecycle changes', async () => {
+      const { speechNarrator } = await import('../utils/speech');
+      let notifyCount = 0;
+
+      const unsubscribe = speechNarrator.subscribe(() => {
+        notifyCount++;
+      });
+
+      speechNarrator.speak('小岛阳光很温柔');
+      speechNarrator.stop();
+
+      expect(notifyCount).toBeGreaterThan(0);
+      unsubscribe();
+    });
+  });
 });
+

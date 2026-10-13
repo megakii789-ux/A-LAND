@@ -76,13 +76,13 @@ export function mapHugStateToChildPresentation(
 
   // 3. 即时求助流程 (INSTANT_HELP)
 
-  // 3.1 Canonical State 1: local/send failed
+  // 3.1 Canonical State 1: local/send failed (SEC-03: 诚实告知儿童，不承诺虚假远程传输，提供非身体接触求助)
   if (communication === CommunicationStatus.SEND_FAILED) {
     return {
-      spokenText: `提醒消息这次没能发出去。如果你觉得难受或害怕，请直接走到身边的大人面前，拉拉大人的衣角。`,
-      displayText: '网络未接通 · 请找身边大人',
+      spokenText: `这里不会发消息。网络未接通或无远程通道。如果你觉得难受或害怕，请直接走到身边的大人面前，拉拉大人的衣角，或者请大人坐在旁边陪陪你。`,
+      displayText: '这里不会发消息 · 网络未接通 · 请找身边大人',
       shouldStepBack: false,
-      safeWaitingAction: '如果身边有老师或家人，直接走过去拉拉他们的手',
+      safeWaitingAction: '找身边看得见的大人说说话、拉拉衣角，或者请大人在旁边陪坐一会儿',
     };
   }
 

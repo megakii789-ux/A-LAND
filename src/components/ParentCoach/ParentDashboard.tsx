@@ -48,7 +48,9 @@ export const ParentDashboard: React.FC = () => {
     todayWeather,
     weatherHistory,
     hugEvents,
-    medals
+    medals,
+    hasLegacySensitiveData,
+    clearLegacySensitiveStorage
   } = useApp();
 
   const [activeTab, setActiveTab] = useState<'pocketTips' | 'medals' | 'huginbox' | 'observe' | 'scripts' | 'lessons' | 'consistency' | 'report' | 'insights' | 'safety'>('report');
@@ -69,19 +71,12 @@ export const ParentDashboard: React.FC = () => {
     })
   );
   const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
-  const [isAiPowered, setIsAiPowered] = useState<boolean>(false);
+  const [isAiPowered] = useState<boolean>(false);
 
-  // Trigger report generation (AI endpoint with local fallback)
+  // SEC-07: 基于端侧客观行为记录生成科学周报反馈，严禁上传儿童观察数据调用 AI 心理推断
   const handleGenerateReport = async () => {
     setIsGeneratingReport(true);
-    const metrics = calculateWeeklyMetrics({
-      todayWeather,
-      weatherHistory,
-      parentObservations,
-      completedLeaves,
-      medals,
-      hugCount: hugEvents.length
-    });
+    sounds.playClick();
 
     const localReport = generateLocalWeeklyReport({
       todayWeather,
@@ -92,50 +87,7 @@ export const ParentDashboard: React.FC = () => {
       hugCount: hugEvents.length
     });
 
-    try {
-      const response = await fetch('/api/parent/weekly-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          weatherDistribution: metrics.weatherDistribution,
-          dominantEmotion: metrics.primaryDominantEmotion,
-          thinkingPractices: metrics.thinkingToolPractices,
-          fenCount: metrics.fenCount,
-          tongCount: metrics.tongCount,
-          zeCount: metrics.zeCount,
-          hugCount: metrics.hugCount,
-          unlockedMedalsCount: metrics.unlockedMedalsCount,
-          childObservations: parentObservations.map(o => ({
-            dimension: o.dimension,
-            selfInitiated: o.selfInitiatedCount
-          }))
-        })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success && result.aiGenerated && result.data) {
-          setWeeklyReport({
-            ...localReport,
-            executiveSummary: result.data.executiveSummary || localReport.executiveSummary,
-            emotionalTrajectoryAnalysis: result.data.emotionalTrajectoryAnalysis || localReport.emotionalTrajectoryAnalysis,
-            thinkingPracticeReview: result.data.thinkingPracticeReview || localReport.thinkingPracticeReview,
-            personalizedParentingTips: result.data.personalizedParentingTips || localReport.personalizedParentingTips,
-            suggestedFocusForNextWeek: result.data.suggestedFocusForNextWeek || localReport.suggestedFocusForNextWeek
-          });
-          setIsAiPowered(true);
-          sounds.playBell();
-          setIsGeneratingReport(false);
-          return;
-        }
-      }
-    } catch {
-      // Offline or server route fallback
-    }
-
-    // Fallback to local evidence-based science engine
     setWeeklyReport(localReport);
-    setIsAiPowered(false);
     sounds.playBell();
     setIsGeneratingReport(false);
   };
@@ -490,6 +442,31 @@ export const ParentDashboard: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* SEC-05: 历史本地敏感数据隔离与清理指示 */}
+        {hasLegacySensitiveData && (
+          <div className="bg-amber-50 border border-amber-200/90 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-amber-950">
+            <div className="space-y-0.5">
+              <span className="font-bold flex items-center gap-1.5 text-amber-900">
+                <ShieldAlert className="w-4 h-4 text-amber-700" />
+                <span>检测到历史版本留存的端侧敏感数据缓存</span>
+              </span>
+              <p className="text-stone-600">
+                新版晴雨小岛严格遵循数据最小化原则，儿童自由表达、想念与情绪记录仅保存在内存态，绝不持久化。您可以一键安全清理历史敏感缓存。
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                sounds.playClick();
+                clearLegacySensitiveStorage();
+              }}
+              className="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shrink-0 transition-colors cursor-pointer"
+            >
+              一键清理旧版敏感缓存
+            </button>
+          </div>
+        )}
 
         {/* 折叠式认知发展小百科（6岁分通择发展心理学科学底座） */}
         <CognitiveDevelopmentEncyclopedia initialExpanded={false} />

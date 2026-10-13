@@ -2,8 +2,6 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
-import { verifyEndpointAuthorization, AuthorizationError } from './src/providers/serverAuthorization';
-import { AuthSession } from './src/providers/authProvider';
 
 dotenv.config();
 
@@ -27,133 +25,33 @@ if (apiKey) {
 }
 
 /**
- * 身份认证与会话解析辅助中间件 (Server-side Auth Simulation / Admin Token extraction)
- * 遵循铁律：所有 server endpoint 验证 identity, familyId, role, ownership, scope
+// Health check endpoint (Safe, no sensitive data)
+app.get('/api/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    mode: 'local-safe',
+    timestamp: new Date().toISOString()
+  });
+});
+
+/**
+ * SEC-01: 不可信身份令牌关闭与服务端 Fail Closed 守卫
+ * 铁律：
+ * 1. 严禁解析客户端自行 Base64 编码的 JSON 作为可信身份。
+ * 2. 在配置可信的正式 Auth Provider (如生产级服务端 Firebase Admin JWT 验签) 之前，
+ *    所有 /api 私有接口采取 Fail Closed，默认返回 HTTP 503。
+ * 3. 绝不泄露任何儿童或家庭私密数据。
+ * 4. 匿名请求、伪造 Base64 Bearer、伪造 CAREGIVER、跨家庭请求均不得进入业务处理。
  */
-function extractSession(req: express.Request): AuthSession | null {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-
-  try {
-    const tokenPart = authHeader.replace(/^Bearer\s+/i, '');
-    const decoded = JSON.parse(Buffer.from(tokenPart, 'base64').toString('utf-8'));
-    return {
-      uid: decoded.uid,
-      role: decoded.role,
-      familyId: decoded.familyId,
-      deviceId: decoded.deviceId,
-      participantPseudonym: decoded.participantPseudonym,
-      scopes: decoded.scopes || []
-    };
-  } catch {
-    return null;
-  }
-}
-
-// Endpoint: 监护人拉取家庭数据 (需身份认证 + 家庭成员隔离)
-app.get('/api/family/:familyId/summary', (req, res) => {
-  try {
-    const session = extractSession(req);
-    const { familyId } = req.params;
-
-    verifyEndpointAuthorization({
-      session,
-      targetFamilyId: familyId,
-      actionType: 'READ'
-    });
-
-    res.json({
-      success: true,
-      familyId,
-      message: 'Family data retrieved securely'
-    });
-  } catch (err) {
-    if (err instanceof AuthorizationError) {
-      res.status(403).json({ success: false, code: err.code, error: err.message });
-      return;
-    }
-    res.status(500).json({ success: false, error: 'Internal server error' });
-  }
+app.all('/api/*', (req, res) => {
+  res.status(503).json({
+    success: false,
+    code: 'API_DISABLED_PENDING_VERIFIED_AUTH',
+    error: 'Cloud API is disabled pending verified production authentication provider. No family or child data is served.',
+    data: null
+  });
 });
 
-// Endpoint: 监护人更新 Caregiver 配置 (儿童端绝不可调用)
-app.post('/api/family/:familyId/caregivers', (req, res) => {
-  try {
-    const session = extractSession(req);
-    const { familyId } = req.params;
-
-    verifyEndpointAuthorization({
-      session,
-      targetFamilyId: familyId,
-      requiredRole: 'CAREGIVER',
-      actionType: 'MUTATE_CAREGIVER'
-    });
-
-    res.json({
-      success: true,
-      message: 'Caregiver updated successfully by authorized caregiver'
-    });
-  } catch (err) {
-    if (err instanceof AuthorizationError) {
-      res.status(403).json({ success: false, code: err.code, error: err.message });
-      return;
-    }
-    res.status(500).json({ success: false, error: 'Internal server error' });
-  }
-});
-
-// Endpoint: 监护人私密自省笔记读取 (Caregiver A 隔离 Caregiver B)
-app.get('/api/family/:familyId/caregiver-notes/:ownerCaregiverId', (req, res) => {
-  try {
-    const session = extractSession(req);
-    const { familyId, ownerCaregiverId } = req.params;
-
-    verifyEndpointAuthorization({
-      session,
-      targetFamilyId: familyId,
-      requiredRole: 'CAREGIVER',
-      resourceOwnerId: ownerCaregiverId,
-      actionType: 'READ'
-    });
-
-    res.json({
-      success: true,
-      ownerCaregiverId,
-      notes: []
-    });
-  } catch (err) {
-    if (err instanceof AuthorizationError) {
-      res.status(403).json({ success: false, code: err.code, error: err.message });
-      return;
-    }
-    res.status(500).json({ success: false, error: 'Internal server error' });
-  }
-});
-
-// Endpoint: 研究员导出聚合事件 (研究员不可读家庭私密原始数据)
-app.get('/api/research/export', (req, res) => {
-  try {
-    const session = extractSession(req);
-
-    verifyEndpointAuthorization({
-      session,
-      targetFamilyId: session?.familyId || '',
-      requiredRole: ['RESEARCHER', 'CAREGIVER'],
-      actionType: 'RESEARCH_EXPORT'
-    });
-
-    res.json({
-      success: true,
-      events: []
-    });
-  } catch (err) {
-    if (err instanceof AuthorizationError) {
-      res.status(403).json({ success: false, code: err.code, error: err.message });
-      return;
-    }
-    res.status(500).json({ success: false, error: 'Internal server error' });
-  }
-});
 
 // Vite middleware for dev
 async function startServer() {

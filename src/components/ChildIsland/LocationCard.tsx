@@ -62,7 +62,7 @@ export const LocationCard: React.FC<LocationCardProps> = ({
           onOpen();
         }
       }}
-      className={`group relative p-4 sm:p-5 rounded-3xl bg-white/95 hover:bg-white border-2 ${borderColor} ${hoverBorderColor} shadow-md hover:shadow-2xl transition-all duration-200 motion-reduce:transition-none cursor-pointer flex flex-col justify-between min-h-[170px] sm:min-h-[190px] select-none`}
+      className={`group relative p-4 sm:p-5 rounded-3xl bg-white/95 hover:bg-white border-3 ${borderColor} ${hoverBorderColor} shadow-md hover:shadow-2xl transition-all duration-200 motion-reduce:transition-none cursor-pointer flex flex-col justify-between min-h-[190px] sm:min-h-[210px] select-none focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none`}
       aria-label={`进入${title}：${shortCopy}`}
     >
       <div className="flex flex-col justify-between h-full">
@@ -86,18 +86,19 @@ export const LocationCard: React.FC<LocationCardProps> = ({
               className="flex items-center gap-1.5 shrink-0"
             >
               {badge && (
-                <span className="text-xs font-bold text-stone-600 bg-stone-100/90 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2.5 py-1 rounded-full border border-stone-200">
                   {badge}
                 </span>
               )}
+              {/* 触控目标满足 >= 56x56px 标准 */}
               <button
                 type="button"
                 onClick={handleAudioClick}
-                className="w-12 h-12 min-w-[48px] rounded-2xl bg-stone-100/90 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors cursor-pointer shadow-2xs border border-stone-200 focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
                 title={`听一听${title}`}
                 aria-label={`听一听${title}的介绍`}
               >
-                <Volume2 className="w-5 h-5 text-stone-700" />
+                <Volume2 className="w-6 h-6 text-stone-800" />
               </button>
             </div>
           </div>
@@ -105,7 +106,7 @@ export const LocationCard: React.FC<LocationCardProps> = ({
           {/* Title为主 (translateZ: 18px) */}
           <h3
             style={{ transform: 'translateZ(18px)' }}
-            className="text-xl sm:text-2xl font-black text-stone-800 tracking-tight group-hover:text-amber-900 transition-colors"
+            className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight group-hover:text-amber-900 transition-colors"
           >
             {title}
           </h3>
@@ -113,19 +114,19 @@ export const LocationCard: React.FC<LocationCardProps> = ({
           {/* 一句非常短的儿童文案 (translateZ: 12px) */}
           <p
             style={{ transform: 'translateZ(12px)' }}
-            className="text-base sm:text-lg text-stone-600 mt-1 leading-snug font-medium"
+            className="text-base sm:text-lg text-stone-700 mt-1.5 leading-snug font-medium"
           >
             {shortCopy}
           </p>
         </div>
 
-        {/* Visual bottom indicator for open (translateZ: 15px) */}
+        {/* Visual bottom indicator for open (translateZ: 15px) - 核心操作条 >= 48-56px */}
         <div
           style={{ transform: 'translateZ(15px)' }}
-          className="mt-3 pt-2.5 border-t border-stone-100/80 flex items-center justify-between text-base font-bold text-stone-700"
+          className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-base font-bold text-stone-800"
         >
-          <span className="text-sm sm:text-base font-extrabold text-stone-700">进去玩</span>
-          <span className="text-lg group-hover:translate-x-1.5 motion-reduce:group-hover:translate-x-0 transition-transform">
+          <span className="text-base font-extrabold text-stone-800">进去玩</span>
+          <span className="w-10 h-10 rounded-xl bg-stone-100 group-hover:bg-amber-100 text-stone-800 flex items-center justify-center text-lg font-black group-hover:translate-x-1.5 motion-reduce:group-hover:translate-x-0 transition-transform">
             👉
           </span>
         </div>

@@ -192,10 +192,10 @@ export const WeeklyReportView: React.FC<WeeklyReportViewProps> = ({
           </div>
         </div>
 
-        {/* Metric 4: 依恋与勋章 */}
+        {/* Metric 4: 探索与互动记录 */}
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/90 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-stone-500 font-bold mb-2">
-            <span>安全依恋与成就</span>
+            <span>探索与互动记录</span>
             <Award className="w-5 h-5 text-amber-500" />
           </div>
           <div>
@@ -203,7 +203,7 @@ export const WeeklyReportView: React.FC<WeeklyReportViewProps> = ({
               <span>{report.unlockedMedalsCount} 枚勋章</span>
             </div>
             <p className="text-[11px] text-stone-500 mt-1">
-              ❤️ 主动求抱抱 {report.hugCount} 次（高依恋安全感）
+              ❤️ 发起求助互动 {report.hugCount} 次 · 真实行为记录
             </p>
           </div>
         </div>

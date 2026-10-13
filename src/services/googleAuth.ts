@@ -13,74 +13,33 @@ import firebaseConfig from '../../firebase-applet-config.json';
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const auth = getAuth(app);
 
-export const SCOPES = [
-  'https://www.googleapis.com/auth/drive',
-  'https://www.googleapis.com/auth/drive.activity',
-  'https://www.googleapis.com/auth/drive.activity.readonly',
-  'https://www.googleapis.com/auth/drive.appdata',
-  'https://www.googleapis.com/auth/drive.apps.readonly',
-  'https://www.googleapis.com/auth/drive.file',
-  'https://www.googleapis.com/auth/drive.install',
-  'https://www.googleapis.com/auth/drive.meet.readonly',
-  'https://www.googleapis.com/auth/drive.metadata',
-  'https://www.googleapis.com/auth/drive.metadata.readonly',
-  'https://www.googleapis.com/auth/drive.photos.readonly',
-  'https://www.googleapis.com/auth/drive.readonly',
-  'https://www.googleapis.com/auth/drive.scripts',
-];
+// SEC-04: 关闭未经审核的过宽 Google Drive 授权。
+// 严禁请求全盘 drive, scripts, photos 等 13 项超权 Scope。
+export const SCOPES: string[] = [];
 
 const provider = new GoogleAuthProvider();
-SCOPES.forEach((scope) => {
-  provider.addScope(scope);
-});
 
-// In-memory token cache (NEVER persist to localStorage or sessionStorage per security guidelines)
+// In-memory token cache (NEVER persist to localStorage or sessionStorage)
 let cachedAccessToken: string | null = null;
-let isAuthInProgress = false;
 
 export const initAuth = (
-  onAuthSuccess?: (user: User, token: string) => void,
+  _onAuthSuccess?: (user: User, token: string) => void,
   onAuthFailure?: () => void
 ) => {
-  return onAuthStateChanged(auth, async (user: User | null) => {
-    if (user) {
-      if (cachedAccessToken) {
-        if (onAuthSuccess) onAuthSuccess(user, cachedAccessToken);
-      } else if (!isAuthInProgress) {
-        cachedAccessToken = null;
-        if (onAuthFailure) onAuthFailure();
-      }
-    } else {
-      cachedAccessToken = null;
-      if (onAuthFailure) onAuthFailure();
-    }
-  });
+  if (onAuthFailure) onAuthFailure();
+  return () => {};
 };
 
 export const googleSignIn = async (): Promise<{ user: User; accessToken: string } | null> => {
-  try {
-    isAuthInProgress = true;
-    const result = await signInWithPopup(auth, provider);
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    if (!credential?.accessToken) {
-      throw new Error('无法从 Google 认证中获取访问凭证 (Access Token)');
-    }
-
-    cachedAccessToken = credential.accessToken;
-    return { user: result.user, accessToken: cachedAccessToken };
-  } catch (error) {
-    console.error('Google Sign-in error:', error);
-    throw error;
-  } finally {
-    isAuthInProgress = false;
-  }
+  throw new Error('CLOUD_BACKUP_DISABLED: 云端备份与未经审核的 Google Drive 授权已关闭，保护儿童与家庭数据安全。');
 };
 
 export const getAccessToken = async (): Promise<string | null> => {
-  return cachedAccessToken;
+  return null;
 };
 
 export const logout = async () => {
   await signOut(auth);
   cachedAccessToken = null;
 };
+
