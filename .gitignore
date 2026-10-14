@@ -1,9 +1,12 @@
 node_modules/
-build/
 dist/
-coverage/
-.DS_Store
-*.log
-.env*
+.env
+.env.*
 !.env.example
+.DS_Store
+*.local
+test-results/
+playwright-report/
 .snapshots/
+qingyu-island-react-audit/
+*.zip

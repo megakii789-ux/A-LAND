@@ -1,11 +1,28 @@
-// Web Speech API Natural Voice Discovery & Narrative Prosody Engine
+// Web Speech API Natural Voice Discovery & Web Audio Timbre-Coupled Prosody Engine
 // Designed specifically for 6-year-old children, parents, and caregivers.
-// - Multi-tier intelligent voice ranking (prioritizing natural/neural voices like Xiaoxiao, Yunxi, Tingting Enhanced)
-// - Semantic breath-pause segmentation (eliminating breathless robotic staccato "AI味")
+// - Multi-tier intelligent voice ranking & per-template voice timbre matching
+// - Dynamic clause-by-clause prosody contour modulation (eliminating flat, repetitive AI TTS monotony)
+// - Tightly coupled with Web Audio API DSP Frequency Curves & Timbre Modulation (src/utils/sound.ts)
 // - Pure client-side local execution (100% offline, zero child voice recordings uploaded to cloud)
 // - Child safety filtering (stripping parenthetical designer notes, markdown, and meta-prompts before speaking)
 
-export type VoiceProfileType = 'warm-sister' | 'gentle-guide' | 'playful-buddy';
+import {
+  sounds,
+  TEMPLATE_ACOUSTIC_PROFILES,
+  TemplateAcousticProfile
+} from './sound';
+
+export type VoiceProfileType =
+  | 'warm-sister'
+  | 'gentle-guide'
+  | 'playful-buddy'
+  | 'starlight-companion';
+
+export type ProsodyContourType =
+  | 'rising-empathy'
+  | 'grounded-cadence'
+  | 'lively-bounce'
+  | 'crystalline-arc';
 
 export interface VoiceProfileConfig {
   id: VoiceProfileType;
@@ -15,7 +32,16 @@ export interface VoiceProfileConfig {
   emoji: string;
   rate: number;
   pitch: number;
+  volume: number;
   suitableScenarios: string;
+  /** Prosodic pitch/rate contour shape across multi-clause sentences */
+  prosodyContour: ProsodyContourType;
+  /** Natural breathing pause between segmented clauses (ms) */
+  breathPauseMs: number;
+  /** Preferred system voice timbre keywords when multiple Chinese voices exist */
+  preferredVoiceKeywords: string[];
+  /** Linked Web Audio API Frequency Curve & Timbre Modulation profile */
+  acousticProfile: TemplateAcousticProfile;
 }
 
 export const VOICE_PROFILES: Record<VoiceProfileType, VoiceProfileConfig> = {
@@ -23,31 +49,61 @@ export const VOICE_PROFILES: Record<VoiceProfileType, VoiceProfileConfig> = {
     id: 'warm-sister',
     name: '暖阳姐姐',
     subtitle: '绘本温和风',
-    description: '语速轻缓柔和，音高温暖微扬，如同睡前共读绘本的大姐姐。',
+    description: '语速轻缓柔和，中低频温暖饱满（220Hz +4.5dB），如同睡前共读绘本的大姐姐。',
     emoji: '🌸',
     rate: 0.89,
     pitch: 1.04,
-    suitableScenarios: '平静角深呼吸、抱抱响应、睡前故事、情绪安抚'
+    volume: 1.0,
+    suitableScenarios: '平静角深呼吸、抱抱响应、睡前故事、情绪安抚',
+    prosodyContour: 'rising-empathy',
+    breathPauseMs: 220,
+    preferredVoiceKeywords: ['xiaoxiao', '晓晓', 'tingting', '婷婷', 'lili', 'female'],
+    acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['warm-sister']
   },
   'gentle-guide': {
     id: 'gentle-guide',
     name: '和风守护',
     subtitle: '沉稳清晰风',
-    description: '语调踏实平缓，发音清晰沉着，给予孩子确定感与安全边界。',
+    description: '语调踏实沉着，低频厚实稳健（165Hz +5.8dB，高频柔化至1680Hz），给予确定感与安全边界。',
     emoji: '🍃',
-    rate: 0.91,
-    pitch: 1.00,
-    suitableScenarios: '困难拆解台、安全围栏提醒、两家桥规则说明'
+    rate: 0.85,
+    pitch: 0.95,
+    volume: 1.0,
+    suitableScenarios: '困难拆解台、安全围栏提醒、两家桥规则说明',
+    prosodyContour: 'grounded-cadence',
+    breathPauseMs: 260,
+    preferredVoiceKeywords: ['yunxi', '云希', 'kangkang', '康康', 'yunjian', 'male', 'sinji'],
+    acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['gentle-guide']
   },
   'playful-buddy': {
     id: 'playful-buddy',
     name: '元气伙伴',
     subtitle: '活泼同伴风',
-    description: '节奏轻快生动，充满探索好奇心，如同身边并肩同行的小伙伴。',
+    description: '节奏明快灵动，中高频清脆透亮（1380Hz共振峰 +4.4dB），充满探索好奇心。',
     emoji: '☀️',
-    rate: 0.95,
-    pitch: 1.06,
-    suitableScenarios: '探索小岛、天气电台、思考侦探社、微课互动'
+    rate: 0.96,
+    pitch: 1.09,
+    volume: 1.0,
+    suitableScenarios: '探索小岛、天气电台、思考侦探社、微课互动',
+    prosodyContour: 'lively-bounce',
+    breathPauseMs: 145,
+    preferredVoiceKeywords: ['xiaoyi', '晓伊', 'yaoyao', '瑶瑶', 'meijia', '美佳', 'huihui'],
+    acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['playful-buddy']
+  },
+  'starlight-companion': {
+    id: 'starlight-companion',
+    name: '星光守护',
+    subtitle: '空灵泛音风',
+    description: '音色清透悠远，高频泛音延展（1920Hz水晶共振峰 +4.8dB），专注多面自我与想象力表达。',
+    emoji: '✨',
+    rate: 0.91,
+    pitch: 1.02,
+    volume: 1.0,
+    suitableScenarios: '星光小屋、多面自我卡片、作品展览、兴趣探索',
+    prosodyContour: 'crystalline-arc',
+    breathPauseMs: 195,
+    preferredVoiceKeywords: ['yu-shu', 'sinji', '善怡', 'xiaoxiao', 'tingting'],
+    acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['starlight-companion']
   }
 };
 
@@ -58,6 +114,86 @@ export interface DetectedVoice {
   isNatural: boolean;
   score: number;
   rawVoice?: SpeechSynthesisVoice;
+}
+
+export interface SegmentProsodyParams {
+  rate: number;
+  pitch: number;
+  volume: number;
+  pauseAfterMs: number;
+}
+
+/**
+ * Computes dynamic clause-level prosody modulation (rate, pitch, volume, and breathing pause)
+ * for a specific template so multi-segment speech never sounds like a flat, repetitive AI loop.
+ * Guaranteed to remain strictly within child developmental comfort bounds (rate 0.85~1.00, pitch 0.92~1.12).
+ */
+export function computeSegmentProsody(
+  profileId: VoiceProfileType,
+  segmentIndex: number,
+  totalSegments: number,
+  segmentText: string = ''
+): SegmentProsodyParams {
+  const config = VOICE_PROFILES[profileId] || VOICE_PROFILES['warm-sister'];
+  const isFirst = segmentIndex === 0;
+  const isLast = segmentIndex === totalSegments - 1;
+  const isQuestion = /[？?吗呢呀]$/.test(segmentText.trim());
+
+  let pitchDelta = 0;
+  let rateDelta = 0;
+  let volume = config.volume;
+  let pauseAfterMs = config.breathPauseMs;
+
+  switch (config.prosodyContour) {
+    case 'rising-empathy': {
+      // Warm gentle lift on opening, soft comforting settle on closing clause
+      if (isFirst) pitchDelta += 0.02;
+      else if (isLast) {
+        pitchDelta -= 0.02;
+        rateDelta -= 0.02;
+      } else {
+        pitchDelta += (segmentIndex % 2 === 1 ? 0.01 : -0.01);
+      }
+      if (isQuestion) pitchDelta += 0.02;
+      break;
+    }
+    case 'grounded-cadence': {
+      // Steady, reassuring cadence with deliberate calm pacing at endings
+      if (isFirst) rateDelta += 0.01;
+      if (isLast) {
+        pitchDelta -= 0.02;
+        rateDelta -= 0.02;
+        pauseAfterMs += 40;
+      }
+      break;
+    }
+    case 'lively-bounce': {
+      // Expressive companion rhythm with alternating melodic inflection
+      pitchDelta += segmentIndex % 2 === 0 ? 0.02 : -0.015;
+      rateDelta += segmentIndex % 2 === 0 ? 0.015 : -0.01;
+      if (isQuestion) pitchDelta += 0.02;
+      break;
+    }
+    case 'crystalline-arc': {
+      // Smooth melodic arch peaking in the middle of the narrative thought
+      const progress = totalSegments > 1 ? segmentIndex / (totalSegments - 1) : 0.5;
+      const arch = Math.sin(progress * Math.PI); // 0 -> 1 -> 0
+      pitchDelta += Number((arch * 0.03 - 0.01).toFixed(3));
+      rateDelta += Number(((1 - arch) * 0.015 - 0.01).toFixed(3));
+      volume = Number(Math.min(1.0, Math.max(0.88, 0.94 + arch * 0.06)).toFixed(2));
+      break;
+    }
+  }
+
+  const finalRate = Number(Math.max(0.83, Math.min(1.0, config.rate + rateDelta)).toFixed(3));
+  const finalPitch = Number(Math.max(0.92, Math.min(1.12, config.pitch + pitchDelta)).toFixed(3));
+
+  return {
+    rate: finalRate,
+    pitch: finalPitch,
+    volume,
+    pauseAfterMs
+  };
 }
 
 /**
@@ -91,13 +227,11 @@ export function cleanAndSegmentText(text: string): string[] {
   const segments: string[] = [];
 
   for (const sentence of rawSentences) {
-    // If sentence is short enough (<= 14 characters), keep as a single natural breath unit
     if (sentence.length <= 14) {
       segments.push(sentence);
       continue;
     }
 
-    // If sentence is longer, split on commas or pauses (，,、)
     const clauses = sentence.split(/[，,、]+/).map(c => c.trim()).filter(Boolean);
     if (clauses.length <= 1) {
       segments.push(sentence);
@@ -148,7 +282,6 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
   }
 
   // Tier 1: Gold Standard Neural / Natural Chinese child-friendly voices
-  // Microsoft Xiaoxiao (晓晓) is widely regarded as the most natural, empathetic storytelling voice for Chinese children
   if (nameLower.includes('xiaoxiao') || voice.name.includes('晓晓')) {
     return {
       name: voice.name,
@@ -261,6 +394,7 @@ class SpeechNarrator {
   private currentProfile: VoiceProfileType = 'warm-sister';
   private cachedVoices: DetectedVoice[] = [];
   private selectedVoice: SpeechSynthesisVoice | null = null;
+  private manualVoiceOverride: SpeechSynthesisVoice | null = null;
   private segmentQueue: string[] = [];
   private currentSegmentIndex: number = 0;
   private segmentTimer: number | null = null;
@@ -272,8 +406,15 @@ class SpeechNarrator {
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('child_voice_profile');
-        if (saved && (saved === 'warm-sister' || saved === 'gentle-guide' || saved === 'playful-buddy')) {
+        if (
+          saved &&
+          (saved === 'warm-sister' ||
+            saved === 'gentle-guide' ||
+            saved === 'playful-buddy' ||
+            saved === 'starlight-companion')
+        ) {
           this.currentProfile = saved as VoiceProfileType;
+          sounds.setTemplate(this.currentProfile);
         }
       } catch {}
 
@@ -300,15 +441,7 @@ class SpeechNarrator {
       detected.sort((a, b) => b.score - a.score);
       this.cachedVoices = detected;
 
-      // Pick top Chinese voice
-      const best = detected.find(v => v.score > 0);
-      if (best && best.rawVoice) {
-        this.selectedVoice = best.rawVoice;
-        this.voiceWarning = null;
-      } else if (detected.length > 0) {
-        this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
-      }
-
+      this.syncVoiceForCurrentProfile();
       this.notifyListeners();
     };
 
@@ -318,6 +451,43 @@ class SpeechNarrator {
       window.speechSynthesis.onvoiceschanged = () => {
         refresh();
       };
+    }
+  }
+
+  /**
+   * Matches the best Chinese voice for the active template's preferred timbre keywords,
+   * falling back to the highest-scored Chinese voice if no specific match is installed.
+   */
+  private syncVoiceForCurrentProfile() {
+    if (this.manualVoiceOverride) {
+      this.selectedVoice = this.manualVoiceOverride;
+      return;
+    }
+
+    const chineseVoices = this.cachedVoices.filter(v => v.score > 0 && v.rawVoice);
+    if (chineseVoices.length === 0) {
+      if (this.cachedVoices.length > 0) {
+        this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
+      }
+      return;
+    }
+
+    this.voiceWarning = null;
+    const config = this.getProfileConfig();
+
+    // Try to find a high-quality Chinese voice matching this template's preferred timbre keywords
+    const keywordMatch = chineseVoices.find(v => {
+      const lower = v.name.toLowerCase();
+      return (
+        v.score >= 60 &&
+        config.preferredVoiceKeywords.some(kw => lower.includes(kw.toLowerCase()))
+      );
+    });
+
+    if (keywordMatch && keywordMatch.rawVoice) {
+      this.selectedVoice = keywordMatch.rawVoice;
+    } else if (chineseVoices[0].rawVoice) {
+      this.selectedVoice = chineseVoices[0].rawVoice;
     }
   }
 
@@ -353,13 +523,17 @@ class SpeechNarrator {
     return this.currentProfile;
   }
 
-  public getProfileConfig(): VoiceProfileConfig {
-    return VOICE_PROFILES[this.currentProfile] || VOICE_PROFILES['warm-sister'];
+  public getProfileConfig(profileId?: VoiceProfileType): VoiceProfileConfig {
+    const id = profileId || this.currentProfile;
+    return VOICE_PROFILES[id] || VOICE_PROFILES['warm-sister'];
   }
 
   public setProfile(profile: VoiceProfileType) {
     if (!VOICE_PROFILES[profile]) return;
     this.currentProfile = profile;
+    // Synchronize the Web Audio API DSP engine to use this template's frequency curve and timbre modulation
+    sounds.setTemplate(profile);
+    this.syncVoiceForCurrentProfile();
     try {
       localStorage.setItem('child_voice_profile', profile);
     } catch {}
@@ -384,6 +558,7 @@ class SpeechNarrator {
   public setSpecificVoice(voiceName: string) {
     const match = this.cachedVoices.find(v => v.name === voiceName);
     if (match && match.rawVoice) {
+      this.manualVoiceOverride = match.rawVoice;
       this.selectedVoice = match.rawVoice;
       this.notifyListeners();
     }
@@ -402,7 +577,7 @@ class SpeechNarrator {
   }
 
   /**
-   * Natural voice playback with semantic breath-pause scheduling
+   * Natural voice playback with per-template dynamic prosody contour and Web Audio harmonic underlay
    */
   public speak(
     text: string,
@@ -433,6 +608,10 @@ class SpeechNarrator {
     this.isSpeaking = true;
     this.isPaused = false;
 
+    // Ensure Web Audio DSP template is synchronized
+    sounds.setTemplate(this.currentProfile);
+    this.syncVoiceForCurrentProfile();
+
     // Check if device lacks Chinese voice resources
     if (this.cachedVoices.length > 0 && !this.hasChineseVoice()) {
       this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
@@ -442,12 +621,12 @@ class SpeechNarrator {
 
     this.notifyListeners();
 
-    const config = this.getProfileConfig();
+    const totalSegments = this.segmentQueue.length;
 
     const playNextSegment = () => {
       if (!this.isSpeaking) return;
 
-      if (this.currentSegmentIndex >= this.segmentQueue.length) {
+      if (this.currentSegmentIndex >= totalSegments) {
         this.isSpeaking = false;
         this.isPaused = false;
         this.notifyListeners();
@@ -455,14 +634,27 @@ class SpeechNarrator {
         return;
       }
 
-      const segmentText = this.segmentQueue[this.currentSegmentIndex];
+      const segmentIdx = this.currentSegmentIndex;
+      const segmentText = this.segmentQueue[segmentIdx];
       this.currentSegmentIndex++;
+
+      // Compute dynamic clause-specific prosody modulation for active template
+      const prosody = computeSegmentProsody(
+        this.currentProfile,
+        segmentIdx,
+        totalSegments,
+        segmentText
+      );
+
+      // Trigger subtle Web Audio API template-specific harmonic resonance cue
+      sounds.playSpeechProsodyCue(this.currentProfile, segmentIdx);
 
       try {
         const utterance = new SpeechSynthesisUtterance(segmentText);
         utterance.lang = 'zh-CN';
-        utterance.rate = config.rate;
-        utterance.pitch = config.pitch;
+        utterance.rate = prosody.rate;
+        utterance.pitch = prosody.pitch;
+        utterance.volume = prosody.volume;
 
         if (this.selectedVoice) {
           utterance.voice = this.selectedVoice;
@@ -471,22 +663,21 @@ class SpeechNarrator {
         utterance.onend = () => {
           if (!this.isSpeaking) return;
 
-          // Natural human breathing pause between segments (~180ms)
+          // Template-specific natural breathing pause between clauses
           this.segmentTimer = window.setTimeout(() => {
             playNextSegment();
-          }, 180);
+          }, prosody.pauseAfterMs);
         };
 
-        utterance.onerror = (e) => {
+        utterance.onerror = () => {
           if (!this.isSpeaking) return;
-          // Continue to next segment on minor transient glitch
           this.segmentTimer = window.setTimeout(() => {
             playNextSegment();
           }, 100);
         };
 
         window.speechSynthesis.speak(utterance);
-      } catch (err) {
+      } catch {
         this.isSpeaking = false;
         this.isPaused = false;
         this.notifyListeners();

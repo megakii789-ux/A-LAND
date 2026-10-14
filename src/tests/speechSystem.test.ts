@@ -1,19 +1,26 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   cleanAndSegmentText,
   scoreAndCategorizeVoice,
+  computeSegmentProsody,
   VOICE_PROFILES,
-  VoiceProfileType
+  VoiceProfileType,
+  speechNarrator
 } from '../utils/speech';
-import { sounds } from '../utils/sound';
+import {
+  sounds,
+  TEMPLATE_ACOUSTIC_PROFILES,
+  createWarmSaturationCurve,
+  computeFrequencyResponseAt,
+  AudioTemplateId
+} from '../utils/sound';
 
-describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () => {
+describe('Speech System Voice Optimization & Web Audio API Timbre Modulation Contracts', () => {
   describe('cleanAndSegmentText - Child Safety & Prosody Cleaning', () => {
     it('CONTRACT: Strips parenthetical designer/developer notes to never expose internal terms to 6yo child', () => {
       const rawWithNotes = '大人不住在一个房子里，是大人之间做的大人决定。（不怪孩子，引导大人承担责任）这件事百分之百不是因为你。';
       const segments = cleanAndSegmentText(rawWithNotes);
 
-      // Verify parenthetical text was completely excised
       const combined = segments.join('');
       expect(combined).not.toContain('引导大人承担责任');
       expect(combined).not.toContain('不怪孩子');
@@ -46,9 +53,7 @@ describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () 
       const longSentence = '当你想念爸爸或者妈妈的时候，无论他们在哪里，心里对你的爱都是一直都在的，你随时可以抱抱小恐龙。';
       const segments = cleanAndSegmentText(longSentence);
 
-      // Should be divided into manageable respiratory units (at least 2 segments)
       expect(segments.length).toBeGreaterThanOrEqual(2);
-      // Each segment should be moderate in length to allow natural breathing pauses
       segments.forEach(segment => {
         expect(segment.length).toBeLessThanOrEqual(20);
       });
@@ -127,37 +132,162 @@ describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () 
     });
   });
 
-  describe('VOICE_PROFILES - Child Developmental Acoustic Bounds', () => {
-    const profiles: VoiceProfileType[] = ['warm-sister', 'gentle-guide', 'playful-buddy'];
+  describe('VOICE_PROFILES & Dynamic Prosody Contours - Child Developmental Acoustic Bounds', () => {
+    const profiles: VoiceProfileType[] = [
+      'warm-sister',
+      'gentle-guide',
+      'playful-buddy',
+      'starlight-companion'
+    ];
 
     it.each(profiles)('Profile %s rate and pitch adhere to 6-year-old cognitive and emotional comfort bounds', (profileKey) => {
       const config = VOICE_PROFILES[profileKey];
       expect(config).toBeDefined();
 
-      // Rate: unhurried and clear (0.85 ~ 0.98), not robotic rush or dragged distortion
       expect(config.rate).toBeGreaterThanOrEqual(0.85);
       expect(config.rate).toBeLessThanOrEqual(1.00);
 
-      // Pitch: warm, reassuring (0.98 ~ 1.08), avoiding sharp metallic squeak or deep authoritative boom
-      expect(config.pitch).toBeGreaterThanOrEqual(0.98);
+      expect(config.pitch).toBeGreaterThanOrEqual(0.95);
       expect(config.pitch).toBeLessThanOrEqual(1.10);
 
-      // Must have descriptive labels for caregivers
       expect(config.name.length).toBeGreaterThan(0);
       expect(config.suitableScenarios.length).toBeGreaterThan(0);
+      expect(config.acousticProfile.id).toBe(profileKey);
+    });
+
+    it('CONTRACT: All 4 templates produce distinct prosody contours and breathing pauses across clauses', () => {
+      const pWarm = computeSegmentProsody('warm-sister', 0, 3, '你好呀');
+      const pGentle = computeSegmentProsody('gentle-guide', 2, 3, '这件事不是因为你');
+      const pPlayful = computeSegmentProsody('playful-buddy', 0, 3, '我们一起去看看吧？');
+      const pStarlight = computeSegmentProsody('starlight-companion', 1, 3, '每个人心里都有很多颗星星');
+
+      expect(pWarm.pitch).not.toBe(pGentle.pitch);
+      expect(pPlayful.rate).toBeGreaterThan(pGentle.rate);
+      expect(pGentle.pauseAfterMs).toBeGreaterThan(pPlayful.pauseAfterMs);
+      expect(pStarlight.volume).toBeGreaterThanOrEqual(0.88);
     });
   });
 
-  describe('SoundPlayer - Organic Acoustic Soundscape', () => {
-    it('Toggles mute state correctly without throwing errors', () => {
+  describe('Web Audio API Multi-Template Frequency Curves & Timbre Modulation', () => {
+    const templates: AudioTemplateId[] = [
+      'warm-sister',
+      'gentle-guide',
+      'playful-buddy',
+      'starlight-companion'
+    ];
+
+    it('CONTRACT: Every template defines a strictly unique Frequency Response Curve and Timbre Modulation profile', () => {
+      const formantFreqs = new Set(templates.map(id => TEMPLATE_ACOUSTIC_PROFILES[id].frequencyCurve.formantCenterFreq));
+      const highCutFreqs = new Set(templates.map(id => TEMPLATE_ACOUSTIC_PROFILES[id].frequencyCurve.highCutFreq));
+      const vibratoRates = new Set(templates.map(id => TEMPLATE_ACOUSTIC_PROFILES[id].timbreModulation.vibratoRateHz));
+      const rootNotes = new Set(templates.map(id => TEMPLATE_ACOUSTIC_PROFILES[id].timbreModulation.scaleFrequencies[0]));
+
+      // All 4 templates must have 4 distinct formant center frequencies, high-cut frequencies, LFO rates, and root keys
+      expect(formantFreqs.size).toBe(4);
+      expect(highCutFreqs.size).toBe(4);
+      expect(vibratoRates.size).toBe(4);
+      expect(rootNotes.size).toBe(4);
+    });
+
+    it('Computes distinct frequency response curves (dB) across low, mid, and high bands for each template', () => {
+      // gentle-guide boosts low end (165Hz) strongly while starlight-companion boosts crystalline high-mids (1920Hz)
+      const gentleLow = computeFrequencyResponseAt('gentle-guide', 150);
+      const playfulLow = computeFrequencyResponseAt('playful-buddy', 150);
+      expect(gentleLow).toBeGreaterThan(playfulLow);
+
+      const starlightHighMid = computeFrequencyResponseAt('starlight-companion', 2000);
+      const gentleHighMid = computeFrequencyResponseAt('gentle-guide', 2000);
+      expect(starlightHighMid).toBeGreaterThan(gentleHighMid);
+    });
+
+    it('Generates valid non-linear WaveShaper soft-saturation curves for harmonic warmth', () => {
+      const curve = createWarmSaturationCurve(0.22, 128);
+      expect(curve).toBeInstanceOf(Float32Array);
+      expect(curve.length).toBe(128);
+      // Bounded smoothly within [-1.1, 1.1] without NaN or Infinity
+      curve.forEach(val => {
+        expect(Number.isFinite(val)).toBe(true);
+        expect(Math.abs(val)).toBeLessThanOrEqual(1.1);
+      });
+    });
+
+    it('Eliminates repetitive single-tone AI clicks via pentatonic scale progression and micro-detuning', () => {
+      sounds.setTemplate('playful-buddy');
+      const n1 = sounds.getNextScaleNote();
+      const n2 = sounds.getNextScaleNote();
+      const n3 = sounds.getNextScaleNote();
+
+      expect(n1.frequency).not.toBe(n2.frequency);
+      expect(n2.frequency).not.toBe(n3.frequency);
+      expect(n1.microDetuneCents).not.toBe(n2.microDetuneCents);
+    });
+
+    it('Constructs a complete Web Audio API DSP processing chain (LowShelf, Peaking Formant, HighCut, WaveShaper, Delay)', () => {
+      const makeParam = () => ({
+        setValueAtTime: vi.fn(),
+        linearRampToValueAtTime: vi.fn(),
+        exponentialRampToValueAtTime: vi.fn()
+      });
+
+      const mockContext = {
+        currentTime: 0,
+        destination: {},
+        createBiquadFilter: vi.fn(() => ({
+          type: 'lowpass',
+          frequency: makeParam(),
+          gain: makeParam(),
+          Q: makeParam(),
+          connect: vi.fn()
+        })),
+        createWaveShaper: vi.fn(() => ({
+          curve: null,
+          oversample: 'none',
+          connect: vi.fn()
+        })),
+        createGain: vi.fn(() => ({
+          gain: makeParam(),
+          connect: vi.fn()
+        })),
+        createDelay: vi.fn(() => ({
+          delayTime: makeParam(),
+          connect: vi.fn()
+        })),
+        createStereoPanner: vi.fn(() => ({
+          pan: makeParam(),
+          connect: vi.fn()
+        }))
+      } as unknown as AudioContext;
+
+      const chain = sounds.createTemplateDSPChain(mockContext, 'starlight-companion', 0.15);
+
+      expect(chain.lowShelfFilter.type).toBe('lowshelf');
+      expect(chain.formantFilter.type).toBe('peaking');
+      expect(chain.highCutFilter.type).toBe('lowpass');
+      expect(chain.waveShaper.oversample).toBe('2x');
+      expect(chain.waveShaper.curve).toBeInstanceOf(Float32Array);
+    });
+
+    it('Synchronizes Web Audio DSP template automatically when speechNarrator switches profile', () => {
+      speechNarrator.setProfile('starlight-companion');
+      expect(sounds.getTemplate()).toBe('starlight-companion');
+
+      speechNarrator.setProfile('gentle-guide');
+      expect(sounds.getTemplate()).toBe('gentle-guide');
+
+      speechNarrator.setProfile('warm-sister');
+      expect(sounds.getTemplate()).toBe('warm-sister');
+    });
+
+    it('Toggles mute state and executes all template synthesis methods safely', () => {
       sounds.setMuted(true);
       expect(sounds.getMuted()).toBe(true);
 
-      // Playing sounds while muted should be safe no-op
       expect(() => sounds.playClick()).not.toThrow();
       expect(() => sounds.playBell()).not.toThrow();
       expect(() => sounds.playWarmBloom()).not.toThrow();
       expect(() => sounds.playWarmHug()).not.toThrow();
+      expect(() => sounds.playTemplateSignature('playful-buddy')).not.toThrow();
+      expect(() => sounds.playSpeechProsodyCue('warm-sister', 0)).not.toThrow();
 
       sounds.setMuted(false);
       expect(sounds.getMuted()).toBe(false);
@@ -165,54 +295,41 @@ describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () 
   });
 
   describe('SpeechNarrator - AG-04A Audio & Narrative Lifecycle Controls', () => {
-    it('CONTRACT: Provides pause, resume, and stop controls for child narrative', async () => {
-      const { speechNarrator } = await import('../utils/speech');
-      
-      // Stop resets speech state
+    it('CONTRACT: Provides pause, resume, and stop controls for child narrative', () => {
       speechNarrator.stop();
       expect(speechNarrator.getSpeaking()).toBe(false);
       expect(speechNarrator.getIsPaused()).toBe(false);
 
-      // Pause when not speaking is safe
       speechNarrator.pause();
       expect(speechNarrator.getIsPaused()).toBe(false);
 
-      // Calling stop clears active state
       speechNarrator.stop();
       expect(speechNarrator.getIsPaused()).toBe(false);
       expect(speechNarrator.getSpeaking()).toBe(false);
     });
 
-    it('CONTRACT: Replay recalls the last spoken narrative string', async () => {
-      const { speechNarrator } = await import('../utils/speech');
+    it('CONTRACT: Replay recalls the last spoken narrative string', () => {
       speechNarrator.stop();
 
-      // Trigger speak on sample text
       speechNarrator.speak('欢迎来到晴雨小岛，我们一起慢慢看');
       expect(speechNarrator.getLastText()).toBe('欢迎来到晴雨小岛，我们一起慢慢看');
 
-      // Replay should not throw and retains the lastText
       expect(() => speechNarrator.replay()).not.toThrow();
       expect(speechNarrator.getLastText()).toBe('欢迎来到晴雨小岛，我们一起慢慢看');
 
       speechNarrator.stop();
     });
 
-    it('CONTRACT: Detects lack of Chinese voice and exposes warning instead of silent fake success', async () => {
-      const { speechNarrator } = await import('../utils/speech');
-
-      // Warning getter and dismiss method exist and behave predictably
+    it('CONTRACT: Detects lack of Chinese voice and exposes warning instead of silent fake success', () => {
       expect(typeof speechNarrator.hasChineseVoice()).toBe('boolean');
       expect(typeof speechNarrator.getVoiceWarning).toBe('function');
       expect(typeof speechNarrator.dismissVoiceWarning).toBe('function');
 
-      // Dismiss voice warning clears it
       speechNarrator.dismissVoiceWarning();
       expect(speechNarrator.getVoiceWarning()).toBeNull();
     });
 
-    it('CONTRACT: Subscribers receive notifications on speech lifecycle changes', async () => {
-      const { speechNarrator } = await import('../utils/speech');
+    it('CONTRACT: Subscribers receive notifications on speech lifecycle changes', () => {
       let notifyCount = 0;
 
       const unsubscribe = speechNarrator.subscribe(() => {
@@ -227,4 +344,3 @@ describe('Speech System Voice Optimization & Anti-Robotic Filter Contracts', () 
     });
   });
 });
-

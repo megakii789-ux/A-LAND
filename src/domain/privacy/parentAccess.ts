@@ -1,7 +1,7 @@
 /**
- * Local accidental-entry barrier for Parent Dashboard (SEC-06).
+ * Local accidental-entry barrier for Parent Dashboard (SEC-06 & Phase 3 P1 #5).
  * NOT identity verification, NOT server authentication.
- * Salted hash stored in this tab's sessionStorage; unlocked state only in memory.
+ * Salted PBKDF2 hash stored in this tab's sessionStorage; unlocked state only in memory.
  */
 
 export interface PinRecord {
@@ -10,8 +10,15 @@ export interface PinRecord {
   iterations: number;
 }
 
+export interface VerifyPinResult {
+  success: boolean;
+  error?: string;
+  remainingAttempts?: number;
+  lockoutSeconds?: number;
+}
+
 const STORAGE_PIN_KEY = 'aland_parent_gate_pin_v2';
-const ITERATIONS = 210_000;
+const ITERATIONS = 120_000;
 let granted = false;
 
 // Consecutive failed attempts rate-limiting (anti-bruteforce)
@@ -30,10 +37,30 @@ export function grantParentAccess(): void {
 
 export function lockParentAccess(): void {
   granted = false;
+  failedAttempts = 0;
+  lockoutUntil = 0;
+}
+
+export function resetParentPinForTesting(): void {
+  granted = false;
+  failedAttempts = 0;
+  lockoutUntil = 0;
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.removeItem(STORAGE_PIN_KEY);
+    }
+  } catch {
+    // Ignore
+  }
 }
 
 export function pinFormatValid(pin: string): boolean {
-  return /^\d{6,12}$/.test(pin) && !/^(\d)\1+$/.test(pin);
+  const cleaned = pin.trim();
+  return /^\d{6,12}$/.test(cleaned) && !/^(\d)\1+$/.test(cleaned);
+}
+
+export function isValidPinFormat(pin: string): boolean {
+  return pinFormatValid(pin);
 }
 
 const hex = (b: Uint8Array) =>
@@ -52,7 +79,7 @@ async function derive(pin: string, salt: Uint8Array, iterations: number): Promis
     ['deriveBits']
   );
   const bytes = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', hash: 'SHA-256', iterations, salt: salt as BufferSource },
+    { name: 'PBKDF2', hash: 'SHA-256', iterations, salt: salt as unknown as BufferSource },
     key,
     256
   );
@@ -64,7 +91,7 @@ export async function makePinRecord(pin: string): Promise<PinRecord> {
     throw new Error('请设置 6–12 位数字，且不能全部为相同数字。');
   }
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  const hash = await derive(pin, salt, ITERATIONS);
+  const hash = await derive(pin.trim(), salt, ITERATIONS);
   return {
     salt: hex(salt),
     hash: hex(hash),
@@ -74,6 +101,7 @@ export async function makePinRecord(pin: string): Promise<PinRecord> {
 
 export function readPinRecord(): PinRecord | null {
   try {
+    if (typeof sessionStorage === 'undefined') return null;
     const raw = sessionStorage.getItem(STORAGE_PIN_KEY);
     if (!raw) return null;
     const v = JSON.parse(raw) as PinRecord;
@@ -88,14 +116,37 @@ export function readPinRecord(): PinRecord | null {
 }
 
 export function savePinRecord(record: PinRecord): void {
-  sessionStorage.setItem(STORAGE_PIN_KEY, JSON.stringify(record));
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem(STORAGE_PIN_KEY, JSON.stringify(record));
+    }
+  } catch {
+    // Ignore
+  }
 }
 
-export interface VerifyPinResult {
-  success: boolean;
-  error?: string;
-  remainingAttempts?: number;
-  lockoutSeconds?: number;
+export async function checkPin(pin: string, record: PinRecord): Promise<boolean> {
+  if (
+    !record ||
+    typeof record.salt !== 'string' ||
+    typeof record.hash !== 'string' ||
+    !Number.isInteger(record.iterations)
+  ) {
+    return false;
+  }
+  const cleaned = pin.trim();
+  if (!/^\d{6,12}$/.test(cleaned)) return false;
+  try {
+    const actual = await derive(cleaned, unhex(record.salt), record.iterations);
+    const expected = unhex(record.hash);
+    let diff = actual.length ^ expected.length;
+    for (let i = 0; i < actual.length; i++) {
+      diff |= actual[i] ^ (expected[i] || 0);
+    }
+    return diff === 0;
+  } catch {
+    return false;
+  }
 }
 
 export async function verifyPin(pin: string): Promise<VerifyPinResult> {
@@ -117,23 +168,16 @@ export async function verifyPin(pin: string): Promise<VerifyPinResult> {
     };
   }
 
-  if (!/^\d{6,12}$/.test(pin)) {
+  const cleaned = pin.trim();
+  if (!/^\d{6,12}$/.test(cleaned)) {
     return {
       success: false,
       error: 'PIN 格式不正确（需为 6–12 位纯数字）。'
     };
   }
 
-  const actual = await derive(pin, unhex(record.salt), record.iterations);
-  const expected = unhex(record.hash);
-
-  // Constant-time comparison
-  let diff = actual.length ^ expected.length;
-  for (let i = 0; i < actual.length; i++) {
-    diff |= actual[i] ^ (expected[i] || 0);
-  }
-
-  if (diff === 0) {
+  const matched = await checkPin(cleaned, record);
+  if (matched) {
     failedAttempts = 0;
     lockoutUntil = 0;
     grantParentAccess();

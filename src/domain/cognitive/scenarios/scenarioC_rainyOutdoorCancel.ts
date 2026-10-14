@@ -3,14 +3,9 @@
  * 
  * 认知目标：
  * 1. 结构迁移：位置决定视角效应 (PERSPECTIVE_DEPENDENT_EFFECT)。
- *    客观事实只有一件：天空下起大雨。但处于不同位置的主体（想踢足球的小朋友 vs 泥土里渴望喝水的小麦和蜗牛），感受和需求完全不同。
- * 2. 区分可控与不可控控制点 (Locus of Control)：
- *    老天爷下不下雨是完全不可控的外在客观事件，不因任何人的意愿改变；但自己接下来选择在室内做什么，是自己完全可以决定的。
- * 3. 拒绝有毒的强制积极思考 (Anti-Toxic Positivity)：
- *    允许孩子保持失望！“原定的郊游泡汤了，感到沮丧、撅起嘴巴完全是被允许的正常感受”，严禁要求儿童“必须马上感恩下雨 / 必须开心”。
- * 
- * 对应认知结构：
- * StructureId.PERSPECTIVE_DEPENDENT_EFFECT & 控制点区分
+ * 2. 区分可控与不可控控制点 (Locus of Control)。
+ * 3. 拒绝有毒的强制积极思考 (Anti-Toxic Positivity)。
+ * 4. R3-03：在独立专业审核完成前保持 PENDING_REVIEW，不编造专家委员会。
  */
 
 import { UnifiedSceneDefinition, CognitiveLayer } from '../types';
@@ -121,8 +116,8 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_c1_calmed_down',
-          feedbackScenario: '抱紧玩偶静静坐了一会儿',
-          feedbackSpokenText: '抱着软软的玩偶，肩膀渐渐放松了下来。难过的感觉像雨水一样，慢慢流过，没那么堵得慌了。',
+          feedbackScenario: '一种可能：抱紧玩偶静静坐了一会儿',
+          feedbackSpokenText: '抱着软软的玩偶，肩膀可能渐渐放松下来。失望的感觉是允许存在的，不用逼自己马上开心。',
           allowsReadjustment: true,
           outcomeType: 'CALM_RESULT',
         },
@@ -131,7 +126,7 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
     {
       actionId: 'choice_c_indoor_tent_alternative',
       labelSpokenText: '把精力转到自己能决定的事情上：“虽然不能去公园，但我们可以在客厅用被子搭一个‘室内探险帐篷’！”',
-      actionDescription: '区分不可控的天气与可控的室内活动，在自己可掌控的范围内重新创造乐趣。',
+      actionDescription: '区分不可控的天气与可控的室内活动，在自己可掌控的范围内尝试新玩法。',
       locusOfControl: 'INTERNAL_CONTROL',
       privacyLevel: 'NO_DISCLOSURE',
       isSafeBoundaryAction: false,
@@ -140,8 +135,8 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_c2_fun_indoors',
-          feedbackScenario: '客厅帐篷搭好了',
-          feedbackSpokenText: '你和家人用被子和椅子搭了一座大帐篷，拿手电筒在里面吃饼干，客厅变成了神秘的探险岛。',
+          feedbackScenario: '一种可能：客厅帐篷搭好了',
+          feedbackSpokenText: '一种可能是，你和家人用被子和椅子搭了一座帐篷，在客厅里玩起了室内探险。',
           allowsReadjustment: true,
           outcomeType: 'OBSERVED_FACT',
         },
@@ -150,7 +145,7 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
     {
       actionId: 'choice_c_observe_rain_together',
       labelSpokenText: '走到窗前看雨：“看看窗户上的小雨滴在赛跑，找找泥土里的蜗牛有没有钻出来。”',
-      actionDescription: '换个角度观察大自然的真实发生，把注意力转向正在喝水的大自然。',
+      actionDescription: '换个角度观察大自然的真实发生，看看窗外的雨景。',
       locusOfControl: 'INTERNAL_CONTROL',
       privacyLevel: 'NO_DISCLOSURE',
       isSafeBoundaryAction: false,
@@ -159,8 +154,8 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_c3_snail_observed',
-          feedbackScenario: '看到了树叶底下的蜗牛',
-          feedbackSpokenText: '窗外的花坛里，两只小蜗牛正慢慢探出脑袋。大雨让它们舒舒服服洗了个澡。',
+          feedbackScenario: '一种可能：看到了花坛边的雨滴和蜗牛',
+          feedbackSpokenText: '窗外的花坛里，雨水正落在树叶上，你观察到了平时晴天看不到的雨中景色。',
           allowsReadjustment: true,
           outcomeType: 'OBSERVED_FACT',
         },
@@ -174,7 +169,7 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
     allowSilence: true,
     allowPassOrSkip: true,
     allowPrivateKeep: true,
-    spokenExitGuidance: '计划泡汤的时候，难过是完全正常的。你不需要逼自己立刻笑出来。慢慢来，小岛会一直在这里陪着你。',
+    spokenExitGuidance: '计划泡汤的时候，难过是完全正常的。你不需要逼自己立刻笑出来。',
   },
 
   isHeldOutTransfer: true,
@@ -184,11 +179,11 @@ export const SCENARIO_C_RAINY_OUTDOOR_CANCEL: UnifiedSceneDefinition = {
   allowNegativeEmotionPreservation: true,
 
   provenance: {
-    author: 'A-LAND 儿童认知发展工作组',
-    sourceDescription: '基于儿童控制点理论与情绪接纳原理设计',
-    reviewStatus: 'REVIEWED_SAFE',
-    reviewedBy: '儿童心理发展与临床伦理专家委员会',
-    reviewDate: '2026-10-12',
-    pedagogicalNotes: '重点训练“事实 vs 解释”以及“视角效应”，同时全力捍卫儿童真实失望情绪的正当性，不搞有毒的正能量绑架。',
+    author: 'A-LAND 研发草拟',
+    sourceDescription: '基于儿童控制点理论与情绪接纳原理草拟（待独立专业伦理审核）',
+    reviewStatus: 'PENDING_REVIEW',
+    reviewedBy: '',
+    reviewDate: '',
+    pedagogicalNotes: '待独立专业审核：训练“事实 vs 解释”以及“视角效应”，捍卫儿童真实失望情绪的正当性。',
   },
 };

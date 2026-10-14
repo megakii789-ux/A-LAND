@@ -1,75 +1,60 @@
 import React, { useState } from 'react';
-import { Heart, Sparkles, Check } from 'lucide-react';
+import { Heart, Users } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { sounds } from '../../utils/sound';
+import { speechNarrator } from '../../utils/speech';
 
 export const HugButton: React.FC = () => {
-  const { requestHug, tonightAt } = useApp();
-  const [isPressed, setIsPressed] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const { requestHug } = useApp();
+  const [showLocalPrompt, setShowLocalPrompt] = useState(false);
 
-  const handleClick = () => {
+  const handleHugClick = () => {
     sounds.playWarmHug();
-    setIsPressed(true);
-    requestHug(tonightAt === '妈妈家' ? '妈妈' : '爸爸');
-    setShowConfirmation(true);
-
+    requestHug('当前照顾者');
+    setShowLocalPrompt(true);
+    speechNarrator.speak(
+      '这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。'
+    );
     setTimeout(() => {
-      setIsPressed(false);
-    }, 400);
-
-    setTimeout(() => {
-      setShowConfirmation(false);
-    }, 4500);
+      setShowLocalPrompt(false);
+    }, 3800);
   };
 
   return (
-    <div className="relative inline-block w-full sm:w-auto">
+    <div className="relative inline-block">
       <button
-        onClick={handleClick}
-        className={`group relative flex items-center justify-center sm:justify-start gap-3.5 px-6 py-4 min-h-[64px] w-full sm:w-auto rounded-3xl shadow-lg transition-all duration-200 motion-reduce:transition-none transform active:scale-95 motion-reduce:active:scale-100 cursor-pointer ${
-          showConfirmation
-            ? 'bg-rose-500 text-white shadow-rose-200/60'
-            : 'bg-linear-to-r from-rose-400 via-pink-400 to-rose-400 text-white hover:shadow-rose-200/80 hover:brightness-105'
+        onClick={handleHugClick}
+        className={`group relative flex items-center gap-3 px-6 py-4 rounded-3xl font-bold text-lg shadow-xl transition-all duration-300 cursor-pointer min-h-[64px] ${
+          showLocalPrompt
+            ? 'bg-emerald-600 text-white scale-105 ring-4 ring-emerald-200/80'
+            : 'bg-linear-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white hover:scale-103 active:scale-95 ring-4 ring-rose-200/60'
         }`}
-        aria-label="抱抱键 - 点击告诉身边的家人现在需要一个温暖拥抱"
+        aria-label="找身边的大人抱抱：这里不会发送远程通知，请直接找身边信任的大人"
       >
-        {/* Soft breathing pulse effect */}
-        <span className="absolute -inset-1 rounded-3xl bg-rose-400/25 animate-pulse motion-reduce:animate-none opacity-75 group-hover:opacity-100 pointer-events-none" />
-
-        <div className="relative flex items-center justify-center w-10 h-10 min-w-[40px] rounded-2xl bg-white/20 backdrop-blur-xs shrink-0">
-          {showConfirmation ? (
-            <Check className="w-6 h-6 text-white" />
+        <div
+          className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-transform duration-300 ${
+            showLocalPrompt
+              ? 'bg-white/25 scale-110'
+              : 'bg-white/20 group-hover:scale-110'
+          }`}
+        >
+          {showLocalPrompt ? (
+            <Users className="w-6 h-6 text-white" />
           ) : (
-            <Heart className="w-6 h-6 text-white fill-white/90 group-hover:scale-110 transition-transform" />
+            <Heart className="w-6 h-6 fill-white text-white" />
           )}
         </div>
-
-        <div className="relative text-left">
-          <div className="text-lg sm:text-xl font-black tracking-wide flex items-center gap-1.5">
-            {showConfirmation ? '小提醒已送出' : '抱抱键'}
-            <Sparkles className="w-4 h-4 text-amber-200" />
+        <div className="text-left">
+          <div className="text-base sm:text-lg font-extrabold leading-tight flex items-center gap-1.5">
+            <span>{showLocalPrompt ? '请直接找身边的大人' : '找身边大人抱抱'}</span>
           </div>
-          <div className="text-base text-rose-100 font-medium">
-            {showConfirmation ? '已把需要抱抱的提醒放到大人端' : '点一下，叫身边的家人抱抱你'}
+          <div className="text-xs font-medium text-rose-50 opacity-95">
+            {showLocalPrompt
+              ? '本机不发远程通知 · 已打开当面求助卡'
+              : '点一下，打开给身边大人看的求助卡'}
           </div>
         </div>
       </button>
-
-      {/* Gentle confirmation bubble (constrained max-w to prevent mobile overflow) */}
-      {showConfirmation && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[calc(100vw-32px)] max-w-xs sm:max-w-sm bg-white/95 backdrop-blur-md p-4 rounded-3xl shadow-xl border-2 border-rose-200 text-stone-800 text-base text-center animate-in fade-in slide-in-from-bottom-2 duration-300 z-30 pointer-events-none">
-          <p className="font-extrabold text-rose-600 mb-1 flex items-center justify-center gap-1.5">
-            <Heart className="w-4 h-4 fill-rose-600" />
-            <span>轻声提醒已送达</span>
-          </p>
-          <p className="text-stone-600 leading-relaxed font-medium">
-            大人那边已收到你的抱抱心愿。无论什么时候，你都值得被好好拥抱！
-          </p>
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-r-2 border-b-2 border-rose-200" />
-        </div>
-      )}
     </div>
   );
 };
-

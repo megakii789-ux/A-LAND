@@ -38,12 +38,12 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       zeContent: {
         choiceA: {
           text: '说它“大”还是“小”都可以，看跟谁比',
-          benefit: '大家都没说错，不用争吵',
+          benefit: '可能大家都能听懂对方的意思，减少争吵',
           cost: '要多说一句“它比积木大，但比水桶小”'
         },
         choiceB: {
           text: '不管别人怎么说，直接量一量它有多高',
-          benefit: '最清楚准确，讲的是事实',
+          benefit: '清楚准确，讲的是眼睛看到的事实',
           cost: '需要一把尺子花点时间量'
         }
       }
@@ -53,7 +53,7 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
         id: 'cup-1',
         label: '换位置说话',
         description: '对积木说“它很大”，对水桶说“它很小”。名字是相对的。',
-        benefit: '理解每个人的感觉都有道理',
+        benefit: '尝试看到不同位置看到的不同信息',
         cost: '需要多想一秒再回答'
       },
       {
@@ -65,7 +65,7 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       }
     ],
     offscreenTask: {
-      action: '在家里找一只平时喝水的小杯子，然后找一个比它小的东西（比如橡皮），再找一个比它大的东西（比如锅）。指给爸爸或妈妈看！',
+      action: '在家里找一只平时喝水的小杯子，然后找一个比它小的东西（比如橡皮），再找一个比它大的东西（比如锅）。指给身边的大人看！',
       tipForAdult: '当孩子拿给你看时，温和地复述：“对橡皮来说杯子是大，对锅来说它是小，杯子本身没有变呢。”'
     },
     compareWithOtherLeaf: {
@@ -81,6 +81,7 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
     category: '一事多面',
     weight: 'light',
     character: '小青蛙与小兔子',
+    boundary: 'NONE',
     summary: '天空中乌云密布，哗啦啦下起了一场大雨。小青蛙跳进池塘呱呱欢呼，拿着风筝准备去草地野餐的小兔子却难过地低下了头……',
     doors: {
       fen: {
@@ -93,14 +94,14 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       },
       ze: {
         question: '雨停不了，小兔子今天可以怎么选？',
-        description: '在小天平上掂量：是继续生闷气，还是换个雨天玩法？'
+        description: '在小天平上掂量：允许自己先难过一会儿，或者换个雨天玩法？'
       }
     },
     walkSteps: {
       fenContent: {
         fact: '事实：今天下雨了，地面湿漉漉的，不能在草地放风筝。',
         guess: '小兔猜：“老天爷肯定是故意针对我，讨厌我出去玩。”',
-        feeling: '小兔子好失望，种麦子的老伯伯心里很高兴。'
+        feeling: '小兔子好失望（失望是完全正常的），种麦子的老伯伯心里很高兴。'
       },
       tongContent: {
         sideA: '正面（对种地的伯伯和小荷花好）：麦苗喝足了水，会长得绿油油！',
@@ -110,12 +111,12 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       zeContent: {
         choiceA: {
           text: '在家里搭一个室内帐篷野餐，听窗外的雨声',
-          benefit: '还是可以和小伙伴一起吃到美味的点心',
+          benefit: '可能还是能和小伙伴一起吃到美味的点心',
           cost: '不能在草地上奔跑放风筝了'
         },
         choiceB: {
-          text: '穿上雨衣小雨靴，去踩水洼听啪嗒声',
-          benefit: '发现雨天特有的好玩踩水游戏',
+          text: '先安静坐一会儿，或者穿雨衣小雨靴去看看小水洼',
+          benefit: '允许自己失望，也可能发现雨天特有的水洼声音',
           cost: '裤脚可能会溅到泥水，回家要洗脚'
         }
       }
@@ -125,20 +126,20 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
         id: 'rain-1',
         label: '搭屋里小帐篷野餐',
         description: '把垫子铺在客厅，吃草莓小蛋糕。',
-        benefit: '又暖和又开心，不受天气影响',
+        benefit: '暖和舒适，不受窗外下雨影响',
         cost: '空间比草地小一点点'
       },
       {
         id: 'rain-2',
-        label: '穿小靴子去踩踩小水坑',
+        label: '穿小靴子去踩踩小水坑（或安静看雨）',
         description: '听雨滴掉在伞面上的咚咚声。',
-        benefit: '体验大自然的另一面',
+        benefit: '观察大自然的另一面',
         cost: '需要穿雨衣慢慢走'
       }
     ],
     offscreenTask: {
       action: '推开窗户或者走出房门，深吸一口气，看看今天的天空，想想除了我以外，小树、小鸟或者小蚂蚁在做什么？',
-      tipForAdult: '陪伴孩子感知自然的多面性，接纳计划被打乱的失望感，示范退后一步的从容。'
+      tipForAdult: '陪伴孩子感知自然的多面性，接纳计划被打乱的失望感，不强迫孩子立刻高兴起来。'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
@@ -149,15 +150,16 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
   {
     id: 'not-my-fault',
     title: '小熊的心事：不是我的错',
-    subtitle: '家的形状：大人的决定在大人圈，孩子永远被爱着',
+    subtitle: '家的形状（需成人共读 · 待独立审查）：大人的决定在大人圈',
     category: '家的形状',
     weight: 'deep',
     character: '小熊波波',
-    summary: '小熊波波最近有两个家，有时候住森林东边的木屋，有时候住西边的花丛。一天晚上，波波突然掉了眼泪，他小声问：“是不是因为上周我把果酱打翻了，爸爸妈妈才分开的？”',
+    boundary: 'ADULT_RESPONSIBILITY_CROSSING',
+    summary: '小熊波波最近在不同的房子生活。一天晚上，波波突然掉了眼泪，他小声问：“是不是因为上周我把果酱打翻了，爸爸妈妈才分开的？”',
     doors: {
       fen: {
         question: '哪些是真正发生的事，哪些是小熊脑子里的猜测？',
-        description: '分一分：分开住是事实；“都怪我”只是小熊脑海里的一个声音。'
+        description: '分一分：分开住是事实；“都怪我”只是小熊脑海里的一个猜测。'
       },
       tong: {
         question: '用天上的眼睛看：大人的责任圈和小熊的圈子。',
@@ -165,131 +167,132 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       },
       ze: {
         question: '心里堵堵的时候，小熊可以选怎么做？',
-        description: '把心里的话说出来，还是默默藏在肚子里？在小天平上量一量。'
+        description: '可以告诉信任的大人，也可以画下来或先安静休息。'
       }
     },
     walkSteps: {
       fenContent: {
         fact: '事实：爸爸妈妈做了一个决定，不住在同一个房子里了。',
-        guess: '脑子里的猜测：“是我不听话、打翻了果酱，他们才分开的。”（这不是真的！）',
+        guess: '脑子里的猜测：“是我不听话、打翻了果酱，他们才分开的。”（这不是事实！）',
         feeling: '难过、担心、想念，肚子里像被揪紧了一样。'
       },
       tongContent: {
-        sideA: '大人的圈子：婚姻是大人之间的关系，大人的难题由大人自己承担。',
-        sideB: '小熊的圈子：小熊是小孩子，尽情长大、玩耍、被爱就是小熊的全部任务。',
-        whoseView: '不论家里的形状怎么变，爱小熊的心从来没有减少一丁点。'
+        sideA: '大人的圈子：婚姻是大人之间的关系，大人的决定由大人自己负责。',
+        sideB: '小熊的圈子：小熊是小孩子，长大、玩耍、被照顾是小熊的圈子。',
+        whoseView: '大人的生活安排改变，不是因为小孩子做错了事。'
       },
       zeContent: {
         choiceA: {
-          text: '扑进大人的怀抱，大声问出心里的疑问',
-          benefit: '听大人亲口说出“绝对不是你的错”，心里一下子放松了',
-          cost: '需要一点小小的勇气开口'
+          text: '走到身边信任的大人面前，问出心里的疑问',
+          benefit: '可能听到大人说明“这不是你的错”，心里慢慢松一口气',
+          cost: '需要一点勇气开口（如果不愿开口也可以先不说）'
         },
         choiceB: {
-          text: '给可信的大人递一张画着自己心事的小纸条',
-          benefit: '不用说话也能让大人知道自己的感受',
+          text: '给可信的大人画一张小纸条，或者先抱抱小玩偶休息',
+          benefit: '不用勉强说话，也能按自己的节奏表达或休息',
           cost: '需要花几分钟画出来'
         },
-        fenceReminder: '绝对围栏：伤害自己身体、忍着委屈不说话是不能上天平的！一定要告诉信任的大人。'
+        fenceReminder: '安全围栏：大人的婚姻决定绝不属于小孩的责任，不需要把大人的压力背在自己身上。'
       }
     },
     choices: [
       {
         id: 'fault-1',
-        label: '要一个暖暖的抱抱并问出来',
+        label: '跟身边信任的大人说一说',
         description: '“妈妈/爸爸，你们分开不是因为我，对不对？”',
-        benefit: '把重重的大石头放下来，心里亮堂起来',
+        benefit: '把心里的疑问说出来，请大人帮你放下重担',
         cost: '可能眼眶会有点红'
       },
       {
         id: 'fault-2',
-        label: '把心事放进想念盒里，慢慢商量',
-        description: '画一只小熊被两只大手牵着的小画。',
-        benefit: '让自己安静下来，慢慢感知爱',
-        cost: '需要时间慢慢体会'
+        label: '画一张小画或先安静抱抱玩偶',
+        description: '不想说话的时候，也可以只画下来或安静待一会儿。',
+        benefit: '尊重自己的节奏，不强迫自己马上表达',
+        cost: '可以等准备好了再给大人看'
       }
     ],
     offscreenTask: {
-      action: '去找今天在身边的爸爸、妈妈或照顾者，伸出双臂要一个长长的 10 秒钟温暖拥抱，听听大人的心跳声。',
-      tipForAdult: '请看着孩子的眼睛，平静而坚定地重复三句话：“你永远是我们最爱的宝贝；分开是大人的决定；这件事100%不是你的错。”'
+      action: '如果你愿意，可以找今天在身边的信任大人要一个拥抱，或者拍拍自己的肩膀说“这不是我的错”。',
+      tipForAdult: '请看着孩子的眼睛，温和而清楚地告诉孩子：“分开是大人的决定，这件事100%不是你的错。”'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
       question: '小熊脑子里的“都怪我”，像不像给杯子乱贴的旗子？',
-      keyAnalogy: '那面沉重的旗子只是脑袋猜出来的，把旗子摘下来，看到爱没有被分完！'
+      keyAnalogy: '那面沉重的旗子只是脑袋猜出来的，把旗子摘下来，大人的事由大人负责！'
     }
   },
   {
     id: 'two-homes-rules',
-    title: '两个家的规则不一样',
-    subtitle: '对错与规则：两个家有不同的习惯，但我都能适应',
+    title: '两个地方的规则不一样',
+    subtitle: '对错与规则（需成人共读 · 待独立审查）：不同环境有不同习惯',
     category: '对错与规则',
     weight: 'medium',
     character: '小兔米米',
-    summary: '在妈妈家，晚上必须把玩具收进三个彩色箱子里，8点半要上床看绘本；在爸爸家，积木可以搭在客厅地板上留到明天，可以9点喝一杯牛奶睡觉。米米有点懵：“到底谁的规则才是对的呢？”',
+    boundary: 'ADULT_RESPONSIBILITY_CROSSING',
+    summary: '在妈妈家，晚上要把玩具收进箱子里，8点半上床看绘本；在爸爸家，积木可以留在客厅地板上，9点喝牛奶睡觉。米米有点困惑：“到底谁的规则才是对的呢？”',
     doors: {
       fen: {
-        question: '先看清：爸爸家定了什么规矩？妈妈家定了什么规矩？',
-        description: '看清楚两条规矩的不同，哪些是事实，哪些是我自己的习惯。'
+        question: '先看清：两边各自定了什么日常习惯？',
+        description: '看清楚两条日常习惯的不同，哪些是生活习惯，哪些是安全底线。'
       },
       tong: {
-        question: '换位置看：为什么妈妈这样定？为什么爸爸那样定？',
-        description: '妈妈喜欢整洁安心，爸爸希望第二天继续创意。各自都有爱的方式。'
+        question: '换位置看：为什么两边会有不同的生活安排？',
+        description: '一边看重整洁作息，一边希望保留拼搭作品，各有不同的照顾方式。'
       },
       ze: {
-        question: '我在两个家生活，我可以怎么选？',
-        description: '在小天平上掂量：是发脾气抱怨，还是掌握“两个家的通行卡”？'
+        question: '面对不同的生活习惯，米米可以怎么选？',
+        description: '可以看看日常提醒卡，也可以向大人温和表达自己的小愿望。'
       }
     },
     walkSteps: {
       fenContent: {
-        fact: '事实：妈妈家和爸爸家有不同的时间表和整理方式。',
+        fact: '事实：不同住处有不同的作息时间和玩具整理方式。',
         guess: '猜想：“他们定不一样，是不是故意让我为难？”',
-        feeling: '刚换家的时候有点手忙脚乱，不知道按哪个做。'
+        feeling: '刚换环境的时候有点手忙脚乱，不知道按哪个做。'
       },
       tongContent: {
-        sideA: '妈妈的眼睛：收纳整齐能让房间清爽，8点半睡觉让早晨上学精神饱满。',
-        sideB: '爸爸的眼睛：积木连着做不打断灵感，喝牛奶能睡得香甜。',
-        whoseView: '两边都是为了照顾好米米，只是生活风格不同。'
+        sideA: '妈妈这边的考虑：收纳整齐能让房间清爽，早睡让早晨精神饱满。',
+        sideB: '爸爸这边的考虑：积木连着做不打断想法，喝牛奶能放松入睡。',
+        whoseView: '两边有不同的生活习惯，不需要由小孩来评判谁对谁错。'
       },
       zeContent: {
         choiceA: {
-          text: '成为“两个家的小管家”，在哪个家就遵守哪个家的小规矩',
-          benefit: '在每个家都玩得开心，大人也夸你适应力强',
-          cost: '需要换家第一天看一看视觉日程小提醒'
+          text: '用日程小卡片帮自己记住当前住处的作息习惯',
+          benefit: '可能更容易记住当天的安排，减少手忙脚乱',
+          cost: '需要转换环境时看一看提醒'
         },
         choiceB: {
-          text: '温和地向大人表达：“如果在妈妈家也能留一点积木，我会很开心”',
-          benefit: '表达自己的小小愿望，一起商量',
+          text: '温和地向大人表达：“如果也能留一点积木，我会很开心”',
+          benefit: '表达自己的小小愿望，和大人一起商量',
           cost: '大人可能同意，也可能有他们的理由'
         },
-        fenceReminder: '绝对围栏：身体保护、不许打人说谎害人的底线，在哪个家都一样严格！'
+        fenceReminder: '绝对围栏：身体保护、不许打人害人的安全底线，在任何地方都一样严格！'
       }
     },
     choices: [
       {
         id: 'rules-1',
-        label: '做适应两个家的小探险家',
-        description: '在妈妈家遵守收纳箱，在爸爸家享受积木城堡。',
-        benefit: '拥有两套生活超能力，在两个家都从容',
-        cost: '需要换家时转换一下脑筋'
+        label: '看一看当前住处的小习惯卡片',
+        description: '用小卡片提醒自己今天的作息。',
+        benefit: '不用自己死记硬背，减少紧张',
+        cost: '需要花一点时间适应'
       },
       {
         id: 'rules-2',
-        label: '和爸爸妈妈商量一条共同小习惯',
-        description: '比如无论在哪个家，睡前都要讲一个晚安小故事。',
-        benefit: '两个家有一根一模一样的温暖丝线',
-        cost: '需要大人之间也简单确认一下'
+        label: '和大人商量一条睡前共同小习惯',
+        description: '比如无论在哪里，睡前都可以抱抱自己的小玩偶。',
+        benefit: '可能保留一件熟悉安心的睡前小事',
+        cost: '需要和身边大人简单说一声'
       }
     ],
     offscreenTask: {
-      action: '想一件在两个家里你最喜欢的一件小规则（比如听故事或吃早餐），今天试着自己完成它，并对照顾你的人笑一个！',
-      tipForAdult: '尊重另一个家的合理规则差异，不在孩子面前贬低对方家里的生活习惯；核心安全与情绪接纳保持一致即可。'
+      action: '想一件你最喜欢的睡前安心小动作（比如抱抱玩偶或听故事），今天试着做一做。',
+      tipForAdult: '尊重不同住处的合理习惯差异，不在孩子面前贬低另一方的生活习惯；核心安全底线保持一致。'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
-      question: '两个家的规则不一样，和杯子在积木和水桶面前的样子有什么像？',
-      keyAnalogy: '环境不同，合理的做法就不同；只要底线守住，爱和照顾都可以继续！'
+      question: '不同地方的习惯不一样，和杯子在积木和水桶面前的样子有什么像？',
+      keyAnalogy: '环境不同，日常习惯可以不同；只要安全底线守住，不需要评判哪边才唯一正确。'
     }
   },
   {
@@ -308,11 +311,11 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       },
       tong: {
         question: '换个眼睛看呢？小青蛙怎么看？草地怎么看？',
-        description: '小青蛙最爱雨天洗澡，草地正好咕噜咕噜喝饱水。'
+        description: '小青蛙喜欢雨天洗澡，草地正好喝饱水。'
       },
       ze: {
         question: '不出门的话，我们今天可以怎么选？',
-        description: '在室内搭帐篷读绘本，还是在走廊跳格子？都可以。'
+        description: '在室内搭帐篷读绘本，还是先安静听听雨声？都可以。'
       }
     },
     walkSteps: {
@@ -322,19 +325,19 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
         feeling: '心里有点失望，腿想跑跑动动。'
       },
       tongContent: {
-        sideA: '🪙 这一面：去不了球场踢球，确实有点可惜。',
-        sideB: '🪙 翻过来的另一面：可以在家里客厅搭一个秘密毛毯城堡，平时都没时间玩！',
+        sideA: '🪙 这一面：去不了球场踢球，确实有点可惜，允许自己感到失望。',
+        sideB: '🪙 翻过来的另一面：也许可以在家里客厅搭一个毛毯城堡，换一种室内玩法。',
         whoseView: '雨水没有好坏之分，看我们怎样安排这一天。'
       },
       zeContent: {
         choiceA: {
-          text: '在客厅搭建秘密读书帐篷',
-          benefit: '又好玩又温馨，全家一起烤饼干',
+          text: '在客厅搭建读书帐篷',
+          benefit: '可能在室内也能玩出温馨的新花样',
           cost: '需要收拾一下沙发上的靠枕'
         },
         choiceB: {
-          text: '穿上雨衣去阳台听雨声录音',
-          benefit: '听雨点打在玻璃上的啪啪声，很解压',
+          text: '去窗边听雨点打在玻璃上的声音',
+          benefit: '安静观察雨滴，也让失望的心情慢慢缓一缓',
           cost: '鞋子不能踩进泥巴里'
         }
       }
@@ -343,26 +346,26 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       {
         id: 'rain-1',
         label: '在室内搭毛毯城堡',
-        description: '用沙发垫和毛毯搭一个属于自己的秘密小天地。',
-        benefit: '温暖又好玩，还能听雨声',
+        description: '用沙发垫和毛毯搭一个属于自己的小天地。',
+        benefit: '温暖好玩，还能听雨声',
         cost: '需要收拾一下沙发'
       },
       {
         id: 'rain-2',
-        label: '穿雨衣在走廊跳格子',
-        description: '在走廊做室内身体运动，把能量放出来。',
-        benefit: '腿脚舒展，开心大笑',
+        label: '在走廊跳格子或窗边看雨',
+        description: '在室内做不吵到别人的小活动。',
+        benefit: '舒展身体或安静休息',
         cost: '不能大喊大叫吵到邻居'
       }
     ],
     offscreenTask: {
-      action: '走到窗前，用耳朵听 30 秒雨点落下的声音，数数能听到几种不一样的声音。',
-      tipForAdult: '与孩子一起平静听雨，接纳孩子不能出门的轻度遗憾，陪伴完成室内游戏。'
+      action: '走到窗前，用耳朵听 30 秒雨点或窗外的声音，数数能听到几种不一样的声音。',
+      tipForAdult: '与孩子一起平静听雨，接纳孩子不能出门的失望感，陪伴完成室内游戏。'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
       question: '下雨天的心情，是不是也像杯子一样，换个角度就不一样？',
-      keyAnalogy: '雨就是雨，好还是坏由我们手里的选择决定！'
+      keyAnalogy: '雨就是雨，我们可以先接纳失望，再选择手里的下一步行动！'
     }
   },
   {
@@ -377,7 +380,7 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
     doors: {
       fen: {
         question: '发生了什么？谁想要小火车？',
-        description: '事实是一辆小火车，两个人都在伸手，心里都喜欢。'
+        description: '事实是一辆小火车，两个人都在伸手，心里都想玩。'
       },
       tong: {
         question: '换位置看：站在对方的角度他现在急不急？',
@@ -385,7 +388,7 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       },
       ze: {
         question: '我们可以怎么商量这个小火车？',
-        description: '轮流开、一起搭长轨道、还是一个当站长一个当司机？'
+        description: '轮流开、一起搭长轨道、或者请老师帮忙协调？'
       }
     },
     walkSteps: {
@@ -397,51 +400,51 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       tongContent: {
         sideA: '🪙 站在小刺猬看：我先拿到的，我想先把这趟送完。',
         sideB: '🪙 站在小浣熊看：我也喜欢小火车，我带了车站积木想一起拼！',
-        whoseView: '两个人都没恶意，都想玩开心的火车游戏。'
+        whoseView: '两个人都很想玩火车游戏，可以试试商量办法。'
       },
       zeContent: {
         choiceA: {
-          text: '设一个5分钟小沙漏，轮流当司机',
-          benefit: '每个人都能痛快当司机，谁也不委屈',
+          text: '设一个5分钟小沙漏，商量轮流当司机',
+          benefit: '如果对方同意，每个人都能轮流当司机；如果商量不下也可以请大人帮忙',
           cost: '需要等待沙漏漏完一轮'
         },
         choiceB: {
-          text: '一个人当司机，另一个人搭车站和乘客',
-          benefit: '两个人马上都能玩起来，轨道变得超级大',
-          cost: '其中一个人不能直接握着车头'
+          text: '提议一个人当司机，另一个人搭车站和乘客',
+          benefit: '可能两个人马上都能一起玩起来，把轨道搭得更大',
+          cost: '其中一个人暂时不能直接握着车头'
         }
       }
     },
     choices: [
       {
         id: 'toy-1',
-        label: '沙漏轮流玩',
-        description: '用沙漏计时，倒完一次换另一个人开。',
-        benefit: '公平清晰，大家都有机会',
-        cost: '要先等一等'
+        label: '提议用沙漏轮流玩',
+        description: '试试用沙漏计时，倒完一次换另一个人开。',
+        benefit: '是一种公平商量的尝试',
+        cost: '要先等一等，或者请大人帮忙计时'
       },
       {
         id: 'toy-2',
-        label: '分工合作玩',
+        label: '提议分工合作玩',
         description: '一个开火车，一个修铁轨和造火车站。',
-        benefit: '游戏变得更丰富更有趣',
+        benefit: '可能让游戏变得更丰富有趣',
         cost: '需要商量谁先当司机'
       }
     ],
     offscreenTask: {
-      action: '找身边的一件心爱玩具，示范一次“借给别人玩一分钟再拿回来”的信任小练习。',
-      tipForAdult: '赞许孩子的分享商量意识，强调“借出去不是丢掉，分享是轮流享用”。'
+      action: '找身边的一件玩具，和大人或朋友练习一次“轮流玩一分钟”的商量话术。',
+      tipForAdult: '肯定孩子尝试商量的做法，同时告诉孩子：如果同伴不肯商量甚至抢夺，可以随时找大人帮忙。'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
       question: '火车只有一辆，像不像杯子只有一只？',
-      keyAnalogy: '玩具没变，两个人一起搭世界，快乐就翻倍了！'
+      keyAnalogy: '看到两个人都想玩的心意，就能试试轮流或合作的不同办法！'
     }
   },
   {
     id: 'hitting-boundary',
     title: '他动手打了人，可以吗？',
-    subtitle: '绝对红线围栏：身体伤害绝不商量，但可以理解原因，先保护身体找大人',
+    subtitle: '绝对红线围栏（需成人共读 · 待独立审查）：身体伤害绝不商量，先保护身体找大人',
     category: '对错与规则',
     weight: 'deep',
     character: '小野猪皮皮',
@@ -475,13 +478,13 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
       zeContent: {
         choiceA: {
           text: '后退保护身体，走到安全大人身边求助',
-          benefit: '保护自己和别人的身体不受伤，大人会主持公道',
-          cost: '需要先把愤怒的气呼出来'
+          benefit: '优先保护自己的身体离开危险现场，请身边大人介入处理',
+          cost: '需要先停下手脚离开冲突区'
         },
         choiceB: {
-          text: '大声说“停下！不可以打人！”并离开现场',
-          benefit: '明确亮出红线，阻断危险继续发生',
-          cost: '需要深呼吸克制冲动'
+          text: '大声说“停下！不可以打人！”并离开现场找大人',
+          benefit: '明确亮出红线并撤离，如果对方没停下就立刻跑向大人',
+          cost: '需要深呼吸先离开现场'
         },
         fenceReminder: '绝对红线：身体伤害绝不能上小天平称好处！绝不能讨论打人有什么好处。'
       }
@@ -491,20 +494,20 @@ export const INITIAL_LEAF_SCENARIOS: LeafScenario[] = [
         id: 'hit-safe-1',
         label: '后退保护身体，找大人求助',
         description: '退后三步，走到老师或家人身边，说出刚才发生的事。',
-        benefit: '安全第一，身体不受伤',
-        cost: '需要先停下手脚'
+        benefit: '优先保护身体安全，让安全大人来帮忙',
+        cost: '需要先离开现场'
       },
       {
         id: 'hit-safe-2',
-        label: '大声说停，深呼吸把气吐给气球',
-        description: '两手抱胸深呼吸，大声说“停下！”离开打人现场。',
-        benefit: '阻断危险升级，保护大家',
-        cost: '需要花时间冷静'
+        label: '大声说停，离开现场并找大人',
+        description: '两手护住身体大声说“停下！”，然后离开打人现场找大人。',
+        benefit: '拉开安全距离，不让自己继续受伤',
+        cost: '如果对方不听，不要缠斗，直接跑向大人'
       }
     ],
     offscreenTask: {
-      action: '练习一次“后退三步”安全口诀：1后退、2抱胸深呼吸、3走向大人。',
-      tipForAdult: '明确告诉孩子：“你可以非常非常生气，但打人绝对不行。如果有人要打你，立刻跑向大人！”'
+      action: '练习一次“后退三步”安全口诀：1后退护住身体、2大声说停、3走向身边的安全大人。',
+      tipForAdult: '明确告诉孩子：“你可以非常非常生气，但打人绝对不行。如果有人要打你，不需要原谅或忍受，立刻离开并跑向大人！”'
     },
     compareWithOtherLeaf: {
       otherLeafTitle: '一只杯子，是大还是小？',
@@ -540,7 +543,7 @@ export const INITIAL_PARENT_SCRIPTS: ParentScript[] = [
     canSay: [
       '“当然爱！爸爸妈妈对你的爱不是一块饼，切一块少一块；它像阳光，不管在哪个家都照着你。”',
       '“大人分开是大人之间的关系，不是因为你；爱你的心每一天都一样多。”',
-      '“如果你想他/她，我们可以现在一起录一小句话或者画一幅画放进想念盒里。”'
+      '“如果你想他/她，我们可以现在一起画一幅画或把想说的话记下来。”'
     ],
     shouldNotSay: [
       '“他要是真爱你，怎么上周末不来接你？”（将大人的怨恨转嫁给孩子）',
@@ -651,41 +654,42 @@ export const INITIAL_PARENT_SCRIPTS: ParentScript[] = [
   }
 ];
 
+// Phase 3 P1 #2: 默认观察记录全部为 0，仅在显式 Demo Mode 时注入演示数据
 export const INITIAL_PARENT_OBSERVATIONS: ParentObservation[] = [
   {
     id: 'obs-frustration',
     dimension: '挫折之后的第一句话',
     oldBehavior: '常说“都怪我”或“都怪他把事情搞砸了”',
     targetBehavior: '会说“我再看看还有什么可能”或“刚才有点急，现在退后一步看看”',
-    selfInitiatedCount: 2
+    selfInitiatedCount: 0
   },
   {
     id: 'obs-others-action',
     dimension: '对别人举动的说法',
     oldBehavior: '常断定“他就是故意跟我过不去、故意抢我玩具”',
     targetBehavior: '能表达“他可能不是故意的，也可能是在着急，我不确定”',
-    selfInitiatedCount: 3
+    selfInitiatedCount: 0
   },
   {
     id: 'obs-after-choice',
     dimension: '做完选择之后',
     oldBehavior: '常说“反正没办法了”或“我选了又后悔”',
     targetBehavior: '能表达“我知道这个选择有代价，我愿意自己试试”',
-    selfInitiatedCount: 1
+    selfInitiatedCount: 0
   },
   {
     id: 'obs-person-label',
     dimension: '对人与事的区分（摘旗子）',
     oldBehavior: '常直接贴标签说“他是坏孩子、我是可怜的孩子”',
     targetBehavior: '能区分“他打人是不对的，但他还在学做朋友”',
-    selfInitiatedCount: 2
+    selfInitiatedCount: 0
   },
   {
     id: 'obs-own-emotion',
     dimension: '对自己的情绪命名',
     oldBehavior: '只会发脾气大喊大叫“我就是气死了！”',
     targetBehavior: '能主动说“我现在像一团红色的暴风雨，肚子里紧紧的”',
-    selfInitiatedCount: 4
+    selfInitiatedCount: 0
   }
 ];
 
@@ -724,19 +728,18 @@ export const INITIAL_WEEKLY_LESSONS: WeeklyLesson[] = [
   }
 ];
 
+// Phase 3 P1 #2 & R3-01: 默认活动标记全部为 unlocked: false，仅作为客观活动计数，不代表心理能力
 export const INITIAL_MEDALS: MedalRecord[] = [
-  // ☀️ 阳光勋章 (照亮想法与行动)
   {
     id: 'sun-awareness',
     title: '晨光觉察徽章',
     type: 'sun',
     emoji: '☀️',
     category: 'weather',
-    description: '看清并记录了属于今天的好心情！',
-    meaning: '命名情绪与自我觉察：退后一步，看清心里的阳光。',
+    description: '记录了一次今天的心情天气！',
+    meaning: '客观活动记录：完成了天气与身体感觉点选练习。',
     offscreenAction: '走出房门看看今天的天空，做一次深深的吸气！',
-    unlocked: true,
-    unlockedAt: '今天'
+    unlocked: false
   },
   {
     id: 'breaker-master',
@@ -745,7 +748,7 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     emoji: '🔨',
     category: 'breaker',
     description: '在大困难拆解台，把一块大石头拆解成 3 个小动作！',
-    meaning: '分通择的行动实践：把看似庞大的困难分解为具体可执行的微小动作。',
+    meaning: '客观活动记录：体验了把困难拆解为具体小动作的流程。',
     offscreenAction: '找一块家里的小积木，代表你的第一步小动作，握在手心3秒钟！',
     unlocked: false
   },
@@ -755,9 +758,9 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     type: 'sun',
     emoji: '🪙',
     category: 'leaves',
-    description: '翻转双面币，看到事情藏在背后的转机与好处！',
-    meaning: '去中心化换位思考：同一件事换个位置看，会有完全不同的风景。',
-    offscreenAction: '对今天陪你的大人说一句：“我刚才翻过硬币，想到了另一面哦！”',
+    description: '体验了翻转双面币，看看同一件事的不同面！',
+    meaning: '客观活动记录：体验了换个位置观察信息的工具。',
+    offscreenAction: '对今天陪你的大人说一句：“我刚才翻过硬币，看到了另一面哦！”',
     unlocked: false
   },
   {
@@ -766,24 +769,21 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     type: 'sun',
     emoji: '👣',
     category: 'breaker',
-    description: '用思考搭建了踏脚石小路，迈出了微小而勇敢的动作！',
-    meaning: '自我能动性与承担：自己选，自己担，迈出微小行动就是真正的勇敢。',
-    offscreenAction: '离开屏幕，去喝一小口温水，对镜子里的自己竖起大拇指！',
+    description: '在故事里挑选了一个小动作！',
+    meaning: '客观活动记录：体验了在可选行动中做出一次选择。',
+    offscreenAction: '离开屏幕，去喝一小口温水！',
     unlocked: false
   },
-
-  // 💧 雨滴勋章 (诚实接纳与温柔陪伴)
   {
     id: 'rain-acceptance',
     title: '温柔接雨徽章',
     type: 'rain',
     emoji: '💧',
     category: 'weather',
-    description: '诚实记录下雨或雷雨天，允许自己难过与流泪！',
-    meaning: '情绪许可与无条件接纳：所有感受都可以有，接纳难过本身就是了不起的超能力。',
+    description: '记录了一次下雨或雷雨天，允许自己难过与流泪！',
+    meaning: '客观活动记录：点选了一次阴雨或雷雨天气。',
     offscreenAction: '把双手轻轻放在心口，对自己小声说一句：“难过也没关系，我陪着自己。”',
-    unlocked: true,
-    unlockedAt: '今天'
+    unlocked: false
   },
   {
     id: 'rain-flow',
@@ -791,9 +791,9 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     type: 'rain',
     emoji: '🌧️',
     category: 'weather',
-    description: '记录了 3 次天气变化，体会到情绪会流动、雨总会变小！',
-    meaning: '情感安全感：知道情绪像天气一样，来去流动，乌云背后太阳一直在。',
-    offscreenAction: '看看窗外，想想上次下雨后是不是又出了彩虹？',
+    description: '记录了 3 次天气变化！',
+    meaning: '客观活动记录：累计完成了 3 次天气记录。',
+    offscreenAction: '看看窗外今天的天空是什么颜色。',
     unlocked: false
   },
   {
@@ -802,8 +802,8 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     type: 'rain',
     emoji: '❤️',
     category: 'hug',
-    description: '按下了抱抱键，懂得在需要时主动向信任的大人寻求温暖！',
-    meaning: '依恋安全感与求助能力：懂得向可信大人表达需要，绝不是软弱，而是智慧。',
+    description: '打开了本地找大人帮忙入口！',
+    meaning: '客观活动记录：查看了找身边大人帮忙的指引。',
     offscreenAction: '抱一抱今天在身边的家人，数到 5 听听心跳声！',
     unlocked: false
   },
@@ -813,8 +813,8 @@ export const INITIAL_MEDALS: MedalRecord[] = [
     type: 'rain',
     emoji: '🌿',
     category: 'weather',
-    description: '在绿草平静角完成了深呼吸与接地练习，让身体松了下来！',
-    meaning: '身体自我调节：通过生理机制激活副交感神经，身体松下来心就稳了。',
+    description: '在绿草平静角完成了深呼吸与着陆练习！',
+    meaning: '客观活动记录：完成了一次呼吸与感官着陆流程。',
     offscreenAction: '再吹灭一朵想象里的小蒲公英，把清风吹向身旁的大人！',
     unlocked: false
   }

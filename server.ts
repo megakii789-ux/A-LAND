@@ -1,70 +1,66 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
-import { GoogleGenAI } from '@google/genai';
-import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const app = express();
-const PORT = 3000;
+export function createApiApp() {
+  const app = express();
 
-app.use(express.json());
+  app.use(express.json({ limit: '16kb' }));
 
-// Server-side Gemini API initialization (Optional background support)
-const apiKey = process.env.GEMINI_API_KEY;
-let ai: GoogleGenAI | null = null;
-if (apiKey) {
-  ai = new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build'
-      }
-    }
+  // Health check endpoint (returns 200 OK with explicit local-only mode status)
+  app.get('/api/health', (_req, res) => {
+    res.status(200).json({
+      status: 'ok',
+      mode: 'local-only-verified',
+      remoteRelayEnabled: false,
+      cloudSyncEnabled: false,
+      timestamp: new Date().toISOString()
+    });
   });
+
+  // SEC-01 & SEC-02: 禁用所有未配置真实 Firebase Admin SDK 验签的云端同步与通知 API。
+  // 严禁信任客户端传入的 familyId 或未签名 token。默认 Fail-Closed 返回 503。
+  app.all('/api/*', (_req, res) => {
+    res.status(503).json({
+      success: false,
+      code: 'API_DISABLED_PENDING_VERIFIED_AUTH',
+      error: 'CLOUD_API_DISABLED',
+      message: '当前版本为本地高安全运行模式，云端同步与远程通知接口已强制关闭（Fail-Closed）。',
+      data: null
+    });
+  });
+
+  return app;
 }
 
-/**
-// Health check endpoint (Safe, no sensitive data)
-app.get('/api/health', (_req, res) => {
-  res.json({
-    status: 'ok',
-    mode: 'local-safe',
-    timestamp: new Date().toISOString()
-  });
-});
-
-/**
- * SEC-01: 不可信身份令牌关闭与服务端 Fail Closed 守卫
- * 铁律：
- * 1. 严禁解析客户端自行 Base64 编码的 JSON 作为可信身份。
- * 2. 在配置可信的正式 Auth Provider (如生产级服务端 Firebase Admin JWT 验签) 之前，
- *    所有 /api 私有接口采取 Fail Closed，默认返回 HTTP 503。
- * 3. 绝不泄露任何儿童或家庭私密数据。
- * 4. 匿名请求、伪造 Base64 Bearer、伪造 CAREGIVER、跨家庭请求均不得进入业务处理。
- */
-app.all('/api/*', (req, res) => {
-  res.status(503).json({
-    success: false,
-    code: 'API_DISABLED_PENDING_VERIFIED_AUTH',
-    error: 'Cloud API is disabled pending verified production authentication provider. No family or child data is served.',
-    data: null
-  });
-});
-
-
-// Vite middleware for dev
 async function startServer() {
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: 'spa'
-  });
+  const app = createApiApp();
+  const PORT = 3000;
 
-  app.use(vite.middlewares);
+  // Vite middleware for development
+  if (process.env.NODE_ENV !== 'production') {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  } else {
+    const distPath = path.join(process.cwd(), 'dist');
+    app.use(express.static(distPath));
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running at http://0.0.0.0:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 
-startServer();
+if (process.env.NODE_ENV !== 'test') {
+  startServer();
+}

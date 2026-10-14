@@ -1,170 +1,200 @@
 import {
+  HugDomainState,
   HugRequestType,
   CommunicationStatus,
   CareResponsibility,
   CoPresenceStatus,
-  HugDomainState,
-  ChildFacingHugPresentation,
+  ChildHugPresentation,
+  LocalHugSupportMode,
 } from './types';
 
+export interface HonestHugCopy {
+  headline: string;
+  spokenText: string;
+  persistenceDisclosure: string;
+  actionGuidance: string;
+}
+
 /**
- * 严格遵照 docs/PRODUCT_CONTRACTS.md:
- * 1. 只能向孩子陈述已知事实。
- * 2. 严禁预测性承诺（禁止“马上”、“一定”、“保证”、“已经来了”、“正在来的路上”）。
- * 3. ASSIGNED_SELF 绝不能自动当成“已到场”。
- * 4. UNCONFIRMED 绝不能当成“失约”或“家长不理你”，不得标记 FAILED。
- * 5. 真人确认到场后，App 应退场 (shouldStepBack: true)。
- * 6. 支持 7 大 Canonical States:
- *    1. local/send failed
- *    2. server accepted, unseen (SENT, UNASSIGNED, NOT_PRESENT)
- *    3. caregiver opened, unassigned (ACKNOWLEDGED, UNASSIGNED, NOT_PRESENT)
- *    4. caregiver promised self, unconfirmed (ACKNOWLEDGED, ASSIGNED_SELF, UNCONFIRMED/NOT_PRESENT)
- *    5. caregiver delegated, unconfirmed (ACKNOWLEDGED, ASSIGNED_OTHER, UNCONFIRMED/NOT_PRESENT)
- *    6. caregiver cannot attend (ACKNOWLEDGED, CANNOT_ATTEND, NOT_PRESENT)
- *    7. locally confirmed (ARRIVED_CONFIRMED)
+ * R3-02 Honest local copy helper for all UI entry points.
+ * - Never claims "已送达" or "大人已收到"
+ * - Never calls local state changes remote notifications
+ * - Explicitly discloses when a local miss note is only in current page memory
+ */
+export function getHonestLocalHugCopy(
+  mode: LocalHugSupportMode,
+  isSavedToLocalStorage = false
+): HonestHugCopy {
+  if (mode === 'SEEK_NEARBY_ADULT') {
+    return {
+      headline: '这里不会发远程消息 · 请直接找身边的大人',
+      spokenText:
+        '这个按钮不会给远方的大人发手机消息。如果你现在需要帮忙或想要抱抱，请直接走到身边信任的大人面前，拉拉大人的衣角告诉他。',
+      persistenceDisclosure:
+        '当前操作仅在本页提供找大人指引，不会向任何手机发送远程通知。',
+      actionGuidance: '放下屏幕，走到房间里或身边安全的大人面前说：“我想要个抱抱。”',
+    };
+  }
+
+  return {
+    headline: isSavedToLocalStorage
+      ? '本地想念表达（已保存在本设备 · 不会远程发送）'
+      : '本地想念表达（仅在当前页面存在 · 未持久保存）',
+    spokenText: isSavedToLocalStorage
+      ? '这句想念留在当前这台设备里啦，不会自动发给远方的大人，也不需要等回复。下次见到大人时可以当面给他们看。'
+      : '这句想念仅在当前页面存在，没有远程发送，也没有持久保存，关闭或刷新页面后就会消失。不需要等回复。',
+    persistenceDisclosure: isSavedToLocalStorage
+      ? '家长已开启本机存储同意：该想念仅保存在当前浏览器本机，未发送远程消息。'
+      : '未开启本机存储：该想念仅在当前页面内存中存在，未保存至本地存储，刷新或关闭页面即清除。',
+    actionGuidance: '不需要在屏幕前等待回复，现在可以去喝口水或找身边的大人玩啦。',
+  };
+}
+
+/**
+ * Maps any combination of (HugRequestType, CommunicationStatus, CareResponsibility, CoPresenceStatus)
+ * to honest, non-predictive child-facing copy.
+ *
+ * R3-02 & Iron Rules:
+ * 1. Only state known facts. NEVER state predictive promises ("马上来", "很快就到", "一定会来", "正在来的路上").
+ * 2. NEVER display "已送达" or "大人已收到" or "已经保存" for unpersisted local expressions.
+ * 3. UNCONFIRMED is NEVER treated as FAILED ("失约", "不理你", "失败").
+ * 4. When CoPresenceStatus.ARRIVED_CONFIRMED, shouldStepBack MUST be true.
  */
 export function mapHugStateToChildPresentation(
   state: HugDomainState
-): ChildFacingHugPresentation {
-  const { requestType, communication, care, coPresence, targetCaregiverName } = state;
-  const caregiver = targetCaregiverName?.trim() || '大人';
+): ChildHugPresentation {
+  const target = state.targetCaregiverName || '大人';
 
-  // 1. 本地已确认真人到场 (Canonical State 7: locally confirmed)
-  if (coPresence === CoPresenceStatus.ARRIVED_CONFIRMED) {
-    return {
-      spokenText: `${caregiver}已经在身边啦。深呼吸，去握握大人的手吧。`,
-      displayText: `${caregiver}已在身边`,
-      shouldStepBack: true,
-      safeWaitingAction: '去给身边的大人一个暖暖的拥抱吧',
-    };
-  }
-
-  // 2. 异步想念流程 (ASYNC_MISS) — 明确告诉孩子不需要等回复
-  if (requestType === HugRequestType.ASYNC_MISS) {
-    switch (communication) {
-      case CommunicationStatus.UNSENT:
-        return {
-          spokenText: `你想对${caregiver}说的话已经放进小瓶子里了，准备寄出去。不需要等回复哦。`,
-          displayText: '准备寄出想念 · 不需等回复',
-          shouldStepBack: false,
-          safeWaitingAction: '摸摸你的小玩偶或者喝一口水',
-        };
-      case CommunicationStatus.SENDING:
-        return {
-          spokenText: `想念的小瓶子正在慢慢飞往${caregiver}那里，不需要等回复。`,
-          displayText: '正在送信中 · 不需等回复',
-          shouldStepBack: false,
-          safeWaitingAction: '看看窗外天空的一朵云',
-        };
-      case CommunicationStatus.SENT:
-      case CommunicationStatus.ACKNOWLEDGED:
-        return {
-          spokenText: `想念的信已经送到了。${caregiver}有空时会看到，你不需要等回复，安心做自己的事吧。`,
-          displayText: '信已送达 · 不需等回复',
-          shouldStepBack: false,
-          safeWaitingAction: '画一张小画或者把今天最喜欢的玩具收好',
-        };
+  // ==================== 1. 异步想念流程 (ASYNC_MISS) ====================
+  if (state.requestType === HugRequestType.ASYNC_MISS) {
+    switch (state.communication) {
       case CommunicationStatus.SEND_FAILED:
         return {
-          spokenText: `网络信号好像休息了，信先稳稳收在你的小岛抽屉里。不用着急等回复，我们稍后再试。`,
-          displayText: '信已保存在小岛上',
+          displayText: '当前页面想念表达（网络未接通 · 仅在当前页面存在） · 不需要等回复',
+          spokenText:
+            '现在没有远程消息通道，这句想念仅在当前页面存在。不需要等回复，你可以去玩别的啦。',
+          safeWaitingAction: '你可以去画一幅小画，或者喝一口温水。',
           shouldStepBack: false,
-          safeWaitingAction: '先做个深呼吸，信不会弄丢的',
         };
+      case CommunicationStatus.UNSENT:
+      case CommunicationStatus.SENDING:
+        return {
+          displayText: '正在当前页面整理想念 · 不需要等回复',
+          spokenText:
+            '正在当前页面放好你的想念小卡片，它仅在当前页面存在。不需要等回复，放好就可以去玩啦。',
+          safeWaitingAction: '深呼吸一次，摸摸身边软软的小玩偶。',
+          shouldStepBack: false,
+        };
+      case CommunicationStatus.SENT:
+      case CommunicationStatus.ACKNOWLEDGED: {
+        return {
+          displayText: '当前页面想念卡片（未发远程通知） · 不需要等回复',
+          spokenText: `你的想念小卡片目前仅在当前页面存在，没有发送远程通知。不需要等回复，下次见到${target}时可以当面说哦。`,
+          safeWaitingAction: '不需要盯着屏幕等，去玩你喜欢的积木或绘本吧。',
+          shouldStepBack: false,
+        };
+      }
+      default: {
+        const _exhaustiveCheck: never = state.communication;
+        return _exhaustiveCheck;
+      }
     }
   }
 
-  // 3. 即时求助流程 (INSTANT_HELP)
+  // ==================== 2. 即时求助流程 (INSTANT_HELP) ====================
 
-  // 3.1 Canonical State 1: local/send failed (SEC-03: 诚实告知儿童，不承诺虚假远程传输，提供非身体接触求助)
-  if (communication === CommunicationStatus.SEND_FAILED) {
+  // 最高优先级事实：真人已在本地确认到场 -> App 立即退场
+  if (state.coPresence === CoPresenceStatus.ARRIVED_CONFIRMED) {
     return {
-      spokenText: `这里不会发消息。网络未接通或无远程通道。如果你觉得难受或害怕，请直接走到身边的大人面前，拉拉大人的衣角，或者请大人坐在旁边陪陪你。`,
-      displayText: '这里不会发消息 · 网络未接通 · 请找身边大人',
-      shouldStepBack: false,
-      safeWaitingAction: '找身边看得见的大人说说话、拉拉衣角，或者请大人在旁边陪坐一会儿',
+      displayText: `${target}已在身边 · 抱抱已达成`,
+      spokenText: `${target}已经在身边啦！现在放下平板，去抱抱${target}吧。`,
+      safeWaitingAction: '放下屏幕，投入大人的怀抱吧。',
+      shouldStepBack: true,
     };
   }
 
-  // 3.2 Canonical State 6: caregiver cannot attend (大人确实无法前来，提供修复与支持语言，不羞辱)
-  if (care === CareResponsibility.CANNOT_ATTEND) {
+  // 分支 A：大人明确表示当前无法到场（CANNOT_ATTEND）
+  if (state.care === CareResponsibility.CANNOT_ATTEND) {
     return {
-      spokenText: `${caregiver}现在抽不开身，不能过来陪你。这不是你的原因。你可以找身边其他安全的大人，或者去平静角休息。`,
-      displayText: `${caregiver}暂时无法抽身 · 找身边大人`,
+      displayText: `${target}暂时无法抽身 · 请找身边的大人`,
+      spokenText: `${target}现在正在忙，暂时没办法过来，这不是你的原因。你可以先找身边照顾你的大人帮忙。`,
+      safeWaitingAction: '走到现在陪着你的大人身边，或者去安静角抱抱小玩偶。',
       shouldStepBack: false,
-      safeWaitingAction: '去握握身边其他大人的手，或者在安静的地方坐坐',
     };
   }
 
-  // 3.3 正在发送中
-  if (communication === CommunicationStatus.SENDING || communication === CommunicationStatus.UNSENT) {
+  // 分支 B：发送失败或本机无远程通道（SEND_FAILED）
+  if (state.communication === CommunicationStatus.SEND_FAILED) {
     return {
-      spokenText: `正在给${caregiver}送去呼唤提醒，小岛正在连接中。`,
-      displayText: '正在送出提醒…',
+      displayText: '这里不会发消息（网络未接通） · 请找身边大人',
+      spokenText: `这里不会发消息给远方的大人。如果你想找${target}，我们可以直接走到身边的大人面前，拉拉大人的衣角说“我想要个抱抱”。`,
+      safeWaitingAction: '直接走到房间里的大人身边，拉拉大人的手。',
       shouldStepBack: false,
-      safeWaitingAction: '慢慢吸一口气，再慢慢吐出来',
     };
   }
 
-  // 3.4 Canonical State 4: caregiver promised self, unconfirmed
-  if (care === CareResponsibility.ASSIGNED_SELF) {
-    // 无论是 UNCONFIRMED 还是 NOT_PRESENT 或 ON_THE_WAY
-    // 关键安全原则：绝不说“马上”、“保证”、“已经在路上”
-    if (coPresence === CoPresenceStatus.UNCONFIRMED || coPresence === CoPresenceStatus.NOT_PRESENT || coPresence === CoPresenceStatus.ON_THE_WAY) {
+  // 分支 C：已升级到备用照护人（ESCALATED_FALLBACK）
+  if (state.care === CareResponsibility.ESCALATED_FALLBACK) {
+    return {
+      displayText: '请优先找身边的备用照护大人 · 尚未确认到场',
+      spokenText:
+        '目前尚未确认到场。请先留在安全的地方，或者直接找身边的老师和家人帮忙。',
+      safeWaitingAction: '留在安全的房间里，或者去找身边能看到的大人。',
+      shouldStepBack: false,
+    };
+  }
+
+  // 分支 D：其他大人代为接手（ASSIGNED_OTHER），但尚未确认到场
+  if (state.care === CareResponsibility.ASSIGNED_OTHER) {
+    return {
+      displayText: `${target}已委托其他大人协助 · 尚未确认到场`,
+      spokenText: `${target}已经委托另一位大人来照顾你，目前尚未确认到场。`,
+      safeWaitingAction: '在安全的地方坐一会儿，或者看看窗外和绘本。',
+      shouldStepBack: false,
+    };
+  }
+
+  // 分支 E：目标大人承诺自己接手（ASSIGNED_SELF），但尚未本地确认到场
+  if (state.care === CareResponsibility.ASSIGNED_SELF) {
+    return {
+      displayText: `${target}已知晓你的请求 · 尚未确认到场`,
+      spokenText: `${target}表示会过来陪你，但目前尚未确认到场。在大人来到你身边之前，你可以先在安全的地方等一等，或者找身边的大人。`,
+      safeWaitingAction: '你可以先抱抱身边的小熊，或者做三次慢呼吸。',
+      shouldStepBack: false,
+    };
+  }
+
+  // 分支 F：照护责任尚未分配（UNASSIGNED）
+  switch (state.communication) {
+    case CommunicationStatus.UNSENT:
+    case CommunicationStatus.SENDING:
       return {
-        spokenText: `${caregiver}已点击确认会来陪伴。目前尚未确认到场，你可以先在安全的地方坐好，或者找身边能看到的大人。`,
-        displayText: `${caregiver}已确认会来 · 尚未确认到场`,
+        displayText: '这里不会发远程消息 · 请找身边大人',
+        spokenText: '这里不会发送远程通知，请先深呼吸一下，或者直接找身边的大人。',
+        safeWaitingAction: '慢慢吸气，慢慢呼气，或者直接走到身边的大人面前。',
         shouldStepBack: false,
-        safeWaitingAction: '双手抱抱自己，或者找身边的安全大人',
+      };
+    case CommunicationStatus.SENT:
+      return {
+        displayText: '未确认远程通道 · 等待大人查看',
+        spokenText: `当前没有确认远程通知，${target}现在还没有打开看。如果你就在大人附近，也可以直接去告诉身边的大人。`,
+        safeWaitingAction: '不用一直盯着屏幕，你可以先去喝口水或者找身边的大人。',
+        shouldStepBack: false,
+      };
+    case CommunicationStatus.ACKNOWLEDGED:
+      return {
+        displayText: '本机记录已查看 · 等待确认中',
+        spokenText: `本机记录已被查看，但${target}还没有回复接手。如果等太久，可以先找身边的大人哦。`,
+        safeWaitingAction: '你可以先去安静角听听雨声，或者找身边的大人。',
+        shouldStepBack: false,
+      };
+    default: {
+      return {
+        displayText: '状态未知 · 请找身边的大人',
+        spokenText: '我们不确定消息的状态，请直接找身边的大人帮忙。',
+        safeWaitingAction: '直接走到身边的大人面前。',
+        shouldStepBack: false,
       };
     }
   }
-
-  // 3.5 Canonical State 5: caregiver delegated, unconfirmed
-  if (care === CareResponsibility.ASSIGNED_OTHER) {
-    return {
-      spokenText: `${caregiver}已委托另一位大人协助陪伴。目前尚未确认到场，你可以找现在身边能看到的大人拉拉手。`,
-      displayText: '已委托其他大人 · 尚未确认到场',
-      shouldStepBack: false,
-      safeWaitingAction: '找身边看得见的大人说一句话',
-    };
-  }
-
-  // 3.6 备用联系人接手 (ESCALATED_FALLBACK)
-  if (care === CareResponsibility.ESCALATED_FALLBACK) {
-    return {
-      spokenText: `已向备用守护人送出提醒。目前尚未确认到场，如果感到害怕，请找身边能看到的大人。`,
-      displayText: '备用守护已提醒 · 尚未确认到场',
-      shouldStepBack: false,
-      safeWaitingAction: '站起来走向房间里其他安全的大人',
-    };
-  }
-
-  // 3.7 Canonical State 3: caregiver opened, unassigned (已看未接手)
-  if (communication === CommunicationStatus.ACKNOWLEDGED && care === CareResponsibility.UNASSIGNED) {
-    return {
-      spokenText: `${caregiver}已打开并看到了消息，还没有回复接手。我们耐心等一会儿，或者直接找身边的大人。`,
-      displayText: `${caregiver}已打开提醒 · 等待确认中`,
-      shouldStepBack: false,
-      safeWaitingAction: '双手轻轻摸摸自己的肩膀，深呼吸',
-    };
-  }
-
-  // 3.8 Canonical State 2: server accepted, unseen (已送达服务端，大人尚未打开)
-  if (communication === CommunicationStatus.SENT && care === CareResponsibility.UNASSIGNED) {
-    return {
-      spokenText: `消息已送达服务器，提醒已经发出，${caregiver}还没有打开看。你可以先做深呼吸。`,
-      displayText: '提醒已送达 · 等待大人查看',
-      shouldStepBack: false,
-      safeWaitingAction: '深呼吸 3 次，或者找身边能看到的大人',
-    };
-  }
-
-  // 兜底通用安全呈现
-  return {
-    spokenText: `消息已经送达。目前尚未确认到场，你可以先在安全的地方坐好，或者找身边能看到的大人。`,
-    displayText: '消息已送达 · 尚未确认到场',
-    shouldStepBack: false,
-    safeWaitingAction: '双手轻轻抱抱自己，靠着小椅子休息一下',
-  };
 }

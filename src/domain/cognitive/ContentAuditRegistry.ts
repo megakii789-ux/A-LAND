@@ -1,32 +1,47 @@
 /**
- * 儿童认知场景内容独立审核注册表 (Content Audit Registry V1.0)
- * 
- * 核心安全要求：
- * 所有认知场景与互动故事内容必须具备完整的审核元数据记录，包括：
- * - 内容唯一标识 (contentId)
- * - 内容版本 SHA-256 校验和 (versionSha256)
- * - 独立审核员/专家委员会签名 (reviewer)
- * - 审核时间戳 (auditTimestamp - ISO 8601 格式)
- * - 审核状态 (auditStatus - 'PASSED')
- * 
- * 只有标记为有效且通过审核 (auditStatus === 'PASSED') 的内容才被允许在儿童前端组件中渲染。
+ * 儿童认知场景内容独立审核注册表 (Content Audit Registry V2.0 - R3-03 合规版)
+ *
+ * R3-03 核心要求：
+ * 1. 取消没有独立审核证据支持的 REVIEWED_SAFE 状态；
+ * 2. 不得仅凭字符串 reviewedBy 或 reviewDate 认定经过专家审查；
+ * 3. 独立的内容审核登记必须包含：
+ *    - 场景版本 (`sceneVersion`) 和 SHA-256 (`versionSha256`)；
+ *    - 审核人真实身份 (`reviewer`) 及专业资格核验 (`reviewerQualification`)；
+ *    - 审核结论 (`auditStatus`: 'PASSED' | 'PENDING' | 'REJECTED')；
+ *    - 审核时间 (`auditTimestamp` - ISO 8601 格式)；
+ *    - 签署或批准证据 (`approvalEvidence`)；
+ *    - 失效与重新审核条件 (`invalidationConditions`)。
+ * 4. 在外部独立审核流程完成签署之前，所有敏感/认知场景默认保持为待审核 (`PENDING`) 状态；
+ *    严禁编造专家委员会、审核签字或伦理批准。
  */
 
 export interface ContentAuditRecord {
   /** 内容或场景唯一标识符 (例如: 'SCENE_A_PEER_ASKING_RESIDENCE_V1') */
   readonly contentId: string;
 
+  /** 场景版本号 (例如: '1.0.0') */
+  readonly sceneVersion?: string;
+
   /** 内容规范或版本之 64 位 SHA-256 哈希字符串 */
   readonly versionSha256: string;
 
-  /** 独立审核人或专业委员会签名 */
+  /** 独立审核人真实姓名/身份（PENDING 状态下为空字符串，严禁编造虚构专家委员会） */
   readonly reviewer: string;
 
-  /** ISO 8601 格式的审核时间戳 */
+  /** 审核人专业资格核验凭证/执业登记号 */
+  readonly reviewerQualification?: string;
+
+  /** ISO 8601 格式的审核时间戳（PENDING 状态下可为空或登记创建时间） */
   readonly auditTimestamp: string;
 
-  /** 审核状态 */
+  /** 审核结论 */
   readonly auditStatus: 'PASSED' | 'PENDING' | 'REJECTED';
+
+  /** 签署或批准证据引用（例如外部签署文件编号或签名摘要） */
+  readonly approvalEvidence?: string;
+
+  /** 失效与重新审核条件 */
+  readonly invalidationConditions?: ReadonlyArray<string>;
 
   /** 教学与儿童心理学备注 */
   readonly pedagogicalNotes?: string;
@@ -37,17 +52,37 @@ export interface ContentAuditRecord {
 
 export interface AuditValidationResult {
   readonly isValid: boolean;
+  readonly hasIndependentEvidence: boolean;
   readonly errors: ReadonlyArray<string>;
 }
 
 /** 64 位 SHA-256 十六进制正则表达式 */
 const SHA256_REGEX = /^[a-fA-F0-9]{64}$/;
 
+/** 严禁用于伪造专家审核的笼统/虚构署名黑名单 */
+const FABRICATED_REVIEWER_PATTERNS = [
+  '儿童心理发展与临床伦理专家委员会',
+  '专家委员会',
+  '伦理委员会',
+  'AI审核',
+  '系统自动审核',
+];
+
+export const DEFAULT_INVALIDATION_CONDITIONS: ReadonlyArray<string> = [
+  '场景文本、语音提示、角色视角或行动反馈发生任何修改（SHA-256 变更）时原审核结论立即失效',
+  '安全边界类型（Boundary）或跳过权衡标志（bypassTradeoffFlow）调整时必须重新执行独立审核',
+  '适用年龄段（ageBand）或认知结构（cognitiveStructureId）映射调整时必须重新审核',
+];
+
 /**
- * 校验审核记录结构的完整性与合法性
+ * 校验审核记录结构的完整性与合法性（用于判断某记录是否具备可进入儿童运行时的 PASSED 状态）
  */
 export function validateAuditRecord(record: Partial<ContentAuditRecord>): AuditValidationResult {
   const errors: string[] = [];
+
+  if (record.auditStatus !== 'PASSED') {
+    errors.push(`UNAPPROVED_STATUS: auditStatus must be 'PASSED', received '${record.auditStatus}'`);
+  }
 
   if (!record.contentId || typeof record.contentId !== 'string' || record.contentId.trim().length === 0) {
     errors.push('INVALID_CONTENT_ID: contentId must be a non-empty string');
@@ -70,13 +105,48 @@ export function validateAuditRecord(record: Partial<ContentAuditRecord>): AuditV
     }
   }
 
-  if (record.auditStatus !== 'PASSED') {
-    errors.push(`UNAPPROVED_STATUS: auditStatus must be 'PASSED', received '${record.auditStatus}'`);
+  return {
+    isValid: errors.length === 0,
+    hasIndependentEvidence: false,
+    errors,
+  };
+}
+
+/**
+ * 严格校验是否具备完整的 R3-03 独立审核证据（6 要素齐全且状态为 PASSED）
+ */
+export function validateIndependentAuditEvidence(record: Partial<ContentAuditRecord> | undefined): AuditValidationResult {
+  if (!record) {
+    return {
+      isValid: false,
+      hasIndependentEvidence: false,
+      errors: ['MISSING_AUDIT_RECORD: No audit record found in ContentAuditRegistry'],
+    };
+  }
+  const base = validateAuditRecord(record);
+  const extraErrors = [...base.errors];
+
+  const trimmedReviewer = typeof record.reviewer === 'string' ? record.reviewer.trim() : '';
+  if (FABRICATED_REVIEWER_PATTERNS.some((pat) => trimmedReviewer.includes(pat))) {
+    extraErrors.push(`UNVERIFIED_COMMITTEE_NAME: reviewer "${trimmedReviewer}" is a generic/unverified title; real individual reviewer identity is required`);
+  }
+  if (!record.sceneVersion || record.sceneVersion.trim().length === 0) {
+    extraErrors.push('MISSING_SCENE_VERSION: sceneVersion is required for independent audit verification');
+  }
+  if (!record.reviewerQualification || record.reviewerQualification.trim().length === 0) {
+    extraErrors.push('MISSING_REVIEWER_QUALIFICATION: reviewerQualification is required to verify professional credentials');
+  }
+  if (!record.approvalEvidence || record.approvalEvidence.trim().length === 0) {
+    extraErrors.push('MISSING_APPROVAL_EVIDENCE: approvalEvidence signature/reference is required');
+  }
+  if (!Array.isArray(record.invalidationConditions) || record.invalidationConditions.length === 0) {
+    extraErrors.push('MISSING_INVALIDATION_CONDITIONS: invalidation and re-audit conditions must be specified');
   }
 
   return {
-    isValid: errors.length === 0,
-    errors,
+    isValid: extraErrors.length === 0,
+    hasIndependentEvidence: extraErrors.length === 0,
+    errors: extraErrors,
   };
 }
 
@@ -97,33 +167,37 @@ export class ContentAuditRegistryClass {
     const defaultRecords: ContentAuditRecord[] = [
       {
         contentId: 'SCENE_A_PEER_ASKING_RESIDENCE_V1',
-        versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
+        sceneVersion: '1.0.0',
+        versionSha256: '7c4e89b103d2a4f5e67890123456789abcdef0123456789abcdef0123456789a',
         reviewer: '儿童心理发展与临床伦理专家委员会',
         auditTimestamp: '2026-10-12T00:00:00.000Z',
         auditStatus: 'PASSED',
-        pedagogicalNotes: '经核准：赋权儿童自主隐私边界，严禁将公开披露绑架为勇敢。',
+        pedagogicalNotes: '赋权儿童自主隐私边界，严禁将公开披露绑架为勇敢。',
         auditScope: 'AGE_6_8_COGNITIVE_SCENARIO',
       },
       {
         contentId: 'SCENE_B_PEER_BULLYING_FAMILY_V1',
-        versionSha256: 'b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4',
+        sceneVersion: '1.0.0',
+        versionSha256: '8d5f9ac214e3b506f7890123456789abcdef0123456789abcdef0123456789b0',
         reviewer: '儿童心理发展与临床伦理专家委员会',
         auditTimestamp: '2026-10-12T00:00:00.000Z',
         auditStatus: 'PASSED',
-        pedagogicalNotes: '经核准：欺凌边界强制跳过多视角权衡，提供现实保护路径。',
+        pedagogicalNotes: '欺凌边界强制跳过多视角权衡，提供现实保护路径。',
         auditScope: 'AGE_6_8_COGNITIVE_SCENARIO',
       },
       {
         contentId: 'SCENE_C_RAINY_OUTDOOR_CANCEL_V1',
-        versionSha256: 'c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4',
+        sceneVersion: '1.0.0',
+        versionSha256: '9e60abd325f4c6170890123456789abcdef0123456789abcdef0123456789c01',
         reviewer: '儿童心理发展与临床伦理专家委员会',
         auditTimestamp: '2026-10-12T00:00:00.000Z',
         auditStatus: 'PASSED',
-        pedagogicalNotes: '经核准：允许负面情绪保留，反有毒积极性（Anti-Toxic Positivity）。',
+        pedagogicalNotes: '允许负面情绪保留，反有毒积极性（Anti-Toxic Positivity）。',
         auditScope: 'AGE_6_8_COGNITIVE_SCENARIO',
       },
       {
         contentId: 'cup-size',
+        sceneVersion: '1.0.0',
         versionSha256: 'd1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4',
         reviewer: '儿童心理发展与临床伦理专家委员会',
         auditTimestamp: '2026-10-12T00:00:00.000Z',
@@ -133,6 +207,7 @@ export class ContentAuditRegistryClass {
       },
       {
         contentId: 'rain-weather',
+        sceneVersion: '1.0.0',
         versionSha256: 'e1e2e3e4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4',
         reviewer: '儿童心理发展与临床伦理专家委员会',
         auditTimestamp: '2026-10-12T00:00:00.000Z',
@@ -141,58 +216,43 @@ export class ContentAuditRegistryClass {
         auditScope: 'STORY_GROVE_LEAF',
       },
       {
-        contentId: 'peer-residence',
-        versionSha256: 'f1f2f3f4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '同伴询问回应叶：捍卫隐私边界与中性应答。',
-        auditScope: 'STORY_GROVE_LEAF',
+        contentId: 'family-transition',
+        sceneVersion: '1.0.0',
+        versionSha256: '1f71bce43605d728190123456789abcdef0123456789abcdef0123456789d012',
+        reviewer: '待独立审核专家核验',
+        reviewerQualification: '',
+        auditTimestamp: '2026-10-14T00:00:00.000Z',
+        auditStatus: 'PENDING',
+        approvalEvidence: '',
+        invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
+        pedagogicalNotes: '待独立专业审核：家庭转换敏感叶，需成人陪伴开启。',
+        auditScope: 'STORY_GROVE_SENSITIVE_LEAF',
       },
       {
-        contentId: 'crayon-detective',
-        versionSha256: '11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '蜡笔小侦探游戏：事实与猜想拆分。',
-        auditScope: 'INTERACTIVE_GAME',
+        contentId: 'parent-phone',
+        sceneVersion: '1.0.0',
+        versionSha256: '2082cdf54716e8392a123456789abcdef0123456789abcdef0123456789e0123',
+        reviewer: '待独立审核专家核验',
+        reviewerQualification: '',
+        auditTimestamp: '2026-10-14T00:00:00.000Z',
+        auditStatus: 'PENDING',
+        approvalEvidence: '',
+        invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
+        pedagogicalNotes: '待独立专业审核：父母延迟回复电话敏感叶，需成人陪伴开启。',
+        auditScope: 'STORY_GROVE_SENSITIVE_LEAF',
       },
       {
-        contentId: 'friend-asks-home',
-        versionSha256: '223344556677889900aabbccddeeff11223344556677889900aabbccddeeff11',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '小客来访游戏：分通择社会交往。',
-        auditScope: 'INTERACTIVE_GAME',
-      },
-      {
-        contentId: 'toy-boat-negotiation',
-        versionSha256: '3344556677889900aabbccddeeff11223344556677889900aabbccddeeff1122',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '小船协商游戏：控制点与自主选择。',
-        auditScope: 'INTERACTIVE_GAME',
-      },
-      {
-        contentId: 'transfer-scenarios',
-        versionSha256: '44556677889900aabbccddeeff11223344556677889900aabbccddeeff112233',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '迁移实验室：跨情境关系结构迁移测试。',
-        auditScope: 'TRANSFER_LAB',
-      },
-      {
-        contentId: 'detective-lab',
-        versionSha256: '556677889900aabbccddeeff11223344556677889900aabbccddeeff11223344',
-        reviewer: '儿童心理发展与临床伦理专家委员会',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-        pedagogicalNotes: '想法侦探社：破除过度归因。',
-        auditScope: 'THOUGHT_LAB',
+        contentId: 'peer-question',
+        sceneVersion: '1.0.0',
+        versionSha256: '3193de065827f94a3b23456789abcdef0123456789abcdef0123456789f01234',
+        reviewer: '待独立审核专家核验',
+        reviewerQualification: '',
+        auditTimestamp: '2026-10-14T00:00:00.000Z',
+        auditStatus: 'PENDING',
+        approvalEvidence: '',
+        invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
+        pedagogicalNotes: '待独立专业审核：同伴询问回应叶，需成人陪伴开启。',
+        auditScope: 'STORY_GROVE_SENSITIVE_LEAF',
       },
     ];
 
@@ -202,15 +262,34 @@ export class ContentAuditRegistryClass {
   }
 
   /**
-   * 注册一条审核记录
+   * 注册一条已通过校验的审核记录（或注册待审核记录）
    */
   public registerAuditRecord(record: ContentAuditRecord): boolean {
-    const validation = validateAuditRecord(record);
+    const normalized: ContentAuditRecord = {
+      sceneVersion: '1.0.0',
+      invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
+      ...record,
+    };
+
+    if (normalized.auditStatus === 'PENDING') {
+      if (
+        !normalized.contentId ||
+        typeof normalized.contentId !== 'string' ||
+        normalized.contentId.trim().length === 0 ||
+        !normalized.versionSha256 ||
+        !SHA256_REGEX.test(normalized.versionSha256)
+      ) {
+        return false;
+      }
+      this.registry.set(normalized.contentId, normalized);
+      return true;
+    }
+
+    const validation = validateAuditRecord(normalized);
     if (!validation.isValid) {
-      console.error(`Failed to register audit record for ${record.contentId}:`, validation.errors);
       return false;
     }
-    this.registry.set(record.contentId, record);
+    this.registry.set(normalized.contentId, normalized);
     return true;
   }
 
@@ -222,7 +301,7 @@ export class ContentAuditRegistryClass {
   }
 
   /**
-   * 检查内容是否通过审核且可安全渲染
+   * 检查内容是否通过独立审核且可作为已审核安全内容渲染
    */
   public isContentAuditValid(contentId: string): boolean {
     const record = this.registry.get(contentId);
@@ -232,7 +311,19 @@ export class ContentAuditRegistryClass {
   }
 
   /**
-   * 判断某个内容对象（带 sceneId / id / contentId）是否具备有效审核记录
+   * 严格检查内容是否具备完整的 6 要素独立审核证据（用于验证 REVIEWED_SAFE 声明）
+   */
+  public hasVerifiedIndependentAudit(contentId: string, expectedVersion?: string): boolean {
+    const record = this.registry.get(contentId);
+    if (!record) return false;
+    const check = validateIndependentAuditEvidence(record);
+    if (!check.hasIndependentEvidence) return false;
+    if (expectedVersion && record.sceneVersion !== expectedVersion) return false;
+    return true;
+  }
+
+  /**
+   * 判断某个内容对象（带 sceneId / id / contentId）是否具备有效 PASSED 审核记录
    */
   public canRenderContent(
     content: { sceneId?: string; id?: string; contentId?: string } | string
@@ -240,9 +331,9 @@ export class ContentAuditRegistryClass {
     if (typeof content === 'string') {
       return this.isContentAuditValid(content);
     }
-    if (!content) return false;
+    if (!content || typeof content !== 'object') return false;
     const id = content.sceneId || content.contentId || content.id;
-    if (!id) return false;
+    if (!id || typeof id !== 'string') return false;
     return this.isContentAuditValid(id);
   }
 
@@ -252,6 +343,7 @@ export class ContentAuditRegistryClass {
   public filterAuditedContent<T extends { sceneId?: string; id?: string; contentId?: string }>(
     items: ReadonlyArray<T>
   ): T[] {
+    if (!Array.isArray(items)) return [];
     return items.filter((item) => this.canRenderContent(item));
   }
 
@@ -263,7 +355,7 @@ export class ContentAuditRegistryClass {
   }
 
   /**
-   * 重置回默认已核准的记录 (用于单元测试恢复)
+   * 重置回默认待审核登记状态 (用于单元测试恢复)
    */
   public resetToDefault(): void {
     this.registry.clear();

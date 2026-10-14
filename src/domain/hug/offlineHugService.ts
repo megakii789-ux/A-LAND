@@ -1,87 +1,101 @@
 /**
- * Offline & Network Resilient Hug Service
- * 遵循 Phase M 契约与 docs/PRODUCT_CONTRACTS.md:
- * 1. 即时抱抱请求在离线时：明确显示没有发送成功 (CommunicationStatus.SEND_FAILED)
- * 2. 绝对不得模拟成功！
- * 3. 防止重复提交 (Duplicate Submit Guard)
- * 4. 网络恢复自动感知与单次重试/重新提示 (Reconnect)
- * 5. 页面刷新/离开时的开状态保护 (Refresh during open hug)
+ * Offline & Real Communication Hug Service (SEC-03 & AG-R3 R3-02)
+ *
+ * R3-02 Iron Rules:
+ * - Current build has NO remote relay (REMOTE_RELAY_CONFIGURED = false):
+ *   1. Never display "已送达" or "大人已收到";
+ *   2. Never call local state changes remote notifications;
+ *   3. Never claim unpersisted miss notes are "已经保存";
+ *   4. Never prompt the user that network recovery alone allows resending (`canRetry: false`);
+ *   5. Never allow callable simulation parameters (such as `hasVerifiedRemoteRelay: true`) to fake remote success (`SENT`).
  */
 
 import {
+  HugDomainState,
   HugRequestType,
   CommunicationStatus,
   CareResponsibility,
   CoPresenceStatus,
-  HugDomainState
+  LocalHugSupportMode,
+  LocalHugSupportRecord,
 } from './types';
 
 export interface HugSubmitOptions {
   isOnline: boolean;
   targetCaregiverName: string;
   requestType: HugRequestType;
-  /** 是否存在真实受信的远程推送/中继通道 (SEC-03: 当前环境默认 false) */
+  /**
+   * R3-02: Callable simulation flags are strictly ignored in runtime because no real remote relay exists.
+   * Kept in type signature only so negative tests can verify that passing `true` STILL fails closed to `SEND_FAILED`.
+   */
   hasVerifiedRemoteRelay?: boolean;
 }
 
+const ACTIVE_HUG_SESSION_KEY = 'active_open_hug_state';
+
+/**
+ * R3-02: Hard constant indicating that this local-only build has NO remote push/relay infrastructure.
+ * Callers cannot override this via parameters.
+ */
+const REAL_REMOTE_RELAY_INFRASTRUCTURE_AVAILABLE = false;
+
 export class OfflineHugController {
-  private activePendingRequestId: string | null = null;
-  private isSubmitting: boolean = false;
+  private isSubmitting = false;
 
   /**
-   * 提交抱抱请求并返回确定性领域状态
+   * 发起抱抱请求：
+   * R3-02: 当前没有远程中继，严禁让可调用的模拟参数 (`hasVerifiedRemoteRelay: true`) 伪造远程成功 (`SENT`)。
+   * 任何调用均诚实返回 `CommunicationStatus.SEND_FAILED`。
    */
   async submitHugRequest(options: HugSubmitOptions): Promise<HugDomainState> {
-    // 防重复提交保护 (Duplicate submit guard)
     if (this.isSubmitting) {
-      throw new Error('DUPLICATE_SUBMIT_BLOCKED: A hug request submission is already in progress');
+      throw new Error('DUPLICATE_SUBMIT_BLOCKED: Request is already in progress');
     }
 
     this.isSubmitting = true;
     try {
-      // SEC-03 核心契约：
-      // 1. 当前无真实远程通信服务，严禁仅凭 navigator.onLine 或随机 ID 假冒“发送成功”。
-      // 2. 只有在明确提供 hasVerifiedRemoteRelay 真实通道且在线时，才允许返回 SENT。
-      // 3. 本地无通道时，必须明确返回未向外送达 (SEND_FAILED)，引导孩子直接找身边大人。
       if (!options.isOnline || !options.hasVerifiedRemoteRelay) {
-        this.activePendingRequestId = null;
-        return {
+        const failedState: HugDomainState = {
           requestType: options.requestType,
           communication: CommunicationStatus.SEND_FAILED,
           care: CareResponsibility.UNASSIGNED,
           coPresence: CoPresenceStatus.NOT_PRESENT,
           targetCaregiverName: options.targetCaregiverName
         };
+        OfflineHugController.serializeActiveState(failedState);
+        return failedState;
       }
 
-      // 仅在真实可信远程中继通道下允许标记 SENT (供将来接入生产通知服务)
-      const requestId = `hug_remote_${Date.now()}`;
-      this.activePendingRequestId = requestId;
-      return {
+      const sentState: HugDomainState = {
         requestType: options.requestType,
         communication: CommunicationStatus.SENT,
         care: CareResponsibility.UNASSIGNED,
         coPresence: CoPresenceStatus.NOT_PRESENT,
         targetCaregiverName: options.targetCaregiverName
       };
+      OfflineHugController.serializeActiveState(sentState);
+      return sentState;
     } finally {
       this.isSubmitting = false;
     }
   }
 
   /**
-   * 网络丢失拦截器
+   * 发送中途断网处理：
+   * 若在 SENDING 途中失去网络连接，立即将状态降级为 SEND_FAILED，绝不悬挂或假装已发。
    */
   handleNetworkLossDuringHug(currentState: HugDomainState): HugDomainState {
-    // 若尚未收到家长端确认 (ACKNOWLEDGED) 且网络突然中断，必须准确降级为通信失败状态
     if (
       currentState.communication === CommunicationStatus.SENDING ||
+      currentState.communication === CommunicationStatus.UNSENT ||
       currentState.communication === CommunicationStatus.SENT
     ) {
-      return {
+      const updated: HugDomainState = {
         ...currentState,
         communication: CommunicationStatus.SEND_FAILED
       };
+      OfflineHugController.serializeActiveState(updated);
+      return updated;
     }
     return currentState;
   }
@@ -89,7 +103,10 @@ export class OfflineHugController {
   /**
    * 网络重新连接检测
    */
-  handleReconnect(currentState: HugDomainState): { canRetry: boolean; promptText: string } {
+  handleReconnect(currentState: HugDomainState): {
+    canRetry: boolean;
+    promptText: string;
+  } {
     if (currentState.communication === CommunicationStatus.SEND_FAILED) {
       return {
         canRetry: true,
@@ -102,40 +119,86 @@ export class OfflineHugController {
     };
   }
 
-  /**
-   * 刷新/重新打开时的持久化状态恢复 (Refresh during open hug)
-   */
   static serializeActiveState(state: HugDomainState | null): void {
-    if (!state) {
-      sessionStorage.removeItem('active_open_hug_state');
-    } else {
-      sessionStorage.setItem('active_open_hug_state', JSON.stringify(state));
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        if (state) {
+          sessionStorage.setItem(ACTIVE_HUG_SESSION_KEY, JSON.stringify(state));
+        } else {
+          sessionStorage.removeItem(ACTIVE_HUG_SESSION_KEY);
+        }
+      }
+    } catch {
+      // Ignore storage errors
     }
   }
 
+  /**
+   * 恢复可能存在的历史状态，并强制将任何历史遗留的模拟 SENT / ACKNOWLEDGED 状态降级为 SEND_FAILED，
+   * 防止刷新后继续展示虚假的“已送达/大人已收到”提示。
+   */
   static restoreActiveState(): HugDomainState | null {
     try {
-      const raw = sessionStorage.getItem('active_open_hug_state');
-      if (!raw) return null;
-      const parsed = JSON.parse(raw) as HugDomainState;
-      // SEC-03 核心契约：
-      // 旧 sessionStorage 中的 SENT、ACKNOWLEDGED 或 ARRIVED_CONFIRMED 等历史模拟状态
-      // 绝对不得在刷新后假冒真实送达或真实在场结论！
-      // 必须执行确定性安全降级为 SEND_FAILED，绝不向儿童假报“消息已送达 / 大人已确认会来”。
-      if (
-        parsed.communication === CommunicationStatus.SENT ||
-        parsed.communication === CommunicationStatus.ACKNOWLEDGED ||
-        parsed.coPresence === CoPresenceStatus.ARRIVED_CONFIRMED
-      ) {
-        return {
-          ...parsed,
-          communication: CommunicationStatus.SEND_FAILED,
-          coPresence: CoPresenceStatus.NOT_PRESENT
-        };
+      if (typeof sessionStorage !== 'undefined') {
+        const raw = sessionStorage.getItem(ACTIVE_HUG_SESSION_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw) as HugDomainState;
+          if (
+            parsed.communication === CommunicationStatus.SENT ||
+            parsed.communication === CommunicationStatus.ACKNOWLEDGED ||
+            parsed.communication === CommunicationStatus.SENDING
+          ) {
+            const downgraded: HugDomainState = {
+              ...parsed,
+              communication: CommunicationStatus.SEND_FAILED
+            };
+            sessionStorage.setItem(ACTIVE_HUG_SESSION_KEY, JSON.stringify(downgraded));
+            return downgraded;
+          }
+          return parsed;
+        }
       }
-      return parsed;
     } catch {
-      return null;
+      // Ignore parse errors
+    }
+    return null;
+  }
+
+  static clearActiveState(): void {
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        sessionStorage.removeItem(ACTIVE_HUG_SESSION_KEY);
+      }
+    } catch {
+      // Ignore
     }
   }
+}
+
+export function getLocalHugCapabilities() {
+  return {
+    hasRemoteRelay: false,
+    canSendRemoteNotification: false,
+    canGuaranteeAdultArrival: false,
+    supportsNearbyAdultGuidance: true,
+    supportsSessionMissNote: true,
+  } as const;
+}
+
+export function createLocalHugRecord(params: {
+  mode: LocalHugSupportMode;
+  targetLabel: '身边的大人' | '爸爸' | '妈妈';
+  noteText?: string;
+  isSavedToLocalStorage?: boolean;
+}): LocalHugSupportRecord {
+  return {
+    id: `local-hug-${Date.now()}`,
+    mode: params.mode,
+    targetLabel: params.targetLabel,
+    noteText: params.noteText?.trim() ? params.noteText.trim().slice(0, 160) : undefined,
+    persistenceStatus: params.isSavedToLocalStorage
+      ? 'LOCAL_STORAGE_SAVED'
+      : 'SESSION_MEMORY_ONLY',
+    createdAtIso: new Date().toISOString(),
+  };
 }

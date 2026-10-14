@@ -1,34 +1,41 @@
 /**
- * 抱抱与在场状态域类型定义
- * 遵循 docs/PRODUCT_CONTRACTS.md: 绝不混淆通信、责任与在场三维
+ * PHASE F & R3-02 — Hug & Co-Presence Domain Types
+ * Strictly follows docs/PRODUCT_CONTRACTS.md (Section 2: 抱抱契约) & AG-R3 R3-02
+ *
+ * Three Independent Dimensions:
+ * 1. CommunicationStatus: 通信状态（在无远程中继版本中，严禁伪造已送达/已收到）
+ * 2. CareResponsibility: 照护责任（谁来接手照护）
+ * 3. CoPresenceStatus: 共处状态（真人是否已经来到孩子身边）
  */
 
 export enum HugRequestType {
-  INSTANT_HELP = 'INSTANT_HELP', // 即时求助：需要此时此刻的安全感或注意力
-  ASYNC_MISS = 'ASYNC_MISS',     // 异步想念：写信、心愿瓶、稍后查看
+  /** 即时求助：我现在需要身边的大人抱抱我/帮帮我 */
+  INSTANT_HELP = 'INSTANT_HELP',
+  /** 本地想念：我想念远方的大人（放进本地想念盒，不等于即时传唤） */
+  ASYNC_MISS = 'ASYNC_MISS',
 }
 
 export enum CommunicationStatus {
-  UNSENT = 'UNSENT',               // 尚未发出
-  SENDING = 'SENDING',             // 发送中
-  SENT = 'SENT',                   // 已送达中继通道
-  ACKNOWLEDGED = 'ACKNOWLEDGED',   // 监护人设备已确认接收
-  SEND_FAILED = 'SEND_FAILED',     // 通道故障
+  UNSENT = 'UNSENT',
+  SENDING = 'SENDING',
+  SENT = 'SENT',
+  ACKNOWLEDGED = 'ACKNOWLEDGED',
+  SEND_FAILED = 'SEND_FAILED',
 }
 
 export enum CareResponsibility {
-  UNASSIGNED = 'UNASSIGNED',                 // 尚未有大人接手 / 未指派
-  ASSIGNED_SELF = 'ASSIGNED_SELF',           // 当前主要抚养人/身边家长承诺接手
-  ASSIGNED_OTHER = 'ASSIGNED_OTHER',         // 另一位抚养人接手 / 委托转交 (delegated)
-  ESCALATED_FALLBACK = 'ESCALATED_FALLBACK', // 备用紧急联系人接手
-  CANNOT_ATTEND = 'CANNOT_ATTEND',           // 当前大人确实无法前来（提供修复与支持语言，不羞辱）
+  UNASSIGNED = 'UNASSIGNED',
+  ASSIGNED_SELF = 'ASSIGNED_SELF',
+  ASSIGNED_OTHER = 'ASSIGNED_OTHER',
+  ESCALATED_FALLBACK = 'ESCALATED_FALLBACK',
+  CANNOT_ATTEND = 'CANNOT_ATTEND',
 }
 
 export enum CoPresenceStatus {
-  NOT_PRESENT = 'NOT_PRESENT',             // 不在身边
-  ON_THE_WAY = 'ON_THE_WAY',               // 在途中（仅客观事实，不得向孩子虚构倒计时）
-  ARRIVED_CONFIRMED = 'ARRIVED_CONFIRMED', // 本地已确认真人到场
-  UNCONFIRMED = 'UNCONFIRMED',             // 到场未确认（铁律：绝不等于失约！）
+  NOT_PRESENT = 'NOT_PRESENT',
+  ON_THE_WAY = 'ON_THE_WAY',
+  UNCONFIRMED = 'UNCONFIRMED',
+  ARRIVED_CONFIRMED = 'ARRIVED_CONFIRMED',
 }
 
 export interface HugDomainState {
@@ -39,13 +46,24 @@ export interface HugDomainState {
   readonly targetCaregiverName?: string;
 }
 
-export interface ChildFacingHugPresentation {
-  /** 适合朗读给 6 岁儿童的清晰事实陈述 */
+export interface ChildHugPresentation {
+  /** 面向 6 岁儿童的语音播报文案（仅陈述已知事实，严禁预测性承诺与虚假远程送达） */
   readonly spokenText: string;
-  /** 简明视觉辅助文案 */
+  /** 面向 6 岁儿童的简短辅助文字 */
   readonly displayText: string;
-  /** 界面是否应退场（当真人已在身边时为 true） */
-  readonly shouldStepBack: boolean;
-  /** 当大人尚未到场时，提供给儿童的安全、平静等待微行动 */
+  /** 在真人尚未到场时，提供给孩子的安全自主过渡小建议 */
   readonly safeWaitingAction: string;
+  /** 当真人已到场确认（ARRIVED_CONFIRMED）时，App 是否必须主动退场（Step Back） */
+  readonly shouldStepBack: boolean;
+}
+
+export type LocalHugSupportMode = 'SEEK_NEARBY_ADULT' | 'LOCAL_MISS_NOTE';
+
+export interface LocalHugSupportRecord {
+  id: string;
+  mode: LocalHugSupportMode;
+  targetLabel: '身边的大人' | '爸爸' | '妈妈';
+  noteText?: string;
+  persistenceStatus: 'SESSION_MEMORY_ONLY' | 'LOCAL_STORAGE_SAVED';
+  createdAtIso: string;
 }

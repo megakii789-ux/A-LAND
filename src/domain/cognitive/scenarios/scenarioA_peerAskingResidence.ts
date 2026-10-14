@@ -5,9 +5,7 @@
  * 1. 区分好奇发问（同学客观行为）与恶意探听。
  * 2. 隐私边界自我决定权：家庭事情是私人信息，孩子享有绝对决定权（可不说、少说、私下找信任大人说）。
  * 3. 破除认知偏误：严禁将“大声向全班公开披露”绑架为唯一“勇敢”的行为；不说、保持沉默或简略带过同样是被全力支持的自主选择。
- * 
- * 对应认知结构：
- * StructureId.FACT_VS_INFERENCE & StructureId.MULTI_ATTRIBUTE_IDENTITY
+ * 4. R3-03 & P1-07：同伴理解只作为可能反馈，不向儿童承诺现实必然发生；在独立审核完成前保持 PENDING_REVIEW。
  */
 
 import { UnifiedSceneDefinition, CognitiveLayer } from '../types';
@@ -76,7 +74,7 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
       characterName: '我',
       visibleInformation: [
         '我看到了小明的提问表情',
-        '我知道自己有两个温暖的家和具体的住处安排',
+        '我知道自己家里的住处安排',
       ],
       hiddenInformation: [
         '我不知道小明问这句话的具体原因',
@@ -109,7 +107,7 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
   actionChoices: [
     {
       actionId: 'choice_a_minimal_statement',
-      labelSpokenText: '少说一点，简单回答一句：“对呀，他们住在不同的房子，但我都在陪着他们。”',
+      labelSpokenText: '少说一点，简单回答一句：“对呀，他们住在不同的房子，轮流陪我。”',
       actionDescription: '用简短客观的一句话回应，既回答了事实，又划定了个人边界，不展开细节。',
       locusOfControl: 'INTERNAL_CONTROL',
       privacyLevel: 'MINIMAL_DISCLOSURE',
@@ -119,8 +117,8 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_a1_ok_understood',
-          feedbackScenario: '小明听完点点头',
-          feedbackSpokenText: '小明听了点点头说：“哦，原来是这样呀！来，我们一起搭积木吧！”',
+          feedbackScenario: '一种可能：小明听完点点头',
+          feedbackSpokenText: '一种可能是，小明听了点点头说：“哦，原来是这样呀！来，我们一起搭积木吧！”如果他继续追问，你仍然可以不说。',
           allowsReadjustment: true,
           outcomeType: 'PEER_REACTION',
         },
@@ -138,8 +136,8 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_a2_redirected',
-          feedbackScenario: '小明看向了积木',
-          feedbackSpokenText: '小明愣了一下，然后说：“好吧，那我们搭积木吧。”',
+          feedbackScenario: '一种可能：小明看向了积木',
+          feedbackSpokenText: '一种可能是，小明把注意力转向了积木说：“好吧，那我们搭积木吧。”如果他没有换话题，你也可以先离开。',
           allowsReadjustment: true,
           outcomeType: 'PEER_REACTION',
         },
@@ -157,8 +155,8 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
       potentialFeedbacks: [
         {
           outcomeId: 'fb_a3_adult_coaching',
-          feedbackScenario: '大人抱了抱你并给出支持',
-          feedbackSpokenText: '大人微笑着说：“你做得很棒，家庭的事情由你自己决定告诉谁。你想怎么回答，我们一起想。”',
+          feedbackScenario: '一种可能：信任的大人倾听并陪你一起想办法',
+          feedbackSpokenText: '一种可能是，大人认真听你说完并支持你：“家庭的事情由你自己决定告诉谁。你想怎么回答，我们一起想。”',
           allowsReadjustment: true,
           outcomeType: 'SAFETY_AFFIRMATION',
         },
@@ -166,7 +164,7 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
     },
   ],
 
-  requiresAdultCoReading: false,
+  requiresAdultCoReading: true,
 
   exitOrPauseOptions: {
     allowSilence: true,
@@ -179,11 +177,11 @@ export const SCENARIO_A_PEER_ASKING_RESIDENCE: UnifiedSceneDefinition = {
   surfaceDomain: 'two_homes',
 
   provenance: {
-    author: 'A-LAND 儿童认知发展工作组',
-    sourceDescription: '基于儿童人际交往与家庭隐私边界真实生活情境设计',
-    reviewStatus: 'REVIEWED_SAFE',
-    reviewedBy: '儿童心理发展与临床伦理专家委员会',
-    reviewDate: '2026-10-12',
-    pedagogicalNotes: '重点消除“不说就是自卑”的道德绑架，赋予儿童自主设置隐私边界的真实权利。',
+    author: 'A-LAND 研发草拟',
+    sourceDescription: '基于儿童人际交往与家庭隐私边界情境草拟（待独立专业伦理审核）',
+    reviewStatus: 'PENDING_REVIEW',
+    reviewedBy: '',
+    reviewDate: '',
+    pedagogicalNotes: '待独立专业审核：重点消除“不说就是自卑”的道德绑架，赋予儿童自主设置隐私边界的权利。',
   },
 };

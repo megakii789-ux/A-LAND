@@ -2,21 +2,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
   WeatherRecord,
   ParentObservation,
-  ParentScript,
-  WeeklyLesson,
   AdultPresenceTier,
   HugEvent,
   MedalRecord
 } from '../types';
-import {
-  INITIAL_LEAF_SCENARIOS,
-  INITIAL_PARENT_SCRIPTS,
-  INITIAL_PARENT_OBSERVATIONS,
-  INITIAL_WEEKLY_LESSONS,
-  INITIAL_MEDALS
-} from '../data/mockData';
+import { INITIAL_PARENT_OBSERVATIONS, INITIAL_MEDALS } from '../data/mockData';
 import { sounds } from '../utils/sound';
 import { speechNarrator } from '../utils/speech';
+import { hasParentAccess, lockParentAccess } from '../domain/privacy/parentAccess';
 import {
   PersonalizationProfile,
   loadPersonalizationProfile,
@@ -24,237 +17,380 @@ import {
   resetPersonalizationProfile,
   clearAllPersonalizationData,
   revokeConsentAndWipeStorage,
+  PERSONALIZATION_STORAGE_KEY,
 } from '../domain/personalization';
 
 export type IslandPlace = 'island' | 'weather' | 'story' | 'detective' | 'courage' | 'bridge' | 'starlight' | 'calm' | 'medals';
+export type TonightResidenceState = '妈妈家' | '爸爸家' | '尚未设置';
 
 interface AppContextType {
-  // Navigation
   currentView: 'child' | 'parent';
-  setCurrentView: (view: 'child' | 'parent') => void;
+  setCurrentView: (v: 'child' | 'parent') => void;
   childPlace: IslandPlace;
   setChildPlace: (place: IslandPlace) => void;
   selectedLeafId: string | null;
   setSelectedLeafId: (id: string | null) => void;
 
-  // Medals (成就徽章馆)
-  medals: MedalRecord[];
-  unlockMedal: (medalId: string) => void;
-  recentUnlockedMedal: MedalRecord | null;
-  dismissUnlockedMedal: () => void;
-
-  // Weather & Step-back
+  // Weather & Body Sensation (Soil layer) - default null / empty
   todayWeather: WeatherRecord | null;
   weatherHistory: WeatherRecord[];
-  saveTodayWeather: (weather: Omit<WeatherRecord, 'id' | 'timestamp'>) => void;
+  saveTodayWeather: (w: Omit<WeatherRecord, 'id' | 'timestamp'>) => void;
 
-  // Hug Button (抱抱键)
+  // Local Hug Support - no fake remote push notifications
   hugEvents: HugEvent[];
   activeHugNotice: boolean;
-  requestHug: (toParent?: '爸爸' | '妈妈' | '当前照顾者') => void;
+  requestHug: (to?: '爸爸' | '妈妈' | '当前照顾者') => void;
   acknowledgeHug: () => void;
 
-  // Audio mute
+  // Audio Mute & Reduced Motion
   isMuted: boolean;
   toggleMute: () => void;
+  reducedMotion: boolean;
+  setReducedMotion: (enabled: boolean) => void;
 
-  // Presence Tier
+  // Adult Presence Tier
   presenceTier: AdultPresenceTier;
-  setPresenceTier: (tier: AdultPresenceTier) => void;
+  setPresenceTier: (t: AdultPresenceTier) => void;
 
-  // Parent Observation Card (看行为，一键标记：这次他自己想到了)
+  // Parent Observations - default 0
   parentObservations: ParentObservation[];
   incrementSelfInitiated: (id: string) => void;
 
-  // Leaves & Progress
+  // Completed Leaves
   completedLeaves: string[];
   markLeafComplete: (leafId: string, childQuote?: string) => void;
   childQuotes: Record<string, string>;
 
-  // Two homes bridge data
-  tonightAt: '妈妈家' | '爸爸家';
-  daysToNextSwitch: number;
+  // Two Homes Bridge & Family Schedule (Sensitive - NOT persisted by default)
+  tonightAt: TonightResidenceState;
+  setTonightAt: (home: TonightResidenceState) => void;
+  daysToNextSwitch: number | null;
+  setDaysToNextSwitch: (days: number | null) => void;
   packedItems: string[];
   togglePackedItem: (item: string) => void;
   missNotes: Array<{ id: string; text: string; date: string }>;
   addMissNote: (text: string) => void;
 
-  // Starlight cabin
+  // Starlight Cabin traits - default empty
   starlightTraits: string[];
   addStarlightTrait: (trait: string) => void;
+  removeStarlightTrait: (trait: string) => void;
 
-  // SEC-05: 历史本地敏感数据隔离与清理
-  hasLegacySensitiveData: boolean;
-  clearLegacySensitiveStorage: () => void;
+  // Activity Markers (Medals) - default unlocked: false
+  medals: MedalRecord[];
+  unlockMedal: (medalId: string) => void;
+  recentUnlockedMedal: MedalRecord | null;
+  dismissUnlockedMedal: () => void;
 
-  // AG-04B: 受控儿童个性化引擎状态与控制
+  // Controlled Personalization (AG-04B)
   personalization: PersonalizationProfile;
   updatePersonalization: (partial: Partial<PersonalizationProfile>) => void;
   resetPersonalization: () => void;
   clearAllPersonalization: () => void;
   revokePersonalizationConsent: () => void;
+
+  // Explicit Local Storage Consent & Demo Mode (Phase 3 P1)
+  saveLocal: boolean;
+  setSaveLocal: (enabled: boolean) => void;
+  careScheduleSaveConsent: boolean;
+  setCareScheduleSaveConsent: (enabled: boolean) => void;
+  persistCareSchedule: boolean;
+  setPersistCareSchedule: (enabled: boolean) => void;
+  familyContent: boolean;
+  setFamilyContent: (enabled: boolean) => void;
+  isDemoMode: boolean;
+  setDemoMode: (enabled: boolean) => void;
+  clearAllData: () => void;
+  clearDeviceData: () => void;
+  hasLegacySensitiveData: boolean;
+  clearLegacySensitiveStorage: () => void;
+  storageError: string | null;
 }
 
-const AppContext = createContext<AppContextType | null>(null);
+const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const LEGACY_STORAGE_KEY = 'sunny_rain_island_v1_state';
-const SAFE_SETTINGS_STORAGE_KEY = 'aland_safe_non_sensitive_settings_v1';
+const STORAGE_KEY = 'sunny_rain_island_v1_state';
+const CONSENT_STORAGE_KEY = 'sunny_rain_island_v1_consent';
+const CARE_SCHEDULE_CONSENT_KEY = 'sunny_rain_island_v1_care_consent';
+
+const createZeroObservations = (): ParentObservation[] =>
+  INITIAL_PARENT_OBSERVATIONS.map((obs) => ({
+    ...obs,
+    selfInitiatedCount: 0,
+    lastObservedDate: undefined,
+  }));
+
+const createZeroMedals = (): MedalRecord[] =>
+  INITIAL_MEDALS.map((m) => ({
+    ...m,
+    unlocked: false,
+    unlockedAt: undefined,
+  }));
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentView, setCurrentView] = useState<'child' | 'parent'>('child');
+  const [currentView, setCurrentViewState] = useState<'child' | 'parent'>('child');
   const [childPlace, setChildPlace] = useState<IslandPlace>('island');
   const [selectedLeafId, setSelectedLeafId] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [reducedMotion, setReducedMotionState] = useState<boolean>(false);
+  const [hasLegacySensitiveData, setHasLegacySensitiveData] = useState<boolean>(false);
+  const [storageError, setStorageError] = useState<string | null>(null);
 
-  // AG-04B: 本地受控个性化偏好状态
+  // Phase 3 #2: Default weather, residence, miss notes, and family/starlight traits to unknown or empty!
+  const [todayWeather, setTodayWeather] = useState<WeatherRecord | null>(null);
+  const [weatherHistory, setWeatherHistory] = useState<WeatherRecord[]>([]);
+  const [hugEvents, setHugEvents] = useState<HugEvent[]>([]);
+  const [activeHugNotice, setActiveHugNotice] = useState<boolean>(false);
+  const [presenceTier, setPresenceTier] = useState<AdultPresenceTier>('A');
+  const [parentObservations, setParentObservations] = useState<ParentObservation[]>(createZeroObservations);
+  const [completedLeaves, setCompletedLeaves] = useState<string[]>([]);
+  const [childQuotes, setChildQuotes] = useState<Record<string, string>>({});
+
+  // Sensitive family residence & care schedule defaults to unknown ('尚未设置' / null), never '妈妈家'
+  const [tonightAt, setTonightAt] = useState<TonightResidenceState>('尚未设置');
+  const [daysToNextSwitch, setDaysToNextSwitch] = useState<number | null>(null);
+  const [packedItems, setPackedItems] = useState<string[]>([]);
+  const [missNotes, setMissNotes] = useState<Array<{ id: string; text: string; date: string }>>([]);
+  const [starlightTraits, setStarlightTraits] = useState<string[]>([]);
+  const [medals, setMedals] = useState<MedalRecord[]>(createZeroMedals);
+  const [recentUnlockedMedal, setRecentUnlockedMedal] = useState<MedalRecord | null>(null);
+
+  // Phase 3 #3 & #4: Local storage consent defaults to FALSE; care schedule persistence separate & defaults to FALSE
+  const [saveLocal, setSaveLocalState] = useState<boolean>(false);
+  const [careScheduleSaveConsent, setCareScheduleSaveConsentState] = useState<boolean>(false);
+  const [familyContent, setFamilyContentState] = useState<boolean>(false);
+  const [isDemoMode, setIsDemoModeState] = useState<boolean>(false);
+
+  // Controlled Child Personalization (AG-04B)
   const [personalization, setPersonalization] = useState<PersonalizationProfile>(() =>
     loadPersonalizationProfile()
   );
 
-  // 同步个性化无障碍偏好 (语音静音与减少动效)
-  useEffect(() => {
-    if (!personalization.accessibility.voiceEnabled) {
-      sounds.setMuted(true);
-      setIsMuted(true);
-    } else {
-      sounds.setMuted(false);
-      setIsMuted(false);
-    }
-
-    if (typeof document !== 'undefined') {
-      if (personalization.accessibility.reducedMotion) {
-        document.documentElement.classList.add('reduced-motion');
-      } else {
-        document.documentElement.classList.remove('reduced-motion');
-      }
-    }
-  }, [personalization.accessibility.voiceEnabled, personalization.accessibility.reducedMotion]);
-
-  // 切换场景立即停止旧语音，防止声音叠加
-  useEffect(() => {
-    speechNarrator.stop();
-  }, [childPlace, currentView]);
-
-  // Weather
-  const [todayWeather, setTodayWeather] = useState<WeatherRecord | null>({
-    id: 'weather-sample',
-    timestamp: new Date().toISOString(),
-    primary: 'sunny',
-    intensity: 3,
-    bodySensations: ['胸口松松的', '身上暖暖的'],
-    calmingMethod: '深呼吸'
-  });
-  const [weatherHistory, setWeatherHistory] = useState<WeatherRecord[]>([]);
-
-  // Hug events
-  const [hugEvents, setHugEvents] = useState<HugEvent[]>([]);
-  const [activeHugNotice, setActiveHugNotice] = useState<boolean>(false);
-
-  // Presence tier (A: 独立, B: 先看后放行, C: 必须共玩)
-  const [presenceTier, setPresenceTier] = useState<AdultPresenceTier>('A');
-
-  // Observations
-  const [parentObservations, setParentObservations] = useState<ParentObservation[]>(INITIAL_PARENT_OBSERVATIONS);
-
-  // Completed leaves & child quotes (private)
-  const [completedLeaves, setCompletedLeaves] = useState<string[]>([]);
-  const [childQuotes, setChildQuotes] = useState<Record<string, string>>({});
-
-  // Two homes bridge
-  const [tonightAt, setTonightAt] = useState<'妈妈家' | '爸爸家'>('妈妈家');
-  const [daysToNextSwitch, setDaysToNextSwitch] = useState<number>(2);
-  const [packedItems, setPackedItems] = useState<string[]>(['安心小熊玩偶', '水彩画笔']);
-  const [missNotes, setMissNotes] = useState<Array<{ id: string; text: string; date: string }>>([
-    { id: '1', text: '想念爸爸带我去池塘看小鸭子', date: '昨天晚上' }
-  ]);
-
-  // Starlight traits
-  const [starlightTraits, setStarlightTraits] = useState<string[]>([
-    '画画很仔细',
-    '喜欢照顾小猫',
-    '有两个温暖的家',
-    '正在学系鞋带',
-    '很会安慰难过的小熊'
-  ]);
-
-  // Medals (成就徽章馆)
-  const [medals, setMedals] = useState<MedalRecord[]>(INITIAL_MEDALS);
-  const [recentUnlockedMedal, setRecentUnlockedMedal] = useState<MedalRecord | null>(null);
-
-  const [hasLegacySensitiveData, setHasLegacySensitiveData] = useState<boolean>(false);
-
-  // SEC-05: 仅加载受控非敏感设置，敏感表达（想念、自由问答、自省）保持内存态
+  // Hydrate ONLY if explicit consent was previously granted
   useEffect(() => {
     try {
-      // 1. 检查是否存在旧版持久化的敏感数据
-      const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
-      if (legacyRaw) {
-        setHasLegacySensitiveData(true);
-      }
+      const hasConsent = localStorage.getItem(CONSENT_STORAGE_KEY) === 'yes';
+      const hasCareConsent = localStorage.getItem(CARE_SCHEDULE_CONSENT_KEY) === 'yes';
+      const saved = localStorage.getItem(STORAGE_KEY);
 
-      // 2. 加载受控的最小非敏感设置 (故事完成标记、两家日程、徽章、陪伴层级)
-      const safeRaw = localStorage.getItem(SAFE_SETTINGS_STORAGE_KEY);
-      if (safeRaw) {
-        const parsed = JSON.parse(safeRaw);
-        if (Array.isArray(parsed.completedLeaves)) setCompletedLeaves(parsed.completedLeaves);
-        if (parsed.tonightAt) setTonightAt(parsed.tonightAt);
-        if (typeof parsed.daysToNextSwitch === 'number') setDaysToNextSwitch(parsed.daysToNextSwitch);
-        if (Array.isArray(parsed.packedItems)) setPackedItems(parsed.packedItems);
-        if (parsed.presenceTier) setPresenceTier(parsed.presenceTier);
-        if (Array.isArray(parsed.medals)) setMedals(parsed.medals);
-      } else if (legacyRaw) {
-        // 首次从旧版平滑提取非敏感字段，绝不自动持久化敏感数据
-        const legacyParsed = JSON.parse(legacyRaw);
-        if (Array.isArray(legacyParsed.completedLeaves)) setCompletedLeaves(legacyParsed.completedLeaves);
-        if (legacyParsed.tonightAt) setTonightAt(legacyParsed.tonightAt);
-        if (Array.isArray(legacyParsed.packedItems)) setPackedItems(legacyParsed.packedItems);
-        if (legacyParsed.presenceTier) setPresenceTier(legacyParsed.presenceTier);
-        if (Array.isArray(legacyParsed.medals)) setMedals(legacyParsed.medals);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          if (
+            parsed.childQuotes ||
+            parsed.missNotes ||
+            parsed.todayWeather ||
+            parsed.weatherHistory ||
+            parsed.parentObservations
+          ) {
+            setHasLegacySensitiveData(true);
+          }
+          if (hasConsent) {
+            setSaveLocalState(true);
+            setCareScheduleSaveConsentState(hasCareConsent);
+            if (Array.isArray(parsed.completedLeaves)) {
+              setCompletedLeaves(
+                parsed.completedLeaves.filter((id: unknown): id is string => typeof id === 'string')
+              );
+            }
+            if (typeof parsed.familyContent === 'boolean') {
+              setFamilyContentState(parsed.familyContent);
+            }
+            if (typeof parsed.reducedMotion === 'boolean') {
+              setReducedMotionState(parsed.reducedMotion);
+            }
+            if (parsed.presenceTier === 'A' || parsed.presenceTier === 'B' || parsed.presenceTier === 'C') {
+              setPresenceTier(parsed.presenceTier);
+            }
+            if (hasCareConsent) {
+              if (parsed.tonightAt === '妈妈家' || parsed.tonightAt === '爸爸家') {
+                setTonightAt(parsed.tonightAt);
+              }
+              if (typeof parsed.daysToNextSwitch === 'number') {
+                setDaysToNextSwitch(parsed.daysToNextSwitch);
+              }
+            }
+          }
+        }
       }
-    } catch {}
+    } catch {
+      // Ignore storage read errors and remain in safe memory-only mode
+    }
   }, []);
 
-  // SEC-05: 仅保存最小非敏感设置至本地，绝对禁止持久化儿童自由表达、想念与心理观察
+  // Persist ONLY when saveLocal === true and never persist Demo Mode data or sensitive child quotes
   useEffect(() => {
+    if (!saveLocal || isDemoMode) return;
     try {
       const safeStateToSave = {
         completedLeaves,
-        tonightAt,
-        daysToNextSwitch,
-        packedItems,
         presenceTier,
-        medals
+        familyContent,
+        reducedMotion,
       };
-      localStorage.setItem(SAFE_SETTINGS_STORAGE_KEY, JSON.stringify(safeStateToSave));
-    } catch {}
+      const payload: Record<string, unknown> = { ...safeStateToSave };
+      // Phase 3 #4: Family pickup & care schedule is only persisted if separately consented
+      if (careScheduleSaveConsent) {
+        payload.tonightAt = tonightAt;
+        payload.daysToNextSwitch = daysToNextSwitch;
+      }
+      localStorage.setItem(CONSENT_STORAGE_KEY, 'yes');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      setStorageError(null);
+    } catch {
+      setStorageError('浏览器禁止写入本地存储，当前数据仅在本次页面打开期间有效。');
+    }
   }, [
+    saveLocal,
+    isDemoMode,
+    careScheduleSaveConsent,
     completedLeaves,
+    presenceTier,
+    familyContent,
+    reducedMotion,
     tonightAt,
     daysToNextSwitch,
-    packedItems,
-    presenceTier,
-    medals
   ]);
+
+  // Parent view guard: Enforce PIN access and auto-lock after 5 minutes of inactivity
+  useEffect(() => {
+    if (currentView !== 'parent') return;
+    let timer: ReturnType<typeof setTimeout>;
+    const lock = () => {
+      lockParentAccess();
+      setCurrentViewState('child');
+    };
+    const resetTimer = () => {
+      clearTimeout(timer);
+      timer = setTimeout(lock, 5 * 60 * 1000);
+    };
+    const handleVisibility = () => {
+      if (document.hidden) lock();
+    };
+    resetTimer();
+    window.addEventListener('pointerdown', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('pointerdown', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, [currentView]);
+
+  const setCurrentView = (v: 'child' | 'parent') => {
+    if (v === 'parent' && !hasParentAccess()) {
+      return;
+    }
+    speechNarrator.stop();
+    if (v === 'child') {
+      lockParentAccess();
+    }
+    setCurrentViewState(v);
+  };
+
+  const setSaveLocal = (enabled: boolean) => {
+    setSaveLocalState(enabled);
+    if (!enabled) {
+      setCareScheduleSaveConsentState(false);
+      try {
+        localStorage.removeItem(CONSENT_STORAGE_KEY);
+        localStorage.removeItem(CARE_SCHEDULE_CONSENT_KEY);
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem('parent_medals_milestones');
+      } catch {
+        // Ignore
+      }
+    }
+  };
+
+  const setCareScheduleSaveConsent = (enabled: boolean) => {
+    setCareScheduleSaveConsentState(enabled);
+    try {
+      if (enabled && saveLocal) {
+        localStorage.setItem(CARE_SCHEDULE_CONSENT_KEY, 'yes');
+      } else {
+        localStorage.removeItem(CARE_SCHEDULE_CONSENT_KEY);
+      }
+    } catch {
+      // Ignore
+    }
+  };
+
+  const setFamilyContent = (enabled: boolean) => {
+    if (!hasParentAccess()) return;
+    setFamilyContentState(enabled);
+  };
+
+  const setReducedMotion = (enabled: boolean) => {
+    setReducedMotionState(enabled);
+  };
 
   const clearLegacySensitiveStorage = () => {
     try {
-      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('sunny_island_child_private_artifacts_v1');
+      localStorage.removeItem('active_open_hug_state');
       setHasLegacySensitiveData(false);
-    } catch {}
+    } catch {
+      // Ignore
+    }
+  };
+
+  const setDemoMode = (enabled: boolean) => {
+    setIsDemoModeState(enabled);
+    if (enabled) {
+      const demoWeather: WeatherRecord = {
+        id: 'demo-weather-1',
+        timestamp: new Date().toISOString(),
+        primary: 'sunny',
+        secondary: 'cloudy',
+        intensity: 2,
+        bodySensations: ['松松的'],
+        calmingMethod: '深呼吸',
+      };
+      setTodayWeather(demoWeather);
+      setWeatherHistory([demoWeather]);
+      setTonightAt('妈妈家');
+      setDaysToNextSwitch(2);
+      setMissNotes([{ id: 'demo-miss-1', text: '【演示样本】今天画了一只小恐龙', date: '演示模式' }]);
+      setStarlightTraits(['喜欢搭积木的小建筑师（演示）']);
+      setParentObservations([
+        { ...INITIAL_PARENT_OBSERVATIONS[0], selfInitiatedCount: 2, lastObservedDate: '演示数据' },
+        { ...INITIAL_PARENT_OBSERVATIONS[1], selfInitiatedCount: 3, lastObservedDate: '演示数据' },
+        { ...INITIAL_PARENT_OBSERVATIONS[2], selfInitiatedCount: 1, lastObservedDate: '演示数据' },
+        { ...INITIAL_PARENT_OBSERVATIONS[3], selfInitiatedCount: 2, lastObservedDate: '演示数据' },
+        { ...INITIAL_PARENT_OBSERVATIONS[4], selfInitiatedCount: 1, lastObservedDate: '演示数据' },
+      ]);
+      setMedals(
+        INITIAL_MEDALS.map((m, idx) =>
+          idx < 2 ? { ...m, unlocked: true, unlockedAt: '演示模式' } : { ...m, unlocked: false }
+        )
+      );
+    } else {
+      setTodayWeather(null);
+      setWeatherHistory([]);
+      setTonightAt('尚未设置');
+      setDaysToNextSwitch(null);
+      setMissNotes([]);
+      setStarlightTraits([]);
+      setParentObservations(createZeroObservations());
+      setMedals(createZeroMedals());
+    }
   };
 
   const unlockMedal = (medalId: string) => {
-    setMedals(prev => {
-      const target = prev.find(m => m.id === medalId);
+    setMedals((prev) => {
+      const target = prev.find((m) => m.id === medalId);
       if (!target || target.unlocked) return prev;
-      sounds.playBell();
-      const updated = prev.map(m =>
-        m.id === medalId
-          ? { ...m, unlocked: true, unlockedAt: '刚刚' }
-          : m
+      const updated = prev.map((m) =>
+        m.id === medalId ? { ...m, unlocked: true, unlockedAt: '本次会话' } : m
       );
-      const unlockedOne = updated.find(m => m.id === medalId) || null;
-      setRecentUnlockedMedal(unlockedOne);
+      const newlyUnlocked = updated.find((m) => m.id === medalId) || null;
+      if (newlyUnlocked) {
+        setRecentUnlockedMedal(newlyUnlocked);
+      }
       return updated;
     });
   };
@@ -264,55 +400,54 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const toggleMute = () => {
-    const nextMuted = !isMuted;
-    setIsMuted(nextMuted);
-    sounds.setMuted(nextMuted);
+    const next = !isMuted;
+    setIsMuted(next);
+    sounds.setMuted(next);
+    if (next) {
+      speechNarrator.stop();
+    }
   };
 
-  const saveTodayWeather = (weather: Omit<WeatherRecord, 'id' | 'timestamp'>) => {
-    const newRecord: WeatherRecord = {
-      ...weather,
-      id: Date.now().toString(),
+  const saveTodayWeather = (w: Omit<WeatherRecord, 'id' | 'timestamp'>) => {
+    const record: WeatherRecord = {
+      ...w,
+      id: `weather-${Date.now()}`,
       timestamp: new Date().toISOString()
     };
-    setTodayWeather(newRecord);
-    setWeatherHistory(prev => [newRecord, ...prev.slice(0, 14)]);
-    sounds.playBell();
-
-    // Check medal unlock
-    if (weather.primary === 'sunny') {
-      unlockMedal('sun-awareness');
-    } else if (weather.primary === 'rainy' || weather.primary === 'stormy') {
-      unlockMedal('rain-acceptance');
-    }
-    if (weatherHistory.length >= 2) {
-      unlockMedal('rain-flow');
-    }
+    setTodayWeather(record);
+    setWeatherHistory((prev) => [record, ...prev].slice(0, 30));
   };
 
-  const requestHug = (toParent: '爸爸' | '妈妈' | '当前照顾者' = '当前照顾者') => {
-    sounds.playWarmHug();
+  // R3-02: Local help trigger only; NEVER pretend a remote notification was delivered to parent device
+  const requestHug = (to: '爸爸' | '妈妈' | '当前照顾者' = '当前照顾者') => {
     const newHug: HugEvent = {
-      id: Date.now().toString(),
-      timestamp: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }),
-      toParent,
+      id: `hug-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      toParent: to,
       acknowledged: false
     };
-    setHugEvents(prev => [newHug, ...prev]);
-    setActiveHugNotice(true);
-    unlockMedal('hug-courage');
+    setHugEvents((prev) => [newHug, ...prev]);
+    setActiveHugNotice(false);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('qingyu:local-help'));
+    }
   };
 
   const acknowledgeHug = () => {
     setActiveHugNotice(false);
+    setHugEvents((prev) => prev.map((h) => ({ ...h, acknowledged: true })));
   };
 
   const incrementSelfInitiated = (id: string) => {
     sounds.playBell();
-    setParentObservations(prev =>
-      prev.map(obs =>
+    setParentObservations((prev) =>
+      prev.map((obs) =>
         obs.id === id
-          ? { ...obs, selfInitiatedCount: obs.selfInitiatedCount + 1, lastObservedDate: '刚刚' }
+          ? {
+              ...obs,
+              selfInitiatedCount: obs.selfInitiatedCount + 1,
+              lastObservedDate: new Date().toLocaleDateString('zh-CN')
+            }
           : obs
       )
     );
@@ -320,40 +455,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const markLeafComplete = (leafId: string, quote?: string) => {
     sounds.playBell();
-    if (!completedLeaves.includes(leafId)) {
-      setCompletedLeaves(prev => [...prev, leafId]);
+    setCompletedLeaves((prev) => (prev.includes(leafId) ? prev : [...prev, leafId]));
+    // Child free quotes remain strictly in session memory only, never uploaded or persisted
+    if (quote && quote.trim()) {
+      setChildQuotes((prev) => ({ ...prev, [leafId]: quote.trim() }));
     }
-    if (quote) {
-      setChildQuotes(prev => ({ ...prev, [leafId]: quote }));
-    }
-    unlockMedal('coin-flipper');
   };
 
   const togglePackedItem = (item: string) => {
-    sounds.playClick();
-    setPackedItems(prev =>
-      prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]
+    setPackedItems((prev) =>
+      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
     );
   };
 
   const addMissNote = (text: string) => {
-    sounds.playBell();
-    const note = {
-      id: Date.now().toString(),
-      text,
-      date: '刚刚'
-    };
-    setMissNotes(prev => [note, ...prev]);
+    if (!text.trim()) return;
+    setMissNotes((prev) => [
+      {
+        id: `miss-${Date.now()}`,
+        text: text.trim().slice(0, 160),
+        date: '仅当前页面'
+      },
+      ...prev
+    ]);
   };
 
   const addStarlightTrait = (trait: string) => {
-    sounds.playBell();
-    if (!starlightTraits.includes(trait)) {
-      setStarlightTraits(prev => [...prev, trait]);
-    }
+    if (!trait.trim() || starlightTraits.includes(trait.trim())) return;
+    setStarlightTraits((prev) => [...prev, trait.trim()]);
   };
 
-  // AG-04B: 受控儿童个性化方法
+  const removeStarlightTrait = (trait: string) => {
+    setStarlightTraits((prev) => prev.filter((t) => t !== trait));
+  };
+
   const updatePersonalization = (partial: Partial<PersonalizationProfile>) => {
     const updated = savePersonalizationProfile(partial);
     setPersonalization(updated);
@@ -366,12 +501,53 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const clearAllPersonalization = () => {
     clearAllPersonalizationData();
-    setPersonalization(loadPersonalizationProfile());
+    setPersonalization(resetPersonalizationProfile());
   };
 
   const revokePersonalizationConsent = () => {
     const revoked = revokeConsentAndWipeStorage();
     setPersonalization(revoked);
+    setSaveLocal(false);
+  };
+
+  const clearAllData = () => {
+    // Set consent flags to false FIRST so no effect re-writes data to localStorage
+    setSaveLocalState(false);
+    setCareScheduleSaveConsentState(false);
+    setIsDemoModeState(false);
+    setFamilyContentState(false);
+    setReducedMotionState(false);
+    setHasLegacySensitiveData(false);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(CONSENT_STORAGE_KEY);
+      localStorage.removeItem(CARE_SCHEDULE_CONSENT_KEY);
+      localStorage.removeItem(PERSONALIZATION_STORAGE_KEY);
+      localStorage.removeItem('sunny_island_child_private_artifacts_v1');
+      localStorage.removeItem('active_open_hug_state');
+      localStorage.removeItem('child_voice_profile');
+      localStorage.removeItem('parent_medals_milestones');
+    } catch {
+      // Ignore
+    }
+    clearAllPersonalizationData();
+    setPersonalization(resetPersonalizationProfile());
+    setTodayWeather(null);
+    setWeatherHistory([]);
+    setHugEvents([]);
+    setActiveHugNotice(false);
+    setParentObservations(createZeroObservations());
+    setCompletedLeaves([]);
+    setChildQuotes({});
+    setTonightAt('尚未设置');
+    setDaysToNextSwitch(null);
+    setPackedItems([]);
+    setMissNotes([]);
+    setStarlightTraits([]);
+    setMedals(createZeroMedals());
+    setRecentUnlockedMedal(null);
+    lockParentAccess();
+    setCurrentViewState('child');
   };
 
   return (
@@ -392,6 +568,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         acknowledgeHug,
         isMuted,
         toggleMute,
+        reducedMotion,
+        setReducedMotion,
         presenceTier,
         setPresenceTier,
         parentObservations,
@@ -400,24 +578,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         markLeafComplete,
         childQuotes,
         tonightAt,
+        setTonightAt,
         daysToNextSwitch,
+        setDaysToNextSwitch,
         packedItems,
         togglePackedItem,
         missNotes,
         addMissNote,
         starlightTraits,
         addStarlightTrait,
+        removeStarlightTrait,
         medals,
         unlockMedal,
         recentUnlockedMedal,
         dismissUnlockedMedal,
-        hasLegacySensitiveData,
-        clearLegacySensitiveStorage,
         personalization,
         updatePersonalization,
         resetPersonalization,
         clearAllPersonalization,
-        revokePersonalizationConsent
+        revokePersonalizationConsent,
+        saveLocal,
+        setSaveLocal,
+        careScheduleSaveConsent,
+        setCareScheduleSaveConsent,
+        persistCareSchedule: careScheduleSaveConsent,
+        setPersistCareSchedule: setCareScheduleSaveConsent,
+        familyContent,
+        setFamilyContent,
+        isDemoMode,
+        setDemoMode,
+        clearAllData,
+        clearDeviceData: clearAllData,
+        hasLegacySensitiveData,
+        clearLegacySensitiveStorage,
+        storageError,
       }}
     >
       {children}

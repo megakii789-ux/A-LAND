@@ -94,7 +94,7 @@ export interface CharacterPerspective {
 }
 
 /**
- * 行动的不同反馈分支
+ * 行动的不同反馈分支（只作为可能反馈，不承诺现实必然发生）
  */
 export interface ActionFeedbackConsequence {
   readonly outcomeId: string;
@@ -151,16 +151,19 @@ export interface ExitOrPauseSupport {
   readonly allowSilence: boolean;          // 允许不说
   readonly allowPassOrSkip: boolean;       // 允许跳过/退出
   readonly allowPrivateKeep: boolean;      // 允许只留在心里
-  readonly spokenExitGuidance: string;     // 退出时的安抚文案 (例如：“不想说完全没关系，你的心里有一扇属于自己的小门”)
+  readonly spokenExitGuidance: string;     // 退出时的安抚文案
 }
 
 /**
- * 内容溯源与专业伦理审核
+ * 内容溯源与专业伦理审核 (R3-03)
+ * - 取消没有独立审核证据支持的 REVIEWED_SAFE 状态；
+ * - 不得仅凭字符串 reviewedBy 或 reviewDate 认定经过专家审查；
+ * - 在独立审核流程完成前，保持为 PENDING_REVIEW 状态。
  */
 export interface SceneProvenance {
   readonly author: string;
   readonly sourceDescription: string;
-  readonly reviewStatus: 'DRAFT' | 'REVIEWED_SAFE' | 'REJECTED';
+  readonly reviewStatus: 'DRAFT' | 'PENDING_REVIEW' | 'REVIEWED_SAFE' | 'REJECTED';
   readonly reviewedBy: string;
   readonly reviewDate: string;
   readonly pedagogicalNotes?: string;
@@ -256,4 +259,5 @@ export interface SceneValidationResult {
   readonly sceneId: string;
   readonly errors: ReadonlyArray<SceneValidationError>;
   readonly verifiedLayers: ReadonlyArray<CognitiveLayer>;
+  readonly canEnterChildRuntime?: boolean;
 }
