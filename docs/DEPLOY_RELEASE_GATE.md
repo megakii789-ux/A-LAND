@@ -37,8 +37,8 @@
 | 版本角色 | 分支名称 | Git Commit SHA | 构建时间 (UTC+8) | 构建状态 | 预览/访问地址 | 发布门禁标识 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **历史回滚基线 (Rollback Baseline)** | `main` (Frozen) | `f8c7401907b3fe5831c343b995b777254fdfe45d` | `2026-10-14` | Baseline | 禁止公开部署 | `BASELINE_FROZEN` |
-| **生产安全占位 (Production Hold)** | `public-hold` | *(见提交记录)* | `2026-10-14` | `READY` | `https://qingyu-island-preview.pages.dev` | `PUBLIC_HOLD_PLACEHOLDER` |
-| **受控工程预览 (Engineering Preview)** | `preview` | *(见提交记录)* | `2026-10-14` | `VERIFIED_LOCAL` | `https://preview.qingyu-island-preview.pages.dev` | `ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED` |
+| **生产安全占位 (Production Hold)** | `public-hold` | `e00706e281b298414ee8eebe9de3853fa6ec9765` | `2026-10-14T20:52+08:00` | `READY` | `https://qingyu-island-preview.pages.dev` | `PUBLIC_HOLD_PLACEHOLDER` |
+| **受控工程预览 (Engineering Preview)** | `preview` | `8a1eb34705316a1312321f521eda24dbb54524d6` (Initial) | `2026-10-14T20:52+08:00` | `VERIFIED_LOCAL` | `https://preview.qingyu-island-preview.pages.dev` | `ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED` |
 
 ### 标准回滚操作指令
 如需将 `preview` 分支安全回退至历史基线 `f8c7401907b3fe5831c343b995b777254fdfe45d`（或任意已验证 SHA），**严禁使用 `git push --force`**，请执行：
