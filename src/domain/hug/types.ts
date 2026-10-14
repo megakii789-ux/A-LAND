@@ -44,6 +44,7 @@ export interface HugDomainState {
   readonly care: CareResponsibility;
   readonly coPresence: CoPresenceStatus;
   readonly targetCaregiverName?: string;
+  readonly message?: string;
 }
 
 export interface ChildHugPresentation {

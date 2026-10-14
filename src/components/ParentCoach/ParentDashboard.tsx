@@ -18,12 +18,13 @@ import {
   ArrowRight,
   HardDrive,
   FileText,
-  Copy
+  Copy,
+  ShieldCheck
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { sounds } from '../../utils/sound';
 import { INITIAL_PARENT_SCRIPTS, INITIAL_WEEKLY_LESSONS } from '../../data/mockData';
-import { GoogleDriveModal } from '../GoogleDrive/GoogleDriveModal';
+import { PrivacyDeclarationModal } from '../Privacy/PrivacyDeclarationModal';
 import { WeeklyReportView } from './WeeklyReportView';
 import { generateLocalWeeklyReport, calculateWeeklyMetrics } from '../../services/weeklyReportService';
 import { WeeklyReportData } from '../../types';
@@ -977,21 +978,21 @@ export const ParentDashboard: React.FC = () => {
                 睡前花10分钟聊聊今天最开心的一件小事，给孩子一个温暖踏实的晚安拥抱。
               </div>
 
-              {/* Google Drive Cloud Backup Card */}
-              <div className="p-4 sm:p-5 bg-linear-to-r from-blue-50 to-sky-50 rounded-2xl border border-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              {/* Privacy Protection and Local Data Card */}
+              <div className="p-4 sm:p-5 bg-linear-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-                    <HardDrive className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-stone-900 flex items-center gap-1.5">
-                      <span>Google 云端硬盘 · 思考成长档案云备份</span>
-                      <span className="text-[10px] bg-blue-200/80 text-blue-900 px-2 py-0.2 rounded-full font-bold">
-                        安全私密
+                      <span>儿童与家庭数据隐私安全承诺</span>
+                      <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-full font-bold">
+                        本地安全 · 零云端上传
                       </span>
                     </h4>
                     <p className="text-xs text-stone-600 mt-0.5">
-                      将孩子的思考叶片完成记录、情绪天气日记与观察卡备份至 Google Drive，方便两个家或更换设备时随时同步。
+                      孩子的语音、画作与思考记录全程仅保存在当前设备本地，不上传任何外部服务器，完全守护家庭隐私。
                     </p>
                   </div>
                 </div>
@@ -999,10 +1000,10 @@ export const ParentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsDriveOpen(true)}
-                  className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0 flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0 flex items-center gap-1.5 cursor-pointer"
                 >
-                  <HardDrive className="w-4 h-4" />
-                  <span>管理 Google Drive 档案</span>
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>查看隐私声明与本地管理</span>
                 </button>
               </div>
             </div>
@@ -1080,8 +1081,8 @@ export const ParentDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* Google Drive Modal */}
-        <GoogleDriveModal
+        {/* Privacy Declaration Modal */}
+        <PrivacyDeclarationModal
           isOpen={isDriveOpen}
           onClose={() => setIsDriveOpen(false)}
         />

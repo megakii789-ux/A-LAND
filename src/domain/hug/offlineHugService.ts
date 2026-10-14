@@ -44,8 +44,9 @@ export class OfflineHugController {
 
   /**
    * 发起抱抱请求：
-   * AG-R5: 当前版本没有远程中继，无论传入什么模拟参数 (如 isOnline: true / hasVerifiedRemoteRelay: true)，
-   * 都不能返回 SENT 或 ACKNOWLEDGED。必须诚实返回 CommunicationStatus.SEND_FAILED。
+   * 删除所有模拟远程发送成功的逻辑。当调用求助接口时，如果 isOnline 为 true，
+   * 强制返回 SEND_FAILED 状态并明确提示：'当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人'。
+   * 禁止在界面中显示已送达或已保存的虚假状态。
    */
   async submitHugRequest(options: HugSubmitOptions): Promise<HugDomainState> {
     if (this.isSubmitting) {
@@ -54,12 +55,14 @@ export class OfflineHugController {
 
     this.isSubmitting = true;
     try {
+      const explicitNotice = '当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人';
       const failedState: HugDomainState = {
         requestType: options.requestType,
         communication: CommunicationStatus.SEND_FAILED,
         care: CareResponsibility.UNASSIGNED,
         coPresence: CoPresenceStatus.NOT_PRESENT,
-        targetCaregiverName: options.targetCaregiverName
+        targetCaregiverName: options.targetCaregiverName,
+        message: explicitNotice
       };
       OfflineHugController.serializeActiveState(failedState);
       return failedState;
@@ -80,7 +83,8 @@ export class OfflineHugController {
     ) {
       const updated: HugDomainState = {
         ...currentState,
-        communication: CommunicationStatus.SEND_FAILED
+        communication: CommunicationStatus.SEND_FAILED,
+        message: '当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人'
       };
       OfflineHugController.serializeActiveState(updated);
       return updated;
@@ -90,8 +94,7 @@ export class OfflineHugController {
 
   /**
    * 网络重新连接检测：
-   * AG-R5: 删除 handleReconnect() 中的错误重试承诺，统一 canRetry: false。
-   * 网络恢复不得生成重试提示，诚实引导找身边大人。
+   * 统一 canRetry: false。网络恢复不得生成重试提示，诚实明确提示。
    */
   handleReconnect(_currentState: HugDomainState): {
     canRetry: boolean;
@@ -99,7 +102,7 @@ export class OfflineHugController {
   } {
     return {
       canRetry: false,
-      promptText: '网络已恢复连接。本机运行模式下不会向远端发信，请直接找身边信任的大人。'
+      promptText: '当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人（请找身边信任的大人）'
     };
   }
 

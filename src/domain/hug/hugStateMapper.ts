@@ -38,13 +38,13 @@ export function getHonestLocalHugCopy(
 
   return {
     headline: isSavedToLocalStorage
-      ? '本地想念表达（已保存在本设备 · 不会远程发送）'
+      ? '本地想念表达（仅限本机查看 · 不会远程发送）'
       : '本地想念表达（仅在当前页面存在 · 未持久保存）',
     spokenText: isSavedToLocalStorage
       ? '这句想念留在当前这台设备里啦，不会自动发给远方的大人，也不需要等回复。下次见到大人时可以当面给他们看。'
       : '这句想念仅在当前页面存在，没有远程发送，也没有持久保存，关闭或刷新页面后就会消失。不需要等回复。',
     persistenceDisclosure: isSavedToLocalStorage
-      ? '家长已开启本机存储同意：该想念仅保存在当前浏览器本机，未发送远程消息。'
+      ? '家长已开启本机存储设置：仅在当前设备留存，未发送远程消息。'
       : '未开启本机存储：该想念仅在当前页面内存中存在，未保存至本地存储，刷新或关闭页面即清除。',
     actionGuidance: '不需要在屏幕前等待回复，现在可以去喝口水或找身边的大人玩啦。',
   };
@@ -68,14 +68,16 @@ export function mapHugStateToChildPresentation(
   // ==================== 1. 异步想念流程 (ASYNC_MISS) ====================
   if (state.requestType === HugRequestType.ASYNC_MISS) {
     switch (state.communication) {
-      case CommunicationStatus.SEND_FAILED:
+      case CommunicationStatus.SEND_FAILED: {
+        const notice = state.message || '当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人';
         return {
-          displayText: '当前页面想念表达（网络未接通 · 仅在当前页面存在） · 不需要等回复',
+          displayText: notice,
           spokenText:
-            '现在没有远程消息通道，这句想念仅在当前页面存在。不需要等回复，你可以去玩别的啦。',
+            `${notice}。这句想念仅在当前页面存在，不需要等回复，你可以去玩别的啦。`,
           safeWaitingAction: '你可以去画一幅小画，或者喝一口温水。',
           shouldStepBack: false,
         };
+      }
       case CommunicationStatus.UNSENT:
       case CommunicationStatus.SENDING:
         return {
@@ -125,9 +127,13 @@ export function mapHugStateToChildPresentation(
 
   // 分支 B：发送失败或本机无远程通道（SEND_FAILED）
   if (state.communication === CommunicationStatus.SEND_FAILED) {
+    const rawNotice = state.message;
+    const notice = rawNotice && rawNotice.includes('当前无网络连接')
+      ? `这里不会发消息 · 网络未接通 · ${rawNotice}`
+      : '这里不会发消息 · 网络未接通 · 当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人';
     return {
-      displayText: '这里不会发消息（网络未接通） · 请找身边大人',
-      spokenText: `这里不会发消息给远方的大人。如果你想找${target}，我们可以直接走到身边的大人面前，拉拉大人的衣角说“我想要个抱抱”。`,
+      displayText: notice,
+      spokenText: `这里不会发消息。网络未接通或离线模式，无法发送至远程，请寻找身边的信任成年人。如果你想找${target}，我们可以直接走到身边的大人面前，拉拉大人的衣角说“我想要个抱抱”。`,
       safeWaitingAction: '直接走到房间里的大人身边，拉拉大人的手。',
       shouldStepBack: false,
     };

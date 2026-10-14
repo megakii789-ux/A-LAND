@@ -91,7 +91,7 @@ export const INITIAL_PARENT_MEDALS: ParentMedal[] = [
     iconName: 'ListChecks',
     triggerDescription: '践行两个家的核心睡眠流程或安全底线一致性核对。',
     developmentalSignificance:
-      '环境的可预测性（Predictability）是离异家庭儿童对抗焦虑的超级屏障。不需要所有琐事完全一样，但睡前与安全底线的一致让孩子极具安全感。',
+      '环境的可预测性（Predictability）是帮助儿童建立内心安全感的重要屏障。不需要所有琐事完全一样，但睡前与安全底线的一致让孩子感到踏实稳定。',
     practicalParentTip: '在玄关或书包边贴一张两个家通行清单，守住睡前温和与不打人底线。',
     unlocked: true,
     unlockedAt: '一致性核对解锁',

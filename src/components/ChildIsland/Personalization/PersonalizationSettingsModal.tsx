@@ -497,7 +497,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                 <ul className="text-xs sm:text-sm text-emerald-800 space-y-1 list-disc list-inside">
                   <li><strong>默认本机运行：</strong>所有偏好仅保存在你的浏览器本地，不上传云端；</li>
                   <li><strong>不做心理画像：</strong>严禁根据兴趣或游玩记录推测心理疾病或性格；</li>
-                  <li><strong>零敏感数据：</strong>不收集真实姓名、家庭经历、学校、住址或声纹；</li>
+                  <li><strong>个人隐私保护：</strong>不收集真实姓名、家庭经历、学校、住址或声纹；</li>
                   <li><strong>无 AI 自由聊天：</strong>不在儿童端直接开放不受控的生成式 AI 回应。</li>
                 </ul>
               </div>

@@ -5,15 +5,13 @@ import {
   Compass,
   UserCheck,
   Heart,
-  Shield,
+  ShieldCheck,
   HelpCircle,
-  HardDrive,
-  Lock,
   X
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ParentGateModal } from './ParentGateModal';
-import { GoogleDriveModal } from './GoogleDrive/GoogleDriveModal';
+import { PrivacyDeclarationModal } from './Privacy/PrivacyDeclarationModal';
 import { sounds } from '../utils/sound';
 import { lockParentAccess } from '../domain/privacy/parentAccess';
 
@@ -29,10 +27,8 @@ export const Navbar: React.FC = () => {
   } = useApp();
 
   const [isGateOpen, setIsGateOpen] = useState(false);
-
-
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [isDriveOpen, setIsDriveOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   // SEC-06: 离开成人工作台、页面隐藏或生命周期变化时立即锁定
   useEffect(() => {
@@ -123,18 +119,18 @@ export const Navbar: React.FC = () => {
               {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </button>
 
-            {/* Data & Backup Privacy Info button */}
+            {/* Privacy Declaration Info button */}
             <button
               onClick={() => {
                 sounds.playClick();
-                setIsDriveOpen(true);
+                setIsPrivacyOpen(true);
               }}
               className="h-11 sm:h-10 px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
-              title="数据安全与备份说明"
-              aria-label="数据安全与备份说明，打开数据隐私说明弹窗"
+              title="儿童与家庭隐私保护声明"
+              aria-label="儿童与家庭隐私保护声明，打开隐私声明弹窗"
             >
-              <Lock className="w-4 h-4 text-stone-600" />
-              <span className="hidden md:inline">数据说明</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span className="hidden md:inline">隐私声明</span>
             </button>
 
             {/* Framework About info */}
@@ -184,10 +180,10 @@ export const Navbar: React.FC = () => {
         onSuccess={handleGateSuccess}
       />
 
-      {/* Google Drive Modal */}
-      <GoogleDriveModal
-        isOpen={isDriveOpen}
-        onClose={() => setIsDriveOpen(false)}
+      {/* Privacy Declaration Modal */}
+      <PrivacyDeclarationModal
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
       />
 
       {/* Framework About Modal */}
@@ -207,27 +203,27 @@ export const Navbar: React.FC = () => {
                 🌱
               </div>
               <div>
-                <h3 className="text-lg font-bold text-stone-900">产品主线：根与叶 (v0.5)</h3>
+                <h3 className="text-lg font-bold text-stone-900">产品主线：根与叶</h3>
                 <p className="text-xs text-stone-500">6岁儿童思考方法成长空间设计核心</p>
               </div>
             </div>
 
             <div className="space-y-3.5 text-xs text-stone-600 leading-relaxed">
               <p>
-                <strong>这不是“单亲怎么办”，而是一套任何场景都能用的思考方法：</strong>
-                离异与单亲只是叶，完整家庭也是叶；好坏对错都是叶。产品的主线只有一条：用孩子动手就能玩的具体经验，让他自己发现这套方法（根）。
+                <strong>这是一套面向日常各种生活场景的通用思考方法：</strong>
+                日常生活的丰富情境是自然生长的枝叶；产品的主线只有一条：用孩子动手就能玩懂的具体经验，让孩子在安全温暖的探索中自主发现受用终身的方法（根）。
               </p>
 
               <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1.5">
-                <div className="font-bold text-stone-800">三种姿态与一个核心动作：</div>
-                <div>• <strong>退后一步：</strong>从自己的体验里拉远，头顶有一朵属于自己的天气（把我和我的情绪分开）。</div>
-                <div>• <strong>分：</strong>看清是什么（事实、感受、猜测分开）。</div>
-                <div>• <strong>通：</strong>同一件事换个位置看，会有另一面（三个镜头、双面币）。</div>
-                <div>• <strong>择：</strong>掂量好处与代价，自己选自己担（小天平；围栏里的底线绝对不上天平）。</div>
+                <div className="font-bold text-stone-800">三种姿态与核心动作：</div>
+                <div>• <strong>退后一步：</strong>学会把情绪和自我分开，头顶有一朵属于自己的天气（看见情绪，接纳感受）。</div>
+                <div>• <strong>分：</strong>看清是什么，分清事实、感受与猜测。</div>
+                <div>• <strong>通：</strong>同一件事换个视角看，发现不同的可能性与新视角。</div>
+                <div>• <strong>择：</strong>了解行动与结果，学着自主选择（保护安全是不可动摇的底线）。</div>
               </div>
 
               <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 text-emerald-900">
-                <strong>双端杠杆法则：</strong>真正的杠杆在身边的成年人（减少父母冲突暴露、温暖一致与可预测性）。孩子端只有玩耍与练习，绝不设积分、排名、倒计时与惩罚。
+                <strong>双端支持法则：</strong>身边的成年人提供温暖陪伴、持续支持与可预测的关爱。孩子端专注于轻松自主的探索与练习，绝不设积分、排名、倒计时与惩罚。
               </div>
             </div>
 
