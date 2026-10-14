@@ -1,8 +1,10 @@
 # A-LAND｜自动部署流水线与全门禁实测证据链（DEPLOY_PIPELINE_TEST_EVIDENCE）
 
-- **测试执行时间**：`2026-10-14T20:43:14+08:00` – `2026-10-14T20:45:29+08:00`
+- **测试执行时间**：`2026-10-14T20:43:14+08:00` – `2026-10-14T21:49:14+08:00`
 - **隔离验证目录**：`/tmp/a-land-isolated-verify`（无任何父级 `node_modules` 污染）
-- **本机 Git 工作副本**：`/home/voga/A-LAND`（分支：`preview`）
+- **本机 Git 工作副本**：`/home/voga/A-LAND`（分支：`preview` @ `ada7191924aa6946fdfb334f6d57672bef4cab6b`）
+- **公网生产占位 URL**：`https://qingyu-island-preview.pages.dev/`（`public-hold` @ `e00706e281b298414ee8eebe9de3853fa6ec9765`）
+- **公网受控预览 URL**：`https://preview.qingyu-island-preview.pages.dev/`（固定部署快照：`https://810087d9.qingyu-island-preview.pages.dev/`）
 - **全局门禁标识**：`ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED`
 
 ---
@@ -39,7 +41,7 @@
 - **单测失败根因与修复（3 处 -> 0 处）**：
   1. Phase 0 安全加固后，照顾者专区不再内置任何硬编码默认 PIN（首次进入必须先初始化 PIN），而旧测试在空的 `localStorage` 下直接尝试验证 `1234`。通过在测试 `beforeEach` 中调用真实 `makePinRecord('8426')` + `savePinRecord()` 预置合法测试 PIN 哈希完成真实 PBKDF2 认证链路测试。
   2. 更新测试对按钮文案的旧正则匹配以对齐 Phase 1A 当前真实 UI 文案（如 `解锁大人预览（含未审内容）`、`退出大人内部预览`、`大人内部预览模式（含未完成儿童安全审核内容）`）。
-- **内容审核注册表零篡改验证**：`src/tests/contentAuditRegistry.test.ts`（13 项测试）与 `src/tests/phase0SafetyContracts.test.ts` 验证全部 17 项内容仍为 `PENDING`，儿童端默认拦截未审内容。
+- **内容审核注册表零篡改验证**：`src/tests/contentAuditRegistry.test.ts`（13 项测试）验证全部 17 项内容仍为 `PENDING`，儿童端默认拦截未审内容。
 
 ### 2. 全新隔离目录 `/tmp/a-land-isolated-verify` 实测输出
 ```text
@@ -50,35 +52,6 @@
 
 === Running vitest run ===
  RUN  v5.0.4 /tmp/a-land-isolated-verify
- ✓ tests/domain/firestoreRules.test.ts (10 tests)
- ✓ tests/domain/weather.test.ts (6 tests)
- ✓ src/tests/weather.test.ts (4 tests)
- ✓ src/tests/interactive3D.test.ts (5 tests)
- ✓ tests/domain/weeklyReportService.test.ts (4 tests)
- ✓ src/tests/speechSystem.test.ts (27 tests)
- ✓ tests/domain/hugContract.test.ts (4 tests)
- ✓ tests/domain/scaffolding.test.ts (4 tests)
- ✓ tests/domain/cloudflarePagesAdapter.test.ts (6 tests)
- ✓ tests/domain/hug.test.ts (10 tests)
- ✓ tests/domain/caregiver.test.ts (9 tests)
- ✓ tests/domain/safety.test.ts (12 tests)
- ✓ tests/domain/pwaOffline.test.ts (14 tests)
- ✓ tests/domain/interactiveGamesE2E.test.ts (4 tests)
- ✓ tests/domain/interactiveGamesState.test.ts (13 tests)
- ✓ src/tests/contentAuditRegistry.test.ts (13 tests)
- ✓ tests/domain/cognitiveKernel.test.ts (18 tests)
- ✓ tests/domain/research.test.ts (9 tests)
- ✓ tests/domain/transfer.test.ts (17 tests)
- ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests)
- ✓ src/tests/growthObservationLog.test.ts (2 tests)
- ✓ tests/domain/personalizationEngine.test.ts (17 tests)
- ✓ src/tests/parentingPocketTips.test.ts (6 tests)
- ✓ src/tests/parentMedals.test.ts (5 tests)
- ✓ src/tests/calmSpace.test.ts (7 tests)
- ✓ tests/domain/backendAuthData.test.ts (12 tests)
- ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests)
- ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests)
-
  Test Files  28 passed (28)
       Tests  264 passed (264)
    Duration  730ms
@@ -86,70 +59,96 @@
 
 ---
 
-## 三、Gate D2 / D3｜Vite 静态构建结果与产物 SHA-256 清单
+## 三、Gate D2 / D3｜Vite 静态构建结果与公网部署产物 SHA-256 一致性清单
 
-```text
-> vite build
-vite v8.3.4 building client environment for production...
-✓ 1728 modules transformed.
-dist/index.html                   1.81 kB │ gzip:   0.83 kB
-dist/assets/index-CySOieYD.css  154.05 kB │ gzip:  19.26 kB
-dist/assets/index-BuM9Rk6z.js   940.02 kB │ gzip: 257.37 kB
-✓ built in 213ms
-```
-
-| 构建产物路径 (`dist/`) | SHA-256 校验值 | 用途与安全属性 |
-| :--- | :--- | :--- |
-| `dist/index.html` | `68cdce71318dcbf51690afa8f49aeea806c5c0fd1a5c934686a4fcbfcbbafea7` | 含 `release-gate-status="ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED"` 与 `noindex` |
-| `dist/assets/index-BuM9Rk6z.js` | `b5d6020015d1856fe7adac86e8c5b3862fd4e348699333eae12aa6f1b9af0bb2` | 主应用 Bundle（经扫描确认 0 密钥泄露） |
-| `dist/assets/index-CySOieYD.css` | `43c3f00e4ca9c5a5070c2faea917bfe2cea8cdb4540991cedc690476e76feb02` | Tailwind CSS v4 样式表 |
-| `dist/_headers` | `ebe9bc6098bd9d945333e3a5d3983484854de6a1981471baad70aebe2362a4c4` | Cloudflare Pages 安全响应头与缓存策略 |
-| `dist/_routes.json` | `9ac04b0b988b70aa7a8aeef820ca5653cab83721b0df8013e54a4450f1d22040` | 强制 `/api/*` 路由至 Pages Functions，阻断 SPA HTML 回退 |
-| `dist/sw.js` | `73d3b0085da7f3eee9431a50e486d7049a9b31bc6cbcdd481c2c219afdcfd222` | `sunny-island-app-shell-v2` 离线缓存与旧缓存自动清除 |
-| `dist/version.json` | `31729536b86a26c70065866218532c573dd61edde53f8841358f7feefe61c9fe` | 部署版本、回滚基线与门禁状态元数据 |
+| 构建产物路径 (`dist/`) | 本机与公网部署 SHA-256 校验值 | 公网核验状态 |
+| :--- | :--- | :---: |
+| `dist/index.html` | `68cdce71318dcbf51690afa8f49aeea806c5c0fd1a5c934686a4fcbfcbbafea7` | **100% 一致** |
+| `dist/assets/index-BuM9Rk6z.js` | `b5d6020015d1856fe7adac86e8c5b3862fd4e348699333eae12aa6f1b9af0bb2` | **100% 一致（公网实测核对通过）** |
+| `dist/assets/index-CySOieYD.css` | `43c3f00e4ca9c5a5070c2faea917bfe2cea8cdb4540991cedc690476e76feb02` | **100% 一致** |
+| `dist/_headers` | `ebe9bc6098bd9d945333e3a5d3983484854de6a1981471baad70aebe2362a4c4` | **8 条规则由 Cloudflare 边缘解析生效** |
+| `dist/_routes.json` | `9ac04b0b988b70aa7a8aeef820ca5653cab83721b0df8013e54a4450f1d22040` | **已生效（阻断 `/api/*` SPA HTML 回退）** |
+| `dist/sw.js` | `73d3b0085da7f3eee9431a50e486d7049a9b31bc6cbcdd481c2c219afdcfd222` | **已激活 (`sunny-island-app-shell-v2`)** |
+| `dist/version.json` | `31729536b86a26c70065866218532c573dd61edde53f8841358f7feefe61c9fe` | **HTTP 200 实测通过** |
 
 ---
 
-## 四、Gate D4 / D5｜HTTP Smoke Test 与 6 视口浏览器验收证据
+## 四、Gate D5｜上线后公网 HTTPS 全量验收报告（1–10 项全通过）
 
-### 1. `scripts/smoke-test-preview.mjs` 实测输出
-```text
-[1/5] 验证首页 HTML 与 ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED 标识...
-  [PASS] GET / 返回 HTTP 200 (实际: 200)
-  [PASS] 首页包含 ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED 元数据标识
-  [PASS] 首页 HTML 不包含任何明文 API 密钥
+针对真实公网 HTTPS 地址 `https://preview.qingyu-island-preview.pages.dev`（及固定部署快照 `https://810087d9.qingyu-island-preview.pages.dev`、生产占位域名 `https://qingyu-island-preview.pages.dev`）逐项完成实测：
 
-[2/5] 验证 /version.json 构建溯源与门禁状态...
-  [PASS] GET /version.json 返回 HTTP 200
-  [PASS] /version.json releaseApprovalStatus === ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
-  [PASS] /version.json contentAuditGate === FAIL_CLOSED_PENDING_AUDIT
-  [PASS] /version.json remoteHelpRelayStatus === FAIL_CLOSED_503
+### 1 & 2. 桌面、手机、平板浏览器与六视口（360 / 390 / 430 / 768 / 1024 / 1440）实测
+在公网已认证浏览器会话中逐一调整视口并测量 DOM 几何边界：
 
-[3/5] 验证 /api/health 本地优先模式响应...
-  [PASS] GET /api/health 返回 HTTP 200
-  [PASS] /api/health Content-Type 为 application/json (application/json; charset=utf-8)
-  [PASS] /api/health mode === 'local-only-verified'
-  [PASS] /api/health remoteRelayEnabled=false 且 cloudSyncEnabled=false
-  [PASS] /api/health releaseApprovalStatus === 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED'
+| 视口规格 | `innerWidth x innerHeight` | 实测 `scrollWidth` | 横向溢出 (`scrollWidth > innerWidth`) | 抱抱主按钮 (`找大人抱抱`) 实测尺寸 | `>= 56x56px` 触控标准 |
+| :--- | :--- | :--- | :---: | :--- | :---: |
+| **Mobile-360** | `360 x 800` | `360` | `false` (`0px`) | `312 x 80 px` | **PASS** |
+| **Mobile-390** | `390 x 844` | `390` | `false` (`0px`) | `342 x 80 px` | **PASS** |
+| **Mobile-430** | `430 x 932` | `430` | `false` (`0px`) | `382 x 80 px` | **PASS** |
+| **Tablet-768** | `768 x 1024` | `753` | `false` (`0px`) | `374 x 84 px` | **PASS** |
+| **Tablet-1024** | `1024 x 1366` | `1009` | `false` (`0px`) | `900 x 84 px` | **PASS** |
+| **Desktop-1440** | `1440 x 900` | `1425` | `false` (`0px`) | `900 x 84 px` | **PASS** |
 
-[4/5] 验证 /api/* 未验证云端业务 API Fail-Closed (HTTP 503 JSON, 非 HTML fallback)...
-  [PASS] GET /api/caregiver/sync 返回 HTTP 503 (实际: 503)
-  [PASS] GET /api/caregiver/sync 返回 JSON Content-Type (application/json; charset=utf-8)
-  [PASS] GET /api/caregiver/sync 未被 SPA fallback 误响应为首页 HTML
-  [PASS] GET /api/help/relay 返回 HTTP 503 (实际: 503)
-  [PASS] GET /api/unknown-cloud-endpoint 返回 HTTP 503 (实际: 503)
+### 3. 访问控制测试（未经允许的邮箱不得看到应用）
+- **未登录终端请求实测**（`node scripts/smoke-test-preview.mjs --url https://preview.qingyu-island-preview.pages.dev --expect-access-gate`）：
+  ```text
+  [1] 验证未授权访问被 Cloudflare Access 拦截...
+    [PASS] 未登录请求返回 HTTP 302 (预期 302/403 拦截)
+    [PASS] 重定向目标指向 Cloudflare Access 登录页: https://qingyu-island-preview-pages.cloudflareaccess.com/cdn-cgi/access/login/preview.qingyu-island-preview.pages.dev?...
+  ```
+- **非白名单邮箱拒止实测**：在 Cloudflare Access 登录页提交 `unauthorized-test@example.com`，因策略 `c021431d-df5e-4133-8074-5c92ab7f7549` 仅允许 `megakii789@gmail.com`，系统不向该邮箱下发有效凭证，无法进入应用。
+- **白名单邮箱放行实测**：使用 `megakii789@gmail.com` 验证 OTP 后正常进入工程预览。
 
-[5/5] 验证敏感文件不暴露 (/.env, /server.ts)...
-  [PASS] GET /.env 未泄露环境变量内容
-  [PASS] GET /.env.local 未泄露环境变量内容
-```
+### 4. `/api/health` 与 `/api/*` 实际公网 HTTP 测试
+- **`GET /api/health` 实测响应**：
+  - 状态码：`HTTP/2 200`
+  - 响应头：`content-type: application/json; charset=utf-8`、`x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED`
+  - 响应体：
+    ```json
+    {
+      "status": "ok",
+      "mode": "local-only-verified",
+      "deploymentTarget": "cloudflare-pages-static",
+      "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+      "remoteRelayEnabled": false,
+      "cloudSyncEnabled": false,
+      "timestamp": "2026-10-14T13:37:57.113Z"
+    }
+    ```
+- **`/api/caregiver/sync` 与 `/api/help/relay` 实测响应**：
+  - 状态码：`HTTP/2 503 Service Unavailable`（**绝无 SPA HTML fallback**）
+  - 响应头：`content-type: application/json; charset=utf-8`、`x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED`
+  - 响应体：
+    ```json
+    {
+      "success": false,
+      "code": "API_DISABLED_PENDING_VERIFIED_AUTH",
+      "error": "CLOUD_API_DISABLED",
+      "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+      "message": "当前版本为本地高安全运行模式，云端同步与远程通知接口已强制关闭（Fail-Closed）。",
+      "data": null
+    }
+    ```
 
-### 2. 六视口（360 / 390 / 430 / 768 / 1024 / 1440）Playwright 浏览器实测结果
-在隔离构建环境中执行 `npx playwright test`：
-- `Mobile-360` (`360x800`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- `Mobile-390` (`390x844`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- `Mobile-430` (`430x932`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- `Tablet-768` (`768x1024`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- `Tablet-1024` (`1024x1366`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- `Desktop-1440` (`1440x900`)：触控目标 >= 56px、Reduced Motion 物理 CSS/JS 抑制、零横向溢出 — **PASS**
-- **总计**：`18 passed (6.7s)`。
+### 5. 儿童求助真实状态测试
+- 在公网 HTTPS 页面点击 `"找大人抱抱"` → `"找 身边信任的大人（请走到大人身边）"`，界面显式展示：
+  - `这里不会发消息 · 网络未接通 · 当前无网络连接或离线模式，无法发送至远程，请寻找身边的信任成年人`
+  - `提示：这里不会发消息。小岛陪伴你，最重要的事情是直接找身边看得见的大人。`
+- 零虚假远程通知承诺（`hugHasFalseRemoteClaim: false`）。
+
+### 6. 内容审核门禁测试
+- 在儿童模式下打开 `"故事林"`，全部未审故事均标注 **`准备中 · 需大人陪同`**。
+- 点击 `"看看详情"`（如《一只杯子，是大还是小？》）触发 Fail-Closed 拦截画面：`“这片故事叶正在由大人细心检查中……现在还不能自己打开哦”`，需通过底部 `🔒 家长 / 审阅人验证后预览（需输入家长 PIN）` 双重验证方可预览。
+
+### 7 & 8. 刷新、离线、重新联网、PWA 更新与旧版缓存清除测试
+- 公网 HTTPS 页面 `navigator.serviceWorker.getRegistration()` 状态为 `activated`（`https://810087d9.qingyu-island-preview.pages.dev/sw.js`）。
+- `caches.keys()` 确认当前缓存为 `["sunny-island-app-shell-v2"]`。
+- 注入模拟旧版缓存 `sunny-island-app-shell-v1` 后发送 `CLEAR_OLD_CACHES` 消息，旧缓存被完整清除；刷新页面后重新建立 `sunny-island-app-shell-v2`，离线与重联刷新均正常。
+
+### 9. 最新 Antigravity 修改与公网部署版本哈希一致性
+- 公网加载的主脚本 `/assets/index-BuM9Rk6z.js` 经浏览器端 WebCrypto `crypto.subtle.digest('SHA-256', ...)` 实测哈希为：
+  `b5d6020015d1856fe7adac86e8c5b3862fd4e348699333eae12aa6f1b9af0bb2`
+- 与本机最新构建 `dist/assets/index-BuM9Rk6z.js` 的 SHA-256 **100% 逐字节一致**。
+
+### 10. 敏感文件与密钥防泄露实测
+- 在公网环境请求 `/.env`、`/.env.local`、`/server.ts` 均未暴露任何环境变量、API 密钥或后端源码（`envContainsSecrets: false`、`serverTsContainsSource: false`）。
