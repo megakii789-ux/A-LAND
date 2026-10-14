@@ -15,6 +15,7 @@ const FAIL_CLOSED_HEADERS: Record<string, string> = {
   'Cache-Control': 'no-store, no-cache, must-revalidate',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
+  'X-A-Land-Fail-Closed': 'true',
   'X-Release-Gate-Status': 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
 };
 
@@ -23,7 +24,10 @@ export async function onRequest(_context: PagesFunctionContext): Promise<Respons
     success: false,
     code: 'API_DISABLED_PENDING_VERIFIED_AUTH',
     error: 'CLOUD_API_DISABLED',
+    mode: 'local-only-verified',
     releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
+    remoteRelayEnabled: false,
+    cloudSyncEnabled: false,
     message: '当前版本为本地高安全运行模式，云端同步与远程通知接口已强制关闭（Fail-Closed）。',
     data: null,
   };

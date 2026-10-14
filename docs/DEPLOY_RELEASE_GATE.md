@@ -36,18 +36,19 @@
 
 | 版本角色 | 分支名称 | Git Commit SHA | Cloudflare Deployment ID | 构建状态 | 公网访问地址 | 发布门禁标识 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **历史回滚基线 (Rollback Baseline)** | `main` (Frozen) | `f8c7401907b3fe5831c343b995b777254fdfe45d` | — | Frozen | 禁止公开部署 | `BASELINE_FROZEN` |
+| **历史归档基线（严禁回滚至此版本）** | `main` (Frozen) | `f8c7401907b3fe5831c343b995b777254fdfe45d` | — | Frozen | 禁止公开部署与预览回滚 | `REVOKED_UNSAFE_ROLLBACK_TARGET` |
 | **生产安全占位 (Production Hold)** | `public-hold` | `e00706e281b298414ee8eebe9de3853fa6ec9765` | `ad78b30e-4930-4c90-b06b-f2d3f5c90014` | `ACTIVE` | `https://qingyu-island-preview.pages.dev` (`https://ad78b30e.qingyu-island-preview.pages.dev`) | `PUBLIC_HOLD_PLACEHOLDER` |
-| **受控工程预览 (Initial Preview)** | `preview` | `ada7191924aa6946fdfb334f6d57672bef4cab6b` | `810087d9-ab2b-4b47-8aa5-51bf400a7304` | `ACTIVE` | `https://preview.qingyu-island-preview.pages.dev` (`https://810087d9.qingyu-island-preview.pages.dev`) | `ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED` |
+| **受控工程预览 (Engineering Preview)** | `preview` | 详见 `public/version.json` 及 [`DEPLOY_GATE_D6_INDEPENDENT_FIX.md`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/docs/DEPLOY_GATE_D6_INDEPENDENT_FIX.md) | 动态绑定最新 `preview` 部署 | `ACTIVE` | `https://preview.qingyu-island-preview.pages.dev` | `ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED` |
 
-### 标准回滚操作指令
-如需将 `preview` 分支安全回退至历史基线 `f8c7401907b3fe5831c343b995b777254fdfe45d`（或任意已验证 SHA），**严禁使用 `git push --force`**，请执行：
+### 标准回滚操作指令（Gate D6 白名单强制守卫）
+- **D6-02 强制规定**：已永久取消 `f8c7401907b3fe5831c343b995b777254fdfe45d` 作为回滚目标（因其缺少 `functions/api/[[path]].ts`、`public/_routes.json` 与 Gate D6 安全契约）。
+- 回滚目标必须位于 [`scripts/rollback-whitelist.json`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/scripts/rollback-whitelist.json) 的 `approvedSafeTargets` 白名单内，且执行前 Git 工作区必须干净，生成前向回滚提交后必须通过完整质量门禁方可推送：
 ```bash
-# 1. 先执行 dry-run 预览回退差异
-bash scripts/rollback-preview.sh --target f8c7401907b3fe5831c343b995b777254fdfe45d --dry-run
+# 1. 先执行 dry-run 预览回退差异（自动选用 rollback-whitelist.json 中最新已验收安全版本）
+bash scripts/rollback-preview.sh --dry-run
 
-# 2. 确认无误后生成前向回滚提交并推送（自动触发 Cloudflare Pages 重新构建）
-bash scripts/rollback-preview.sh --target f8c7401907b3fe5831c343b995b777254fdfe45d --apply --push
+# 2. 确认无误后生成前向回滚提交、执行全量质量门禁（tsc + vitest + vite build + /api/* 503 检查）并推送
+bash scripts/rollback-preview.sh --apply --push
 ```
 
 ---

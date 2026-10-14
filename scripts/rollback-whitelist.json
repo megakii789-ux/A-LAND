@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "gate": "Gate-D6",
+  "policy": "FAIL_CLOSED_WHITELIST_ONLY",
+  "description": "仅允许回滚至通过 Gate D6 全部安全契约（含 Pages Functions 统一 503 mode 契约、_routes.json、PWA 禁用私有预览 HTML 离线缓存、内容审核 Fail-Closed 与离线求助保护）的已验收版本。",
+  "revokedUnsafeTargets": [
+    {
+      "sha": "f8c7401907b3fe5831c343b995b777254fdfe45d",
+      "reason": "历史 main 基线：缺少 Cloudflare Pages Functions (functions/api/[[path]].ts)、缺少 public/_routes.json（会导致 /api/* 落入 SPA 200 HTML 回退）、缺少 Phase 1A-FIX 成人预览会话纪元隔离及 D6 PWA 缓存防护，严禁作为预览回滚目标。"
+    },
+    {
+      "sha": "8a1eb34705316a1312321f521eda24dbb54524d6",
+      "reason": "Gate D4 早期提交：functions/api/[[path]].ts 503 JSON 缺少 mode 字段，且 public/sw.js 仍启用 HTML 离线缓存。"
+    },
+    {
+      "sha": "ada7191924aa6946fdfb334f6d57672bef4cab6b",
+      "reason": "Gate D5 早期提交：functions/api/[[path]].ts 503 JSON 缺少 mode 字段，且 public/sw.js 仍启用 HTML 离线缓存。"
+    },
+    {
+      "sha": "dd4fd193808ab857a846f79fc05e4101aa97c290",
+      "reason": "Gate D5 文档提交：尚未包含 Gate D6 503 mode 字段统一契约、回滚白名单守卫与私有预览 PWA HTML 缓存禁用。"
+    }
+  ],
+  "approvedSafeTargets": []
+}

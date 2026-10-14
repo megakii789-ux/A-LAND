@@ -32,6 +32,8 @@ export function createApiApp() {
       error: 'CLOUD_API_DISABLED',
       mode: 'local-only-verified',
       releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
+      remoteRelayEnabled: false,
+      cloudSyncEnabled: false,
       message: '当前版本为本地高安全运行模式，云端同步与远程通知接口已强制关闭（Fail-Closed）。',
       data: null
     });

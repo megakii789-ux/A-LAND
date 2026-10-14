@@ -77,6 +77,7 @@ RSYNC_EXCLUDES=(
   --exclude='dist'
   --exclude='dist/'
   --exclude='server.js'
+  --exclude='bun.lock'
   --exclude='.wrangler/'
   --exclude='.vercel/'
   --exclude='.netlify/'
@@ -111,9 +112,17 @@ fi
 
 echo ""
 echo "[Step 2/6] 同步 Google Drive 源码至本机 Git 工作副本 (${GIT_WORKDIR})..."
+rm -f "${SOURCE_DIR}/bun.lock"
 rsync -avc --delete "${RSYNC_EXCLUDES[@]}" "${SOURCE_DIR}/" "${GIT_WORKDIR}/"
 # 确保工作副本中不残留旧版 bun.lock
 rm -f "${GIT_WORKDIR}/bun.lock"
+
+# 安装 Gate D6 分支防意外推送保护钩子
+bash "${GIT_WORKDIR}/scripts/install-git-hooks.sh"
+
+# 动态生成真实构建溯源元数据 public/version.json 并回写至源目录保持一致
+(cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs)
+cp "${GIT_WORKDIR}/public/version.json" "${SOURCE_DIR}/public/version.json"
 
 # 确保 node_modules 可用（用于本机工作副本门禁验证，已由 .gitignore 排除，不纳入 Git 追踪）
 if [[ ! -e "${GIT_WORKDIR}/node_modules" && -d "$DEPS_NODE_MODULES" ]]; then
@@ -132,17 +141,17 @@ fi
 git -C "$GIT_WORKDIR" status --short
 
 echo ""
-echo "[Step 4/6] 执行 Gate D2/D4 门禁：TypeScript 类型检查 (tsc --noEmit)..."
+echo "[Step 4/6] 执行 Gate D2/D4/D6 门禁：TypeScript 类型检查 (tsc --noEmit)..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/tsc --noEmit)
 echo "[PASS] TypeScript 类型检查通过 (0 errors)。"
 
 echo ""
-echo "[Step 5/6] 执行 Gate D2/D4 门禁：Vitest 单元测试与内容安全门禁验证..."
+echo "[Step 5/6] 执行 Gate D2/D4/D6 门禁：Vitest 单元测试与内容安全门禁验证..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run)
 echo "[PASS] Vitest 全部测试套件通过。"
 
 echo ""
-echo "[Step 6/6] 执行 Gate D2/D3/D4 门禁：Vite 静态构建与 Bundle 密钥扫描..."
+echo "[Step 6/6] 执行 Gate D2/D3/D4/D6 门禁：Vite 静态构建与 Bundle 密钥扫描..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/vite build)
 
 # 扫描构建产物 dist/ 是否包含真实 API Token、私钥或 .env 文件

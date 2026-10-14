@@ -117,4 +117,65 @@ test.describe('Dual-Tab Child & Parent Lifecycle E2E Hardening', () => {
     await expect(hugDialog.getByText(/这里不会发消息 · 网络未接通/)).toBeVisible();
     await page.close();
   });
+
+  test('Gate D6-03: Authenticated visit -> SW active -> Access session expires -> Browser offline -> Re-enter does NOT restore full app from cache', async ({
+    context,
+  }) => {
+    const page = await context.newPage();
+
+    // 1. 已认证访问首页
+    await page.goto('/');
+    await expect(page.getByText('晴雨小岛', { exact: true }).first()).toBeVisible();
+
+    // 2. 等待 Service Worker 注册并接管当前页面 controller
+    await page.evaluate(async () => {
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
+        if (!navigator.serviceWorker.controller && reg.active) {
+          // Wait briefly for clients.claim()
+          await new Promise<void>((resolve) => {
+            if (navigator.serviceWorker.controller) {
+              resolve();
+              return;
+            }
+            navigator.serviceWorker.addEventListener('controllerchange', () => resolve(), { once: true });
+            setTimeout(() => resolve(), 500);
+          });
+        }
+      }
+    });
+
+    // Reload once under SW control to simulate subsequent visits where assets may be cached
+    await page.reload();
+    await expect(page.getByText('晴雨小岛', { exact: true }).first()).toBeVisible();
+
+    // 验证 CacheStorage 中绝未缓存 / 或 /index.html 的完整 HTML 文档
+    const hasCachedHtml = await page.evaluate(async () => {
+      const keys = await caches.keys();
+      for (const k of keys) {
+        const c = await caches.open(k);
+        const mRoot = await c.match('/');
+        const mIndex = await c.match('/index.html');
+        if (mRoot || mIndex) return true;
+      }
+      return false;
+    });
+    expect(hasCachedHtml).toBe(false);
+
+    // 3. 模拟 Cloudflare Access 会话失效（清除 Cookie 与 Session）且浏览器进入离线状态
+    await context.clearCookies();
+    await context.setOffline(true);
+
+    // 4. 重新进入页面：不得从本地缓存恢复完整儿童应用，必须显示 503 重新验证访问权限提示
+    const reloadResponse = await page.reload({ waitUntil: 'domcontentloaded' });
+    expect(reloadResponse?.status()).toBe(503);
+    await expect(page.getByTestId('sw-offline-reauth-required')).toBeVisible();
+    await expect(page.getByText('需重新验证访问权限（工程预览已锁定）')).toBeVisible();
+    await expect(page.getByRole('button', { name: /去呼吸/ })).toHaveCount(0);
+
+    await context.setOffline(false);
+    await page.close();
+  });
 });
+

@@ -87,27 +87,30 @@
 
 ---
 
-## 四、PWA 与 Service Worker 缓存及回退架构
+## 四、PWA 与 Service Worker 缓存及回退架构（Gate D6-03 加固）
 
-在 [`public/sw.js`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/public/sw.js) 中实施了针对公网预览与版本回退的专门加固：
-1. **缓存版本升级**：升级为 `sunny-island-app-shell-v2`，激活（`activate`）时自动清理所有旧版本缓存（如 `sunny-island-app-shell-v1`）。
+在 [`public/sw.js`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/public/sw.js) 中实施了针对 Cloudflare Access 私有工程预览与版本回退的专门安全加固：
+1. **缓存版本升级与旧缓存清退**：升级为 `sunny-island-preview-no-html-cache-v3`（`PRECACHE_DISABLED_IN_PRIVATE_PREVIEW = true`），激活（`activate`）时自动清理所有旧版本缓存（如 `sunny-island-app-shell-v1`、`sunny-island-app-shell-v2`）。
 2. **零信任与动态探针旁路**：
    - 严禁拦截 `/cdn-cgi/*`（Cloudflare Access 认证回调与令牌刷新端点）；
    - 严禁拦截 `/api/*` 与 `/version.json`（确保版本探针与 Fail-Closed 503 状态实时穿透）。
-3. **导航请求 Network-First + 离线回退**：
-   - HTML 导航请求（`request.mode === 'navigate'`）优先请求网络最新构建，确保版本更新或回滚后浏览器刷新即可获取最新 `index.html`；仅在断网离线时回退至缓存的 App Shell。
+3. **关闭私有预览 HTML 离线缓存（Fail-Closed Re-Auth Gate）**：
+   - 在 Cloudflare Access 保护的工程预览环境中，禁止在未经重新授权的情况下通过已有本地离线缓存恢复完整应用页面。
+   - HTML 导航请求（`request.mode === 'navigate'` 或 `/`、`/index.html`）强制使用 `fetch(request, { cache: 'no-store' })` 且**永不写入 CacheStorage**。
+   - 当检测到 Access 会话失效（`302`/`401`/`403`/`opaqueredirect`）或浏览器离线断网时，立即清空本地缓存并返回 `HTTP 503`（`X-A-Land-SW-Gate: PRIVATE_PREVIEW_REAUTH_REQUIRED`）重新授权提示页，绝不回退展示旧 HTML。
 4. **主动控制通道**：支持 `SKIP_WAITING` 与 `CLEAR_OLD_CACHES` `postMessage` 指令，便于运维或自动化测试强制刷新旧缓存。
 
 ---
 
-## 五、失败处理与非破坏性回滚机制
+## 五、失败处理与白名单非破坏性回滚机制（Gate D6-02 加固）
 
 1. **失败即停止（Fail-Fast）**：
    - 在 [`scripts/sync-gdrive-to-git.sh`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/scripts/sync-gdrive-to-git.sh) 中开启 `set -euo pipefail`。
    - `rsync dry-run`、敏感文件检查、`tsc --noEmit`、`vitest run`、`vite build`、`dist/` 密钥扫描任一环节失败，脚本立即非零退出，**绝不生成 Git Commit，绝不触发推送**。
-2. **双层安全回滚方案**：
-   - **Git 前向回滚（推荐，可审计）**：运行 [`scripts/rollback-preview.sh`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/scripts/rollback-preview.sh) `--target <VERIFIED_SHA> --apply`，基于历史已验证 Commit 的 Git Tree 创建新的前向回滚提交（Forward Rollback Commit），无需 `--force` 推送即可触发 Cloudflare Pages 自动重新部署。
-   - **Cloudflare 控制台/CLI 秒级回滚**：通过 Cloudflare Dashboard → Pages → `qingyu-island-preview` → Deployments 选择上一健康版本点击 **Rollback to this deployment**，或执行 `npx wrangler pages deployment tail / rollback`。
+2. **白名单安全回滚方案（禁止回滚至不安全历史版本）**：
+   - 已永久撤销 `f8c7401907b3fe5831c343b995b777254fdfe45d` 作为回滚目标。
+   - **Git 前向白名单回滚（推荐，可审计）**：运行 [`scripts/rollback-preview.sh`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/scripts/rollback-preview.sh) `--target <WHITELISTED_SHA> --apply`。脚本强制执行：工作区干净检查（禁止静默覆盖未提交文件）、[`scripts/rollback-whitelist.json`](file:///home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间/scripts/rollback-whitelist.json) 白名单校验、目标树安全契约验证（Pages Functions + `_routes.json` + SW 缓存锁 + 内容审核门禁），并在生成前向回滚提交后重新运行完整质量门禁（测试失败绝不推送）。
+   - **Cloudflare 控制台/CLI 秒级回滚**：仅允许在 Cloudflare Dashboard 中回滚至同样通过 Gate D6 验收的部署版本。
 
 ---
 

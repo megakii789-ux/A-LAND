@@ -3,24 +3,33 @@
   "repository": "megakii789-ux/A-LAND",
   "branch": "preview",
   "productionHoldBranch": "public-hold",
-  "baseMainHeadSha": "f8c7401907b3fe5831c343b995b777254fdfe45d",
-  "rollbackTargetSha": "f8c7401907b3fe5831c343b995b777254fdfe45d",
+  "commitSha": "dd4fd193808ab857a846f79fc05e4101aa97c290",
+  "shortCommitSha": "dd4fd193808a",
+  "deploymentTimestamp": "2026-10-14T14:33:47.977Z",
+  "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
   "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
+  "contentAuditSummary": {
+    "pendingReviewCount": 16,
+    "passedCount": 0,
+    "defaultChildModePolicy": "FAIL_CLOSED_BLOCK_UNAPPROVED"
+  },
   "remoteHelpRelayStatus": "FAIL_CLOSED_503",
   "mode": "local-only-verified",
   "remoteRelayEnabled": false,
   "cloudSyncEnabled": false,
   "accessControlRequired": true,
+  "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
+  "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
+  "rollbackTargetSha": "dd4fd193808ab857a846f79fc05e4101aa97c290",
   "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
   "buildToolchain": {
     "node": "v20.20.2",
-    "npm": "10.8.2",
     "vite": "8.3.4",
     "typescript": "7.0.2",
     "vitest": "5.0.4",
     "esbuild": "0.28.2"
   },
-  "updatedAt": "2026-10-14T20:44:00+08:00"
+  "updatedAt": "2026-10-14T14:33:47.977Z"
 }
