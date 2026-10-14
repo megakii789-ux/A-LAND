@@ -6,7 +6,8 @@ import {
   makePinRecord,
   savePinRecord,
   verifyPin,
-  grantParentAccess
+  grantParentAccess,
+  cancelPendingPinVerification
 } from '../domain/privacy/parentAccess';
 
 interface Props {
@@ -22,23 +23,35 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const generationTicketRef = useRef<number>(0);
+  const isOpenSessionRef = useRef<boolean>(false);
 
   useEffect(() => {
     generationTicketRef.current += 1;
     if (isOpen) {
+      isOpenSessionRef.current = true;
+      setIsSubmitting(false);
       setPin('');
       setConfirmPin('');
       setErrorMessage(null);
       const record = readPinRecord();
       setIsSettingMode(!record);
+    } else {
+      isOpenSessionRef.current = false;
+      setIsSubmitting(false);
+      cancelPendingPinVerification();
     }
     return () => {
+      isOpenSessionRef.current = false;
       generationTicketRef.current += 1;
+      cancelPendingPinVerification();
     };
   }, [isOpen]);
 
   const handleClose = () => {
+    isOpenSessionRef.current = false;
     generationTicketRef.current += 1;
+    setIsSubmitting(false);
+    cancelPendingPinVerification();
     onClose();
   };
 
@@ -46,7 +59,7 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || !isOpenSessionRef.current) return;
     setErrorMessage(null);
     setIsSubmitting(true);
     const currentTicket = ++generationTicketRef.current;
@@ -70,14 +83,20 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
         }
 
         const record = await makePinRecord(pin);
-        if (currentTicket !== generationTicketRef.current) return;
+        if (!isOpenSessionRef.current || currentTicket !== generationTicketRef.current) {
+          cancelPendingPinVerification();
+          return;
+        }
         savePinRecord(record);
         grantParentAccess();
         sounds.playBell();
         onSuccess();
       } else {
         const result = await verifyPin(pin);
-        if (currentTicket !== generationTicketRef.current) return;
+        if (!isOpenSessionRef.current || currentTicket !== generationTicketRef.current) {
+          cancelPendingPinVerification();
+          return;
+        }
         if (result.success) {
           sounds.playBell();
           onSuccess();
@@ -87,18 +106,23 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
         }
       }
     } catch (err: unknown) {
-      if (currentTicket !== generationTicketRef.current) return;
+      if (!isOpenSessionRef.current || currentTicket !== generationTicketRef.current) return;
       const error = err as Error;
       setErrorMessage(error.message || '操作失败，请重试');
     } finally {
-      if (currentTicket === generationTicketRef.current) {
+      if (isOpenSessionRef.current && currentTicket === generationTicketRef.current) {
         setIsSubmitting(false);
       }
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="照顾者安全验证门禁"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4 animate-in fade-in duration-200"
+    >
       <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl relative text-stone-800">
         <button
           onClick={handleClose}
@@ -184,7 +208,7 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
           <div className="flex gap-3 pt-2">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="flex-1 py-3 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-100 font-bold text-xs sm:text-sm transition-colors cursor-pointer"
             >
               返回孩子小岛

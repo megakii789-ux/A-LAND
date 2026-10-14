@@ -17,9 +17,21 @@ export interface VerifyPinResult {
   lockoutSeconds?: number;
 }
 
+export interface AdultPreviewSession {
+  readonly token: string;
+  readonly scopeKey: string;
+  readonly issuedAt: number;
+}
+
+type ParentAccessListener = () => void;
+
 const STORAGE_PIN_KEY = 'aland_parent_gate_pin_v2';
 const ITERATIONS = 120_000;
 let granted = false;
+let verificationEpoch = 0;
+let previewSessionCounter = 0;
+let activePreviewSession: AdultPreviewSession | null = null;
+const accessListeners = new Set<ParentAccessListener>();
 
 // Consecutive failed attempts rate-limiting (anti-bruteforce)
 let failedAttempts = 0;
@@ -27,22 +39,82 @@ let lockoutUntil = 0;
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MS = 60_000; // 60 seconds
 
+function notifyAccessListeners(): void {
+  for (const listener of Array.from(accessListeners)) {
+    try {
+      listener();
+    } catch {
+      // Ignore listener errors
+    }
+  }
+}
+
+export function subscribeParentAccess(listener: ParentAccessListener): () => void {
+  accessListeners.add(listener);
+  return () => {
+    accessListeners.delete(listener);
+  };
+}
+
+export function cancelPendingPinVerification(): void {
+  verificationEpoch += 1;
+}
+
 export function hasParentAccess(): boolean {
   return granted;
 }
 
 export function grantParentAccess(): void {
   granted = true;
+  notifyAccessListeners();
+}
+
+export function issueAdultPreviewSession(scopeKey: string): string {
+  const normalizedScope = typeof scopeKey === 'string' ? scopeKey.trim() : '';
+  if (!granted || !normalizedScope) {
+    return '';
+  }
+  const token = `preview_${++previewSessionCounter}_${Date.now()}`;
+  activePreviewSession = {
+    token,
+    scopeKey: normalizedScope,
+    issuedAt: Date.now()
+  };
+  notifyAccessListeners();
+  return token;
+}
+
+export function isAdultPreviewSessionValid(scopeKey: string, token?: string | null): boolean {
+  if (!granted || !activePreviewSession || !token || typeof token !== 'string') {
+    return false;
+  }
+  return (
+    activePreviewSession.token === token &&
+    activePreviewSession.scopeKey === scopeKey
+  );
+}
+
+export function revokeAdultPreviewSession(scopeKey?: string): void {
+  if (!activePreviewSession) return;
+  if (!scopeKey || activePreviewSession.scopeKey === scopeKey) {
+    activePreviewSession = null;
+    notifyAccessListeners();
+  }
 }
 
 export function lockParentAccess(): void {
   granted = false;
+  activePreviewSession = null;
+  verificationEpoch += 1;
   failedAttempts = 0;
   lockoutUntil = 0;
+  notifyAccessListeners();
 }
 
 export function resetParentPinForTesting(): void {
   granted = false;
+  activePreviewSession = null;
+  verificationEpoch += 1;
   failedAttempts = 0;
   lockoutUntil = 0;
   try {
@@ -52,6 +124,7 @@ export function resetParentPinForTesting(): void {
   } catch {
     // Ignore
   }
+  notifyAccessListeners();
 }
 
 export function pinFormatValid(pin: string): boolean {
@@ -176,7 +249,14 @@ export async function verifyPin(pin: string): Promise<VerifyPinResult> {
     };
   }
 
+  const startEpoch = verificationEpoch;
   const matched = await checkPin(cleaned, record);
+  if (startEpoch !== verificationEpoch) {
+    return {
+      success: false,
+      error: '验证已取消，请重新验证。'
+    };
+  }
   if (matched) {
     failedAttempts = 0;
     lockoutUntil = 0;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TRANSFER_SCENARIOS,
 } from '../../../domain/games/transferScenariosLogic';
@@ -7,6 +7,14 @@ import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 
 import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+import {
+  issueAdultPreviewSession,
+  isAdultPreviewSessionValid,
+  revokeAdultPreviewSession,
+  lockParentAccess,
+  subscribeParentAccess,
+} from '../../../domain/privacy/parentAccess';
+import { ParentGateModal } from '../../ParentGateModal';
 
 interface Props {
   isOpen: boolean;
@@ -14,17 +22,48 @@ interface Props {
   isAdultPreview?: boolean;
 }
 
-export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdultPreview = false }) => {
+export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [selectedScenarioIndex, setSelectedScenarioIndex] = useState<number>(0);
   const [adultPromptCount, setAdultPromptCount] = useState<number>(0);
   const [chosenOptionIds, setChosenOptionIds] = useState<string[]>([]);
   const [showOutcome, setShowOutcome] = useState<boolean>(false);
-  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState(isAdultPreview);
+  const [previewSessionToken, setPreviewSessionToken] = useState<string | null>(null);
+  const [isParentGateOpen, setIsParentGateOpen] = useState(false);
+  const [, setAccessVersion] = useState(0);
+
+  useEffect(() => {
+    return subscribeParentAccess(() => {
+      setAccessVersion((v) => v + 1);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setPreviewSessionToken(null);
+      setIsParentGateOpen(false);
+      revokeAdultPreviewSession();
+      lockParentAccess();
+    }
+    return () => {
+      revokeAdultPreviewSession();
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const currentScenario: TransferScenarioDefinition = TRANSFER_SCENARIOS[selectedScenarioIndex];
+  const currentScopeKey = `transfer:${currentScenario.id}`;
   const isScenarioApproved = ContentAuditRegistry.canRenderContent(currentScenario.id);
+  const adultPreviewUnlocked = isAdultPreviewSessionValid(currentScopeKey, previewSessionToken);
+
+  const handleCloseModal = () => {
+    speechNarrator.stop();
+    setPreviewSessionToken(null);
+    setIsParentGateOpen(false);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    onClose();
+  };
 
   const handleToggleOption = (optionId: string) => {
     sounds.playClick();
@@ -50,9 +89,17 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdu
     setShowOutcome(false);
   };
 
+  const handleRequestAdultPreview = () => {
+    sounds.playClick();
+    setPreviewSessionToken(null);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    setIsParentGateOpen(true);
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-stone-50 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col border-2 border-stone-300 shadow-2xl overflow-hidden animate-in fade-in">
+      <div className="bg-stone-50 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col border-2 border-stone-300 shadow-2xl overflow-hidden">
         {/* 顶部标题栏 */}
         <div className="bg-linear-to-r from-amber-100 to-sky-100 px-4 py-3 flex items-center justify-between border-b border-stone-200">
           <div>
@@ -69,8 +116,8 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdu
 
           <button
             type="button"
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-stone-500 hover:text-stone-800 text-lg font-black"
+            onClick={handleCloseModal}
+            className="min-w-[44px] min-h-[44px] p-1.5 rounded-lg text-stone-500 hover:text-stone-800 text-lg font-black flex items-center justify-center"
             aria-label="关闭情境"
           >
             ✕
@@ -80,17 +127,21 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdu
         {/* 内容区 */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
           {/* 情境切换 Tab */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {TRANSFER_SCENARIOS.map((sc, idx) => (
               <button
                 key={sc.id}
                 type="button"
                 onClick={() => {
                   sounds.playClick();
+                  setPreviewSessionToken(null);
+                  setIsParentGateOpen(false);
+                  revokeAdultPreviewSession();
+                  lockParentAccess();
                   setSelectedScenarioIndex(idx);
                   handleResetScenario();
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   selectedScenarioIndex === idx
                     ? 'bg-amber-500 text-white shadow-xs'
                     : 'bg-white border border-stone-200 text-stone-700 hover:bg-stone-100'
@@ -101,35 +152,44 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdu
             ))}
           </div>
           {adultPreviewUnlocked && !isScenarioApproved && (
-            <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center justify-between">
-              <span>⚠️ 成人审查预览模式 · 未获独立审批前不能作为儿童正式迁移证据</span>
-              <span className="text-[10px] bg-amber-200 px-1.5 py-0.5 rounded">PENDING_REVIEW</span>
+            <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-1.5 rounded-xl flex flex-wrap items-center justify-between gap-2">
+              <span>⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放</span>
+              <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded-full">大人陪伴审阅</span>
             </div>
           )}
 
           {!isScenarioApproved && !adultPreviewUnlocked ? (
-            <div data-testid="audit-gate-blocked" className="p-6 bg-amber-50 rounded-2xl border-2 border-amber-300 text-center space-y-3">
-              <span className="text-3xl block">🛡️</span>
-              <h3 className="text-base font-black text-amber-950">待独立专家审核 · 情境安全隔离</h3>
-              <p className="text-xs text-stone-600">
-                本迁移检验情境（{currentScenario.title}）尚未完成外部独立专家伦理审批。为防止未审内容流向儿童，儿童独立测试已安全隔离。
+            <div data-testid="audit-gate-blocked" className="p-6 bg-amber-50 rounded-2xl border-2 border-amber-200 text-center space-y-3">
+              <span className="text-3xl block" aria-hidden="true">🌱</span>
+              <h3 className="text-base font-black text-amber-950">这个小情境正在做最后准备</h3>
+              <p className="text-xs text-stone-700 font-medium leading-relaxed">
+                「{currentScenario.title}」正在由大人们做最后的安全检查，准备好后再陪你一起尝试。现在可以先回小岛去玩其他开放的活动哦！
               </p>
-              <div className="pt-2 flex justify-center gap-2">
+              <div className="pt-2 flex flex-col sm:flex-row justify-center gap-2.5">
                 <button
                   type="button"
-                  onClick={() => setAdultPreviewUnlocked(true)}
-                  className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs cursor-pointer"
+                  onClick={handleCloseModal}
+                  className="min-h-[56px] px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-xs sm:text-sm cursor-pointer shadow-sm"
                 >
-                  成人审查预览
+                  回小岛玩其他活动
                 </button>
                 <button
                   type="button"
-                  onClick={onClose}
-                  className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-xs cursor-pointer"
+                  onClick={handleRequestAdultPreview}
+                  className="min-h-[44px] px-4 py-2 bg-white hover:bg-stone-100 text-stone-600 border border-stone-200 font-bold rounded-2xl text-xs cursor-pointer"
                 >
-                  关闭
+                  家长 / 审阅人验证预览
                 </button>
               </div>
+              <ParentGateModal
+                isOpen={isParentGateOpen}
+                onClose={() => setIsParentGateOpen(false)}
+                onSuccess={() => {
+                  setIsParentGateOpen(false);
+                  const token = issueAdultPreviewSession(currentScopeKey);
+                  setPreviewSessionToken(token || null);
+                }}
+              />
             </div>
           ) : (
             <>

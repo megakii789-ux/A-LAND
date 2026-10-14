@@ -16,6 +16,7 @@ export function createApiApp() {
     res.status(200).json({
       status: 'ok',
       mode: 'local-only-verified',
+      releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
       remoteRelayEnabled: false,
       cloudSyncEnabled: false,
       timestamp: new Date().toISOString()
@@ -29,6 +30,8 @@ export function createApiApp() {
       success: false,
       code: 'API_DISABLED_PENDING_VERIFIED_AUTH',
       error: 'CLOUD_API_DISABLED',
+      mode: 'local-only-verified',
+      releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
       message: '当前版本为本地高安全运行模式，云端同步与远程通知接口已强制关闭（Fail-Closed）。',
       data: null
     });
@@ -39,7 +42,7 @@ export function createApiApp() {
 
 async function startServer() {
   const app = createApiApp();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== 'production') {

@@ -145,21 +145,21 @@ export const CognitiveDimension3DArtifact: React.FC<CognitiveDimension3DArtifact
 
             {/* 3D Dual Islands & Empathy Bridge */}
             <div
-              className="relative flex items-center justify-between w-[290px] sm:w-[360px] transition-transform duration-500"
+              className="relative flex items-center justify-between w-full max-w-[360px] px-2 transition-transform duration-500"
               style={{
                 transformStyle: 'preserve-3d',
                 transform: 'rotateX(20deg) rotateY(-10deg)'
               }}
             >
               {/* Island A: Child's Boundary */}
-              <div className="w-24 sm:w-28 h-24 sm:h-28 rounded-3xl bg-gradient-to-b from-emerald-300 to-emerald-600 shadow-2xl border-4 border-emerald-200 flex flex-col items-center justify-center text-white text-center p-2 z-10">
+              <div className="w-22 sm:w-28 h-24 sm:h-28 shrink-0 rounded-3xl bg-gradient-to-b from-emerald-300 to-emerald-600 shadow-2xl border-4 border-emerald-200 flex flex-col items-center justify-center text-white text-center p-1.5 sm:p-2 z-10">
                 <span className="text-2xl sm:text-3xl mb-0.5">🌱</span>
                 <span className="text-xs sm:text-sm font-black">孩子的小岛</span>
                 <span className="text-[10px] opacity-90">有独立的边界</span>
               </div>
 
               {/* Interactive 3D Resonating Bridge */}
-              <div className="relative flex-1 h-12 flex items-center justify-center px-1">
+              <div className="relative flex-1 h-12 flex items-center justify-center px-1 min-w-[48px]">
                 {/* Bridge arch */}
                 <div
                   className={`w-full h-3 rounded-full transition-all duration-700 ${
@@ -171,7 +171,7 @@ export const CognitiveDimension3DArtifact: React.FC<CognitiveDimension3DArtifact
                 {/* Wave resonance pulses */}
                 {isResonating && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-xs font-black text-amber-900 bg-white/95 px-2.5 py-0.5 rounded-full border border-amber-300 shadow-md animate-pulse">
+                    <span className="text-xs font-black text-amber-900 bg-white/95 px-2.5 py-0.5 rounded-full border border-amber-300 shadow-md animate-pulse whitespace-nowrap">
                       “我听懂你了，我陪着你” 🤝
                     </span>
                   </div>
@@ -179,14 +179,14 @@ export const CognitiveDimension3DArtifact: React.FC<CognitiveDimension3DArtifact
               </div>
 
               {/* Island B: Adult's Boundary */}
-              <div className="w-24 sm:w-28 h-24 sm:h-28 rounded-3xl bg-gradient-to-b from-sky-400 to-blue-700 shadow-2xl border-4 border-sky-200 flex flex-col items-center justify-center text-white text-center p-2 z-10">
+              <div className="w-22 sm:w-28 h-24 sm:h-28 shrink-0 rounded-3xl bg-gradient-to-b from-sky-400 to-blue-700 shadow-2xl border-4 border-sky-200 flex flex-col items-center justify-center text-white text-center p-1.5 sm:p-2 z-10">
                 <span className="text-2xl sm:text-3xl mb-0.5">🏡</span>
                 <span className="text-xs sm:text-sm font-black">大人的小岛</span>
                 <span className="text-[10px] opacity-90">稳定的避风港</span>
               </div>
             </div>
 
-            <div className="absolute bottom-2.5 px-3 py-1 bg-white/90 backdrop-blur-xs rounded-full border border-stone-200 text-xs font-bold text-stone-700 shadow-2xs">
+            <div className="absolute bottom-2.5 px-3 py-1 bg-white/90 backdrop-blur-xs rounded-full border border-stone-200 text-xs font-bold text-stone-700 shadow-2xs max-w-[94%] text-center">
               {isResonating ? '✨ 共情桥梁共振中：不吞并彼此，但温暖流动' : '点击下方按钮体验共情波'}
             </div>
           </div>

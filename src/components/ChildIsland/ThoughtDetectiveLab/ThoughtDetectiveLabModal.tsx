@@ -92,28 +92,28 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50 backdrop-blur-sm p-3 sm:p-5 overflow-y-auto">
-      <div className="bg-sky-50/95 border-2 border-sky-200 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
+      <div className="bg-sky-50/95 border-2 border-sky-200 rounded-3xl p-4 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto transition-all duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-sky-100 transition-colors z-20 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-500 hover:text-stone-700 p-2 rounded-full hover:bg-sky-100 transition-colors z-20 cursor-pointer min-w-[56px] min-h-[56px] flex items-center justify-center"
           aria-label="离开想法侦探社"
         >
           <X className="w-6 h-6" />
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-4 pr-12">
           <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center p-1.5 shadow-inner shrink-0 border-2 border-amber-200">
             <LocationBadgeIllustration type="detective" className="w-full h-full" />
           </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black text-stone-800">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="text-xl sm:text-3xl font-black text-stone-800">
                 想法侦探社 · 工具坊
               </h3>
               <button
                 onClick={() => handleSpeak("想法侦探社：这里有四件神奇的小工具和一道安全围栏，帮你看清心里的声音！")}
-                className="p-2 rounded-xl text-sky-700 hover:bg-sky-100 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-sky-700 hover:bg-sky-100 min-w-[56px] min-h-[56px] flex items-center justify-center transition-colors cursor-pointer shrink-0"
                 aria-label="听一听想法侦探社介绍"
               >
                 <Volume2 className="w-5 h-5" />
@@ -126,7 +126,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playClick();
                   setIsBreakerOpen(true);
                 }}
-                className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black transition-all shadow-2xs flex items-center gap-1 cursor-pointer"
+                className="min-h-[44px] px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black transition-all shadow-2xs flex items-center gap-1 cursor-pointer"
                 aria-label="打开大困难拆解台"
               >
                 <span>🔨 大困难拆解台</span>
@@ -147,16 +147,16 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
             sounds.playClick();
             setIsCrayonGameOpen(true);
           }}
-          className="w-full mb-4 p-3.5 bg-linear-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-600 text-white rounded-2xl font-black text-sm sm:text-base flex items-center justify-between shadow-md transition-all active:scale-98 cursor-pointer"
+          className="w-full min-h-[64px] mb-4 p-3.5 bg-linear-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-600 text-white rounded-2xl font-black text-sm sm:text-base flex items-center justify-between gap-2 shadow-md transition-all active:scale-98 cursor-pointer"
         >
           <div className="flex items-center gap-2.5">
-            <span className="text-2xl" aria-hidden="true">🔍</span>
+            <span className="text-2xl shrink-0" aria-hidden="true">🔍</span>
             <span className="text-left">
               <span>开始真实探案互动：《蜡笔侦探》</span>
               <span className="block text-xs font-normal text-amber-100 mt-0.5">用手指拖动放大镜找线索，把事实与猜测分一分</span>
             </span>
           </div>
-          <span className="text-xs bg-amber-700/60 px-3 py-1.5 rounded-full font-bold shrink-0">
+          <span className="text-xs bg-amber-700/60 px-3 py-1.5 rounded-full font-bold shrink-0 whitespace-nowrap">
             立刻探索 →
           </span>
         </button>
@@ -167,7 +167,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               <button
                 type="button"
                 onClick={() => setIsCrayonGameOpen(false)}
-                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="min-h-[56px] px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 ← 返回想法侦探社
               </button>
@@ -176,14 +176,14 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
           </div>
         ) : (
           <>
-            {/* Tab Navigation - min-h-[52px] */}
+            {/* Tab Navigation - min-h-[56px] */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-sky-100/70 rounded-2xl mb-6">
           <button
             onClick={() => {
               sounds.playClick();
               setActiveTab('tools');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-xs sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'tools'
                 ? 'bg-white text-sky-950 shadow-sm border border-sky-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -198,7 +198,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               sounds.playClick();
               setActiveTab('threeBoxes');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-xs sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'threeBoxes'
                 ? 'bg-white text-sky-950 shadow-sm border border-sky-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -213,7 +213,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               sounds.playClick();
               setActiveTab('circles');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-xs sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'circles'
                 ? 'bg-white text-sky-950 shadow-sm border border-sky-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -228,7 +228,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               sounds.playClick();
               setActiveTab('fourSteps');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-xs sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeTab === 'fourSteps'
                 ? 'bg-white text-sky-950 shadow-sm border border-sky-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -243,14 +243,14 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
         {/* ================= TAB 1: 四件工具与围栏 ================= */}
         {activeTab === 'tools' && (
           <div className="space-y-5">
-            {/* Tool Selector Bar */}
-            <div className="grid grid-cols-5 gap-2 sm:gap-2.5">
+            {/* Tool Selector Bar: 2 cols on mobile (5th spans 2), 5 cols on sm+ */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-2.5">
               <button
                 onClick={() => {
                   sounds.playClick();
                   setActiveTool('flag');
                 }}
-                className={`min-h-[64px] p-2 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                className={`min-h-[64px] p-2.5 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
                   activeTool === 'flag'
                     ? 'bg-amber-100 border-amber-400 font-extrabold text-amber-950 shadow-xs'
                     : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
@@ -258,7 +258,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 aria-label="选择工具：小旗子"
               >
                 <Flag className="w-5 h-5 mx-auto mb-1 text-amber-600" />
-                <span className="text-xs sm:text-sm font-bold block">小旗子</span>
+                <span className="text-xs sm:text-sm font-bold block whitespace-nowrap">小旗子</span>
               </button>
 
               <button
@@ -266,7 +266,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playClick();
                   setActiveTool('lenses');
                 }}
-                className={`min-h-[64px] p-2 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                className={`min-h-[64px] p-2.5 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
                   activeTool === 'lenses'
                     ? 'bg-sky-100 border-sky-400 font-extrabold text-sky-950 shadow-xs'
                     : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
@@ -274,7 +274,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 aria-label="选择工具：三个镜头"
               >
                 <Eye className="w-5 h-5 mx-auto mb-1 text-sky-600" />
-                <span className="text-xs sm:text-sm font-bold block">三个镜头</span>
+                <span className="text-xs sm:text-sm font-bold block whitespace-nowrap">三个镜头</span>
               </button>
 
               <button
@@ -282,7 +282,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playCoinFlip();
                   setActiveTool('coin');
                 }}
-                className={`min-h-[64px] p-2 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                className={`min-h-[64px] p-2.5 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
                   activeTool === 'coin'
                     ? 'bg-emerald-100 border-emerald-400 font-extrabold text-emerald-950 shadow-xs'
                     : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
@@ -290,7 +290,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 aria-label="选择工具：双面币"
               >
                 <Coins className="w-5 h-5 mx-auto mb-1 text-emerald-600" />
-                <span className="text-xs sm:text-sm font-bold block">双面币</span>
+                <span className="text-xs sm:text-sm font-bold block whitespace-nowrap">双面币</span>
               </button>
 
               <button
@@ -298,7 +298,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playScaleClink();
                   setActiveTool('scale');
                 }}
-                className={`min-h-[64px] p-2 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                className={`min-h-[64px] p-2.5 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
                   activeTool === 'scale'
                     ? 'bg-purple-100 border-purple-400 font-extrabold text-purple-950 shadow-xs'
                     : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
@@ -306,7 +306,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 aria-label="选择工具：小天平"
               >
                 <Scale className="w-5 h-5 mx-auto mb-1 text-purple-600" />
-                <span className="text-xs sm:text-sm font-bold block">小天平</span>
+                <span className="text-xs sm:text-sm font-bold block whitespace-nowrap">小天平</span>
               </button>
 
               <button
@@ -314,7 +314,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playClick();
                   setActiveTool('fence');
                 }}
-                className={`min-h-[64px] p-2 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                className={`col-span-2 sm:col-span-1 min-h-[64px] p-2.5 rounded-2xl border-2 text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
                   activeTool === 'fence'
                     ? 'bg-rose-100 border-rose-400 font-extrabold text-rose-950 shadow-xs'
                     : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
@@ -322,7 +322,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 aria-label="选择工具：安全围栏"
               >
                 <ShieldAlert className="w-5 h-5 mx-auto mb-1 text-rose-600" />
-                <span className="text-xs sm:text-sm font-bold block">安全围栏</span>
+                <span className="text-xs sm:text-sm font-bold block whitespace-nowrap">安全围栏</span>
               </button>
             </div>
 
@@ -600,30 +600,37 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               </div>
               <button
                 onClick={() => handleSpeak("把卡片分进三个盒子：看得见的、心里的、脑子猜的。")}
-                className="p-1.5 text-sky-700 hover:bg-sky-50 rounded-md"
+                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="朗读三个分类盒子说明"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
 
             {/* Three Target Boxes */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl text-center">
-                <span className="text-base block mb-1">👀</span>
-                <span className="text-xs font-bold text-emerald-900 block">看得见的</span>
-                <span className="text-[10px] text-emerald-700">真实发生的事实</span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="p-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl flex sm:flex-col items-center sm:justify-center gap-2 sm:gap-0 text-left sm:text-center">
+                <span className="text-xl sm:text-base block sm:mb-1 shrink-0">👀</span>
+                <div>
+                  <span className="text-xs font-bold text-emerald-900 block">看得见的</span>
+                  <span className="text-[11px] sm:text-[10px] text-emerald-700">真实发生的事实</span>
+                </div>
               </div>
 
-              <div className="p-3 bg-rose-50 border-2 border-rose-300 rounded-2xl text-center">
-                <span className="text-base block mb-1">💓</span>
-                <span className="text-xs font-bold text-rose-900 block">心里的</span>
-                <span className="text-[10px] text-rose-700">当下的身体与情绪感受</span>
+              <div className="p-3 bg-rose-50 border-2 border-rose-300 rounded-2xl flex sm:flex-col items-center sm:justify-center gap-2 sm:gap-0 text-left sm:text-center">
+                <span className="text-xl sm:text-base block sm:mb-1 shrink-0">💓</span>
+                <div>
+                  <span className="text-xs font-bold text-rose-900 block">心里的</span>
+                  <span className="text-[11px] sm:text-[10px] text-rose-700">当下的身体与情绪感受</span>
+                </div>
               </div>
 
-              <div className="p-3 bg-amber-50 border-2 border-amber-300 rounded-2xl text-center">
-                <span className="text-base block mb-1">💭</span>
-                <span className="text-xs font-bold text-amber-900 block">猜的</span>
-                <span className="text-[10px] text-amber-700">大脑编造的故事/猜测</span>
+              <div className="p-3 bg-amber-50 border-2 border-amber-300 rounded-2xl flex sm:flex-col items-center sm:justify-center gap-2 sm:gap-0 text-left sm:text-center">
+                <span className="text-xl sm:text-base block sm:mb-1 shrink-0">💭</span>
+                <div>
+                  <span className="text-xs font-bold text-amber-900 block">猜的</span>
+                  <span className="text-[11px] sm:text-[10px] text-amber-700">大脑编造的故事/猜测</span>
+                </div>
               </div>
             </div>
 
@@ -632,17 +639,17 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               {boxItems.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white p-3 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-2xs"
+                  className="bg-white p-3 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs"
                 >
-                  <span className="text-xs font-medium text-stone-800 flex items-center gap-1.5">
-                    {item.placed && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
+                  <span className="text-xs sm:text-sm font-medium text-stone-800 flex items-center gap-1.5">
+                    {item.placed && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
                     {item.text}
                   </span>
 
-                  <div className="flex gap-1.5 shrink-0">
+                  <div className="flex flex-wrap gap-1.5 w-full sm:w-auto shrink-0">
                     <button
                       onClick={() => handlePlaceBox(item.id, 'visible')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'visible'
                           ? 'bg-emerald-600 text-white border-emerald-700'
                           : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
@@ -652,7 +659,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceBox(item.id, 'heart')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'heart'
                           ? 'bg-rose-600 text-white border-rose-700'
                           : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
@@ -662,7 +669,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceBox(item.id, 'guess')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'guess'
                           ? 'bg-amber-600 text-white border-amber-700'
                           : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
@@ -687,25 +694,26 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               </div>
               <button
                 onClick={() => handleSpeak("责任圈：大人的事归大人管，我的事归我管，一起商量的事大家坐下来谈。")}
-                className="p-1.5 text-sky-700 hover:bg-sky-50 rounded-md"
+                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="朗读责任圈拼图说明"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
 
             {/* Circles visual */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-3 bg-purple-50 border-2 border-purple-300 rounded-2xl text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="p-3 bg-purple-50 border-2 border-purple-300 rounded-2xl text-left sm:text-center">
                 <span className="text-xs font-bold text-purple-900 block">大人的事</span>
-                <span className="text-[10px] text-purple-700">婚姻、住址安排（不用我扛）</span>
+                <span className="text-[11px] sm:text-[10px] text-purple-700">婚姻、住址安排（不用我扛）</span>
               </div>
-              <div className="p-3 bg-amber-50 border-2 border-amber-300 rounded-2xl text-center">
+              <div className="p-3 bg-amber-50 border-2 border-amber-300 rounded-2xl text-left sm:text-center">
                 <span className="text-xs font-bold text-amber-900 block">我的事</span>
-                <span className="text-[10px] text-amber-700">玩耍、表达感受、早睡早起</span>
+                <span className="text-[11px] sm:text-[10px] text-amber-700">玩耍、表达感受、早睡早起</span>
               </div>
-              <div className="p-3 bg-teal-50 border-2 border-teal-300 rounded-2xl text-center">
+              <div className="p-3 bg-teal-50 border-2 border-teal-300 rounded-2xl text-left sm:text-center">
                 <span className="text-xs font-bold text-teal-900 block">一起商量的事</span>
-                <span className="text-[10px] text-teal-700">周末计划、换家带什么</span>
+                <span className="text-[11px] sm:text-[10px] text-teal-700">周末计划、换家带什么</span>
               </div>
             </div>
 
@@ -714,17 +722,17 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               {circleItems.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white p-3 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-2xs"
+                  className="bg-white p-3 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs"
                 >
-                  <span className="text-xs font-medium text-stone-800 flex items-center gap-1.5">
-                    {item.placed && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
+                  <span className="text-xs sm:text-sm font-medium text-stone-800 flex items-center gap-1.5">
+                    {item.placed && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
                     {item.text}
                   </span>
 
-                  <div className="flex gap-1.5 shrink-0">
+                  <div className="flex flex-wrap gap-1.5 w-full sm:w-auto shrink-0">
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'adult')}
-                      className={`px-2 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'adult'
                           ? 'bg-purple-600 text-white border-purple-700'
                           : 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100'
@@ -734,7 +742,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'mine')}
-                      className={`px-2 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'mine'
                           ? 'bg-amber-600 text-white border-amber-700'
                           : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
@@ -744,7 +752,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'together')}
-                      className={`px-2 py-1 rounded-lg text-[11px] font-bold border ${
+                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'together'
                           ? 'bg-teal-600 text-white border-teal-700'
                           : 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100'

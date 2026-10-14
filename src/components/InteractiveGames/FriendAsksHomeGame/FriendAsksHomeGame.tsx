@@ -9,14 +9,45 @@ import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 
 import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+import {
+  issueAdultPreviewSession,
+  isAdultPreviewSessionValid,
+  revokeAdultPreviewSession,
+  lockParentAccess,
+  subscribeParentAccess,
+} from '../../../domain/privacy/parentAccess';
+import { ParentGateModal } from '../../ParentGateModal';
+
+const SCOPE_KEY = 'game_friend_asks_home';
 
 interface Props {
   onExit: () => void;
   isAdultPreview?: boolean;
+  previewSessionToken?: string | null;
 }
 
-export const FriendAsksHomeGame: React.FC<Props> = ({ onExit, isAdultPreview = false }) => {
-  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState(isAdultPreview);
+export const FriendAsksHomeGame: React.FC<Props> = ({
+  onExit,
+  previewSessionToken = null,
+}) => {
+  const [localSessionToken, setLocalSessionToken] = useState<string | null>(null);
+  const [isParentGateOpen, setIsParentGateOpen] = useState(false);
+  const [, setAccessVersion] = useState(0);
+
+  useEffect(() => {
+    return subscribeParentAccess(() => {
+      setAccessVersion((v) => v + 1);
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      revokeAdultPreviewSession(SCOPE_KEY);
+    };
+  }, []);
+
+  const effectiveToken = previewSessionToken ?? localSessionToken;
+  const adultPreviewUnlocked = isAdultPreviewSessionValid(SCOPE_KEY, effectiveToken);
   const isApproved = ContentAuditRegistry.canRenderContent('game_friend_asks_home');
 
   // 当前选择的路径 Key
@@ -78,32 +109,58 @@ export const FriendAsksHomeGame: React.FC<Props> = ({ onExit, isAdultPreview = f
     speechNarrator.speak('我们重新想一想，换一种你觉得最舒服的方式回答。');
   };
 
+  const handleExitGame = () => {
+    speechNarrator.stop();
+    setLocalSessionToken(null);
+    setIsParentGateOpen(false);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    onExit();
+  };
+
+  const handleRequestAdultPreview = () => {
+    sounds.playClick();
+    setLocalSessionToken(null);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    setIsParentGateOpen(true);
+  };
+
   if (!isApproved && !adultPreviewUnlocked) {
     return (
-      <div data-testid="audit-gate-blocked" className="p-8 bg-amber-50 rounded-3xl border-2 border-amber-300 text-stone-800 text-center space-y-4 my-4 max-w-xl mx-auto">
+      <div data-testid="audit-gate-blocked" className="p-6 sm:p-8 bg-amber-50 rounded-3xl border-2 border-amber-200 text-stone-800 text-center space-y-4 my-4 max-w-xl mx-auto">
         <div className="w-16 h-16 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow-inner">
-          🛡️
+          🌱
         </div>
-        <h3 className="text-xl font-black text-amber-950">待独立专家审核 · 儿童运行时安全拦截</h3>
-        <p className="text-sm text-stone-600 leading-relaxed">
-          本游戏组件（朋友问起我的家）尚未完成外部独立儿童心理与伦理专家签署审批（状态为 PENDING_REVIEW）。为保障儿童真实安全，已自动阻断直接运行。
+        <h3 className="text-lg sm:text-xl font-black text-amber-950">这个小游戏正在做最后准备</h3>
+        <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-medium">
+          「朋友问起我的家」需要大人们做好最后的安全检查，并在爸爸妈妈陪伴下一起玩。现在可以先回小岛去呼吸角、晴雨气象台或做一件找回勇气的小事哦！
         </p>
-        <div className="flex flex-wrap justify-center gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
           <button
             type="button"
-            onClick={() => setAdultPreviewUnlocked(true)}
-            className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-sm transition-colors cursor-pointer"
+            onClick={handleExitGame}
+            className="min-h-[56px] px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-sm transition-colors cursor-pointer shadow-sm"
           >
-            成年人确认进入审查预览
+            回小岛玩其他活动
           </button>
           <button
             type="button"
-            onClick={onExit}
-            className="px-5 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-sm transition-colors cursor-pointer"
+            onClick={handleRequestAdultPreview}
+            className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-stone-100 text-stone-600 border border-stone-200 font-bold rounded-2xl text-xs transition-colors cursor-pointer"
           >
-            退出游戏
+            家长 / 审阅人验证预览
           </button>
         </div>
+        <ParentGateModal
+          isOpen={isParentGateOpen}
+          onClose={() => setIsParentGateOpen(false)}
+          onSuccess={() => {
+            setIsParentGateOpen(false);
+            const token = issueAdultPreviewSession(SCOPE_KEY);
+            setLocalSessionToken(token || null);
+          }}
+        />
       </div>
     );
   }
@@ -111,9 +168,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({ onExit, isAdultPreview = f
   return (
     <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col my-2">
       {adultPreviewUnlocked && !isApproved && (
-        <div className="bg-amber-500 text-white text-xs font-black px-4 py-1.5 flex items-center justify-between">
-          <span>⚠️ 成人审查预览模式 · 未获独立伦理审批前严禁作为儿童正式内容</span>
-          <span className="bg-amber-700 px-2 py-0.5 rounded text-[10px]">PENDING_REVIEW</span>
+        <div className="bg-amber-500 text-white text-xs font-black px-4 py-1.5 flex flex-wrap items-center justify-between gap-2">
+          <span>⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放</span>
+          <span className="bg-amber-700 px-2 py-0.5 rounded-full text-[10px]">大人陪伴审阅</span>
         </div>
       )}
       {/* 顶部敏感场景警示与退出栏 */}
@@ -138,7 +195,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({ onExit, isAdultPreview = f
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={onExit}
+            onClick={handleExitGame}
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 text-sm font-bold transition-colors"
             aria-label="离开游戏"
           >

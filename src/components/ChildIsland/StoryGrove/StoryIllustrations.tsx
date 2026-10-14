@@ -6,7 +6,14 @@ import React from 'react';
  */
 
 export const IslandPanoramaIllustration: React.FC<{ className?: string }> = ({ className = 'w-full h-auto' }) => (
-  <svg viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+  <svg
+    viewBox="0 0 800 280"
+    preserveAspectRatio="xMidYMid slice"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+  >
     <defs>
       <linearGradient id="skyGrad" x1="0" y1="0" x2="800" y2="280" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#BAE6FD" />
@@ -27,7 +34,7 @@ export const IslandPanoramaIllustration: React.FC<{ className?: string }> = ({ c
         <stop offset="100%" stopColor="#10B981" />
       </linearGradient>
       <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8" />
+        <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.85" />
         <stop offset="100%" stopColor="#0284C7" />
       </linearGradient>
       <linearGradient id="rainbowGrad" x1="0" y1="0" x2="1" y2="0">
@@ -43,86 +50,86 @@ export const IslandPanoramaIllustration: React.FC<{ className?: string }> = ({ c
       </filter>
     </defs>
 
-    {/* Sky Backdrop */}
-    <rect width="800" height="280" rx="28" fill="url(#skyGrad)" />
+    {/* Full-bleed Sky Backdrop */}
+    <rect width="800" height="280" fill="url(#skyGrad)" />
 
-    {/* Soft Rainbow Arcs */}
+    {/* Soft Rainbow Arcs inside safe vertical band (y=72..195) */}
     <path
-      d="M 120 220 A 180 180 0 0 1 480 220"
+      d="M 160 195 A 160 120 0 0 1 500 195"
       stroke="url(#rainbowGrad)"
-      strokeWidth="14"
+      strokeWidth="12"
       strokeLinecap="round"
-      opacity="0.6"
+      opacity="0.65"
     />
 
-    {/* Distant Warm Sun */}
-    <circle cx="680" cy="80" r="46" fill="url(#sunGrad)" filter="url(#softGlow)" opacity="0.9" />
-    <circle cx="680" cy="80" r="32" fill="#FEF08A" />
+    {/* Distant Warm Sun inside safe viewport band */}
+    <circle cx="645" cy="96" r="34" fill="url(#sunGrad)" filter="url(#softGlow)" opacity="0.9" />
+    <circle cx="645" cy="96" r="24" fill="#FEF08A" />
 
     {/* Gentle Drifting Clouds */}
-    <g fill="#FFFFFF" opacity="0.85">
-      <ellipse cx="220" cy="65" rx="42" ry="18" />
-      <ellipse cx="245" cy="55" rx="30" ry="22" />
-      <ellipse cx="200" cy="68" rx="24" ry="14" />
+    <g fill="#FFFFFF" opacity="0.88">
+      <ellipse cx="220" cy="86" rx="38" ry="15" />
+      <ellipse cx="242" cy="78" rx="26" ry="18" />
+      <ellipse cx="200" cy="88" rx="22" ry="12" />
 
-      <ellipse cx="460" cy="90" rx="36" ry="16" />
-      <ellipse cx="480" cy="80" rx="26" ry="18" />
+      <ellipse cx="465" cy="100" rx="32" ry="14" />
+      <ellipse cx="485" cy="92" rx="24" ry="16" />
 
       {/* Gentle rain dots under left cloud */}
-      <line x1="200" y1="90" x2="194" y2="105" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-      <line x1="220" y1="92" x2="214" y2="108" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-      <line x1="240" y1="88" x2="234" y2="104" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
+      <line x1="202" y1="106" x2="197" y2="118" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.65" />
+      <line x1="220" y1="108" x2="215" y2="120" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.65" />
+      <line x1="238" y1="105" x2="233" y2="117" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.65" />
     </g>
 
     {/* Sea / Lagoon */}
-    <path d="M 0 210 Q 200 200 400 215 T 800 210 L 800 280 L 0 280 Z" fill="url(#seaGrad)" />
+    <path d="M 0 182 Q 200 174 400 186 T 800 182 L 800 280 L 0 280 Z" fill="url(#seaGrad)" />
 
     {/* Rolling Green Hills */}
     {/* Left Island Shore (Home 1) */}
-    <path d="M -20 240 Q 140 130 320 240 Z" fill="url(#hillLeft)" />
+    <path d="M -20 215 Q 150 118 330 215 L 330 280 L -20 280 Z" fill="url(#hillLeft)" />
     {/* Right Island Shore (Home 2) */}
-    <path d="M 440 250 Q 640 140 820 250 Z" fill="url(#hillRight)" />
+    <path d="M 430 220 Q 630 124 820 220 L 820 280 L 430 280 Z" fill="url(#hillRight)" />
 
     {/* Central Island Knoll */}
-    <path d="M 240 260 Q 400 160 560 260 Z" fill="#6EE7B7" opacity="0.8" />
+    <path d="M 245 230 Q 400 142 555 230 Z" fill="#6EE7B7" opacity="0.85" />
 
     {/* Wooden Connecting Bridge (两个家的木桥) */}
-    <path d="M 300 225 Q 390 195 480 225" stroke="#92400E" strokeWidth="8" strokeLinecap="round" />
-    <path d="M 300 229 Q 390 199 480 229" stroke="#B45309" strokeWidth="4" strokeLinecap="round" />
+    <path d="M 300 196 Q 390 170 480 196" stroke="#92400E" strokeWidth="7" strokeLinecap="round" />
+    <path d="M 300 200 Q 390 174 480 200" stroke="#B45309" strokeWidth="3.5" strokeLinecap="round" />
     {/* Bridge posts */}
-    <line x1="330" y1="218" x2="330" y2="238" stroke="#78350F" strokeWidth="3" />
-    <line x1="370" y1="208" x2="370" y2="232" stroke="#78350F" strokeWidth="3" />
-    <line x1="410" y1="208" x2="410" y2="232" stroke="#78350F" strokeWidth="3" />
-    <line x1="450" y1="218" x2="450" y2="238" stroke="#78350F" strokeWidth="3" />
+    <line x1="330" y1="190" x2="330" y2="208" stroke="#78350F" strokeWidth="3" />
+    <line x1="370" y1="181" x2="370" y2="202" stroke="#78350F" strokeWidth="3" />
+    <line x1="410" y1="181" x2="410" y2="202" stroke="#78350F" strokeWidth="3" />
+    <line x1="450" y1="190" x2="450" y2="208" stroke="#78350F" strokeWidth="3" />
 
     {/* Cozy Houses */}
     {/* House on Left Shore */}
-    <g transform="translate(140, 160)">
-      <rect x="0" y="20" width="36" height="28" rx="4" fill="#FEF3C7" stroke="#D97706" strokeWidth="2" />
-      <polygon points="18,0 -4,22 40,22" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
-      <rect x="12" y="32" width="12" height="16" rx="2" fill="#B45309" />
-      <rect x="5" y="24" width="8" height="8" rx="1" fill="#FEF08A" stroke="#D97706" strokeWidth="1" />
+    <g transform="translate(150, 136)">
+      <rect x="0" y="18" width="34" height="26" rx="4" fill="#FEF3C7" stroke="#D97706" strokeWidth="2" />
+      <polygon points="17,0 -4,20 38,20" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
+      <rect x="11" y="29" width="11" height="15" rx="2" fill="#B45309" />
+      <rect x="5" y="22" width="7" height="7" rx="1" fill="#FEF08A" stroke="#D97706" strokeWidth="1" />
     </g>
 
     {/* House on Right Shore */}
-    <g transform="translate(620, 165)">
-      <rect x="0" y="20" width="38" height="28" rx="4" fill="#E0F2FE" stroke="#0284C7" strokeWidth="2" />
-      <polygon points="19,0 -4,22 42,22" fill="#38BDF8" stroke="#0284C7" strokeWidth="2" />
-      <rect x="13" y="32" width="12" height="16" rx="2" fill="#0369A1" />
-      <circle cx="28" cy="28" r="4" fill="#FEF08A" stroke="#0284C7" strokeWidth="1" />
+    <g transform="translate(605, 140)">
+      <rect x="0" y="18" width="36" height="26" rx="4" fill="#E0F2FE" stroke="#0284C7" strokeWidth="2" />
+      <polygon points="18,0 -4,20 40,20" fill="#38BDF8" stroke="#0284C7" strokeWidth="2" />
+      <rect x="12" y="29" width="11" height="15" rx="2" fill="#0369A1" />
+      <circle cx="26" cy="26" r="3.5" fill="#FEF08A" stroke="#0284C7" strokeWidth="1" />
     </g>
 
     {/* Whimsical Story Grove Trees */}
-    <g transform="translate(360, 155)">
-      <rect x="16" y="28" width="8" height="24" fill="#78350F" rx="2" />
-      <circle cx="20" cy="22" r="22" fill="#059669" />
-      <circle cx="10" cy="18" r="16" fill="#10B981" />
-      <circle cx="28" cy="18" r="15" fill="#34D399" />
+    <g transform="translate(362, 130)">
+      <rect x="15" y="26" width="7" height="22" fill="#78350F" rx="2" />
+      <circle cx="19" cy="20" r="20" fill="#059669" />
+      <circle cx="10" cy="17" r="14" fill="#10B981" />
+      <circle cx="27" cy="17" r="13" fill="#34D399" />
     </g>
 
     {/* Floating Friendly Sailboat */}
-    <g transform="translate(370, 235)">
-      <path d="M 0 10 L 28 10 L 22 18 L 4 18 Z" fill="#92400E" />
+    <g transform="translate(374, 196)">
+      <path d="M 0 10 L 28 10 L 22 17 L 4 17 Z" fill="#92400E" />
       <line x1="14" y1="10" x2="14" y2="0" stroke="#78350F" strokeWidth="2" />
       <polygon points="14,2 26,9 14,9" fill="#FDE047" />
       <polygon points="12,3 2,9 12,9" fill="#FFFFFF" />
@@ -207,21 +214,20 @@ export const CupScaleInteractiveIllustration: React.FC<{
     <rect x="20" y="150" width="420" height="50" rx="10" fill="url(#tableWood)" stroke="#D97706" strokeWidth="2" />
 
     {/* 1. Left: Small Block + Squirrel Perspective */}
-    <g
-      transform="translate(40, 50)"
-      className={`transition-all duration-300 ${perspective === 'squirrel' ? 'scale-110 opacity-100' : 'opacity-85'}`}
-    >
-      {/* Tiny Wooden Block */}
-      <rect x="35" y="80" width="22" height="22" rx="4" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
-      <text x="46" y="96" fontSize="12" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">积木</text>
+    <g transform="translate(40, 50)">
+      <g className={`transition-all duration-300 [transform-box:fill-box] origin-center ${perspective === 'squirrel' ? 'scale-105 opacity-100' : 'opacity-85'}`}>
+        {/* Tiny Wooden Block */}
+        <rect x="35" y="80" width="22" height="22" rx="4" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
+        <text x="46" y="96" fontSize="12" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">积木</text>
 
-      {/* Cute Squirrel */}
-      <circle cx="20" cy="75" r="14" fill="#D97706" />
-      <circle cx="16" cy="72" r="2" fill="#000" />
-      <polygon points="12,64 16,70 10,70" fill="#B45309" />
-      <path d="M 8 82 Q -4 70 2 56 Q 14 62 14 74 Z" fill="#B45309" />
-      <text x="24" y="112" fontSize="11" fill="#78350F" fontWeight="bold">小积木看它</text>
-      <text x="24" y="125" fontSize="10" fill="#0284C7">像座大高山！⛰️</text>
+        {/* Cute Squirrel */}
+        <circle cx="20" cy="75" r="14" fill="#D97706" />
+        <circle cx="16" cy="72" r="2" fill="#000" />
+        <polygon points="12,64 16,70 10,70" fill="#B45309" />
+        <path d="M 8 82 Q -4 70 2 56 Q 14 62 14 74 Z" fill="#B45309" />
+        <text x="24" y="112" fontSize="11" fill="#78350F" fontWeight="bold">小积木看它</text>
+        <text x="24" y="125" fontSize="10" fill="#0284C7">像座大高山！⛰️</text>
+      </g>
     </g>
 
     {/* 2. Middle: The Cup (Central Fact) */}
@@ -257,22 +263,21 @@ export const CupScaleInteractiveIllustration: React.FC<{
     </g>
 
     {/* 3. Right: Huge Bucket + Elephant Perspective */}
-    <g
-      transform="translate(300, 30)"
-      className={`transition-all duration-300 ${perspective === 'elephant' ? 'scale-110 opacity-100' : 'opacity-85'}`}
-    >
-      {/* Big Water Bucket */}
-      <path d="M 30 40 L 40 120 L 105 120 L 115 40 Z" fill="#94A3B8" stroke="#475569" strokeWidth="2" />
-      <ellipse cx="72" cy="40" rx="42" ry="9" fill="#CBD5E1" stroke="#475569" strokeWidth="2" />
-      <path d="M 30 40 Q 72 -5 115 40" fill="none" stroke="#334155" strokeWidth="3" />
+    <g transform="translate(300, 30)">
+      <g className={`transition-all duration-300 [transform-box:fill-box] origin-center ${perspective === 'elephant' ? 'scale-105 opacity-100' : 'opacity-85'}`}>
+        {/* Big Water Bucket */}
+        <path d="M 30 40 L 40 120 L 105 120 L 115 40 Z" fill="#94A3B8" stroke="#475569" strokeWidth="2" />
+        <ellipse cx="72" cy="40" rx="42" ry="9" fill="#CBD5E1" stroke="#475569" strokeWidth="2" />
+        <path d="M 30 40 Q 72 -5 115 40" fill="none" stroke="#334155" strokeWidth="3" />
 
-      {/* Baby Elephant outline */}
-      <circle cx="125" cy="50" r="16" fill="#94A3B8" />
-      <path d="M 135 56 Q 148 65 142 80" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" fill="none" />
-      <circle cx="122" cy="48" r="2" fill="#000" />
+        {/* Baby Elephant outline */}
+        <circle cx="125" cy="50" r="16" fill="#94A3B8" />
+        <path d="M 135 56 Q 148 65 142 80" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" fill="none" />
+        <circle cx="122" cy="48" r="2" fill="#000" />
 
-      <text x="75" y="138" fontSize="11" fill="#334155" fontWeight="bold" textAnchor="middle">大水桶看它</text>
-      <text x="75" y="151" fontSize="10" fill="#64748B" textAnchor="middle">好小一滴水！💧</text>
+        <text x="75" y="138" fontSize="11" fill="#334155" fontWeight="bold" textAnchor="middle">大水桶看它</text>
+        <text x="75" y="151" fontSize="10" fill="#64748B" textAnchor="middle">好小一滴水！💧</text>
+      </g>
     </g>
   </svg>
 );
@@ -311,64 +316,62 @@ export const RainWeatherIllustration: React.FC<{
     <line x1="230" y1="20" x2="230" y2="200" stroke="#94A3B8" strokeWidth="2" strokeDasharray="4 4" opacity="0.5" />
 
     {/* Side A: Cheerful Frog in Pond */}
-    <g
-      transform="translate(40, 70)"
-      className={`transition-all duration-300 ${focusSide === 'frog' ? 'scale-105' : ''}`}
-    >
-      {/* Pond */}
-      <ellipse cx="65" cy="95" rx="50" ry="18" fill="#38BDF8" opacity="0.8" />
-      {/* Lilypad */}
-      <ellipse cx="55" cy="92" rx="22" ry="8" fill="#22C55E" />
+    <g transform="translate(40, 70)">
+      <g className={`transition-transform duration-300 [transform-box:fill-box] origin-center ${focusSide === 'frog' ? 'scale-105' : ''}`}>
+        {/* Pond */}
+        <ellipse cx="65" cy="95" rx="50" ry="18" fill="#38BDF8" opacity="0.8" />
+        {/* Lilypad */}
+        <ellipse cx="55" cy="92" rx="22" ry="8" fill="#22C55E" />
 
-      {/* Cheerful Frog */}
-      <ellipse cx="55" cy="75" rx="18" ry="14" fill="#4ADE80" stroke="#16A34A" strokeWidth="2" />
-      <circle cx="48" cy="64" r="6" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.5" />
-      <circle cx="62" cy="64" r="6" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.5" />
-      <circle cx="48" cy="64" r="2.5" fill="#000" />
-      <circle cx="62" cy="64" r="2.5" fill="#000" />
-      <path d="M 48 78 Q 55 84 62 78" stroke="#15803D" strokeWidth="2" strokeLinecap="round" />
+        {/* Cheerful Frog */}
+        <ellipse cx="55" cy="75" rx="18" ry="14" fill="#4ADE80" stroke="#16A34A" strokeWidth="2" />
+        <circle cx="48" cy="64" r="6" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.5" />
+        <circle cx="62" cy="64" r="6" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.5" />
+        <circle cx="48" cy="64" r="2.5" fill="#000" />
+        <circle cx="62" cy="64" r="2.5" fill="#000" />
+        <path d="M 48 78 Q 55 84 62 78" stroke="#15803D" strokeWidth="2" strokeLinecap="round" />
 
-      {/* Tiny leaf umbrella */}
-      <path d="M 70 70 Q 80 50 92 65 Z" fill="#15803D" />
-      <line x1="80" y1="58" x2="80" y2="78" stroke="#166534" strokeWidth="2" />
+        {/* Tiny leaf umbrella */}
+        <path d="M 70 70 Q 80 50 92 65 Z" fill="#15803D" />
+        <line x1="80" y1="58" x2="80" y2="78" stroke="#166534" strokeWidth="2" />
 
-      {/* Label */}
-      <rect x="15" y="105" width="100" height="26" rx="8" fill="#DCFCE7" stroke="#86EFAC" strokeWidth="1" />
-      <text x="65" y="122" fontSize="11" fill="#15803D" textAnchor="middle" fontWeight="black">
-        🐸 小青蛙：太好玩啦！
-      </text>
+        {/* Label */}
+        <rect x="15" y="105" width="100" height="26" rx="8" fill="#DCFCE7" stroke="#86EFAC" strokeWidth="1" />
+        <text x="65" y="122" fontSize="11" fill="#15803D" textAnchor="middle" fontWeight="black">
+          🐸 小青蛙：太好玩啦！
+        </text>
+      </g>
     </g>
 
     {/* Side B: Rabbit Disappointed with Wet Kite */}
-    <g
-      transform="translate(270, 70)"
-      className={`transition-all duration-300 ${focusSide === 'rabbit' ? 'scale-105' : ''}`}
-    >
-      {/* Giant friendly sheltering mushroom */}
-      <path d="M 30 75 Q 70 20 110 75 Z" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
-      <circle cx="50" cy="55" r="4" fill="#FFFFFF" />
-      <circle cx="75" cy="45" r="5" fill="#FFFFFF" />
-      <circle cx="95" cy="60" r="3" fill="#FFFFFF" />
-      <rect x="62" y="75" width="16" height="35" rx="3" fill="#FEF3C7" stroke="#D97706" strokeWidth="1.5" />
+    <g transform="translate(270, 70)">
+      <g className={`transition-transform duration-300 [transform-box:fill-box] origin-center ${focusSide === 'rabbit' ? 'scale-105' : ''}`}>
+        {/* Giant friendly sheltering mushroom */}
+        <path d="M 30 75 Q 70 20 110 75 Z" fill="#F87171" stroke="#DC2626" strokeWidth="2" />
+        <circle cx="50" cy="55" r="4" fill="#FFFFFF" />
+        <circle cx="75" cy="45" r="5" fill="#FFFFFF" />
+        <circle cx="95" cy="60" r="3" fill="#FFFFFF" />
+        <rect x="62" y="75" width="16" height="35" rx="3" fill="#FEF3C7" stroke="#D97706" strokeWidth="1.5" />
 
-      {/* Fluffy Rabbit underneath */}
-      <ellipse cx="65" cy="98" rx="12" ry="12" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.5" />
-      {/* Ears dropping slightly */}
-      <ellipse cx="58" cy="80" rx="3" ry="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(-15 58 80)" />
-      <ellipse cx="72" cy="80" rx="3" ry="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(15 72 80)" />
-      <circle cx="61" cy="95" r="1.5" fill="#000" />
-      <circle cx="69" cy="95" r="1.5" fill="#000" />
+        {/* Fluffy Rabbit underneath */}
+        <ellipse cx="65" cy="98" rx="12" ry="12" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.5" />
+        {/* Ears dropping slightly */}
+        <ellipse cx="58" cy="80" rx="3" ry="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(-15 58 80)" />
+        <ellipse cx="72" cy="80" rx="3" ry="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(15 72 80)" />
+        <circle cx="61" cy="95" r="1.5" fill="#000" />
+        <circle cx="69" cy="95" r="1.5" fill="#000" />
 
-      {/* Wet colorful kite lying on ground */}
-      <polygon points="120,95 132,85 144,95 132,105" fill="#FBBF24" stroke="#D97706" strokeWidth="1.5" />
-      <line x1="120" y1="95" x2="144" y2="95" stroke="#B45309" strokeWidth="1" />
-      <line x1="132" y1="85" x2="132" y2="105" stroke="#B45309" strokeWidth="1" />
+        {/* Wet colorful kite lying on ground */}
+        <polygon points="120,95 132,85 144,95 132,105" fill="#FBBF24" stroke="#D97706" strokeWidth="1.5" />
+        <line x1="120" y1="95" x2="144" y2="95" stroke="#B45309" strokeWidth="1" />
+        <line x1="132" y1="85" x2="132" y2="105" stroke="#B45309" strokeWidth="1" />
 
-      {/* Label */}
-      <rect x="15" y="105" width="125" height="26" rx="8" fill="#FEE2E2" stroke="#FCA5A5" strokeWidth="1" />
-      <text x="77" y="122" fontSize="11" fill="#B91C1C" textAnchor="middle" fontWeight="black">
-        🐰 小兔：风筝飞不起来了
-      </text>
+        {/* Label */}
+        <rect x="15" y="105" width="125" height="26" rx="8" fill="#FEE2E2" stroke="#FCA5A5" strokeWidth="1" />
+        <text x="77" y="122" fontSize="11" fill="#B91C1C" textAnchor="middle" fontWeight="black">
+          🐰 小兔：风筝飞不起来了
+        </text>
+      </g>
     </g>
   </svg>
 );
@@ -517,8 +520,8 @@ export const CourageShieldIllustration: React.FC<{ className?: string }> = ({ cl
     {/* Left speech bubble: Saying No is Allowed */}
     <g transform="translate(25, 45)">
       <rect width="125" height="52" rx="14" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
-      <polygon points="125,72 135,76 125,80" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
-      <rect x="123" y="70" width="4" height="12" fill="#FFFFFF" />
+      <polygon points="124,26 138,34 124,40" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
+      <rect x="122" y="25" width="4" height="16" fill="#FFFFFF" />
       <text x="62" y="24" fontSize="13" fill="#BE123C" textAnchor="middle" fontWeight="bold">我有权说“不”</text>
       <text x="62" y="42" fontSize="11" fill="#881337" textAnchor="middle">保护自己的身体与心</text>
     </g>
@@ -526,8 +529,8 @@ export const CourageShieldIllustration: React.FC<{ className?: string }> = ({ cl
     {/* Right speech bubble: Speak Up with Courage */}
     <g transform="translate(305, 45)">
       <rect width="130" height="52" rx="14" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
-      <polygon points="5,76 -5,72 5,80" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
-      <rect x="3" y="70" width="4" height="12" fill="#FFFFFF" />
+      <polygon points="6,26 -8,34 6,40" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="2" />
+      <rect x="4" y="25" width="4" height="16" fill="#FFFFFF" />
       <text x="65" y="24" fontSize="13" fill="#BE123C" textAnchor="middle" fontWeight="bold">我有话可以讲</text>
       <text x="65" y="42" fontSize="11" fill="#881337" textAnchor="middle">告诉身边可信的大人</text>
     </g>
@@ -571,34 +574,34 @@ export const StarlightPuzzleIllustration: React.FC<{ className?: string }> = ({ 
       opacity="0.9"
     />
 
-    {/* Center 4 Interlocking Puzzle Pieces */}
-    <g transform="translate(130, 25)">
+    {/* Center 4 Interlocking Puzzle Pieces (y=12..130, zero overlap with y=140 caption) */}
+    <g transform="translate(130, 12)">
       {/* Piece 1 (Top Left: Art & Hobbies) */}
-      <rect x="0" y="0" width="95" height="60" rx="10" fill="#EC4899" stroke="#F472B6" strokeWidth="2" />
-      <text x="47" y="28" fontSize="18" textAnchor="middle">🎨</text>
-      <text x="47" y="48" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">我的爱好</text>
+      <rect x="0" y="0" width="95" height="54" rx="10" fill="#EC4899" stroke="#F472B6" strokeWidth="2" />
+      <text x="47" y="25" fontSize="16" textAnchor="middle">🎨</text>
+      <text x="47" y="44" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">我的爱好</text>
 
       {/* Piece 2 (Top Right: Strengths & Kind Heart) */}
-      <rect x="105" y="0" width="95" height="60" rx="10" fill="#F59E0B" stroke="#FCD34D" strokeWidth="2" />
-      <text x="152" y="28" fontSize="18" textAnchor="middle">⭐</text>
-      <text x="152" y="48" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">我的强项</text>
+      <rect x="105" y="0" width="95" height="54" rx="10" fill="#F59E0B" stroke="#FCD34D" strokeWidth="2" />
+      <text x="152" y="25" fontSize="16" textAnchor="middle">⭐</text>
+      <text x="152" y="44" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">我的强项</text>
 
       {/* Piece 3 (Bottom Left: Two Warm Homes - Just 1 piece!) */}
-      <rect x="0" y="68" width="95" height="60" rx="10" fill="#3B82F6" stroke="#93C5FD" strokeWidth="2" />
-      <text x="47" y="96" fontSize="18" textAnchor="middle">🏡</text>
-      <text x="47" y="116" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">两个家之一</text>
+      <rect x="0" y="62" width="95" height="54" rx="10" fill="#3B82F6" stroke="#93C5FD" strokeWidth="2" />
+      <text x="47" y="87" fontSize="16" textAnchor="middle">🏡</text>
+      <text x="47" y="106" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">两个家之一</text>
 
       {/* Piece 4 (Bottom Right: Growing & Learning) */}
-      <rect x="105" y="68" width="95" height="60" rx="10" fill="#10B981" stroke="#6EE7B7" strokeWidth="2" />
-      <text x="152" y="96" fontSize="18" textAnchor="middle">🌱</text>
-      <text x="152" y="116" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">正在长大</text>
+      <rect x="105" y="62" width="95" height="54" rx="10" fill="#10B981" stroke="#6EE7B7" strokeWidth="2" />
+      <text x="152" y="87" fontSize="16" textAnchor="middle">🌱</text>
+      <text x="152" y="106" fontSize="11" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">正在长大</text>
 
       {/* Glowing Star in the center intersection */}
-      <circle cx="100" cy="64" r="16" fill="url(#starGlow)" />
-      <text x="100" y="69" fontSize="14" textAnchor="middle">✨</text>
+      <circle cx="100" cy="58" r="15" fill="url(#starGlow)" />
+      <text x="100" y="63" fontSize="13" textAnchor="middle">✨</text>
     </g>
 
-    {/* Bottom Caption Pill */}
+    {/* Bottom Caption Pill (y=142..168, 14px below puzzle bottom y=128) */}
     <g transform="translate(90, 142)">
       <rect width="280" height="26" rx="13" fill="#312E81" stroke="#6366F1" strokeWidth="1" />
       <text x="140" y="17" fontSize="11" fill="#E0E7FF" textAnchor="middle" fontWeight="medium">

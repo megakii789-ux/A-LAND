@@ -95,6 +95,8 @@ export const Interactive3DCard: React.FC<Interactive3DCardProps> = ({
   return (
     <div
       ref={cardRef}
+      data-3d-card="true"
+      data-reduced-motion={prefersReducedMotion ? 'true' : 'false'}
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}

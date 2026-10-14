@@ -13,6 +13,7 @@ import {
 } from '../../../domain/personalization';
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
+import { CompanionAvatarSvg, InterestBadgeSvg } from '../CompanionIcons';
 
 interface Props {
   isOpen: boolean;
@@ -138,7 +139,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
         {/* 顶部标题栏 */}
         <div className="bg-amber-100/90 px-4 sm:px-6 py-4 flex items-center justify-between border-b border-amber-200">
           <div className="flex items-center gap-3">
-            <span className="text-3xl" aria-hidden="true">🌿</span>
+            <CompanionAvatarSvg companionId={currentCompanion.id} className="w-10 h-10 shrink-0" />
             <div>
               <h2 className="text-xl sm:text-2xl font-black text-amber-950">
                 我的小岛偏好
@@ -156,7 +157,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
               speechNarrator.stop();
               onClose();
             }}
-            className="w-12 h-12 rounded-2xl bg-white/80 hover:bg-white text-stone-700 flex items-center justify-center shadow-xs cursor-pointer border border-amber-200"
+            className="w-14 h-14 rounded-2xl bg-white/80 hover:bg-white text-stone-700 flex items-center justify-center shadow-xs cursor-pointer border border-amber-200 shrink-0"
             aria-label="关闭设置面板"
           >
             <X className="w-6 h-6" />
@@ -167,20 +168,20 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
         <div
           role="tablist"
           aria-label="设置类别"
-          className="flex border-b border-stone-200 bg-stone-50 px-4 sm:px-6 gap-2 pt-2"
+          className="flex border-b border-stone-200 bg-stone-50 px-2.5 sm:px-6 gap-1.5 sm:gap-2 pt-2"
         >
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === 'preferences'}
             onClick={() => setActiveTab('preferences')}
-            className={`min-h-[52px] px-4 py-2 text-sm sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`min-h-[56px] px-2.5 sm:px-4 py-2 text-xs sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'preferences'
                 ? 'bg-white border-stone-200 text-stone-900 border-b-white z-10'
                 : 'border-transparent text-stone-600 hover:text-stone-900'
             }`}
           >
-            <span>🐿️</span>
+            <CompanionAvatarSvg companionId={currentCompanion.id} className="w-5 h-5 shrink-0" />
             <span>伙伴与兴趣</span>
           </button>
           <button
@@ -188,13 +189,13 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
             role="tab"
             aria-selected={activeTab === 'accessibility'}
             onClick={() => setActiveTab('accessibility')}
-            className={`min-h-[52px] px-4 py-2 text-sm sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`min-h-[56px] px-2.5 sm:px-4 py-2 text-xs sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'accessibility'
                 ? 'bg-white border-stone-200 text-stone-900 border-b-white z-10'
                 : 'border-transparent text-stone-600 hover:text-stone-900'
             }`}
           >
-            <span>🔊</span>
+            <Volume2 className="w-4 h-4 text-amber-700 shrink-0" />
             <span>语音与操作</span>
           </button>
           <button
@@ -202,13 +203,13 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
             role="tab"
             aria-selected={activeTab === 'privacy'}
             onClick={() => setActiveTab('privacy')}
-            className={`min-h-[52px] px-4 py-2 text-sm sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`min-h-[56px] px-2.5 sm:px-4 py-2 text-xs sm:text-base font-bold rounded-t-2xl border-t-2 border-x-2 transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'privacy'
                 ? 'bg-white border-stone-200 text-stone-900 border-b-white z-10'
                 : 'border-transparent text-stone-600 hover:text-stone-900'
             }`}
           >
-            <span>🛡️</span>
+            <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
             <span>隐私与重置</span>
           </button>
         </div>
@@ -271,7 +272,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                             <Check className="w-4 h-4" />
                           </span>
                         )}
-                        <span className="text-3xl mb-1" aria-hidden="true">{comp.avatarEmoji}</span>
+                        <CompanionAvatarSvg companionId={cId} className="w-12 h-12 mb-1.5 drop-shadow-xs" />
                         <span className="text-base font-black text-stone-900">{comp.name}</span>
                         <span className="text-xs text-stone-600 font-medium">{comp.animal}</span>
                         <span className="text-[11px] text-stone-500 mt-1 line-clamp-1">{comp.traitDescription}</span>
@@ -282,8 +283,8 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
 
                 {/* 当前伙伴招呼 */}
                 <div className="mt-3 p-3 bg-amber-50 rounded-2xl border border-amber-200 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{currentCompanion.avatarEmoji}</span>
+                  <div className="flex items-center gap-2.5">
+                    <CompanionAvatarSvg companionId={currentCompanion.id} className="w-9 h-9 shrink-0" />
                     <p className="text-sm text-amber-900 font-bold">
                       {currentCompanion.name}：“{currentCompanion.greetingText}”
                     </p>
@@ -291,7 +292,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                   <button
                     type="button"
                     onClick={() => speechNarrator.speak(currentCompanion.greetingText)}
-                    className="p-2 text-amber-700 hover:text-amber-900"
+                    className="p-2 text-amber-700 hover:text-amber-900 min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label={`听${currentCompanion.name}说话`}
                   >
                     <Volume2 className="w-5 h-5" />
@@ -337,7 +338,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                             <Check className="w-4 h-4" />
                           </span>
                         )}
-                        <span className="text-3xl mb-1" aria-hidden="true">{act.icon}</span>
+                        <InterestBadgeSvg interestId={actId} className="w-10 h-10 mb-1.5 drop-shadow-xs" />
                         <span className="text-base font-black text-stone-900">{act.label}</span>
                         <span className="text-[11px] text-stone-500 mt-1">{act.sceneTitle}</span>
                       </button>

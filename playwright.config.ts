@@ -8,7 +8,7 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
     trace: 'off',
   },
   projects: [
@@ -49,10 +49,12 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:3000',
-    reuseExistingServer: true,
-    timeout: 30000,
-  },
+  webServer: process.env.PLAYWRIGHT_BASE_URL?.startsWith('https://')
+    ? undefined
+    : {
+        command: 'npm run start',
+        url: 'http://localhost:3000',
+        reuseExistingServer: true,
+        timeout: 30000,
+      },
 });

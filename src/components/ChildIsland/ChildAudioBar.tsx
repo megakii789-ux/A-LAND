@@ -85,7 +85,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           <button
             type="button"
             onClick={() => speechNarrator.dismissVoiceWarning()}
-            className="px-3 py-1.5 text-xs font-black bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-xl transition-colors shrink-0 min-h-[44px] cursor-pointer"
+            className="px-3.5 py-2 text-xs font-black bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-xl transition-colors shrink-0 min-h-[56px] min-w-[56px] cursor-pointer"
             aria-label="关闭语音提示"
           >
             知道了
@@ -105,34 +105,34 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
             }`}
             aria-hidden="true"
           >
-            {isSpeaking ? (isPaused ? '⏸️' : '🔊') : '🌱'}
+            <Volume2 className="w-5 h-5" />
           </div>
           <div className="min-w-0">
-            <span className="text-xs font-black text-stone-800 block">
+            <span className="text-xs font-black text-stone-800 block whitespace-nowrap">
               {isSpeaking
                 ? isPaused
                   ? '语音已暂停'
                   : '伴伴正在轻声朗读'
                 : '伴伴听你说'}
             </span>
-            <p className="text-xs text-stone-500 font-medium truncate max-w-[200px] sm:max-w-[340px]">
+            <p className="text-xs text-stone-500 font-medium truncate max-w-[180px] sm:max-w-[340px]">
               {lastText || '点击任意地点卡片，听伴伴为你朗读'}
             </p>
           </div>
         </div>
 
-        {/* 核心操作控制组 (每个触控区域 >= 48-56px) */}
+        {/* 核心操作控制组 (每个触控区域 >= 56x56px) */}
         <div className="flex items-center gap-1.5 shrink-0">
           {/* 重听按钮 */}
           <button
             type="button"
             onClick={handleReplay}
             disabled={!lastText}
-            className="min-h-[48px] px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+            className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
             aria-label="重新朗读上一段话"
             title="重新朗读"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-4 h-4 shrink-0" />
             <span className="hidden sm:inline">重听</span>
           </button>
 
@@ -141,11 +141,11 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
             <button
               type="button"
               onClick={handleTogglePause}
-              className="min-h-[48px] px-3 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 font-extrabold text-xs flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-sky-500 focus-visible:outline-none"
+              className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-sky-500 focus-visible:outline-none"
               aria-label={isPaused ? '继续朗读' : '暂停朗读'}
               title={isPaused ? '继续朗读' : '暂停朗读'}
             >
-              {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+              {isPaused ? <Play className="w-4 h-4 shrink-0" /> : <Pause className="w-4 h-4 shrink-0" />}
               <span className="hidden sm:inline">{isPaused ? '继续' : '暂停'}</span>
             </button>
           )}
@@ -155,11 +155,11 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
             <button
               type="button"
               onClick={handleStop}
-              className="min-h-[48px] px-3 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 font-extrabold text-xs flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-rose-500 focus-visible:outline-none"
+              className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-rose-500 focus-visible:outline-none"
               aria-label="停止当前语音朗读"
               title="停止朗读"
             >
-              <Square className="w-4 h-4" />
+              <Square className="w-4 h-4 shrink-0" />
               <span className="hidden sm:inline">停止</span>
             </button>
           )}
@@ -168,7 +168,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           <button
             type="button"
             onClick={handleToggleAmbient}
-            className={`min-h-[48px] px-3 py-2 rounded-xl font-extrabold text-xs flex items-center gap-1.5 transition-colors cursor-pointer border focus-visible:ring-4 focus-visible:ring-teal-500 focus-visible:outline-none ${
+            className={`min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer border focus-visible:ring-4 focus-visible:ring-teal-500 focus-visible:outline-none ${
               !isAmbientMuted
                 ? 'bg-teal-100 text-teal-900 border-teal-300'
                 : 'bg-stone-100 text-stone-600 border-stone-200 hover:bg-stone-200'
@@ -176,7 +176,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
             aria-label={!isAmbientMuted ? '环境音效已开启，点击静音' : '环境音效已静音，点击开启'}
             title="环境音效开关"
           >
-            {!isAmbientMuted ? <Volume2 className="w-4 h-4 text-teal-700" /> : <VolumeX className="w-4 h-4" />}
+            {!isAmbientMuted ? <Volume2 className="w-4 h-4 text-teal-700 shrink-0" /> : <VolumeX className="w-4 h-4 shrink-0" />}
             <span className="hidden sm:inline">{!isAmbientMuted ? '音效开' : '静音'}</span>
           </button>
         </div>

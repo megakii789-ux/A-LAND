@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BookOpen,
   DoorOpen,
@@ -27,6 +27,15 @@ import {
   LocationBadgeIllustration
 } from './StoryIllustrations';
 import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+import {
+  issueAdultPreviewSession,
+  isAdultPreviewSessionValid,
+  revokeAdultPreviewSession,
+  lockParentAccess,
+  subscribeParentAccess,
+} from '../../../domain/privacy/parentAccess';
+import { ParentGateModal } from '../../ParentGateModal';
+import { IslandUiIconSvg } from '../CompanionIcons';
 
 interface Props {
   isOpen: boolean;
@@ -44,7 +53,28 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
   const [customQuote, setCustomQuote] = useState<string>('');
   const [compareAnswered, setCompareAnswered] = useState<boolean>(false);
-  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState<boolean>(false);
+  const [previewSessionToken, setPreviewSessionToken] = useState<string | null>(null);
+  const [isParentGateOpen, setIsParentGateOpen] = useState<boolean>(false);
+  const [, setAccessVersion] = useState<number>(0);
+
+  useEffect(() => {
+    return subscribeParentAccess(() => {
+      setAccessVersion((v) => v + 1);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setPreviewSessionToken(null);
+      setIsParentGateOpen(false);
+      setStage('catalog');
+      revokeAdultPreviewSession();
+      lockParentAccess();
+    }
+    return () => {
+      revokeAdultPreviewSession();
+    };
+  }, [isOpen]);
 
   const isCurrentHeavyWeather = todayWeather
     ? isHeavyWeather(
@@ -54,16 +84,43 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     : false;
 
   const currentLeaf = INITIAL_LEAF_SCENARIOS.find(l => l.id === activeLeafId) || INITIAL_LEAF_SCENARIOS[0];
+  const currentScopeKey = `story:${currentLeaf.id}`;
+  const isCurrentLeafApproved = ContentAuditRegistry.canRenderContent(currentLeaf.id);
+  const adultPreviewUnlocked = isAdultPreviewSessionValid(currentScopeKey, previewSessionToken);
 
   // 边界优先原则：当 boundary !== 'NONE' 且存在边界时触发红线约束
   const hasBoundaryConflict = !!currentLeaf.boundary && currentLeaf.boundary !== 'NONE';
 
   if (!isOpen) return null;
 
+  const handleCloseStoryGrove = () => {
+    speechNarrator.stop();
+    setPreviewSessionToken(null);
+    setIsParentGateOpen(false);
+    setStage('catalog');
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    onClose();
+  };
+
+  const handleReturnToCatalog = () => {
+    sounds.playClick();
+    speechNarrator.stop();
+    setPreviewSessionToken(null);
+    setIsParentGateOpen(false);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    setStage('catalog');
+  };
+
   const handleStartLeaf = (leafId: string) => {
     sounds.playClick();
+    speechNarrator.stop();
     setActiveLeafId(leafId);
-    setAdultPreviewUnlocked(false);
+    setPreviewSessionToken(null);
+    setIsParentGateOpen(false);
+    revokeAdultPreviewSession();
+    lockParentAccess();
     setStage('doorIntro');
     setSelectedDoor('fen');
     setWalkSubStep('fen');
@@ -72,39 +129,48 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setCompareAnswered(false);
   };
 
+  const handleRequestAdultReview = () => {
+    sounds.playClick();
+    setPreviewSessionToken(null);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    setIsParentGateOpen(true);
+  };
+
   const handleSpeak = (text: string) => {
     speechNarrator.speak(text);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50 backdrop-blur-sm p-3 sm:p-5 overflow-y-auto">
-      <div className="bg-amber-50/95 border border-amber-200/90 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
+      <div className="bg-amber-50/95 border border-amber-200/90 rounded-3xl p-4 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto transition-all duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-amber-100/60 transition-colors z-20"
+          onClick={handleCloseStoryGrove}
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-500 hover:text-stone-700 p-2 rounded-full hover:bg-amber-100/60 transition-colors z-20 min-w-[56px] min-h-[56px] flex items-center justify-center cursor-pointer"
           aria-label="离开故事林"
         >
-          <X className="w-5 h-5" />
+          <X className="w-6 h-6" />
         </button>
 
         {/* ================= STAGE 0: 叶子选择目录 (CATALOG) ================= */}
         {stage === 'catalog' && (
           <div className="space-y-6">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 pr-12">
               <div className="w-13 h-13 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center p-1.5 shadow-inner shrink-0 border border-emerald-200">
                 <LocationBadgeIllustration type="story" className="w-full h-full" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-stone-800 flex items-center gap-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-stone-800 flex items-center gap-1.5 flex-wrap">
                   <span>故事林 · 发现思考之叶</span>
                   <button
                     onClick={() => handleSpeak("欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！")}
-                    className="p-1.5 rounded-full hover:bg-amber-100 text-amber-700"
+                    className="p-2 rounded-full hover:bg-amber-100 text-amber-700 min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer"
+                    aria-label="朗读故事林介绍"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </h3>
-                <p className="text-xs text-stone-500">从轻巧好玩的事物开始，慢慢探索更重的家庭情境</p>
+                <p className="text-xs sm:text-sm text-stone-600">从轻巧好玩的事物开始，慢慢探索更丰富的生活情境</p>
               </div>
             </div>
 
@@ -136,8 +202,8 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </span>
                         <div className="flex items-center gap-1.5">
                           {!isAudited && (
-                            <span className="text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded-md">
-                              待审 · 成人共读
+                            <span className="text-[11px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-2 py-0.5 rounded-full">
+                              准备中 · 需大人陪同
                             </span>
                           )}
                           {isDone && (
@@ -150,15 +216,15 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       <h4 className="text-lg font-black text-stone-900 group-hover:text-amber-900 transition-colors">
                         {leaf.title}
                       </h4>
-                      <p className="text-base text-stone-600 mt-1.5 line-clamp-2 leading-relaxed">
+                      <p className="text-sm sm:text-base text-stone-600 mt-1.5 line-clamp-2 leading-relaxed">
                         {leaf.summary}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-base text-amber-800 font-bold">
+                    <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-sm sm:text-base text-amber-800 font-bold">
                       <span>主角：{leaf.character}</span>
                       <span className="flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                        探索 <ArrowRight className="w-4 h-4" />
+                        看看详情 <ArrowRight className="w-4 h-4" />
                       </span>
                     </div>
                   </button>
@@ -168,159 +234,197 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
           </div>
         )}
 
-        {/* ================= STAGE 1: 三扇门进入 (DOORS INTRO) ================= */}
-        {stage === 'doorIntro' && (
+        {/* ================= NON-CATALOG AUDIT GATE: 任何非目录阶段若未授权则立即阻断 ================= */}
+        {stage !== 'catalog' && !isCurrentLeafApproved && !adultPreviewUnlocked && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pr-12">
               <button
-                onClick={() => setStage('catalog')}
-                className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                onClick={handleReturnToCatalog}
+                className="min-h-[44px] px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1 border border-amber-200 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" /> 返回叶子目录
               </button>
-              <span className="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">
+              <span className="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">
                 {currentLeaf.category} · {currentLeaf.character}
               </span>
             </div>
 
-            {!ContentAuditRegistry.canRenderContent(currentLeaf.id) && !adultPreviewUnlocked ? (
-              <div
-                data-testid="story-leaf-audit-gate-blocked"
-                className="p-6 sm:p-8 bg-amber-50 rounded-2xl border-2 border-amber-300 text-center space-y-3"
-              >
-                <span className="text-3xl block">🛡️</span>
-                <h3 className="text-base sm:text-lg font-black text-amber-950">
-                  待独立专家审核 · 故事安全隔离
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
-                  本故事叶（{currentLeaf.title}）尚未完成外部独立专家伦理审批。为防止未审内容流向儿童，儿童独立探索已安全隔离。
-                </p>
-                <div className="pt-2 flex justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setAdultPreviewUnlocked(true)}
-                    className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs sm:text-sm cursor-pointer shadow-xs"
-                  >
-                    成人共读审查预览
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStage('catalog')}
-                    className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-xs sm:text-sm cursor-pointer"
-                  >
-                    返回目录
-                  </button>
-                </div>
+            <div
+              data-testid="story-leaf-audit-gate-blocked"
+              className="p-5 sm:p-7 bg-amber-50 rounded-3xl border-2 border-amber-300 text-center space-y-4"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center mx-auto shadow-inner">
+                <IslandUiIconSvg name="waiting_lantern" className="w-11 h-11" />
               </div>
-            ) : (
-              <div className="bg-white/90 p-4 rounded-3xl border border-amber-200 overflow-hidden shadow-sm space-y-3">
-                {adultPreviewUnlocked && !ContentAuditRegistry.canRenderContent(currentLeaf.id) && (
-                  <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-2 rounded-2xl flex items-center justify-between gap-2">
-                    <span>🛡️ 独立专家审核中（PENDING_REVIEW）：当前处于成人共读隔离预览模式，未通过独立审核前不可作为儿童独立运行内容。</span>
-                    <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded shrink-0">成人共读预览</span>
-                  </div>
-                )}
-                {/* Scenario Visual Anchor */}
-                <div className="mb-3 rounded-2xl overflow-hidden border border-stone-200/80 bg-stone-50">
-                  {currentLeaf.id === 'cup-size' ? (
-                    <CupScaleInteractiveIllustration perspective="neutral" className="w-full h-40 sm:h-48 object-cover" />
-                  ) : currentLeaf.id === 'rain-weather' ? (
-                    <RainWeatherIllustration focusSide="both" className="w-full h-40 sm:h-48 object-cover" />
-                  ) : (
-                    <div className="h-32 bg-amber-100/50 flex items-center justify-center text-4xl">
-                      🌿
-                    </div>
-                  )}
-                </div>
-
-                <h3 className="text-lg sm:text-xl font-black text-stone-800 mb-1 flex items-center gap-2">
-                  <span>{currentLeaf.title}</span>
-                  <button
-                    onClick={() => handleSpeak(currentLeaf.summary)}
-                    className="p-1.5 rounded-xl text-amber-700 hover:bg-amber-100"
-                    aria-label="朗读故事概述"
-                  >
-                    <Volume2 className="w-4 h-4" />
-                  </button>
+              <div className="space-y-2">
+                <h3 className="text-lg sm:text-xl font-black text-amber-950">
+                  这片故事叶正在由大人细心检查中
                 </h3>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2 font-medium">
-                  {currentLeaf.summary}
+                <p className="text-sm sm:text-base text-stone-700 max-w-md mx-auto leading-relaxed font-medium">
+                  大人们正在认真检查《{currentLeaf.title}》的每一句话，确保它足够温暖安全，现在还不能自己打开哦。你可以先去小岛上其他已经准备好的地方玩一玩！
                 </p>
               </div>
-            )}
 
-            <div>
-              <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2.5">
-                🚪 选一扇你最想推开的门进入（三扇门都可以通向理解）：
-              </p>
-
-              <div className="grid gap-2.5">
-                {/* Door 1: 先分 */}
+              {/* 儿童适龄可用活动引导（>= 56px 触控标准） */}
+              <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
                 <button
-                  onClick={() => {
-                    sounds.playClick();
-                    setSelectedDoor('fen');
-                    setWalkSubStep('fen');
-                    setStage('walkLoop');
-                  }}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-sky-200 hover:border-sky-400 hover:bg-sky-50/50 text-left transition-all flex items-start gap-3 group"
+                  type="button"
+                  onClick={handleCloseStoryGrove}
+                  className="min-h-[56px] px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-sm sm:text-base cursor-pointer shadow-sm flex items-center justify-center gap-2"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <DoorOpen className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-sky-700">门 1 · 先分（发生了什么？）</div>
-                    <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.fen.question}</div>
-                    <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.fen.description}</div>
-                  </div>
+                  <Home className="w-5 h-5" />
+                  <span>回小岛去别的地点玩</span>
                 </button>
-
-                {/* Door 2: 先换 */}
                 <button
-                  onClick={() => {
-                    sounds.playClick();
-                    setSelectedDoor('tong');
-                    setWalkSubStep('tong');
-                    setStage('walkLoop');
-                  }}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50/50 text-left transition-all flex items-start gap-3 group"
+                  type="button"
+                  onClick={handleReturnToCatalog}
+                  className="min-h-[56px] px-5 py-3 bg-white hover:bg-stone-100 text-stone-800 font-bold rounded-2xl text-sm sm:text-base border-2 border-stone-200 cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <RotateCcw className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-emerald-700">门 2 · 先换（换位置看呢？）</div>
-                    <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.tong.question}</div>
-                    <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.tong.description}</div>
-                  </div>
+                  <span>看其他故事叶</span>
                 </button>
+              </div>
 
-                {/* Door 3: 先选 */}
+              {/* 成人/专家受控审阅入口：必须通过家长 PIN 门禁，禁止儿童一键放行 */}
+              <div className="pt-3 border-t border-amber-200/80 flex flex-col items-center gap-1.5">
+                <span className="text-xs text-stone-500">
+                  如果你是家长或审阅老师，需要陪同预览内容：
+                </span>
                 <button
-                  onClick={() => {
-                    sounds.playClick();
-                    setSelectedDoor('ze');
-                    setWalkSubStep('ze');
-                    setStage('walkLoop');
-                  }}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-amber-200 hover:border-amber-400 hover:bg-amber-50/50 text-left transition-all flex items-start gap-3 group"
+                  type="button"
+                  onClick={handleRequestAdultReview}
+                  className="min-h-[44px] px-4 py-2 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Scale className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-amber-700">门 3 · 先选（我可以怎么办？）</div>
-                    <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.ze.question}</div>
-                    <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.ze.description}</div>
-                  </div>
+                  🔒 家长 / 审阅人验证后预览（需输入家长 PIN）
                 </button>
               </div>
             </div>
           </div>
         )}
 
+        {/* ================= STAGE 1: 三扇门进入 (DOORS INTRO) ================= */}
+        {stage === 'doorIntro' && (isCurrentLeafApproved || adultPreviewUnlocked) && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between pr-12">
+              <button
+                onClick={handleReturnToCatalog}
+                className="min-h-[44px] px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1 border border-amber-200 cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4" /> 返回叶子目录
+              </button>
+              <span className="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">
+                {currentLeaf.category} · {currentLeaf.character}
+              </span>
+            </div>
+
+            <>
+              <div className="bg-white/90 p-4 rounded-3xl border border-amber-200 overflow-hidden shadow-sm space-y-3">
+                {adultPreviewUnlocked && !isCurrentLeafApproved && (
+                  <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3.5 py-2.5 rounded-2xl flex items-center justify-between gap-2">
+                    <span>🛡️ 当前为家长/专家受控审阅预览模式（已通过家长 PIN 校验），本故事尚未向儿童独立开放。</span>
+                    <span className="text-[11px] bg-amber-200 px-2 py-0.5 rounded-full shrink-0">成人共读审阅</span>
+                  </div>
+                )}
+                  {/* Scenario Visual Anchor */}
+                  <div className="mb-3 rounded-2xl overflow-hidden border border-stone-200/80 bg-slate-50">
+                    {currentLeaf.id === 'cup-size' ? (
+                      <CupScaleInteractiveIllustration perspective="neutral" className="w-full h-40 sm:h-48" />
+                    ) : currentLeaf.id === 'rain-weather' ? (
+                      <RainWeatherIllustration focusSide="both" className="w-full h-40 sm:h-48" />
+                    ) : (
+                      <div className="h-32 bg-amber-100/50 flex items-center justify-center">
+                        <LocationBadgeIllustration type="story" className="w-16 h-16" />
+                      </div>
+                    )}
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl font-black text-stone-800 mb-1 flex items-center gap-2">
+                    <span>{currentLeaf.title}</span>
+                    <button
+                      onClick={() => handleSpeak(currentLeaf.summary)}
+                      className="p-2 rounded-xl text-amber-700 hover:bg-amber-100 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                      aria-label="朗读故事概述"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2 font-medium">
+                    {currentLeaf.summary}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2.5">
+                    🚪 选一扇你最想推开的门进入（三扇门都可以通向理解）：
+                  </p>
+
+                  <div className="grid gap-2.5">
+                    {/* Door 1: 先分 */}
+                    <button
+                      onClick={() => {
+                        sounds.playClick();
+                        setSelectedDoor('fen');
+                        setWalkSubStep('fen');
+                        setStage('walkLoop');
+                      }}
+                      className="min-h-[64px] p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-sky-200 hover:border-sky-400 hover:bg-sky-50/50 text-left transition-all flex items-start gap-3 group cursor-pointer"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <DoorOpen className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-sky-700">门 1 · 先分（发生了什么？）</div>
+                        <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.fen.question}</div>
+                        <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.fen.description}</div>
+                      </div>
+                    </button>
+
+                    {/* Door 2: 先换 */}
+                    <button
+                      onClick={() => {
+                        sounds.playClick();
+                        setSelectedDoor('tong');
+                        setWalkSubStep('tong');
+                        setStage('walkLoop');
+                      }}
+                      className="min-h-[64px] p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50/50 text-left transition-all flex items-start gap-3 group cursor-pointer"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <RotateCcw className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-emerald-700">门 2 · 先换（换位置看呢？）</div>
+                        <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.tong.question}</div>
+                        <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.tong.description}</div>
+                      </div>
+                    </button>
+
+                    {/* Door 3: 先选 */}
+                    <button
+                      onClick={() => {
+                        sounds.playClick();
+                        setSelectedDoor('ze');
+                        setWalkSubStep('ze');
+                        setStage('walkLoop');
+                      }}
+                      className="min-h-[64px] p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-amber-200 hover:border-amber-400 hover:bg-amber-50/50 text-left transition-all flex items-start gap-3 group cursor-pointer"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <Scale className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-amber-700">门 3 · 先选（我可以怎么办？）</div>
+                        <div className="text-sm font-bold text-stone-800 mt-0.5">{currentLeaf.doors.ze.question}</div>
+                        <div className="text-xs text-stone-500 mt-1">{currentLeaf.doors.ze.description}</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </>
+          </div>
+        )}
+
         {/* ================= STAGE 2: 走一圈 (WALK LOOP) ================= */}
-        {stage === 'walkLoop' && (
+        {stage === 'walkLoop' && (isCurrentLeafApproved || adultPreviewUnlocked) && (
           <div className="space-y-6">
             {/* Steps indicator */}
             <div className="flex items-center justify-between pb-3 border-b border-amber-200/70">
@@ -596,7 +700,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         )}
 
         {/* ================= STAGE 3: 自己选 (CHOOSE) ================= */}
-        {stage === 'choose' && (
+        {stage === 'choose' && (isCurrentLeafApproved || adultPreviewUnlocked) && (
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-bold text-stone-800 flex items-center gap-2">
@@ -669,7 +773,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         )}
 
         {/* ================= STAGE 4: 离屏小任务 (OFFSCREEN) ================= */}
-        {stage === 'offscreen' && (
+        {stage === 'offscreen' && (isCurrentLeafApproved || adultPreviewUnlocked) && (
           <div className="space-y-6">
             <div className="text-center py-2">
               <div className="w-14 h-14 rounded-2xl bg-amber-200/80 text-amber-800 flex items-center justify-center mx-auto mb-3 shadow-inner">
@@ -720,7 +824,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         )}
 
         {/* ================= STAGE 5: 回头比一比 (COMPARE WITH OTHER LEAF) ================= */}
-        {stage === 'compare' && (
+        {stage === 'compare' && (isCurrentLeafApproved || adultPreviewUnlocked) && (
           <div className="space-y-6">
             <div className="text-center py-1">
               <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center mx-auto mb-2">
@@ -775,13 +879,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
 
             <div className="flex gap-3 pt-2">
               <button
-                onClick={() => setStage('catalog')}
+                onClick={handleReturnToCatalog}
                 className="flex-1 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl text-xs transition-colors"
               >
                 看其他故事叶
               </button>
               <button
-                onClick={onClose}
+                onClick={handleCloseStoryGrove}
                 className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs shadow-md transition-all"
               >
                 完成本次探索，回小岛
@@ -790,6 +894,16 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
           </div>
         )}
       </div>
+
+      <ParentGateModal
+        isOpen={isParentGateOpen}
+        onClose={() => setIsParentGateOpen(false)}
+        onSuccess={() => {
+          setIsParentGateOpen(false);
+          const token = issueAdultPreviewSession(currentScopeKey);
+          setPreviewSessionToken(token || null);
+        }}
+      />
     </div>
   );
 };

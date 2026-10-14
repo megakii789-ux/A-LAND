@@ -14,6 +14,7 @@ import { ParentGateModal } from './ParentGateModal';
 import { PrivacyDeclarationModal } from './Privacy/PrivacyDeclarationModal';
 import { sounds } from '../utils/sound';
 import { lockParentAccess } from '../domain/privacy/parentAccess';
+import { IslandUiIconSvg } from './ChildIsland/CompanionIcons';
 
 export const Navbar: React.FC = () => {
   const {
@@ -63,19 +64,19 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header role="banner" className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-3 sm:px-6 py-2 sm:py-2.5">
+      <header role="banner" className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-2.5 sm:px-6 py-2">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-3">
           {/* Logo and Tagline */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
-            <div role="img" aria-label="晴雨小岛 标志" className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-tr from-amber-400 to-sky-400 flex items-center justify-center text-xl sm:text-2xl shadow-xs shrink-0">
-              🏝️
+            <div role="img" aria-label="晴雨小岛 标志" className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-tr from-amber-300 to-sky-300 flex items-center justify-center shadow-xs shrink-0 border border-amber-200/80">
+              <IslandUiIconSvg name="island_brand" className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-black text-base sm:text-lg text-stone-900 tracking-tight">
+              <div className="flex items-center gap-2">
+                <span className="font-black text-base sm:text-lg text-stone-900 tracking-tight whitespace-nowrap">
                   晴雨小岛
                 </span>
-                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-stone-500 font-medium">
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-stone-500 font-medium whitespace-nowrap">
                   <span aria-hidden="true" className="text-stone-300">·</span>
                   <span>儿童思考方法成长空间</span>
                 </span>
@@ -96,7 +97,7 @@ export const Navbar: React.FC = () => {
                   setCurrentView('parent');
                   acknowledgeHug();
                 }}
-                className="flex items-center gap-1.5 px-3 py-2 bg-rose-500 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md animate-pulse min-h-[44px]"
+                className="flex items-center gap-1.5 px-3 py-2 bg-rose-500 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md animate-pulse motion-reduce:animate-none min-h-[56px]"
                 aria-label="孩子发出了求助抱抱提醒，点击立刻切换至家长端"
               >
                 <Heart className="w-4 h-4 fill-white" />
@@ -108,7 +109,7 @@ export const Navbar: React.FC = () => {
             {/* Sound Toggle */}
             <button
               onClick={toggleMute}
-              className={`w-11 h-11 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
+              className={`min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
                 isMuted
                   ? 'bg-stone-100 text-stone-400 border-stone-200'
                   : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
@@ -116,7 +117,7 @@ export const Navbar: React.FC = () => {
               title={isMuted ? '取消静音' : '静音'}
               aria-label={isMuted ? '伴伴声音已静音，点击取消静音' : '伴伴声音正在播放，点击静音'}
             >
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
             </button>
 
             {/* Privacy Declaration Info button */}
@@ -125,12 +126,12 @@ export const Navbar: React.FC = () => {
                 sounds.playClick();
                 setIsPrivacyOpen(true);
               }}
-              className="h-11 sm:h-10 px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
+              className="min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
               title="儿童与家庭隐私保护声明"
               aria-label="儿童与家庭隐私保护声明，打开隐私声明弹窗"
             >
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span className="hidden md:inline">隐私声明</span>
+              <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+              <span className="hidden md:inline whitespace-nowrap">隐私声明</span>
             </button>
 
             {/* Framework About info */}
@@ -139,17 +140,17 @@ export const Navbar: React.FC = () => {
                 sounds.playClick();
                 setIsAboutOpen(true);
               }}
-              className="w-11 h-11 sm:w-10 sm:h-10 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors flex items-center justify-center cursor-pointer"
+              className="min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors flex items-center justify-center cursor-pointer"
               title="产品框架与设计理念"
               aria-label="产品设计理念，打开产品核心根叶框架介绍弹窗"
             >
-              <HelpCircle className="w-4 h-4" />
+              <HelpCircle className="w-5 h-5" />
             </button>
 
             {/* Switch Mode: Child Island vs Parent Coach */}
             <button
               onClick={handleSwitchToParent}
-              className={`h-11 sm:h-10 px-3 sm:px-3.5 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer ${
+              className={`min-h-[56px] px-2.5 sm:px-3.5 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer whitespace-nowrap ${
                 currentView === 'parent'
                   ? 'bg-emerald-600 text-white border-emerald-700 shadow-sm'
                   : 'bg-amber-100/90 text-amber-900 border-amber-300 hover:bg-amber-200'
@@ -158,12 +159,12 @@ export const Navbar: React.FC = () => {
             >
               {currentView === 'parent' ? (
                 <>
-                  <Compass className="w-4 h-4" />
+                  <Compass className="w-4 h-4 shrink-0" />
                   <span>孩子端</span>
                 </>
               ) : (
                 <>
-                  <UserCheck className="w-4 h-4" />
+                  <UserCheck className="w-4 h-4 shrink-0" />
                   <span className="hidden sm:inline">家长教练端</span>
                   <span className="sm:hidden">家长端</span>
                 </>

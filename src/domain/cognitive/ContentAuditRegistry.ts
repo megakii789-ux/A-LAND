@@ -649,9 +649,9 @@ export class ContentAuditRegistryClass {
     contentPayloadOrHash?: unknown
   ): boolean {
     const normalized: ContentAuditRecord = {
-      sceneVersion: '1.0.0',
-      invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
       ...record,
+      sceneVersion: record.sceneVersion || '1.0.0',
+      invalidationConditions: record.invalidationConditions ?? DEFAULT_INVALIDATION_CONDITIONS,
     };
 
     if (normalized.auditStatus === 'PENDING' || normalized.auditStatus === 'REJECTED') {

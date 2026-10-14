@@ -3,6 +3,7 @@ import { Volume2, Sparkles, Compass, Eye, Shield, Heart, HelpCircle } from 'luci
 import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { IslandPlace } from '../../context/AppContext';
+import { IslandUiIconSvg } from './CompanionIcons';
 
 export interface FairytaleIslandMapProps {
   onSelectPlace: (place: IslandPlace) => void;
@@ -55,21 +56,21 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       className="relative w-full rounded-3xl bg-linear-to-b from-sky-200/60 via-amber-100/50 to-emerald-100/70 p-3 sm:p-6 border-2 border-sky-300/80 shadow-lg"
     >
       {/* 顶部标题栏与探索指引 */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 mb-4 px-1">
-        <div className="flex items-center gap-2.5 text-center sm:text-left">
-          <div className="w-12 h-12 rounded-2xl bg-amber-400 text-stone-900 flex items-center justify-center text-2xl shadow-xs shrink-0" aria-hidden="true">
-            🗺️
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 px-1">
+        <div className="flex items-start sm:items-center gap-2.5 min-w-0">
+          <div className="w-12 h-12 rounded-2xl bg-amber-400 text-stone-900 flex items-center justify-center shadow-xs shrink-0" aria-hidden="true">
+            <IslandUiIconSvg name="map_compass" className="w-7 h-7" />
           </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
-              <h2 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight whitespace-nowrap">
                 童话小岛探索地图
               </h2>
-              <span className="text-xs bg-amber-200/90 text-amber-900 font-extrabold px-2.5 py-0.5 rounded-full border border-amber-300">
+              <span className="text-xs bg-amber-200/90 text-amber-900 font-extrabold px-2.5 py-0.5 rounded-full border border-amber-300 shrink-0">
                 点击建筑直接去玩
               </span>
             </div>
-            <p className="text-sm sm:text-base text-stone-600 font-medium">
+            <p className="text-sm sm:text-base text-stone-600 font-medium mt-0.5">
               在小岛上漫步，每个地方都有专属的小秘密
             </p>
           </div>
@@ -82,7 +83,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
             sounds.playClick();
             speechNarrator.speak('欢迎来到晴雨小岛！山顶有情绪天气站，树林里有故事林，木屋里有想法侦探社，还有勇气说话屋、照顾小桥和星光小屋。点击你想去的地方吧！');
           }}
-          className="min-h-[56px] px-5 py-3 bg-white/95 hover:bg-white text-stone-900 border-2 border-stone-300 hover:border-amber-400 rounded-2xl font-black text-sm sm:text-base shadow-xs flex items-center gap-2.5 cursor-pointer transition-colors focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+          className="w-full sm:w-auto min-h-[56px] px-5 py-3 bg-white/95 hover:bg-white text-stone-900 border-2 border-stone-300 hover:border-amber-400 rounded-2xl font-black text-sm sm:text-base shadow-xs flex items-center justify-center gap-2.5 cursor-pointer transition-colors whitespace-nowrap focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
           aria-label="听一听小岛地图语音介绍"
         >
           <Volume2 className="w-6 h-6 text-amber-600 shrink-0" />
@@ -131,11 +132,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '情绪天气站', '看看今天头顶的天气与身体里的感觉')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-sky-100 hover:bg-sky-200 text-sky-800 flex items-center justify-center transition-colors cursor-pointer border border-sky-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-sky-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-sky-100 hover:bg-sky-200 text-sky-800 flex items-center justify-center transition-colors cursor-pointer border border-sky-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-sky-500 focus-visible:outline-none"
                   title="朗读情绪天气站介绍"
                   aria-label="朗读情绪天气站介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
@@ -159,7 +160,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
           <div className="mt-4 pt-3 border-t border-sky-100 flex items-center justify-between">
             <span className="text-base font-extrabold text-sky-800">观测今天的天气</span>
             <span className="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center text-lg font-black shadow-xs group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform">
-              👉
+              →
             </span>
           </div>
         </div>
@@ -204,11 +205,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '故事林', '在绿树丛中漫步，打开生活故事绘本，寻找新思考')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 flex items-center justify-center transition-colors cursor-pointer border border-emerald-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-emerald-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 flex items-center justify-center transition-colors cursor-pointer border border-emerald-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-emerald-500 focus-visible:outline-none"
                   title="朗读故事林介绍"
                   aria-label="朗读故事林介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
@@ -229,7 +230,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
           <div className="mt-4 pt-3 border-t border-emerald-100 flex items-center justify-between">
             <span className="text-base font-extrabold text-emerald-800">打开树丛故事</span>
             <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg font-black shadow-xs group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform">
-              👉
+              →
             </span>
           </div>
         </div>
@@ -273,11 +274,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '想法侦探社', '用放大镜寻找真实线索，区分看到的事实与脑子里的猜测')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center transition-colors cursor-pointer border border-amber-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center transition-colors cursor-pointer border border-amber-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
                   title="朗读想法侦探社介绍"
                   aria-label="朗读想法侦探社介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
@@ -298,7 +299,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
           <div className="mt-4 pt-3 border-t border-amber-100 flex items-center justify-between">
             <span className="text-base font-extrabold text-amber-900">拿起放大镜调查</span>
             <span className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg font-black shadow-xs group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform">
-              👉
+              →
             </span>
           </div>
         </div>
@@ -340,11 +341,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '勇气说话屋', '练习把心里话说出来，有权说不，找可信任的大人')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-rose-100 hover:bg-rose-200 text-rose-800 flex items-center justify-center transition-colors cursor-pointer border border-rose-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-rose-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-rose-100 hover:bg-rose-200 text-rose-800 flex items-center justify-center transition-colors cursor-pointer border border-rose-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-rose-500 focus-visible:outline-none"
                   title="朗读勇气说话屋介绍"
                   aria-label="朗读勇气说话屋介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
@@ -365,7 +366,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
           <div className="mt-4 pt-3 border-t border-rose-100 flex items-center justify-between">
             <span className="text-base font-extrabold text-rose-800">进屋倾听与练习</span>
             <span className="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center text-lg font-black shadow-xs group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform">
-              👉
+              →
             </span>
           </div>
         </div>
@@ -414,11 +415,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '照顾小桥', '两个温暖的家，看交接日历、收拾小书包与安心想念')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-teal-100 hover:bg-teal-200 text-teal-800 flex items-center justify-center transition-colors cursor-pointer border border-teal-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-teal-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-teal-100 hover:bg-teal-200 text-teal-800 flex items-center justify-center transition-colors cursor-pointer border border-teal-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-teal-500 focus-visible:outline-none"
                   title="朗读照顾小桥介绍"
                   aria-label="朗读照顾小桥介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
@@ -439,7 +440,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
           <div className="mt-4 pt-3 border-t border-teal-100 flex items-center justify-between">
             <span className="text-base font-extrabold text-teal-800">踏上照顾小桥</span>
             <span className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center text-lg font-black shadow-xs group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 transition-transform">
-              👉
+              →
             </span>
           </div>
         </div>
@@ -482,11 +483,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, '星光小屋', '点亮你的爱好拼图，家庭只是其中一片，你本身无比丰富')}
-                  className="w-12 h-12 min-w-[48px] rounded-2xl bg-indigo-100 hover:bg-indigo-200 text-indigo-900 flex items-center justify-center transition-colors cursor-pointer border border-indigo-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-indigo-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-indigo-100 hover:bg-indigo-200 text-indigo-900 flex items-center justify-center transition-colors cursor-pointer border border-indigo-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-indigo-500 focus-visible:outline-none"
                   title="朗读星光小屋介绍"
                   aria-label="朗读星光小屋介绍"
                 >
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-6 h-6" />
                 </button>
               </div>
             </div>
