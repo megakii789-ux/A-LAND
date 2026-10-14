@@ -6,7 +6,7 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A)', ()
 
     // Wait for the island UI to be ready
     await expect(page.getByText('晴雨小岛', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('伴伴在身边').first()).toBeVisible();
+    await expect(page.getByText(/在身边/).first()).toBeVisible();
     await expect(page.getByText('绿草呼吸平静角').first()).toBeVisible();
     await expect(page.getByText('找大人抱抱').first()).toBeVisible();
 

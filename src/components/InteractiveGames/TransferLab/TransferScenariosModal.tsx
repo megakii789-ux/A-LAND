@@ -6,20 +6,25 @@ import { TransferScenarioDefinition } from '../../../domain/games/types';
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 
+import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  isAdultPreview?: boolean;
 }
 
-export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => {
+export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose, isAdultPreview = false }) => {
   const [selectedScenarioIndex, setSelectedScenarioIndex] = useState<number>(0);
   const [adultPromptCount, setAdultPromptCount] = useState<number>(0);
   const [chosenOptionIds, setChosenOptionIds] = useState<string[]>([]);
   const [showOutcome, setShowOutcome] = useState<boolean>(false);
+  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState(isAdultPreview);
 
   if (!isOpen) return null;
 
   const currentScenario: TransferScenarioDefinition = TRANSFER_SCENARIOS[selectedScenarioIndex];
+  const isScenarioApproved = ContentAuditRegistry.canRenderContent(currentScenario.id);
 
   const handleToggleOption = (optionId: string) => {
     sounds.playClick();
@@ -95,9 +100,41 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
               </button>
             ))}
           </div>
+          {adultPreviewUnlocked && !isScenarioApproved && (
+            <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center justify-between">
+              <span>⚠️ 成人审查预览模式 · 未获独立审批前不能作为儿童正式迁移证据</span>
+              <span className="text-[10px] bg-amber-200 px-1.5 py-0.5 rounded">PENDING_REVIEW</span>
+            </div>
+          )}
 
-          {/* 情境描述卡片 */}
-          <div className="bg-white rounded-2xl border-2 border-stone-200 p-4 space-y-2 shadow-2xs">
+          {!isScenarioApproved && !adultPreviewUnlocked ? (
+            <div data-testid="audit-gate-blocked" className="p-6 bg-amber-50 rounded-2xl border-2 border-amber-300 text-center space-y-3">
+              <span className="text-3xl block">🛡️</span>
+              <h3 className="text-base font-black text-amber-950">待独立专家审核 · 情境安全隔离</h3>
+              <p className="text-xs text-stone-600">
+                本迁移检验情境（{currentScenario.title}）尚未完成外部独立专家伦理审批。为防止未审内容流向儿童，儿童独立测试已安全隔离。
+              </p>
+              <div className="pt-2 flex justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAdultPreviewUnlocked(true)}
+                  className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs cursor-pointer"
+                >
+                  成人审查预览
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-xs cursor-pointer"
+                >
+                  关闭
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* 情境描述卡片 */}
+              <div className="bg-white rounded-2xl border-2 border-stone-200 p-4 space-y-2 shadow-2xs">
             <h3 className="text-base sm:text-lg font-black text-stone-900">
               {currentScenario.title}
             </h3>
@@ -172,6 +209,8 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 📌 研究记录说明：此情境仅作为未提示迁移能力的开放性观察，不自动认定孩子已稳固掌握此心理能力。
               </div>
             </div>
+          )}
+            </>
           )}
         </div>
 

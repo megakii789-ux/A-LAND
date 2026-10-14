@@ -44,8 +44,8 @@ export class OfflineHugController {
 
   /**
    * 发起抱抱请求：
-   * R3-02: 当前没有远程中继，严禁让可调用的模拟参数 (`hasVerifiedRemoteRelay: true`) 伪造远程成功 (`SENT`)。
-   * 任何调用均诚实返回 `CommunicationStatus.SEND_FAILED`。
+   * AG-R5: 当前版本没有远程中继，无论传入什么模拟参数 (如 isOnline: true / hasVerifiedRemoteRelay: true)，
+   * 都不能返回 SENT 或 ACKNOWLEDGED。必须诚实返回 CommunicationStatus.SEND_FAILED。
    */
   async submitHugRequest(options: HugSubmitOptions): Promise<HugDomainState> {
     if (this.isSubmitting) {
@@ -54,27 +54,15 @@ export class OfflineHugController {
 
     this.isSubmitting = true;
     try {
-      if (!options.isOnline || !options.hasVerifiedRemoteRelay) {
-        const failedState: HugDomainState = {
-          requestType: options.requestType,
-          communication: CommunicationStatus.SEND_FAILED,
-          care: CareResponsibility.UNASSIGNED,
-          coPresence: CoPresenceStatus.NOT_PRESENT,
-          targetCaregiverName: options.targetCaregiverName
-        };
-        OfflineHugController.serializeActiveState(failedState);
-        return failedState;
-      }
-
-      const sentState: HugDomainState = {
+      const failedState: HugDomainState = {
         requestType: options.requestType,
-        communication: CommunicationStatus.SENT,
+        communication: CommunicationStatus.SEND_FAILED,
         care: CareResponsibility.UNASSIGNED,
         coPresence: CoPresenceStatus.NOT_PRESENT,
         targetCaregiverName: options.targetCaregiverName
       };
-      OfflineHugController.serializeActiveState(sentState);
-      return sentState;
+      OfflineHugController.serializeActiveState(failedState);
+      return failedState;
     } finally {
       this.isSubmitting = false;
     }
@@ -101,21 +89,17 @@ export class OfflineHugController {
   }
 
   /**
-   * 网络重新连接检测
+   * 网络重新连接检测：
+   * AG-R5: 删除 handleReconnect() 中的错误重试承诺，统一 canRetry: false。
+   * 网络恢复不得生成重试提示，诚实引导找身边大人。
    */
-  handleReconnect(currentState: HugDomainState): {
+  handleReconnect(_currentState: HugDomainState): {
     canRetry: boolean;
     promptText: string;
   } {
-    if (currentState.communication === CommunicationStatus.SEND_FAILED) {
-      return {
-        canRetry: true,
-        promptText: '网络信号恢复啦。如果依然需要大人，可以点击重新发送。'
-      };
-    }
     return {
       canRetry: false,
-      promptText: '网络已恢复连接。'
+      promptText: '网络已恢复连接。本机运行模式下不会向远端发信，请直接找身边信任的大人。'
     };
   }
 

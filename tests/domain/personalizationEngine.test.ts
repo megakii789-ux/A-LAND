@@ -207,7 +207,7 @@ describe('AG-04B: 受控儿童个性化引擎规范与认知安全契约测试',
     });
 
     it('CONTRACT: 支持撤回本地保存许可 (revokeConsentAndWipeStorage)，撤销后清除 localStorage', () => {
-      savePersonalizationProfile({ companionId: 'beibei_otter' });
+      savePersonalizationProfile({ companionId: 'beibei_otter', consentForLocalStorage: true });
       expect(window.localStorage.getItem(PERSONALIZATION_STORAGE_KEY)).not.toBeNull();
 
       const revoked = revokeConsentAndWipeStorage();
@@ -216,7 +216,7 @@ describe('AG-04B: 受控儿童个性化引擎规范与认知安全契约测试',
     });
 
     it('CONTRACT: 支持一键彻底清除本地数据 (clearAllPersonalizationData)', () => {
-      savePersonalizationProfile({ companionId: 'qiqi_deer' });
+      savePersonalizationProfile({ companionId: 'qiqi_deer', consentForLocalStorage: true });
       clearAllPersonalizationData();
       expect(window.localStorage.getItem(PERSONALIZATION_STORAGE_KEY)).toBeNull();
     });

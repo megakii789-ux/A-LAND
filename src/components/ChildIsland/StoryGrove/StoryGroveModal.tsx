@@ -26,6 +26,7 @@ import {
   RainWeatherIllustration,
   LocationBadgeIllustration
 } from './StoryIllustrations';
+import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
 
 interface Props {
   isOpen: boolean;
@@ -43,6 +44,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
   const [customQuote, setCustomQuote] = useState<string>('');
   const [compareAnswered, setCompareAnswered] = useState<boolean>(false);
+  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState<boolean>(false);
 
   const isCurrentHeavyWeather = todayWeather
     ? isHeavyWeather(
@@ -61,6 +63,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   const handleStartLeaf = (leafId: string) => {
     sounds.playClick();
     setActiveLeafId(leafId);
+    setAdultPreviewUnlocked(false);
     setStage('doorIntro');
     setSelectedDoor('fen');
     setWalkSubStep('fen');
@@ -118,6 +121,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
             <div className="grid sm:grid-cols-2 gap-4">
               {INITIAL_LEAF_SCENARIOS.map((leaf) => {
                 const isDone = completedLeaves.includes(leaf.id);
+                const isAudited = ContentAuditRegistry.canRenderContent(leaf.id);
                 return (
                   <button
                     key={leaf.id}
@@ -130,11 +134,18 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         <span className="text-xs font-bold text-emerald-800">
                           {leaf.category}
                         </span>
-                        {isDone && (
-                          <span className="text-xs font-extrabold text-emerald-700 flex items-center gap-1">
-                            <CheckCircle2 className="w-4 h-4" /> 已探索
-                          </span>
-                        )}
+                        <div className="flex items-center gap-1.5">
+                          {!isAudited && (
+                            <span className="text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded-md">
+                              待审 · 成人共读
+                            </span>
+                          )}
+                          {isDone && (
+                            <span className="text-xs font-extrabold text-emerald-700 flex items-center gap-1">
+                              <CheckCircle2 className="w-4 h-4" /> 已探索
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <h4 className="text-lg font-black text-stone-900 group-hover:text-amber-900 transition-colors">
                         {leaf.title}
@@ -172,34 +183,71 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
               </span>
             </div>
 
-            <div className="bg-white/90 p-4 rounded-3xl border border-amber-200 overflow-hidden shadow-sm">
-              {/* Scenario Visual Anchor */}
-              <div className="mb-3 rounded-2xl overflow-hidden border border-stone-200/80 bg-stone-50">
-                {currentLeaf.id === 'cup-size' ? (
-                  <CupScaleInteractiveIllustration perspective="neutral" className="w-full h-40 sm:h-48 object-cover" />
-                ) : currentLeaf.id === 'rain-weather' ? (
-                  <RainWeatherIllustration focusSide="both" className="w-full h-40 sm:h-48 object-cover" />
-                ) : (
-                  <div className="h-32 bg-amber-100/50 flex items-center justify-center text-4xl">
-                    🌿
+            {!ContentAuditRegistry.canRenderContent(currentLeaf.id) && !adultPreviewUnlocked ? (
+              <div
+                data-testid="story-leaf-audit-gate-blocked"
+                className="p-6 sm:p-8 bg-amber-50 rounded-2xl border-2 border-amber-300 text-center space-y-3"
+              >
+                <span className="text-3xl block">🛡️</span>
+                <h3 className="text-base sm:text-lg font-black text-amber-950">
+                  待独立专家审核 · 故事安全隔离
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
+                  本故事叶（{currentLeaf.title}）尚未完成外部独立专家伦理审批。为防止未审内容流向儿童，儿童独立探索已安全隔离。
+                </p>
+                <div className="pt-2 flex justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setAdultPreviewUnlocked(true)}
+                    className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs sm:text-sm cursor-pointer shadow-xs"
+                  >
+                    成人共读审查预览
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStage('catalog')}
+                    className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-xs sm:text-sm cursor-pointer"
+                  >
+                    返回目录
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white/90 p-4 rounded-3xl border border-amber-200 overflow-hidden shadow-sm space-y-3">
+                {adultPreviewUnlocked && !ContentAuditRegistry.canRenderContent(currentLeaf.id) && (
+                  <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-2 rounded-2xl flex items-center justify-between gap-2">
+                    <span>🛡️ 独立专家审核中（PENDING_REVIEW）：当前处于成人共读隔离预览模式，未通过独立审核前不可作为儿童独立运行内容。</span>
+                    <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded shrink-0">成人共读预览</span>
                   </div>
                 )}
-              </div>
+                {/* Scenario Visual Anchor */}
+                <div className="mb-3 rounded-2xl overflow-hidden border border-stone-200/80 bg-stone-50">
+                  {currentLeaf.id === 'cup-size' ? (
+                    <CupScaleInteractiveIllustration perspective="neutral" className="w-full h-40 sm:h-48 object-cover" />
+                  ) : currentLeaf.id === 'rain-weather' ? (
+                    <RainWeatherIllustration focusSide="both" className="w-full h-40 sm:h-48 object-cover" />
+                  ) : (
+                    <div className="h-32 bg-amber-100/50 flex items-center justify-center text-4xl">
+                      🌿
+                    </div>
+                  )}
+                </div>
 
-              <h3 className="text-lg sm:text-xl font-black text-stone-800 mb-1 flex items-center gap-2">
-                <span>{currentLeaf.title}</span>
-                <button
-                  onClick={() => handleSpeak(currentLeaf.summary)}
-                  className="p-1.5 rounded-xl text-amber-700 hover:bg-amber-100"
-                  aria-label="朗读故事概述"
-                >
-                  <Volume2 className="w-4 h-4" />
-                </button>
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2 font-medium">
-                {currentLeaf.summary}
-              </p>
-            </div>
+                <h3 className="text-lg sm:text-xl font-black text-stone-800 mb-1 flex items-center gap-2">
+                  <span>{currentLeaf.title}</span>
+                  <button
+                    onClick={() => handleSpeak(currentLeaf.summary)}
+                    className="p-1.5 rounded-xl text-amber-700 hover:bg-amber-100"
+                    aria-label="朗读故事概述"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2 font-medium">
+                  {currentLeaf.summary}
+                </p>
+              </div>
+            )}
 
             <div>
               <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2.5">

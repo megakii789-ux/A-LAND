@@ -217,8 +217,7 @@ export function generateLocalWeeklyReport(params: GenerateReportInput): WeeklyRe
   const metrics = calculateWeeklyMetrics(params);
 
   const now = new Date();
-  const weekAgo = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
-  const dateRangeStr = `${weekAgo.getMonth() + 1}月${weekAgo.getDate()}日 - ${now.getMonth() + 1}月${now.getDate()}日`;
+  const dateRangeStr = `本机累计活动记录（统计至 ${now.getMonth() + 1}月${now.getDate()}日）`;
 
   const hasWeatherRecords = metrics.totalWeatherLogs > 0;
   const hasThinkingRecords = metrics.thinkingToolPractices > 0;
@@ -235,8 +234,8 @@ export function generateLocalWeeklyReport(params: GenerateReportInput): WeeklyRe
   );
 
   const executiveSummary = hasAnySufficientRecord
-    ? `本页仅客观呈现可追溯来源的本机活动记录：当前已记录 ${metrics.totalWeatherLogs} 次天气选择、${metrics.validLeafIds.length} 片故事叶浏览、${metrics.selfInitiatedTotal} 次家长日常观察标记（分 ${metrics.fenCount} 次，通 ${metrics.tongCount} 次，择 ${metrics.zeCount} 次）。这些记录仅反映当次操作与观察计数，不代表孩子已掌握某种稳定心理能力，也不作任何心理诊断推断。`
-    : `${INSUFFICIENT_OBSERVATION_TEXT}。本页仅客观呈现可追溯来源的本机活动记录，当前没有可汇总的天气选择、故事浏览或家长观察记录，不作任何心理能力或诊断推断。`;
+    ? `本记录仅客观呈现可追溯来源的本机累计活动记录：当前已累计记录 ${metrics.totalWeatherLogs} 次天气选择、${metrics.validLeafIds.length} 片故事叶浏览、${metrics.selfInitiatedTotal} 次家长日常观察标记（分 ${metrics.fenCount} 次，通 ${metrics.tongCount} 次，择 ${metrics.zeCount} 次）。统一使用“本机累计活动记录”口径，这些记录仅反映当次操作与观察计数，不代表孩子已掌握某种稳定心理能力，也不作任何心理诊断推断。`
+    : `${INSUFFICIENT_OBSERVATION_TEXT}。本页仅客观呈现可追溯来源的本机累计活动记录，当前没有可汇总的天气选择、故事浏览或家长观察记录，不作任何心理能力或诊断推断。`;
 
   const pattern = hasWeatherRecords
     ? `客观记录汇总：本周期共记录 ${metrics.totalWeatherLogs} 次天气选择（晴天 ${metrics.weatherDistribution.sunny} 次、多云 ${metrics.weatherDistribution.cloudy} 次、雨天 ${metrics.weatherDistribution.rainy} 次、雷雨 ${metrics.weatherDistribution.stormy} 次、薄雾 ${metrics.weatherDistribution.foggy} 次、不选 ${metrics.weatherDistribution.opt_out} 次）。`

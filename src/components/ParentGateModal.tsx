@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Lock, X, ShieldAlert, KeyRound, AlertTriangle } from 'lucide-react';
 import { sounds } from '../utils/sound';
 import {
@@ -21,8 +21,10 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
   const [isSettingMode, setIsSettingMode] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const generationTicketRef = useRef<number>(0);
 
   useEffect(() => {
+    generationTicketRef.current += 1;
     if (isOpen) {
       setPin('');
       setConfirmPin('');
@@ -30,7 +32,15 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
       const record = readPinRecord();
       setIsSettingMode(!record);
     }
+    return () => {
+      generationTicketRef.current += 1;
+    };
   }, [isOpen]);
+
+  const handleClose = () => {
+    generationTicketRef.current += 1;
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -39,6 +49,7 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
     if (isSubmitting) return;
     setErrorMessage(null);
     setIsSubmitting(true);
+    const currentTicket = ++generationTicketRef.current;
 
     try {
       if (isSettingMode) {
@@ -59,12 +70,14 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
         }
 
         const record = await makePinRecord(pin);
+        if (currentTicket !== generationTicketRef.current) return;
         savePinRecord(record);
         grantParentAccess();
         sounds.playBell();
         onSuccess();
       } else {
         const result = await verifyPin(pin);
+        if (currentTicket !== generationTicketRef.current) return;
         if (result.success) {
           sounds.playBell();
           onSuccess();
@@ -74,10 +87,13 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
         }
       }
     } catch (err: unknown) {
+      if (currentTicket !== generationTicketRef.current) return;
       const error = err as Error;
       setErrorMessage(error.message || '操作失败，请重试');
     } finally {
-      setIsSubmitting(false);
+      if (currentTicket === generationTicketRef.current) {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -85,7 +101,7 @@ export const ParentGateModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4 animate-in fade-in duration-200">
       <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl relative text-stone-800">
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-stone-100 transition-colors cursor-pointer"
           aria-label="关闭"
         >

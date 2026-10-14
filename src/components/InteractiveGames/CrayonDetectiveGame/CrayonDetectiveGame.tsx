@@ -10,13 +10,20 @@ import { HotspotEvidence, SortingBasketType } from '../../../domain/games/types'
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 
+import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+
 interface Props {
   onExit: () => void;
   initialTheme?: InterestActivityId;
+  isAdultPreview?: boolean;
 }
 
-export const CrayonDetectiveGame: React.FC<Props> = ({ onExit, initialTheme }) => {
+export const CrayonDetectiveGame: React.FC<Props> = ({ onExit, initialTheme, isAdultPreview = false }) => {
   const { personalization, updatePersonalization } = useApp();
+  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState(isAdultPreview);
+
+  // 独立内容审核门禁：未通过审核时阻断儿童正式运行时
+  const isApproved = ContentAuditRegistry.canRenderContent('game_crayon_detective');
 
   // 当前激活的兴趣场景皮肤（默认跟随儿童全局偏好，也可在游戏内随时切换）
   const [activeTheme, setActiveTheme] = useState<InterestActivityId>(
@@ -198,8 +205,44 @@ export const CrayonDetectiveGame: React.FC<Props> = ({ onExit, initialTheme }) =
   const allDiscovered = discoveredClueIds.length >= currentHotspots.length;
   const allPlaced = currentHotspots.every((h) => placements[h.id] !== undefined);
 
+  if (!isApproved && !adultPreviewUnlocked) {
+    return (
+      <div data-testid="audit-gate-blocked" className="p-8 bg-amber-50 rounded-3xl border-2 border-amber-300 text-stone-800 text-center space-y-4 my-4 max-w-xl mx-auto">
+        <div className="w-16 h-16 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow-inner">
+          🛡️
+        </div>
+        <h3 className="text-xl font-black text-amber-950">待独立专家审核 · 儿童运行时安全拦截</h3>
+        <p className="text-sm text-stone-600 leading-relaxed">
+          本游戏组件（蜡笔侦探）尚未完成外部独立儿童心理与伦理专家签署审批（状态为 PENDING_REVIEW）。为保障儿童真实安全，已自动阻断直接运行。
+        </p>
+        <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <button
+            type="button"
+            onClick={() => setAdultPreviewUnlocked(true)}
+            className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-sm transition-colors cursor-pointer"
+          >
+            成年人确认进入审查预览
+          </button>
+          <button
+            type="button"
+            onClick={onExit}
+            className="px-5 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-sm transition-colors cursor-pointer"
+          >
+            退出游戏
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col my-2">
+      {adultPreviewUnlocked && !isApproved && (
+        <div className="bg-amber-500 text-white text-xs font-black px-4 py-1.5 flex items-center justify-between">
+          <span>⚠️ 成人审查预览模式 · 未获独立伦理审批前严禁作为儿童正式内容</span>
+          <span className="bg-amber-700 px-2 py-0.5 rounded text-[10px]">PENDING_REVIEW</span>
+        </div>
+      )}
       {/* 顶部状态与安全退出栏 */}
       <div className="bg-amber-100/90 px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-amber-200">
         <div className="flex items-center gap-2">

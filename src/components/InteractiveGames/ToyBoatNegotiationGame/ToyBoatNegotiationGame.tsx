@@ -8,11 +8,17 @@ import { NegotiationSolutionPath, NegotiationResultDetails } from '../../../doma
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 
+import { ContentAuditRegistry } from '../../../domain/cognitive/ContentAuditRegistry';
+
 interface Props {
   onExit: () => void;
+  isAdultPreview?: boolean;
 }
 
-export const ToyBoatNegotiationGame: React.FC<Props> = ({ onExit }) => {
+export const ToyBoatNegotiationGame: React.FC<Props> = ({ onExit, isAdultPreview = false }) => {
+  const [adultPreviewUnlocked, setAdultPreviewUnlocked] = useState(isAdultPreview);
+  const isApproved = ContentAuditRegistry.canRenderContent('game_toy_boat');
+
   // 当前放置在协商舞台（池塘水边）上的道具 ID
   const [activeItemIds, setActiveItemIds] = useState<string[]>(['item_boat']);
   // 选中的道具（用于点击放置模式）
@@ -82,8 +88,44 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({ onExit }) => {
 
   const currentDetails: NegotiationResultDetails = NEGOTIATION_PATHS_DETAILS[activePath];
 
+  if (!isApproved && !adultPreviewUnlocked) {
+    return (
+      <div data-testid="audit-gate-blocked" className="p-8 bg-amber-50 rounded-3xl border-2 border-amber-300 text-stone-800 text-center space-y-4 my-4 max-w-xl mx-auto">
+        <div className="w-16 h-16 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow-inner">
+          🛡️
+        </div>
+        <h3 className="text-xl font-black text-amber-950">待独立专家审核 · 儿童运行时安全拦截</h3>
+        <p className="text-sm text-stone-600 leading-relaxed">
+          本游戏组件（小船协商）尚未完成外部独立儿童心理与伦理专家签署审批（状态为 PENDING_REVIEW）。为保障儿童真实安全，已自动阻断直接运行。
+        </p>
+        <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <button
+            type="button"
+            onClick={() => setAdultPreviewUnlocked(true)}
+            className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-sm transition-colors cursor-pointer"
+          >
+            成年人确认进入审查预览
+          </button>
+          <button
+            type="button"
+            onClick={onExit}
+            className="px-5 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-700 font-bold rounded-xl text-sm transition-colors cursor-pointer"
+          >
+            退出游戏
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col my-2">
+      {adultPreviewUnlocked && !isApproved && (
+        <div className="bg-amber-500 text-white text-xs font-black px-4 py-1.5 flex items-center justify-between">
+          <span>⚠️ 成人审查预览模式 · 未获独立伦理审批前严禁作为儿童正式内容</span>
+          <span className="bg-amber-700 px-2 py-0.5 rounded text-[10px]">PENDING_REVIEW</span>
+        </div>
+      )}
       {/* 顶部标题与退出 */}
       <div className="bg-teal-100/80 px-4 py-3 flex items-center justify-between border-b border-teal-200">
         <div className="flex items-center gap-2">

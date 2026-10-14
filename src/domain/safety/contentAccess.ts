@@ -14,17 +14,23 @@ const FAMILY_TRANSITION_IDS = new Set([
 ]);
 
 /**
- * Phase 3 P1 #8: 明确区分需要成年人共读、可以儿童独立使用和待审查的场景
+ * Phase 3 P1 #8 / AG-R5: 明确区分需要成年人共读、可以儿童独立使用和待审查的场景
+ * 修复 NONE、PHYSICAL_SAFETY 与敏感家庭情境的分类逻辑
  */
 export function classifyLeafScenarioAccess(
   leaf: LeafScenario
 ): LeafAccessClassification {
+  const hasBoundaryConflict =
+    Boolean(leaf.boundary) &&
+    leaf.boundary !== Boundary.NONE &&
+    (leaf.boundary as string) !== 'NONE';
+
   if (
     leaf.weight === 'medium' ||
     Boolean((leaf as { requiresAdult?: boolean }).requiresAdult) ||
     FAMILY_TRANSITION_IDS.has(leaf.id) ||
     leaf.category.includes('家的形状') ||
-    (leaf.boundary && leaf.boundary !== Boundary.PHYSICAL_SAFETY)
+    hasBoundaryConflict
   ) {
     return 'ADULT_CO_PLAY_PENDING_REVIEW';
   }
@@ -38,11 +44,21 @@ export function getLeafAccessBadgeText(leaf: LeafScenario): {
 } {
   const classification = classifyLeafScenarioAccess(leaf);
   if (classification === 'ADULT_CO_PLAY_PENDING_REVIEW') {
-    if (leaf.boundary && leaf.boundary !== Boundary.PHYSICAL_SAFETY) {
+    const hasBoundaryConflict =
+      Boolean(leaf.boundary) &&
+      leaf.boundary !== Boundary.NONE &&
+      (leaf.boundary as string) !== 'NONE';
+
+    if (hasBoundaryConflict) {
+      const isPhysical =
+        leaf.boundary === Boundary.PHYSICAL_SAFETY ||
+        leaf.boundary === Boundary.PHYSICAL_HARM;
       return {
-        badge: '安全围栏 · 建议大人共读',
+        badge: isPhysical ? '身体安全围栏 · 需大人陪同' : '安全围栏 · 建议大人共读',
         requiresAdultCoPlay: true,
-        reviewNotice: '涉及身体安全或人际边界，建议与信任的成年人共同阅读讨论。',
+        reviewNotice: isPhysical
+          ? '涉及身体安全红线，严禁利弊权衡，需由信任的成年人陪同与指导。'
+          : '涉及心理安全或人际边界，建议与信任的成年人共同阅读讨论。',
       };
     }
     return {

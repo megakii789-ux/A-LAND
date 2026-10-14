@@ -47,6 +47,41 @@ const INITIAL_TRUSTED_CONTACTS: TrustedCaregiverContact[] = [
   { id: 'contact-4', name: '奶奶（邻近社区）', relationship: '奶奶', isOnsite: false },
 ];
 
+const DEMO_REQUESTS: HugInboxItem[] = [
+  {
+    id: 'req-1',
+    childPseudonym: '小禾（6岁 · 演示模拟）',
+    createdAt: '刚刚（10分钟前）',
+    requestType: 'INSTANT_HELP',
+    isLocallyConfirmedByChild: false, // 孩子端未确认完成
+  },
+  {
+    id: 'req-2',
+    childPseudonym: '小禾（6岁 · 演示模拟）',
+    createdAt: '昨天傍晚',
+    requestType: 'INSTANT_HELP',
+    isLocallyConfirmedByChild: false,
+    reflectionOutcome: 'I_COULD_NOT_GO',
+  },
+  {
+    id: 'req-3',
+    childPseudonym: '小禾（6岁 · 演示模拟）',
+    createdAt: '上周三下午',
+    requestType: 'INSTANT_HELP',
+    isLocallyConfirmedByChild: true,
+    reflectionOutcome: 'I_ATTENDED',
+  }
+];
+
+const DEMO_REFLECTIONS: PrivateReflectionRecord[] = [
+  {
+    id: 'ref-1',
+    hugRequestId: 'req-2',
+    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    outcome: 'I_COULD_NOT_GO',
+  }
+];
+
 export const CaregiverHugInbox: React.FC<Props> = ({
   trustedCaregivers = INITIAL_TRUSTED_CONTACTS,
 }) => {
@@ -54,42 +89,21 @@ export const CaregiverHugInbox: React.FC<Props> = ({
   const [config, setConfig] = useState<ReliabilityReviewConfig>(DEFAULT_RELIABILITY_CONFIG);
   const [showConfigSettings, setShowConfigSettings] = useState(false);
 
-  // 模拟即时请求收件箱
-  const [requests, setRequests] = useState<HugInboxItem[]>([
-    {
-      id: 'req-1',
-      childPseudonym: '小禾（6岁）',
-      createdAt: '刚刚（10分钟前）',
-      requestType: 'INSTANT_HELP',
-      isLocallyConfirmedByChild: false, // 孩子端未确认完成
-    },
-    {
-      id: 'req-2',
-      childPseudonym: '小禾（6岁）',
-      createdAt: '昨天傍晚',
-      requestType: 'INSTANT_HELP',
-      isLocallyConfirmedByChild: false,
-      reflectionOutcome: 'I_COULD_NOT_GO',
-    },
-    {
-      id: 'req-3',
-      childPseudonym: '小禾（6岁）',
-      createdAt: '上周三下午',
-      requestType: 'INSTANT_HELP',
-      isLocallyConfirmedByChild: true,
-      reflectionOutcome: 'I_ATTENDED',
-    }
-  ]);
+  // AG-R5 契约：真实模式默认空收件箱；3 条模拟记录仅在明确隔离的 Demo Mode 下显示
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(false);
+  const [requests, setRequests] = useState<HugInboxItem[]>([]);
+  const [reflections, setReflections] = useState<PrivateReflectionRecord[]>([]);
 
-  // 反思历史记录
-  const [reflections, setReflections] = useState<PrivateReflectionRecord[]>([
-    {
-      id: 'ref-1',
-      hugRequestId: 'req-2',
-      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-      outcome: 'I_COULD_NOT_GO',
+  // 响应演示模式切换
+  React.useEffect(() => {
+    if (isDemoMode) {
+      setRequests(DEMO_REQUESTS);
+      setReflections(DEMO_REFLECTIONS);
+    } else {
+      setRequests([]);
+      setReflections([]);
     }
-  ]);
+  }, [isDemoMode]);
 
   // 选择委托他人时的弹窗状态
   const [delegatingReqId, setDelegatingReqId] = useState<string | null>(null);
@@ -154,14 +168,28 @@ export const CaregiverHugInbox: React.FC<Props> = ({
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setShowConfigSettings(!showConfigSettings)}
-          className="text-xs font-bold text-stone-600 hover:text-stone-900 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer shrink-0"
-        >
-          <Settings2 className="w-4 h-4" />
-          <span>配置审查阈值 ({config.missThreshold}次 / {config.rollingWindowDays}天)</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIsDemoMode(!isDemoMode)}
+            className={`text-xs font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1.5 ${
+              isDemoMode
+                ? 'bg-amber-500 text-white shadow-xs font-black'
+                : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+            }`}
+          >
+            <span>{isDemoMode ? '退出演示模式' : '演示模式 (Demo Mode)'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowConfigSettings(!showConfigSettings)}
+            className="text-xs font-bold text-stone-600 hover:text-stone-900 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer shrink-0"
+          >
+            <Settings2 className="w-4 h-4" />
+            <span>配置审查阈值 ({config.missThreshold}次 / {config.rollingWindowDays}天)</span>
+          </button>
+        </div>
       </div>
 
       {/* 配置调整面板（证明阈值在配置中，绝非硬编码） */}
@@ -220,18 +248,50 @@ export const CaregiverHugInbox: React.FC<Props> = ({
         </div>
       )}
 
+      {/* 演示模式隔离标识横幅 */}
+      {isDemoMode && (
+        <div data-testid="hug-inbox-demo-banner" className="bg-amber-100 border-2 border-amber-300 text-amber-950 p-3.5 rounded-2xl flex items-center justify-between text-xs font-bold animate-in fade-in">
+          <span>⚠️ 当前处于演示数据隔离区 (Demo Mode) · 以下展示的 3 条记录均为模拟数据，非真实儿童求助。</span>
+          <button
+            type="button"
+            onClick={() => setIsDemoMode(false)}
+            className="px-2.5 py-1 bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-lg text-xs font-black cursor-pointer"
+          >
+            返回真实模式（空收件箱）
+          </button>
+        </div>
+      )}
+
       {/* 待响应与反思的请求列表 */}
       <div className="space-y-4">
-        {requests.map((item) => {
-          const isResolved = !!item.currentChoice;
-          const isConfirmedByChild = item.isLocallyConfirmedByChild;
-          const hasReflected = !!item.reflectionOutcome;
-
-          return (
-            <div
-              key={item.id}
-              className="bg-white p-5 rounded-3xl border border-stone-200 shadow-xs space-y-4 transition-all"
+        {requests.length === 0 ? (
+          <div data-testid="hug-inbox-empty" className="p-8 bg-stone-50 rounded-3xl border-2 border-dashed border-stone-300 text-center space-y-3">
+            <div className="w-14 h-14 rounded-2xl bg-stone-200 text-stone-500 flex items-center justify-center text-2xl mx-auto">
+              📬
+            </div>
+            <h4 className="text-base font-black text-stone-800">收件箱暂无求助记录（真实运行模式）</h4>
+            <p className="text-xs text-stone-500 max-w-md mx-auto leading-relaxed">
+              当前版本未配置真实远程推送中继，儿童以现场当面求助（拉拉衣角）与面对面陪伴为主。如需体验家长响应界面或进行教学演练，可切换至演示模式。
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsDemoMode(true)}
+              className="mt-2 px-4 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
+              切换至演示模式查看 3 条模拟记录
+            </button>
+          </div>
+        ) : (
+          requests.map((item) => {
+            const isResolved = !!item.currentChoice;
+            const isConfirmedByChild = item.isLocallyConfirmedByChild;
+            const hasReflected = !!item.reflectionOutcome;
+
+            return (
+              <div
+                key={item.id}
+                className="bg-white p-5 rounded-3xl border border-stone-200 shadow-xs space-y-4 transition-all"
+              >
               {/* 请求基本信息 */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
                 <div className="flex items-center gap-2.5">
@@ -387,7 +447,8 @@ export const CaregiverHugInbox: React.FC<Props> = ({
               )}
             </div>
           );
-        })}
+        })
+      )}
       </div>
 
       {/* 委托转交选择弹窗（必须指定已配置的在场成人，不能写自由文本） */}

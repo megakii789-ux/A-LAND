@@ -78,10 +78,14 @@ export function savePersonalizationProfile(profile: Partial<PersonalizationProfi
 
 /**
  * 重置为初始默认偏好
+ * AG-R5: resetPersonalizationProfile() 必须继承当前保存许可，不得无条件写入 localStorage。
+ * 不得因清除或重置而悄悄重新授权本地持久化。
  */
 export function resetPersonalizationProfile(): PersonalizationProfile {
+  const currentConsent = inMemorySessionProfile.consentForLocalStorage;
   const resetProfile: PersonalizationProfile = {
     ...DEFAULT_PERSONALIZATION_PROFILE,
+    consentForLocalStorage: currentConsent,
     updatedAt: Date.now(),
   };
 
@@ -89,7 +93,11 @@ export function resetPersonalizationProfile(): PersonalizationProfile {
 
   if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
     try {
-      window.localStorage.setItem(PERSONALIZATION_STORAGE_KEY, JSON.stringify(resetProfile));
+      if (currentConsent) {
+        window.localStorage.setItem(PERSONALIZATION_STORAGE_KEY, JSON.stringify(resetProfile));
+      } else {
+        window.localStorage.removeItem(PERSONALIZATION_STORAGE_KEY);
+      }
     } catch {
       // 容错处理
     }

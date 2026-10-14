@@ -46,6 +46,14 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
       expect(manifestContent.short_name.length).toBeLessThanOrEqual(12);
       expect(manifestContent.theme_color).toBe('#0d9488');
       expect(manifestContent.icons.length).toBeGreaterThanOrEqual(2);
+
+      // AG-R5: 补齐 PWA Manifest 对应的实际 PNG 资源，并进行构建后校验
+      for (const icon of manifestContent.icons) {
+        const iconPath = path.resolve(process.cwd(), 'public', icon.src.replace(/^\//, ''));
+        expect(fs.existsSync(iconPath)).toBe(true);
+        const stats = fs.statSync(iconPath);
+        expect(stats.size).toBeGreaterThan(200);
+      }
     });
 
     it('service worker 脚本 sw.js 必须严格禁止缓存敏感家长数据与 Auth Token', () => {
@@ -114,7 +122,7 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
       expect(result.communication).not.toBe(CommunicationStatus.SENT);
     });
 
-    it('存在受信任真实远程中继通道时发起即时抱抱请求：返回 SENT', async () => {
+    it('强制反例：当前无远程中继，即使 isOnline=true 且 hasVerifiedRemoteRelay=true，仍必须返回 SEND_FAILED', async () => {
       const controller = new OfflineHugController();
       const result = await controller.submitHugRequest({
         isOnline: true,
@@ -122,7 +130,8 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
         requestType: HugRequestType.INSTANT_HELP,
         hasVerifiedRemoteRelay: true
       });
-      expect(result.communication).toBe(CommunicationStatus.SENT);
+      expect(result.communication).toBe(CommunicationStatus.SEND_FAILED);
+      expect(result.communication).not.toBe(CommunicationStatus.SENT);
     });
 
     it('duplicate submit: 阻止在请求进行中重复提交', async () => {
@@ -177,19 +186,20 @@ describe('Phase M: PWA, Offline Capabilities & Safe Storage Contracts', () => {
       expect(stateAfterLoss.communication).toBe(CommunicationStatus.SEND_FAILED);
     });
 
-    it('reconnect: 网络恢复后提供温和重试提示', () => {
+    it('reconnect: 网络恢复后不承诺重试 (canRetry: false) 且引导当面找信任大人', () => {
       const controller = new OfflineHugController();
       const failedState: HugDomainState = {
         requestType: HugRequestType.INSTANT_HELP,
         communication: CommunicationStatus.SEND_FAILED,
         care: CareResponsibility.UNASSIGNED,
         coPresence: CoPresenceStatus.NOT_PRESENT,
-        targetCaregiverName: '妈妈'
+        targetCaregiverName: '身边信任的大人'
       };
 
       const reconnect = controller.handleReconnect(failedState);
-      expect(reconnect.canRetry).toBe(true);
-      expect(reconnect.promptText).toContain('网络信号恢复啦');
+      expect(reconnect.canRetry).toBe(false);
+      expect(reconnect.promptText).not.toContain('重新发送');
+      expect(reconnect.promptText).toContain('找身边信任的大人');
     });
 
     it('refresh during open hug: 页面刷新时能从会话中恢复活跃抱抱状态', () => {

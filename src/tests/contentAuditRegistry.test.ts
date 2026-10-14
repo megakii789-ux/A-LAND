@@ -3,139 +3,165 @@ import {
   ContentAuditRegistry,
   validateAuditRecord,
   ContentAuditRecord,
+  DEFAULT_INVALIDATION_CONDITIONS,
 } from '../domain/cognitive/ContentAuditRegistry';
 import { validateUnifiedScene } from '../domain/cognitive/cognitiveValidator';
 import { SCENARIO_A_PEER_ASKING_RESIDENCE } from '../domain/cognitive/scenarios/scenarioA_peerAskingResidence';
+import { computeCanonicalSha256 } from '../domain/cognitive/sha256';
 
-describe('ContentAuditRegistry Unit Tests', () => {
+describe('ContentAuditRegistry AG-R5 Strict Gate Unit Tests', () => {
   beforeEach(() => {
     ContentAuditRegistry.resetToDefault();
   });
 
-  describe('validateAuditRecord', () => {
-    it('should pass validation for a fully valid audit record', () => {
-      const record: ContentAuditRecord = {
-        contentId: 'TEST_SCENE_V1',
-        versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
-        reviewer: '儿童心理专家',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-      };
+  const validIndependentRecord: ContentAuditRecord = {
+    contentId: 'TEST_SCENE_V1',
+    sceneVersion: '1.0.0',
+    versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
+    reviewer: '张林（副主任医师 / 临床儿童心理专科）',
+    reviewerQualification: '中国心理学会临床心理注册系统注册督导师（D-21-089）',
+    auditTimestamp: '2026-10-12T00:00:00.000Z',
+    auditStatus: 'PASSED',
+    approvalEvidence: 'INDEP-ETHICS-2026-R5-APPROVAL-001',
+    invalidationConditions: DEFAULT_INVALIDATION_CONDITIONS,
+    pedagogicalNotes: '经独立医学与伦理双盲复核确认',
+    auditScope: 'CHILD_INDEPENDENT',
+  };
 
-      const result = validateAuditRecord(record);
+  describe('validateAuditRecord 6 要素严格审查', () => {
+    it('具备完备 6 要素及真实独立资格证据时通过', () => {
+      const result = validateAuditRecord(validIndependentRecord);
       expect(result.isValid).toBe(true);
+      expect(result.hasIndependentEvidence).toBe(true);
       expect(result.errors).toHaveLength(0);
     });
 
-    it('should reject records with invalid version SHA-256', () => {
-      const record: Partial<ContentAuditRecord> = {
-        contentId: 'TEST_SCENE_V1',
-        versionSha256: 'invalid_sha_256',
-        reviewer: '儿童心理专家',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-      };
-
+    it('拒绝非法或非 64 位 SHA-256', () => {
+      const record = { ...validIndependentRecord, versionSha256: 'invalid_sha' };
       const result = validateAuditRecord(record);
       expect(result.isValid).toBe(false);
-      expect(result.errors[0]).toContain('INVALID_SHA256');
+      expect(result.errors.some((e) => e.includes('INVALID_SHA256'))).toBe(true);
     });
 
-    it('should reject records with empty reviewer', () => {
-      const record: Partial<ContentAuditRecord> = {
-        contentId: 'TEST_SCENE_V1',
-        versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
-        reviewer: '  ',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PASSED',
-      };
+    it('拒绝空白或虚构的审核人（泛化专家委员会、AI审核等）', () => {
+      const fakeRecord1 = { ...validIndependentRecord, reviewer: '  ' };
+      expect(validateAuditRecord(fakeRecord1).isValid).toBe(false);
 
-      const result = validateAuditRecord(record);
-      expect(result.isValid).toBe(false);
-      expect(result.errors[0]).toContain('INVALID_REVIEWER');
+      const fakeRecord2 = { ...validIndependentRecord, reviewer: '儿童心理发展与临床伦理专家委员会' };
+      const res2 = validateAuditRecord(fakeRecord2);
+      expect(res2.isValid).toBe(false);
+      expect(res2.errors.some((e) => e.includes('UNVERIFIED_COMMITTEE_NAME'))).toBe(true);
+
+      const fakeRecord3 = { ...validIndependentRecord, reviewer: '系统自动AI审核' };
+      expect(validateAuditRecord(fakeRecord3).isValid).toBe(false);
     });
 
-    it('should reject records with invalid timestamp', () => {
-      const record: Partial<ContentAuditRecord> = {
-        contentId: 'TEST_SCENE_V1',
-        versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
-        reviewer: '儿童心理专家',
-        auditTimestamp: 'not_a_date',
-        auditStatus: 'PASSED',
-      };
+    it('缺少执业资格证据或批准编号时拒绝', () => {
+      const noQualRecord = { ...validIndependentRecord, reviewerQualification: '' };
+      expect(validateAuditRecord(noQualRecord).isValid).toBe(false);
 
-      const result = validateAuditRecord(record);
-      expect(result.isValid).toBe(false);
-      expect(result.errors[0]).toContain('INVALID_TIMESTAMP_FORMAT');
+      const noEvidenceRecord = { ...validIndependentRecord, approvalEvidence: '' };
+      expect(validateAuditRecord(noEvidenceRecord).isValid).toBe(false);
     });
 
-    it('should reject records with status other than PASSED', () => {
-      const record: Partial<ContentAuditRecord> = {
-        contentId: 'TEST_SCENE_V1',
-        versionSha256: 'a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4a1a2a3a4b1b2b3b4c1c2c3c4d1d2d3d4',
-        reviewer: '儿童心理专家',
-        auditTimestamp: '2026-10-12T00:00:00.000Z',
-        auditStatus: 'PENDING',
-      };
-
-      const result = validateAuditRecord(record);
+    it('审核结论非 PASSED（例如 PENDING / REJECTED）时拒绝进入运行时', () => {
+      const pendingRecord: ContentAuditRecord = { ...validIndependentRecord, auditStatus: 'PENDING' };
+      const result = validateAuditRecord(pendingRecord);
       expect(result.isValid).toBe(false);
-      expect(result.errors[0]).toContain('UNAPPROVED_STATUS');
+      expect(result.errors.some((e) => e.includes('UNAPPROVED_STATUS'))).toBe(true);
     });
   });
 
-  describe('ContentAuditRegistry methods', () => {
-    it('should confirm default pre-seeded scenarios are valid for rendering', () => {
-      expect(ContentAuditRegistry.canRenderContent('SCENE_A_PEER_ASKING_RESIDENCE_V1')).toBe(true);
-      expect(ContentAuditRegistry.canRenderContent('SCENE_B_PEER_BULLYING_FAMILY_V1')).toBe(true);
-      expect(ContentAuditRegistry.canRenderContent('SCENE_C_RAINY_OUTDOOR_CANCEL_V1')).toBe(true);
-      expect(ContentAuditRegistry.canRenderContent('cup-size')).toBe(true);
+  describe('ContentAuditRegistry AG-R5 默认状态与门禁阻断', () => {
+    it('任务一要求：默认预置场景必须为待审核 (PENDING)，不得返回 PASSED 或允许儿童独立渲染', () => {
+      expect(ContentAuditRegistry.canRenderContent('SCENE_A_PEER_ASKING_RESIDENCE_V1')).toBe(false);
+      expect(ContentAuditRegistry.canRenderContent('SCENE_B_PEER_BULLYING_FAMILY_V1')).toBe(false);
+      expect(ContentAuditRegistry.canRenderContent('SCENE_C_RAINY_OUTDOOR_CANCEL_V1')).toBe(false);
+      expect(ContentAuditRegistry.canRenderContent('cup-size')).toBe(false);
     });
 
-    it('should block unapproved or unregistered content', () => {
+    it('阻断未知或未登记内容', () => {
       expect(ContentAuditRegistry.canRenderContent('UNAPPROVED_CUSTOM_SCENE')).toBe(false);
+      expect(ContentAuditRegistry.isContentAuditValid('UNAPPROVED_CUSTOM_SCENE')).toBe(false);
     });
 
-    it('should register new audit record and allow rendering', () => {
-      const newRecord: ContentAuditRecord = {
-        contentId: 'NEW_AUDITED_SCENE',
-        versionSha256: '1111222233334444555566667777888899990000aaaabbbbccccddddeeeeffff',
-        reviewer: '伦理委员会',
-        auditTimestamp: '2026-10-13T00:00:00.000Z',
-        auditStatus: 'PASSED',
+    it('登记真实完备独立审批后允许渲染，改动内容哈希立即失效', () => {
+      const testContent = { text: '这是原始受审场景' };
+      const correctHash = computeCanonicalSha256(testContent);
+
+      const approvedRecord: ContentAuditRecord = {
+        ...validIndependentRecord,
+        contentId: 'HASH_BOUND_SCENE',
+        versionSha256: correctHash,
       };
 
-      const registered = ContentAuditRegistry.registerAuditRecord(newRecord);
-      expect(registered).toBe(true);
-      expect(ContentAuditRegistry.canRenderContent('NEW_AUDITED_SCENE')).toBe(true);
+      expect(ContentAuditRegistry.registerAuditRecord(approvedRecord)).toBe(true);
+      // 原文完全匹配时允许
+      expect(ContentAuditRegistry.isContentAuditValid('HASH_BOUND_SCENE', testContent)).toBe(true);
+
+      // 改动原文（篡改内容），原批准立即失效
+      const tamperedContent = { text: '这是被改动的场景文本' };
+      expect(ContentAuditRegistry.isContentAuditValid('HASH_BOUND_SCENE', tamperedContent)).toBe(false);
     });
 
-    it('should filter items based on audit registry records', () => {
-      const items = [
-        { id: 'cup-size', name: 'Cup Leaf' },
-        { id: 'UNAPPROVED_LEAF', name: 'Fake Leaf' },
-        { sceneId: 'SCENE_A_PEER_ASKING_RESIDENCE_V1', name: 'Scene A' },
-      ];
+    it('撤销批准后立即关闭儿童运行时门禁', () => {
+      ContentAuditRegistry.registerAuditRecord(validIndependentRecord);
+      expect(ContentAuditRegistry.canRenderContent('TEST_SCENE_V1')).toBe(true);
 
-      const filtered = ContentAuditRegistry.filterAuditedContent(items);
-      expect(filtered).toHaveLength(2);
-      expect(filtered.map(f => f.name)).toEqual(['Cup Leaf', 'Scene A']);
+      ContentAuditRegistry.revokeAuditApproval('TEST_SCENE_V1', '发现新安全风险');
+      expect(ContentAuditRegistry.canRenderContent('TEST_SCENE_V1')).toBe(false);
+    });
+
+    it('负向测试：更换版本 (version bump) 未重新审核时，原批准不得用于新版本', () => {
+      ContentAuditRegistry.registerAuditRecord({
+        ...validIndependentRecord,
+        contentId: 'VERSION_TEST_SCENE',
+        sceneVersion: '1.0.0',
+      });
+      // 匹配原版本通过
+      expect(ContentAuditRegistry.canRenderContent('VERSION_TEST_SCENE', undefined, '1.0.0')).toBe(true);
+      // 更换版本（如升级到 2.0.0）由于未有新版本审核，门禁必须严格阻断
+      expect(ContentAuditRegistry.canRenderContent('VERSION_TEST_SCENE', undefined, '2.0.0')).toBe(false);
+      expect(ContentAuditRegistry.isContentAuditValid('VERSION_TEST_SCENE', undefined, '2.0.0')).toBe(false);
+    });
+
+    it('负向测试：伪造签名或任意哈希不得绕过审核门禁', () => {
+      // 伪造签名尝试注册
+      const fakeSignedRecord: ContentAuditRecord = {
+        ...validIndependentRecord,
+        contentId: 'FAKE_SIGN_SCENE',
+        reviewer: '开发自审-自动免审通过',
+      };
+      expect(ContentAuditRegistry.registerAuditRecord(fakeSignedRecord)).toBe(false);
+      expect(ContentAuditRegistry.canRenderContent('FAKE_SIGN_SCENE')).toBe(false);
+
+      // 任意伪造哈希校验原文时必须拒绝
+      const legitRecord: ContentAuditRecord = {
+        ...validIndependentRecord,
+        contentId: 'ARBITRARY_HASH_SCENE',
+        versionSha256: '0000000000000000000000000000000000000000000000000000000000000000',
+      };
+      ContentAuditRegistry.registerAuditRecord(legitRecord);
+      const actualContent = { title: '真实的测试内容' };
+      // 原文计算出的真实 SHA-256 与伪造全0哈希不匹配，必须阻断
+      expect(ContentAuditRegistry.isContentAuditValid('ARBITRARY_HASH_SCENE', actualContent)).toBe(false);
     });
   });
 
   describe('Integration with cognitiveValidator', () => {
-    it('should validate Scenario A when registered in audit registry', () => {
+    it('Scenario A 处于待审核状态时，结构验证通过但 canEnterChildRuntime 严格为 false', () => {
       const validation = validateUnifiedScene(SCENARIO_A_PEER_ASKING_RESIDENCE);
       expect(validation.isValid).toBe(true);
       expect(validation.errors).toHaveLength(0);
+      expect(validation.canEnterChildRuntime).toBe(false);
     });
 
-    it('should fail scenario validation if audit record is cleared or missing', () => {
+    it('未注册审核记录时，validateUnifiedScene 抛出 UNAUDITED_CONTENT 且 canEnterChildRuntime 为 false', () => {
       ContentAuditRegistry.clearRegistry();
       const validation = validateUnifiedScene(SCENARIO_A_PEER_ASKING_RESIDENCE);
       expect(validation.isValid).toBe(false);
-      expect(validation.errors.some(e => e.code === 'UNAUDITED_CONTENT')).toBe(true);
+      expect(validation.errors.some((e) => e.code === 'UNAUDITED_CONTENT')).toBe(true);
+      expect(validation.canEnterChildRuntime).toBe(false);
     });
   });
 });
-

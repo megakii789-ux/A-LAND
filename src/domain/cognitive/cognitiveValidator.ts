@@ -568,9 +568,10 @@ export function validateUnifiedScene(scene: unknown): SceneValidationResult {
       }
     }
 
-    // 12. 专业审核状态与 R3-03 独立审核登记核验
+    // 12. 专业审核状态与 AG-R5 独立审核登记核验
     let canEnterChildRuntime = false;
-    if (!ContentAuditRegistry.getAuditRecord(sceneId)) {
+    const auditRecord = ContentAuditRegistry.getAuditRecord(sceneId);
+    if (!auditRecord) {
       errors.push({
         code: 'UNAUDITED_CONTENT',
         field: 'sceneId',
@@ -590,34 +591,33 @@ export function validateUnifiedScene(scene: unknown): SceneValidationResult {
         errors.push({
           code: 'UNREVIEWED_SCENE',
           field: 'provenance.reviewStatus',
-          message: `Scene reviewStatus is "${String(reviewStatus)}"; cannot be validated as safe or pending audit.`,
+          message: `Scene reviewStatus is "${String(reviewStatus)}"; cannot enter child runtime.`,
         });
+        canEnterChildRuntime = false;
       } else if (reviewStatus === 'REVIEWED_SAFE') {
-        // R3-03 铁律：不得仅凭字符串 reviewedBy 或 reviewDate 认定经过专家审查！
-        // 必须在 ContentAuditRegistry 中具备完整 6 要素独立审核证据且状态为 PASSED
-        const hasVerifiedAudit = ContentAuditRegistry.hasVerifiedIndependentAudit(
-          sceneId,
-          typeof s.version === 'string' ? s.version : undefined
-        );
-        if (!hasVerifiedAudit) {
+        // AG-R5: 严禁伪造，必须在 ContentAuditRegistry 中具备完整 6 要素独立审核证据、真实签署且 SHA-256 哈希与内容完全匹配
+        const isAuditValid = ContentAuditRegistry.isContentAuditValid(sceneId, s);
+        if (!isAuditValid) {
           errors.push({
             code: 'UNVERIFIED_REVIEWED_SAFE',
             field: 'provenance.reviewStatus',
-            message: `Scene "${sceneId}" claims REVIEWED_SAFE without verified independent audit evidence in ContentAuditRegistry. Strings reviewedBy/reviewDate alone are insufficient.`,
+            message: `Scene "${sceneId}" claims REVIEWED_SAFE without verified independent audit evidence or hash mismatch in ContentAuditRegistry.`,
           });
+          canEnterChildRuntime = false;
         } else {
           canEnterChildRuntime = errors.length === 0;
         }
       } else if (reviewStatus === 'PENDING_REVIEW') {
-        // R3-03：在外部独立审核建立并签署前，场景保持为 PENDING_REVIEW 状态
-        // 认知结构与宪法校验可通过，但未获得 PASSED 独立审核前 canEnterChildRuntime 为 false
-        canEnterChildRuntime = ContentAuditRegistry.canRenderContent(sceneId) && errors.length === 0;
+        // AG-R5 铁律：在外部独立审核建立并签署前，场景保持为 PENDING_REVIEW 状态
+        // 认知结构与宪法格式可通过，但 canEnterChildRuntime 绝对为 false
+        canEnterChildRuntime = false;
       } else {
         errors.push({
           code: 'UNREVIEWED_SCENE',
           field: 'provenance.reviewStatus',
           message: `Scene reviewStatus "${String(reviewStatus)}" is invalid.`,
         });
+        canEnterChildRuntime = false;
       }
     }
 

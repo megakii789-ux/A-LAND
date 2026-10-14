@@ -39,8 +39,8 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'A_INSTANT' | 'B_ASYNC'>('A_INSTANT');
 
-  // 目标监护人
-  const [targetCaregiver, setTargetCaregiver] = useState<'爸爸' | '妈妈' | '身边的大人'>('妈妈');
+  // 目标监护人（AG-R5: 默认采用中性“身边信任的大人”）
+  const [targetCaregiver, setTargetCaregiver] = useState<'身边信任的大人' | '爸爸' | '妈妈'>('身边信任的大人');
 
   // 入口 A: 我现在需要大人 (三轴领域状态) - 支持刷新恢复 (Refresh during open hug)
   const [instantDomainState, setInstantDomainState] = useState<HugDomainState | null>(() => {
@@ -264,7 +264,7 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                 你想告诉谁：
               </label>
               <div className="grid grid-cols-3 gap-2">
-                {(['妈妈', '爸爸', '身边的大人'] as const).map((person) => (
+                {(['身边信任的大人', '妈妈', '爸爸'] as const).map((person) => (
                   <button
                     key={person}
                     type="button"
@@ -306,10 +306,10 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                       type="button"
                       onClick={handleStartInstantHelp}
                       className="w-full min-h-[64px] py-4 px-6 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-2xl shadow-md text-lg flex items-center justify-center gap-2 cursor-pointer transition-all"
-                      aria-label="确认送出求助提醒"
+                      aria-label="在屏幕上开启找大人提醒"
                     >
                       <Heart className="w-6 h-6 fill-white" />
-                      <span>呼唤 {targetCaregiver} 抱抱我</span>
+                      <span>找 {targetCaregiver}（请走到大人身边）</span>
                     </button>
                   </div>
                 ) : (
@@ -424,10 +424,10 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                       type="button"
                       onClick={handleSendAsyncMiss}
                       className="w-full min-h-[64px] py-4 px-6 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-2xl shadow-md text-lg flex items-center justify-center gap-2 cursor-pointer transition-all"
-                      aria-label="寄出想念信"
+                      aria-label="在小岛写下想念信（保存在本机）"
                     >
                       <Send className="w-5 h-5" />
-                      <span>寄出想念信给 {targetCaregiver}</span>
+                      <span>在小岛写下想念信（装进本机小信封）</span>
                     </button>
                   </div>
                 ) : (
@@ -445,7 +445,7 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                             }
                           }}
                           className="w-9 h-9 rounded-xl bg-white text-sky-700 flex items-center justify-center shadow-xs cursor-pointer"
-                          aria-label="朗读想念送达状态"
+                          aria-label="朗读想念信内容"
                         >
                           <Volume2 className="w-5 h-5" />
                         </button>
@@ -473,9 +473,53 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
               </div>
             )}
 
-            {/* 等待 UI 安全出口：允许离开屏幕、找身边成人、去平静角 */}
+            {/* AG-R5 契约：当面求助、暂不表达、退出、寻找其他安全成年人均必须可用 */}
             <div className="mt-5 pt-4 border-t border-stone-200 space-y-2">
               <div className="grid grid-cols-2 gap-2">
+                {/* 1. 当面求助 */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    speechNarrator.speak('走到大人身边拉拉衣角，告诉大人“我需要你陪我一会儿”。');
+                  }}
+                  className="min-h-[48px] py-2.5 px-3 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  aria-label="当面求助：拉拉大人衣角"
+                >
+                  <Users className="w-4 h-4 text-amber-600" />
+                  <span>当面求助（拉拉衣角）</span>
+                </button>
+
+                {/* 2. 寻找其他安全成年人 */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    speechNarrator.speak('如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。');
+                  }}
+                  className="min-h-[48px] py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  aria-label="寻找其他安全成年人"
+                >
+                  <Users className="w-4 h-4 text-blue-600" />
+                  <span>找老师或其他安全大人</span>
+                </button>
+
+                {/* 3. 暂不表达 */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    speechNarrator.speak('不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。');
+                    setIsOpen(false);
+                  }}
+                  className="min-h-[48px] py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  aria-label="暂不表达：我先自己待会儿"
+                >
+                  <Wind className="w-4 h-4 text-stone-500" />
+                  <span>我先自己待会儿（暂不表达）</span>
+                </button>
+
+                {/* 4. 平静角深呼吸 */}
                 <button
                   type="button"
                   onClick={() => {
@@ -487,33 +531,22 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
                       setChildPlace('calm');
                     }
                   }}
-                  className="min-h-[48px] py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold rounded-xl text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="min-h-[48px] py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                   aria-label="去平静角深呼吸"
                 >
                   <Wind className="w-4 h-4 text-emerald-600" />
                   <span>去平静角深呼吸</span>
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    sounds.playClick();
-                    speechNarrator.speak('身边有老师或家人时，可以直接走到他们面前拉拉衣角。');
-                  }}
-                  className="min-h-[48px] py-2.5 px-3 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold rounded-xl text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                  aria-label="找身边能看到的大人"
-                >
-                  <Users className="w-4 h-4 text-amber-600" />
-                  <span>找身边看得见的大人</span>
-                </button>
               </div>
 
+              {/* 5. 退出 */}
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="w-full py-2.5 text-stone-500 hover:text-stone-800 text-sm font-semibold transition-colors cursor-pointer text-center"
+                aria-label="退出求助窗口，回小岛自由玩"
               >
-                离开屏幕，回小岛玩去（随时点我重新打开）
+                退出求助窗口，回小岛自由玩（随时可重新打开）
               </button>
             </div>
           </div>

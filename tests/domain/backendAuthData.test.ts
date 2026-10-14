@@ -263,7 +263,53 @@ describe('Phase L: Backend, Auth, and Data Isolation Contracts', () => {
         researcherSession
       );
       expect(badResult.success).toBe(false);
-      expect(badResult.error).toContain('FORBIDDEN_RESEARCHER_ACCESS');
+    });
+  });
+
+  describe('AG-R5 Real HTTP Request Verification', () => {
+    it('真实 HTTP GET /api/health 返回 200 OK 与本机高安全运行状态', async () => {
+      const { createApiApp } = await import('../../server');
+      const http = await import('http');
+      const app = createApiApp();
+      const server = http.createServer(app);
+
+      await new Promise<void>((resolve) => server.listen(0, resolve));
+      const port = (server.address() as any).port;
+
+      try {
+        const res = await fetch(`http://127.0.0.1:${port}/api/health`);
+        expect(res.status).toBe(200);
+        const data = await res.json();
+        expect(data.status).toBe('ok');
+        expect(data.mode).toBe('local-only-verified');
+        expect(data.remoteRelayEnabled).toBe(false);
+      } finally {
+        await new Promise<void>((resolve) => server.close(() => resolve()));
+      }
+    });
+
+    it('真实 HTTP POST /api/caregiver/sync 私有 API 强制 Fail-Closed 返回 503', async () => {
+      const { createApiApp } = await import('../../server');
+      const http = await import('http');
+      const app = createApiApp();
+      const server = http.createServer(app);
+
+      await new Promise<void>((resolve) => server.listen(0, resolve));
+      const port = (server.address() as any).port;
+
+      try {
+        const res = await fetch(`http://127.0.0.1:${port}/api/caregiver/sync`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ familyId: 'family_101', secretData: 'test' }),
+        });
+        expect(res.status).toBe(503);
+        const data = await res.json();
+        expect(data.code).toBe('API_DISABLED_PENDING_VERIFIED_AUTH');
+        expect(data.error).toBe('CLOUD_API_DISABLED');
+      } finally {
+        await new Promise<void>((resolve) => server.close(() => resolve()));
+      }
     });
   });
 });

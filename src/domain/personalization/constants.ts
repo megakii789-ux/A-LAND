@@ -154,6 +154,6 @@ export const DEFAULT_PERSONALIZATION_PROFILE: PersonalizationProfile = {
     simplifiedText: false,
   },
   ageTier: 'EARLY_CHILDHOOD_5_7',
-  consentForLocalStorage: true,
+  consentForLocalStorage: false,
   updatedAt: 1718000000000,
 };
