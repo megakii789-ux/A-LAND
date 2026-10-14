@@ -1,0 +1,13 @@
+{
+  "project": "qingyu-island-preview",
+  "repository": "megakii789-ux/A-LAND",
+  "branch": "public-hold",
+  "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
+  "remoteHelpRelayStatus": "FAIL_CLOSED_503",
+  "mode": "public-hold-placeholder",
+  "remoteRelayEnabled": false,
+  "cloudSyncEnabled": false,
+  "accessControlRequired": true
+}
