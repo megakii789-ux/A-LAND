@@ -3,9 +3,9 @@
   "repository": "megakii789-ux/A-LAND",
   "branch": "preview",
   "productionHoldBranch": "public-hold",
-  "commitSha": "dd4fd193808ab857a846f79fc05e4101aa97c290",
-  "shortCommitSha": "dd4fd193808a",
-  "deploymentTimestamp": "2026-10-14T14:33:47.977Z",
+  "commitSha": "6e6a381b46fe15e087b7dafec4481a9965657468",
+  "shortCommitSha": "6e6a381b46fe",
+  "deploymentTimestamp": "2026-10-14T14:36:38.804Z",
   "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
   "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
@@ -22,7 +22,7 @@
   "accessControlRequired": true,
   "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
   "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
-  "rollbackTargetSha": "dd4fd193808ab857a846f79fc05e4101aa97c290",
+  "rollbackTargetSha": "6e6a381b46fe15e087b7dafec4481a9965657468",
   "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
   "buildToolchain": {
     "node": "v20.20.2",
@@ -31,5 +31,5 @@
     "vitest": "5.0.4",
     "esbuild": "0.28.2"
   },
-  "updatedAt": "2026-10-14T14:33:47.977Z"
+  "updatedAt": "2026-10-14T14:36:38.804Z"
 }

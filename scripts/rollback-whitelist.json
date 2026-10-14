@@ -21,5 +21,12 @@
       "reason": "Gate D5 文档提交：尚未包含 Gate D6 503 mode 字段统一契约、回滚白名单守卫与私有预览 PWA HTML 缓存禁用。"
     }
   ],
-  "approvedSafeTargets": []
+  "approvedSafeTargets": [
+    {
+      "sha": "6e6a381b46fe15e087b7dafec4481a9965657468",
+      "gate": "Gate-D6",
+      "verifiedAt": "2026-10-14T22:34:55+08:00",
+      "description": "Gate D6 安全封印已验收基线：包含统一 503 mode='local-only-verified' Pages Functions、public/_routes.json、私有预览 SW 禁用 HTML 离线缓存 (v3)、内容审核 Fail-Closed 与离线求助保护。"
+    }
+  ]
 }
