@@ -71,12 +71,13 @@ export const IslandHome: React.FC = () => {
 
   const handleOpenPlace = (place: typeof childPlace) => {
     speechNarrator.stop();
-    sounds.playClick();
+    sounds.playModalOpen();
     setChildPlace(place);
   };
 
   const handleCloseModal = () => {
     speechNarrator.stop();
+    sounds.playModalClose();
     setChildPlace('island');
   };
 
@@ -92,8 +93,8 @@ export const IslandHome: React.FC = () => {
         <div className="absolute -bottom-16 left-0 right-0 h-40 bg-linear-to-t from-emerald-200/50 to-transparent rounded-t-[50%]" />
       </div>
 
-      {/* 1. Top Section: Companion Greeting Banner + First-Screen Priority Calm & Reality Help + Audio Bar */}
-      <div className="relative max-w-5xl mx-auto w-full pt-1 sm:pt-2 space-y-2.5 sm:space-y-3">
+      {/* 1. Top Section: Companion Greeting Banner + First-Screen Priority Calm & Reality Help */}
+      <div className="relative max-w-5xl mx-auto w-full pt-0.5 sm:pt-2 space-y-2 sm:space-y-3">
         <CompanionBanner onOpenSettings={() => setIsPersonalizationOpen(true)} />
 
         {/* 2. Top Priority: Always Reachable Calm Corner (永远可达的平静角 + 去拆解) */}
@@ -104,7 +105,7 @@ export const IslandHome: React.FC = () => {
 
         {/* 2B. Top Priority Reality Help Entry: 360px/390px 手机首屏无需滚动即可触达的现实求助入口 (文档流独立区块，绝不遮挡平静角与其他按钮) */}
         <div
-          className="bg-rose-50/90 border-2 border-rose-200/90 rounded-3xl p-2.5 sm:p-3.5 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5"
+          className="bg-rose-50/90 border-2 border-rose-200/90 rounded-2xl sm:rounded-3xl p-2 sm:p-3.5 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2"
           role="region"
           aria-label="首屏现实求助常驻入口"
         >
@@ -121,29 +122,8 @@ export const IslandHome: React.FC = () => {
           </div>
         </div>
 
-        {/* AG-04A: 全功能儿童伴读音频控制条 (重听/暂停/停止/环境声/缺失中文语音包明确警告) */}
-        <ChildAudioBar />
-
-        {/* 晴雨小岛全景插画画卷 (3D 触感全景浮层) */}
-        <Interactive3DCard
-          maxTilt={6}
-          perspective={1200}
-          className="relative overflow-hidden rounded-3xl border-2 border-sky-200/90 shadow-md hover:shadow-xl bg-white/60 transition-shadow"
-        >
-          <IslandPanoramaIllustration className="w-full h-36 sm:h-48 md:h-56 object-cover" />
-          <div
-            style={{ transform: 'translateZ(26px)' }}
-            className="absolute bottom-2.5 left-3 sm:bottom-3 sm:left-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-sky-200 text-xs sm:text-sm font-black text-sky-900 shadow-md flex items-center gap-1.5"
-          >
-            <IslandUiIconSvg name="island_brand" className="w-4 h-4 shrink-0" />
-            <span className="whitespace-nowrap">晴雨小岛</span>
-            <span className="text-stone-400 font-normal">·</span>
-            <span className="text-stone-700 font-bold">今天也是安心探索的一天</span>
-          </div>
-        </Interactive3DCard>
-
         {/* 浏览模式切换与偏好/印记馆入口 */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
           {/* 地图探索 vs 清晰卡片切换器 */}
           <div
             role="tablist"
@@ -155,7 +135,7 @@ export const IslandHome: React.FC = () => {
               role="tab"
               aria-selected={viewMode === 'map'}
               onClick={() => {
-                sounds.playClick();
+                sounds.playCardSelect();
                 setViewMode('map');
               }}
               className={`min-h-[56px] px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 whitespace-nowrap focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none ${
@@ -172,7 +152,7 @@ export const IslandHome: React.FC = () => {
               role="tab"
               aria-selected={viewMode === 'cards'}
               onClick={() => {
-                sounds.playClick();
+                sounds.playCardSelect();
                 setViewMode('cards');
               }}
               className={`min-h-[56px] px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 whitespace-nowrap focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none ${
@@ -186,7 +166,7 @@ export const IslandHome: React.FC = () => {
             </button>
           </div>
 
-          <div className="flex items-center justify-end gap-2">
+          <div className="hidden sm:flex items-center justify-end gap-2">
             {/* 受控儿童偏好设置入口 (AG-04B) */}
             <button
               type="button"
@@ -222,50 +202,14 @@ export const IslandHome: React.FC = () => {
       </div>
 
       {/* 3. Main Island: 6 Core Locations (390px 2-column, 360px adaptive, 768px+ 3-column) */}
-      <div className="relative max-w-5xl mx-auto w-full py-4 sm:py-6">
-        <div className="text-center mb-4 sm:mb-5">
-          <h1 className="text-2xl sm:text-3xl font-black text-stone-800 tracking-tight whitespace-nowrap">
+      <div className="relative max-w-5xl mx-auto w-full py-1.5 sm:py-4">
+        <div className="text-center mb-2 sm:mb-4">
+          <h1 className="text-lg sm:text-3xl font-black text-stone-800 tracking-tight whitespace-nowrap">
             你想先去哪儿玩？
           </h1>
-          <p className="text-base sm:text-lg text-stone-600 mt-1 font-medium">
+          <p className="text-xs sm:text-lg text-stone-600 mt-0.5 font-medium">
             动动手就能玩，没有失败，也没有对错打分
           </p>
-        </div>
-
-        {/* 真实可玩互动体验入口 (AG-03: 蜡笔侦探 · 问起我的家 · 小船协商 · 独立迁移) */}
-        <div className="bg-linear-to-r from-amber-100 via-teal-50 to-sky-100 border-2 border-amber-300 rounded-2xl p-3.5 sm:p-4 mb-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-start sm:items-center gap-3 min-w-0">
-            <div className="w-12 h-12 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center shrink-0 shadow-xs">
-              <IslandUiIconSvg name="interactive_games" className="w-7 h-7" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-lg sm:text-xl font-black text-stone-900 whitespace-nowrap">
-                  真实动动手探险游戏
-                </h2>
-                <span className="text-xs bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-bold shrink-0">
-                  真实交互
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-stone-600 font-medium mt-0.5 leading-relaxed">
-                《蜡笔侦探》(放大镜探索) · 《问起我的家》(边界防护) · 《小船协商》(利弊权衡)
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
-            <button
-              type="button"
-              onClick={() => {
-                sounds.playClick();
-                setSelectedHubGame('detective');
-                setIsGamesHubOpen(true);
-              }}
-              className="w-full sm:w-auto min-h-[56px] px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-sm sm:text-base shadow-md transition-all active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
-              aria-label="打开真实动动手探险游戏集"
-            >
-              <span>立刻开始玩</span>
-            </button>
-          </div>
         </div>
 
         {viewMode === 'map' ? (
@@ -429,6 +373,98 @@ export const IslandHome: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* 延后放置区域：伴读控制条、移动端偏好/印记、真实动动手探险游戏集入口与全景插画画卷 */}
+        <div className="mt-4 sm:mt-6 space-y-3.5 sm:space-y-4">
+          {/* AG-04A: 全功能儿童伴读音频控制条 (重听/暂停/停止/环境声/缺失中文语音包明确警告) */}
+          <ChildAudioBar />
+
+          {/* 移动端 (<640px) 偏好与晴雨印记入口 */}
+          <div className="flex sm:hidden items-center justify-between gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                sounds.playClick();
+                setIsPersonalizationOpen(true);
+              }}
+              className="flex-1 flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white/90 hover:bg-white border-2 border-stone-200 hover:border-amber-300 rounded-2xl text-sm font-bold text-stone-800 transition-all shadow-2xs cursor-pointer min-h-[56px] whitespace-nowrap focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+              aria-label="打开小岛偏好与无障碍设置"
+            >
+              <IslandUiIconSvg name="calm_leaf" className="w-4 h-4 shrink-0" />
+              <span>偏好</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                sounds.playClick();
+                setIsMedalsOpen(true);
+              }}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-white/90 hover:bg-white border-2 border-amber-200 rounded-2xl text-sm font-bold text-amber-900 transition-all shadow-2xs cursor-pointer min-h-[56px] whitespace-nowrap focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+              aria-label="打开晴雨印记馆"
+            >
+              <IslandUiIconSvg name="medals_star" className="w-5 h-5 shrink-0" />
+              <span>晴雨印记</span>
+              <span className="text-xs text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full font-bold">
+                {sunCount}阳 {rainCount}雨
+              </span>
+            </button>
+          </div>
+
+          {/* 真实可玩互动体验入口 (AG-03: 蜡笔侦探 · 问起我的家 · 小船协商 · 独立迁移) */}
+          <div className="bg-linear-to-r from-amber-100 via-teal-50 to-sky-100 border-2 border-amber-300 rounded-2xl p-3.5 sm:p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-start sm:items-center gap-3 min-w-0">
+              <div className="w-12 h-12 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center shrink-0 shadow-xs">
+                <IslandUiIconSvg name="interactive_games" className="w-7 h-7" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h2 className="text-lg sm:text-xl font-black text-stone-900 whitespace-nowrap">
+                    真实动动手探险游戏
+                  </h2>
+                  <span className="text-xs bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-bold shrink-0">
+                    真实交互
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-stone-600 font-medium mt-0.5 leading-relaxed">
+                  《蜡笔侦探》(放大镜探索) · 《问起我的家》(边界防护) · 《小船协商》(利弊权衡)
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  sounds.playClick();
+                  setSelectedHubGame('detective');
+                  setIsGamesHubOpen(true);
+                }}
+                className="w-full sm:w-auto min-h-[56px] px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-sm sm:text-base shadow-md transition-all active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                aria-label="打开真实动动手探险游戏集"
+              >
+                <span>立刻开始玩</span>
+              </button>
+            </div>
+          </div>
+
+          {/* 晴雨小岛全景插画画卷 (3D 触感全景浮层) */}
+          <Interactive3DCard
+            maxTilt={6}
+            perspective={1200}
+            className="relative overflow-hidden rounded-3xl border-2 border-sky-200/90 shadow-md hover:shadow-xl bg-white/60 transition-shadow"
+          >
+            <IslandPanoramaIllustration className="w-full h-36 sm:h-48 md:h-56 object-cover" />
+            <div
+              style={{ transform: 'translateZ(26px)' }}
+              className="absolute bottom-2.5 left-3 sm:bottom-3 sm:left-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-sky-200 text-xs sm:text-sm font-black text-sky-900 shadow-md flex items-center gap-1.5"
+            >
+              <IslandUiIconSvg name="island_brand" className="w-4 h-4 shrink-0" />
+              <span className="whitespace-nowrap">晴雨小岛</span>
+              <span className="text-stone-400 font-normal">·</span>
+              <span className="text-stone-700 font-bold">今天也是安心探索的一天</span>
+            </div>
+          </Interactive3DCard>
+        </div>
       </div>
 
       {/* 4. Bottom Reassurance Footer */}

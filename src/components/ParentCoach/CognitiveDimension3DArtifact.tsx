@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { sounds } from '../../utils/sound';
 import { Sparkles, MoveHorizontal, Compass, ArrowRight, RotateCcw } from 'lucide-react';
 
 export interface CognitiveDimension3DArtifactProps {
@@ -25,18 +24,15 @@ export const CognitiveDimension3DArtifact: React.FC<CognitiveDimension3DArtifact
   const [compassAngle, setCompassAngle] = useState<number>(-35);
 
   const handleSeparateToggle = () => {
-    sounds.playWoodClack();
     setSeparationDistance(prev => (prev > 50 ? 10 : 80));
   };
 
   const handleResonate = () => {
-    sounds.playKalimbaBloom();
     setIsResonating(true);
     setTimeout(() => setIsResonating(false), 2400);
   };
 
   const handleSelectChoice = (choice: 'a' | 'b', angle: number) => {
-    sounds.playClick();
     setSelectedChoice(choice);
     setCompassAngle(angle);
   };

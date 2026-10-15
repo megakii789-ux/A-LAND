@@ -171,7 +171,7 @@ export const HugSupportEntry: React.FC<HugSupportEntryProps> = ({ onOpenCalmCorn
           sounds.playWarmHug();
           setIsOpen(true);
         }}
-        className="group relative flex items-center justify-between sm:justify-start gap-3.5 px-6 py-4 min-h-[64px] w-full sm:w-auto rounded-3xl bg-linear-to-r from-rose-400 via-pink-400 to-rose-400 text-white shadow-lg hover:shadow-rose-200/80 hover:brightness-105 transition-all duration-200 motion-reduce:transition-none transform active:scale-95 motion-reduce:active:scale-100 cursor-pointer"
+        className="group relative flex items-center justify-between sm:justify-start gap-3 px-4 py-2.5 sm:px-6 sm:py-4 min-h-[56px] sm:min-h-[64px] w-full sm:w-auto rounded-2xl sm:rounded-3xl bg-linear-to-r from-rose-400 via-pink-400 to-rose-400 text-white shadow-md hover:shadow-rose-200/80 hover:brightness-105 transition-all duration-200 motion-reduce:transition-none transform active:scale-95 motion-reduce:active:scale-100 cursor-pointer"
         aria-label="找大人抱抱与想念入口：点击打开求助与想念窗口"
       >
         <span className="absolute -inset-1 rounded-3xl bg-rose-400/25 animate-pulse motion-reduce:animate-none opacity-75 group-hover:opacity-100 pointer-events-none" />

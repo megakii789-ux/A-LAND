@@ -310,7 +310,7 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
                   <span>挑选今天的天气</span>
                   <button
                     onClick={() => handleSpeak("挑选今天头顶的天气。晴、阴、雨、雷、雾，或者不想选，都可以。")}
-                    className="w-11 h-11 rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer"
+                    className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer"
                     title="朗读提示"
                     aria-label="朗读提示"
                   >
@@ -396,7 +396,7 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
               <>
                 {/* 双重天气支持 */}
                 <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200">
-                  <label className="flex items-center justify-between cursor-pointer min-h-[44px]">
+                  <label className="flex items-center justify-between cursor-pointer min-h-[48px]">
                     <span className="text-base font-bold text-stone-800">
                       我有两种天气同时在（例如：又有点高兴，又有点想念）
                     </span>
@@ -623,7 +623,7 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full py-2.5 text-stone-500 hover:text-stone-800 text-sm font-semibold transition-colors cursor-pointer"
+                className="w-full min-h-[48px] py-3 text-stone-600 hover:text-stone-900 text-sm font-bold transition-colors cursor-pointer flex items-center justify-center"
                 aria-label="直接关闭"
               >
                 记好了，先关掉天气站

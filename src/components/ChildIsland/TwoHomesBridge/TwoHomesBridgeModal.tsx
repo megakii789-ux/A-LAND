@@ -211,7 +211,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     sounds.playClick();
                     setCalendarViewMode(prev => (prev === 'strip' ? 'list' : 'strip'));
                   }}
-                  className="min-h-[44px] px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-extrabold border border-amber-300 cursor-pointer transition-colors"
+                  className="min-h-[48px] px-3.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs sm:text-sm font-extrabold border border-amber-300 cursor-pointer transition-colors flex items-center"
                   aria-label={calendarViewMode === 'strip' ? '切换为整周列表视图（无需左右滑动）' : '切换为横向日历条视图'}
                 >
                   {calendarViewMode === 'strip' ? '📋 切换列表视图' : '📅 切换日历条视图'}
@@ -353,7 +353,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 </span>
                 <button
                   onClick={() => handleSpeak("和送你的大人做一个击掌、对碰小拳头，或者做一个大大的拥抱！“明天见，我永远爱你！”")}
-                  className="p-1 text-amber-800 hover:text-amber-950 cursor-pointer"
+                  className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-amber-800 hover:text-amber-950 rounded-xl cursor-pointer"
                   aria-label="朗读交接小动作说明"
                 >
                   <Volume2 className="w-5 h-5" />

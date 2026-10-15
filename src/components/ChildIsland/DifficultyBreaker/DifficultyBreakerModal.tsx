@@ -194,7 +194,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
       <div className="bg-amber-50/95 border-2 border-amber-300 rounded-3xl p-5 sm:p-7 max-w-2xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-amber-100 transition-colors z-20"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center text-stone-400 hover:text-stone-600 rounded-full hover:bg-amber-100 transition-colors z-20 cursor-pointer"
           aria-label="关闭拆解台"
         >
           <X className="w-5 h-5" />
@@ -263,9 +263,10 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 <span>选一块生活中常遇到的大石头：</span>
                 <button
                   onClick={() => handleSpeak("选一块生活里的大石头困难，我们一起用分、通、择把它敲成小石子！")}
-                  className="p-1 rounded-md text-amber-700 hover:bg-amber-50"
+                  className="min-w-[48px] min-h-[48px] p-2 rounded-xl text-amber-700 hover:bg-amber-50 flex items-center justify-center cursor-pointer"
+                  aria-label="听一听挑选困难提示"
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-5 h-5" />
                 </button>
               </h4>
               <p className="text-xs text-stone-500 mt-1">
@@ -419,18 +420,18 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
             <div className="flex justify-between items-center pt-2">
               <button
                 onClick={() => setCurrentStep('pick')}
-                className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                className="min-h-[48px] px-3.5 py-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-stone-800 flex items-center gap-1.5 rounded-xl cursor-pointer"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> 换个大石头
+                <ArrowLeft className="w-4 h-4" /> 换个大石头
               </button>
               <button
                 onClick={() => {
                   sounds.playBell();
                   setCurrentStep('tong');
                 }}
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                className="min-h-[56px] px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
               >
-                分清楚了，去换镜头（通） <ArrowRight className="w-3.5 h-3.5" />
+                <span>分清楚了，去换镜头（通）</span> <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -490,18 +491,18 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
             <div className="flex justify-between items-center pt-2">
               <button
                 onClick={() => setCurrentStep('fen')}
-                className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                className="min-h-[48px] px-3.5 py-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-stone-800 flex items-center gap-1.5 rounded-xl cursor-pointer"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> 上一步：分一分
+                <ArrowLeft className="w-4 h-4" /> 上一步：分一分
               </button>
               <button
                 onClick={() => {
                   sounds.playBell();
                   setCurrentStep('ze');
                 }}
-                className="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                className="min-h-[56px] px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
               >
-                看到了另一面，去拆解成小动作（择） <ArrowRight className="w-3.5 h-3.5" />
+                <span>看到了另一面，去拆解成小动作（择）</span> <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -584,7 +585,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                       key={act.id}
                       onClick={() => handlePlaceAction(act)}
                       disabled={isUsed}
-                      className={`p-3 rounded-2xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
+                      className={`min-h-[48px] p-3 rounded-2xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
                         isUsed
                           ? 'bg-stone-100 border-stone-200 text-stone-400 opacity-60'
                           : 'bg-white border-amber-200 hover:border-amber-400 hover:shadow-xs'
@@ -612,9 +613,9 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
             <div className="flex justify-between items-center pt-2">
               <button
                 onClick={() => setCurrentStep('tong')}
-                className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                className="min-h-[48px] px-3.5 py-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-stone-800 flex items-center gap-1.5 rounded-xl cursor-pointer"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> 上一步：通一通
+                <ArrowLeft className="w-4 h-4" /> 上一步：通一通
               </button>
 
               <button
@@ -628,7 +629,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                     "大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！"
                   );
                 }}
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                className="min-h-[56px] px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 铺好踏脚石啦，大石头变小了！
@@ -675,13 +676,13 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                   sounds.playClick();
                   setCurrentStep('pick');
                 }}
-                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+                className="flex-1 min-h-[48px] py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-xl text-xs sm:text-sm transition-colors cursor-pointer flex items-center justify-center"
               >
                 拆解另一个困难
               </button>
               <button
                 onClick={onClose}
-                className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs shadow-md transition-all cursor-pointer"
+                className="flex-1 min-h-[56px] py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition-all cursor-pointer flex items-center justify-center"
               >
                 完成拆解，回小岛
               </button>

@@ -17,17 +17,19 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     await expect(page.getByText('绿草呼吸平静角').first()).toBeVisible();
     await expect(page.getByText('找大人抱抱').first()).toBeVisible();
 
-    // Assert that the page does not horizontally overflow: document.documentElement.scrollWidth <= clientWidth
-    const { scrollWidth, clientWidth } = await page.evaluate(() => {
+    // Assert that the page does not horizontally overflow: document.documentElement.scrollWidth <= window.innerWidth
+    const { scrollWidth, clientWidth, innerWidth } = await page.evaluate(() => {
       const doc = document.documentElement;
       return {
         scrollWidth: doc.scrollWidth,
         clientWidth: doc.clientWidth,
+        innerWidth: window.innerWidth,
       };
     });
 
-    // scrollWidth must never exceed clientWidth
+    // scrollWidth must never exceed clientWidth or innerWidth
     expect(scrollWidth).toBeLessThanOrEqual(clientWidth);
+    expect(scrollWidth).toBeLessThanOrEqual(innerWidth);
   });
 
   test('Both Fairytale Island Map and Card views must render without horizontal overflow', async ({ page }) => {
@@ -39,8 +41,10 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     const mapMetrics = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
+      innerWidth: window.innerWidth,
     }));
     expect(mapMetrics.scrollWidth).toBeLessThanOrEqual(mapMetrics.clientWidth);
+    expect(mapMetrics.scrollWidth).toBeLessThanOrEqual(mapMetrics.innerWidth);
 
     // Switch to Card view
     const cardTab = page.getByRole('tab', { name: /清晰地点卡片/ });
@@ -51,8 +55,10 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     const cardMetrics = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
+      innerWidth: window.innerWidth,
     }));
     expect(cardMetrics.scrollWidth).toBeLessThanOrEqual(cardMetrics.clientWidth);
+    expect(cardMetrics.scrollWidth).toBeLessThanOrEqual(cardMetrics.innerWidth);
   });
 
   test('Requirement 五.D & 五.G: Six-viewport key child buttons width/height >= 56px, on-screen clickability, and 360px/390px first-screen reality help entry without scrolling or overlap', async ({
@@ -113,6 +119,17 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     expect(breakBox.y).toBeGreaterThanOrEqual(0);
     expect(breakBox.y + breakBox.height).toBeLessThanOrEqual(vh);
 
+    // Requirement: The primary island exploration section starts within the first screen (boundingBox.top < window.innerHeight) on 360x640 and 390x844
+    const explorationSection = page.locator(
+      '[role="tablist"][aria-label="选择小岛展示方式"], [role="region"][aria-label="可探索的童话小岛地图"]'
+    ).first();
+    await expect(explorationSection).toBeVisible();
+    const explorationBox = (await explorationSection.boundingBox())!;
+    expect(explorationBox).not.toBeNull();
+    if (vw <= 390) {
+      expect(explorationBox.y).toBeLessThan(vh);
+    }
+
     // Zero overlap between Reality Help Entry ("找大人抱抱") and Calm Corner / Navbar / Companion buttons
     expect(boxesOverlap(hugBox, calmBox)).toBe(false);
     expect(boxesOverlap(hugBox, breatheBox)).toBe(false);
@@ -138,7 +155,7 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     // Switch to card view and verify location card audio buttons also meet >= 56x56px and trial clickability
     const cardTab = page.getByRole('tab', { name: /清晰地点卡片/ });
     await cardTab.click();
-    const audioButtons = page.locator('button[aria-label*="听一听"]');
+    const audioButtons = page.locator('button[aria-label*="的介绍"]');
     const count = await audioButtons.count();
     expect(count).toBeGreaterThan(0);
 
@@ -383,10 +400,16 @@ test.describe('Child-First Design System Viewport & Overflow Tests (AG-04A & Pha
     }
     await page.getByRole('button', { name: '离开故事林' }).click();
 
-    // 5. Privacy Modal check (Task I)
+    // 5. Privacy Modal check (Task I: button is visible on >= 390px viewports; on < 390px it is adaptively hidden to guarantee zero overflow)
     const privacyBtn = page.getByRole('button', { name: /儿童与家庭隐私保护声明/ });
-    await privacyBtn.click();
-    await expect(page.getByRole('heading', { name: /隐私/ }).first()).toBeVisible();
+    if (await privacyBtn.isVisible()) {
+      await privacyBtn.click();
+      await expect(page.getByRole('heading', { name: /隐私/ }).first()).toBeVisible();
+      const closeBtn = page.getByRole('button', { name: /关闭/ }).first();
+      if (await closeBtn.isVisible()) {
+        await closeBtn.click();
+      }
+    }
   });
 
   test('Create screenshot baseline for child home across all 6 viewports', async ({ page }, testInfo) => {

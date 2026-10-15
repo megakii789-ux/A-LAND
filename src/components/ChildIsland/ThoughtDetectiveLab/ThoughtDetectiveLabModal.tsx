@@ -126,7 +126,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   sounds.playClick();
                   setIsBreakerOpen(true);
                 }}
-                className="min-h-[44px] px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black transition-all shadow-2xs flex items-center gap-1 cursor-pointer"
+                className="min-h-[48px] px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer"
                 aria-label="打开大困难拆解台"
               >
                 <span>🔨 大困难拆解台</span>
@@ -336,9 +336,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </h4>
                   <button
                     onClick={() => handleSpeak("小旗子：挂在事上的要清楚，比如打人不可以；挂在人身上的可以摘下来，比如他是坏孩子只是一个标签。")}
-                    className="p-1 text-amber-700 hover:bg-amber-100 rounded-md"
+                    className="min-w-[48px] min-h-[48px] p-2 text-amber-700 hover:bg-amber-100 rounded-xl flex items-center justify-center cursor-pointer"
+                    aria-label="听一听小旗子工具说明"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -379,7 +380,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                         sounds.playBell();
                         setPersonFlagRemoved(!personFlagRemoved);
                       }}
-                      className="mt-2 px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
+                      className="mt-2 min-h-[48px] px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center justify-center cursor-pointer"
                     >
                       {personFlagRemoved ? '重新贴上看看对比' : '点我把标签旗子摘下来！'}
                     </button>
@@ -398,9 +399,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </h4>
                   <button
                     onClick={() => handleSpeak("三个镜头：我的眼睛、他的眼睛、天上的眼睛。点一下切换，把镜头拉到天上看看自己！")}
-                    className="p-1 text-sky-700 hover:bg-sky-100 rounded-md"
+                    className="min-w-[48px] min-h-[48px] p-2 text-sky-700 hover:bg-sky-100 rounded-xl flex items-center justify-center cursor-pointer"
+                    aria-label="听一听三个镜头工具说明"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -410,7 +412,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                       sounds.playClick();
                       setCurrentLens('my');
                     }}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`min-h-[48px] p-3 rounded-xl border text-center transition-all cursor-pointer ${
                       currentLens === 'my'
                         ? 'bg-sky-100 border-sky-400 text-sky-900 font-bold'
                         : 'bg-stone-50 border-stone-200 text-stone-600'
@@ -425,7 +427,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                       sounds.playClick();
                       setCurrentLens('his');
                     }}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`min-h-[48px] p-3 rounded-xl border text-center transition-all cursor-pointer ${
                       currentLens === 'his'
                         ? 'bg-emerald-100 border-emerald-400 text-emerald-900 font-bold'
                         : 'bg-stone-50 border-stone-200 text-stone-600'
@@ -440,7 +442,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                       sounds.playBell();
                       setCurrentLens('sky');
                     }}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`min-h-[48px] p-3 rounded-xl border text-center transition-all cursor-pointer ${
                       currentLens === 'sky'
                         ? 'bg-amber-100 border-amber-400 text-amber-900 font-bold'
                         : 'bg-stone-50 border-stone-200 text-stone-600'
@@ -486,9 +488,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </h4>
                   <button
                     onClick={() => handleSpeak("双面币：翻翻看！只问对谁好、对谁不好、什么时候，不问可不可以。")}
-                    className="p-1 text-emerald-700 hover:bg-emerald-100 rounded-md"
+                    className="min-w-[48px] min-h-[48px] p-2 text-emerald-700 hover:bg-emerald-100 rounded-xl flex items-center justify-center cursor-pointer"
+                    aria-label="听一听双面币工具说明"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -498,7 +501,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                       sounds.playCoinFlip();
                       setCoinSide(coinSide === 'front' ? 'back' : 'front');
                     }}
-                    className="w-28 h-28 rounded-full bg-linear-to-tr from-amber-400 via-amber-200 to-yellow-300 border-4 border-amber-500 shadow-lg flex flex-col items-center justify-center p-2 text-center transform hover:scale-105 active:rotate-180 transition-all duration-300"
+                    className="w-28 h-28 rounded-full bg-linear-to-tr from-amber-400 via-amber-200 to-yellow-300 border-4 border-amber-500 shadow-lg flex flex-col items-center justify-center p-2 text-center transform hover:scale-105 active:rotate-180 transition-all duration-300 cursor-pointer"
                   >
                     <span className="text-xs font-bold text-amber-900">
                       {coinSide === 'front' ? '正面 (下雨天)' : '反面 (下雨天)'}
@@ -535,9 +538,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </h4>
                   <button
                     onClick={() => handleSpeak("小天平：把不同的做法放上去，看各自的好处与代价。自己选，自己担。")}
-                    className="p-1 text-purple-700 hover:bg-purple-100 rounded-md"
+                    className="min-w-[48px] min-h-[48px] p-2 text-purple-700 hover:bg-purple-100 rounded-xl flex items-center justify-center cursor-pointer"
+                    aria-label="听一听小天平工具说明"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -567,9 +571,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </h4>
                   <button
                     onClick={() => handleSpeak("围栏里的事不上天平，直接说不！伤害身体、骗人害人、碰私处，一定要告诉信任的大人！")}
-                    className="p-1 text-rose-700 hover:bg-rose-100 rounded-md"
+                    className="min-w-[48px] min-h-[48px] p-2 text-rose-700 hover:bg-rose-100 rounded-xl flex items-center justify-center cursor-pointer"
+                    aria-label="听一听安全围栏说明"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -600,10 +605,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               </div>
               <button
                 onClick={() => handleSpeak("把卡片分进三个盒子：看得见的、心里的、脑子猜的。")}
-                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer"
                 aria-label="朗读三个分类盒子说明"
               >
-                <Volume2 className="w-4 h-4" />
+                <Volume2 className="w-5 h-5" />
               </button>
             </div>
 
@@ -649,7 +654,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   <div className="flex flex-wrap gap-1.5 w-full sm:w-auto shrink-0">
                     <button
                       onClick={() => handlePlaceBox(item.id, 'visible')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3.5 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'visible'
                           ? 'bg-emerald-600 text-white border-emerald-700'
                           : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
@@ -659,7 +664,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceBox(item.id, 'heart')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3.5 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'heart'
                           ? 'bg-rose-600 text-white border-rose-700'
                           : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
@@ -669,7 +674,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceBox(item.id, 'guess')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3.5 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'guess'
                           ? 'bg-amber-600 text-white border-amber-700'
                           : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
@@ -694,10 +699,10 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
               </div>
               <button
                 onClick={() => handleSpeak("责任圈：大人的事归大人管，我的事归我管，一起商量的事大家坐下来谈。")}
-                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="p-2 text-sky-700 hover:bg-sky-50 rounded-xl min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer"
                 aria-label="朗读责任圈拼图说明"
               >
-                <Volume2 className="w-4 h-4" />
+                <Volume2 className="w-5 h-5" />
               </button>
             </div>
 
@@ -732,7 +737,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                   <div className="flex flex-wrap gap-1.5 w-full sm:w-auto shrink-0">
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'adult')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'adult'
                           ? 'bg-purple-600 text-white border-purple-700'
                           : 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100'
@@ -742,7 +747,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'mine')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'mine'
                           ? 'bg-amber-600 text-white border-amber-700'
                           : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
@@ -752,7 +757,7 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                     </button>
                     <button
                       onClick={() => handlePlaceCircle(item.id, 'together')}
-                      className={`min-h-[44px] flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                      className={`min-h-[48px] flex-1 sm:flex-none px-3 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                         item.placed === 'together'
                           ? 'bg-teal-600 text-white border-teal-700'
                           : 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100'

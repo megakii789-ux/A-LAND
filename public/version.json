@@ -1,18 +1,29 @@
 {
   "project": "qingyu-island-preview",
   "repository": "megakii789-ux/A-LAND",
+  "metadataKind": "GIT_COMMIT_TEMPLATE",
   "branch": "preview",
   "productionHoldBranch": "public-hold",
-  "commitSha": "04a18efe5ed996c3969ff4b584883a1116bc80a7",
-  "shortCommitSha": "04a18efe5ed9",
-  "deploymentTimestamp": "2026-10-14T14:51:06.274Z",
-  "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
+  "commitSha": "RESOLVED_AT_BUILD_TIME_VIA_CF_PAGES_OR_GITHUB_SHA",
+  "shortCommitSha": "TEMPLATE",
+  "commitIdentitySource": "CF_PAGES_COMMIT_SHA | GITHUB_SHA | GIT_HEAD",
+  "deploymentTimestamp": null,
+  "buildStatus": "TEMPLATE_PENDING_GATE_VERIFICATION",
   "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
   "contentAuditSummary": {
+    "evaluationMethod": "RUNTIME_REGISTRY_EXECUTION",
+    "totalRegisteredItems": 16,
     "pendingReviewCount": 16,
     "passedCount": 0,
+    "rejectedOrRevokedCount": 0,
+    "renderableInChildModeCount": 0,
+    "riskTierBreakdown": {
+      "LOW_EXPLORATION": 7,
+      "MEDIUM_FAMILY_PEER_PRIVACY": 7,
+      "HIGH_SAFETY_CRISIS": 2
+    },
     "defaultChildModePolicy": "FAIL_CLOSED_BLOCK_UNAPPROVED"
   },
   "remoteHelpRelayStatus": "FAIL_CLOSED_503",
@@ -30,6 +41,5 @@
     "typescript": "7.0.2",
     "vitest": "5.0.4",
     "esbuild": "0.28.2"
-  },
-  "updatedAt": "2026-10-14T14:51:06.274Z"
+  }
 }

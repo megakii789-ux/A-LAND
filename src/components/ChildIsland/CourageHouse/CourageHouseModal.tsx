@@ -62,7 +62,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
       <div className="bg-rose-50/95 border border-rose-200 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-rose-100 transition-colors z-20"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center text-stone-400 hover:text-stone-600 rounded-full hover:bg-rose-100 transition-colors z-20 cursor-pointer"
           aria-label="离开勇气说话屋"
         >
           <X className="w-5 h-5" />
@@ -80,7 +80,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               </h3>
               <button
                 onClick={() => handleSpeak("勇气说话屋：学说三句话，搭好句式积木，有话可以说，也可以说不。保护自己的身体和心！")}
-                className="p-2 rounded-xl text-rose-700 hover:bg-rose-100 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-rose-700 hover:bg-rose-100 min-w-[48px] min-h-[48px] flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="听一听勇气说话屋介绍"
               >
                 <Volume2 className="w-5 h-5" />
@@ -121,7 +121,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={() => setIsFriendAsksGameOpen(false)}
-                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="min-h-[48px] px-4 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 ← 返回勇气说话屋
               </button>
@@ -137,7 +137,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('toolbox');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'toolbox'
                 ? 'bg-white text-rose-900 shadow-sm border border-rose-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -152,7 +152,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('rooms');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'rooms'
                 ? 'bg-white text-rose-900 shadow-sm border border-rose-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -167,7 +167,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('blocks');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'blocks'
                 ? 'bg-white text-rose-900 shadow-sm border border-rose-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -182,7 +182,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('secretBox');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'secretBox'
                 ? 'bg-white text-rose-900 shadow-sm border border-rose-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -268,7 +268,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         e.stopPropagation();
                         handleSpeak(item.text);
                       }}
-                      className="p-2 rounded-xl text-rose-700 hover:bg-rose-100 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors cursor-pointer"
+                      className="p-2 rounded-xl text-rose-700 hover:bg-rose-100 min-w-[48px] min-h-[48px] flex items-center justify-center transition-colors cursor-pointer"
                       aria-label={`朗读句子：${item.text}`}
                     >
                       <Volume2 className="w-5 h-5" />
@@ -354,7 +354,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     </span>
                     <button
                       onClick={() => handleSpeak("客厅里的信息：我的名字、我爱吃草莓蛋糕、我喜欢搭积木。谁都可以知道！")}
-                      className="p-1.5 text-stone-600 hover:text-stone-900"
+                      className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-stone-600 hover:text-stone-900 rounded-xl cursor-pointer"
                       aria-label="朗读客厅信息"
                     >
                       <Volume2 className="w-5 h-5" />
@@ -373,7 +373,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     </span>
                     <button
                       onClick={() => handleSpeak("卧室里的信息：我有点怕黑、我有两套喜爱的拼图玩具。关系很好的好朋友可以知道。")}
-                      className="p-1.5 text-stone-600 hover:text-stone-900"
+                      className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-stone-600 hover:text-stone-900 rounded-xl cursor-pointer"
                       aria-label="朗读卧室信息"
                     >
                       <Volume2 className="w-5 h-5" />
@@ -392,7 +392,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     </span>
                     <button
                       onClick={() => handleSpeak("家人房里的信息：两个家里的秘密小事、大人的安排。只留给家人和真正信任的人知道。")}
-                      className="p-1.5 text-stone-600 hover:text-stone-900"
+                      className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-stone-600 hover:text-stone-900 rounded-xl cursor-pointer"
                       aria-label="朗读家人房信息"
                     >
                       <Volume2 className="w-5 h-5" />
@@ -413,7 +413,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                       sounds.playClick();
                       setBodyTension('relaxed');
                     }}
-                    className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-sm font-black border transition-all cursor-pointer ${
+                    className={`min-h-[48px] px-4 py-2 rounded-xl text-sm font-black border transition-all cursor-pointer ${
                       bodyTension === 'relaxed'
                         ? 'bg-emerald-100 text-emerald-900 border-emerald-400 ring-2 ring-emerald-200'
                         : 'bg-stone-50 border-stone-200 text-stone-700'
@@ -427,7 +427,7 @@ export const CourageHouseModal: React.FC<Props> = ({ isOpen, onClose }) => {
                       sounds.playClick();
                       setBodyTension('tight');
                     }}
-                    className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-sm font-black border transition-all cursor-pointer ${
+                    className={`min-h-[48px] px-4 py-2 rounded-xl text-sm font-black border transition-all cursor-pointer ${
                       bodyTension === 'tight'
                         ? 'bg-amber-100 text-amber-900 border-amber-400 ring-2 ring-amber-200'
                         : 'bg-stone-50 border-stone-200 text-stone-700'

@@ -143,7 +143,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={toggleMute}
-              className="p-2.5 rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-800 transition-colors"
+              className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-800 transition-colors cursor-pointer"
               title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
               aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
             >
@@ -151,7 +151,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
             </button>
             <button
               onClick={onClose}
-              className="p-2.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-teal-100/60 transition-colors"
+              className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl text-stone-400 hover:text-stone-700 hover:bg-teal-100/60 transition-colors cursor-pointer"
               aria-label="关闭冷静空间，返回主页"
             >
               <X className="w-6 h-6" />
@@ -184,7 +184,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={theme === item.id}
               aria-label={`切换呼吸引导主题为：${item.label}，${item.desc}${theme === item.id ? '（当前正在使用）' : ''}`}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 min-h-[48px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 theme === item.id
                   ? 'bg-white text-teal-900 shadow-sm border border-teal-200'
                   : 'text-stone-600 hover:text-stone-900'
@@ -204,7 +204,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               sounds.playClick();
               setIsPaused(!isPaused);
             }}
-            className="absolute top-4 right-4 px-3 py-1.5 rounded-xl border border-teal-200 bg-teal-50 text-teal-800 text-xs font-bold flex items-center gap-1.5 hover:bg-teal-100 transition-colors"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 min-h-[48px] px-3.5 py-2 rounded-xl border border-teal-200 bg-teal-50 text-teal-800 text-xs font-bold flex items-center gap-1.5 hover:bg-teal-100 transition-colors cursor-pointer"
             aria-pressed={isPaused}
             aria-label={isPaused ? '继续呼吸引导节律动画与声音' : '暂停呼吸引导节律动画与声音'}
           >
@@ -223,7 +223,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               <span aria-live="polite" aria-atomic="true">{getPhaseText()}</span>
               <button
                 onClick={() => handleSpeakGuidance(getPhaseText())}
-                className="p-1 text-teal-700 hover:text-teal-900"
+                className="min-w-[48px] min-h-[48px] p-2 text-teal-700 hover:text-teal-900 flex items-center justify-center rounded-lg cursor-pointer"
                 aria-label={`通过语音朗读当前呼吸引导提示：${getPhaseText()}`}
               >
                 <Volume2 className="w-5 h-5" />
@@ -252,7 +252,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.red}
               aria-label={groundingColors.red ? '红色物品感知练习：已标记找到红色的东西，点击可取消' : '红色物品感知练习：请在周围房间里找到一件红色的东西，找到后点击'}
-              className={`p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.red
                   ? 'bg-rose-100 border-rose-400 text-rose-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-rose-50/50'
@@ -269,7 +269,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.yellow}
               aria-label={groundingColors.yellow ? '黄色物品感知练习：已标记找到黄色的东西，点击可取消' : '黄色物品感知练习：请在周围房间里找到一件黄色的东西，找到后点击'}
-              className={`p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.yellow
                   ? 'bg-amber-100 border-amber-400 text-amber-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-amber-50/50'
@@ -286,7 +286,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.blue}
               aria-label={groundingColors.blue ? '蓝色物品感知练习：已标记找到蓝色的东西，点击可取消' : '蓝色物品感知练习：请在周围房间里找到一件蓝色的东西，找到后点击'}
-              className={`p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.blue
                   ? 'bg-sky-100 border-sky-400 text-sky-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-sky-50/50'
@@ -311,7 +311,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
                 sounds.playClick();
                 setShowAdultTips(!showAdultTips);
               }}
-              className="text-xs text-teal-700 hover:text-teal-900 font-bold px-2 py-1 rounded-lg hover:bg-teal-100/50 transition-colors"
+              className="min-h-[48px] text-xs text-teal-700 hover:text-teal-900 font-bold px-3 py-2 rounded-lg hover:bg-teal-100/50 transition-colors cursor-pointer flex items-center"
               aria-expanded={showAdultTips}
               aria-label={showAdultTips ? '收起给身旁大人的共同调节卡陪伴建议' : '展开查看给身旁大人的共同调节卡陪伴建议'}
             >

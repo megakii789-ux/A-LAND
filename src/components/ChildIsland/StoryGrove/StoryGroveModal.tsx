@@ -240,7 +240,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
             <div className="flex items-center justify-between pr-12">
               <button
                 onClick={handleReturnToCatalog}
-                className="min-h-[44px] px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1 border border-amber-200 cursor-pointer"
+                className="min-h-[48px] px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" /> 返回叶子目录
               </button>
@@ -292,7 +292,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 <button
                   type="button"
                   onClick={handleRequestAdultReview}
-                  className="min-h-[44px] px-4 py-2 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
+                  className="min-h-[48px] px-4 py-2.5 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
                 >
                   🔒 家长 / 审阅人验证后预览（需输入家长 PIN）
                 </button>
@@ -307,7 +307,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
             <div className="flex items-center justify-between pr-12">
               <button
                 onClick={handleReturnToCatalog}
-                className="min-h-[44px] px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1 border border-amber-200 cursor-pointer"
+                className="min-h-[48px] px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" /> 返回叶子目录
               </button>
@@ -341,10 +341,10 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     <span>{currentLeaf.title}</span>
                     <button
                       onClick={() => handleSpeak(currentLeaf.summary)}
-                      className="p-2 rounded-xl text-amber-700 hover:bg-amber-100 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                      className="p-2 rounded-xl text-amber-700 hover:bg-amber-100 min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer"
                       aria-label="朗读故事概述"
                     >
-                      <Volume2 className="w-4 h-4" />
+                      <Volume2 className="w-5 h-5" />
                     </button>
                   </h3>
                   <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2 font-medium">
@@ -437,7 +437,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       sounds.playClick();
                       setWalkSubStep(stepName);
                     }}
-                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                    className={`min-h-[48px] px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center justify-center cursor-pointer ${
                       walkSubStep === stepName
                         ? 'bg-amber-700 text-white shadow-xs'
                         : 'bg-white text-stone-500 border border-stone-200'
@@ -458,9 +458,10 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   </span>
                   <button
                     onClick={() => handleSpeak("分一分：哪些是真正看见的事实，哪些只是脑子里的猜测？")}
-                    className="p-1 text-sky-700"
+                    className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-sky-700 hover:bg-sky-100 rounded-xl cursor-pointer"
+                    aria-label="听一听分一分提示"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -496,9 +497,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       sounds.playClick();
                       setWalkSubStep('tong');
                     }}
-                    className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs"
+                    className="min-h-[48px] px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs cursor-pointer"
                   >
-                    去换一换镜头 <ArrowRight className="w-3.5 h-3.5" />
+                    <span>去换一换镜头</span> <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -513,9 +514,10 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   </span>
                   <button
                     onClick={() => handleSpeak(hasBoundaryConflict ? "他可能有原因，但打人和伤害身体绝对不可以。" : "换一换：站在不同的眼睛看，或者翻过双面币看看另一面！")}
-                    className="p-1 text-emerald-700"
+                    className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-emerald-700 hover:bg-emerald-100 rounded-xl cursor-pointer"
+                    aria-label="听一听换一换提示"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -576,18 +578,18 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 <div className="flex justify-between pt-3">
                   <button
                     onClick={() => setWalkSubStep('fen')}
-                    className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                    className="min-h-[48px] px-3.5 py-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-stone-800 flex items-center gap-1.5 rounded-xl cursor-pointer"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" /> 回到分一分
+                    <ArrowLeft className="w-4 h-4" /> 回到分一分
                   </button>
                   <button
                     onClick={() => {
                       sounds.playClick();
                       setWalkSubStep('ze');
                     }}
-                    className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs"
+                    className="min-h-[48px] px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs cursor-pointer"
                   >
-                    去小天平掂一掂 <ArrowRight className="w-3.5 h-3.5" />
+                    <span>去小天平掂一掂</span> <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -602,9 +604,10 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   </span>
                   <button
                     onClick={() => handleSpeak(hasBoundaryConflict ? "后退保护身体，大声说停，走向安全大人求助。" : "在小天平上掂量：每种做法都有好处和需要付出的代价，没有全对全错。")}
-                    className="p-1 text-amber-800"
+                    className="min-w-[48px] min-h-[48px] p-2 flex items-center justify-center text-amber-800 hover:bg-amber-100 rounded-xl cursor-pointer"
+                    aria-label="听一听掂一掂提示"
                   >
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-5 h-5" />
                   </button>
                 </div>
 
@@ -680,18 +683,18 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 <div className="flex justify-between pt-3">
                   <button
                     onClick={() => setWalkSubStep('tong')}
-                    className="text-xs text-stone-500 hover:text-stone-700 flex items-center gap-1"
+                    className="min-h-[48px] px-3.5 py-2 text-xs sm:text-sm font-bold text-stone-600 hover:text-stone-800 flex items-center gap-1.5 rounded-xl cursor-pointer"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" /> 回到换一换
+                    <ArrowLeft className="w-4 h-4" /> 回到换一换
                   </button>
                   <button
                     onClick={() => {
                       sounds.playBell();
                       setStage('choose');
                     }}
-                    className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md"
+                    className="min-h-[56px] px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
                   >
-                    走完一圈了，我自己来选！ <ArrowRight className="w-3.5 h-3.5" />
+                    <span>走完一圈了，我自己来选！</span> <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -764,9 +767,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   markLeafComplete(currentLeaf.id, customQuote);
                   setStage('offscreen');
                 }}
-                className="px-8 py-3 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white rounded-2xl text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-2"
+                className="min-h-[56px] px-8 py-3.5 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white rounded-2xl text-xs sm:text-base font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
               >
-                按下“我选这个”并看离屏任务 <ArrowRight className="w-4 h-4" />
+                <span>按下“我选这个”并看离屏任务</span> <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -815,9 +818,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   sounds.playClick();
                   setStage('compare');
                 }}
-                className="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full min-h-[56px] py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-2xl text-xs sm:text-base shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                我试好啦，去“回头比一比”两件事哪里像 <ArrowRight className="w-4 h-4" />
+                <span>我试好啦，去“回头比一比”两件事哪里像</span> <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -858,7 +861,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   sounds.playBell();
                   setCompareAnswered(true);
                 }}
-                className={`w-full p-3 rounded-xl border text-xs sm:text-sm text-left transition-all ${
+                className={`w-full min-h-[48px] p-3 rounded-xl border text-xs sm:text-sm text-left transition-all cursor-pointer ${
                   compareAnswered
                     ? 'bg-emerald-100 border-emerald-400 text-emerald-900 font-bold'
                     : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
@@ -880,13 +883,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
             <div className="flex gap-3 pt-2">
               <button
                 onClick={handleReturnToCatalog}
-                className="flex-1 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl text-xs transition-colors"
+                className="flex-1 min-h-[48px] py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl text-xs sm:text-sm transition-colors cursor-pointer flex items-center justify-center"
               >
                 看其他故事叶
               </button>
               <button
                 onClick={handleCloseStoryGrove}
-                className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs shadow-md transition-all"
+                className="flex-1 min-h-[56px] py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-md transition-all cursor-pointer flex items-center justify-center"
               >
                 完成本次探索，回小岛
               </button>

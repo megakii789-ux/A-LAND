@@ -95,15 +95,24 @@ describe('Gate D3, D4 & D6: Cloudflare Pages Static & Functions Security Adapter
     const scriptContent = fs.readFileSync(rollbackScriptPath, 'utf-8');
     // Must not default TARGET_SHA to f8c74019
     expect(scriptContent).not.toContain('TARGET_SHA="f8c74019');
+    // D7-01: Must NOT rely on `if ! run_post_rollback_gate` which disables `set -e` inside the function
+    expect(scriptContent).not.toContain('if ! run_post_rollback_gate');
+    // D7-03: Must NOT amend version.json into the same commit
+    expect(scriptContent).not.toContain('commit --amend');
     // Must check working tree cleanliness before rollback
     expect(scriptContent).toContain('status --porcelain');
-    // Must re-run quality gate before pushing
-    expect(scriptContent).toContain('tsc --noEmit');
-    expect(scriptContent).toContain('vitest run');
-    expect(scriptContent).toContain('vite build');
+    // Must explicitly check step_rc for each gate step before pushing
+    expect(scriptContent).toContain('[GATE-FAIL] Step 1/4 TypeScript');
+    expect(scriptContent).toContain('[GATE-FAIL] Step 2/4 Vitest');
+    expect(scriptContent).toContain('[GATE-FAIL] Step 3/4 Pages /api/* 503');
+    expect(scriptContent).toContain('[GATE-FAIL] Step 4/4 Vite');
   });
 
-  it('D6-04: public/_headers and public/version.json enforce no-store on SW/HTML and carry real commit provenance', () => {
+  it('D6-04 & D7-03: Separates GIT_COMMIT_TEMPLATE (public/version.json) from RUNTIME_DEPLOYMENT_METADATA, requires --gates-passed, and evaluates ContentAuditRegistry at runtime', async () => {
+    const { execSync } = await import('child_process');
+    const { ContentAuditRegistry } = await import('../../src/domain/cognitive/ContentAuditRegistry');
+    const os = await import('os');
+
     const headersPath = path.resolve(process.cwd(), 'public/_headers');
     expect(fs.existsSync(headersPath)).toBe(true);
     const headersContent = fs.readFileSync(headersPath, 'utf-8');
@@ -111,20 +120,91 @@ describe('Gate D3, D4 & D6: Cloudflare Pages Static & Functions Security Adapter
     expect(headersContent).toContain('X-Content-Type-Options: nosniff');
     expect(headersContent).toContain('/sw.js');
 
+    // 1. Verify Git-tracked public/version.json is a clean template without stale commitSha
     const versionPath = path.resolve(process.cwd(), 'public/version.json');
     expect(fs.existsSync(versionPath)).toBe(true);
-    const versionData = JSON.parse(fs.readFileSync(versionPath, 'utf-8'));
-    expect(versionData.releaseGateStatus).toBe('ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED');
-    expect(versionData.releaseApprovalStatus).toBe('ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED');
-    expect(versionData.contentAuditGate).toBe('FAIL_CLOSED_PENDING_AUDIT');
-    expect(versionData.buildStatus).toBe('VERIFIED_QUALITY_GATE_PASSED');
-    expect(versionData.commitSha).toMatch(/^[0-9a-f]{40}$/i);
-    expect(versionData.deploymentTimestamp).toBeTruthy();
-    expect(versionData.rollbackPolicy).toBe('WHITELIST_ONLY_F8C74019_REVOKED');
-    expect(versionData.rollbackTargetSha).not.toBe('f8c7401907b3fe5831c343b995b777254fdfe45d');
-    expect(versionData.remoteRelayEnabled).toBe(false);
-    expect(versionData.cloudSyncEnabled).toBe(false);
-    expect(versionData.branch).toBe('preview');
+    const templateData = JSON.parse(fs.readFileSync(versionPath, 'utf-8'));
+    expect(templateData.metadataKind).toBe('GIT_COMMIT_TEMPLATE');
+    expect(templateData.buildStatus).toBe('TEMPLATE_PENDING_GATE_VERIFICATION');
+    expect(templateData.commitSha).toBe('RESOLVED_AT_BUILD_TIME_VIA_CF_PAGES_OR_GITHUB_SHA');
+    expect(templateData.releaseGateStatus).toBe('ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED');
+    expect(templateData.releaseApprovalStatus).toBe('ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED');
+    expect(templateData.contentAuditGate).toBe('FAIL_CLOSED_PENDING_AUDIT');
+    expect(templateData.contentAuditSummary.evaluationMethod).toBe('RUNTIME_REGISTRY_EXECUTION');
+    expect(templateData.contentAuditSummary.totalRegisteredItems).toBe(ContentAuditRegistry.getAllRecords().length);
+    expect(templateData.contentAuditSummary.pendingReviewCount).toBe(16);
+    expect(templateData.contentAuditSummary.passedCount).toBe(0);
+    expect(templateData.contentAuditSummary.renderableInChildModeCount).toBe(0);
+    expect(templateData.rollbackPolicy).toBe('WHITELIST_ONLY_F8C74019_REVOKED');
+    expect(templateData.rollbackTargetSha).not.toBe('f8c7401907b3fe5831c343b995b777254fdfe45d');
+
+    // 2. Verify --mode runtime WITHOUT --gates-passed is rejected (cannot mark build passed before gates run)
+    let rejectedWithoutGates = false;
+    try {
+      execSync('node scripts/generate-version-json.mjs --mode runtime', { stdio: 'pipe' });
+    } catch {
+      rejectedWithoutGates = true;
+    }
+    expect(rejectedWithoutGates).toBe(true);
+
+    // 3. Verify --mode runtime --gates-passed resolves exact CF_PAGES_COMMIT_SHA / GITHUB_SHA
+    const tmpOut = path.join(os.tmpdir(), `d7-runtime-version-${Date.now()}.json`);
+    const testSha = '55ef145ab5fe9cd9a55363e450320834943cf7e3';
+    execSync(`node scripts/generate-version-json.mjs --mode runtime --gates-passed --out "${tmpOut}"`, {
+      env: { ...process.env, CF_PAGES_COMMIT_SHA: testSha },
+      stdio: 'pipe',
+    });
+    const runtimeData = JSON.parse(fs.readFileSync(tmpOut, 'utf-8'));
+    fs.unlinkSync(tmpOut);
+
+    expect(runtimeData.metadataKind).toBe('RUNTIME_DEPLOYMENT_METADATA');
+    expect(runtimeData.commitSha).toBe(testSha);
+    expect(runtimeData.commitIdentitySource).toBe('CF_PAGES_COMMIT_SHA');
+    expect(runtimeData.buildStatus).toBe('VERIFIED_QUALITY_GATE_PASSED');
+    expect(runtimeData.deploymentTimestamp).toBeTruthy();
+    expect(runtimeData.contentAuditSummary.evaluationMethod).toBe('RUNTIME_REGISTRY_EXECUTION');
+    expect(runtimeData.contentAuditSummary.totalRegisteredItems).toBe(16);
+  });
+
+  it('D7-04: DebouncedGatedSyncController coalesces rapid file saves and blocks preview push on gate failure', async () => {
+    // @ts-ignore
+    const { DebouncedGatedSyncController } = await import('../../scripts/watch-and-sync-preview.mjs');
+    const executedBatches: string[][] = [];
+    let nextExitCode = 0;
+
+    const controller = new DebouncedGatedSyncController({
+      debounceMs: 30,
+      onLog: () => {},
+      executor: async (files: string[]) => {
+        executedBatches.push(files);
+        return { exitCode: nextExitCode };
+      },
+    });
+
+    // Ignored paths must not trigger debounce timer
+    expect(controller.recordFileChange('dist/index.html')).toBe(false);
+    expect(controller.recordFileChange('node_modules/vite/index.js')).toBe(false);
+    expect(controller.recordFileChange('.git/HEAD')).toBe(false);
+
+    // Rapid consecutive file saves must coalesce into 1 single batch after debounce window
+    expect(controller.recordFileChange('src/App.tsx')).toBe(true);
+    expect(controller.recordFileChange('src/main.tsx')).toBe(true);
+    expect(controller.recordFileChange('functions/api/[[path]].ts')).toBe(true);
+
+    expect(executedBatches.length).toBe(0);
+    await new Promise((r) => setTimeout(r, 60));
+    expect(executedBatches.length).toBe(1);
+    expect(executedBatches[0]).toEqual(['src/App.tsx', 'src/main.tsx', 'functions/api/[[path]].ts']);
+    expect(controller.completedRuns.length).toBe(1);
+    expect(controller.rejectedRuns.length).toBe(0);
+
+    // Gate failure must record rejected run and block deployment
+    nextExitCode = 1;
+    controller.recordFileChange('src/broken.ts');
+    await new Promise((r) => setTimeout(r, 60));
+    expect(controller.completedRuns.length).toBe(1);
+    expect(controller.rejectedRuns.length).toBe(1);
+    expect(controller.rejectedRuns[0].exitCode).toBe(1);
   });
 
   it('D6-03: public/sw.js disables private preview HTML offline cache and blocks offline restoration after Access session expiry', async () => {

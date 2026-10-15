@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import {
   cleanAndSegmentText,
+  cleanAndSegmentNaturalSentences,
   scoreAndCategorizeVoice,
   computeSegmentProsody,
   VOICE_PROFILES,
@@ -342,5 +343,60 @@ describe('Speech System Voice Optimization & Web Audio API Timbre Modulation Con
       expect(notifyCount).toBeGreaterThan(0);
       unsubscribe();
     });
+
+    it('CONTRACT: Preserves sentence-ending punctuation (?, !, 。) in cleanAndSegmentNaturalSentences to eliminate flat AI splicing', () => {
+      const sentences = cleanAndSegmentNaturalSentences(
+        '我看到你的积木倒了，心里有点难过对吗？（设计师注：共情）这很正常，大人也会这样！'
+      );
+      expect(sentences.length).toBe(2);
+      expect(sentences[0]).toBe('我看到你的积木倒了，心里有点难过对吗？');
+      expect(sentences[1]).toBe('这很正常，大人也会这样！');
+    });
+
+    it('CONTRACT: Resolves pre-baked studio Neural TTS entries with millisecond WordBoundary timestamps for all 4 companions', () => {
+      const guoguoEntry = speechNarrator.findPrebakedEntry(
+        '你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！',
+        'playful-buddy'
+      );
+      expect(guoguoEntry).not.toBeNull();
+      expect(guoguoEntry?.voiceName).toBe('zh-CN-XiaoyiNeural');
+      expect(guoguoEntry?.boundaries.length).toBeGreaterThan(10);
+
+      const beibeiEntry = speechNarrator.findPrebakedEntry(
+        '你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。',
+        'warm-sister'
+      );
+      expect(beibeiEntry).not.toBeNull();
+      expect(beibeiEntry?.voiceName).toBe('zh-CN-XiaoxiaoNeural');
+      expect(beibeiEntry?.boundaries.length).toBeGreaterThan(10);
+    });
+
+    it('CONTRACT: Synchronizes companion persona to voice profile and populates Karaoke word tokens on speak()', () => {
+      speechNarrator.syncWithCompanion('guoguo_squirrel');
+      expect(speechNarrator.getProfile()).toBe('playful-buddy');
+      expect(sounds.getTemplate()).toBe('playful-buddy');
+
+      speechNarrator.syncWithCompanion('beibei_otter');
+      expect(speechNarrator.getProfile()).toBe('warm-sister');
+
+      speechNarrator.speak('你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。');
+      const karaoke = speechNarrator.getKaraokeState();
+      expect(karaoke.isPrebakedNeural).toBe(true);
+      expect(karaoke.tokens.length).toBeGreaterThan(10);
+      expect(karaoke.voiceSourceLabel).toContain('贝贝');
+      speechNarrator.stop();
+    });
+
+    it('CONTRACT: Executes all 8 Tactile Semantic Sound Matrix methods safely without node leak', () => {
+      expect(() => sounds.playTap()).not.toThrow();
+      expect(() => sounds.playCardSelect()).not.toThrow();
+      expect(() => sounds.playModalOpen()).not.toThrow();
+      expect(() => sounds.playModalClose()).not.toThrow();
+      expect(() => sounds.playDiscoveryChime()).not.toThrow();
+      expect(() => sounds.playCoinFlip()).not.toThrow();
+      expect(() => sounds.playBreathe(true)).not.toThrow();
+      expect(() => sounds.playBreathe(false)).not.toThrow();
+    });
   });
 });
+

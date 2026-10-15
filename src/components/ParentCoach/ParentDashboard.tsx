@@ -7,7 +7,6 @@ import {
   Activity,
   ShieldAlert,
   Heart,
-  Volume2,
   PhoneCall,
   CheckCircle2,
   Info,
@@ -22,7 +21,6 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { sounds } from '../../utils/sound';
 import { INITIAL_PARENT_SCRIPTS, INITIAL_WEEKLY_LESSONS } from '../../data/mockData';
 import { PrivacyDeclarationModal } from '../Privacy/PrivacyDeclarationModal';
 import { WeeklyReportView } from './WeeklyReportView';
@@ -32,7 +30,6 @@ import { CaregiverHugInbox } from './CaregiverHugInbox';
 import { GrowthObservationLog } from './GrowthObservationLog';
 import { ParentingPocketTips } from './ParentingPocketTips';
 import { ParentMedalsWall } from './ParentMedalsWall';
-import { VoiceSystemAuditionModal } from './VoiceSystemAuditionModal';
 import { CognitiveDevelopmentEncyclopedia } from './CognitiveDevelopmentEncyclopedia';
 import { INITIAL_PARENT_MEDALS, calculateParentMedals } from '../../data/parentMedalsData';
 import { ParentMedal } from '../../types';
@@ -58,7 +55,6 @@ export const ParentDashboard: React.FC = () => {
   const [selectedScriptId, setSelectedScriptId] = useState<string>('script-reunite');
   const [completedWeeklyAction, setCompletedWeeklyAction] = useState<boolean>(false);
   const [isDriveOpen, setIsDriveOpen] = useState<boolean>(false);
-  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState<boolean>(false);
 
   // Weekly Report State
   const [weeklyReport, setWeeklyReport] = useState<WeeklyReportData>(() =>
@@ -77,7 +73,6 @@ export const ParentDashboard: React.FC = () => {
   // SEC-07: 基于端侧客观行为记录生成科学周报反馈，严禁上传儿童观察数据调用 AI 心理推断
   const handleGenerateReport = async () => {
     setIsGeneratingReport(true);
-    sounds.playClick();
 
     const localReport = generateLocalWeeklyReport({
       todayWeather,
@@ -89,7 +84,6 @@ export const ParentDashboard: React.FC = () => {
     });
 
     setWeeklyReport(localReport);
-    sounds.playBell();
     setIsGeneratingReport(false);
   };
 
@@ -117,7 +111,6 @@ export const ParentDashboard: React.FC = () => {
   ]);
 
   const toggleConsistencyItem = (id: string) => {
-    sounds.playClick();
     setConsistencyItems(prev =>
       prev.map(item => item.id === id ? { ...item, checked: !item.checked } : item)
     );
@@ -178,7 +171,7 @@ export const ParentDashboard: React.FC = () => {
 
         {/* Top Hug Notice (if child clicked hug button) */}
         {activeHugNotice && (
-          <div className="bg-rose-500 text-white p-4 rounded-3xl shadow-xl flex items-center justify-between gap-4 animate-in slide-in-from-top-4 duration-300">
+          <div className="bg-rose-500 text-white p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 animate-in slide-in-from-top-4 duration-300">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                 <Heart className="w-5 h-5 fill-white" />
@@ -190,22 +183,20 @@ export const ParentDashboard: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
               <button
                 onClick={() => {
-                  sounds.playClick();
                   setActiveTab('huginbox');
                 }}
-                className="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-xl text-xs font-bold shrink-0 transition-colors shadow-xs"
+                className="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-xl text-xs font-bold shrink-0 transition-colors shadow-xs cursor-pointer"
               >
                 查看响应选项
               </button>
               <button
                 onClick={() => {
-                  sounds.playBell();
                   acknowledgeHug();
                 }}
-                className="px-4 py-2 bg-white text-rose-700 hover:bg-rose-50 rounded-xl text-xs font-bold shrink-0 transition-colors shadow-sm"
+                className="px-4 py-2 bg-white text-rose-700 hover:bg-rose-50 rounded-xl text-xs font-bold shrink-0 transition-colors shadow-sm cursor-pointer"
               >
                 已收到提醒
               </button>
@@ -214,233 +205,51 @@ export const ParentDashboard: React.FC = () => {
         )}
 
         {/* Header: Caregiver Coach identity */}
-        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-stone-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="bg-white p-3.5 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-amber-200">
                 家长与照顾者端 · 养育教练
               </span>
-              <span className="text-xs text-stone-500">
+              <span className="text-[11px] sm:text-xs text-stone-500 hidden sm:inline">
                 基于 New Beginnings 循证方案与儿童发展科学
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-stone-900 mt-1">
+            <h1 className="text-base sm:text-xl md:text-2xl font-black text-stone-900 mt-1 leading-snug">
               真正的杠杆在大人：少把孩子夹在中间，多一点温暖与一致
             </h1>
-            <p className="text-xs text-stone-600 mt-1">
+            <p className="text-[11px] sm:text-xs text-stone-600 mt-0.5 hidden sm:block">
               这里不是监视后台，而是行动脚本库与行为观察卡。尊重两个家的中立与独立。
             </p>
           </div>
 
-          {/* 顶栏控制：成人在场模式 + 自然语音调优 */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
-            {/* 成人在场三档选择 */}
-            <div className="bg-stone-50 p-2.5 rounded-2xl border border-stone-200 shrink-0">
-              <span className="text-[11px] font-bold text-stone-500 block mb-1">
-                成人在场模式设置：
-              </span>
-              <div className="flex gap-1">
-                {[
-                  { tier: 'A' as const, label: 'A 独立探索', desc: '天气与轻故事' },
-                  { tier: 'B' as const, label: 'B 先看后放行', desc: '进阶工具' },
-                  { tier: 'C' as const, label: 'C 必须共玩', desc: '谈论真实家庭' }
-                ].map(t => (
-                  <button
-                    key={t.tier}
-                    onClick={() => {
-                      sounds.playClick();
-                      setPresenceTier(t.tier);
-                    }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      presenceTier === t.tier
-                        ? 'bg-amber-600 text-white shadow-xs'
-                        : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-100'
-                    }`}
-                    title={t.desc}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 自然语音调优与去AI味入口 */}
-            <button
-              onClick={() => {
-                sounds.playClick();
-                setIsVoiceModalOpen(true);
-              }}
-              className="p-2.5 bg-amber-50 hover:bg-amber-100/90 text-amber-950 border border-amber-300 rounded-2xl text-xs font-bold transition-all flex sm:flex-col items-center justify-center gap-1 cursor-pointer shadow-2xs hover:shadow-xs group min-h-[44px]"
-              aria-label="打开自然语音与音效调优面板"
-              title="深度声源调优、去AI机械味、声线模式切换与试听"
-            >
-              <div className="flex items-center gap-1.5">
-                <Volume2 className="w-4 h-4 text-amber-700 group-hover:scale-110 transition-transform" />
-                <span className="text-amber-900 font-extrabold">语音声学调优</span>
-              </div>
-              <span className="text-[10px] text-amber-700/80 font-medium">
-                去AI机械味 · 晓晓/婷婷人声
-              </span>
-            </button>
-          </div>
-        </div>
-
-        {/* 快捷直达卡片：养育小锦囊 */}
-        <div className="bg-linear-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-4 sm:p-5 shadow-2xs space-y-3">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-2xl bg-amber-200/90 text-amber-950 flex items-center justify-center text-2xl shrink-0 shadow-2xs">
-                💡
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h4 className="text-sm sm:text-base font-black text-stone-900">
-                    养育小锦囊：分、通、择思考姿态话术模板
-                  </h4>
-                  <span className="text-[11px] font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">
-                    可复制 · 具象脚手架
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-stone-600 font-medium mt-0.5">
-                  基于 6 岁儿童认知发展规律，提供针对分、通、择三种思考姿态的简短、可复制的家长话术模板。
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                sounds.playClick();
-                setActiveTab('pocketTips');
-              }}
-              className="min-h-[44px] px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-bold shrink-0 transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer self-end sm:self-auto"
-              aria-label="进入养育小锦囊库"
-            >
-              <span>进入完整锦囊库</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* 3大姿态今日精选金句（可一键直接复制） */}
-          <div className="grid sm:grid-cols-3 gap-2.5 pt-1">
-            <div className="p-3 bg-white/90 rounded-2xl border border-sky-200 flex flex-col justify-between space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-sky-800">【分】区分事实与猜测</span>
-                <span className="text-[10px] text-stone-400">意外/自责时</span>
-              </div>
-              <p className="text-xs text-stone-800 font-bold leading-relaxed">
-                “我们先看眼睛能看见的事实：地上的水洒了。脑子里那个‘都怪我’的声音，只是在吓唬你。”
-              </p>
-              <button
-                onClick={() => {
-                  if (navigator.clipboard) {
-                    navigator.clipboard.writeText('“我们先看眼睛能看见的事实：地上的水洒了。脑子里那个‘都怪我’的声音，只是在吓唬你。”');
-                  }
-                  sounds.playBell();
-                }}
-                className="text-[11px] font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1 self-end cursor-pointer pt-0.5"
-                title="一键复制本条示范话术"
-              >
-                <Copy className="w-3 h-3" />
-                <span>复制话术</span>
-              </button>
-            </div>
-
-            <div className="p-3 bg-white/90 rounded-2xl border border-emerald-200 flex flex-col justify-between space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-emerald-800">【通】换位与双重视角</span>
-                <span className="text-[10px] text-stone-400">规则/摩擦时</span>
-              </div>
-              <p className="text-xs text-stone-800 font-bold leading-relaxed">
-                “两个家规则不同但都用心爱你。就像小鱼在不同池子，你很聪明能掌握两张通行卡！”
-              </p>
-              <button
-                onClick={() => {
-                  if (navigator.clipboard) {
-                    navigator.clipboard.writeText('“两个家规则不同但都用心爱你。就像小鱼在不同池子，你很聪明能掌握两张通行卡！”');
-                  }
-                  sounds.playBell();
-                }}
-                className="text-[11px] font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 self-end cursor-pointer pt-0.5"
-                title="一键复制本条示范话术"
-              >
-                <Copy className="w-3 h-3" />
-                <span>复制话术</span>
-              </button>
-            </div>
-
-            <div className="p-3 bg-white/90 rounded-2xl border border-amber-200 flex flex-col justify-between space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-amber-800">【择】有限选择权</span>
-                <span className="text-[10px] text-stone-400">抵触/冲动时</span>
-              </div>
-              <p className="text-xs text-stone-800 font-bold leading-relaxed">
-                “出发时间到了是大方向，但你可以决定：想先把小熊装进去，还是先装小水壶？”
-              </p>
-              <button
-                onClick={() => {
-                  if (navigator.clipboard) {
-                    navigator.clipboard.writeText('“出发时间到了是大方向，但你可以决定：想先把小熊装进去，还是先装小水壶？”');
-                  }
-                  sounds.playBell();
-                }}
-                className="text-[11px] font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1 self-end cursor-pointer pt-0.5"
-                title="一键复制本条示范话术"
-              >
-                <Copy className="w-3 h-3" />
-                <span>复制话术</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 养育勋章成长印章快捷概览 */}
-        <div className="bg-white border border-stone-200/90 rounded-3xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-amber-100 text-amber-900 border border-amber-200 flex items-center justify-center text-2xl shrink-0 shadow-2xs">
-              🏅
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h4 className="text-sm sm:text-base font-black text-stone-900">
-                  养育勋章：见证父母温和坚定的思考引导
-                </h4>
-                <span className="text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
-                  已点亮 {parentMedals.filter(m => m.unlocked).length} / {parentMedals.length} 枚
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-stone-600 font-medium mt-0.5">
-                记录一次事实分界、翻转一次双面币、赋能一次自主选择，即刻点亮象征亲子成长的心理学里程碑印章。
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-            <div className="flex items-center -space-x-1.5 overflow-hidden py-1">
-              {parentMedals.map(m => (
-                <div
-                  key={m.id}
-                  title={`${m.title}（${m.unlocked ? '已点亮' : '待达成'}）`}
-                  className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm transition-transform hover:scale-110 shadow-2xs ${
-                    m.unlocked
-                      ? 'bg-amber-50 border-amber-300'
-                      : 'bg-stone-100 border-stone-300 grayscale opacity-40'
+          {/* 顶栏控制：成人在场模式 */}
+          <div className="bg-stone-50 p-2 sm:p-2.5 rounded-2xl border border-stone-200 shrink-0 w-full sm:w-auto">
+            <span className="text-[11px] font-bold text-stone-500 block mb-1">
+              成人在场模式设置：
+            </span>
+            <div className="flex gap-1">
+              {[
+                { tier: 'A' as const, label: 'A 独立探索', desc: '天气与轻故事' },
+                { tier: 'B' as const, label: 'B 先看后放行', desc: '进阶工具' },
+                { tier: 'C' as const, label: 'C 必须共玩', desc: '谈论真实家庭' }
+              ].map(t => (
+                <button
+                  key={t.tier}
+                  onClick={() => {
+                    setPresenceTier(t.tier);
+                  }}
+                  className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    presenceTier === t.tier
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-100'
                   }`}
+                  title={t.desc}
                 >
-                  {m.emoji}
-                </div>
+                  {t.label}
+                </button>
               ))}
             </div>
-
-            <button
-              onClick={() => {
-                sounds.playClick();
-                setActiveTab('medals');
-              }}
-              className="min-h-[44px] px-4 py-2 bg-stone-900 hover:bg-black text-white rounded-xl text-xs sm:text-sm font-bold shrink-0 transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
-              aria-label="查看完整养育勋章墙"
-            >
-              <Award className="w-4 h-4 text-amber-400" />
-              <span>查看勋章墙</span>
-            </button>
           </div>
         </div>
 
@@ -459,7 +268,6 @@ export const ParentDashboard: React.FC = () => {
             <button
               type="button"
               onClick={() => {
-                sounds.playClick();
                 clearLegacySensitiveStorage();
               }}
               className="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shrink-0 transition-colors cursor-pointer"
@@ -469,171 +277,186 @@ export const ParentDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* 折叠式认知发展小百科（6岁分通择发展心理学科学底座） */}
-        <CognitiveDevelopmentEncyclopedia initialExpanded={false} />
-
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 p-1.5 bg-stone-200/60 rounded-2xl">
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('pocketTips');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'pocketTips'
-                ? 'bg-amber-600 text-white shadow-sm'
-                : 'text-stone-700 hover:text-stone-900 bg-white/70 hover:bg-white'
-            }`}
-            aria-label="打开养育小锦囊"
+        <div className="relative w-full max-w-full overflow-hidden">
+          <div
+            role="tablist"
+            aria-label="家长教练功能模块导航"
+            className="flex gap-2 overflow-x-auto scrollbar-none py-1.5 px-1 bg-stone-200/60 rounded-2xl touch-pan-x"
           >
-            <Sparkles className="w-4 h-4 text-amber-500 fill-current" />
-            <span>养育小锦囊</span>
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'pocketTips'}
+              onClick={() => {
+                setActiveTab('pocketTips');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'pocketTips'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'text-stone-700 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+              aria-label="打开养育小锦囊"
+            >
+              <Sparkles className="w-4 h-4 text-amber-500 fill-current" />
+              <span>养育小锦囊</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('medals');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'medals'
-                ? 'bg-amber-600 text-white shadow-sm'
-                : 'text-amber-900 hover:text-amber-950 bg-amber-50/70 hover:bg-amber-100'
-            }`}
-            aria-label="打开养育勋章墙"
-          >
-            <Award className="w-4 h-4 text-amber-500 fill-current" />
-            <span>养育勋章 ({parentMedals.filter(m => m.unlocked).length})</span>
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'medals'}
+              onClick={() => {
+                setActiveTab('medals');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'medals'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'text-amber-900 hover:text-amber-950 bg-amber-50/70 hover:bg-amber-100'
+              }`}
+              aria-label="打开养育勋章墙"
+            >
+              <Award className="w-4 h-4 text-amber-500 fill-current" />
+              <span>养育勋章 ({parentMedals.filter(m => m.unlocked).length})</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('huginbox');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'huginbox'
-                ? 'bg-rose-600 text-white shadow-sm'
-                : 'text-rose-700 hover:text-rose-900 bg-rose-50/50 hover:bg-rose-100/50'
-            }`}
-          >
-            <Heart className="w-4 h-4 fill-current" />
-            <span>抱抱收件箱与自省</span>
-            {activeHugNotice && (
-              <span className="w-2 h-2 rounded-full bg-amber-300 animate-ping" />
-            )}
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'huginbox'}
+              onClick={() => {
+                setActiveTab('huginbox');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'huginbox'
+                  ? 'bg-rose-600 text-white shadow-sm'
+                  : 'text-rose-700 hover:text-rose-900 bg-rose-50/50 hover:bg-rose-100/50'
+              }`}
+            >
+              <Heart className="w-4 h-4 fill-current" />
+              <span>抱抱收件箱与自省</span>
+              {activeHugNotice && (
+                <span className="w-2 h-2 rounded-full bg-amber-300 animate-ping" />
+              )}
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('report');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'report'
-                ? 'bg-emerald-600 text-white shadow-sm'
-                : 'text-stone-700 hover:text-stone-900 bg-white/70 hover:bg-white'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            <span>周报分析与养育建议</span>
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'report'}
+              onClick={() => {
+                setActiveTab('report');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'report'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'text-stone-700 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <FileText className="w-4 h-4" />
+              <span>周报分析与养育建议</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('observe');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'observe'
-                ? 'bg-white text-stone-900 shadow-sm'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <ClipboardCheck className="w-4 h-4 text-emerald-600" />
-            行为观察卡（驱动工具淡出）
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'observe'}
+              onClick={() => {
+                setActiveTab('observe');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'observe'
+                  ? 'bg-white text-stone-900 shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <ClipboardCheck className="w-4 h-4 text-emerald-600" />
+              <span>行为观察卡（驱动工具淡出）</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('scripts');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'scripts'
-                ? 'bg-white text-stone-900 shadow-sm'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <BookOpen className="w-4 h-4 text-amber-600" />
-            7大日常脚本库
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'scripts'}
+              onClick={() => {
+                setActiveTab('scripts');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'scripts'
+                  ? 'bg-white text-stone-900 shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <BookOpen className="w-4 h-4 text-amber-600" />
+              <span>7大日常脚本库</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('lessons');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'lessons'
-                ? 'bg-white text-stone-900 shadow-sm'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <Sparkles className="w-4 h-4 text-sky-600" />
-            微课与特别时光
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'lessons'}
+              onClick={() => {
+                setActiveTab('lessons');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'lessons'
+                  ? 'bg-white text-stone-900 shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-sky-600" />
+              <span>微课与特别时光</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('consistency');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'consistency'
-                ? 'bg-white text-stone-900 shadow-sm'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <ListChecks className="w-4 h-4 text-indigo-600" />
-            一致性清单
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'consistency'}
+              onClick={() => {
+                setActiveTab('consistency');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'consistency'
+                  ? 'bg-white text-stone-900 shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <ListChecks className="w-4 h-4 text-indigo-600" />
+              <span>一致性清单</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('insights');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'insights'
-                ? 'bg-white text-stone-900 shadow-sm'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <Activity className="w-4 h-4 text-teal-600" />
-            趋势信号看板
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'insights'}
+              onClick={() => {
+                setActiveTab('insights');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'insights'
+                  ? 'bg-white text-stone-900 shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <Activity className="w-4 h-4 text-teal-600" />
+              <span>趋势信号看板</span>
+            </button>
 
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setActiveTab('safety');
-            }}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'safety'
-                ? 'bg-white text-rose-700 shadow-sm'
-                : 'text-rose-600 hover:text-rose-900'
-            }`}
-          >
-            <ShieldAlert className="w-4 h-4" />
-            安全与危机热线
-          </button>
+            <button
+              role="tab"
+              aria-selected={activeTab === 'safety'}
+              onClick={() => {
+                setActiveTab('safety');
+              }}
+              className={`shrink-0 min-w-max min-h-[44px] py-2 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                activeTab === 'safety'
+                  ? 'bg-white text-rose-700 shadow-sm'
+                  : 'text-rose-600 hover:text-rose-900 bg-white/70 hover:bg-white'
+              }`}
+            >
+              <ShieldAlert className="w-4 h-4" />
+              <span>安全与危机热线</span>
+            </button>
+          </div>
         </div>
 
-        {/* ================= TAB 0: 养育小锦囊 (PARENTING POCKET TIPS) ================= */}
-        {activeTab === 'pocketTips' && (
-          <ParentingPocketTips />
-        )}
+        {/* ================= ACTIVE TAB PANEL ================= */}
+        <div role="tabpanel" aria-label="当前功能面板" className="w-full">
+          {/* ================= TAB 0: 养育小锦囊 (PARENTING POCKET TIPS) ================= */}
+          {activeTab === 'pocketTips' && (
+            <ParentingPocketTips />
+          )}
 
         {/* ================= TAB: 养育勋章成长印章 (PARENT MEDALS WALL) ================= */}
         {activeTab === 'medals' && (
@@ -730,7 +553,6 @@ export const ParentDashboard: React.FC = () => {
                 <button
                   key={script.id}
                   onClick={() => {
-                    sounds.playClick();
                     setSelectedScriptId(script.id);
                   }}
                   className={`w-full p-3.5 rounded-2xl border text-left transition-all ${
@@ -1080,17 +902,15 @@ export const ParentDashboard: React.FC = () => {
             </div>
           </div>
         )}
+        </div>
+
+        {/* 折叠式认知发展小百科（6岁分通择发展心理学科学底座） */}
+        <CognitiveDevelopmentEncyclopedia initialExpanded={false} />
 
         {/* Privacy Declaration Modal */}
         <PrivacyDeclarationModal
           isOpen={isDriveOpen}
           onClose={() => setIsDriveOpen(false)}
-        />
-
-        {/* Voice System Audition & Acoustic Tuning Modal */}
-        <VoiceSystemAuditionModal
-          isOpen={isVoiceModalOpen}
-          onClose={() => setIsVoiceModalOpen(false)}
         />
 
       </div>

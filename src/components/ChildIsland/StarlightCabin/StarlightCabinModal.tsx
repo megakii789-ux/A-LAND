@@ -55,7 +55,7 @@ export const StarlightCabinModal: React.FC<Props> = ({ isOpen, onClose }) => {
       <div className="bg-indigo-50/95 border-2 border-indigo-200 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-indigo-100 transition-colors z-20 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-400 hover:text-stone-600 p-2 rounded-full hover:bg-indigo-100 transition-colors z-20 cursor-pointer w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center"
           aria-label="离开星光小屋"
         >
           <X className="w-6 h-6" />
@@ -73,7 +73,7 @@ export const StarlightCabinModal: React.FC<Props> = ({ isOpen, onClose }) => {
               </h3>
               <button
                 onClick={() => handleSpeak("星光小屋：家庭形态只是拼图中的一块。你有很多特长，也在学新本领，完整的你很大很大！")}
-                className="p-2 rounded-xl text-indigo-700 hover:bg-indigo-100 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-indigo-700 hover:bg-indigo-100 min-w-[48px] min-h-[48px] flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="听一听星光小屋介绍"
               >
                 <Volume2 className="w-5 h-5" />
@@ -88,14 +88,14 @@ export const StarlightCabinModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <StarlightPuzzleIllustration className="w-full h-32 sm:h-40 object-cover" />
         </div>
 
-        {/* Navigation - min-h-[52px] */}
+        {/* Navigation - min-h-[56px] */}
         <div className="grid grid-cols-3 gap-2 p-1.5 bg-indigo-100/70 rounded-2xl mb-6">
           <button
             onClick={() => {
               sounds.playClick();
               setTab('puzzle');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'puzzle'
                 ? 'bg-white text-indigo-950 shadow-sm border border-indigo-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -110,7 +110,7 @@ export const StarlightCabinModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('strength');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'strength'
                 ? 'bg-white text-indigo-950 shadow-sm border border-indigo-200'
                 : 'text-stone-700 hover:text-stone-900'
@@ -125,7 +125,7 @@ export const StarlightCabinModal: React.FC<Props> = ({ isOpen, onClose }) => {
               sounds.playClick();
               setTab('funnyFailure');
             }}
-            className={`min-h-[52px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`min-h-[56px] py-2.5 px-2 rounded-xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               tab === 'funnyFailure'
                 ? 'bg-white text-indigo-950 shadow-sm border border-indigo-200'
                 : 'text-stone-700 hover:text-stone-900'

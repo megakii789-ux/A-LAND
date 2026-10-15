@@ -15,7 +15,7 @@ export default defineConfig({
     {
       name: 'Mobile-360',
       use: {
-        viewport: { width: 360, height: 800 },
+        viewport: { width: 360, height: 640 },
       },
     },
     {
@@ -39,7 +39,7 @@ export default defineConfig({
     {
       name: 'Tablet-1024',
       use: {
-        viewport: { width: 1024, height: 1366 },
+        viewport: { width: 1024, height: 768 },
       },
     },
     {

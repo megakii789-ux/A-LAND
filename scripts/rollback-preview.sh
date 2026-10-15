@@ -194,46 +194,82 @@ if [[ ! -e "${GIT_WORKDIR}/node_modules" && -d "$DEPS_NODE_MODULES" ]]; then
   ln -s "$DEPS_NODE_MODULES" "${GIT_WORKDIR}/node_modules"
 fi
 
-# 重新生成包含回滚溯源元数据的 public/version.json
+# D7-03: 生成 Git 提交模板元数据 (metadataKind: GIT_COMMIT_TEMPLATE)，严禁把包含自身 SHA 的 version.json 反复 amend 进同一提交
 if [[ -f "${GIT_WORKDIR}/scripts/generate-version-json.mjs" ]]; then
-  (cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --rollback-from "$CURRENT_SHA" --rollback-to "$RESOLVED_SHA")
+  (cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --mode template --rollback-from "$CURRENT_SHA" --rollback-to "$RESOLVED_SHA")
 fi
 
 git -C "$GIT_WORKDIR" add -A
-git -C "$GIT_WORKDIR" commit --allow-empty -m "revert(preview): forward rollback preview tree to D6-verified snapshot ${RESOLVED_SHA:0:12}"
+git -C "$GIT_WORKDIR" commit --allow-empty -m "revert(preview): forward rollback preview tree to verified snapshot ${RESOLVED_SHA:0:12}"
 NEW_HEAD="$(git -C "$GIT_WORKDIR" rev-parse HEAD)"
 
-# 刷新提交后的真实 commitSha 到 version.json 并 amend 该回滚提交
-if [[ -f "${GIT_WORKDIR}/scripts/generate-version-json.mjs" ]]; then
-  (cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --commit-sha "$NEW_HEAD" --rollback-from "$CURRENT_SHA" --rollback-to "$RESOLVED_SHA")
-  git -C "$GIT_WORKDIR" add public/version.json
-  git -C "$GIT_WORKDIR" commit --amend --no-edit
-  NEW_HEAD="$(git -C "$GIT_WORKDIR" rev-parse HEAD)"
+# 仅在独立负向测试注入真实故障时触发 (生产默认为空)
+if [[ -n "${A_LAND_D7_FAULT_INJECT_SCRIPT:-}" && -f "${A_LAND_D7_FAULT_INJECT_SCRIPT}" ]]; then
+  echo "[D7-Test] 正在注入真实故障脚本: ${A_LAND_D7_FAULT_INJECT_SCRIPT}"
+  bash "${A_LAND_D7_FAULT_INJECT_SCRIPT}" "$GIT_WORKDIR"
 fi
 
 echo ""
-echo "[Quality Gate] 回滚提交 ${NEW_HEAD:0:12} 已生成，正在执行强制质量门禁验证..."
+echo "[Quality Gate] 回滚提交 ${NEW_HEAD:0:12} 已生成，正在执行强制质量门禁验证 (D7-01 显式退出码检查)..."
 run_post_rollback_gate() {
+  local step_rc=0
+
   echo "  -> [1/4] TypeScript 类型检查 (tsc --noEmit)..."
-  (cd "$GIT_WORKDIR" && ./node_modules/.bin/tsc --noEmit)
+  (cd "$GIT_WORKDIR" && ./node_modules/.bin/tsc --noEmit) || step_rc=$?
+  if [[ "$step_rc" -ne 0 ]]; then
+    echo "[GATE-FAIL] Step 1/4 TypeScript 类型检查失败 (exit_code=${step_rc})，立即阻断回滚！" >&2
+    return "$step_rc"
+  fi
+
   echo "  -> [2/4] Vitest 全量安全与领域测试 (vitest run)..."
-  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run)
+  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run --exclude tests/domain/cloudflarePagesAdapter.test.ts) || step_rc=$?
+  if [[ "$step_rc" -ne 0 ]]; then
+    echo "[GATE-FAIL] Step 2/4 Vitest 领域测试失败 (exit_code=${step_rc})，立即阻断回滚！" >&2
+    return "$step_rc"
+  fi
+
   echo "  -> [3/4] 专项验证回滚后 /api/* 仍然 Fail-Closed 503 (cloudflarePagesAdapter.test.ts)..."
-  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run tests/domain/cloudflarePagesAdapter.test.ts)
-  echo "  -> [4/4] Vite 生产构建与零密钥扫描 (vite build)..."
-  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vite build)
+  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run tests/domain/cloudflarePagesAdapter.test.ts) || step_rc=$?
+  if [[ "$step_rc" -ne 0 ]]; then
+    echo "[GATE-FAIL] Step 3/4 Pages /api/* 503 契约测试失败 (exit_code=${step_rc})，立即阻断回滚！" >&2
+    return "$step_rc"
+  fi
+
+  echo "  -> [4/4] Vite 生产构建与运行态 version.json 校验 (vite build)..."
+  (cd "$GIT_WORKDIR" && ./node_modules/.bin/vite build) || step_rc=$?
+  if [[ "$step_rc" -ne 0 ]]; then
+    rm -rf "${GIT_WORKDIR}/dist"
+    echo "[GATE-FAIL] Step 4/4 Vite 生产构建失败 (exit_code=${step_rc})，立即阻断回滚！" >&2
+    return "$step_rc"
+  fi
+
+  (cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json --rollback-from "$CURRENT_SHA" --rollback-to "$RESOLVED_SHA") || step_rc=$?
   rm -rf "${GIT_WORKDIR}/dist"
+  if [[ "$step_rc" -ne 0 ]]; then
+    echo "[GATE-FAIL] Step 4/4 运行态 version.json 生成失败 (exit_code=${step_rc})，立即阻断回滚！" >&2
+    return "$step_rc"
+  fi
+
+  return 0
 }
 
-if ! run_post_rollback_gate; then
-  echo "[FATAL] 回滚后质量门禁测试失败！正在自动撤销本次回滚提交并恢复至 ${CURRENT_SHA}，严禁推送！" >&2
+GATE_EXIT_CODE=0
+run_post_rollback_gate || GATE_EXIT_CODE=$?
+
+if [[ "$GATE_EXIT_CODE" -ne 0 ]]; then
+  echo "[FATAL] 回滚后质量门禁测试失败 (exit_code=${GATE_EXIT_CODE})！正在自动撤销本次回滚提交并恢复至 ${CURRENT_SHA}，严禁推送！" >&2
   git -C "$GIT_WORKDIR" reset --hard "$CURRENT_SHA"
-  exit 1
+  git -C "$GIT_WORKDIR" clean -fd
+  if [[ ! -e "${GIT_WORKDIR}/node_modules" && -d "$DEPS_NODE_MODULES" ]]; then
+    ln -s "$DEPS_NODE_MODULES" "${GIT_WORKDIR}/node_modules"
+  fi
+  exit "$GATE_EXIT_CODE"
 fi
 
-echo "[PASS] 回滚提交 ${NEW_HEAD} 已通过全部质量门禁（TypeScript + Vitest + Vite Build + /api/* Fail-Closed 503）！"
+echo "[PASS] 回滚提交 ${NEW_HEAD} 已通过全部质量门禁（TypeScript + Vitest + Pages 503 Contract + Vite Build）！"
 
 if [[ "$DO_PUSH" == "true" ]]; then
   echo "[Push] 推送已验证回滚提交至 origin/preview (无 --force)..."
   git -C "$GIT_WORKDIR" push origin preview
 fi
+

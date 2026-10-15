@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, RotateCcw, Pause, Play, Square, AlertCircle, Sparkles } from 'lucide-react';
-import { speechNarrator } from '../../utils/speech';
+import { speechNarrator, KaraokeSyncState } from '../../utils/speech';
 import { sounds } from '../../utils/sound';
 
 export interface ChildAudioBarProps {
@@ -8,14 +8,14 @@ export interface ChildAudioBarProps {
 }
 
 /**
- * 晴雨小岛 · 儿童语音控制与伴读条 (Child Audio & Narrative Control Bar)
+ * 晴雨小岛 · 声文并茂儿童语音伴读与音效控制条 (Child Synchronized Karaoke Audio & Narrative Control Bar)
  * 严格遵循 AG-04A 声音与动效标准：
- * 1. 所有语音可重听、暂停或终止 (replay, pause/resume, stop)；
- * 2. 切换场景立即停止旧语音；
- * 3. 没有中文语音资源时明确提示，绝不静默假装朗读成功；
- * 4. 环境声音默认可关闭，绝不自动播放持续背景音；
- * 5. 动画服务于因果反馈，不制造注意力竞争；
- * 6. 触控目标不小于 48-56px，可见焦点环与完整无障碍支持。
+ * 1. 真实神经音源 + 毫秒级逐词/逐分句实时高亮伴读（Karaoke Sync）；
+ * 2. 所有语音可重听、暂停或终止 (replay, pause/resume, stop)；
+ * 3. 切换场景立即停止旧语音；
+ * 4. 没有中文语音资源时明确提示，绝不静默假装朗读成功；
+ * 5. 环境声音默认可关闭，绝不自动播放持续背景音；
+ * 6. 触控目标不小于 56x56px，可见焦点环与完整无障碍支持。
  */
 export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) => {
   const [isSpeaking, setIsSpeaking] = useState<boolean>(speechNarrator.getSpeaking());
@@ -23,6 +23,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
   const [voiceWarning, setVoiceWarning] = useState<string | null>(speechNarrator.getVoiceWarning());
   const [isAmbientMuted, setIsAmbientMuted] = useState<boolean>(sounds.getMuted());
   const [lastText, setLastText] = useState<string>(speechNarrator.getLastText());
+  const [karaoke, setKaraoke] = useState<KaraokeSyncState>(speechNarrator.getKaraokeState());
 
   useEffect(() => {
     const unsubscribe = speechNarrator.subscribe(() => {
@@ -30,17 +31,17 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
       setIsPaused(speechNarrator.getIsPaused());
       setVoiceWarning(speechNarrator.getVoiceWarning());
       setLastText(speechNarrator.getLastText());
+      setKaraoke(speechNarrator.getKaraokeState());
     });
     return unsubscribe;
   }, []);
 
   const handleReplay = () => {
-    sounds.playClick();
     speechNarrator.replay();
   };
 
   const handleTogglePause = () => {
-    sounds.playClick();
+    sounds.playTap();
     if (isPaused) {
       speechNarrator.resume();
     } else {
@@ -49,7 +50,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
   };
 
   const handleStop = () => {
-    sounds.playClick();
+    sounds.playTap();
     speechNarrator.stop();
   };
 
@@ -78,7 +79,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
                 {voiceWarning}
               </p>
               <p className="text-xs text-amber-800 font-medium">
-                所有内容均配有清晰大字，你也可以随时点击卡片听提示音
+                所有内容均配有清晰大字与声文伴读，你也可以随时点击卡片听提示音
               </p>
             </div>
           </div>
@@ -93,31 +94,73 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
         </div>
       )}
 
-      {/* 2. 语音播报主控面板 (带重听、暂停、停止、环境声切换) */}
-      <div className="flex flex-wrap items-center justify-between gap-2 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-stone-200 shadow-xs">
-        {/* 状态与正在播报的文字预览 */}
-        <div className="flex items-center gap-2 min-w-0 flex-1">
+      {/* 2. 声文并茂语音播报主控面板 (带实时逐词高亮、重听、暂停、停止、环境声切换) */}
+      <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 sm:p-3 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-stone-200 shadow-xs relative overflow-hidden">
+        {/* 实时伴读进度细条 */}
+        {isSpeaking && (
           <div
-            className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg transition-colors ${
+            className="absolute bottom-0 left-0 h-1 bg-amber-400 transition-all duration-100 pointer-events-none"
+            style={{ width: `${Math.max(6, Math.round(karaoke.progressRatio * 100))}%` }}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* 状态与声文同步实时高亮字幕预览 */}
+        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+          <div
+            className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-lg transition-colors ${
               isSpeaking
-                ? 'bg-amber-400 text-stone-900 animate-pulse motion-reduce:animate-none'
+                ? 'bg-amber-400 text-stone-950 animate-pulse motion-reduce:animate-none shadow-xs'
                 : 'bg-stone-100 text-stone-600'
             }`}
             aria-hidden="true"
           >
             <Volume2 className="w-5 h-5" />
           </div>
-          <div className="min-w-0">
-            <span className="text-xs font-black text-stone-800 block whitespace-nowrap">
-              {isSpeaking
-                ? isPaused
-                  ? '语音已暂停'
-                  : '伴伴正在轻声朗读'
-                : '伴伴听你说'}
-            </span>
-            <p className="text-xs text-stone-500 font-medium truncate max-w-[180px] sm:max-w-[340px]">
-              {lastText || '点击任意地点卡片，听伴伴为你朗读'}
-            </p>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-xs font-black text-stone-800 whitespace-nowrap">
+                {isSpeaking
+                  ? isPaused
+                    ? '语音已暂停'
+                    : '伴伴正在轻声朗读'
+                  : '伴伴声文伴读'}
+              </span>
+              {karaoke.isPrebakedNeural && lastText && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full">
+                  <Sparkles className="w-2.5 h-2.5 text-amber-600" />
+                  <span>{karaoke.voiceSourceLabel}</span>
+                </span>
+              )}
+            </div>
+
+            {/* 声文同步逐词高亮字幕区 */}
+            {karaoke.tokens.length > 0 ? (
+              <p
+                data-testid="karaoke-caption-line"
+                className="text-xs sm:text-sm leading-relaxed mt-0.5 line-clamp-2"
+              >
+                {karaoke.tokens.map((tok, idx) => (
+                  <span
+                    key={`${idx}-${tok.offsetMs}`}
+                    data-active={isSpeaking && tok.isActive ? 'true' : 'false'}
+                    className={`transition-colors duration-100 rounded-md ${
+                      isSpeaking && tok.isActive
+                        ? 'bg-amber-300 text-stone-950 font-black px-1 py-0.5 shadow-2xs'
+                        : isSpeaking && tok.isPast
+                        ? 'text-amber-900 font-bold'
+                        : 'text-stone-600 font-medium'
+                    }`}
+                  >
+                    {tok.text}
+                  </span>
+                ))}
+              </p>
+            ) : (
+              <p className="text-xs text-stone-500 font-medium truncate max-w-[200px] sm:max-w-[380px]">
+                {lastText || '点击任意地点或听问候按钮，体验声文同步伴读'}
+              </p>
+            )}
           </div>
         </div>
 

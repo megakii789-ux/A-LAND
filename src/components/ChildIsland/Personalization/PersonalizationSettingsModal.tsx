@@ -38,15 +38,15 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
   const currentCompanion = ANIMAL_COMPANIONS[personalization.companionId] || ANIMAL_COMPANIONS.guoguo_squirrel;
 
   const handleCompanionSelect = (id: AnimalCompanionId) => {
-    sounds.playClick();
     const companion = ANIMAL_COMPANIONS[id];
+    speechNarrator.syncWithCompanion(id);
     updatePersonalization({ companionId: id });
     speechNarrator.speak(`你好呀！我是你的小岛伙伴${companion.name}。${companion.greetingText}`);
     showFeedback(`已选择伙伴：${companion.name}`);
   };
 
   const handleInterestSelect = (id: InterestActivityId) => {
-    sounds.playClick();
+    sounds.playCardSelect();
     const interest = INTEREST_ACTIVITIES[id];
     updatePersonalization({ primaryInterest: id });
     speechNarrator.speak(`太棒啦，接下来侦探小游戏会优先为你准备${interest.label}的主题场景！`);
@@ -54,7 +54,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
   };
 
   const handleStyleSelect = (style: InteractionStyle) => {
-    sounds.playClick();
+    sounds.playCardSelect();
     updatePersonalization({ interactionStyle: style });
     const text = style === 'hands_on' ? '喜欢直接动手操作' : '喜欢先听小故事';
     speechNarrator.speak(text);
@@ -62,8 +62,9 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
   };
 
   const handleToggleVoice = () => {
-    sounds.playClick();
+    sounds.playTap();
     const nextVal = !personalization.accessibility.voiceEnabled;
+    speechNarrator.setVoiceEnabled(nextVal);
     updatePersonalization({
       accessibility: {
         ...personalization.accessibility,

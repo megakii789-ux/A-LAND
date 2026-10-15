@@ -106,27 +106,29 @@ export const Navbar: React.FC = () => {
               </button>
             )}
 
-            {/* Sound Toggle */}
-            <button
-              onClick={toggleMute}
-              className={`min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
-                isMuted
-                  ? 'bg-stone-100 text-stone-400 border-stone-200'
-                  : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
-              }`}
-              title={isMuted ? '取消静音' : '静音'}
-              aria-label={isMuted ? '伴伴声音已静音，点击取消静音' : '伴伴声音正在播放，点击静音'}
-            >
-              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-            </button>
+            {/* Sound Toggle: only shown in Child Island mode (Parent Coach mode is strictly silent) */}
+            {currentView === 'child' && (
+              <button
+                onClick={toggleMute}
+                className={`min-w-[48px] sm:min-w-[56px] min-h-[48px] sm:min-h-[56px] px-2.5 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
+                  isMuted
+                    ? 'bg-stone-100 text-stone-400 border-stone-200'
+                    : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+                }`}
+                title={isMuted ? '取消静音' : '静音'}
+                aria-label={isMuted ? '伴伴声音已静音，点击取消静音' : '伴伴声音正在播放，点击静音'}
+              >
+                {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
+            )}
 
-            {/* Privacy Declaration Info button */}
+            {/* Privacy Declaration Info button: adaptively hidden on <390px to prevent horizontal overflow */}
             <button
               onClick={() => {
-                sounds.playClick();
+                if (currentView === 'child') sounds.playClick();
                 setIsPrivacyOpen(true);
               }}
-              className="min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+              className="hidden min-[390px]:flex min-w-[48px] sm:min-w-[56px] min-h-[48px] sm:min-h-[56px] px-2.5 sm:px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-all items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
               title="儿童与家庭隐私保护声明"
               aria-label="儿童与家庭隐私保护声明，打开隐私声明弹窗"
             >
@@ -134,13 +136,13 @@ export const Navbar: React.FC = () => {
               <span className="hidden md:inline whitespace-nowrap">隐私声明</span>
             </button>
 
-            {/* Framework About info */}
+            {/* Framework About info: adaptively hidden on small mobile to ensure <=360px width */}
             <button
               onClick={() => {
-                sounds.playClick();
+                if (currentView === 'child') sounds.playClick();
                 setIsAboutOpen(true);
               }}
-              className="min-w-[44px] sm:min-w-[56px] min-h-[56px] px-2.5 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors flex items-center justify-center cursor-pointer"
+              className="hidden min-[430px]:flex sm:flex min-w-[48px] sm:min-w-[56px] min-h-[48px] sm:min-h-[56px] px-2.5 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors items-center justify-center cursor-pointer"
               title="产品框架与设计理念"
               aria-label="产品设计理念，打开产品核心根叶框架介绍弹窗"
             >
@@ -150,7 +152,7 @@ export const Navbar: React.FC = () => {
             {/* Switch Mode: Child Island vs Parent Coach */}
             <button
               onClick={handleSwitchToParent}
-              className={`min-h-[56px] px-2.5 sm:px-3.5 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer whitespace-nowrap ${
+              className={`min-h-[48px] sm:min-h-[56px] px-2.5 sm:px-3.5 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer whitespace-nowrap ${
                 currentView === 'parent'
                   ? 'bg-emerald-600 text-white border-emerald-700 shadow-sm'
                   : 'bg-amber-100/90 text-amber-900 border-amber-300 hover:bg-amber-200'

@@ -15,7 +15,6 @@ import {
   ArrowRight,
   CheckCircle2
 } from 'lucide-react';
-import { sounds } from '../../utils/sound';
 import { CognitiveDimension3DArtifact } from './CognitiveDimension3DArtifact';
 
 export type CognitiveDimensionKey = 'fen' | 'tong' | 'ze';
@@ -186,12 +185,10 @@ export const CognitiveDevelopmentEncyclopedia: React.FC<Props> = ({
   const currentData = COGNITIVE_DEVELOPMENT_DATA[activeTab];
 
   const handleToggle = () => {
-    sounds.playClick();
     setIsExpanded(prev => !prev);
   };
 
   const handleSelectTab = (key: CognitiveDimensionKey) => {
-    sounds.playClick();
     setActiveTab(key);
   };
 

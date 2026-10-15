@@ -36,8 +36,22 @@ jobs:
       - name: Install deterministic dependencies (npm ci)
         run: npm ci --no-audit --no-fund
 
-      - name: Generate real-time version.json metadata
-        run: node scripts/generate-version-json.mjs
+      - name: Verify Git-tracked public/version.json is clean template metadata (D7-03)
+        run: |
+          node -e '
+            const fs = require("fs");
+            const tpl = JSON.parse(fs.readFileSync("public/version.json", "utf8"));
+            if (tpl.metadataKind !== "GIT_COMMIT_TEMPLATE") {
+              throw new Error("public/version.json in Git must have metadataKind=GIT_COMMIT_TEMPLATE, got: " + tpl.metadataKind);
+            }
+            if (tpl.buildStatus !== "TEMPLATE_PENDING_GATE_VERIFICATION") {
+              throw new Error("public/version.json in Git must not claim passed build before tests run: " + tpl.buildStatus);
+            }
+            if (tpl.contentAuditSummary?.evaluationMethod !== "RUNTIME_REGISTRY_EXECUTION") {
+              throw new Error("contentAuditSummary must come from RUNTIME_REGISTRY_EXECUTION");
+            }
+            console.log("[PASS] Git template public/version.json verified.");
+          '
 
       - name: Run TypeScript full project check (tsc --noEmit)
         run: npm run typecheck
@@ -51,7 +65,10 @@ jobs:
       - name: Run Vite Production Build
         run: npm run build:vite-only
 
-      - name: Verify Bundle Zero-Secret & version.json Provenance
+      - name: Generate Runtime Deployment version.json ONLY After All Gates Pass (D7-03)
+        run: node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json
+
+      - name: Verify Bundle Zero-Secret & Runtime version.json Provenance (D7-03)
         run: |
           if grep -RInE 'AIzaSy[0-9A-Za-z_-]{33}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|sk-[0-9A-Za-z]{20,}' dist/; then
             echo "[FATAL] Secret pattern detected in dist/ bundle!"
@@ -60,14 +77,26 @@ jobs:
           node -e '
             const fs = require("fs");
             const v = JSON.parse(fs.readFileSync("dist/version.json", "utf8"));
+            if (v.metadataKind !== "RUNTIME_DEPLOYMENT_METADATA") {
+              throw new Error("dist/version.json must be RUNTIME_DEPLOYMENT_METADATA");
+            }
+            if (v.buildStatus !== "VERIFIED_QUALITY_GATE_PASSED") {
+              throw new Error("Invalid buildStatus: " + v.buildStatus);
+            }
             if (v.releaseApprovalStatus !== "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED") {
               throw new Error("Invalid releaseApprovalStatus");
             }
             if (v.rollbackTargetSha === "f8c7401907b3fe5831c343b995b777254fdfe45d") {
-              throw new Error("Unsafe rollbackTargetSha f8c74019 is forbidden by Gate D6");
+              throw new Error("Unsafe rollbackTargetSha f8c74019 is forbidden by Gate D6/D7");
             }
             if (!/^[0-9a-f]{40}$/i.test(v.commitSha)) {
               throw new Error("Invalid commitSha in dist/version.json: " + v.commitSha);
             }
-            console.log("[PASS] dist/version.json verified:", v.commitSha, v.deploymentTimestamp);
+            if (process.env.GITHUB_SHA && v.commitSha.toLowerCase() !== process.env.GITHUB_SHA.toLowerCase()) {
+              throw new Error(`commitSha (${v.commitSha}) does not match GITHUB_SHA (${process.env.GITHUB_SHA})`);
+            }
+            if (v.contentAuditSummary?.evaluationMethod !== "RUNTIME_REGISTRY_EXECUTION") {
+              throw new Error("contentAuditSummary must come from RUNTIME_REGISTRY_EXECUTION");
+            }
+            console.log("[PASS] dist/version.json verified:", v.commitSha, v.commitIdentitySource, v.deploymentTimestamp);
           '

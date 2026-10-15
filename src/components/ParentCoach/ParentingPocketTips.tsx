@@ -3,7 +3,6 @@ import {
   Sparkles,
   Copy,
   Check,
-  Volume2,
   BookOpen,
   HelpCircle,
   Lightbulb,
@@ -17,8 +16,6 @@ import {
   Boxes,
   Search
 } from 'lucide-react';
-import { sounds } from '../../utils/sound';
-import { speechNarrator } from '../../utils/speech';
 import { Interactive3DCard } from '../common/Interactive3DCard';
 
 export type ThinkingPosture = 'fen' | 'tong' | 'ze';
@@ -364,21 +361,15 @@ export const ParentingPocketTips: React.FC = () => {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(text);
       }
-      sounds.playBell();
       setCopiedId(id);
       setTimeout(() => {
         setCopiedId(null);
       }, 2500);
     } catch {
       // Fallback
-      sounds.playClick();
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2500);
     }
-  };
-
-  const handleSpeak = (text: string) => {
-    speechNarrator.speak(text);
   };
 
   const assembledBuilderScript = `“宝贝，我们先看眼睛能看见的事实：${builderFact}。脑子里那个‘${builderGuess}’的声音，只是在猜，那不是真的。换个角度想：${builderPerspective}。现在我们迈出可以控制的一小步：${builderAction}，我们一起做！”`;
@@ -388,11 +379,9 @@ export const ParentingPocketTips: React.FC = () => {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(assembledBuilderScript);
       }
-      sounds.playBell();
       setBuilderCopied(true);
       setTimeout(() => setBuilderCopied(false), 2500);
     } catch {
-      sounds.playClick();
       setBuilderCopied(true);
       setTimeout(() => setBuilderCopied(false), 2500);
     }
@@ -440,7 +429,6 @@ export const ParentingPocketTips: React.FC = () => {
           <div className="flex flex-wrap items-center gap-1.5">
             <button
               onClick={() => {
-                sounds.playClick();
                 setFilter('all');
               }}
               className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
@@ -454,13 +442,12 @@ export const ParentingPocketTips: React.FC = () => {
 
             <button
               onClick={() => {
-                sounds.playClick();
                 setFilter('fen');
               }}
               className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                 filter === 'fen'
                   ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-sky-800 hover:bg-sky-50'
+                : 'text-sky-800 hover:bg-sky-50'
               }`}
             >
               <Boxes className="w-4 h-4" />
@@ -469,7 +456,6 @@ export const ParentingPocketTips: React.FC = () => {
 
             <button
               onClick={() => {
-                sounds.playClick();
                 setFilter('tong');
               }}
               className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -484,7 +470,6 @@ export const ParentingPocketTips: React.FC = () => {
 
             <button
               onClick={() => {
-                sounds.playClick();
                 setFilter('ze');
               }}
               className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -513,7 +498,7 @@ export const ParentingPocketTips: React.FC = () => {
 
         <div className="flex items-center justify-between text-xs text-stone-500 font-medium px-1">
           <span>共找到 {filteredTips.length} 条高频话术</span>
-          <span>支持一键复制到剪贴板，支持试听温和语调</span>
+          <span>支持一键复制到剪贴板</span>
         </div>
       </div>
 
@@ -548,17 +533,6 @@ export const ParentingPocketTips: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-                  {/* 朗读语调示范 */}
-                  <button
-                    onClick={() => handleSpeak(tip.coreScript)}
-                    className="min-h-[44px] px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-                    title="听一听温和坚定的语调示范"
-                    aria-label={`听一听${tip.title}的语调示范`}
-                  >
-                    <Volume2 className="w-4 h-4 text-stone-600" />
-                    <span>试听语调</span>
-                  </button>
-
                   {/* 一键复制核心金句 */}
                   <button
                     onClick={() => handleCopyText(tip.id, tip.coreScript)}
@@ -763,16 +737,8 @@ export const ParentingPocketTips: React.FC = () => {
         </div>
 
         {/* 组合话术实时预览 */}
-        <div className="p-4 bg-stone-50 rounded-2xl border-2 border-dashed border-stone-300 text-sm sm:text-base font-bold text-stone-800 leading-relaxed flex items-center justify-between gap-3">
+        <div className="p-4 bg-stone-50 rounded-2xl border-2 border-dashed border-stone-300 text-sm sm:text-base font-bold text-stone-800 leading-relaxed">
           <p>{assembledBuilderScript}</p>
-          <button
-            onClick={() => handleSpeak(assembledBuilderScript)}
-            className="p-2 rounded-xl text-stone-500 hover:text-stone-800 hover:bg-stone-200 transition-colors shrink-0 cursor-pointer"
-            title="试听组合后的话术发音"
-            aria-label="试听组合后的话术发音"
-          >
-            <Volume2 className="w-5 h-5" />
-          </button>
         </div>
       </div>
     </div>

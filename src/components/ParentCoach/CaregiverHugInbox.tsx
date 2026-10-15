@@ -11,7 +11,6 @@ import {
   ShieldCheck,
   Sparkles
 } from 'lucide-react';
-import { sounds } from '../../utils/sound';
 import {
   TrustedCaregiverContact,
   CaregiverActionChoice,
@@ -117,7 +116,6 @@ export const CaregiverHugInbox: React.FC<Props> = ({
     choice: CaregiverActionChoice,
     delegatedContact?: TrustedCaregiverContact
   ) => {
-    sounds.playClick();
     try {
       const resolution = resolveCaregiverChoice(choice, delegatedContact);
       setRequests(prev =>
@@ -130,7 +128,6 @@ export const CaregiverHugInbox: React.FC<Props> = ({
 
   // 家长填写私密反思
   const handleSaveReflection = (reqId: string, outcome: PrivateReflectionOutcome) => {
-    sounds.playBell();
     const newRecord: PrivateReflectionRecord = {
       id: Date.now().toString(),
       hugRequestId: reqId,

@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { WeeklyReportData, WeatherType } from '../../types';
 import { INSUFFICIENT_OBSERVATION_TEXT } from '../../services/weeklyReportService';
-import { sounds } from '../../utils/sound';
 
 interface WeeklyReportViewProps {
   report: WeeklyReportData;
@@ -66,7 +65,6 @@ export const WeeklyReportView: React.FC<WeeklyReportViewProps> = ({
   const hasPracticeRecords = report.thinkingToolPractices > 0;
 
   const handleShareReport = () => {
-    sounds.playClick();
     const summaryText = `【晴雨小岛 · 本机客观活动记录摘要】
 周期：${report.dateRange}
 天气记录：${hasWeatherRecords ? `共 ${report.totalWeatherLogs} 次（最多为${weatherLabelMap[report.primaryDominantEmotion]}）` : INSUFFICIENT_OBSERVATION_TEXT}
@@ -125,7 +123,6 @@ export const WeeklyReportView: React.FC<WeeklyReportViewProps> = ({
 
             <button
               onClick={() => {
-                sounds.playClick();
                 onRefresh();
               }}
               disabled={isLoading}
@@ -464,7 +461,6 @@ export const WeeklyReportView: React.FC<WeeklyReportViewProps> = ({
 
         <button
           onClick={() => {
-            sounds.playBell();
             setReminderSaved(true);
           }}
           className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"

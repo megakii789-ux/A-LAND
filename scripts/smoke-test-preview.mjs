@@ -223,7 +223,19 @@ async function runSmokeTests() {
     await assertCondition(versionRes.status === 200, `已认证 GET /version.json 返回 HTTP 200`);
     const versionJson = JSON.parse(versionRes.bodyText);
     console.log(
-      `  [VERSION META] commitSha=${versionJson.commitSha} deploymentTimestamp=${versionJson.deploymentTimestamp} buildStatus=${versionJson.buildStatus} contentAuditGate=${versionJson.contentAuditGate}`,
+      `  [VERSION META] metadataKind=${versionJson.metadataKind} commitSha=${versionJson.commitSha} source=${versionJson.commitIdentitySource} deploymentTimestamp=${versionJson.deploymentTimestamp} buildStatus=${versionJson.buildStatus} contentAuditGate=${versionJson.contentAuditGate}`,
+    );
+    await assertCondition(
+      versionJson.metadataKind === 'RUNTIME_DEPLOYMENT_METADATA',
+      `/version.json metadataKind === 'RUNTIME_DEPLOYMENT_METADATA' (实际部署运行态元数据)`,
+    );
+    await assertCondition(
+      versionJson.buildStatus === 'VERIFIED_QUALITY_GATE_PASSED',
+      `/version.json buildStatus === 'VERIFIED_QUALITY_GATE_PASSED'`,
+    );
+    await assertCondition(
+      versionJson.contentAuditSummary?.evaluationMethod === 'RUNTIME_REGISTRY_EXECUTION',
+      `/version.json contentAuditSummary.evaluationMethod === 'RUNTIME_REGISTRY_EXECUTION' (来自真实运行逻辑)`,
     );
     await assertCondition(
       versionJson.releaseApprovalStatus === 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',

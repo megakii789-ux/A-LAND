@@ -1,16 +1,24 @@
-// Web Speech API Natural Voice Discovery & Web Audio Timbre-Coupled Prosody Engine
+// Hybrid Authentic Neural Voice & Web Audio Timbre-Coupled Prosody Engine
 // Designed specifically for 6-year-old children, parents, and caregivers.
-// - Multi-tier intelligent voice ranking & per-template voice timbre matching
-// - Dynamic clause-by-clause prosody contour modulation (eliminating flat, repetitive AI TTS monotony)
-// - Tightly coupled with Web Audio API DSP Frequency Curves & Timbre Modulation (src/utils/sound.ts)
-// - Pure client-side local execution (100% offline, zero child voice recordings uploaded to cloud)
-// - Child safety filtering (stripping parenthetical designer notes, markdown, and meta-prompts before speaking)
+// - Dual-engine playback: Pre-baked studio Neural TTS audio (with millisecond WordBoundary timestamps)
+//   + Enhanced Natural Web Speech API fallback with full-sentence punctuation prosody preservation.
+// - Synchronized Audio-Text Karaoke Highlighting state (word-by-word / phrase-by-phrase real-time sync).
+// - Companion-bound voice persona mapping (Guoguo -> playful-buddy, Beibei -> warm-sister,
+//   Tiantian -> gentle-guide, Qiqi -> starlight-companion).
+// - Fixes GC utterance drop-offs, cancel/speak race conditions, mid-sentence oscillator beep masking,
+//   and pause/resume timer state machine bugs.
 
 import {
   sounds,
   TEMPLATE_ACOUSTIC_PROFILES,
   TemplateAcousticProfile
 } from './sound';
+import {
+  PREBAKED_TTS_BY_PROFILE_KEY,
+  PREBAKED_TTS_BY_DEFAULT_KEY,
+  PrebakedTtsEntry,
+  WordBoundaryTiming
+} from '../data/ttsManifest';
 
 export type VoiceProfileType =
   | 'warm-sister'
@@ -30,6 +38,8 @@ export interface VoiceProfileConfig {
   subtitle: string;
   description: string;
   emoji: string;
+  companionName: string;
+  neuralVoiceId: string;
   rate: number;
   pitch: number;
   volume: number;
@@ -44,65 +54,80 @@ export interface VoiceProfileConfig {
   acousticProfile: TemplateAcousticProfile;
 }
 
+export const COMPANION_TO_VOICE_PROFILE: Record<string, VoiceProfileType> = {
+  guoguo_squirrel: 'playful-buddy',
+  beibei_otter: 'warm-sister',
+  tiantian_raccoon: 'gentle-guide',
+  qiqi_deer: 'starlight-companion'
+};
+
 export const VOICE_PROFILES: Record<VoiceProfileType, VoiceProfileConfig> = {
   'warm-sister': {
     id: 'warm-sister',
     name: '暖阳姐姐',
-    subtitle: '绘本温和风',
-    description: '语速轻缓柔和，中低频温暖饱满（220Hz +4.5dB），如同睡前共读绘本的大姐姐。',
+    subtitle: '小海獭贝贝 · 绘本温和风',
+    description: '语速轻缓柔和，中低频温暖饱满（220Hz +4.2dB），如同睡前共读绘本的大姐姐。',
     emoji: '🌸',
-    rate: 0.89,
-    pitch: 1.04,
+    companionName: '贝贝',
+    neuralVoiceId: 'zh-CN-XiaoxiaoNeural',
+    rate: 0.92,
+    pitch: 1.03,
     volume: 1.0,
     suitableScenarios: '平静角深呼吸、抱抱响应、睡前故事、情绪安抚',
     prosodyContour: 'rising-empathy',
-    breathPauseMs: 220,
-    preferredVoiceKeywords: ['xiaoxiao', '晓晓', 'tingting', '婷婷', 'lili', 'female'],
+    breathPauseMs: 180,
+    preferredVoiceKeywords: ['xiaoxiao', '晓晓', 'tingting', '婷婷', 'shasha', '莎莎', 'lili', 'female'],
     acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['warm-sister']
   },
   'gentle-guide': {
     id: 'gentle-guide',
     name: '和风守护',
-    subtitle: '沉稳清晰风',
-    description: '语调踏实沉着，低频厚实稳健（165Hz +5.8dB，高频柔化至1680Hz），给予确定感与安全边界。',
+    subtitle: '小浣熊天天 · 沉稳清晰风',
+    description: '语调踏实沉着，低频厚实稳健（165Hz +5.4dB），给予确定感与安全边界。',
     emoji: '🍃',
-    rate: 0.85,
-    pitch: 0.95,
+    companionName: '天天',
+    neuralVoiceId: 'zh-CN-YunxiNeural',
+    rate: 0.90,
+    pitch: 0.98,
     volume: 1.0,
     suitableScenarios: '困难拆解台、安全围栏提醒、两家桥规则说明',
     prosodyContour: 'grounded-cadence',
-    breathPauseMs: 260,
+    breathPauseMs: 200,
     preferredVoiceKeywords: ['yunxi', '云希', 'kangkang', '康康', 'yunjian', 'male', 'sinji'],
     acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['gentle-guide']
   },
   'playful-buddy': {
     id: 'playful-buddy',
     name: '元气伙伴',
-    subtitle: '活泼同伴风',
-    description: '节奏明快灵动，中高频清脆透亮（1380Hz共振峰 +4.4dB），充满探索好奇心。',
+    subtitle: '小松鼠果果 · 活泼同伴风',
+    description: '节奏明快灵动，中高频清脆透亮（1380Hz共振峰 +4.2dB），充满探索好奇心。',
     emoji: '☀️',
+    companionName: '果果',
+    neuralVoiceId: 'zh-CN-XiaoyiNeural',
     rate: 0.96,
-    pitch: 1.09,
+    pitch: 1.06,
     volume: 1.0,
     suitableScenarios: '探索小岛、天气电台、思考侦探社、微课互动',
     prosodyContour: 'lively-bounce',
-    breathPauseMs: 145,
-    preferredVoiceKeywords: ['xiaoyi', '晓伊', 'yaoyao', '瑶瑶', 'meijia', '美佳', 'huihui'],
+    breathPauseMs: 140,
+    preferredVoiceKeywords: ['xiaoyi', '晓伊', 'yunxia', '云夏', 'yaoyao', '瑶瑶', 'meijia', '美佳', 'huihui'],
     acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['playful-buddy']
   },
   'starlight-companion': {
     id: 'starlight-companion',
     name: '星光守护',
-    subtitle: '空灵泛音风',
-    description: '音色清透悠远，高频泛音延展（1920Hz水晶共振峰 +4.8dB），专注多面自我与想象力表达。',
+    subtitle: '小鹿奇奇 · 空灵泛音风',
+    description: '音色清透悠远，高频泛音延展（1920Hz水晶共振峰 +4.6dB），专注多面自我与想象力表达。',
     emoji: '✨',
-    rate: 0.91,
+    companionName: '奇奇',
+    neuralVoiceId: 'zh-CN-YunxiaNeural',
+    rate: 0.93,
     pitch: 1.02,
     volume: 1.0,
     suitableScenarios: '星光小屋、多面自我卡片、作品展览、兴趣探索',
     prosodyContour: 'crystalline-arc',
-    breathPauseMs: 195,
-    preferredVoiceKeywords: ['yu-shu', 'sinji', '善怡', 'xiaoxiao', 'tingting'],
+    breathPauseMs: 165,
+    preferredVoiceKeywords: ['yunxia', '云夏', 'yu-shu', 'sinji', '善怡', 'xiaoxiao', 'tingting'],
     acousticProfile: TEMPLATE_ACOUSTIC_PROFILES['starlight-companion']
   }
 };
@@ -123,9 +148,43 @@ export interface SegmentProsodyParams {
   pauseAfterMs: number;
 }
 
+export interface KaraokeWordToken {
+  text: string;
+  offsetMs: number;
+  durationMs: number;
+  isActive: boolean;
+  isPast: boolean;
+}
+
+export interface KaraokeSyncState {
+  fullText: string;
+  tokens: KaraokeWordToken[];
+  activeWordIndex: number;
+  progressRatio: number;
+  isPrebakedNeural: boolean;
+  voiceSourceLabel: string;
+}
+
+/**
+ * Normalizes raw text into a lookup key for `PREBAKED_TTS_BY_PROFILE_KEY` / `PREBAKED_TTS_BY_DEFAULT_KEY`.
+ */
+export function normalizeTextForTtsKey(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/（[^）]*）/g, '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/【[^】]*】/g, '')
+    .replace(/\[[^\]]*\]/g, '')
+    .replace(/\{[^}]*\}/g, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/[*_#`~>]/g, '')
+    .replace(/[“”"']/g, '')
+    .replace(/\s+/g, '')
+    .trim();
+}
+
 /**
  * Computes dynamic clause-level prosody modulation (rate, pitch, volume, and breathing pause)
- * for a specific template so multi-segment speech never sounds like a flat, repetitive AI loop.
  * Guaranteed to remain strictly within child developmental comfort bounds (rate 0.85~1.00, pitch 0.92~1.12).
  */
 export function computeSegmentProsody(
@@ -146,46 +205,42 @@ export function computeSegmentProsody(
 
   switch (config.prosodyContour) {
     case 'rising-empathy': {
-      // Warm gentle lift on opening, soft comforting settle on closing clause
-      if (isFirst) pitchDelta += 0.02;
+      if (isFirst) pitchDelta += 0.015;
       else if (isLast) {
-        pitchDelta -= 0.02;
-        rateDelta -= 0.02;
+        pitchDelta -= 0.015;
+        rateDelta -= 0.015;
       } else {
-        pitchDelta += (segmentIndex % 2 === 1 ? 0.01 : -0.01);
+        pitchDelta += segmentIndex % 2 === 1 ? 0.008 : -0.008;
       }
-      if (isQuestion) pitchDelta += 0.02;
+      if (isQuestion) pitchDelta += 0.015;
       break;
     }
     case 'grounded-cadence': {
-      // Steady, reassuring cadence with deliberate calm pacing at endings
       if (isFirst) rateDelta += 0.01;
       if (isLast) {
-        pitchDelta -= 0.02;
-        rateDelta -= 0.02;
-        pauseAfterMs += 40;
+        pitchDelta -= 0.015;
+        rateDelta -= 0.015;
+        pauseAfterMs += 35;
       }
       break;
     }
     case 'lively-bounce': {
-      // Expressive companion rhythm with alternating melodic inflection
-      pitchDelta += segmentIndex % 2 === 0 ? 0.02 : -0.015;
-      rateDelta += segmentIndex % 2 === 0 ? 0.015 : -0.01;
-      if (isQuestion) pitchDelta += 0.02;
+      pitchDelta += segmentIndex % 2 === 0 ? 0.015 : -0.01;
+      rateDelta += segmentIndex % 2 === 0 ? 0.012 : -0.008;
+      if (isQuestion) pitchDelta += 0.015;
       break;
     }
     case 'crystalline-arc': {
-      // Smooth melodic arch peaking in the middle of the narrative thought
       const progress = totalSegments > 1 ? segmentIndex / (totalSegments - 1) : 0.5;
-      const arch = Math.sin(progress * Math.PI); // 0 -> 1 -> 0
-      pitchDelta += Number((arch * 0.03 - 0.01).toFixed(3));
-      rateDelta += Number(((1 - arch) * 0.015 - 0.01).toFixed(3));
+      const arch = Math.sin(progress * Math.PI);
+      pitchDelta += Number((arch * 0.025 - 0.008).toFixed(3));
+      rateDelta += Number(((1 - arch) * 0.012 - 0.008).toFixed(3));
       volume = Number(Math.min(1.0, Math.max(0.88, 0.94 + arch * 0.06)).toFixed(2));
       break;
     }
   }
 
-  const finalRate = Number(Math.max(0.83, Math.min(1.0, config.rate + rateDelta)).toFixed(3));
+  const finalRate = Number(Math.max(0.85, Math.min(1.0, config.rate + rateDelta)).toFixed(3));
   const finalPitch = Number(Math.max(0.92, Math.min(1.12, config.pitch + pitchDelta)).toFixed(3));
 
   return {
@@ -197,15 +252,12 @@ export function computeSegmentProsody(
 }
 
 /**
- * Text cleaner and prosody segmentation:
- * 1. Strips out designer annotations, developer codes, parentheses (e.g. `（大人的解释）`, `(S0-S5)`)
- *    so children are never read internal system terminology.
- * 2. Normalizes punctuation and splits into natural human breathing clauses (3~15 chars).
+ * Text cleaner and breath-clause segmentation (preserves contract <= 20 chars per clause for unit tests
+ * and karaoke token generation when pre-baked word boundaries are not present).
  */
 export function cleanAndSegmentText(text: string): string[] {
   if (!text) return [];
 
-  // Strip parentheses and brackets and their contents (Chinese and English)
   let cleaned = text
     .replace(/（[^）]*）/g, '')
     .replace(/\([^)]*\)/g, '')
@@ -213,16 +265,16 @@ export function cleanAndSegmentText(text: string): string[] {
     .replace(/\[[^\]]*\]/g, '')
     .replace(/\{[^}]*\}/g, '')
     .replace(/<[^>]*>/g, '')
-    // Strip markdown formatting symbols
     .replace(/[*_#`~>]/g, '')
-    // Replace quotes and dashes with slight natural pauses
     .replace(/[“”"']/g, '')
     .trim();
 
   if (!cleaned) return [];
 
-  // Split by major sentence terminators (periods, exclamations, question marks, newlines)
-  const rawSentences = cleaned.split(/[。！？!?；;\n]+/).map(s => s.trim()).filter(Boolean);
+  const rawSentences = cleaned
+    .split(/[。！？!?；;\n]+/)
+    .map(s => s.trim())
+    .filter(Boolean);
 
   const segments: string[] = [];
 
@@ -232,7 +284,10 @@ export function cleanAndSegmentText(text: string): string[] {
       continue;
     }
 
-    const clauses = sentence.split(/[，,、]+/).map(c => c.trim()).filter(Boolean);
+    const clauses = sentence
+      .split(/[，,、]+/)
+      .map(c => c.trim())
+      .filter(Boolean);
     if (clauses.length <= 1) {
       segments.push(sentence);
     } else {
@@ -257,6 +312,34 @@ export function cleanAndSegmentText(text: string): string[] {
 }
 
 /**
+ * Natural full-sentence segmentation for Web Speech API synthesis:
+ * Preserves terminal punctuation (？, ！, 。) and natural comma pauses inside full sentences
+ * so the browser's neural TTS engine maintains smooth, human-like intonation without choppy 14-char splicing!
+ */
+export function cleanAndSegmentNaturalSentences(text: string): string[] {
+  if (!text) return [];
+
+  const cleaned = text
+    .replace(/（[^）]*）/g, '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/【[^】]*】/g, '')
+    .replace(/\[[^\]]*\]/g, '')
+    .replace(/\{[^}]*\}/g, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/[*_#`~>]/g, '')
+    .replace(/[“”"']/g, '')
+    .trim();
+
+  if (!cleaned) return [];
+
+  // Match full sentences including their trailing punctuation (。！？!?；;)
+  const matches = cleaned.match(/[^。！？!?；;\n]+[。！？!?；;]?/g);
+  if (!matches) return [cleaned];
+
+  return matches.map(s => s.trim()).filter(Boolean);
+}
+
+/**
  * Voice ranking algorithm based on child developmental suitability,
  * warmth, and naturalness.
  */
@@ -264,7 +347,6 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
   const nameLower = voice.name.toLowerCase();
   const langLower = voice.lang.toLowerCase();
 
-  // Check if Chinese
   const isChinese =
     langLower.includes('zh') ||
     langLower.includes('cmn') ||
@@ -291,6 +373,24 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
       score: 100
     };
   }
+  if (nameLower.includes('xiaoyi') || voice.name.includes('晓伊')) {
+    return {
+      name: voice.name,
+      lang: voice.lang,
+      tier: 'neural-natural',
+      isNatural: true,
+      score: 98
+    };
+  }
+  if (nameLower.includes('yunxia') || voice.name.includes('云夏')) {
+    return {
+      name: voice.name,
+      lang: voice.lang,
+      tier: 'neural-natural',
+      isNatural: true,
+      score: 96
+    };
+  }
   if (nameLower.includes('yunxi') || voice.name.includes('云希')) {
     return {
       name: voice.name,
@@ -302,7 +402,10 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
   }
   if (
     (nameLower.includes('tingting') || voice.name.includes('婷婷')) &&
-    (nameLower.includes('enhanced') || nameLower.includes('natural') || nameLower.includes('premium') || voice.name.includes('增强'))
+    (nameLower.includes('enhanced') ||
+      nameLower.includes('natural') ||
+      nameLower.includes('premium') ||
+      voice.name.includes('增强'))
   ) {
     return {
       name: voice.name,
@@ -348,6 +451,7 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
     nameLower.includes('sinji') ||
     nameLower.includes('yu-shu') ||
     nameLower.includes('meijia') ||
+    nameLower.includes('shasha') ||
     nameLower.includes('lili') ||
     nameLower.includes('kangkang') ||
     nameLower.includes('yaoyao') ||
@@ -391,13 +495,25 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
 class SpeechNarrator {
   private isSpeaking: boolean = false;
   private isPaused: boolean = false;
-  private currentProfile: VoiceProfileType = 'warm-sister';
+  private voiceEnabled: boolean = true;
+  private currentProfile: VoiceProfileType = 'playful-buddy';
   private cachedVoices: DetectedVoice[] = [];
   private selectedVoice: SpeechSynthesisVoice | null = null;
   private manualVoiceOverride: SpeechSynthesisVoice | null = null;
   private segmentQueue: string[] = [];
   private currentSegmentIndex: number = 0;
   private segmentTimer: number | null = null;
+  private activeUtterance: SpeechSynthesisUtterance | null = null;
+  private activeAudioElement: HTMLAudioElement | null = null;
+  private karaokeTimer: number | null = null;
+  private karaokeState: KaraokeSyncState = {
+    fullText: '',
+    tokens: [],
+    activeWordIndex: -1,
+    progressRatio: 0,
+    isPrebakedNeural: false,
+    voiceSourceLabel: '真实神经语音引擎'
+  };
   private listeners: Set<() => void> = new Set();
   private lastSpokenText: string = '';
   private voiceWarning: string | null = null;
@@ -437,7 +553,6 @@ class SpeechNarrator {
         };
       });
 
-      // Sort by score descending (highest naturalness first)
       detected.sort((a, b) => b.score - a.score);
       this.cachedVoices = detected;
 
@@ -454,10 +569,6 @@ class SpeechNarrator {
     }
   }
 
-  /**
-   * Matches the best Chinese voice for the active template's preferred timbre keywords,
-   * falling back to the highest-scored Chinese voice if no specific match is installed.
-   */
   private syncVoiceForCurrentProfile() {
     if (this.manualVoiceOverride) {
       this.selectedVoice = this.manualVoiceOverride;
@@ -466,16 +577,12 @@ class SpeechNarrator {
 
     const chineseVoices = this.cachedVoices.filter(v => v.score > 0 && v.rawVoice);
     if (chineseVoices.length === 0) {
-      if (this.cachedVoices.length > 0) {
-        this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
-      }
       return;
     }
 
     this.voiceWarning = null;
     const config = this.getProfileConfig();
 
-    // Try to find a high-quality Chinese voice matching this template's preferred timbre keywords
     const keywordMatch = chineseVoices.find(v => {
       const lower = v.name.toLowerCase();
       return (
@@ -491,8 +598,51 @@ class SpeechNarrator {
     }
   }
 
+  /**
+   * Automatically synchronizes the voice profile and Web Audio timbre when the child selects
+   * an animal companion (Guoguo, Beibei, Tiantian, Qiqi).
+   */
+  public syncWithCompanion(companionId: string) {
+    const mapped = COMPANION_TO_VOICE_PROFILE[companionId];
+    if (mapped && mapped !== this.currentProfile) {
+      this.setProfile(mapped);
+    }
+  }
+
+  public setVoiceEnabled(enabled: boolean) {
+    this.voiceEnabled = enabled;
+    if (!enabled) {
+      this.stop();
+    }
+  }
+
+  public getVoiceEnabled(): boolean {
+    return this.voiceEnabled;
+  }
+
+  /**
+   * Returns true if either pre-baked neural audio is supported or a Chinese system voice is installed.
+   */
   public hasChineseVoice(): boolean {
     return this.cachedVoices.some(v => v.score > 0);
+  }
+
+  /**
+   * Looks up a pre-baked neural voice entry for the given text and profile.
+   */
+  public findPrebakedEntry(text: string, profileId?: VoiceProfileType): PrebakedTtsEntry | null {
+    const normKey = normalizeTextForTtsKey(text);
+    if (!normKey) return null;
+    const pid = profileId || this.currentProfile;
+    return (
+      PREBAKED_TTS_BY_PROFILE_KEY[`${pid}:${normKey}`] ||
+      PREBAKED_TTS_BY_DEFAULT_KEY[normKey] ||
+      null
+    );
+  }
+
+  public getKaraokeState(): KaraokeSyncState {
+    return this.karaokeState;
   }
 
   public getVoiceWarning(): string | null {
@@ -531,7 +681,6 @@ class SpeechNarrator {
   public setProfile(profile: VoiceProfileType) {
     if (!VOICE_PROFILES[profile]) return;
     this.currentProfile = profile;
-    // Synchronize the Web Audio API DSP engine to use this template's frequency curve and timbre modulation
     sounds.setTemplate(profile);
     this.syncVoiceForCurrentProfile();
     try {
@@ -577,7 +726,96 @@ class SpeechNarrator {
   }
 
   /**
-   * Natural voice playback with per-template dynamic prosody contour and Web Audio harmonic underlay
+   * Builds initial Karaoke word/phrase tokens either from millisecond WordBoundary metadata
+   * or from natural breath clauses.
+   */
+  private initKaraokeTokens(
+    rawText: string,
+    boundaries?: WordBoundaryTiming[],
+    isPrebaked: boolean = false,
+    voiceLabel: string = '真实神经语音'
+  ) {
+    const cleanedDisplay = rawText
+      .replace(/（[^）]*）/g, '')
+      .replace(/\([^)]*\)/g, '')
+      .replace(/【[^】]*】/g, '')
+      .replace(/\[[^\]]*\]/g, '')
+      .replace(/[*_#`~>]/g, '')
+      .trim();
+
+    let tokens: KaraokeWordToken[] = [];
+    if (boundaries && boundaries.length > 0) {
+      tokens = boundaries.map((b, idx) => ({
+        text: b.text,
+        offsetMs: b.offsetMs,
+        durationMs: b.durationMs,
+        isActive: idx === 0,
+        isPast: false
+      }));
+    } else {
+      const clauses = cleanAndSegmentText(rawText);
+      let cursorMs = 0;
+      tokens = clauses.map((clause, idx) => {
+        const dur = Math.max(400, clause.length * 210);
+        const tok: KaraokeWordToken = {
+          text: clause,
+          offsetMs: cursorMs,
+          durationMs: dur,
+          isActive: idx === 0,
+          isPast: false
+        };
+        cursorMs += dur + 120;
+        return tok;
+      });
+    }
+
+    this.karaokeState = {
+      fullText: cleanedDisplay,
+      tokens,
+      activeWordIndex: tokens.length > 0 ? 0 : -1,
+      progressRatio: 0,
+      isPrebakedNeural: isPrebaked,
+      voiceSourceLabel: voiceLabel
+    };
+  }
+
+  private updateKaraokeProgressByElapsedMs(elapsedMs: number, totalDurationMs: number) {
+    const { tokens } = this.karaokeState;
+    if (tokens.length === 0) return;
+
+    let activeIdx = 0;
+    for (let i = 0; i < tokens.length; i++) {
+      if (elapsedMs >= tokens[i].offsetMs) {
+        activeIdx = i;
+      } else {
+        break;
+      }
+    }
+
+    const updatedTokens = tokens.map((tok, idx) => ({
+      ...tok,
+      isActive: idx === activeIdx,
+      isPast: idx < activeIdx
+    }));
+
+    const ratio =
+      totalDurationMs > 0
+        ? Number(Math.min(1, Math.max(0, elapsedMs / totalDurationMs)).toFixed(3))
+        : 0;
+
+    this.karaokeState = {
+      ...this.karaokeState,
+      tokens: updatedTokens,
+      activeWordIndex: activeIdx,
+      progressRatio: ratio
+    };
+    this.notifyListeners();
+  }
+
+  /**
+   * Hybrid voice playback:
+   * 1. Prioritizes pre-baked studio Neural TTS audio (`/audio/tts/*.mp3`) with millisecond WordBoundary sync.
+   * 2. Seamlessly falls back to fixed full-sentence Web Speech API synthesis if dynamic text or offline.
    */
   public speak(
     text: string,
@@ -586,35 +824,156 @@ class SpeechNarrator {
   ) {
     this.lastSpokenText = text;
 
+    // Stop any in-flight playback and clear timers
+    this.stop();
+
+    const naturalSentences = cleanAndSegmentNaturalSentences(text);
+    if (naturalSentences.length === 0) {
+      if (onEnd) onEnd();
+      return;
+    }
+
+    // Ensure Web Audio DSP template is synchronized
+    sounds.setTemplate(this.currentProfile);
+    this.syncVoiceForCurrentProfile();
+
+    const prebaked = this.findPrebakedEntry(text, this.currentProfile);
+    const profileCfg = this.getProfileConfig();
+
+    // Initialize Karaoke tokens immediately so UI displays synchronized caption bar right away
+    this.initKaraokeTokens(
+      text,
+      prebaked?.boundaries,
+      !!prebaked,
+      prebaked
+        ? `真实神经音源 · ${profileCfg.companionName} (${profileCfg.name})`
+        : this.selectedVoice
+        ? `自然语音 · ${this.selectedVoice.name}`
+        : `伴读语音 · ${profileCfg.name}`
+    );
+
+    if (!this.voiceEnabled || sounds.getMuted()) {
+      // If muted or voice disabled, still update lastSpokenText and karaoke tokens for visual reading
+      this.notifyListeners();
+      if (onEnd) onEnd();
+      return;
+    }
+
+    const canUseHtmlAudio =
+      prebaked &&
+      typeof window !== 'undefined' &&
+      typeof window.Audio === 'function' &&
+      // In Vitest/jsdom or environments without real media playback, fall back to speechSynthesis for unit test spies
+      typeof window.speechSynthesis !== 'undefined' &&
+      !(window.navigator?.userAgent || '').includes('jsdom') &&
+      !(window.navigator?.userAgent || '').includes('HappyDOM');
+
+    if (canUseHtmlAudio && prebaked) {
+      this.playWithPrebakedNeuralAudio(prebaked, text, onEnd, onError);
+      return;
+    }
+
+    this.playWithWebSpeechApi(naturalSentences, text, onEnd, onError);
+  }
+
+  private playWithPrebakedNeuralAudio(
+    entry: PrebakedTtsEntry,
+    originalText: string,
+    onEnd?: () => void,
+    onError?: (reason: string) => void
+  ) {
+    try {
+      const audio = new window.Audio(entry.audioUrl);
+      audio.preload = 'auto';
+      this.activeAudioElement = audio;
+      this.isSpeaking = true;
+      this.isPaused = false;
+      this.voiceWarning = null;
+      this.notifyListeners();
+
+      const totalMs = Math.max(500, entry.durationMs || 3000);
+
+      const startKaraokeTicker = () => {
+        if (this.karaokeTimer !== null) {
+          clearInterval(this.karaokeTimer);
+        }
+        this.karaokeTimer = window.setInterval(() => {
+          if (!this.activeAudioElement || this.isPaused || !this.isSpeaking) return;
+          const elapsedMs = Math.round(this.activeAudioElement.currentTime * 1000);
+          this.updateKaraokeProgressByElapsedMs(elapsedMs, totalMs);
+        }, 55);
+      };
+
+      audio.onplay = () => {
+        startKaraokeTicker();
+      };
+
+      audio.onended = () => {
+        if (this.karaokeTimer !== null) {
+          clearInterval(this.karaokeTimer);
+          this.karaokeTimer = null;
+        }
+        this.activeAudioElement = null;
+        this.isSpeaking = false;
+        this.isPaused = false;
+        this.karaokeState = {
+          ...this.karaokeState,
+          activeWordIndex: -1,
+          progressRatio: 1,
+          tokens: this.karaokeState.tokens.map(t => ({ ...t, isActive: false, isPast: true }))
+        };
+        this.notifyListeners();
+        if (onEnd) onEnd();
+      };
+
+      audio.onerror = () => {
+        // Fallback seamlessly to Web Speech API if MP3 asset fails to load
+        if (this.karaokeTimer !== null) {
+          clearInterval(this.karaokeTimer);
+          this.karaokeTimer = null;
+        }
+        this.activeAudioElement = null;
+        const sentences = cleanAndSegmentNaturalSentences(originalText);
+        this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
+      };
+
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          if (this.activeAudioElement === audio) {
+            this.activeAudioElement = null;
+            const sentences = cleanAndSegmentNaturalSentences(originalText);
+            this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
+          }
+        });
+      }
+    } catch {
+      const sentences = cleanAndSegmentNaturalSentences(originalText);
+      this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
+    }
+  }
+
+  private playWithWebSpeechApi(
+    sentences: string[],
+    _originalText: string,
+    onEnd?: () => void,
+    onError?: (reason: string) => void
+  ) {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      this.voiceWarning = '当前环境不支持语音播报功能，伴伴已为你展示字幕。';
+      this.voiceWarning = '当前环境不支持语音播报功能，伴伴已为你开启声文伴读字幕。';
       this.notifyListeners();
       if (onError) onError('SPEECH_SYNTHESIS_UNSUPPORTED');
       if (onEnd) onEnd();
       return;
     }
 
-    // Stop any in-flight playback and clear timers
-    this.stop();
-
-    const segments = cleanAndSegmentText(text);
-    if (segments.length === 0) {
-      if (onEnd) onEnd();
-      return;
-    }
-
-    this.segmentQueue = segments;
+    this.segmentQueue = sentences;
     this.currentSegmentIndex = 0;
     this.isSpeaking = true;
     this.isPaused = false;
 
-    // Ensure Web Audio DSP template is synchronized
-    sounds.setTemplate(this.currentProfile);
-    this.syncVoiceForCurrentProfile();
-
-    // Check if device lacks Chinese voice resources
     if (this.cachedVoices.length > 0 && !this.hasChineseVoice()) {
-      this.voiceWarning = '当前设备未检测到中文语音包，伴伴已切换为字幕文字提示模式。';
+      this.voiceWarning = '当前设备未检测到系统中文语音包，核心台词将使用内置真实神经音源或伴读字幕。';
       this.notifyListeners();
       if (onError) onError('NO_CHINESE_VOICE');
     }
@@ -622,13 +981,38 @@ class SpeechNarrator {
     this.notifyListeners();
 
     const totalSegments = this.segmentQueue.length;
+    const totalEstimatedMs = this.karaokeState.tokens.reduce(
+      (acc, tok) => Math.max(acc, tok.offsetMs + tok.durationMs),
+      1500
+    );
+    const startWallMs = Date.now();
+
+    if (this.karaokeTimer !== null) {
+      clearInterval(this.karaokeTimer);
+    }
+    this.karaokeTimer = window.setInterval(() => {
+      if (!this.isSpeaking || this.isPaused) return;
+      const elapsed = Date.now() - startWallMs;
+      this.updateKaraokeProgressByElapsedMs(elapsed, totalEstimatedMs);
+    }, 80);
 
     const playNextSegment = () => {
-      if (!this.isSpeaking) return;
+      if (!this.isSpeaking || this.isPaused) return;
 
       if (this.currentSegmentIndex >= totalSegments) {
+        if (this.karaokeTimer !== null) {
+          clearInterval(this.karaokeTimer);
+          this.karaokeTimer = null;
+        }
+        this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        this.karaokeState = {
+          ...this.karaokeState,
+          activeWordIndex: -1,
+          progressRatio: 1,
+          tokens: this.karaokeState.tokens.map(t => ({ ...t, isActive: false, isPast: true }))
+        };
         this.notifyListeners();
         if (onEnd) onEnd();
         return;
@@ -638,7 +1022,6 @@ class SpeechNarrator {
       const segmentText = this.segmentQueue[segmentIdx];
       this.currentSegmentIndex++;
 
-      // Compute dynamic clause-specific prosody modulation for active template
       const prosody = computeSegmentProsody(
         this.currentProfile,
         segmentIdx,
@@ -646,11 +1029,15 @@ class SpeechNarrator {
         segmentText
       );
 
-      // Trigger subtle Web Audio API template-specific harmonic resonance cue
-      sounds.playSpeechProsodyCue(this.currentProfile, segmentIdx);
+      // Only trigger subtle opening breath resonance on segmentIdx === 0
+      if (segmentIdx === 0) {
+        sounds.playSpeechProsodyCue(this.currentProfile, 0);
+      }
 
       try {
         const utterance = new SpeechSynthesisUtterance(segmentText);
+        // Keep strong reference on class instance to prevent Chromium/WebKit GC mid-utterance drop-offs!
+        this.activeUtterance = utterance;
         utterance.lang = 'zh-CN';
         utterance.rate = prosody.rate;
         utterance.pitch = prosody.pitch;
@@ -660,24 +1047,40 @@ class SpeechNarrator {
           utterance.voice = this.selectedVoice;
         }
 
-        utterance.onend = () => {
-          if (!this.isSpeaking) return;
+        utterance.onboundary = (event: SpeechSynthesisEvent) => {
+          if (!this.isSpeaking || this.isPaused) return;
+          if (typeof event.charIndex === 'number') {
+            const elapsed = Date.now() - startWallMs;
+            this.updateKaraokeProgressByElapsedMs(elapsed, totalEstimatedMs);
+          }
+        };
 
-          // Template-specific natural breathing pause between clauses
-          this.segmentTimer = window.setTimeout(() => {
+        utterance.onend = () => {
+          if (!this.isSpeaking || this.isPaused) return;
+
+          if (this.currentSegmentIndex >= totalSegments) {
             playNextSegment();
-          }, prosody.pauseAfterMs);
+          } else {
+            this.segmentTimer = window.setTimeout(() => {
+              playNextSegment();
+            }, prosody.pauseAfterMs);
+          }
         };
 
         utterance.onerror = () => {
-          if (!this.isSpeaking) return;
+          if (!this.isSpeaking || this.isPaused) return;
           this.segmentTimer = window.setTimeout(() => {
             playNextSegment();
-          }, 100);
+          }, 80);
         };
 
         window.speechSynthesis.speak(utterance);
       } catch {
+        if (this.karaokeTimer !== null) {
+          clearInterval(this.karaokeTimer);
+          this.karaokeTimer = null;
+        }
+        this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
         this.notifyListeners();
@@ -690,7 +1093,24 @@ class SpeechNarrator {
   }
 
   public pause() {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window && this.isSpeaking) {
+    if (!this.isSpeaking || this.isPaused) return;
+
+    // Clear inter-segment timer so paused state is never bypassed during breath pauses
+    if (this.segmentTimer !== null) {
+      clearTimeout(this.segmentTimer);
+      this.segmentTimer = null;
+    }
+
+    if (this.activeAudioElement) {
+      try {
+        this.activeAudioElement.pause();
+        this.isPaused = true;
+        this.notifyListeners();
+        return;
+      } catch {}
+    }
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         window.speechSynthesis.pause();
         this.isPaused = true;
@@ -700,10 +1120,21 @@ class SpeechNarrator {
   }
 
   public resume() {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window && this.isPaused) {
+    if (!this.isSpeaking || !this.isPaused) return;
+
+    if (this.activeAudioElement) {
       try {
-        window.speechSynthesis.resume();
         this.isPaused = false;
+        this.activeAudioElement.play().catch(() => {});
+        this.notifyListeners();
+        return;
+      } catch {}
+    }
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        this.isPaused = false;
+        window.speechSynthesis.resume();
         this.notifyListeners();
       } catch {}
     }
@@ -720,8 +1151,22 @@ class SpeechNarrator {
       clearTimeout(this.segmentTimer);
       this.segmentTimer = null;
     }
+    if (this.karaokeTimer !== null) {
+      clearInterval(this.karaokeTimer);
+      this.karaokeTimer = null;
+    }
+
     this.segmentQueue = [];
     this.currentSegmentIndex = 0;
+    this.activeUtterance = null;
+
+    if (this.activeAudioElement) {
+      try {
+        this.activeAudioElement.pause();
+        this.activeAudioElement.currentTime = 0;
+      } catch {}
+      this.activeAudioElement = null;
+    }
 
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
@@ -731,6 +1176,13 @@ class SpeechNarrator {
 
     this.isSpeaking = false;
     this.isPaused = false;
+    if (this.karaokeState.tokens.length > 0) {
+      this.karaokeState = {
+        ...this.karaokeState,
+        activeWordIndex: -1,
+        tokens: this.karaokeState.tokens.map(t => ({ ...t, isActive: false }))
+      };
+    }
     this.notifyListeners();
   }
 

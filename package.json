@@ -10,8 +10,9 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "tsx server.ts",
-    "version:gen": "node scripts/generate-version-json.mjs",
-    "build": "node scripts/generate-version-json.mjs && tsc --noEmit && vitest run && vite build",
+    "version:template": "node scripts/generate-version-json.mjs --mode template",
+    "version:runtime": "node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json",
+    "build": "tsc --noEmit && vitest run && vite build && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json",
     "build:vite-only": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
@@ -19,9 +20,11 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "verify:ci": "node scripts/generate-version-json.mjs && npm run lint && npm run test && vite build",
+    "test:rollback-d7": "bash scripts/test-rollback-gate-d7.sh",
+    "verify:ci": "npm run lint && npm run test && vite build && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json",
     "sync:dry-run": "bash scripts/sync-gdrive-to-git.sh --dry-run",
-    "sync:apply": "bash scripts/sync-gdrive-to-git.sh --apply"
+    "sync:apply": "bash scripts/sync-gdrive-to-git.sh --apply",
+    "watch:preview": "node scripts/watch-and-sync-preview.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

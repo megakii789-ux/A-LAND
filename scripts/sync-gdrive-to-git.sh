@@ -117,11 +117,11 @@ rsync -avc --delete "${RSYNC_EXCLUDES[@]}" "${SOURCE_DIR}/" "${GIT_WORKDIR}/"
 # 确保工作副本中不残留旧版 bun.lock
 rm -f "${GIT_WORKDIR}/bun.lock"
 
-# 安装 Gate D6 分支防意外推送保护钩子
+# 安装 Gate D6/D7 分支防意外推送保护钩子
 bash "${GIT_WORKDIR}/scripts/install-git-hooks.sh"
 
-# 动态生成真实构建溯源元数据 public/version.json 并回写至源目录保持一致
-(cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs)
+# D7-03: 生成 Git 提交模板元数据 (metadataKind: GIT_COMMIT_TEMPLATE)，避免把未提交前 SHA 或自身 SHA amend 进同一提交
+(cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --mode template)
 cp "${GIT_WORKDIR}/public/version.json" "${SOURCE_DIR}/public/version.json"
 
 # 确保 node_modules 可用（用于本机工作副本门禁验证，已由 .gitignore 排除，不纳入 Git 追踪）
@@ -141,18 +141,19 @@ fi
 git -C "$GIT_WORKDIR" status --short
 
 echo ""
-echo "[Step 4/6] 执行 Gate D2/D4/D6 门禁：TypeScript 类型检查 (tsc --noEmit)..."
+echo "[Step 4/6] 执行 Gate D2/D4/D6/D7 门禁：TypeScript 类型检查 (tsc --noEmit)..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/tsc --noEmit)
 echo "[PASS] TypeScript 类型检查通过 (0 errors)。"
 
 echo ""
-echo "[Step 5/6] 执行 Gate D2/D4/D6 门禁：Vitest 单元测试与内容安全门禁验证..."
+echo "[Step 5/6] 执行 Gate D2/D4/D6/D7 门禁：Vitest 单元测试与内容安全门禁验证..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/vitest run)
 echo "[PASS] Vitest 全部测试套件通过。"
 
 echo ""
-echo "[Step 6/6] 执行 Gate D2/D3/D4/D6 门禁：Vite 静态构建与 Bundle 密钥扫描..."
+echo "[Step 6/6] 执行 Gate D2/D3/D4/D6/D7 门禁：Vite 静态构建、运行态 version.json 生成与 Bundle 密钥扫描..."
 (cd "$GIT_WORKDIR" && ./node_modules/.bin/vite build)
+(cd "$GIT_WORKDIR" && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json)
 
 # 扫描构建产物 dist/ 是否包含真实 API Token、私钥或 .env 文件
 LEAK_MATCHES="$(grep -RInE 'AIzaSy[0-9A-Za-z_-]{33}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|sk-[0-9A-Za-z]{20,}' "${GIT_WORKDIR}/dist" || true)"
@@ -164,7 +165,7 @@ fi
 
 # 清理构建产物 dist/ 以保持 Git 工作区干净（dist 在 .gitignore 中）
 rm -rf "${GIT_WORKDIR}/dist"
-echo "[PASS] Vite 构建成功且 dist/ 零密钥泄露。"
+echo "[PASS] Vite 构建、运行态 version.json 验证成功且 dist/ 零密钥泄露。"
 
 if [[ -n "$COMMIT_MSG" ]]; then
   echo ""

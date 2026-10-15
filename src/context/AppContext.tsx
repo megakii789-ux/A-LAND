@@ -7,7 +7,7 @@ import {
   MedalRecord
 } from '../types';
 import { INITIAL_PARENT_OBSERVATIONS, INITIAL_MEDALS } from '../data/mockData';
-import { sounds } from '../utils/sound';
+import { sounds, ambientSound } from '../utils/sound';
 import { speechNarrator } from '../utils/speech';
 import { hasParentAccess, lockParentAccess } from '../domain/privacy/parentAccess';
 import {
@@ -279,11 +279,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   }, [currentView]);
 
+  useEffect(() => {
+    if (currentView === 'parent') {
+      speechNarrator.stop();
+      ambientSound.stop();
+    }
+  }, [currentView]);
+
   const setCurrentView = (v: 'child' | 'parent') => {
     if (v === 'parent' && !hasParentAccess()) {
       return;
     }
     speechNarrator.stop();
+    if (v === 'parent') {
+      ambientSound.stop();
+    }
     if (v === 'child') {
       lockParentAccess();
     }

@@ -17,7 +17,6 @@ import {
   BookOpen
 } from 'lucide-react';
 import { ParentMedal, ParentMedalPosture } from '../../types';
-import { sounds } from '../../utils/sound';
 import { Interactive3DCard } from '../common/Interactive3DCard';
 import { Interactive3DMedalToken } from '../common/Interactive3DMedalToken';
 
@@ -118,7 +117,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
 
   const handleCelebrateManual = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    sounds.playBell();
     if (onManualUnlock) {
       onManualUnlock(id);
     }
@@ -174,7 +172,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             onClick={() => {
-              sounds.playClick();
               setFilter('all');
             }}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
@@ -188,7 +185,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
 
           <button
             onClick={() => {
-              sounds.playClick();
               setFilter('fen');
             }}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -203,7 +199,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
 
           <button
             onClick={() => {
-              sounds.playClick();
               setFilter('tong');
             }}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -218,7 +213,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
 
           <button
             onClick={() => {
-              sounds.playClick();
               setFilter('ze');
             }}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -233,7 +227,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
 
           <button
             onClick={() => {
-              sounds.playClick();
               setFilter('presence');
             }}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -265,7 +258,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
               maxTilt={7}
               perspective={900}
               onClick={() => {
-                sounds.playClick();
                 setSelectedMedalId(medal.id);
               }}
               className={`p-5 rounded-3xl border-2 transition-all cursor-pointer flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl ${styles.cardBg} ${
@@ -326,7 +318,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => {
-                    sounds.playClick();
                     setSelectedMedalId(medal.id);
                   }}
                   className="text-xs font-bold text-stone-600 hover:text-stone-900 flex items-center gap-1"
@@ -392,7 +383,6 @@ export const ParentMedalsWall: React.FC<Props> = ({
               {onNavigateTab && (
                 <button
                   onClick={() => {
-                    sounds.playClick();
                     if (selectedMedal.posture === 'fen' || selectedMedal.posture === 'tong' || selectedMedal.posture === 'ze') {
                       onNavigateTab('observe');
                     } else if (selectedMedal.posture === 'presence') {
