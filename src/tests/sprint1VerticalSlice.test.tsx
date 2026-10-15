@@ -7,7 +7,9 @@ import {
 } from '../domain/personalization/contentThemeEngine';
 import {
   getProductExperienceMetrics,
-  resetProductExperienceMetrics
+  resetProductExperienceMetrics,
+  hasRecordedExperienceMetrics,
+  recordUnknownHonestyChoice
 } from '../domain/cognitive/productExperienceMetrics';
 import {
   grantParentAccess,
@@ -23,6 +25,7 @@ import { CrayonDetectiveGame } from '../components/InteractiveGames/CrayonDetect
 import { InteractiveGamesHubModal } from '../components/InteractiveGames/InteractiveGamesHubModal';
 import { TransferScenariosModal } from '../components/InteractiveGames/TransferLab/TransferScenariosModal';
 import { FairytaleIslandMap } from '../components/ChildIsland/FairytaleIslandMap';
+import { ParentDashboard } from '../components/ParentCoach/ParentDashboard';
 import { speechNarrator } from '../utils/speech';
 import { sounds } from '../utils/sound';
 
@@ -532,4 +535,38 @@ describe('Sprint 1 Vertical Slice: 6-Layer Thinking Detective Loop, Internal Pla
 
     view.unmount();
   });
+
+  it('shows explicit "尚无记录" in ParentDashboard when no experience metrics exist and displays real counts after recording', () => {
+    resetProductExperienceMetrics();
+    expect(hasRecordedExperienceMetrics(getProductExperienceMetrics())).toBe(false);
+
+    const emptyView = createStatefulTestRenderer(
+      <AppProvider>
+        <ParentDashboard />
+      </AppProvider>
+    );
+    const insightsTabEmpty = emptyView.findButtonByText('趋势信号看板');
+    expect(insightsTabEmpty).toBeTruthy();
+    emptyView.click(insightsTabEmpty);
+    expect(emptyView.findByTestId('parent-cognitive-process-empty')).toBeTruthy();
+    expect(emptyView.getText()).toContain('尚无记录');
+    emptyView.unmount();
+
+    recordUnknownHonestyChoice();
+    expect(hasRecordedExperienceMetrics(getProductExperienceMetrics())).toBe(true);
+
+    const activeView = createStatefulTestRenderer(
+      <AppProvider>
+        <ParentDashboard />
+      </AppProvider>
+    );
+    const insightsTabActive = activeView.findButtonByText('趋势信号看板');
+    expect(insightsTabActive).toBeTruthy();
+    activeView.click(insightsTabActive);
+    expect(activeView.findByTestId('parent-cognitive-process-metrics')).toBeTruthy();
+    expect(activeView.findByTestId('parent-cognitive-process-empty')).toBeNull();
+    expect(activeView.getText()).toContain('新证据后修正判断');
+    activeView.unmount();
+  });
 });
+

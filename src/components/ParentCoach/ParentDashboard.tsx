@@ -798,6 +798,13 @@ export const ParentDashboard: React.FC = () => {
 
               {(() => {
                 const expMetrics = loadProductExperienceMetrics();
+                const hasData = Boolean(
+                  expMetrics.lastUpdatedAt !== null ||
+                    expMetrics.completedDetectiveCaseIds.length > 0 ||
+                    expMetrics.totalCluesClassified > 0 ||
+                    expMetrics.hypothesisRevisionCount > 0 ||
+                    expMetrics.completedTransferScenarioIds.length > 0
+                );
                 const accuracyPct =
                   expMetrics.totalCluesClassified > 0
                     ? Math.round((expMetrics.firstTryCorrectClassifications / expMetrics.totalCluesClassified) * 100)
@@ -815,32 +822,41 @@ export const ParentDashboard: React.FC = () => {
                         不记录私密原话 · 仅统计思考方法练习
                       </span>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
-                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
-                        <span className="text-[11px] text-stone-500 block">已完成侦探案件</span>
-                        <span className="text-base font-black text-indigo-950">
-                          {expMetrics.completedDetectiveCaseIds.length} 起
-                        </span>
+                    {!hasData ? (
+                      <div
+                        data-testid="parent-cognitive-process-empty"
+                        className="p-3 bg-white rounded-xl border border-indigo-100 text-xs text-stone-500 text-center font-medium"
+                      >
+                        尚无记录（待孩子在侦探所或迁移实验室开始探索后自动生成客观计数）
                       </div>
-                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
-                        <span className="text-[11px] text-stone-500 block">新证据后修正判断</span>
-                        <span className="text-base font-black text-emerald-800">
-                          {expMetrics.hypothesisRevisionCount} 次
-                        </span>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                        <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                          <span className="text-[11px] text-stone-500 block">已完成侦探案件</span>
+                          <span className="text-base font-black text-indigo-950">
+                            {expMetrics.completedDetectiveCaseIds.length} 起
+                          </span>
+                        </div>
+                        <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                          <span className="text-[11px] text-stone-500 block">新证据后修正判断</span>
+                          <span className="text-base font-black text-emerald-800">
+                            {expMetrics.hypothesisRevisionCount} 次
+                          </span>
+                        </div>
+                        <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                          <span className="text-[11px] text-stone-500 block">事实/猜测首次分准</span>
+                          <span className="text-base font-black text-amber-900">
+                            {expMetrics.totalCluesClassified > 0 ? `${accuracyPct}%` : '尚无记录'}
+                          </span>
+                        </div>
+                        <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                          <span className="text-[11px] text-stone-500 block">迁移实验室完成</span>
+                          <span className="text-base font-black text-teal-900">
+                            {expMetrics.independentTransferCount} 独立 / {expMetrics.promptedTransferCount} 提示
+                          </span>
+                        </div>
                       </div>
-                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
-                        <span className="text-[11px] text-stone-500 block">事实/猜测首次分准</span>
-                        <span className="text-base font-black text-amber-900">
-                          {expMetrics.totalCluesClassified > 0 ? `${accuracyPct}%` : '待练习'}
-                        </span>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
-                        <span className="text-[11px] text-stone-500 block">迁移实验室完成</span>
-                        <span className="text-base font-black text-teal-900">
-                          {expMetrics.independentTransferCount} 独立 / {expMetrics.promptedTransferCount} 提示
-                        </span>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 );
               })()}

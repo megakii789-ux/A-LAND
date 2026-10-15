@@ -15,8 +15,20 @@ export interface ProductExperienceMetrics {
   unknownHonestyCount: number;
   independentTransferCount: number;
   promptedTransferCount: number;
-   completedTransferScenarioIds: string[];
+  completedTransferScenarioIds: string[];
   visitedLandmarks: string[];
+  /** Section 8.3: 首次进入任务所需步骤 */
+  firstEntryStepCount: number | null;
+  /** Section 8.3: 完成单个任务的操作次数记录 */
+  lastTaskOperationCount: number | null;
+  /** Section 8.3: 主动探索行为次数（点击调查方向/热点/微线索） */
+  activeExplorationCount: number;
+  /** Section 8.3: 提示调用总次数 */
+  totalPromptCalls: number;
+  /** Section 8.3: 主动退出节点记录 */
+  voluntaryExitNodes: string[];
+  /** Section 8.3: 不同任务的参与次数 */
+  taskParticipationCounts: Record<string, number>;
   lastUpdatedAt: string | null;
 }
 
@@ -32,6 +44,12 @@ const DEFAULT_METRICS: ProductExperienceMetrics = {
   promptedTransferCount: 0,
   completedTransferScenarioIds: [],
   visitedLandmarks: [],
+  firstEntryStepCount: null,
+  lastTaskOperationCount: null,
+  activeExplorationCount: 0,
+  totalPromptCalls: 0,
+  voluntaryExitNodes: [],
+  taskParticipationCounts: {},
   lastUpdatedAt: null,
 };
 
@@ -46,6 +64,20 @@ function notifyListeners(metrics: ProductExperienceMetrics): void {
       // ignore listener errors
     }
   });
+}
+
+export function hasRecordedExperienceMetrics(metrics: ProductExperienceMetrics): boolean {
+  return Boolean(
+    metrics.lastUpdatedAt !== null ||
+      metrics.completedDetectiveCaseIds.length > 0 ||
+      metrics.totalCluesClassified > 0 ||
+      metrics.hypothesisRevisionCount > 0 ||
+      metrics.unknownHonestyCount > 0 ||
+      metrics.completedTransferScenarioIds.length > 0 ||
+      metrics.activeExplorationCount > 0 ||
+      metrics.totalPromptCalls > 0 ||
+      metrics.voluntaryExitNodes.length > 0
+  );
 }
 
 export function getProductExperienceMetrics(): ProductExperienceMetrics {
@@ -78,6 +110,19 @@ export function getProductExperienceMetrics(): ProductExperienceMetrics {
         ? parsed.completedTransferScenarioIds
         : [],
       visitedLandmarks: Array.isArray(parsed.visitedLandmarks) ? parsed.visitedLandmarks : [],
+      firstEntryStepCount:
+        typeof parsed.firstEntryStepCount === 'number' ? parsed.firstEntryStepCount : null,
+      lastTaskOperationCount:
+        typeof parsed.lastTaskOperationCount === 'number' ? parsed.lastTaskOperationCount : null,
+      activeExplorationCount:
+        typeof parsed.activeExplorationCount === 'number' ? parsed.activeExplorationCount : 0,
+      totalPromptCalls:
+        typeof parsed.totalPromptCalls === 'number' ? parsed.totalPromptCalls : 0,
+      voluntaryExitNodes: Array.isArray(parsed.voluntaryExitNodes) ? parsed.voluntaryExitNodes : [],
+      taskParticipationCounts:
+        parsed.taskParticipationCounts && typeof parsed.taskParticipationCounts === 'object'
+          ? parsed.taskParticipationCounts
+          : {},
       lastUpdatedAt: typeof parsed.lastUpdatedAt === 'string' ? parsed.lastUpdatedAt : null,
     };
   } catch {
@@ -110,12 +155,36 @@ export function subscribeProductExperienceMetrics(listener: MetricsListener): ()
 
 export function recordLandmarkVisit(landmarkId: string): ProductExperienceMetrics {
   const current = getProductExperienceMetrics();
-  if (current.visitedLandmarks.includes(landmarkId)) {
-    return current;
+  const nextLandmarks = current.visitedLandmarks.includes(landmarkId)
+    ? current.visitedLandmarks
+    : [...current.visitedLandmarks, landmarkId];
+  return saveProductExperienceMetrics({
+    ...current,
+    visitedLandmarks: nextLandmarks,
+    firstEntryStepCount: current.firstEntryStepCount ?? 1,
+    activeExplorationCount: current.activeExplorationCount + 1,
+  });
+}
+
+export function recordActiveExploration(taskKey?: string): ProductExperienceMetrics {
+  const current = getProductExperienceMetrics();
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (taskKey) {
+    nextParticipation[taskKey] = (nextParticipation[taskKey] || 0) + 1;
   }
   return saveProductExperienceMetrics({
     ...current,
-    visitedLandmarks: [...current.visitedLandmarks, landmarkId],
+    activeExplorationCount: current.activeExplorationCount + 1,
+    taskParticipationCounts: nextParticipation,
+  });
+}
+
+export function recordVoluntaryExitNode(nodeLabel: string): ProductExperienceMetrics {
+  const current = getProductExperienceMetrics();
+  const nextExits = [...current.voluntaryExitNodes.slice(-9), nodeLabel];
+  return saveProductExperienceMetrics({
+    ...current,
+    voluntaryExitNodes: nextExits,
   });
 }
 
@@ -126,6 +195,7 @@ export function recordClueClassificationAttempt(isCorrectFirstTry: boolean): Pro
     totalCluesClassified: current.totalCluesClassified + 1,
     firstTryCorrectClassifications:
       current.firstTryCorrectClassifications + (isCorrectFirstTry ? 1 : 0),
+    activeExplorationCount: current.activeExplorationCount + 1,
   });
 }
 
@@ -145,7 +215,10 @@ export function recordHypothesisRevision(): ProductExperienceMetrics {
   });
 }
 
-export function recordDetectiveCaseCompletion(caseId: string): ProductExperienceMetrics {
+export function recordDetectiveCaseCompletion(
+  caseId: string,
+  operationCount?: number
+): ProductExperienceMetrics {
   const current = getProductExperienceMetrics();
   const nextCases = current.completedDetectiveCaseIds.includes(caseId)
     ? current.completedDetectiveCaseIds
@@ -153,10 +226,17 @@ export function recordDetectiveCaseCompletion(caseId: string): ProductExperience
   const nextLandmarks = current.visitedLandmarks.includes('detective')
     ? current.visitedLandmarks
     : [...current.visitedLandmarks, 'detective'];
+  const nextParticipation = {
+    ...current.taskParticipationCounts,
+    [caseId]: (current.taskParticipationCounts[caseId] || 0) + 1,
+  };
   return saveProductExperienceMetrics({
     ...current,
     completedDetectiveCaseIds: nextCases,
     visitedLandmarks: nextLandmarks,
+    lastTaskOperationCount:
+      typeof operationCount === 'number' ? operationCount : current.lastTaskOperationCount ?? 6,
+    taskParticipationCounts: nextParticipation,
   });
 }
 
@@ -168,6 +248,10 @@ export function recordTransferScenarioCompletion(
   const nextScenarios = current.completedTransferScenarioIds.includes(scenarioId)
     ? current.completedTransferScenarioIds
     : [...current.completedTransferScenarioIds, scenarioId];
+  const nextParticipation = {
+    ...current.taskParticipationCounts,
+    [scenarioId]: (current.taskParticipationCounts[scenarioId] || 0) + 1,
+  };
   return saveProductExperienceMetrics({
     ...current,
     completedTransferScenarioIds: nextScenarios,
@@ -175,6 +259,8 @@ export function recordTransferScenarioCompletion(
       current.independentTransferCount + (adultPromptCount === 0 ? 1 : 0),
     promptedTransferCount:
       current.promptedTransferCount + (adultPromptCount > 0 ? 1 : 0),
+    totalPromptCalls: current.totalPromptCalls + Math.max(0, adultPromptCount),
+    taskParticipationCounts: nextParticipation,
   });
 }
 
@@ -193,4 +279,5 @@ export function resetProductExperienceMetrics(): ProductExperienceMetrics {
 
 export const loadProductExperienceMetrics = getProductExperienceMetrics;
 export const resetProductExperienceMetricsForTesting = resetProductExperienceMetrics;
+
 
