@@ -28,6 +28,11 @@ export type TransferTaskStatus =
 
 export type FriendHomeFramingMode = 'STORY_CHILD' | 'OWN_EXPRESSION';
 
+export type FriendHomeOutcomeStatus =
+  | 'EXPRESSIVE_ACTION_ATTEMPTED'
+  | 'PAUSED_VOLUNTARILY'
+  | 'SCENARIO_COMPLETED';
+
 export interface FriendHomeScenarioProgressSnapshot {
   scenarioId: string;
   currentNodeId: string;
@@ -36,10 +41,11 @@ export interface FriendHomeScenarioProgressSnapshot {
   chosenChoiceLabels: string[];
   endedEarlyVoluntarily: boolean;
   isCompleted: boolean;
+  outcomeStatus?: FriendHomeOutcomeStatus;
   composerState?: {
     shareAmount: 'NONE' | 'LITTLE' | 'OPEN';
     toneStyle: 'WARM' | 'CALM_FIRM' | 'ASK_BACK';
-    topicFocus: 'WHO_PICKS_UP' | 'SHIFT_TO_PLAY' | 'PRIVATE_MATTER';
+    topicFocus: 'WHO_PICKS_UP' | 'SHIFT_TO_PLAY' | 'PRIVATE_MATTER' | 'PAUSE_NOW';
   };
 }
 
@@ -52,6 +58,8 @@ export interface FriendHomeSessionSnapshot {
   chosenChoiceLabels: string[];
   endedEarlyVoluntarily?: boolean;
   isCompleted: boolean;
+  /** Sprint 3 A3: 明确区分 EXPRESSIVE_ACTION_ATTEMPTED / PAUSED_VOLUNTARILY / SCENARIO_COMPLETED */
+  outcomeStatus?: FriendHomeOutcomeStatus;
   /** P1-D: 每个社交情境独立保存自己的当前轮次、历史路径和暂停状态 */
   scenarioStatesById?: Record<string, FriendHomeScenarioProgressSnapshot>;
 }
@@ -88,13 +96,32 @@ export interface ToyBoatSessionSnapshot {
 }
 
 export interface CompanionSessionMemory {
-  gameId: 'friend_asks_home' | 'toy_boat' | 'crayon_detective';
+  gameId: 'friend_asks_home' | 'toy_boat' | 'crayon_detective' | 'story_grove';
   scenarioTitle: string;
   /** P1-B: 区分“已安排/正在进行但尚未观察结果”与“已完成并观察结果” */
   eventStage?: 'ARRANGED_OR_STARTED' | 'COMPLETED_OBSERVED';
   childChoiceSummary: string;
   companionReactionText: string;
   updatedAt: string;
+}
+
+export interface StoryGroveLeafSessionSnapshot {
+  leafId: string;
+  inspectedObjectIds: string[];
+  chosenActionId: string | null;
+  actionAttemptHistory: string[];
+  revisionCount: number;
+  isCompleted: boolean;
+  updatedAt: string;
+}
+
+export interface StoryGroveTransferAttemptRecord {
+  scenarioId: string;
+  inspectedObjectIds: string[];
+  chosenActions: string[];
+  revisedAfterConsequence: boolean;
+  isCompleted: boolean;
+  completedAt: string;
 }
 
 export interface ProductExperienceMetrics {
@@ -125,8 +152,12 @@ export interface ProductExperienceMetrics {
   voluntaryExitNodes: string[];
   /** Section 8.3: 不同任务的真实参与次数 */
   taskParticipationCounts: Record<string, number>;
-  /** Sprint 2: 《朋友问起我的家》已体验完成的多轮情境 ID */
+  /** Sprint 2 / 3 A3: 《朋友问起我的家》完整体验完成的多轮情境 ID（不含仅主动暂停） */
   completedFriendHomeScenarioIds: string[];
+  /** Sprint 3 A3: 《朋友问起我的家》主动暂停保护边界的情境 ID */
+  pausedFriendHomeScenarioIds: string[];
+  /** Sprint 3 A3: 《朋友问起我的家》各情境详细状态（EXPRESSIVE_ACTION_ATTEMPTED / PAUSED_VOLUNTARILY / SCENARIO_COMPLETED） */
+  friendHomeScenarioStatuses: Record<string, FriendHomeOutcomeStatus>;
   /** Sprint 2: 《玩具船协商》已执行观察完成的任务 ID */
   completedToyBoatTaskIds: string[];
   /** Sprint 2.1 P0-A: 《玩具船协商》各任务完成方式记录（完整等待 FULL_WAIT_TIMER vs 手动提前交接 MANUAL_EARLY_HANDOFF） */
@@ -135,6 +166,12 @@ export interface ProductExperienceMetrics {
   friendHomeSessionState: FriendHomeSessionSnapshot | null;
   /** Sprint 2: 《玩具船协商》退出再进入时的任务恢复快照 */
   toyBoatSessionState: ToyBoatSessionSnapshot | null;
+  /** Sprint 3 Stage B: 故事林互动童话叶已完成 ID */
+  completedStoryLeafIds: string[];
+  /** Sprint 3 Stage B: 故事林互动童话叶状态快照 */
+  storyLeafStatesById: Record<string, StoryGroveLeafSessionSnapshot>;
+  /** Sprint 3 Stage C: 故事林跨方法自主迁移记录 */
+  storyGroveTransferAttempts: StoryGroveTransferAttemptRecord[];
   /** Sprint 2: 动物伙伴对孩子当前会话具体选择的温暖记忆 */
   latestCompanionMemory: CompanionSessionMemory | null;
   lastUpdatedAt: string | null;
@@ -167,10 +204,15 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
     voluntaryExitNodes: [],
     taskParticipationCounts: {},
     completedFriendHomeScenarioIds: [],
+    pausedFriendHomeScenarioIds: [],
+    friendHomeScenarioStatuses: {},
     completedToyBoatTaskIds: [],
     toyBoatTaskCompletionModes: {},
     friendHomeSessionState: null,
     toyBoatSessionState: null,
+    completedStoryLeafIds: [],
+    storyLeafStatesById: {},
+    storyGroveTransferAttempts: [],
     latestCompanionMemory: null,
     lastUpdatedAt: null,
   };
@@ -286,6 +328,13 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
       completedFriendHomeScenarioIds: Array.isArray(parsed.completedFriendHomeScenarioIds)
         ? parsed.completedFriendHomeScenarioIds
         : [],
+      pausedFriendHomeScenarioIds: Array.isArray(parsed.pausedFriendHomeScenarioIds)
+        ? parsed.pausedFriendHomeScenarioIds
+        : [],
+      friendHomeScenarioStatuses:
+        parsed.friendHomeScenarioStatuses && typeof parsed.friendHomeScenarioStatuses === 'object'
+          ? parsed.friendHomeScenarioStatuses
+          : {},
       completedToyBoatTaskIds: Array.isArray(parsed.completedToyBoatTaskIds)
         ? parsed.completedToyBoatTaskIds
         : [],
@@ -301,6 +350,16 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
         parsed.toyBoatSessionState && typeof parsed.toyBoatSessionState === 'object'
           ? parsed.toyBoatSessionState
           : null,
+      completedStoryLeafIds: Array.isArray(parsed.completedStoryLeafIds)
+        ? parsed.completedStoryLeafIds
+        : [],
+      storyLeafStatesById:
+        parsed.storyLeafStatesById && typeof parsed.storyLeafStatesById === 'object'
+          ? parsed.storyLeafStatesById
+          : {},
+      storyGroveTransferAttempts: Array.isArray(parsed.storyGroveTransferAttempts)
+        ? parsed.storyGroveTransferAttempts
+        : [],
       latestCompanionMemory:
         parsed.latestCompanionMemory && typeof parsed.latestCompanionMemory === 'object'
           ? parsed.latestCompanionMemory
@@ -830,7 +889,11 @@ export function recordTransferScenarioCompletion(
 }
 
 /**
- * Sprint 2: 记录《朋友问起我的家》多轮社交情境进展、可恢复任务状态与动物伙伴记忆
+ * Sprint 2 / Sprint 3 A3: 记录《朋友问起我的家》多轮社交情境进展、可恢复任务状态与动物伙伴记忆
+ * 严格区分：
+ * - PAUSED_VOLUNTARILY（主动暂停保护边界，记入 pausedFriendHomeScenarioIds）
+ * - SCENARIO_COMPLETED（完整体验完成情境，记入 completedFriendHomeScenarioIds）
+ * - EXPRESSIVE_ACTION_ATTEMPTED（已尝试表达行动但尚未结束）
  */
 export function recordFriendHomeSessionProgress(
   snapshot: FriendHomeSessionSnapshot,
@@ -839,10 +902,54 @@ export function recordFriendHomeSessionProgress(
   const scope = getActiveMetricsScope();
   const current = getProductExperienceMetrics(scope);
 
+  const lastMode =
+    snapshot.chosenExpressionModes.length > 0
+      ? snapshot.chosenExpressionModes[snapshot.chosenExpressionModes.length - 1]
+      : null;
+  const isVoluntaryPause = Boolean(
+    snapshot.outcomeStatus === 'PAUSED_VOLUNTARILY' ||
+      snapshot.endedEarlyVoluntarily ||
+      lastMode === 'PAUSE_CONVERSATION' ||
+      snapshot.currentNodeId.includes('paused')
+  );
+
+  const resolvedStatus: FriendHomeOutcomeStatus = isVoluntaryPause
+    ? 'PAUSED_VOLUNTARILY'
+    : snapshot.outcomeStatus === 'SCENARIO_COMPLETED' || snapshot.isCompleted
+      ? 'SCENARIO_COMPLETED'
+      : 'EXPRESSIVE_ACTION_ATTEMPTED';
+
+  const isFullScenarioCompleted = resolvedStatus === 'SCENARIO_COMPLETED';
+
   const nextCompleted =
-    snapshot.isCompleted && !current.completedFriendHomeScenarioIds.includes(snapshot.activeScenarioId)
+    isFullScenarioCompleted && !current.completedFriendHomeScenarioIds.includes(snapshot.activeScenarioId)
       ? [...current.completedFriendHomeScenarioIds, snapshot.activeScenarioId]
       : current.completedFriendHomeScenarioIds;
+
+  const nextPaused =
+    resolvedStatus === 'PAUSED_VOLUNTARILY' &&
+    !current.pausedFriendHomeScenarioIds.includes(snapshot.activeScenarioId)
+      ? [...current.pausedFriendHomeScenarioIds, snapshot.activeScenarioId]
+      : current.pausedFriendHomeScenarioIds;
+
+  const nextStatuses: Record<string, FriendHomeOutcomeStatus> = {
+    ...current.friendHomeScenarioStatuses,
+  };
+  const previousStatus = nextStatuses[snapshot.activeScenarioId];
+  if (
+    resolvedStatus === 'SCENARIO_COMPLETED' ||
+    resolvedStatus === 'PAUSED_VOLUNTARILY' ||
+    !previousStatus
+  ) {
+    nextStatuses[snapshot.activeScenarioId] = resolvedStatus;
+  }
+
+  const normalizedSnapshot: FriendHomeSessionSnapshot = {
+    ...snapshot,
+    endedEarlyVoluntarily: isVoluntaryPause,
+    isCompleted: isFullScenarioCompleted,
+    outcomeStatus: resolvedStatus,
+  };
 
   const sessionKey = `${scope}:friend_home:${snapshot.activeScenarioId}`;
   const nextParticipation = { ...current.taskParticipationCounts };
@@ -856,9 +963,94 @@ export function recordFriendHomeSessionProgress(
     {
       ...current,
       completedFriendHomeScenarioIds: nextCompleted,
-      friendHomeSessionState: snapshot,
+      pausedFriendHomeScenarioIds: nextPaused,
+      friendHomeScenarioStatuses: nextStatuses,
+      friendHomeSessionState: normalizedSnapshot,
       latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
       taskParticipationCounts: nextParticipation,
+    },
+    scope
+  );
+}
+
+/**
+ * Sprint 3 Stage B: 记录故事森林互动童话叶观察、行动尝试、修正与完成状态
+ */
+export function recordStoryGroveLeafProgress(
+  snapshot: StoryGroveLeafSessionSnapshot,
+  companionMemory?: CompanionSessionMemory
+): ProductExperienceMetrics {
+  const scope = getActiveMetricsScope();
+  const current = getProductExperienceMetrics(scope);
+
+  const nextCompleted =
+    snapshot.isCompleted && !current.completedStoryLeafIds.includes(snapshot.leafId)
+      ? [...current.completedStoryLeafIds, snapshot.leafId]
+      : current.completedStoryLeafIds;
+
+  const sessionKey = `${scope}:story_leaf:${snapshot.leafId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[`story_leaf:${snapshot.leafId}`] =
+      (nextParticipation[`story_leaf:${snapshot.leafId}`] || 0) + 1;
+  }
+
+  return saveProductExperienceMetrics(
+    {
+      ...current,
+      completedStoryLeafIds: nextCompleted,
+      storyLeafStatesById: {
+        ...current.storyLeafStatesById,
+        [snapshot.leafId]: snapshot,
+      },
+      latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
+      taskParticipationCounts: nextParticipation,
+    },
+    scope
+  );
+}
+
+/**
+ * Sprint 3 Stage C: 记录故事森林跨方法自主迁移尝试与方法调整
+ */
+export function recordStoryGroveTransferAttempt(
+  attempt: StoryGroveTransferAttemptRecord,
+  companionMemory?: CompanionSessionMemory
+): ProductExperienceMetrics {
+  const scope = getActiveMetricsScope();
+  const current = getProductExperienceMetrics(scope);
+
+  const existingIndex = current.storyGroveTransferAttempts.findIndex(
+    (item) => item.scenarioId === attempt.scenarioId
+  );
+  const nextAttempts = [...current.storyGroveTransferAttempts];
+  if (existingIndex >= 0) {
+    nextAttempts[existingIndex] = attempt;
+  } else {
+    nextAttempts.push(attempt);
+  }
+
+  const isFirstCompletion =
+    attempt.isCompleted && !current.completedTransferScenarioIds.includes(attempt.scenarioId);
+  const nextCompletedTransferIds = isFirstCompletion
+    ? [...current.completedTransferScenarioIds, attempt.scenarioId]
+    : current.completedTransferScenarioIds;
+
+  const nextTransferStates: Record<string, TransferTaskStatus> = {
+    ...current.transferScenarioStates,
+    [attempt.scenarioId]: attempt.isCompleted ? 'COMPLETED_INDEPENDENT' : 'ATTEMPTED',
+  };
+
+  return saveProductExperienceMetrics(
+    {
+      ...current,
+      storyGroveTransferAttempts: nextAttempts,
+      completedTransferScenarioIds: nextCompletedTransferIds,
+      transferScenarioStates: nextTransferStates,
+      independentTransferCount:
+        current.independentTransferCount + (isFirstCompletion ? 1 : 0),
+      latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
     },
     scope
   );

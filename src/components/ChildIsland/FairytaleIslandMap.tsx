@@ -9,6 +9,7 @@ import {
   recordLandmarkVisit,
   subscribeProductExperienceMetrics,
 } from '../../domain/cognitive/productExperienceMetrics';
+import { subscribeParentAccess } from '../../domain/privacy/parentAccess';
 
 export interface FairytaleIslandMapProps {
   onSelectPlace?: (place: IslandPlace) => void;
@@ -81,15 +82,31 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
   const [, setMetricsTick] = useState(0);
 
   useEffect(() => {
-    return subscribeProductExperienceMetrics(() => {
+    const unsubMetrics = subscribeProductExperienceMetrics(() => {
       setMetricsTick((v) => v + 1);
     });
+    const unsubAccess = subscribeParentAccess(() => {
+      setMetricsTick((v) => v + 1);
+    });
+    return () => {
+      unsubMetrics();
+      unsubAccess();
+    };
   }, []);
 
   const expMetrics = loadProductExperienceMetrics();
   const solvedCasesCount = completedDetectiveCasesCount ?? expMetrics.completedDetectiveCaseIds.length;
   const completedFriendHomeCount = expMetrics.completedFriendHomeScenarioIds.length;
+  const pausedFriendHomeCount = expMetrics.pausedFriendHomeScenarioIds.length;
+  const hasFriendHomeFlower = completedFriendHomeCount > 0 || pausedFriendHomeCount > 0;
   const completedToyBoatCount = expMetrics.completedToyBoatTaskIds.length;
+  const completedInteractiveStoryCount = Math.max(
+    completedStoriesCount,
+    expMetrics.completedStoryLeafIds.length
+  );
+  const completedCampTransferCount = expMetrics.storyGroveTransferAttempts.filter(
+    (a) => a.isCompleted
+  ).length;
 
   const landmarks: LandmarkData[] = [
     {
@@ -220,9 +237,24 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       id: 'story',
       placeKey: 'story',
       title: '故事森林',
-      subTitle: '绘本密林 · 发现思考之叶',
-      tag: completedStoriesCount > 0 ? `已读 ${completedStoriesCount} 篇` : '故事绘本',
-      desc: '在发光的大树下漫步，打开一本本生活故事，发现看待世界的新视角。',
+      subTitle:
+        completedCampTransferCount > 0
+          ? `树屋露营灯已点亮 · 已探 ${completedInteractiveStoryCount} 片故事叶`
+          : completedInteractiveStoryCount > 0
+          ? `树冠点亮 ${completedInteractiveStoryCount} 枚思考果 · 绘本密林`
+          : '绘本密林 · 发现思考之叶',
+      tag:
+        completedCampTransferCount > 0
+          ? `露营灯亮 · ${completedInteractiveStoryCount}叶`
+          : completedInteractiveStoryCount > 0
+          ? `已探 ${completedInteractiveStoryCount} 叶`
+          : '故事绘本',
+      desc:
+        completedCampTransferCount > 0
+          ? '故事林树屋点亮了露营暖光灯，树冠结出了思考果子！你已经会在新故事里自己选办法啦。'
+          : completedInteractiveStoryCount > 0
+          ? `故事林树冠已点亮 ${completedInteractiveStoryCount} 枚思考果！继续动手探索更多童话场景吧。`
+          : '在发光的大树下漫步，打开一本本生活故事，发现看待世界的新视角。',
       actionText: '打开故事绘本',
       ariaLabel: '进入故事森林（进入故事林）：在绿树丛中漫步，打开生活故事绘本',
       colorScheme: {
@@ -250,12 +282,21 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       title: '勇气小屋',
       subTitle:
         completedFriendHomeCount > 0
-          ? `已点亮 ${completedFriendHomeCount} 朵边界小花 · 学会坚定说不`
+          ? `已完成 ${completedFriendHomeCount} 幕边界表达${pausedFriendHomeCount > 0 ? ` · 自主暂停 ${pausedFriendHomeCount} 幕` : ''}`
+          : pausedFriendHomeCount > 0
+          ? `已点亮 ${pausedFriendHomeCount} 朵安心暂停花 · 随时保护边界`
           : '练习说真心话 · 学会坚定说不',
-      tag: completedFriendHomeCount > 0 ? `已表达 ${completedFriendHomeCount} 幕` : '安全表达',
+      tag:
+        completedFriendHomeCount > 0
+          ? `已完成 ${completedFriendHomeCount} 幕`
+          : pausedFriendHomeCount > 0
+          ? `安心暂停 ${pausedFriendHomeCount} 幕`
+          : '安全表达',
       desc:
         completedFriendHomeCount > 0
-          ? `勇气小屋花园已点亮 ${completedFriendHomeCount} 朵边界守护花！你懂得按自己的意愿表达和求助啦。`
+          ? `勇气小屋花园已点亮 ${completedFriendHomeCount} 朵完整表达花${pausedFriendHomeCount > 0 ? `与 ${pausedFriendHomeCount} 朵安心暂停花` : ''}！`
+          : pausedFriendHomeCount > 0
+          ? `勇气小屋花园点亮了 ${pausedFriendHomeCount} 朵安心暂停花！主动暂停也是保护自己边界的好方法。`
           : '在大树下温暖的小木屋里，练习把心里话告诉可信赖的大人，保护自己的身体与心。',
       actionText: '进屋练习说话',
       ariaLabel: '进入勇气小屋（进入勇气说话屋）：练习把心里话说出来，有权说不，找可信任的大人',
@@ -443,7 +484,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                   data-testid="island-friend-home-progress-badge"
                   className="text-[11px] font-bold bg-rose-100 text-rose-950 px-2.5 py-0.5 rounded-full border border-rose-300"
                 >
-                  🛡️ 边界表达 {completedFriendHomeCount} 幕
+                  🛡️ 边界完成 {completedFriendHomeCount} 幕
+                </span>
+              )}
+              {pausedFriendHomeCount > 0 && (
+                <span
+                  data-testid="island-friend-home-paused-badge"
+                  className="text-[11px] font-bold bg-amber-100 text-amber-950 px-2.5 py-0.5 rounded-full border border-amber-300"
+                >
+                  ⏸️ 安心暂停 {pausedFriendHomeCount} 幕
                 </span>
               )}
               {completedToyBoatCount > 0 && (
@@ -454,8 +503,12 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                   ⛵ 小船协商 {completedToyBoatCount} 项
                 </span>
               )}
-              <span className="text-[11px] font-bold bg-emerald-100 text-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-300">
-                📖 已读故事 {completedStoriesCount} 篇
+              <span
+                data-testid="island-story-grove-progress-badge"
+                className="text-[11px] font-bold bg-emerald-100 text-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-300"
+              >
+                📖 已读故事 {completedInteractiveStoryCount} 篇
+                {completedCampTransferCount > 0 ? ' · 露营灯已亮' : ''}
               </span>
               <span className="text-[11px] font-bold bg-sky-100 text-sky-950 px-2.5 py-0.5 rounded-full border border-sky-300">
                 ☀️ {sunCount}阳 · 🌧️ {rainCount}雨
@@ -466,7 +519,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 </span>
               )}
             </div>
-            {(solvedCasesCount > 0 || completedFriendHomeCount > 0 || completedToyBoatCount > 0) && (
+            {(solvedCasesCount > 0 ||
+              hasFriendHomeFlower ||
+              completedToyBoatCount > 0 ||
+              completedInteractiveStoryCount > 0 ||
+              completedCampTransferCount > 0) && (
               <div
                 data-testid="island-world-reaction-banner"
                 className="mt-1.5 px-3 py-1.5 rounded-xl bg-amber-100/90 border border-amber-300 text-xs font-bold text-amber-950 flex items-center gap-1.5"
@@ -474,8 +531,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 <span>✨</span>
                 <span>
                   {solvedCasesCount > 0 && `侦探木屋窗台点亮了 ${solvedCasesCount} 枚真实取证徽章！`}
-                  {completedFriendHomeCount > 0 && ` 勇气小屋盛开了 ${completedFriendHomeCount} 朵边界守护花！`}
+                  {completedFriendHomeCount > 0 && ` 勇气小屋盛开了 ${completedFriendHomeCount} 朵完整表达花！`}
+                  {pausedFriendHomeCount > 0 && ` 勇气小屋点亮了 ${pausedFriendHomeCount} 朵安心暂停花！`}
                   {completedToyBoatCount > 0 && ` 双向桥溪流的小木船完成了 ${completedToyBoatCount} 次协商试航！`}
+                  {completedInteractiveStoryCount > 0 && ` 故事林树冠结出了 ${completedInteractiveStoryCount} 枚思考果！`}
+                  {completedCampTransferCount > 0 && ` 故事林树屋露营夜灯已温暖常亮！`}
                   伙伴们正为你的每一次思考与尝试开心呢。
                 </span>
               </div>
@@ -954,6 +1014,34 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
             <circle cx="16" cy="-40" r="3" fill="#FEF08A" className="anim-fairy-light" />
             <circle cx="28" cy="-10" r="2.5" fill="#A7F3D0" className="anim-fairy-light" />
 
+            {/* Stage B: 完成可操作故事叶后，故事森林树冠结出闪烁思考果子 */}
+            {completedInteractiveStoryCount > 0 && (
+              <g
+                data-testid="island-svg-story-grove-fruits"
+                data-completed-leaves={String(completedInteractiveStoryCount)}
+              >
+                <circle cx="-24" cy="-22" r="6" fill="#F59E0B" stroke="#FEF3C7" strokeWidth="1.5" />
+                <circle cx="22" cy="-26" r="6" fill="#38BDF8" stroke="#E0F2FE" strokeWidth="1.5" />
+              </g>
+            )}
+
+            {/* Stage C: 完成树屋露营夜综合迁移挑战后，故事林挂起常亮露营暖灯 */}
+            {completedCampTransferCount > 0 && (
+              <g data-testid="island-svg-camp-transfer-lantern" transform="translate(0, -56)">
+                <circle cx="0" cy="0" r="11" fill="#FDE047" opacity="0.45" />
+                <rect
+                  x="-5"
+                  y="-6"
+                  width="10"
+                  height="12"
+                  rx="3"
+                  fill="#FEF08A"
+                  stroke="#D97706"
+                  strokeWidth="1.5"
+                />
+              </g>
+            )}
+
             {/* 树干 */}
             <rect x="-8" y="-10" width="16" height="28" rx="4" fill="#78350F" stroke="#451A03" strokeWidth="1.5" />
 
@@ -998,11 +1086,12 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               {/* 勇气明灯 */}
               <circle cx="16" cy="-4" r="3.5" fill="#FDE047" stroke="#F59E0B" strokeWidth="1" />
 
-              {/* P1-E: 完成《朋友问起我的家》后，勇气小屋前盛开发光边界守护花丛 */}
-              {completedFriendHomeCount > 0 && (
+              {/* P1-E + A3: 完成《朋友问起我的家》或主动暂停保护边界后，勇气小屋前盛开发光花丛（语义区分完成数与暂停数） */}
+              {hasFriendHomeFlower && (
                 <g
                   data-testid="island-svg-courage-boundary-flower"
                   data-completed-count={String(completedFriendHomeCount)}
+                  data-paused-count={String(pausedFriendHomeCount)}
                   transform="translate(0, 18)"
                 >
                   <ellipse cx="0" cy="2" rx="22" ry="6" fill="#A7F3D0" stroke="#059669" strokeWidth="1.2" />

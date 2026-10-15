@@ -309,6 +309,10 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
   const [completedTaskIds, setCompletedTaskIds] = useState<string[]>(
     () => initialMetrics.completedToyBoatTaskIds
   );
+  // Sprint 3 A4: 规划阶段先做结果预测，运行后再观察真实角色反应并对比修正
+  const [predictedOutcome, setPredictedOutcome] = useState<
+    'BOTH_HAPPY' | 'WAITING_IMPATIENT' | 'NEED_COOPERATION' | null
+  >(null);
 
   // P0-A: 单次执行幂等锁与提前交接标记，防止倒计时与手动按钮并发重复触发完成记录
   const executionRunCompletedRef = useRef<boolean>(
@@ -775,7 +779,9 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
     setLocalSessionToken(null);
     setIsParentGateOpen(false);
     revokeAdultPreviewSession();
-    lockParentAccess();
+    if (!isInternalPlaytestEnabled()) {
+      lockParentAccess();
+    }
     onExit();
   };
 
@@ -1040,18 +1046,26 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
             </div>
           )}
 
-          {/* 两个角色的实时需求状态与动作表情卡片 */}
+          {/* 两个角色的实时需求状态与动作表情卡片（Sprint 3 A4：规划时只展示愿望与可能影响，运行后才由角色动作、表情与结果体现满意度） */}
           <div className="grid grid-cols-2 gap-2.5">
             {/* 小兔提莫 */}
             <div
               data-testid="rabbit-reaction-card"
-              data-satisfaction={evaluation.rabbitSatisfaction}
+              data-satisfaction={
+                executionPhase === 'OBSERVED_RESULT'
+                  ? evaluation.rabbitSatisfaction
+                  : 'PENDING_OBSERVATION'
+              }
               className="bg-white/95 rounded-2xl border-2 border-rose-200 p-2.5 flex flex-col sm:flex-row items-center sm:items-start gap-2 shadow-2xs min-w-0"
             >
               <div className="flex flex-col items-center shrink-0">
                 <AnimalFriendSvg
                   type="rabbit"
-                  satisfaction={evaluation.rabbitSatisfaction}
+                  satisfaction={
+                    executionPhase === 'OBSERVED_RESULT'
+                      ? evaluation.rabbitSatisfaction
+                      : 'MODERATE_WAITING'
+                  }
                   isActiveTurn={isRabbitOnBoatNow}
                   isUsingAltProp={waitingActivityId !== 'wait_empty_hands'}
                   className="w-12 h-12 sm:w-14 sm:h-14"
@@ -1060,18 +1074,33 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
               </div>
               <div className="flex-1 min-w-0 space-y-1 text-center sm:text-left">
                 <div className="text-[10px] font-bold text-stone-500">{task.rabbitNeedLabel}</div>
-                {renderSatisfactionBadge(
-                  evaluation.rabbitSatisfaction,
-                  evaluation.rabbitStatusLabel
+                {executionPhase === 'OBSERVED_RESULT' ? (
+                  renderSatisfactionBadge(
+                    evaluation.rabbitSatisfaction,
+                    evaluation.rabbitStatusLabel
+                  )
+                ) : (
+                  <span
+                    data-testid="rabbit-planning-wish-badge"
+                    className="inline-block text-[10px] font-black px-2 py-0.5 rounded-full border bg-sky-50 text-sky-900 border-sky-200"
+                  >
+                    {executionPhase === 'PLANNING'
+                      ? '🌱 愿望与可能影响（待运行观察）'
+                      : '⏱️ 正在试航观察反应…'}
+                  </span>
                 )}
                 <p className="text-xs font-black text-stone-800 leading-snug">
                   {executionPhase === 'PLANNING'
                     ? isRabbitOnBoatNow
-                      ? '准备第一轮先上船掌舵！'
+                      ? '心愿：想快点开小船看荷叶！如果我先上船，岸上的小熊会怎么等呢？'
                       : waitingActivityId === 'wait_empty_hands'
-                        ? '如果让我空手干等太久，我会着急哦！'
-                        : `准备先在岸上：${currentWaitActivityMeta.label}`
-                    : evaluation.rabbitSpokenReaction}
+                        ? '可能的影响：如果让我空手在岸边干等太久，我可能会着急跺脚哦！'
+                        : `可能的影响：在岸上玩「${currentWaitActivityMeta.label}」，也许等待会更有趣？`
+                    : executionPhase === 'RUNNING'
+                      ? isRabbitOnBoatNow
+                        ? '正在小船上掌舵航行中…'
+                        : `正在岸边等待交接（${currentWaitActivityMeta.label}）…`
+                      : evaluation.rabbitSpokenReaction}
                 </p>
               </div>
             </div>
@@ -1079,13 +1108,21 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
             {/* 小熊波波 */}
             <div
               data-testid="bear-reaction-card"
-              data-satisfaction={evaluation.bearSatisfaction}
+              data-satisfaction={
+                executionPhase === 'OBSERVED_RESULT'
+                  ? evaluation.bearSatisfaction
+                  : 'PENDING_OBSERVATION'
+              }
               className="bg-white/95 rounded-2xl border-2 border-amber-200 p-2.5 flex flex-col sm:flex-row items-center sm:items-start gap-2 shadow-2xs min-w-0"
             >
               <div className="flex flex-col items-center shrink-0">
                 <AnimalFriendSvg
                   type="bear"
-                  satisfaction={evaluation.bearSatisfaction}
+                  satisfaction={
+                    executionPhase === 'OBSERVED_RESULT'
+                      ? evaluation.bearSatisfaction
+                      : 'MODERATE_WAITING'
+                  }
                   isActiveTurn={isBearOnBoatNow}
                   isUsingAltProp={waitingActivityId !== 'wait_empty_hands'}
                   className="w-12 h-12 sm:w-14 sm:h-14"
@@ -1094,26 +1131,41 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
               </div>
               <div className="flex-1 min-w-0 space-y-1 text-center sm:text-left">
                 <div className="text-[10px] font-bold text-stone-500">{task.bearNeedLabel}</div>
-                {renderSatisfactionBadge(evaluation.bearSatisfaction, evaluation.bearStatusLabel)}
+                {executionPhase === 'OBSERVED_RESULT' ? (
+                  renderSatisfactionBadge(evaluation.bearSatisfaction, evaluation.bearStatusLabel)
+                ) : (
+                  <span
+                    data-testid="bear-planning-wish-badge"
+                    className="inline-block text-[10px] font-black px-2 py-0.5 rounded-full border bg-amber-50 text-amber-900 border-amber-200"
+                  >
+                    {executionPhase === 'PLANNING'
+                      ? '🌱 愿望与可能影响（待运行观察）'
+                      : '⏱️ 正在试航观察反应…'}
+                  </span>
+                )}
                 <p className="text-xs font-black text-stone-800 leading-snug">
                   {executionPhase === 'PLANNING'
                     ? isBearOnBoatNow
-                      ? '准备第一轮先上船掌舵！'
+                      ? '心愿：想用小船运松果！如果我先开船，小兔在岸边会怎么等呢？'
                       : waitingActivityId === 'wait_empty_hands'
-                        ? '如果让我空手干等太久，我也会坐不住哦！'
-                        : `准备先在岸上：${currentWaitActivityMeta.label}`
-                    : evaluation.bearSpokenReaction}
+                        ? '可能的影响：如果让我空手在岸边干等太久，我也会坐不住哦！'
+                        : `可能的影响：在岸上用「${currentWaitActivityMeta.label}」配合，看看能不能一起玩？`
+                    : executionPhase === 'RUNNING'
+                      ? isBearOnBoatNow
+                        ? '正在小船上运送松果航行中…'
+                        : `正在岸边等待交接（${currentWaitActivityMeta.label}）…`
+                      : evaluation.bearSpokenReaction}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 2. 紧凑协商操作台：核心 3 步 + 等待道具 + 主执行按钮 */}
+        {/* 2. 紧凑协商操作台：核心 3 步 + 等待道具 + 先做预测 + 主执行按钮 */}
         <div className="bg-white rounded-2xl border-2 border-stone-200 p-3 sm:p-4 space-y-3 shadow-xs min-w-0">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-100 pb-2">
             <h3 className="text-xs sm:text-sm font-black text-stone-900">
-              🛠️ 制定你的协商计划（选好后点下方「开始执行」观察真实结果）：
+              🛠️ 制定你的协商计划（先预测可能结果，再点「开始执行」观察真实反应）：
             </h3>
             {executionPhase !== 'PLANNING' && (
               <button
@@ -1245,6 +1297,41 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
             </div>
           </div>
 
+          {/* Sprint 3 A4：操作维度 5 —— 孩子先做预测，运行后再观察结果与修改安排 */}
+          <div
+            data-testid="negotiation-prediction-selector"
+            className="bg-amber-50/70 rounded-xl border border-amber-200 p-2.5 space-y-1.5"
+          >
+            <div className="text-xs font-black text-amber-950">
+              5. 先猜一猜：这样安排执行后，小兔和小熊会有什么反应？
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+              {[
+                { id: 'BOTH_HAPPY' as const, label: '😊 两个人都会开心满意' },
+                { id: 'WAITING_IMPATIENT' as const, label: '⏳ 等的人可能会着急不耐烦' },
+                { id: 'NEED_COOPERATION' as const, label: '🤝 还需要调整分工才能运完松果' },
+              ].map((pred) => (
+                <button
+                  key={pred.id}
+                  type="button"
+                  data-testid={`predict-outcome-${pred.id}`}
+                  data-selected={predictedOutcome === pred.id ? 'true' : 'false'}
+                  onClick={() => {
+                    sounds.playClick();
+                    setPredictedOutcome(pred.id);
+                  }}
+                  className={`min-h-[40px] px-2.5 py-1.5 rounded-xl border text-xs font-black text-left cursor-pointer transition-all ${
+                    predictedOutcome === pred.id
+                      ? 'bg-amber-500 text-stone-950 border-amber-600 shadow-2xs'
+                      : 'bg-white text-stone-700 border-amber-200 hover:border-amber-400'
+                  }`}
+                >
+                  {pred.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* 执行方案与交接操作栏 */}
           <div className="pt-2 flex flex-wrap items-center justify-between gap-2.5 border-t border-stone-100">
             {executionPhase === 'PLANNING' ? (
@@ -1252,7 +1339,10 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
                 data-testid="planning-expectation-hint"
                 className="text-xs font-bold text-teal-900 bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-xl"
               >
-                💡 布置提示：计划已准备好！点右侧按钮让小木船真正开动，等两轮结束后才能揭晓完整观察结果哦。
+                💡 布置提示：
+                {predictedOutcome
+                  ? '你已经做好了预测！快点右侧按钮开动小船，观察真实结果跟你想的一不一样吧。'
+                  : '规划阶段只展示双方愿望与可能影响，点右侧按钮让小木船真正开动后才能揭晓双方满意度哦。'}
               </div>
             ) : (
               <div className="text-xs font-bold text-stone-600">
@@ -1290,7 +1380,7 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* 3. P1-A：只有在真正完成执行进入结果阶段（OBSERVED_RESULT）后，才展示四维真实观察总结 */}
+        {/* 3. P1-A / Sprint 3 A4：只有在真正完成执行进入结果阶段（OBSERVED_RESULT）后，才展示四维真实观察总结与预测对比 */}
         {executionPhase === 'OBSERVED_RESULT' && (
           <div
             data-testid="negotiation-result-observation"
@@ -1325,6 +1415,20 @@ export const ToyBoatNegotiationGame: React.FC<Props> = ({
                 </span>
               </div>
             </div>
+
+            {predictedOutcome && (
+              <div
+                data-testid="prediction-vs-observation-banner"
+                className="p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-xs font-bold text-amber-950"
+              >
+                🎯 你的试航前预测对比：
+                {predictedOutcome === 'BOTH_HAPPY'
+                  ? '你刚才预测「两个人都会开心满意」——快看看上方小兔和小熊现在的真实表情和下方第四项观察结果吧！'
+                  : predictedOutcome === 'WAITING_IMPATIENT'
+                    ? '你刚才预测「等的人可能会着急不耐烦」——看看岸上伙伴刚才有没有因为空手干等而着急，要不要给TA加个替代道具再试一次？'
+                    : '你刚才预测「还需要调整分工才能运完松果」——看看现在小船和岸上的配合效果，随时可以点击「修改安排」继续优化哦！'}
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
               <div className="p-2.5 rounded-xl bg-sky-50 border border-sky-200">

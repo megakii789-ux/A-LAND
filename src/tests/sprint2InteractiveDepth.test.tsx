@@ -438,7 +438,10 @@ describe('Sprint 2 & Sprint 2.1 Interactive Depth — FriendAsksHomeGame, ToyBoa
 
     const metrics = getPlaytestExperienceMetrics();
     expect(metrics.completedFriendHomeScenarioIds).toContain('scenario_curious_friend_pickup');
-    expect(metrics.completedFriendHomeScenarioIds).toContain('scenario_probing_classmate_drawing');
+    expect(metrics.completedFriendHomeScenarioIds).not.toContain('scenario_probing_classmate_drawing');
+    expect(metrics.pausedFriendHomeScenarioIds).toContain('scenario_probing_classmate_drawing');
+    expect(metrics.friendHomeScenarioStatuses['scenario_curious_friend_pickup']).toBe('SCENARIO_COMPLETED');
+    expect(metrics.friendHomeScenarioStatuses['scenario_probing_classmate_drawing']).toBe('PAUSED_VOLUNTARILY');
     expect(metrics.latestCompanionMemory?.gameId).toBe('friend_asks_home');
     expect(metrics.latestCompanionMemory?.eventStage).toBe('COMPLETED_OBSERVED');
 

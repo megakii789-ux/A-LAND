@@ -7,6 +7,13 @@ import {
   DialogueTurnOption,
   ExpressionMode,
   PeerMoodState,
+  ComposerAmount,
+  ComposerTone,
+  ComposerTopic,
+  composeScenario1TurnOption,
+  resolveScenarioContextSummary,
+  resolveNodeFramedContent,
+  resolveOptionFramedText,
 } from '../../../domain/games/friendAsksHomeLogic';
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
@@ -23,6 +30,7 @@ import {
   getProductExperienceMetrics,
   recordFriendHomeSessionProgress,
   FriendHomeFramingMode,
+  FriendHomeOutcomeStatus,
   FriendHomeScenarioProgressSnapshot,
 } from '../../../domain/cognitive/productExperienceMetrics';
 import { useApp } from '../../../context/AppContext';
@@ -34,69 +42,6 @@ interface Props {
   onExit: () => void;
   isAdultPreview?: boolean;
   previewSessionToken?: string | null;
-}
-
-/**
- * P1-C: 当孩子选择「练习适合我自己的表达 (OWN_EXPRESSION)」且未在应用中主动开启双家日程情境时，
- * 默认采用中性通用家庭文案，不预设当前玩家“住两个家”。
- */
-function adaptTextForFraming(
-  text: string,
-  framingMode: FriendHomeFramingMode,
-  hasTwoHomesContext: boolean
-): string {
-  if (framingMode === 'STORY_CHILD' || hasTwoHomesContext) {
-    return text;
-  }
-  return text
-    .replace(
-      '因为爸爸妈妈住在两个不同的家里，轮流来接我放学呀。',
-      '因为我们家每天接送的安排不一样，今天轮到妈妈来接我放学呀。'
-    )
-    .replace(
-      '啊？住在两个家？那你的玩具和画笔放哪边呀？会不会弄丢呀？',
-      '啊？每天接送不一样呀？那你的玩具和画笔放在家里哪里呀？会不会找不到呀？'
-    )
-    .replace(
-      '两边都有我的小书架和画笔，爸爸妈妈都很爱我，不会丢的！',
-      '家里有我专门的小书架和画笔角，爸爸妈妈都很爱我，不会丢的！'
-    )
-    .replace(
-      '原来两边都有属于你的小天地呀！',
-      '原来家里有属于你的温暖小天地呀！'
-    )
-    .replace(
-      '自由画画时你画了两座漂亮的小房子，同桌豆豆凑过来不停追问你们家的隐私细节。',
-      '自由画画时你画了家里的秘密基地，同桌豆豆凑过来不停追问你们家的隐私细节。'
-    )
-    .replace(
-      '喂，别人都是画一座房子，你为什么画了两个家呀？你爸爸妈妈到底怎么回事呀？快告诉我嘛！',
-      '喂，你画的房子跟别人不一样，你们家平时到底是怎么安排的呀？快告诉我嘛！'
-    )
-    .replace(
-      '因为我两边都可以住呀，左边有小猫，右边有秋千。',
-      '因为我喜欢画两个好玩的角落呀，左边有小猫，右边有秋千。'
-    )
-    .replace(
-      '课间玩滑梯时，同学乐乐听说你爸爸妈妈不住在一起，脱口说出了一句错误的猜测。',
-      '课间玩滑梯时，同学乐乐看到今天家里大人没一起来，脱口说出了一句错误的猜测。'
-    )
-    .replace(
-      '啊？你爸爸妈妈不住在一起呀？那是不是因为你不听话，有一边不要你了呀？',
-      '啊？今天你家里大人没一起来呀？那是不是因为你不听话，大人不想管你了呀？'
-    )
-    .replace(
-      '老师，乐乐说我爸妈不住一起是因为不要我了，我听了很难过。',
-      '老师，乐乐乱猜我家里大人的事，我听了很难过。'
-    )
-    .replace(
-      '哈哈，大家快看，他爸爸妈妈不住在一起，他家跟别人不一样，真奇怪！',
-      '哈哈，大家快看，他家里跟别人不一样，真奇怪！'
-    )
-    .replace(
-      '我有两个温暖的家，一边有小猫咪，一边有大积木桌。',
-      '我们家有很温暖的小角落，有我喜欢的绘本和大积木桌。'
-    );
 }
 
 /**
@@ -386,11 +331,17 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
   const [completedScenarioIds, setCompletedScenarioIds] = useState<string[]>(
     () => getProductExperienceMetrics().completedFriendHomeScenarioIds
   );
+  const [pausedScenarioIds, setPausedScenarioIds] = useState<string[]>(
+    () => getProductExperienceMetrics().pausedFriendHomeScenarioIds
+  );
+  const [scenarioStatuses, setScenarioStatuses] = useState<
+    Record<string, FriendHomeOutcomeStatus>
+  >(() => getProductExperienceMetrics().friendHomeScenarioStatuses);
 
-  // P1-D: 场景一（好奇询问）互动表达组合器状态（说多少 × 语气 × 话题/求助）
-  const [composerAmount, setComposerAmount] = useState<'DIRECT' | 'PARTIAL' | 'HOLD'>('PARTIAL');
-  const [composerTone, setComposerTone] = useState<'GENTLE' | 'ASK_BACK' | 'FIRM'>('GENTLE');
-  const [composerTopic, setComposerTopic] = useState<'PICKUP' | 'PLAY_TOPIC' | 'ADULT'>('PICKUP');
+  // Sprint 3 A1: 场景一（好奇询问）三维独立生效表达组合器（说多少 × 语气 × 下一步行动）
+  const [composerAmount, setComposerAmount] = useState<ComposerAmount>('PARTIAL');
+  const [composerTone, setComposerTone] = useState<ComposerTone>('GENTLE');
+  const [composerTopic, setComposerTopic] = useState<ComposerTopic>('PICKUP');
 
   const scenario = getFriendHomeScenarioById(activeScenarioId);
   const currentNode = scenario.nodes[currentNodeId] || scenario.nodes[scenario.initialNodeId];
@@ -399,13 +350,14 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
       ? chosenExpressionModes[chosenExpressionModes.length - 1]
       : null;
 
-  const adaptedPeerSpeech = adaptTextForFraming(
-    currentNode.peerSpokenText,
+  const framedNode = resolveNodeFramedContent(
+    currentNode,
     framingMode,
     hasTwoHomesContext
   );
-  const adaptedContextSummary = adaptTextForFraming(
-    scenario.contextSummary,
+  const adaptedPeerSpeech = framedNode.peerSpokenText;
+  const adaptedContextSummary = resolveScenarioContextSummary(
+    scenario,
     framingMode,
     hasTwoHomesContext
   );
@@ -415,12 +367,33 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
   useEffect(() => {
     if (!isApproved && !adultPreviewUnlocked) return;
     speechNarrator.speak(
-      `${scenario.title}。${currentNode.speakerName}说：${adaptedPeerSpeech} 你想怎么回应呢？怎么说、说多少或者停下对话，都由你决定。`
+      `${scenario.title}。${framedNode.speakerName}说：${adaptedPeerSpeech} 你想怎么回应呢？怎么说、说多少或者停下对话，都由你决定。`
     );
     return () => {
       speechNarrator.stop();
     };
   }, [activeScenarioId]);
+
+  const computeOutcomeStatus = (
+    nodeId: string,
+    isTerminalNode: boolean,
+    isVoluntaryEarlyPause: boolean,
+    modes: ExpressionMode[]
+  ): FriendHomeOutcomeStatus => {
+    const latest = modes.length > 0 ? modes[modes.length - 1] : null;
+    if (
+      isVoluntaryEarlyPause ||
+      latest === 'PAUSE_CONVERSATION' ||
+      nodeId.includes('paused') ||
+      nodeId.includes('moved_away')
+    ) {
+      return 'PAUSED_VOLUNTARILY';
+    }
+    if (isTerminalNode) {
+      return 'SCENARIO_COMPLETED';
+    }
+    return 'EXPRESSIVE_ACTION_ATTEMPTED';
+  };
 
   const syncSessionToStorage = (
     nextScenarioId: string,
@@ -428,7 +401,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
     nextHistory: string[],
     nextModes: ExpressionMode[],
     nextLabels: string[],
-    isCompleted: boolean,
+    isTerminalNode: boolean,
     nextEndedEarly: boolean,
     nextFramingMode: FriendHomeFramingMode,
     baseScenarioMap: Record<string, FriendHomeScenarioProgressSnapshot>,
@@ -437,6 +410,16 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
   ) => {
     const targetScenario = getFriendHomeScenarioById(nextScenarioId);
     const modeLabel = latestMode ? EXPRESSION_MODE_META[latestMode].label : '自主边界表达';
+    const outcomeStatus = computeOutcomeStatus(
+      nextNodeId,
+      isTerminalNode,
+      nextEndedEarly,
+      nextModes
+    );
+    const isFullCompleted = outcomeStatus === 'SCENARIO_COMPLETED';
+    const isPauseOrCompleted =
+      outcomeStatus === 'SCENARIO_COMPLETED' || outcomeStatus === 'PAUSED_VOLUNTARILY';
+
     const updatedMap: Record<string, FriendHomeScenarioProgressSnapshot> = {
       ...baseScenarioMap,
       [nextScenarioId]: {
@@ -445,8 +428,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
         historyNodeIds: nextHistory,
         chosenExpressionModes: nextModes,
         chosenChoiceLabels: nextLabels,
-        endedEarlyVoluntarily: nextEndedEarly,
-        isCompleted,
+        endedEarlyVoluntarily: outcomeStatus === 'PAUSED_VOLUNTARILY',
+        isCompleted: isFullCompleted,
+        outcomeStatus,
       },
     };
     setScenarioStatesById(updatedMap);
@@ -458,7 +442,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
         historyNodeIds: nextHistory,
         chosenExpressionModes: nextModes,
         chosenChoiceLabels: nextLabels,
-        isCompleted,
+        endedEarlyVoluntarily: outcomeStatus === 'PAUSED_VOLUNTARILY',
+        isCompleted: isFullCompleted,
+        outcomeStatus,
         framingMode: nextFramingMode,
         scenarioStatesById: updatedMap,
       },
@@ -466,18 +452,26 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
         ? {
             gameId: 'friend_asks_home',
             scenarioTitle: targetScenario.title,
-            eventStage: isCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
-            childChoiceSummary: isCompleted
-              ? `在「${targetScenario.title}」完成了【${modeLabel}】`
-              : `正在「${targetScenario.title}」尝试【${modeLabel}】`,
-            companionReactionText: isCompleted
-              ? `我记得你在「${targetScenario.title}」里用了「${modeLabel}」(${latestSpokenText?.slice(0, 16) || ''}…)，守护让自己舒服的边界真棒！`
-              : `你刚刚在「${targetScenario.title}」尝试了「${modeLabel}」，正在观察同伴接下来的反应呢！`,
+            eventStage: isPauseOrCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+            childChoiceSummary:
+              outcomeStatus === 'PAUSED_VOLUNTARILY'
+                ? `在「${targetScenario.title}」主动暂停对话（${modeLabel}）`
+                : isFullCompleted
+                  ? `在「${targetScenario.title}」完成了【${modeLabel}】`
+                  : `正在「${targetScenario.title}」尝试【${modeLabel}】`,
+            companionReactionText:
+              outcomeStatus === 'PAUSED_VOLUNTARILY'
+                ? `我记得你在「${targetScenario.title}」里主动选择了暂停对话，保护让自己舒服的边界真棒！`
+                : isFullCompleted
+                  ? `我记得你在「${targetScenario.title}」里用了「${modeLabel}」(${latestSpokenText?.slice(0, 16) || ''}…)，守护让自己舒服的边界真棒！`
+                  : `你刚刚在「${targetScenario.title}」尝试了「${modeLabel}」，正在观察同伴接下来的反应呢！`,
             updatedAt: new Date().toISOString(),
           }
         : undefined
     );
     setCompletedScenarioIds(updated.completedFriendHomeScenarioIds);
+    setPausedScenarioIds(updated.pausedFriendHomeScenarioIds);
+    setScenarioStatuses(updated.friendHomeScenarioStatuses);
   };
 
   // P1-C: 切换视角模式（体验故事里小朋友 vs 练习适合我自己的表达）
@@ -490,7 +484,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
       historyNodeIds,
       chosenExpressionModes,
       chosenChoiceLabels,
-      Boolean(currentNode.isTerminal) || endedEarlyVoluntarily,
+      Boolean(currentNode.isTerminal),
       endedEarlyVoluntarily,
       nextMode,
       scenarioStatesById
@@ -500,15 +494,21 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
   // P1-C: 选择切换五类同伴场景 —— 保留并恢复每个场景各自的进度，绝不一换场景就清空！
   const handleSelectScenario = (nextScenarioId: string) => {
     sounds.playClick();
-    // 先把当前场景进度固定进 map
+    const currentOutcomeStatus = computeOutcomeStatus(
+      currentNodeId,
+      Boolean(currentNode.isTerminal),
+      endedEarlyVoluntarily,
+      chosenExpressionModes
+    );
     const currentSnapshot: FriendHomeScenarioProgressSnapshot = {
       scenarioId: scenario.id,
       currentNodeId,
       historyNodeIds,
       chosenExpressionModes,
       chosenChoiceLabels,
-      endedEarlyVoluntarily,
-      isCompleted: Boolean(currentNode.isTerminal) || endedEarlyVoluntarily,
+      endedEarlyVoluntarily: currentOutcomeStatus === 'PAUSED_VOLUNTARILY',
+      isCompleted: currentOutcomeStatus === 'SCENARIO_COMPLETED',
+      outcomeStatus: currentOutcomeStatus,
     };
     const mergedMap: Record<string, FriendHomeScenarioProgressSnapshot> = {
       ...scenarioStatesById,
@@ -528,10 +528,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
     const restoredModes = (savedNext?.chosenExpressionModes as ExpressionMode[]) || [];
     const restoredLabels = savedNext?.chosenChoiceLabels || [];
     const restoredEndedEarly = Boolean(savedNext?.endedEarlyVoluntarily);
-    const restoredCompleted =
-      Boolean(savedNext?.isCompleted) ||
-      Boolean(nextScenario.nodes[validSavedNodeId]?.isTerminal) ||
-      restoredEndedEarly;
+    const restoredTerminal = Boolean(nextScenario.nodes[validSavedNodeId]?.isTerminal);
 
     setActiveScenarioId(nextScenario.id);
     setCurrentNodeId(validSavedNodeId);
@@ -546,7 +543,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
       restoredHistory,
       restoredModes,
       restoredLabels,
-      restoredCompleted,
+      restoredTerminal,
       restoredEndedEarly,
       framingMode,
       mergedMap
@@ -560,11 +557,12 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
     const nextNode = scenario.nodes[option.nextNodeId] || currentNode;
     const nextHistory = [...historyNodeIds, nextNode.nodeId];
     const nextModes = [...chosenExpressionModes, option.mode];
-    const adaptedSpoken = adaptTextForFraming(
-      option.childSpokenText,
+    const framedOption = resolveOptionFramedText(
+      option,
       framingMode,
       hasTwoHomesContext
     );
+    const adaptedSpoken = framedOption.childSpokenText;
     const nextLabels = [
       ...chosenChoiceLabels,
       `${EXPRESSION_MODE_META[option.mode].label}：${adaptedSpoken}`,
@@ -594,42 +592,25 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
       adaptedSpoken
     );
 
-    const nextAdaptedPeer = adaptTextForFraming(
-      nextNode.peerSpokenText,
+    const nextFramedNode = resolveNodeFramedContent(
+      nextNode,
       framingMode,
       hasTwoHomesContext
     );
-    speechNarrator.speak(`${nextAdaptedPeer} ${nextNode.cognitiveReflectionNote}`);
+    speechNarrator.speak(
+      `${nextFramedNode.peerSpokenText} ${nextFramedNode.cognitiveReflectionNote}`
+    );
   };
 
-  // P1-D: 场景一组合器匹配当前轮次最契合的回应选项
+  // Sprint 3 A1: 场景一三维独立生效表达组合器（说多少 × 语气 × 下一步行动）
   const getComposedOptionForCurrentRound = (): DialogueTurnOption | null => {
-    const opts = currentNode.options || [];
-    if (opts.length === 0) return null;
-    if (composerTopic === 'ADULT') {
-      return (
-        opts.find((o) => o.mode === 'SEEK_ADULT_HELP' || o.mode === 'PAUSE_CONVERSATION') ||
-        opts[opts.length - 1]
-      );
-    }
-    if (composerTopic === 'PLAY_TOPIC') {
-      return (
-        opts.find((o) => o.mode === 'CHANGE_TOPIC' || o.mode === 'ASK_PEER') || opts[0]
-      );
-    }
-    if (composerTone === 'ASK_BACK') {
-      return opts.find((o) => o.mode === 'ASK_PEER') || opts[0];
-    }
-    if (composerTone === 'FIRM' || composerAmount === 'HOLD') {
-      return (
-        opts.find((o) => o.mode === 'STATE_BOUNDARY' || o.mode === 'PAUSE_CONVERSATION') ||
-        opts[opts.length - 1]
-      );
-    }
-    if (composerAmount === 'DIRECT') {
-      return opts.find((o) => o.mode === 'DIRECT_ANSWER') || opts[0];
-    }
-    return opts.find((o) => o.mode === 'PARTIAL_ANSWER') || opts[0];
+    if (currentNode.isTerminal) return null;
+    return composeScenario1TurnOption(
+      composerAmount,
+      composerTone,
+      composerTopic,
+      currentNode.roundNumber
+    );
   };
 
   // 返回上一轮对话重新尝试
@@ -688,7 +669,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
     speechNarrator.speak('我们重新开始这个情境，你可以尝试不同的回答、转移话题或者直接划定边界！');
   };
 
-  // 随时自主暂停/结束当前对话（绝不判为失败，给予正向尊重反馈）
+  // 随时自主暂停/结束当前对话（绝不判为失败，给予正向尊重反馈，并单独记录为 PAUSED_VOLUNTARILY）
   const handlePauseConversationAnytime = () => {
     sounds.playClick();
     setEndedEarlyVoluntarily(true);
@@ -706,7 +687,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
       historyNodeIds,
       nextModes,
       nextLabels,
-      true,
+      false,
       true,
       framingMode,
       scenarioStatesById,
@@ -723,7 +704,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
     setLocalSessionToken(null);
     setIsParentGateOpen(false);
     revokeAdultPreviewSession();
-    lockParentAccess();
+    if (!isInternalPlaytestEnabled()) {
+      lockParentAccess();
+    }
     onExit();
   };
 
@@ -782,6 +765,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
   }
 
   const composedOption = getComposedOptionForCurrentRound();
+  const composedFramed = composedOption
+    ? resolveOptionFramedText(composedOption, framingMode, hasTwoHomesContext)
+    : null;
 
   return (
     <div
@@ -821,7 +807,8 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                 data-testid="friend-home-completed-count"
                 className="text-[11px] bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.5 rounded-full font-black"
               >
-                已体验 {completedScenarioIds.length}/{FRIEND_HOME_SCENARIOS.length} 个情境
+                已完成 {completedScenarioIds.length}/{FRIEND_HOME_SCENARIOS.length} 个情境
+                {pausedScenarioIds.length > 0 ? ` · 主动暂停 ${pausedScenarioIds.length} 个` : ''}
               </span>
             </div>
             <p className="text-[11px] sm:text-xs text-rose-800 mt-0.5 font-medium">
@@ -911,6 +898,10 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
             {FRIEND_HOME_SCENARIOS.map((sc) => {
               const isSelected = sc.id === scenario.id;
               const isDone = completedScenarioIds.includes(sc.id);
+              const isPausedVoluntarily =
+                !isDone &&
+                (pausedScenarioIds.includes(sc.id) ||
+                  scenarioStatuses[sc.id] === 'PAUSED_VOLUNTARILY');
               const savedProgress = scenarioStatesById[sc.id];
               const savedRound =
                 savedProgress && sc.nodes[savedProgress.currentNodeId]
@@ -921,6 +912,15 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                   key={sc.id}
                   type="button"
                   data-testid={`friend-scenario-tab-${sc.id}`}
+                  data-scenario-status={
+                    isDone
+                      ? 'SCENARIO_COMPLETED'
+                      : isPausedVoluntarily
+                        ? 'PAUSED_VOLUNTARILY'
+                        : savedRound > 1
+                          ? 'EXPRESSIVE_ACTION_ATTEMPTED'
+                          : 'NOT_STARTED'
+                  }
                   onClick={() => handleSelectScenario(sc.id)}
                   className={`min-h-[52px] px-2.5 py-2 rounded-xl border-2 text-left transition-all cursor-pointer flex flex-col justify-between ${
                     isSelected
@@ -932,7 +932,11 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                     <span className="text-[11px] font-black leading-tight">{sc.categoryBadge}</span>
                     {isDone ? (
                       <span className="text-[10px] bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded-full font-black shrink-0">
-                        已体验
+                        已完成
+                      </span>
+                    ) : isPausedVoluntarily ? (
+                      <span className="text-[10px] bg-rose-200 text-rose-950 px-1.5 py-0.5 rounded-full font-black shrink-0">
+                        已暂停
                       </span>
                     ) : savedRound > 1 ? (
                       <span className="text-[10px] bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded-full font-black shrink-0">
@@ -1030,7 +1034,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                   className="w-16 h-16 sm:w-20 sm:h-20"
                 />
                 <span className="text-xs font-black text-stone-800 mt-1">
-                  {currentNode.speakerName}
+                  {framedNode.speakerName}
                 </span>
               </div>
 
@@ -1085,7 +1089,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                       e.preventDefault();
                       e.stopPropagation();
                       sounds.playClick();
-                      speechNarrator.speak(currentNode.cognitiveReflectionNote);
+                      speechNarrator.speak(framedNode.cognitiveReflectionNote);
                     }}
                     className="px-2 py-0.5 rounded-lg bg-amber-200 hover:bg-amber-300 text-amber-950 text-[11px] font-black cursor-pointer shrink-0"
                   >
@@ -1093,13 +1097,13 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                   </button>
                 </summary>
                 <p className="text-xs text-amber-950 font-bold mt-1.5 pt-1.5 border-t border-amber-200/80 leading-relaxed">
-                  {currentNode.cognitiveReflectionNote}
+                  {framedNode.cognitiveReflectionNote}
                 </p>
               </details>
             </div>
           </div>
 
-          {/* P1-D 互动强化一：场景一（朋友好奇询问）专属「表达方式拼装台」 */}
+          {/* Sprint 3 A1：场景一（朋友好奇询问）专属「三维独立生效表达组合台」 */}
           {scenario.id === 'scenario_curious_friend_pickup' &&
             !currentNode.isTerminal &&
             !endedEarlyVoluntarily && (
@@ -1109,10 +1113,10 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
               >
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <span className="text-xs sm:text-sm font-black text-rose-950">
-                    🎛️ 动手组合你的回答方式（想说多少 × 语气 × 话题/求助）：
+                    🎛️ 动手组合你的回答方式（说多少 × 语气 × 下一步行动独立生效）：
                   </span>
                   <span className="text-[11px] font-bold text-rose-800 bg-white px-2 py-0.5 rounded-full border border-rose-200">
-                    点选下方积木拼出你的回应
+                    点选下方三个维度，立即执行你的真实意图
                   </span>
                 </div>
 
@@ -1175,14 +1179,15 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                     </div>
                   </div>
 
-                  {/* 维度 3：我想换什么话题 / 向谁求助 */}
+                  {/* 维度 3：下一步行动 / 聊什么 */}
                   <div className="bg-white rounded-xl p-2 border border-rose-200 space-y-1.5">
-                    <div className="text-[11px] font-black text-stone-700">③ 话题或向谁求助：</div>
+                    <div className="text-[11px] font-black text-stone-700">③ 下一步行动：</div>
                     <div className="flex flex-wrap gap-1">
                       {[
                         { id: 'PICKUP' as const, label: '🎒 回应接送' },
                         { id: 'PLAY_TOPIC' as const, label: '🐱 换聊橘猫/积木' },
-                        { id: 'ADULT' as const, label: '🤱 找妈妈/停下' },
+                        { id: 'ADULT' as const, label: '🤱 找大人帮忙' },
+                        { id: 'PAUSE' as const, label: '✋ 随时停下' },
                       ].map((item) => (
                         <button
                           key={item.id}
@@ -1205,19 +1210,35 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                   </div>
                 </div>
 
-                {composedOption && (
+                {composedOption && composedFramed && (
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-rose-200">
-                    <div className="text-xs font-bold text-stone-800 min-w-0">
-                      <span className="text-rose-700 font-black">拼出的回应：</span>
-                      {adaptTextForFraming(
-                        composedOption.childSpokenText,
-                        framingMode,
-                        hasTwoHomesContext
-                      )}
+                    <div className="space-y-1 min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[11px] text-rose-700 font-black">
+                          拼出的回应：
+                        </span>
+                        <span
+                          data-testid="composed-expression-mode-badge"
+                          data-composed-mode={composedOption.mode}
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${
+                            EXPRESSION_MODE_META[composedOption.mode].badgeColor
+                          }`}
+                        >
+                          执行行动：{EXPRESSION_MODE_META[composedOption.mode].label}
+                        </span>
+                      </div>
+                      <div
+                        data-testid="composed-expression-preview-text"
+                        className="text-xs font-bold text-stone-800 break-words"
+                      >
+                        {composedFramed.childSpokenText}
+                      </div>
                     </div>
                     <button
                       type="button"
                       data-testid="apply-composed-expression-btn"
+                      data-composed-mode={composedOption.mode}
+                      data-composed-next-node={composedOption.nextNodeId}
                       onClick={() => handleSelectTurnOption(composedOption)}
                       className="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black shrink-0 cursor-pointer shadow-2xs"
                     >
@@ -1271,15 +1292,21 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
               </div>
             )}
 
-          {/* 如果孩子主动点击了“随时停下对话”，展示正向肯定 */}
+          {/* 如果孩子主动点击了“随时停下对话”，展示正向肯定（A3: 明确标记为 PAUSED_VOLUNTARILY，不与完整体验混淆） */}
           {endedEarlyVoluntarily ? (
             <div
               data-testid="voluntary-pause-affirmation"
+              data-outcome-status="PAUSED_VOLUNTARILY"
               className="bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-4 space-y-3"
             >
-              <h3 className="text-base sm:text-lg font-black text-emerald-950">
-                🌟 你成功使用了「暂停对话」的权利！
-              </h3>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <h3 className="text-base sm:text-lg font-black text-emerald-950">
+                  🌟 你成功使用了「暂停对话」的权利！
+                </h3>
+                <span className="text-xs bg-rose-100 text-rose-900 border border-rose-300 px-3 py-1 rounded-full font-black">
+                  已记录：自主暂停保护边界
+                </span>
+              </div>
               <p className="text-xs sm:text-sm text-emerald-900 font-bold leading-relaxed">
                 在任何时候，只要你觉得不想继续回答或者想安静待一会儿，都可以停下对话。这不是逃避，也不是失败，而是你懂得保护自己的心！
               </p>
@@ -1294,7 +1321,7 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
               </div>
             </div>
           ) : !currentNode.isTerminal ? (
-            /* 当前轮次可选的不同表达方式卡片（精简文字密度，突出4大核心动作） */
+            /* 当前轮次可选的不同表达方式卡片（精简文字密度，突出核心动作） */
             <div className="space-y-2.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="text-xs sm:text-sm font-black text-stone-900">
@@ -1315,9 +1342,9 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                   const meta = EXPRESSION_MODE_META[opt.mode];
                   const isHighlightedByComposer =
                     scenario.id === 'scenario_curious_friend_pickup' &&
-                    composedOption?.id === opt.id;
-                  const adaptedOptionSpoken = adaptTextForFraming(
-                    opt.childSpokenText,
+                    composedOption?.mode === opt.mode;
+                  const framedOpt = resolveOptionFramedText(
+                    opt,
                     framingMode,
                     hasTwoHomesContext
                   );
@@ -1343,11 +1370,11 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
                           </span>
                         </div>
                         <p className="text-xs sm:text-sm font-black text-stone-900 leading-snug">
-                          {adaptedOptionSpoken}
+                          {framedOpt.childSpokenText}
                         </p>
                       </div>
                       <p className="text-[11px] text-stone-500 font-medium mt-1.5 pt-1 border-t border-stone-100">
-                        💡 {opt.innerThoughtHint}
+                        💡 {framedOpt.innerThoughtHint}
                       </p>
                     </button>
                   );
@@ -1358,18 +1385,40 @@ export const FriendAsksHomeGame: React.FC<Props> = ({
             /* 当前场景多轮对话结束总结与切换入口 */
             <div
               data-testid="friend-scenario-terminal-card"
+              data-outcome-status={
+                computeOutcomeStatus(
+                  currentNode.nodeId,
+                  true,
+                  endedEarlyVoluntarily,
+                  chosenExpressionModes
+                )
+              }
               className="bg-emerald-50/90 border-2 border-emerald-400 rounded-2xl p-4 sm:p-5 space-y-3"
             >
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <h3 className="text-base sm:text-lg font-black text-emerald-950">
-                  ✨ 本轮社交情境体验完成！
+                  {computeOutcomeStatus(
+                    currentNode.nodeId,
+                    true,
+                    endedEarlyVoluntarily,
+                    chosenExpressionModes
+                  ) === 'PAUSED_VOLUNTARILY'
+                    ? '🌿 你主动暂停了这段对话，保护了自己的舒服空间！'
+                    : '✨ 本轮社交情境体验完成！'}
                 </h3>
                 <span className="text-xs bg-emerald-200 text-emerald-950 px-3 py-1 rounded-full font-black">
-                  小岛伙伴已记住你的真实完成
+                  {computeOutcomeStatus(
+                    currentNode.nodeId,
+                    true,
+                    endedEarlyVoluntarily,
+                    chosenExpressionModes
+                  ) === 'PAUSED_VOLUNTARILY'
+                    ? '已记录：自主暂停保护边界'
+                    : '小岛伙伴已记住你的真实完成'}
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-emerald-900 font-bold leading-relaxed">
-                {currentNode.cognitiveReflectionNote}
+                {framedNode.cognitiveReflectionNote}
               </p>
               <div className="flex flex-wrap gap-2.5 pt-1">
                 <button

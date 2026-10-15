@@ -805,6 +805,10 @@ export const ParentDashboard: React.FC = () => {
                 const hasData = Boolean(
                   expMetrics.lastUpdatedAt !== null ||
                     expMetrics.completedDetectiveCaseIds.length > 0 ||
+                    expMetrics.completedFriendHomeScenarioIds.length > 0 ||
+                    expMetrics.pausedFriendHomeScenarioIds.length > 0 ||
+                    expMetrics.completedStoryLeafIds.length > 0 ||
+                    expMetrics.storyGroveTransferAttempts.length > 0 ||
                     expMetrics.totalCluesClassified > 0 ||
                     expMetrics.hypothesisRevisionCount > 0 ||
                     expMetrics.completedTransferScenarioIds.length > 0
@@ -841,7 +845,7 @@ export const ParentDashboard: React.FC = () => {
                         尚无记录（待孩子在正式儿童会话中开始探索后自动生成客观计数）
                       </div>
                     ) : (
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center">
                         <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
                           <span className="text-[11px] text-stone-500 block">已完成侦探案件</span>
                           <span className="text-base font-black text-indigo-950">
@@ -858,6 +862,26 @@ export const ParentDashboard: React.FC = () => {
                           <span className="text-[11px] text-stone-500 block">事实/猜测首次分准</span>
                           <span className="text-base font-black text-amber-900">
                             {expMetrics.totalCluesClassified > 0 ? `${accuracyPct}%` : '尚无记录'}
+                          </span>
+                        </div>
+                        <div
+                          data-testid="parent-friend-home-semantic-counts"
+                          className="p-2.5 bg-white rounded-xl border border-indigo-100"
+                        >
+                          <span className="text-[11px] text-stone-500 block">社交边界（完成 / 暂停）</span>
+                          <span className="text-base font-black text-rose-900">
+                            完成 {expMetrics.completedFriendHomeScenarioIds.length} 幕 / 主动暂停{' '}
+                            {expMetrics.pausedFriendHomeScenarioIds.length} 次
+                          </span>
+                        </div>
+                        <div
+                          data-testid="parent-story-grove-transfer-counts"
+                          className="p-2.5 bg-white rounded-xl border border-indigo-100"
+                        >
+                          <span className="text-[11px] text-stone-500 block">故事林探索与迁移</span>
+                          <span className="text-base font-black text-emerald-900">
+                            {expMetrics.completedStoryLeafIds.length} 叶 /{' '}
+                            {expMetrics.storyGroveTransferAttempts.filter((a) => a.isCompleted).length} 次迁移
                           </span>
                         </div>
                         <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
