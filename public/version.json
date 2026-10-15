@@ -33,7 +33,7 @@
   "accessControlRequired": true,
   "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
   "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
-  "rollbackTargetSha": "04a18efe5ed996c3969ff4b584883a1116bc80a7",
+  "rollbackTargetSha": "ae22f7ab8b124829196370cdce5a5bfc430c8e9c",
   "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
   "buildToolchain": {
     "node": "v20.20.2",

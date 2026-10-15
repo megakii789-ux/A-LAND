@@ -34,6 +34,21 @@
       "deploymentId": "24d313e9-d67b-4396-99c3-057965a410dc",
       "verifiedAt": "2026-10-14T22:41:08+08:00",
       "description": "Gate D6 公网预览与 Cloudflare Access 全链路实测通过版本（Deployment 24d313e9）。"
+    },
+    {
+      "sha": "55ef145ab5fe9cd9a55363e450320834943cf7e3",
+      "gate": "Gate-D7",
+      "deploymentId": "810087d9-8930-4bf8-abeb-563e649f8cb3",
+      "verifiedAt": "2026-10-14T22:48:11+08:00",
+      "description": "Gate D7 部署治理基线：包含回滚显式门禁与 4 项负向故障注入测试、真实版本溯源、Google Drive 单命令同步/防抖守护脚本。"
+    },
+    {
+      "sha": "ae22f7ab8b124829196370cdce5a5bfc430c8e9c",
+      "gate": "Gate-D7",
+      "deploymentId": "2623079f-2874-407c-a7ac-3a73e7152717",
+      "verifiedAt": "2026-10-15T14:04:00+08:00",
+      "description": "Gate D7 + Stage 1/2 视觉交互升级 + 神经语音卡拉OK同步 + 零泄漏触觉音效 全链路实测通过版本（Deployment 2623079f，270 单元测试 + 108 Playwright 6视口测试 + 线上认证/未认证 HTTP Smoke Test 全绿）。"
     }
   ]
 }
+
