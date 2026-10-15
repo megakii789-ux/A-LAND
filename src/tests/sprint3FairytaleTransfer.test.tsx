@@ -625,6 +625,12 @@ describe('Sprint 3 Fairytale World & Cognitive Transfer Deep R&D', () => {
       'SHADOW_REVEALED'
     );
     expect(transferView.findByTestId('camp-method-revised-badge')).toBeTruthy();
+
+    // Complete the remaining 2 goals (PERSONAL_BOUNDARY and SHARED_RESOURCE) for full composite transfer completion
+    transferView.click(transferView.findByTestId('camp-hotspot-camp_obj_whispering_peer'));
+    transferView.click(transferView.findByTestId('camp-action-camp_act_state_comfort_boundary'));
+    transferView.click(transferView.findByTestId('camp-hotspot-camp_obj_single_flashlight'));
+    transferView.click(transferView.findByTestId('camp-action-camp_act_share_flashlight_roles'));
     expect(transferView.findByTestId('camp-return-island-btn')).toBeTruthy();
 
     transferView.unmount();

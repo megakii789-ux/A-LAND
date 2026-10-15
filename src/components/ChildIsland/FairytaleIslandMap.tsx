@@ -104,9 +104,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
     completedStoriesCount,
     expMetrics.completedStoryLeafIds.length
   );
-  const completedCampTransferCount = expMetrics.storyGroveTransferAttempts.filter(
-    (a) => a.isCompleted
-  ).length;
+  const completedCampTransferCount =
+    expMetrics.hasEverCompletedCampTransfer ||
+    expMetrics.storyGroveTransferAttempts.some((a) => a.isCompleted)
+      ? Math.max(
+          1,
+          expMetrics.storyGroveTransferAttempts.filter((a) => a.isCompleted).length
+        )
+      : 0;
+  const historicalCampGoalsCount = expMetrics.historicalCompletedCampGoals.length;
 
   const landmarks: LandmarkData[] = [
     {
@@ -508,7 +514,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 className="text-[11px] font-bold bg-emerald-100 text-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-300"
               >
                 📖 已读故事 {completedInteractiveStoryCount} 篇
-                {completedCampTransferCount > 0 ? ' · 露营灯已亮' : ''}
+                {completedCampTransferCount > 0
+                  ? ' · 露营灯已亮'
+                  : historicalCampGoalsCount > 0
+                    ? ` · 露营进展 ${historicalCampGoalsCount}/3`
+                    : ''}
               </span>
               <span className="text-[11px] font-bold bg-sky-100 text-sky-950 px-2.5 py-0.5 rounded-full border border-sky-300">
                 ☀️ {sunCount}阳 · 🌧️ {rainCount}雨
