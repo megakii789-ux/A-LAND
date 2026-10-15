@@ -599,6 +599,205 @@ describe('Sprint 1.1 Playability & Cognitive Loop Deepening', () => {
     expect(activeMap.getText()).toContain('木屋已点亮 2 枚线索徽章');
     activeMap.unmount();
   });
+
+  // =========================================================================
+  // Sprint 1.2 真实游戏机制定向强化 — 六项必跑负向测试
+  // =========================================================================
+
+  it('Sprint 1.2 Negative Test 1: Tapping curtain or maple leaf pile once ONLY changes occlusion state and does NOT acquire hidden clue or allow sorting', () => {
+    grantParentAccess();
+    enableInternalPlaytestMode();
+
+    // 1A. Case A (Drawing): Curtain
+    const viewA = createStatefulTestRenderer(
+      <AppProvider>
+        <CrayonDetectiveGame onExit={() => {}} initialTheme="drawing" />
+      </AppProvider>
+    );
+
+    const curtainSpot1 = viewA.findByTestId('scene-hotspot-hs_curtain');
+    expect(curtainSpot1?.props['data-revealed']).toBe('false');
+    expect(curtainSpot1?.props['data-discovered']).toBe('false');
+
+    // First tap -> only reveals curtain, does NOT discover clue or render quick-sort
+    viewA.click(curtainSpot1);
+    const curtainAfterTap1 = viewA.findByTestId('scene-hotspot-hs_curtain');
+    expect(curtainAfterTap1?.props['data-revealed']).toBe('true');
+    expect(curtainAfterTap1?.props['data-discovered']).toBe('false');
+    expect(viewA.findByTestId('popover-reveal-only-badge')).toBeTruthy();
+    expect(viewA.findByTestId('quick-sort-hs_curtain-EYES_OBSERVED')).toBeNull();
+    expect(viewA.getText().replace(/\s+/g, '')).toContain('线索0/5');
+
+    // Second tap -> acquires hidden clue and unlocks quick-sort
+    viewA.click(curtainAfterTap1);
+    const curtainAfterTap2 = viewA.findByTestId('scene-hotspot-hs_curtain');
+    expect(curtainAfterTap2?.props['data-revealed']).toBe('true');
+    expect(curtainAfterTap2?.props['data-discovered']).toBe('true');
+    expect(viewA.findByTestId('quick-sort-hs_curtain-EYES_OBSERVED')).toBeTruthy();
+    expect(viewA.getText().replace(/\s+/g, '')).toContain('线索1/5');
+    viewA.unmount();
+
+    // 1B. Case B (Nature): Maple Leaf Pile
+    const viewB = createStatefulTestRenderer(
+      <AppProvider>
+        <CrayonDetectiveGame onExit={() => {}} initialTheme="nature" />
+      </AppProvider>
+    );
+
+    const leafSpot1 = viewB.findByTestId('scene-hotspot-hs_nature_leaf_pile');
+    expect(leafSpot1?.props['data-revealed']).toBe('false');
+    expect(leafSpot1?.props['data-discovered']).toBe('false');
+
+    // First tap -> only opens maple leaf pile, does NOT discover clue or render quick-sort
+    viewB.click(leafSpot1);
+    const leafAfterTap1 = viewB.findByTestId('scene-hotspot-hs_nature_leaf_pile');
+    expect(leafAfterTap1?.props['data-revealed']).toBe('true');
+    expect(leafAfterTap1?.props['data-discovered']).toBe('false');
+    expect(viewB.findByTestId('popover-reveal-only-badge')).toBeTruthy();
+    expect(viewB.findByTestId('quick-sort-hs_nature_leaf_pile-EYES_OBSERVED')).toBeNull();
+    expect(viewB.getText().replace(/\s+/g, '')).toContain('线索0/5');
+
+    // Second tap -> acquires empty acorn cap clue
+    viewB.click(leafAfterTap1);
+    const leafAfterTap2 = viewB.findByTestId('scene-hotspot-hs_nature_leaf_pile');
+    expect(leafAfterTap2?.props['data-revealed']).toBe('true');
+    expect(leafAfterTap2?.props['data-discovered']).toBe('true');
+    expect(viewB.findByTestId('quick-sort-hs_nature_leaf_pile-EYES_OBSERVED')).toBeTruthy();
+    expect(viewB.getText().replace(/\s+/g, '')).toContain('线索1/5');
+    viewB.unmount();
+  });
+
+  it('Sprint 1.2 Negative Test 2: Clicking 2 non-key hotspots + initial hypothesis + arbitrary action does NOT complete the case', () => {
+    grantParentAccess();
+    enableInternalPlaytestMode();
+
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <CrayonDetectiveGame onExit={() => {}} initialTheme="drawing" />
+      </AppProvider>
+    );
+
+    // 1. Select initial hypothesis only
+    view.click(view.findByTestId('initial-hypothesis-hyp_peer_took'));
+
+    // 2. Click 2 non-key hotspots (thought bubble + locked backpack, skipping curtain key evidence & sorting)
+    view.click(view.findByTestId('scene-hotspot-hs_qiqi_thought'));
+    view.click(view.findByTestId('scene-hotspot-hs_backpack'));
+
+    // 3. Click an arbitrary action (even a recommended one without key evidence/sorting/revision)
+    view.click(view.findByTestId('next-action-act_pickup_and_apologize'));
+
+    // Must NOT be completed!
+    expect(view.findByTestId('detective-case-status-badge')?.props['data-status']).toBe('ACTION_SELECTED');
+    const metrics = getPlaytestExperienceMetrics();
+    expect(metrics.completedDetectiveCaseIds).toEqual([]);
+    expect(metrics.independentDetectiveCaseIds).toEqual([]);
+
+    view.unmount();
+  });
+
+  it('Sprint 1.2 Negative Test 3: Forest case with only 2 ordinary clues does NOT certify hypothesis as SUPPORTED_BY_EVIDENCE and never spoils uninspected leaf pile or deep burrow', () => {
+    const natureCase = getThemedScenarioCase('nature', 0);
+
+    // Only 2 ordinary clues discovered (tree moss feather + wind trail), NEITHER maple leaf pile NOR deep burrow inspected
+    const ordinaryClues = ['hs_nature_tree_moss', 'hs_nature_wind_trail'];
+
+    for (const hypId of ['hyp_nat_magpie', 'hyp_nat_wind', 'hyp_nat_unknown']) {
+      const evalResult = evaluateHypothesisAgainstEvidence(natureCase, hypId, ordinaryClues);
+      expect(evalResult.relation).toBe('INSUFFICIENT_EVIDENCE');
+      expect(evalResult.findingState).toBe('INSUFFICIENT_EVIDENCE');
+      // Must NOT spoil undiscovered object states ("空帽壳" or "黑漆漆")
+      expect(evalResult.spokenFeedback).not.toContain('空帽壳');
+      expect(evalResult.spokenFeedback).not.toContain('黑漆漆');
+    }
+  });
+
+  it('Sprint 1.2 Negative Test 4: Transfer Lab -> selecting only a single ordinary FACT item and submitting does NOT complete the scenario', () => {
+    grantParentAccess();
+    enableInternalPlaytestMode();
+
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <TransferScenariosModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+
+    // Select only 1 ordinary fact item (t1_crumbs) without selecting the UNKNOWN boundary (t5_unknown_who)
+    view.click(view.findByTestId('transfer-option-t1_crumbs'));
+    view.click(view.findByTestId('transfer-submit-or-view-btn'));
+
+    expect(view.findByTestId('transfer-task-status-badge')?.props['data-status']).toBe('ATTEMPTED');
+    expect(view.findByTestId('transfer-evaluation-note')).toBeTruthy();
+
+    const metrics = getPlaytestExperienceMetrics();
+    expect(metrics.completedTransferScenarioIds).toEqual([]);
+    expect(metrics.independentTransferCount).toBe(0);
+    expect(metrics.promptedTransferCount).toBe(0);
+
+    view.unmount();
+  });
+
+  it('Sprint 1.2 Negative Test 5: Transfer Lab -> viewing reference or triggering error explanation first, then redoing to pass, is NEVER recorded as COMPLETED_INDEPENDENT', () => {
+    grantParentAccess();
+    enableInternalPlaytestMode();
+
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <TransferScenariosModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+
+    // 1. Trigger error explanation first (or view reference) by submitting an incomplete/wrong choice
+    view.click(view.findByTestId('transfer-option-t4_inference_thought'));
+    view.click(view.findByTestId('transfer-submit-or-view-btn'));
+    expect(view.findByTestId('transfer-task-status-badge')?.props['data-status']).toBe('ATTEMPTED');
+
+    // 2. Reset and select the valid goal options (t1_crumbs + t5_unknown_who)
+    view.click(view.findButtonByText('重置选择'));
+    view.click(view.findByTestId('transfer-option-t1_crumbs'));
+    view.click(view.findByTestId('transfer-option-t5_unknown_who'));
+    view.click(view.findByTestId('transfer-submit-or-view-btn'));
+
+    // Must be recorded as COMPLETED_WITH_PROMPT, never COMPLETED_INDEPENDENT!
+    expect(view.findByTestId('transfer-task-status-badge')?.props['data-status']).toBe('COMPLETED_WITH_PROMPT');
+
+    const metrics = getPlaytestExperienceMetrics();
+    expect(metrics.completedTransferScenarioIds).toContain('transfer_biscuit_mystery');
+    expect(metrics.independentTransferCount).toBe(0);
+    expect(metrics.promptedTransferCount).toBe(1);
+
+    view.unmount();
+  });
+
+  it('Sprint 1.2 Negative Test 6: Peeking at detective reference ending early, then finishing remaining steps, records COMPLETED_AFTER_REFERENCE and never inflates independentDetectiveCaseIds', () => {
+    grantParentAccess();
+    enableInternalPlaytestMode();
+
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <CrayonDetectiveGame onExit={() => {}} initialTheme="drawing" />
+      </AppProvider>
+    );
+
+    // 1. Peek at reference manual early with 0 clues
+    view.click(view.findByTestId('open-detective-synthesis-btn'));
+    expect(view.findByTestId('detective-case-status-badge')?.props['data-status']).toBe('ENDED_EARLY');
+    expect(view.findByTestId('synthesis-early-peek-banner')).toBeTruthy();
+
+    // Close modal and complete all cognitive steps
+    view.click(view.findButtonByText('返回现场继续探索'));
+    viewClickFullCaseA(view);
+
+    expect(view.findByTestId('detective-case-status-badge')?.props['data-status']).toBe('COMPLETED_AFTER_REFERENCE');
+    expect(view.findByTestId('synthesis-assisted-completion-banner')).toBeTruthy();
+
+    const metrics = getPlaytestExperienceMetrics();
+    expect(metrics.completedDetectiveCaseIds).toContain('scenario_detective_drawing_v1');
+    expect(metrics.assistedDetectiveCaseIds).toContain('scenario_detective_drawing_v1');
+    expect(metrics.independentDetectiveCaseIds).toEqual([]);
+
+    view.unmount();
+  });
 });
 
 function viewClickFullCaseA(view: ReturnType<typeof createStatefulTestRenderer>) {

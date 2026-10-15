@@ -79,9 +79,21 @@ export const TRANSFER_SCENARIOS: ReadonlyArray<TransferScenarioDefinition> = [
         categoryOrPath: 'COOPERATE_PUSH',
         icon: '🤝',
       },
+      {
+        id: 't_limit_tradeoff',
+        label: '认识限制：每种可执行办法都有小小代价（轮流要等待，玩跷跷板要暂放秋千）',
+        categoryOrPath: 'LIMITATION_RECOGNIZED',
+        icon: '⚖️',
+      },
+      {
+        id: 't_unfair_monopoly',
+        label: '谁跑得快就一直霸占秋千，不让另一个人玩',
+        categoryOrPath: 'UNFAIR_MONOPOLY',
+        icon: '🚫',
+      },
     ],
     objectiveOutcome:
-      '三种方案都可以避免争抢：数数轮流要排队等待，跷跷板需要暂时放下秋千，合作推秋千需要一人先推一人先坐。每种做法都有收获，也有小小代价。',
+      '三种合作方案都可以避免争抢：数数轮流要排队等待，跷跷板需要暂时放下秋千，合作推秋千需要一人先推一人先坐。提出可执行安排并同时认识相应限制，才是成熟的协商思考。',
   },
   {
     id: 'transfer_rainy_umbrella_uncertainty',
@@ -119,3 +131,109 @@ export const TRANSFER_SCENARIOS: ReadonlyArray<TransferScenarioDefinition> = [
       '客观发现：地面水脚印和两个班路过都是事实，但水脚印无法证明是谁拿了雨伞（可能是拿错，也可能是保育老师收去晾干）。当证据不足时，保留“现在还不知道”最合理！',
   },
 ];
+
+export interface TransferAttemptEvaluation {
+  readonly isGoalMet: boolean;
+  readonly hasSelectedUnknownOption: boolean;
+  readonly feedbackMessage: string;
+}
+
+/**
+ * Sprint 1.2 任务四：针对不同迁移任务建立明确的目标判断函数
+ * - 事实辨析任务 (transfer_biscuit_mystery)：必须勾选至少 1 项客观观察事实 + 勾选未知边界 (t5_unknown_who) + 不勾选无证据臆测指责；只勾选一个普通事实项不得过关。
+ * - 协商任务 (transfer_swing_seesaw)：必须提出至少 1 项可执行合作安排 + 认识相应限制 (t_limit_tradeoff) + 不勾选霸占选项。
+ * - 不确定性任务 (transfer_rainy_umbrella_uncertainty)：允许“现在无法确定” (u4_retain_uncertainty) 成为合理完成结果，且不得勾选无证据指责。
+ */
+export function evaluateTransferScenarioAttempt(
+  scenario: TransferScenarioDefinition,
+  chosenOptionIds: ReadonlyArray<string>
+): TransferAttemptEvaluation {
+  const selectedItems = scenario.cluesOrChoices.filter((c) => chosenOptionIds.includes(c.id));
+  const hasSelectedInference = selectedItems.some((c) => c.categoryOrPath === 'INFERENCE');
+  const hasSelectedUnknownOption = selectedItems.some((c) => c.categoryOrPath === 'UNKNOWN');
+  const selectedFacts = selectedItems.filter((c) => c.categoryOrPath === 'FACT');
+
+  // 1. 不确定性任务：允许“现在无法确定”成为合理完成结果
+  if (scenario.id === 'transfer_rainy_umbrella_uncertainty') {
+    if (hasSelectedInference) {
+      return {
+        isGoalMet: false,
+        hasSelectedUnknownOption,
+        feedbackMessage:
+          '再仔细看一看：你勾选的选项里包含了一条没有证据的猜测指责哦！试着去掉凭空指责，保留真实观察与“现在还不知道”吧。',
+      };
+    }
+    if (!hasSelectedUnknownOption) {
+      return {
+        isGoalMet: false,
+        hasSelectedUnknownOption: false,
+        feedbackMessage:
+          '你注意到了现场的事实，但仅凭地面水脚印能确定是谁拿了雨伞吗？请把代表“现在证据不足、还无法确定”的判断也勾选上吧！',
+      };
+    }
+    return {
+      isGoalMet: true,
+      hasSelectedUnknownOption: true,
+      feedbackMessage: scenario.objectiveOutcome,
+    };
+  }
+
+  // 2. 事实辨析任务：检查孩子能否区分观察、猜测和未知（只勾选一个普通事实项不得记为完成）
+  if (scenario.underlyingStructure === 'FACT_VS_INFERENCE') {
+    if (hasSelectedInference) {
+      return {
+        isGoalMet: false,
+        hasSelectedUnknownOption,
+        feedbackMessage:
+          '再仔细看一看：你勾选的选项里包含了一条没有证据的猜测指责哦！试着去掉凭空猜测的指责、只保留真实事实和“现在还不知道”，再来确认完成吧。',
+      };
+    }
+    if (selectedFacts.length === 0 || !hasSelectedUnknownOption) {
+      return {
+        isGoalMet: false,
+        hasSelectedUnknownOption,
+        feedbackMessage:
+          '只勾选单条普通事实或漏掉未知边界还不够完成哦！请同时选出「现场观察到的客观事实」以及「现在还不知道是谁吃的」这项合理判断后再提交。',
+      };
+    }
+    return {
+      isGoalMet: true,
+      hasSelectedUnknownOption: true,
+      feedbackMessage: scenario.objectiveOutcome,
+    };
+  }
+
+  // 3. 协商任务：检查孩子能否提出可执行安排并认识相应限制
+  const hasUnfairMonopoly = selectedItems.some((c) => c.categoryOrPath === 'UNFAIR_MONOPOLY');
+  if (hasUnfairMonopoly) {
+    return {
+      isGoalMet: false,
+      hasSelectedUnknownOption: false,
+      feedbackMessage:
+        '一个人霸占秋千不让朋友玩会导致争吵哦！请去掉霸占选项，选择能兼顾双方的可执行安排并认识它的限制。',
+    };
+  }
+
+  const hasExecutableArrangement = selectedItems.some((c) =>
+    ['TAKE_TURNS', 'ALTERNATIVE_TOGETHER', 'COOPERATE_PUSH'].includes(c.categoryOrPath)
+  );
+  const hasRecognizedLimitation = selectedItems.some(
+    (c) => c.categoryOrPath === 'LIMITATION_RECOGNIZED'
+  );
+
+  if (!hasExecutableArrangement || !hasRecognizedLimitation) {
+    return {
+      isGoalMet: false,
+      hasSelectedUnknownOption: false,
+      feedbackMessage:
+        '协商不仅要选出一个可执行的合作安排（轮流、换跷跷板或推秋千），还要同时勾选「认识限制：每种办法都有小小代价」哦！',
+    };
+  }
+
+  return {
+    isGoalMet: true,
+    hasSelectedUnknownOption: false,
+    feedbackMessage: scenario.objectiveOutcome,
+  };
+}
+

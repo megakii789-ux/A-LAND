@@ -22,8 +22,16 @@ export type HypothesisEvidenceRelation =
   | 'INSUFFICIENT_EVIDENCE'
   | 'NOT_INVESTIGATED_YET';
 
+export type EvidenceFindingState =
+  | 'NOT_INVESTIGATED_YET'
+  | 'INSUFFICIENT_EVIDENCE'
+  | 'SUPPORTED_BY_EVIDENCE'
+  | 'CONTRADICTED_BY_EVIDENCE'
+  | 'INCONCLUSIVE_AFTER_KEY_EVIDENCE';
+
 export interface HypothesisEvaluationResult {
   readonly relation: HypothesisEvidenceRelation;
+  readonly findingState: EvidenceFindingState;
   readonly badgeLabel: string;
   readonly spokenFeedback: string;
   readonly relevantClueIds: ReadonlyArray<string>;
@@ -74,6 +82,8 @@ export interface ThemedDetectiveScenario {
   readonly sceneDescription: string;
   readonly spokenIntro: string;
   readonly missingItemLabel: string;
+  readonly requiredKeyClueIds?: ReadonlyArray<string>;
+  readonly isInconclusiveCase?: boolean;
   readonly hotspots: ReadonlyArray<HotspotEvidence>;
   readonly sortingBaskets: ReadonlyArray<SortingBasket>;
   readonly initialHypotheses?: ReadonlyArray<DetectiveHypothesisOption>;
@@ -129,6 +139,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
   sceneDescription: '美术课下课了，桌上的绿色蜡笔找不到了，大家一起找出客观事实！',
   spokenIntro: '欢迎来到美术角！桌上的绿色小蜡笔不见了，我们拿起小放大镜，看看地上和桌边有些什么。',
   missingItemLabel: '绿色蜡笔',
+  requiredKeyClueIds: ['hs_curtain'],
   hotspots: [
     {
       id: 'hs_easel',
@@ -172,7 +183,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       icon: '🖍️',
       interactionVerb: '掀开窗帘底',
       requiresObjectReveal: true,
-      unrevealedPrompt: '窗帘角微微鼓起，再点一下亲手掀开窗帘看看！',
+      unrevealedPrompt: '你轻轻掀开了窗帘的一角！窗帘底下露出了一截绿色的蜡笔杆，再点一下把它收进线索册吧！',
     },
     {
       id: 'hs_qiqi_thought',
@@ -740,6 +751,8 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
   sceneDescription: '大橡树底下，小松鼠收集的大橡果不见了！现场既有喜鹊羽毛又有分岔滚痕，真相究竟是什么？',
   spokenIntro: '欢迎来到大橡树下！小松鼠放在树洞旁的大橡果找不到了，我们拿起放大镜，去拨开落叶、看看树洞和地面痕迹吧。',
   missingItemLabel: '金黄橡果',
+  requiredKeyClueIds: ['hs_nature_leaf_pile', 'hs_nature_deep_burrow'],
+  isInconclusiveCase: true,
   hotspots: [
     {
       id: 'hs_nature_tree_moss',
@@ -783,7 +796,7 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       icon: '🌰',
       interactionVerb: '拨开红枫叶堆',
       requiresObjectReveal: true,
-      unrevealedPrompt: '厚厚的红枫叶堆鼓起一小块，再点一下亲手拨开红枫叶看看！',
+      unrevealedPrompt: '你亲手拨开了厚厚的红枫叶堆！底下露出了半个浅棕色的壳，再点一下仔细查验并收进线索册吧！',
     },
     {
       id: 'hs_nature_squirrel_thought',
@@ -823,7 +836,7 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       feedbackText: '这是小松鼠着急时的猜想，虽然树洞口有羽毛，但还有别的地面痕迹，快去仔细调查吧！',
       supportingClueIds: [],
       contradictingClueIds: [],
-      insufficientEvidenceFeedbackText: '树洞口虽然有一根喜鹊羽毛，但草地上还有通向深树洞的滚痕，单凭羽毛还不能肯定就是喜鹊叼走的哦。',
+      insufficientEvidenceFeedbackText: '目前找到的现场线索还不能肯定就是喜鹊叼走的，再去检查一下红枫叶堆和深树洞等关键位置吧！',
     },
     {
       id: 'hyp_nat_unknown',
@@ -833,7 +846,7 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       feedbackText: '真清醒！在线索指向不同方向、关键地方还看不清时，诚实说“还不知道”最棒！',
       supportingClueIds: ['hs_nature_leaf_pile', 'hs_nature_deep_burrow'],
       supportedFeedbackText: '太有科学精神了！枫叶堆下只有空帽壳，而喜鹊羽毛和通向黑树洞的滚痕让两种可能都存在，承认“现在证据还不够、还不知道”才是最准确的结论！',
-      insufficientEvidenceFeedbackText: '很稳重！去拨开红枫叶堆、再看看深树洞，检验一下现有证据够不够下结论吧！',
+      insufficientEvidenceFeedbackText: '很稳重！不过现场还有关键物证没检查完，快去亲手拨开红枫叶堆、探看深树洞检验一下吧！',
     },
     {
       id: 'hyp_nat_wind',
@@ -843,7 +856,7 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       supportingClueIds: [],
       contradictingClueIds: ['hs_nature_leaf_pile'],
       contradictedFeedbackText: '我们亲手拨开了红枫叶堆，下面只有半个空空的橡果帽壳，证据反驳了“藏在枫叶堆下”的猜想哦！',
-      insufficientEvidenceFeedbackText: '虽然有一条滚痕指向红枫叶堆，但还没拨开叶子看之前，还不能确定橡果一定在里面哦。',
+      insufficientEvidenceFeedbackText: '还没亲手拨开红枫叶堆查看之前，还不能确定橡果一定在里面哦。',
     },
   ],
   investigationLeads: [
@@ -1436,8 +1449,12 @@ export function getThemedScenarioCase(
 }
 
 /**
- * P0-02：根据当前已发现的现场线索，评估某条假设与证据之间的真实支撑关系
- * 区分：SUPPORTED_BY_EVIDENCE / CONTRADICTED_BY_EVIDENCE / INSUFFICIENT_EVIDENCE / NOT_INVESTIGATED_YET
+ * Sprint 1.2 任务三：修复证据评估过早认证
+ * 1. 移除森林案件使用任意两条线索便认定“有证据支持”的兜底逻辑；
+ * 2. 引入案件级关键证据条件 (requiredKeyClueIds)；
+ * 3. 严格区分：尚未发现足够证据 (INSUFFICIENT_EVIDENCE) / 现有证据支持某种可能 (SUPPORTED_BY_EVIDENCE) /
+ *    现有证据反驳某种解释 (CONTRADICTED_BY_EVIDENCE) / 已经检查关键证据仍无法得出唯一结论 (INCONCLUSIVE_AFTER_KEY_EVIDENCE)；
+ * 4. 绝不在孩子尚未观察枫叶堆或深树洞时，使用这些尚未发现的物体状态作为反馈依据。
  */
 export function evaluateHypothesisAgainstEvidence(
   scenario: ThemedDetectiveScenario,
@@ -1450,6 +1467,7 @@ export function evaluateHypothesisAgainstEvidence(
   if (!hyp) {
     return {
       relation: 'NOT_INVESTIGATED_YET',
+      findingState: 'NOT_INVESTIGATED_YET',
       badgeLabel: '尚未调查',
       spokenFeedback: '请先在场景中调查线索后再做判断。',
       relevantClueIds: [],
@@ -1459,6 +1477,7 @@ export function evaluateHypothesisAgainstEvidence(
   if (discoveredSet.size === 0) {
     return {
       relation: 'NOT_INVESTIGATED_YET',
+      findingState: 'NOT_INVESTIGATED_YET',
       badgeLabel: '尚未调查',
       spokenFeedback: hyp.isUnknownOption
         ? hyp.feedbackText
@@ -1469,7 +1488,15 @@ export function evaluateHypothesisAgainstEvidence(
 
   const factHotspots = scenario.hotspots.filter((h) => h.category === 'FACT');
   const decisiveFactId = factHotspots[2]?.id || factHotspots[factHotspots.length - 1]?.id;
+  const requiredKeyIds =
+    scenario.requiredKeyClueIds && scenario.requiredKeyClueIds.length > 0
+      ? scenario.requiredKeyClueIds
+      : decisiveFactId
+        ? [decisiveFactId]
+        : [];
+  const hasAllRequiredKeyClues = requiredKeyIds.every((id) => discoveredSet.has(id));
 
+  // 1. 先检查是否已被已发现的物证直接反驳 (CONTRADICTED_BY_EVIDENCE)
   const contradictingIds =
     hyp.contradictingClueIds !== undefined
       ? hyp.contradictingClueIds
@@ -1481,7 +1508,8 @@ export function evaluateHypothesisAgainstEvidence(
   if (matchedContradicting.length > 0) {
     return {
       relation: 'CONTRADICTED_BY_EVIDENCE',
-      badgeLabel: '有证据反驳',
+      findingState: 'CONTRADICTED_BY_EVIDENCE',
+      badgeLabel: '现有证据反驳',
       spokenFeedback:
         hyp.contradictedFeedbackText ||
         `我们找到了关键物证，不过这条线索还没有证明「${hyp.label}」。要不要再看看刚才发现了什么？`,
@@ -1495,26 +1523,58 @@ export function evaluateHypothesisAgainstEvidence(
       : hyp.isSupportedByEvidence
         ? factHotspots.slice(1).map((h) => h.id)
         : [];
-
   const matchedSupporting = supportingIds.filter((id) => discoveredSet.has(id));
 
-  if (hyp.isUnknownOption) {
-    // 针对线索冲突/保留不确定性的案件（如森林落叶坚果侦探），查验关键物证后“还不知道”本身就是受证据支持的科学结论
-    if (hyp.isSupportedByEvidence && (matchedSupporting.length > 0 || discoveredSet.size >= 2)) {
+  // 2. 针对《森林落叶坚果》等冲突线索/无法得出唯一结论的案件 (isInconclusiveCase)
+  if (scenario.isInconclusiveCase) {
+    if (!hasAllRequiredKeyClues) {
+      // 严禁在尚未观察枫叶堆或深树洞时引用其内部状态（如“空帽壳”、“黑漆漆看不清”）
+      const discoveredNames = scenario.hotspots
+        .filter((h) => discoveredSet.has(h.id))
+        .map((h) => h.name);
+      const discoveredSummary =
+        discoveredNames.length > 0 ? `目前只查看了「${discoveredNames.join('、')}」` : '目前线索还不完整';
+
       return {
-        relation: 'SUPPORTED_BY_EVIDENCE',
-        badgeLabel: '有证据支持',
-        spokenFeedback:
-          hyp.supportedFeedbackText ||
-          '太有科学精神了！现有线索指向不同可能，承认“现在证据还不够、还不知道”才是最准确的结论！',
+        relation: 'INSUFFICIENT_EVIDENCE',
+        findingState: 'INSUFFICIENT_EVIDENCE',
+        badgeLabel: '尚未发现足够证据',
+        spokenFeedback: hyp.isUnknownOption
+          ? `${discoveredSummary}，还没有把红枫叶堆和深树洞等关键位置都查验完，先去现场把关键物证找齐再下结论吧！`
+          : `${discoveredSummary}，还没有查验完关键位置的物证，现在还不能确认「${hyp.label}」哦！`,
         relevantClueIds: matchedSupporting,
       };
     }
 
-    // 在真相明确的案件中，如果已经翻出了决定性物证（如窗帘下的绿色蜡笔），提醒孩子结合新物证再看一看
-    if (!hyp.isSupportedByEvidence && decisiveFactId && discoveredSet.has(decisiveFactId)) {
+    // 已查验全部关键证据（红枫叶堆 + 深树洞），确认案件本身无法得出单一排他结论
+    if (hyp.isUnknownOption) {
+      return {
+        relation: 'SUPPORTED_BY_EVIDENCE',
+        findingState: 'INCONCLUSIVE_AFTER_KEY_EVIDENCE',
+        badgeLabel: '已查关键证据·仍无唯一结论（有证据支持）',
+        spokenFeedback:
+          hyp.supportedFeedbackText ||
+          '太有科学精神了！我们已经查验了关键物证，喜鹊叼走和滚进深洞两种可能都存在，承认“现在证据还不够、还不知道”才是最准确的结论！',
+        relevantClueIds: matchedSupporting,
+      };
+    }
+
+    return {
+      relation: 'INSUFFICIENT_EVIDENCE',
+      findingState: 'INCONCLUSIVE_AFTER_KEY_EVIDENCE',
+      badgeLabel: '已查关键证据·仍无唯一结论',
+      spokenFeedback:
+        '我们已经检查了红枫叶堆和深树洞，虽然树洞口有羽毛，但滚痕也通向看不清内部的深树洞，两种可能都无法排除，不能单凭猜测断定唯一结论哦。',
+      relevantClueIds: requiredKeyIds,
+    };
+  }
+
+  // 3. 针对真相明确案件（如《美术角绿色蜡笔》）中“我还不知道”选项的评估
+  if (hyp.isUnknownOption) {
+    if (hasAllRequiredKeyClues && decisiveFactId && discoveredSet.has(decisiveFactId)) {
       return {
         relation: 'INSUFFICIENT_EVIDENCE',
+        findingState: 'INSUFFICIENT_EVIDENCE',
         badgeLabel: '当前证据不足',
         spokenFeedback:
           '其实我们已经找到关键物证啦！再看看刚才在现场发现的事实，能不能更新一下我们的判断呢？',
@@ -1524,35 +1584,36 @@ export function evaluateHypothesisAgainstEvidence(
 
     return {
       relation: 'INSUFFICIENT_EVIDENCE',
-      badgeLabel: '当前证据不足',
+      findingState: 'INSUFFICIENT_EVIDENCE',
+      badgeLabel: '尚未发现足够证据',
       spokenFeedback:
-        hyp.supportedFeedbackText ||
-        '目前关键物证还没拼齐，在证据不足时保持“还不知道”是非常诚实稳妥的做法！',
+        '目前关键物证还没找齐，在证据不足时保持“还不知道”是非常诚实稳妥的做法！再去场景里掀开或查看关键位置吧。',
       relevantClueIds: matchedSupporting,
     };
   }
 
+  // 4. 针对受证据支持的假设（必须已发现案件级关键物证 + 至少一条关联物证，不再用 discoveredSet.size >= 2 兜底）
   if (hyp.isSupportedByEvidence) {
-    const hasKeySupport =
-      supportingIds.length > 0
-        ? supportingIds.some((id) => discoveredSet.has(id)) &&
-          (decisiveFactId ? discoveredSet.has(decisiveFactId) : true)
-        : discoveredSet.size >= 2;
+    const hasCorroboratingFact =
+      factHotspots.filter((h) => discoveredSet.has(h.id)).length >= 2;
+    const hasKeySupport = hasAllRequiredKeyClues && hasCorroboratingFact;
 
     if (hasKeySupport) {
       return {
         relation: 'SUPPORTED_BY_EVIDENCE',
+        findingState: 'SUPPORTED_BY_EVIDENCE',
         badgeLabel: '有证据支持',
         spokenFeedback:
           hyp.supportedFeedbackText ||
           `有理有据！现场找到的真实物证正好支持「${hyp.label}」！`,
-        relevantClueIds: matchedSupporting,
+        relevantClueIds: matchedSupporting.length > 0 ? matchedSupporting : requiredKeyIds,
       };
     }
 
     return {
       relation: 'INSUFFICIENT_EVIDENCE',
-      badgeLabel: '当前证据不足',
+      findingState: 'INSUFFICIENT_EVIDENCE',
+      badgeLabel: '尚未发现足够证据',
       spokenFeedback:
         hyp.insufficientEvidenceFeedbackText ||
         '这个方向很有道理，不过关键物证还没找齐，再去场景里翻一翻、看一看吧！',
@@ -1562,7 +1623,8 @@ export function evaluateHypothesisAgainstEvidence(
 
   return {
     relation: 'INSUFFICIENT_EVIDENCE',
-    badgeLabel: '当前证据不足',
+    findingState: 'INSUFFICIENT_EVIDENCE',
+    badgeLabel: '尚未发现足够证据',
     spokenFeedback:
       hyp.insufficientEvidenceFeedbackText ||
       '目前找到的现场线索还不能证明这个想法哦，再去场景里找找其他物证吧！',
@@ -1570,8 +1632,157 @@ export function evaluateHypothesisAgainstEvidence(
   };
 }
 
+export interface DetectiveCaseCompletionInput {
+  readonly scenario: ThemedDetectiveScenario;
+  readonly discoveredClueIds: ReadonlyArray<string>;
+  readonly revealedObjectIds: ReadonlyArray<string>;
+  readonly placements: Readonly<Record<string, SortingBasketType>>;
+  readonly initialHypothesisId: string | null;
+  readonly revisedHypothesisId: string | null;
+  readonly chosenNextActionId: string | null;
+  readonly hasViewedReferenceBeforeCompletion: boolean;
+}
+
+export interface DetectiveCaseCompletionReadiness {
+  readonly isReadyToComplete: boolean;
+  readonly completionStatus: 'COMPLETED' | 'COMPLETED_AFTER_REFERENCE' | null;
+  readonly validDiscoveredClueIds: ReadonlyArray<string>;
+  readonly hasKeyEvidence: boolean;
+  readonly hasAttemptedSorting: boolean;
+  readonly hasValidSortedClue: boolean;
+  readonly hasCheckedHypothesisWithEvidence: boolean;
+  readonly hasProportionateAction: boolean;
+  readonly hasViewedReferenceBeforeCompletion: boolean;
+  readonly missingStepDescriptions: ReadonlyArray<string>;
+}
+
+/**
+ * Sprint 1.2 任务二：统一、可测试的案件完成判断函数
+ * 严格检验：
+ * 1. 是否获得了与本案问题有关的实际关键证据 (hasKeyEvidence)；
+ * 2. 是否尝试区分观察与推测 (hasAttemptedSorting & hasValidSortedClue)；
+ * 3. 是否依据当前证据重新检查过判断 (hasCheckedHypothesisWithEvidence，允许“不知道”成为合格结论，禁止被证据反驳的武断指责过关)；
+ * 4. 是否做出了与已掌握信息相称的行动选择 (hasProportionateAction)；
+ * 5. 是否提前查看过完整参考结局 (hasViewedReferenceBeforeCompletion，区分 COMPLETED 与 COMPLETED_AFTER_REFERENCE)。
+ */
+export function evaluateDetectiveCaseCompletionReadiness(
+  input: DetectiveCaseCompletionInput
+): DetectiveCaseCompletionReadiness {
+  const {
+    scenario,
+    discoveredClueIds,
+    revealedObjectIds,
+    placements,
+    revisedHypothesisId,
+    chosenNextActionId,
+    hasViewedReferenceBeforeCompletion,
+  } = input;
+
+  const revealedSet = new Set(revealedObjectIds);
+
+  // 只有完成了必要的遮挡揭示动作，该热点才算真正获得的证据
+  const validDiscoveredClueIds = discoveredClueIds.filter((id) => {
+    const spot = scenario.hotspots.find((h) => h.id === id);
+    if (!spot) return false;
+    if (spot.requiresObjectReveal && !revealedSet.has(id)) {
+      return false;
+    }
+    return true;
+  });
+  const validDiscoveredSet = new Set(validDiscoveredClueIds);
+
+  const factHotspots = scenario.hotspots.filter((h) => h.category === 'FACT');
+  const decisiveFactId = factHotspots[2]?.id || factHotspots[factHotspots.length - 1]?.id;
+  const requiredKeyIds =
+    scenario.requiredKeyClueIds && scenario.requiredKeyClueIds.length > 0
+      ? scenario.requiredKeyClueIds
+      : decisiveFactId
+        ? [decisiveFactId]
+        : [];
+
+  const hasAllRequiredKeyClues = requiredKeyIds.every((id) => validDiscoveredSet.has(id));
+  const hasCorroboratingEvidence = validDiscoveredClueIds.length >= 2;
+  const hasKeyEvidence = hasAllRequiredKeyClues && hasCorroboratingEvidence;
+
+  // 是否尝试区分观察与推测：只认已真正获得的证据在分类盒中的归类
+  const placedValidIds = Object.keys(placements).filter((id) => validDiscoveredSet.has(id));
+  const hasAttemptedSorting = placedValidIds.length >= 1;
+  const hasValidSortedClue = placedValidIds.some((id) => {
+    const spot = scenario.hotspots.find((h) => h.id === id);
+    const basket = placements[id];
+    if (!spot || !basket) return false;
+    return evaluateThemedCluePlacement(spot.category, basket).isMatch;
+  });
+
+  // 是否依据当前证据重新检查过判断（仅靠初步判断 initialHypothesisId 不算完成证据辨析）
+  let hasCheckedHypothesisWithEvidence = false;
+  if (revisedHypothesisId && hasKeyEvidence) {
+    const selectedHyp = (scenario.initialHypotheses || []).find(
+      (h) => h.id === revisedHypothesisId
+    );
+    const evalResult = evaluateHypothesisAgainstEvidence(
+      scenario,
+      revisedHypothesisId,
+      validDiscoveredClueIds
+    );
+    if (
+      evalResult.relation === 'SUPPORTED_BY_EVIDENCE' ||
+      Boolean(selectedHyp?.isUnknownOption)
+    ) {
+      hasCheckedHypothesisWithEvidence = true;
+    }
+  }
+
+  // 是否做出了与已掌握信息相称的行动选择
+  const selectedAction = (scenario.nextActionChoices || []).find(
+    (c) => c.id === chosenNextActionId
+  );
+  const hasProportionateAction = Boolean(selectedAction && selectedAction.isRecommended);
+
+  const missingStepDescriptions: string[] = [];
+  if (!hasKeyEvidence) {
+    missingStepDescriptions.push('亲手查验现场关键物证（需掀开遮挡物并收集至少 2 条相关线索）');
+  }
+  if (!hasAttemptedSorting || !hasValidSortedClue) {
+    missingStepDescriptions.push('将至少 1 条已获得的线索放进正确的分类盒（区分事实、猜想与未知）');
+  }
+  if (!hasCheckedHypothesisWithEvidence) {
+    missingStepDescriptions.push('在「4 · 辨一辨」中依据已发现的物证重新核对判断（或诚实保留“还不知道”）');
+  }
+  if (!hasProportionateAction) {
+    missingStepDescriptions.push('在「5 · 试行动」中选择与现有证据相称的建设性行动');
+  }
+
+  const isReadyToComplete =
+    hasKeyEvidence &&
+    hasAttemptedSorting &&
+    hasValidSortedClue &&
+    hasCheckedHypothesisWithEvidence &&
+    hasProportionateAction;
+
+  const completionStatus: 'COMPLETED' | 'COMPLETED_AFTER_REFERENCE' | null = isReadyToComplete
+    ? hasViewedReferenceBeforeCompletion
+      ? 'COMPLETED_AFTER_REFERENCE'
+      : 'COMPLETED'
+    : null;
+
+  return {
+    isReadyToComplete,
+    completionStatus,
+    validDiscoveredClueIds,
+    hasKeyEvidence,
+    hasAttemptedSorting,
+    hasValidSortedClue,
+    hasCheckedHypothesisWithEvidence,
+    hasProportionateAction,
+    hasViewedReferenceBeforeCompletion,
+    missingStepDescriptions,
+  };
+}
+
 /**
  * P0-03：根据儿童探索场景物体的先后顺序生成差异化伴随反馈
+ * 严禁引用尚未被儿童发现的线索状态
  */
 export function getOrderAwareDiscoveryFeedback(
   scenario: ThemedDetectiveScenario,
@@ -1597,19 +1808,19 @@ export function getOrderAwareDiscoveryFeedback(
     }
   }
 
-  // 案件 B（自然 Case 1）分岔滚痕、枫叶堆空壳与深树洞的顺序联动
+  // 案件 B（自然 Case 1）分岔滚痕、枫叶堆空壳与深树洞的顺序联动（仅引用已在 priorSet 中的线索）
   if (scenario.id === 'scenario_detective_nature_v1') {
     if (hotspot.id === 'hs_nature_leaf_pile') {
       if (priorSet.has('hs_nature_wind_trail')) {
-        return `第 ${stepOrderNumber} 步发现：顺着刚才的分岔滚痕拨开红枫叶堆，底下竟然只有半个空帽壳！看来橡果有可能滚向了另一条岔路上的黑树洞！`;
+        return `第 ${stepOrderNumber} 步发现：顺着刚才的分岔滚痕拨开红枫叶堆，底下竟然只有半个空帽壳！再去探看另一条岔路指向的深树洞吧！`;
       }
       return `第 ${stepOrderNumber} 步发现：亲手拨开红枫叶堆，底下只有半个空空的橡果帽壳，没有橡果肉！去看看草地滚痕和树洞口还有什么线索吧！`;
     }
     if (hotspot.id === 'hs_nature_deep_burrow') {
       if (priorSet.has('hs_nature_leaf_pile')) {
-        return `第 ${stepOrderNumber} 步发现：枫叶堆里只有空帽壳，而这个深树洞里又黑漆漆看不见，所以橡果到底在不在洞里，现在真的还不知道！`;
+        return `第 ${stepOrderNumber} 步发现：刚才枫叶堆里只有空帽壳，而这个深树洞里又黑漆漆看不见，所以橡果到底在不在洞里，现在真的还不知道！`;
       }
-      return `第 ${stepOrderNumber} 步发现：倒木深处的树洞黑漆漆的看不清里面，再去拨开红枫叶堆看看橡果在不在那边吧！`;
+      return `第 ${stepOrderNumber} 步发现：倒木深处的树洞黑漆漆的看不清里面，再去拨开右下角的红枫叶堆看看那边有什么吧！`;
     }
   }
 
@@ -1619,4 +1830,5 @@ export function getOrderAwareDiscoveryFeedback(
   }
   return `第 ${stepOrderNumber} 个现场发现：${baseText}`;
 }
+
 

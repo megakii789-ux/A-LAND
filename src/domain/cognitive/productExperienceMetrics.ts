@@ -15,6 +15,7 @@ export type DetectiveCaseStatus =
   | 'REFLECTING'
   | 'ACTION_SELECTED'
   | 'COMPLETED'
+  | 'COMPLETED_AFTER_REFERENCE'
   | 'ENDED_EARLY';
 
 export type TransferTaskStatus =
@@ -28,6 +29,9 @@ export type TransferTaskStatus =
 export interface ProductExperienceMetrics {
   sessionScope: MetricsSessionScope;
   completedDetectiveCaseIds: string[];
+  independentDetectiveCaseIds: string[];
+  assistedDetectiveCaseIds: string[];
+  earlyPeekedDetectiveCaseIds: string[];
   detectiveCaseStates: Record<string, DetectiveCaseStatus>;
   totalCluesClassified: number;
   firstTryCorrectClassifications: number;
@@ -60,6 +64,9 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
   return {
     sessionScope: scope,
     completedDetectiveCaseIds: [],
+    independentDetectiveCaseIds: [],
+    assistedDetectiveCaseIds: [],
+    earlyPeekedDetectiveCaseIds: [],
     detectiveCaseStates: {},
     totalCluesClassified: 0,
     firstTryCorrectClassifications: 0,
@@ -112,6 +119,8 @@ export function hasRecordedExperienceMetrics(metrics: ProductExperienceMetrics):
   return Boolean(
     metrics.lastUpdatedAt !== null ||
       metrics.completedDetectiveCaseIds.length > 0 ||
+      metrics.independentDetectiveCaseIds.length > 0 ||
+      metrics.assistedDetectiveCaseIds.length > 0 ||
       metrics.totalCluesClassified > 0 ||
       metrics.hypothesisRevisionCount > 0 ||
       metrics.unknownHonestyCount > 0 ||
@@ -135,6 +144,15 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
       sessionScope: scope,
       completedDetectiveCaseIds: Array.isArray(parsed.completedDetectiveCaseIds)
         ? parsed.completedDetectiveCaseIds
+        : [],
+      independentDetectiveCaseIds: Array.isArray(parsed.independentDetectiveCaseIds)
+        ? parsed.independentDetectiveCaseIds
+        : [],
+      assistedDetectiveCaseIds: Array.isArray(parsed.assistedDetectiveCaseIds)
+        ? parsed.assistedDetectiveCaseIds
+        : [],
+      earlyPeekedDetectiveCaseIds: Array.isArray(parsed.earlyPeekedDetectiveCaseIds)
+        ? parsed.earlyPeekedDetectiveCaseIds
         : [],
       detectiveCaseStates:
         parsed.detectiveCaseStates && typeof parsed.detectiveCaseStates === 'object'
@@ -315,12 +333,23 @@ export function recordDetectiveCaseState(
 ): ProductExperienceMetrics {
   const scope = getActiveMetricsScope();
   const current = getProductExperienceMetrics(scope);
-  if (current.detectiveCaseStates[caseId] === status) {
+  const isEarlyPeek =
+    status === 'ENDED_EARLY' && !current.completedDetectiveCaseIds.includes(caseId);
+  const nextEarlyPeeked =
+    isEarlyPeek && !current.earlyPeekedDetectiveCaseIds.includes(caseId)
+      ? [...current.earlyPeekedDetectiveCaseIds, caseId]
+      : current.earlyPeekedDetectiveCaseIds;
+
+  if (
+    current.detectiveCaseStates[caseId] === status &&
+    nextEarlyPeeked.length === current.earlyPeekedDetectiveCaseIds.length
+  ) {
     return current;
   }
   return saveProductExperienceMetrics(
     {
       ...current,
+      earlyPeekedDetectiveCaseIds: nextEarlyPeeked,
       detectiveCaseStates: {
         ...current.detectiveCaseStates,
         [caseId]: status,
@@ -430,6 +459,11 @@ export function recordHypothesisRevision(
 export interface DetectiveCompletionVerification {
   status?: DetectiveCaseStatus;
   discoveredClueCount: number;
+  hasKeyEvidence?: boolean;
+  hasAttemptedSorting?: boolean;
+  hasCheckedHypothesisWithEvidence?: boolean;
+  hasProportionateAction?: boolean;
+  hasViewedReferenceBeforeCompletion?: boolean;
   hasReflectedOrSorted?: boolean;
   hasSelectedHypothesis?: boolean;
   hasSelectedAction?: boolean;
@@ -437,8 +471,8 @@ export interface DetectiveCompletionVerification {
 
 /**
  * 记录侦探案件完成：
- * 必须经过真实线索探索（至少发现 2 条线索）且完成了思考动作（归类或判断辨析），
- * 严禁零探索直接查看结局即记录完成或赋予默认虚构操作数。
+ * 必须经过真实认知闭环（关键证据获取 + 区分观察与推测 + 结合证据核验判断 + 相称行动选择），
+ * 并严格区分「独立探索完成 (COMPLETED)」与「提前查看参考后完成 (COMPLETED_AFTER_REFERENCE)」。
  */
 export function recordDetectiveCaseCompletion(
   caseId: string,
@@ -459,7 +493,15 @@ export function recordDetectiveCaseCompletion(
     const hasThoughtStep = Boolean(
       verification.hasReflectedOrSorted ?? verification.hasSelectedHypothesis ?? true
     );
-    if (verification.discoveredClueCount < 2 || !hasThoughtStep) {
+    const meetsCognitiveCriteria =
+      verification.discoveredClueCount >= 2 &&
+      hasThoughtStep &&
+      verification.hasKeyEvidence !== false &&
+      verification.hasAttemptedSorting !== false &&
+      verification.hasCheckedHypothesisWithEvidence !== false &&
+      verification.hasProportionateAction !== false;
+
+    if (!meetsCognitiveCriteria) {
       return saveProductExperienceMetrics(
         {
           ...current,
@@ -473,9 +515,31 @@ export function recordDetectiveCaseCompletion(
     }
   }
 
+  const wasEarlyReferenceViewed = Boolean(
+    verification?.hasViewedReferenceBeforeCompletion ||
+      verification?.status === 'COMPLETED_AFTER_REFERENCE' ||
+      current.earlyPeekedDetectiveCaseIds.includes(caseId) ||
+      current.detectiveCaseStates[caseId] === 'ENDED_EARLY'
+  );
+
+  const finalStatus: DetectiveCaseStatus = wasEarlyReferenceViewed
+    ? 'COMPLETED_AFTER_REFERENCE'
+    : 'COMPLETED';
+
   const nextCases = current.completedDetectiveCaseIds.includes(caseId)
     ? current.completedDetectiveCaseIds
     : [...current.completedDetectiveCaseIds, caseId];
+
+  const nextIndependentCases =
+    !wasEarlyReferenceViewed && !current.independentDetectiveCaseIds.includes(caseId)
+      ? [...current.independentDetectiveCaseIds, caseId]
+      : current.independentDetectiveCaseIds;
+
+  const nextAssistedCases =
+    wasEarlyReferenceViewed && !current.assistedDetectiveCaseIds.includes(caseId)
+      ? [...current.assistedDetectiveCaseIds, caseId]
+      : current.assistedDetectiveCaseIds;
+
   const nextLandmarks = current.visitedLandmarks.includes('detective')
     ? current.visitedLandmarks
     : [...current.visitedLandmarks, 'detective'];
@@ -488,9 +552,11 @@ export function recordDetectiveCaseCompletion(
     {
       ...current,
       completedDetectiveCaseIds: nextCases,
+      independentDetectiveCaseIds: nextIndependentCases,
+      assistedDetectiveCaseIds: nextAssistedCases,
       detectiveCaseStates: {
         ...current.detectiveCaseStates,
-        [caseId]: 'COMPLETED',
+        [caseId]: finalStatus,
       },
       visitedLandmarks: nextLandmarks,
       lastTaskOperationCount:
@@ -506,6 +572,8 @@ export function recordDetectiveCaseCompletion(
 export interface TransferCompletionVerification {
   status?: TransferTaskStatus;
   selectedOptionCount: number;
+  isGoalMet?: boolean;
+  hadPriorReferenceOrErrorExplanation?: boolean;
   hasSelectedConclusion?: boolean;
   isReferenceOnly?: boolean;
   isEndedEarly?: boolean;
@@ -513,8 +581,9 @@ export interface TransferCompletionVerification {
 
 /**
  * 记录迁移实验室情境完成：
- * 严禁零选择点击“看一看客观结果”记为独立完成；
- * 零选择查看结果仅记为 REFERENCE_VIEWED，不增加完成数。
+ * 1. 严禁零选择点击“看一看客观结果”记为独立完成（仅记为 REFERENCE_VIEWED）；
+ * 2. 未满足任务核心认知目标（如饼干盒只勾一条普通事实）仅记为 ATTEMPTED；
+ * 3. 若提前查看过参考答案或提交错误后看过解释，后续完成一律记为 COMPLETED_WITH_PROMPT，不得记为独立迁移完成。
  */
 export function recordTransferScenarioCompletion(
   scenarioId: string,
@@ -540,7 +609,9 @@ export function recordTransferScenarioCompletion(
 
   if (
     verification &&
-    (verification.isReferenceOnly || verification.selectedOptionCount <= 0)
+    (verification.isReferenceOnly ||
+      verification.status === 'REFERENCE_VIEWED' ||
+      verification.selectedOptionCount <= 0)
   ) {
     return saveProductExperienceMetrics(
       {
@@ -554,8 +625,32 @@ export function recordTransferScenarioCompletion(
     );
   }
 
-  const status: TransferTaskStatus =
-    adultPromptCount === 0 ? 'COMPLETED_INDEPENDENT' : 'COMPLETED_WITH_PROMPT';
+  if (verification && (verification.isGoalMet === false || verification.status === 'ATTEMPTED')) {
+    return saveProductExperienceMetrics(
+      {
+        ...current,
+        transferScenarioStates: {
+          ...current.transferScenarioStates,
+          [scenarioId]: 'ATTEMPTED',
+        },
+      },
+      scope
+    );
+  }
+
+  const priorState = current.transferScenarioStates[scenarioId];
+  const hadReferenceOrErrorBefore = Boolean(
+    verification?.hadPriorReferenceOrErrorExplanation ||
+      verification?.status === 'COMPLETED_WITH_PROMPT' ||
+      priorState === 'REFERENCE_VIEWED' ||
+      priorState === 'ATTEMPTED'
+  );
+
+  const isTrulyIndependent = adultPromptCount === 0 && !hadReferenceOrErrorBefore;
+  const status: TransferTaskStatus = isTrulyIndependent
+    ? 'COMPLETED_INDEPENDENT'
+    : 'COMPLETED_WITH_PROMPT';
+
   const isFirstCompletionForScenario = !current.completedTransferScenarioIds.includes(scenarioId);
   const nextScenarios = isFirstCompletionForScenario
     ? [...current.completedTransferScenarioIds, scenarioId]
@@ -574,11 +669,9 @@ export function recordTransferScenarioCompletion(
         [scenarioId]: status,
       },
       independentTransferCount:
-        current.independentTransferCount +
-        (isFirstCompletionForScenario && adultPromptCount === 0 ? 1 : 0),
+        current.independentTransferCount + (isFirstCompletionForScenario && isTrulyIndependent ? 1 : 0),
       promptedTransferCount:
-        current.promptedTransferCount +
-        (isFirstCompletionForScenario && adultPromptCount > 0 ? 1 : 0),
+        current.promptedTransferCount + (isFirstCompletionForScenario && !isTrulyIndependent ? 1 : 0),
       totalPromptCalls: current.totalPromptCalls + Math.max(0, adultPromptCount),
       taskParticipationCounts: nextParticipation,
     },

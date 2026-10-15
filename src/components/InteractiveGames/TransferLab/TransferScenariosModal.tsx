@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   TRANSFER_SCENARIOS,
+  evaluateTransferScenarioAttempt,
 } from '../../../domain/games/transferScenariosLogic';
 import { TransferScenarioDefinition } from '../../../domain/games/types';
 import { sounds } from '../../../utils/sound';
@@ -152,6 +153,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
   const [taskStatus, setTaskStatus] = useState<TransferTaskStatus>('NOT_STARTED');
   const [showOutcome, setShowOutcome] = useState<boolean>(false);
   const [evaluationNote, setEvaluationNote] = useState<string | null>(null);
+  const [hasPriorReferenceOrErrorByScenario, setHasPriorReferenceOrErrorByScenario] = useState<
+    Record<string, boolean>
+  >({});
   const [previewSessionToken, setPreviewSessionToken] = useState<string | null>(null);
   const [isParentGateOpen, setIsParentGateOpen] = useState(false);
   const [, setAccessVersion] = useState(0);
@@ -182,6 +186,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
   const currentScopeKey = `transfer:${currentScenario.id}`;
   const isScenarioApproved = ContentAuditRegistry.canRenderContent(currentScenario.id);
   const adultPreviewUnlocked = isAdultPreviewSessionValid(currentScopeKey, previewSessionToken);
+  const hadPriorReferenceOrError = Boolean(hasPriorReferenceOrErrorByScenario[currentScenario.id]);
 
   const handleCloseModal = () => {
     speechNarrator.stop();
@@ -217,55 +222,70 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
   };
 
   /**
-   * P0-04：检查迁移任务是否实际完成了有效判断/策略选择
-   * 若 0 选择直接点击“看一看客观结果”，仅记为 REFERENCE_VIEWED，绝不增加独立迁移完成数！
+   * Sprint 1.2 任务四：修复迁移实验的伪独立完成
+   * 1. 若 0 选择直接点击“看一看客观结果”，仅记为 REFERENCE_VIEWED，并标记已看过参考；
+   * 2. 调用 evaluateTransferScenarioAttempt 检查特定任务目标（事实辨析需同时包含事实与未知、协商需可执行安排与限制认识、不确定性任务允许“现在无法确定”）；
+   * 3. 提前查看参考答案或提交错误判断后看过完整解析，后续重做通过一律记为 COMPLETED_WITH_PROMPT，不得记为 COMPLETED_INDEPENDENT。
    */
   const handleCompleteScenario = () => {
     sounds.playClick();
-    setShowOutcome(true);
 
     if (chosenOptionIds.length === 0) {
+      setShowOutcome(true);
       setTaskStatus('REFERENCE_VIEWED');
+      setHasPriorReferenceOrErrorByScenario((prev) => ({
+        ...prev,
+        [currentScenario.id]: true,
+      }));
       setEvaluationNote(
-        '你还没有勾选任何线索或方案就打开了参考结果，本次仅记录为「参考查看」，不会计入迁移完成哦！随时可以勾选你认定的选项后再提交。'
+        '你还没有勾选任何线索或方案就打开了参考结果，本次仅记录为「参考查看」，不会计入迁移完成哦！即使随后重做，也将诚实记为「参考/提示后完成」。'
       );
       recordTransferScenarioCompletion(currentScenario.id, adultPromptCount, {
         status: 'REFERENCE_VIEWED',
         selectedOptionCount: 0,
+        isGoalMet: false,
+        hadPriorReferenceOrErrorExplanation: true,
       });
       speechNarrator.speak(currentScenario.objectiveOutcome);
       return;
     }
 
-    const selectedItems = currentScenario.cluesOrChoices.filter((c) =>
-      chosenOptionIds.includes(c.id)
-    );
-    const hasSelectedInferenceBlame = selectedItems.some((c) => c.categoryOrPath === 'INFERENCE');
-    const hasSelectedUnknownOption = selectedItems.some((c) => c.categoryOrPath === 'UNKNOWN');
+    const attemptEval = evaluateTransferScenarioAttempt(currentScenario, chosenOptionIds);
 
-    if (hasSelectedUnknownOption) {
+    if (attemptEval.hasSelectedUnknownOption) {
       recordUnknownHonestyChoice(`transfer:${currentScenario.id}`);
     }
 
-    // 在事实与猜想迁移情境中，如果把无证据的指责当成了事实依据，提醒再次核对，状态保持 ATTEMPTED
-    if (currentScenario.underlyingStructure === 'FACT_VS_INFERENCE' && hasSelectedInferenceBlame) {
+    if (!attemptEval.isGoalMet) {
+      setShowOutcome(true);
       setTaskStatus('ATTEMPTED');
-      setEvaluationNote(
-        '再仔细看一看：你勾选的选项里包含了一条没有证据的猜测指责哦！试着去掉凭空猜测的指责、只保留真实事实和“现在还不知道”，再来确认完成吧。'
-      );
-      speechNarrator.speak(
-        '你勾选的选项里有一条是没有证据的猜测指责哦，试着把它去掉再确认吧！'
-      );
+      setHasPriorReferenceOrErrorByScenario((prev) => ({
+        ...prev,
+        [currentScenario.id]: true,
+      }));
+      setEvaluationNote(attemptEval.feedbackMessage);
+      recordTransferScenarioCompletion(currentScenario.id, adultPromptCount, {
+        status: 'ATTEMPTED',
+        selectedOptionCount: chosenOptionIds.length,
+        isGoalMet: false,
+        hadPriorReferenceOrErrorExplanation: true,
+      });
+      speechNarrator.speak(attemptEval.feedbackMessage);
       return;
     }
 
+    setShowOutcome(true);
     const finalStatus: TransferTaskStatus =
-      adultPromptCount === 0 ? 'COMPLETED_INDEPENDENT' : 'COMPLETED_WITH_PROMPT';
+      adultPromptCount === 0 && !hadPriorReferenceOrError
+        ? 'COMPLETED_INDEPENDENT'
+        : 'COMPLETED_WITH_PROMPT';
     setTaskStatus(finalStatus);
     setEvaluationNote(null);
     recordTransferScenarioCompletion(currentScenario.id, adultPromptCount, {
       status: finalStatus,
       selectedOptionCount: chosenOptionIds.length,
+      isGoalMet: true,
+      hadPriorReferenceOrErrorExplanation: hadPriorReferenceOrError,
     });
     speechNarrator.speak(currentScenario.objectiveOutcome);
   };
@@ -277,7 +297,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
     setEvaluationNote('已记录为「自主暂停 / 暂不作答」，不计入迁移完成统计。');
   };
 
-  // 修复跨任务提示次数污染：切换或重置情境时同步清空 adultPromptCount 与状态
+  // 修复跨任务提示次数污染：切换或重置情境时同步清空当前勾选，但保留同一任务已看过参考/错误解析的记录
   const handleResetScenario = () => {
     sounds.playClick();
     setChosenOptionIds([]);

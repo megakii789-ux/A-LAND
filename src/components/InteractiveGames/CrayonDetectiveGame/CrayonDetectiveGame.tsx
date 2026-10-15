@@ -8,8 +8,10 @@ import {
   getThemedScenarioCasesByInterest,
   evaluateThemedCluePlacement,
   evaluateHypothesisAgainstEvidence,
+  evaluateDetectiveCaseCompletionReadiness,
   getOrderAwareDiscoveryFeedback,
   HypothesisEvaluationResult,
+  DetectiveCaseCompletionReadiness,
 } from '../../../domain/personalization';
 import { HotspotEvidence, SortingBasketType } from '../../../domain/games/types';
 import { sounds } from '../../../utils/sound';
@@ -29,6 +31,7 @@ import {
   getProductExperienceMetrics,
   recordClueClassificationAttempt,
   recordDetectiveCaseCompletion,
+  recordDetectiveCaseState,
   recordHypothesisRevision,
   recordUnknownHonestyChoice,
   subscribeProductExperienceMetrics,
@@ -45,6 +48,7 @@ const CASE_STATUS_LABELS: Record<DetectiveCaseStatus, string> = {
   REFLECTING: '整理证据与判断',
   ACTION_SELECTED: '已尝试行动方案',
   COMPLETED: '已完成破案闭环',
+  COMPLETED_AFTER_REFERENCE: '参考后完成探索',
   ENDED_EARLY: '已暂停 / 仅查看参考',
 };
 
@@ -557,6 +561,8 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   const [hypothesisEvaluation, setHypothesisEvaluation] = useState<HypothesisEvaluationResult | null>(null);
   // 阶段 4（择）：选择的下一步温和行动 ID
   const [chosenNextActionId, setChosenNextActionId] = useState<string | null>(null);
+  // Sprint 1.2 任务二：是否在本案完成前提前查看过完整参考结局
+  const [hasViewedReferenceBeforeCompletion, setHasViewedReferenceBeforeCompletion] = useState<boolean>(false);
   // 内嵌能力迁移实验室弹窗开关
   const [isEmbeddedTransferOpen, setIsEmbeddedTransferOpen] = useState(false);
 
@@ -590,32 +596,72 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     setRevisedHypothesisId(null);
     setHypothesisEvaluation(null);
     setChosenNextActionId(null);
+    setHasViewedReferenceBeforeCompletion(false);
     setLensPos({ x: 50, y: 50 });
     setIsSynthesisOpen(false);
     setFeedbackPrompt(targetScenarioIntro);
   };
 
   /**
-   * P0-01：检验并推进案件真实完成状态
-   * 必须满足：真实发现 >= 2 条现场线索 + 做出/更新过判断 + 尝试了下一步行动
+   * Sprint 1.2 任务二：基于统一、可测试的 evaluateDetectiveCaseCompletionReadiness 推进案件完成状态
+   * 必须满足：
+   * 1. 已获取案件级关键证据 (hasKeyEvidence)；
+   * 2. 已尝试并将至少 1 条已获取证据正确归类 (hasAttemptedSorting && hasValidSortedClue)；
+   * 3. 已依据当前证据重新检查判断 (hasCheckedHypothesisWithEvidence，允许“还不知道”)；
+   * 4. 已选择与掌握信息相称的行动 (hasProportionateAction)；
+   * 5. 区分独立完成 (COMPLETED) 与提前查看参考结局后完成 (COMPLETED_AFTER_REFERENCE)。
    */
-  const tryCompleteDetectiveLoop = (params: {
-    cluesCount: number;
-    hasHypothesis: boolean;
-    hasAction: boolean;
-  }): boolean => {
-    if (params.cluesCount >= 2 && params.hasHypothesis && params.hasAction) {
-      setCaseStatus('COMPLETED');
+  const tryCompleteDetectiveLoop = (overrides?: {
+    discoveredClueIds?: ReadonlyArray<string>;
+    revealedObjectIds?: ReadonlyArray<string>;
+    placements?: Readonly<Record<string, SortingBasketType>>;
+    initialHypothesisId?: string | null;
+    revisedHypothesisId?: string | null;
+    chosenNextActionId?: string | null;
+    hasViewedReferenceBeforeCompletion?: boolean;
+  }): DetectiveCaseCompletionReadiness => {
+    const nextDiscovered = overrides?.discoveredClueIds ?? discoveredClueIds;
+    const nextRevealed = overrides?.revealedObjectIds ?? revealedObjectIds;
+    const nextPlacements = overrides?.placements ?? placements;
+    const nextInitialHyp =
+      overrides?.initialHypothesisId !== undefined ? overrides.initialHypothesisId : initialHypothesisId;
+    const nextRevisedHyp =
+      overrides?.revisedHypothesisId !== undefined ? overrides.revisedHypothesisId : revisedHypothesisId;
+    const nextAction =
+      overrides?.chosenNextActionId !== undefined ? overrides.chosenNextActionId : chosenNextActionId;
+    const nextViewedRef =
+      overrides?.hasViewedReferenceBeforeCompletion ?? hasViewedReferenceBeforeCompletion;
+
+    const readiness = evaluateDetectiveCaseCompletionReadiness({
+      scenario,
+      discoveredClueIds: nextDiscovered,
+      revealedObjectIds: nextRevealed,
+      placements: nextPlacements,
+      initialHypothesisId: nextInitialHyp,
+      revisedHypothesisId: nextRevisedHyp,
+      chosenNextActionId: nextAction,
+      hasViewedReferenceBeforeCompletion: nextViewedRef,
+    });
+
+    if (readiness.isReadyToComplete && readiness.completionStatus) {
+      setCaseStatus(readiness.completionStatus);
       recordDetectiveCaseCompletion(scenario.id, {
-        status: 'COMPLETED',
-        discoveredClueCount: params.cluesCount,
-        hasSelectedHypothesis: params.hasHypothesis,
-        hasSelectedAction: params.hasAction,
+        status: readiness.completionStatus,
+        discoveredClueCount: readiness.validDiscoveredClueIds.length,
+        hasKeyEvidence: readiness.hasKeyEvidence,
+        hasAttemptedSorting: readiness.hasAttemptedSorting && readiness.hasValidSortedClue,
+        hasCheckedHypothesisWithEvidence: readiness.hasCheckedHypothesisWithEvidence,
+        hasSelectedHypothesis: Boolean(nextRevisedHyp || nextInitialHyp),
+        hasSelectedAction: Boolean(nextAction),
+        hasProportionateAction: readiness.hasProportionateAction,
+        hasViewedReferenceBeforeCompletion: readiness.hasViewedReferenceBeforeCompletion,
       });
-      unlockMedal('sun-detective');
-      return true;
+      if (readiness.completionStatus === 'COMPLETED') {
+        unlockMedal('sun-detective');
+      }
     }
-    return false;
+
+    return readiness;
   };
 
   // 切换主题场景时安全重置探索进度
@@ -646,6 +692,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     sounds.playCardSelect();
     setInitialHypothesisId(hypId);
     setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
+    recordDetectiveCaseState(scenario.id, 'EXPLORING');
     const hyp = scenario.initialHypotheses?.find((h) => h.id === hypId);
     if (hyp) {
       if (hyp.isUnknownOption) {
@@ -662,6 +709,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     if (!lead) return;
     sounds.playDiscoveryChime();
     setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
+    recordDetectiveCaseState(scenario.id, 'EXPLORING');
     if (!exploredLeadIds.includes(leadId)) {
       setExploredLeadIds((prev) => [...prev, leadId]);
     }
@@ -697,17 +745,15 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
       discoveredClueCount: discoveredClueIds.length,
     });
 
-    setCaseStatus((prev) => {
-      if (prev === 'COMPLETED') return 'COMPLETED';
-      if (chosenNextActionId) return 'ACTION_SELECTED';
-      return 'REFLECTING';
+    const readiness = tryCompleteDetectiveLoop({
+      revisedHypothesisId: hypId,
     });
 
-    if (chosenNextActionId) {
-      tryCompleteDetectiveLoop({
-        cluesCount: discoveredClueIds.length,
-        hasHypothesis: true,
-        hasAction: true,
+    if (!readiness.isReadyToComplete) {
+      setCaseStatus((prev) => {
+        if (prev === 'COMPLETED' || prev === 'COMPLETED_AFTER_REFERENCE') return prev;
+        if (chosenNextActionId) return 'ACTION_SELECTED';
+        return 'REFLECTING';
       });
     }
 
@@ -722,15 +768,15 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     sounds.playCardSelect();
     setChosenNextActionId(actionId);
 
-    const hasHypothesis = Boolean(initialHypothesisId || revisedHypothesisId);
-    const completed = tryCompleteDetectiveLoop({
-      cluesCount: discoveredClueIds.length,
-      hasHypothesis,
-      hasAction: true,
+    const readiness = tryCompleteDetectiveLoop({
+      chosenNextActionId: actionId,
     });
 
-    if (!completed) {
-      setCaseStatus('ACTION_SELECTED');
+    if (!readiness.isReadyToComplete) {
+      setCaseStatus((prev) =>
+        prev === 'COMPLETED' || prev === 'COMPLETED_AFTER_REFERENCE' ? prev : 'ACTION_SELECTED'
+      );
+      recordDetectiveCaseState(scenario.id, 'ACTION_SELECTED');
     }
 
     const spoken = choice.worldChangeSummary
@@ -740,17 +786,38 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     speechNarrator.speak(spoken);
   };
 
-  // 触碰或放大镜命中场景物体时的真实探索反馈（含遮挡物翻开与顺序感知反馈）
+  /**
+   * Sprint 1.2 任务一：修复真实场景触控与物体发现机制
+   * 1. 需要掀开、拨开的物体 (requiresObjectReveal)，第一次操作只改变遮挡状态 (revealedObjectIds)，不加入已获证据；
+   * 2. 完成揭示动作后，第二次触碰才真正获取对应的隐藏证据 (discoveredClueIds)；
+   * 3. 尚未获得的证据不能进入线索册或归类盒。
+   */
   const inspectSceneObject = (spot: HotspotEvidence) => {
     setLensPos({ x: spot.xPercent, y: spot.yPercent });
     setActiveHotspot(spot);
-    setSelectedClueId(spot.id);
     setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
+    recordDetectiveCaseState(scenario.id, 'EXPLORING');
 
+    // 第 1 次点击需要掀开/拨开的遮挡物：只改变遮挡状态，不获取隐藏证据
     if (spot.requiresObjectReveal && !revealedObjectIds.includes(spot.id)) {
-      setRevealedObjectIds((prev) => [...prev, spot.id]);
+      sounds.playCardSelect();
+      const nextRevealed = [...revealedObjectIds, spot.id];
+      setRevealedObjectIds(nextRevealed);
+      setSelectedClueId(null);
+
+      const revealPrompt =
+        spot.id === 'hs_curtain'
+          ? '窗帘已经掀开一角，露出了底下的绿色蜡笔！再点一次完成取证并记进线索册吧！'
+          : spot.id === 'hs_nature_leaf_pile'
+            ? '红枫叶堆已经拨开，露出了底下的半个空帽壳！再点一次仔细检查并收进线索册吧！'
+            : `已经${spot.interactionVerb || '掀开'}「${spot.name}」，再点一次获取里面的隐藏证据吧！`;
+      setFeedbackPrompt(revealPrompt);
+      speechNarrator.speak(revealPrompt);
+      return;
     }
 
+    // 已完成揭示（或无需揭示的普通物体）：真正获取证据
+    setSelectedClueId(spot.id);
     const isFirstTimeDiscovery = !discoveredClueIds.includes(spot.id);
     const priorClues = discoveredClueIds;
 
@@ -764,13 +831,9 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
         setHypothesisEvaluation(evaluateHypothesisAgainstEvidence(scenario, revisedHypothesisId, nextClues));
       }
 
-      if (chosenNextActionId && (initialHypothesisId || revisedHypothesisId)) {
-        tryCompleteDetectiveLoop({
-          cluesCount: nextClues.length,
-          hasHypothesis: true,
-          hasAction: true,
-        });
-      }
+      tryCompleteDetectiveLoop({
+        discoveredClueIds: nextClues,
+      });
     } else {
       sounds.playClick();
     }
@@ -784,33 +847,12 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     speechNarrator.speak(spot.spokenText);
   };
 
-  // 检查放大镜位置是否命中热点
-  const checkHotspotHit = (x: number, y: number) => {
-    let foundHit: HotspotEvidence | null = null;
-    for (const spot of currentHotspots) {
-      const dx = spot.xPercent - x;
-      const dy = spot.yPercent - y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist <= spot.radiusPercent) {
-        foundHit = spot;
-        break;
-      }
+  // Sprint 1.2 任务一：场景空白区域仅负责移动放大镜，绝不重复触发物体检查
+  const updateLensOnBlankArea = (e: React.PointerEvent<HTMLDivElement>) => {
+    const targetEl = e.target as HTMLElement | null;
+    if (targetEl && targetEl.closest('button')) {
+      return;
     }
-
-    if (foundHit) {
-      inspectSceneObject(foundHit);
-    } else {
-      setActiveHotspot(null);
-    }
-  };
-
-  // 拖动放大镜计算
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingLens) return;
-    updateLensByPointer(e);
-  };
-
-  const updateLensByPointer = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!sceneContainerRef.current) return;
     const rect = sceneContainerRef.current.getBoundingClientRect();
     const clientX = e.clientX;
@@ -820,21 +862,25 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     const yPct = Math.max(5, Math.min(95, ((clientY - rect.top) / rect.height) * 100));
 
     setLensPos({ x: xPct, y: yPct });
-    checkHotspotHit(xPct, yPct);
   };
 
-  // 点击场景任意位置移动放大镜
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingLens) return;
+    updateLensOnBlankArea(e);
+  };
+
   const handleSceneClick = (e: React.PointerEvent<HTMLDivElement>) => {
-    updateLensByPointer(e);
+    updateLensOnBlankArea(e);
   };
 
-  // 直接点击热点探照按钮（触控等效）
+  // 物体按钮独立处理检查
   const handleDirectInspect = (spot: HotspotEvidence) => {
     inspectSceneObject(spot);
   };
 
-  // 选择放置卡片
+  // 选择放置卡片（仅限已真正获得的证据）
   const handleSelectCard = (clueId: string) => {
+    if (!discoveredClueIds.includes(clueId)) return;
     sounds.playClick();
     setSelectedClueId(clueId === selectedClueId ? null : clueId);
     const clue = currentHotspots.find((h) => h.id === clueId);
@@ -844,7 +890,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     }
   };
 
-  // 放置到目标箩筐（支持从场景内浮层直接归类，或选中卡片后点击盒子归类）
+  // 放置到目标箩筐（严格拦截尚未完成揭示或尚未获取的证据）
   const handlePlaceIntoBasket = (basketId: SortingBasketType, explicitClueId?: string) => {
     const targetId = explicitClueId ?? selectedClueId ?? activeHotspot?.id ?? null;
     if (!targetId) {
@@ -855,6 +901,16 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     const clue = currentHotspots.find((h) => h.id === targetId);
     if (!clue) return;
 
+    if (!discoveredClueIds.includes(targetId)) {
+      setFeedbackPrompt('这条线索还没有完成现场取证，先在场景里再次点击获取证据吧！');
+      return;
+    }
+
+    if (clue.requiresObjectReveal && !revealedObjectIds.includes(targetId)) {
+      setFeedbackPrompt('先掀开遮挡物并再次点击获取证据，才能放进归类盒哦！');
+      return;
+    }
+
     sounds.playClick();
     const evaluation = evaluateThemedCluePlacement(clue.category, basketId);
 
@@ -863,14 +919,25 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
       recordClueClassificationAttempt(evaluation.isMatch);
     }
 
-    setPlacements((prev) => ({
-      ...prev,
+    const nextPlacements: Record<string, SortingBasketType> = {
+      ...placements,
       [targetId]: basketId,
-    }));
-    setCaseStatus((prev) => {
-      if (prev === 'COMPLETED' || prev === 'ACTION_SELECTED') return prev;
-      return 'REFLECTING';
+    };
+    setPlacements(nextPlacements);
+
+    const readiness = tryCompleteDetectiveLoop({
+      placements: nextPlacements,
     });
+
+    if (!readiness.isReadyToComplete) {
+      setCaseStatus((prev) => {
+        if (prev === 'COMPLETED' || prev === 'COMPLETED_AFTER_REFERENCE' || prev === 'ACTION_SELECTED') {
+          return prev;
+        }
+        return 'REFLECTING';
+      });
+    }
+
     setSelectedClueId(null);
     setFeedbackPrompt(evaluation.spokenFeedback);
     speechNarrator.speak(evaluation.spokenFeedback);
@@ -895,29 +962,29 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   };
 
   /**
-   * P0-01：打开侦探破案手册
-   * 严禁无条件记录完成或点亮奖章！
-   * 仅当已完成真实探索闭环（>=2 条线索 + 有判断 + 已选行动）时记为 COMPLETED；
-   * 若零探索或未完成关键动作提前查看，标记为 ENDED_EARLY（提前查看参考），不增加完成计数。
+   * Sprint 1.2 任务二：打开侦探破案手册
+   * 1. 调用 evaluateDetectiveCaseCompletionReadiness 检查真实认知闭环；
+   * 2. 未达标时提前查看完整参考结局 -> 记为 ENDED_EARLY 并标记 hasViewedReferenceBeforeCompletion = true；
+   * 3. 提前查看完整答案后继续探索完成 -> 记为 COMPLETED_AFTER_REFERENCE（辅助完成），与独立完成严格区分。
    */
   const handleOpenSynthesis = () => {
     sounds.playDiscoveryChime();
     setIsSynthesisOpen(true);
 
-    const hasHypothesis = Boolean(initialHypothesisId || revisedHypothesisId);
-    const hasAction = Boolean(chosenNextActionId);
-    const isCompletedLoop = tryCompleteDetectiveLoop({
-      cluesCount: discoveredClueIds.length,
-      hasHypothesis,
-      hasAction,
-    });
+    const readiness = tryCompleteDetectiveLoop();
 
-    if (!isCompletedLoop && caseStatus !== 'COMPLETED') {
+    if (
+      !readiness.isReadyToComplete &&
+      caseStatus !== 'COMPLETED' &&
+      caseStatus !== 'COMPLETED_AFTER_REFERENCE'
+    ) {
+      setHasViewedReferenceBeforeCompletion(true);
       setCaseStatus('ENDED_EARLY');
-      const earlyMsg =
-        discoveredClueIds.length < 2
-          ? '你打开了侦探参考卡！目前还没完成现场取证，先看参考不会直接算作破案完成哦，随时可以回现场继续探索。'
-          : '还差最后一步：在手册或页面里试着选一个下一步行动，就能完成整个破案闭环啦！';
+      recordDetectiveCaseState(scenario.id, 'ENDED_EARLY');
+      const missingHint =
+        readiness.missingStepDescriptions[0] ||
+        '完成关键物证查验、线索归类、判断核对与行动选择';
+      const earlyMsg = `你打开了侦探参考手册！目前还差一步：${missingHint}。提前看参考不会直接算作独立破案完成哦，随时可以回现场继续探索。`;
       setFeedbackPrompt(earlyMsg);
       speechNarrator.speak(earlyMsg);
       return;
@@ -987,14 +1054,41 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     );
   }
 
-  // 计算当前放对盒子的卡片数
+  // 计算当前放对盒子的卡片数（仅统计已真正获取的证据）
   const correctlySortedCount = currentHotspots.filter((h) => {
+    if (!discoveredClueIds.includes(h.id)) return false;
     const placed = placements[h.id];
     if (!placed) return false;
     return evaluateThemedCluePlacement(h.category, placed).isMatch;
   }).length;
 
   const selectedActionObj = scenario.nextActionChoices?.find((c) => c.id === chosenNextActionId) || null;
+  const currentReadiness = evaluateDetectiveCaseCompletionReadiness({
+    scenario,
+    discoveredClueIds,
+    revealedObjectIds,
+    placements,
+    initialHypothesisId,
+    revisedHypothesisId,
+    chosenNextActionId,
+    hasViewedReferenceBeforeCompletion,
+  });
+
+  const currentGoalText = currentReadiness.isReadyToComplete
+    ? '🌟 已完成全部侦探步骤！可以打开破案手册查看复盘啦'
+    : !initialHypothesisId && discoveredClueIds.length === 0
+      ? '🎯 当前目标：先选一个初步想法，再点场景里的物体寻找关键证据'
+      : !currentReadiness.hasKeyEvidence
+        ? '🎯 当前目标：点击场景物体（遮挡物点第 1 下掀开、第 2 下取证）集齐关键证据'
+        : !currentReadiness.hasAttemptedSorting || !currentReadiness.hasValidSortedClue
+          ? '🎯 当前目标：把找到的线索卡放进正确的「分一分」分类盒'
+          : !currentReadiness.hasCheckedHypothesisWithEvidence
+            ? '🎯 当前目标：在「4 · 辨一辨」对照物证确认或修正你的判断'
+            : '🎯 当前目标：在「5 · 试行动」选一个与当前信息相称的做法';
+
+  const currentJudgmentLabel =
+    scenario.initialHypotheses?.find((h) => h.id === (revisedHypothesisId ?? initialHypothesisId))?.label ||
+    '尚未选择判断（保留思考空间）';
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col">
@@ -1039,9 +1133,11 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 className={`text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full ${
                   caseStatus === 'COMPLETED'
                     ? 'bg-emerald-600 text-white'
-                    : caseStatus === 'ENDED_EARLY'
-                      ? 'bg-stone-300 text-stone-800'
-                      : 'bg-amber-200/90 text-amber-950'
+                    : caseStatus === 'COMPLETED_AFTER_REFERENCE'
+                      ? 'bg-sky-600 text-white'
+                      : caseStatus === 'ENDED_EARLY'
+                        ? 'bg-stone-300 text-stone-800'
+                        : 'bg-amber-200/90 text-amber-950'
                 }`}
               >
                 {CASE_STATUS_LABELS[caseStatus]}
@@ -1142,12 +1238,23 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
         )}
       </div>
 
-      {/* P1-01：场景优先 + 伙伴简短提示 + 单步紧凑引导区 */}
+      {/* P1-01 & Sprint 1.2 任务五：手机端首屏突出一个当前探索目标 + 场景优先 */}
       <div className="p-2 sm:p-3.5 space-y-2.5">
+        <div
+          data-testid="detective-current-goal-pill"
+          className="bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1 text-[11px] sm:text-xs font-black text-emerald-950 flex items-center justify-between gap-2"
+        >
+          <span className="truncate">{currentGoalText}</span>
+          <span className="text-[10px] font-bold text-emerald-700 shrink-0">
+            关键物证 {currentReadiness.hasKeyEvidence ? '已找齐 ✓' : '待查验'}
+          </span>
+        </div>
+
         {/* 1. 核心探索场景画布 (Scene-First Interactive Canvas - 手机首屏直接可见) */}
         <div
           ref={sceneContainerRef}
           onPointerDown={(e) => {
+            if ((e.target as HTMLElement | null)?.closest('button')) return;
             setIsDraggingLens(true);
             handleSceneClick(e);
           }}
@@ -1165,7 +1272,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
             selectedActionId={chosenNextActionId}
           />
 
-          {/* 场景热点物体（区分：可掀开遮挡物、客观物证、虚线主观猜想气泡、上锁未知盲区） */}
+          {/* 场景热点物体（物体按钮独立处理检查，阻断父容器 pointer/touch 冒泡，防止单次触控双触发） */}
           {currentHotspots.map((spot) => {
             const isDiscovered = discoveredClueIds.includes(spot.id);
             const isHighlighted = highlightedHotspotIds.includes(spot.id) && !isDiscovered;
@@ -1181,6 +1288,13 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 data-category={spot.category}
                 data-highlighted={isHighlighted ? 'true' : 'false'}
                 data-revealed={isRevealed ? 'true' : 'false'}
+                data-discovered={isDiscovered ? 'true' : 'false'}
+                onPointerDown={(e) => {
+                  e.stopPropagation();
+                }}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDirectInspect(spot);
@@ -1192,13 +1306,15 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 className={`absolute -translate-x-1/2 -translate-y-1/2 px-2 py-1.5 rounded-2xl transition-all duration-300 min-w-[54px] min-h-[54px] flex flex-col items-center justify-center cursor-pointer ${
                   isDiscovered
                     ? 'bg-amber-400 text-amber-950 scale-105 shadow-md ring-4 ring-amber-200/90'
-                    : isHighlighted
-                      ? 'bg-sky-100 text-sky-950 scale-110 shadow-lg ring-4 ring-sky-400 animate-pulse border-2 border-sky-500'
-                      : isThoughtBubble
-                        ? 'bg-amber-50/95 text-amber-900 border-2 border-dashed border-amber-500 shadow-xs'
-                        : isUnknownSpot
-                          ? 'bg-sky-50/95 text-sky-900 border-2 border-sky-400 shadow-xs'
-                          : 'bg-white/95 text-stone-800 hover:scale-105 shadow-sm border-2 border-stone-300'
+                    : isRevealed && spot.requiresObjectReveal
+                      ? 'bg-emerald-100 text-emerald-950 scale-110 shadow-lg ring-4 ring-emerald-400 border-2 border-emerald-600'
+                      : isHighlighted
+                        ? 'bg-sky-100 text-sky-950 scale-110 shadow-lg ring-4 ring-sky-400 animate-pulse border-2 border-sky-500'
+                        : isThoughtBubble
+                          ? 'bg-amber-50/95 text-amber-900 border-2 border-dashed border-amber-500 shadow-xs'
+                          : isUnknownSpot
+                            ? 'bg-sky-50/95 text-sky-900 border-2 border-sky-400 shadow-xs'
+                            : 'bg-white/95 text-stone-800 hover:scale-105 shadow-sm border-2 border-stone-300'
                 }`}
                 aria-label={`查看${spot.name}`}
               >
@@ -1206,7 +1322,9 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 <span className="text-[10px] font-black leading-tight mt-0.5 max-w-[76px] truncate">
                   {spot.requiresObjectReveal && !isRevealed
                     ? spot.interactionVerb || spot.name
-                    : spot.name}
+                    : spot.requiresObjectReveal && isRevealed && !isDiscovered
+                      ? `点取：${spot.name}`
+                      : spot.name}
                 </span>
               </button>
             );
@@ -1248,7 +1366,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
           </button>
         </div>
 
-        {/* P1-01：场景内选中的线索即时查看与一键三盒归类浮层 (Scene Object Popover) */}
+        {/* P1-01 & Sprint 1.2 任务一：场景内选中的线索即时查看与一键三盒归类浮层 (仅当真正获取证据后才允许归类) */}
         {activeHotspot && (
           <div
             data-testid="scene-object-popover"
@@ -1269,11 +1387,23 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                     <span className="text-xs sm:text-sm font-black text-stone-900">
                       {activeHotspot.name}
                     </span>
-                    {activeHotspot.requiresObjectReveal && revealedObjectIds.includes(activeHotspot.id) && (
-                      <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
-                        ✓ 已亲手翻开查看
-                      </span>
-                    )}
+                    {activeHotspot.requiresObjectReveal &&
+                      revealedObjectIds.includes(activeHotspot.id) &&
+                      !discoveredClueIds.includes(activeHotspot.id) && (
+                        <span
+                          data-testid="popover-reveal-only-badge"
+                          className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full"
+                        >
+                          👀 已拨开遮挡 · 再点一次获取物证
+                        </span>
+                      )}
+                    {activeHotspot.requiresObjectReveal &&
+                      revealedObjectIds.includes(activeHotspot.id) &&
+                      discoveredClueIds.includes(activeHotspot.id) && (
+                        <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                          ✓ 已亲手翻开并取证
+                        </span>
+                      )}
                     {activeHotspot.isPermanentUnknown && (
                       <span className="text-[10px] font-black bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full">
                         🔒 外部无法看清内部
@@ -1281,7 +1411,9 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                     )}
                   </div>
                   <p className="text-xs text-stone-700 font-medium mt-0.5">
-                    {activeHotspot.observationPrompt || activeHotspot.foundDescription}
+                    {activeHotspot.requiresObjectReveal && !discoveredClueIds.includes(activeHotspot.id)
+                      ? '遮挡物已经打开啦！再点一次场景里的这个位置，就能把显露出来的证据收进线索册。'
+                      : activeHotspot.observationPrompt || activeHotspot.foundDescription}
                   </p>
                 </div>
               </div>
@@ -1295,30 +1427,46 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
               </button>
             </div>
 
-            {/* 场景浮层内直接一键归入三盒 */}
-            <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-stone-100">
-              <span className="text-[11px] font-bold text-stone-500">放进哪个盒：</span>
-              {currentBaskets.map((basket) => {
-                const isPlacedHere = placements[activeHotspot.id] === basket.id;
-                return (
-                  <button
-                    key={basket.id}
-                    type="button"
-                    data-testid={`quick-sort-${activeHotspot.id}-${basket.id}`}
-                    onClick={() => handlePlaceIntoBasket(basket.id, activeHotspot.id)}
-                    className={`min-h-[40px] px-2.5 py-1 rounded-xl text-xs font-black border transition-all cursor-pointer flex items-center gap-1 ${
-                      isPlacedHere
-                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
-                        : `${basket.colorBg} ${basket.borderColor} text-stone-800 hover:brightness-95`
-                    }`}
-                  >
-                    <span>{basket.icon}</span>
-                    <span>{basket.label}</span>
-                    {isPlacedHere && <span>✓</span>}
-                  </button>
-                );
-              })}
-            </div>
+            {/* 尚未真正获取证据时不渲染归类盒按钮；已获取证据后才允许一键归入三盒 */}
+            {discoveredClueIds.includes(activeHotspot.id) ? (
+              <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-stone-100">
+                <span className="text-[11px] font-bold text-stone-500">放进哪个盒：</span>
+                {currentBaskets.map((basket) => {
+                  const isPlacedHere = placements[activeHotspot.id] === basket.id;
+                  return (
+                    <button
+                      key={basket.id}
+                      type="button"
+                      data-testid={`quick-sort-${activeHotspot.id}-${basket.id}`}
+                      onClick={() => handlePlaceIntoBasket(basket.id, activeHotspot.id)}
+                      className={`min-h-[40px] px-2.5 py-1 rounded-xl text-xs font-black border transition-all cursor-pointer flex items-center gap-1 ${
+                        isPlacedHere
+                          ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
+                          : `${basket.colorBg} ${basket.borderColor} text-stone-800 hover:brightness-95`
+                      }`}
+                    >
+                      <span>{basket.icon}</span>
+                      <span>{basket.label}</span>
+                      {isPlacedHere && <span>✓</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="pt-1 border-t border-stone-100 flex items-center justify-between gap-2">
+                <span className="text-[11px] font-bold text-amber-800">
+                  先完成第二次点击取证，才能把证据放进分类盒哦！
+                </span>
+                <button
+                  type="button"
+                  data-testid={`collect-revealed-clue-${activeHotspot.id}`}
+                  onClick={() => handleDirectInspect(activeHotspot)}
+                  className="min-h-[38px] px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black cursor-pointer"
+                >
+                  🔍 立即取证
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -1453,7 +1601,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
             <div className="grid grid-cols-3 gap-2">
               {currentBaskets.map((basket) => {
                 const placedInThisBasket = currentHotspots.filter(
-                  (h) => placements[h.id] === basket.id
+                  (h) => discoveredClueIds.includes(h.id) && placements[h.id] === basket.id
                 );
                 return (
                   <div
@@ -1498,7 +1646,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
           </div>
         )}
 
-        {/* 步骤 4（P0-02）：发现 >= 2 条证据后，基于证据支撑关系修正/验证判断 */}
+        {/* 步骤 4（P0-02 & Sprint 1.2 任务三）：发现 >= 2 条证据后，基于案件级关键证据条件验证判断 */}
         {discoveredClueIds.length >= 2 && scenario.initialHypotheses && (
           <div
             data-testid="detective-step-revise"
@@ -1515,6 +1663,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 <span
                   data-testid="hypothesis-evaluation-badge"
                   data-relation={hypothesisEvaluation.relation}
+                  data-finding-state={hypothesisEvaluation.findingState}
                   className={`text-xs font-black px-2.5 py-0.5 rounded-full border ${
                     hypothesisEvaluation.relation === 'SUPPORTED_BY_EVIDENCE'
                       ? 'bg-emerald-600 text-white border-emerald-700'
@@ -1662,7 +1811,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
             data-testid="open-detective-synthesis-btn"
             onClick={handleOpenSynthesis}
             className={`w-full sm:w-auto min-h-[48px] px-5 py-2.5 rounded-2xl text-white text-sm sm:text-base font-black shadow-md transition-all active:scale-98 flex items-center justify-center cursor-pointer ${
-              caseStatus === 'COMPLETED' || (discoveredClueIds.length >= 2 && (initialHypothesisId || revisedHypothesisId) && chosenNextActionId)
+              caseStatus === 'COMPLETED' || caseStatus === 'COMPLETED_AFTER_REFERENCE' || currentReadiness.isReadyToComplete
                 ? 'bg-emerald-600 hover:bg-emerald-700'
                 : 'bg-amber-500 hover:bg-amber-600'
             }`}
@@ -1672,7 +1821,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* 破案总结浮层 (Synthesis Modal：严格区分提前参考 ENDED_EARLY 与真实破案完成 COMPLETED) */}
+      {/* 破案总结浮层 (Synthesis Modal：保留孩子自己的判断空间，区分 ENDED_EARLY / COMPLETED_AFTER_REFERENCE / COMPLETED) */}
       {isSynthesisOpen && (
         <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-4 border-2 border-amber-300 shadow-2xl max-h-[90vh] flex flex-col">
@@ -1683,7 +1832,11 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-black text-stone-900">
-                    {caseStatus === 'COMPLETED' ? '小侦探的破案发现（已完成闭环）' : '侦探参考手册（尚未完成取证闭环）'}
+                    {caseStatus === 'COMPLETED'
+                      ? '小侦探的独立破案发现（已完成闭环）'
+                      : caseStatus === 'COMPLETED_AFTER_REFERENCE'
+                        ? '小侦探的参考后完成记录'
+                        : '侦探参考手册（尚未完成取证闭环）'}
                   </h3>
                   <p className="text-xs text-stone-500 font-medium">
                     场景：{scenario.sceneTitle} · 状态：{CASE_STATUS_LABELS[caseStatus]}
@@ -1701,13 +1854,42 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
             </div>
 
             <div className="space-y-3 text-stone-800 text-sm leading-relaxed overflow-y-auto pr-1 flex-1">
-              {caseStatus !== 'COMPLETED' && (
+              {/* Sprint 1.2 任务五：查看结局前保留一步孩子自己的判断空间，不直接把标准答案盖在孩子选择上 */}
+              <div
+                data-testid="synthesis-child-own-judgment"
+                className="p-3 bg-indigo-50/80 rounded-2xl border border-indigo-200 text-xs space-y-1"
+              >
+                <p className="font-black text-indigo-950">
+                  🧠 你自己的当前思考记录：
+                </p>
+                <p className="text-indigo-900 font-bold">
+                  · 你的判断：{currentJudgmentLabel}
+                </p>
+                <p className="text-indigo-900 font-bold">
+                  · 你的行动选择：{selectedActionObj ? selectedActionObj.label : '尚未选择行动'}
+                </p>
+              </div>
+
+              {caseStatus !== 'COMPLETED' && caseStatus !== 'COMPLETED_AFTER_REFERENCE' && (
                 <div
                   data-testid="synthesis-early-peek-banner"
-                  className="p-3 bg-stone-100 rounded-2xl border-2 border-stone-300 text-stone-800 text-xs sm:text-sm font-bold"
+                  className="p-3 bg-stone-100 rounded-2xl border-2 border-stone-300 text-stone-800 text-xs sm:text-sm font-bold space-y-1"
                 >
-                  💡 当前为「提前查看参考 / 自主暂停」模式（已发现 {discoveredClueIds.length} 条线索）。
-                  提前看结局不会自动计入已完成案件或点亮破案奖章；回到场景查验至少 2 条线索、做出判断并选择下一步行动后即可正式完成破案！
+                  <p>
+                    💡 当前为「提前查看参考 / 自主暂停」模式（已获取 {discoveredClueIds.length} 条线索）。
+                  </p>
+                  <p className="text-xs text-stone-700">
+                    提前看参考不会直接计入独立完成或点亮破案奖章；若继续回现场完成剩余步骤，将诚实记录为「参考后完成探索」。
+                  </p>
+                </div>
+              )}
+
+              {caseStatus === 'COMPLETED_AFTER_REFERENCE' && (
+                <div
+                  data-testid="synthesis-assisted-completion-banner"
+                  className="p-3 bg-sky-50 rounded-2xl border-2 border-sky-300 text-sky-950 text-xs sm:text-sm font-bold"
+                >
+                  🤝 你在查看过参考手册后补齐了全部调查与行动步骤，本次已记录为「参考后完成探索」（不冒充零参考独立破案）。
                 </div>
               )}
 

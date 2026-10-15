@@ -393,11 +393,15 @@ describe('Sprint 1 Vertical Slice: 6-Layer Thinking Detective Loop, Internal Pla
       }
     }
 
+    // Sort at least one discovered clue into its matching basket
+    view.click(view.findByTestId('scene-hotspot-hs_curtain'));
+    const quickSortBtn = view.findByTestId('quick-sort-hs_curtain-EYES_OBSERVED');
+    expect(quickSortBtn).toBeTruthy();
+    view.click(quickSortBtn);
+
     // Hypothesis revision step appears once >= 2 clues are discovered
     expect(view.findByTestId('detective-step-revise')).toBeTruthy();
-    const reviseBtn = view.findAll((n) =>
-      typeof n.props['data-testid'] === 'string' && n.props['data-testid'].startsWith('revise-hypothesis-')
-    )[0];
+    const reviseBtn = view.findByTestId('revise-hypothesis-hyp_rolled_away');
     expect(reviseBtn).toBeTruthy();
     view.click(reviseBtn);
 
@@ -405,9 +409,7 @@ describe('Sprint 1 Vertical Slice: 6-Layer Thinking Detective Loop, Internal Pla
     expect(metrics.hypothesisRevisionCount).toBeGreaterThanOrEqual(1);
 
     // Stage 3b: Choose next action and observe consequence
-    const nextActionBtn = view.findAll((n) =>
-      typeof n.props['data-testid'] === 'string' && n.props['data-testid'].startsWith('next-action-')
-    )[0];
+    const nextActionBtn = view.findByTestId('next-action-act_pickup_and_apologize');
     expect(nextActionBtn).toBeTruthy();
     view.click(nextActionBtn);
     expect(view.findByTestId('detective-action-consequence')).toBeTruthy();

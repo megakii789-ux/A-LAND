@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-10-15T10:03:48.310Z",
+  "checks": {
+    "mobile390LayoutAndGoalPill": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "goalText": "🎯 当前目标：先选一个初步想法，再点场景里的物体寻找关键证据关键物证 待查验",
+      "sceneTop": 305,
+      "sceneBottom": 529
+    },
+    "negativeTest1A_CurtainRealTouch": {
+      "passed": true,
+      "afterTap1": {
+        "revealed": "true",
+        "discovered": "false",
+        "hasQuickSort": false,
+        "hasRevealOnlyBadge": true
+      },
+      "afterTap2": {
+        "revealed": "true",
+        "discovered": "true",
+        "hasQuickSort": true
+      }
+    },
+    "negativeTest2_LooseCompletionBlocked": {
+      "passed": true,
+      "status": "ACTION_SELECTED",
+      "completedDetectiveCaseIds": []
+    },
+    "negativeTest6_EarlyReferenceSeparatedFromIndependent": {
+      "passed": true,
+      "status": "COMPLETED_AFTER_REFERENCE",
+      "independentDetectiveCaseIds": [],
+      "assistedDetectiveCaseIds": [
+        "scenario_detective_drawing_v1"
+      ]
+    },
+    "negativeTest3_ForestOrdinaryCluesInsufficient": {
+      "passed": true,
+      "relation": "INSUFFICIENT_EVIDENCE",
+      "findingState": "INSUFFICIENT_EVIDENCE",
+      "feedbackText": "目前只查看了「树洞口的青苔与喜鹊羽、分岔的滚落压痕」，还没有把红枫叶堆和深树洞等关键位置都查验完，先去现场把关键物证找齐再下结论吧！"
+    },
+    "negativeTest1B_MaplePileRealTouch": {
+      "passed": true,
+      "afterTap1": {
+        "revealed": "true",
+        "discovered": "false",
+        "hasQuickSort": false
+      },
+      "afterTap2": {
+        "revealed": "true",
+        "discovered": "true",
+        "hasQuickSort": true
+      }
+    },
+    "negativeTest4_TransferSingleFactRejected": {
+      "passed": true,
+      "status": "ATTEMPTED",
+      "completedTransferScenarioIds": []
+    },
+    "negativeTest5_TransferRedoNotIndependent": {
+      "passed": true,
+      "status": "COMPLETED_WITH_PROMPT",
+      "independentTransferCount": 0,
+      "promptedTransferCount": 1
+    },
+    "playtestVsChildStorageIsolation": {
+      "playtestStorageKey": "qingyu_experience_metrics_playtest_v1",
+      "playtestMetrics": {
+        "sessionScope": "PLAYTEST",
+        "completedDetectiveCaseIds": [
+          "scenario_detective_nature_v1"
+        ],
+        "independentDetectiveCaseIds": [
+          "scenario_detective_nature_v1"
+        ],
+        "assistedDetectiveCaseIds": [],
+        "earlyPeekedDetectiveCaseIds": [],
+        "detectiveCaseStates": {
+          "scenario_detective_nature_v1": "COMPLETED"
+        },
+        "totalCluesClassified": 1,
+        "firstTryCorrectClassifications": 1,
+        "hypothesisRevisionCount": 0,
+        "unknownHonestyCount": 3,
+        "independentTransferCount": 1,
+        "promptedTransferCount": 1,
+        "completedTransferScenarioIds": [
+          "transfer_biscuit_mystery",
+          "transfer_rainy_umbrella_uncertainty"
+        ],
+        "transferScenarioStates": {
+          "transfer_biscuit_mystery": "COMPLETED_WITH_PROMPT",
+          "transfer_rainy_umbrella_uncertainty": "COMPLETED_INDEPENDENT"
+        },
+        "visitedLandmarks": [
+          "detective"
+        ],
+        "firstEntryStepCount": null,
+        "lastTaskOperationCount": null,
+        "activeExplorationCount": 1,
+        "totalPromptCalls": 0,
+        "voluntaryExitNodes": [],
+        "taskParticipationCounts": {
+          "scenario_detective_nature_v1": 2,
+          "transfer_biscuit_mystery": 1,
+          "transfer_rainy_umbrella_uncertainty": 1
+        },
+        "lastUpdatedAt": "2026-10-15T10:04:03.958Z"
+      },
+      "childStorageKey": "qingyu_experience_metrics_child_v1",
+      "childMetrics": null
+    }
+  },
+  "screenshots": [
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_2/sprint1_2-mobile-390-curtain-tap1-reveal-only.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_2/sprint1_2-mobile-390-curtain-tap2-clue-acquired.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_2/sprint1_2-desktop-1440-forest-key-evidence-complete.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_2/sprint1_2-desktop-1440-transfer-goal-verified.png"
+  ]
+}
