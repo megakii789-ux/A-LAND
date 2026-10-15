@@ -1,53 +1,56 @@
-# A-LAND｜Sprint 4 认知迁移真实性与儿童沉浸体验深化 · 简短验收记录
+# A-LAND｜Sprint 4 & Sprint 4.1 认知迁移真实性、核心语义修复与直接触控强化 · 简短验收记录
 
 - **执行工作区**：`/home/voga/GoogleDrive/晴雨小岛-·-6岁儿童思考方法成长空间`
-- **基线提交**：`preview@c70d3bb96769272352b1491ff46e1d59aeda9ee8`
+- **Sprint 4 基线提交**：`preview@c70d3bb96769272352b1491ff46e1d59aeda9ee8`
+- **Sprint 4.1 审计基线**：`preview@535b16c68064d789dcbbdd6a89cbdc8b8dc27598`
 
 ---
 
-## 一、前置定向修复（FIX-01 ～ FIX-05）验收
+## 一、Sprint 4.1 核心认知语义修复与直接触控强化（FIX-01 ～ FIX-05）
 
-1. **FIX-01｜复合迁移任务多目标进展（[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts)、[`productExperienceMetrics.ts`](../../../src/domain/cognitive/productExperienceMetrics.ts)、[`StoryGroveModal.tsx`](../../../src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx)）**
-   - 移除 `action.resolvesProblem && inspectedObjectIds.length >= 1` 单击即完成整幕迁移的做法。
-   - 拆分为三项独立可观察目标：
-     - `SHADOW_INVESTIGATION`（照亮核实窗外黑影，需观察 `camp_obj_curtain_shadow` 与 `camp_obj_pinecone_branch` 并执行 `camp_act_shine_light_check_branch`）
-     - `PERSONAL_BOUNDARY`（表达个人舒适边界，需观察 `camp_obj_anxious_peer` 并执行 `camp_act_state_comfort_boundary`）
-     - `SHARED_RESOURCE`（商量共享唯一照明工具，需观察 `camp_obj_shared_flashlight` 并执行 `camp_act_share_flashlight_roles`）
-   - 局部完成记录对应 `completedGoals`，仅当三项目标全部达成时才将整幕复合挑战判定为 `isCompleted: true`。
-   - 独立区分：`ORDINARY_ATTEMPT`（普通尝试/局部进展）、`HINT_ASSISTED_COMPLETION`（经历提示或修正后完成）、`UNPROMPTED_AUTONOMOUS_COMPLETION`（无提示自主完成）。
+1. **FIX-01｜行动结果必须与实际发现的证据一致（[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts) `resolveInteractiveLeafActionEffectiveOutcome` / `resolveCampActionEffectiveOutcome`、[`StoryGroveModal.tsx`](../../../src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx)）**
+   - 统一为“行动执行 → 场景真实变化 → 产生观察证据 → 结果反馈”闭环。
+   - 当孩子在尚未获取必要观察证据（`requiredHotspotIds`）前直接点击正向行动（如未照亮窗外任何物体即点击 `camp_act_shine_light_check_branch`“照亮窗外核实黑影”，或未对比两侧参照物即点击 `act_compare_both_sides`），系统**绝不提前呈现最终真相**（松果树枝谜底或双侧比较结论），SVG 场景状态（`data-camp-outcome="PENDING_OBSERVATION"` / `effectiveSceneVisualEffect="OBSERVING"`）、角色台词、结果说明与小岛伙伴记忆统一引用同一份有效场景状态（`eventStage: 'ARRANGED_OR_STARTED'`）。
+   - 只有真正通过手电光束照亮/观察或移动水杯获取对应证据后，才呈现完整真相并达成对应认知目标。
 
-2. **FIX-02｜两片故事叶引入行动关联证据条件（[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts) `evaluateInteractiveLeafGoalCompletion`）**
-   - 《一只杯子，是大还是小？》（`cup-size`）选择双侧比较行动 `act_compare_both_sides` 时，必须真正获取 `obj_wooden_block` 与 `obj_elephant_bucket` 两处对比参照（或把蓝水杯先后移动到 `NEXT_TO_BLOCK` 与 `NEXT_TO_BUCKET`）；仅观察任意两处无关物件（如 `obj_blue_cup` + `obj_twig_ruler`）不会完成该认知目标。
-   - 《小火车谁先开？》（`toy-share`）选择分工合作行动 `act_station_master_turn_system` 时，必须真正了解小火车、积木车站与角色关切三项证据。支持先观察后行动或先行动后补充观察，不强制固定顺序。
+2. **FIX-02｜历史局部目标不能冒充一次完整挑战（[`productExperienceMetrics.ts`](../../../src/domain/cognitive/productExperienceMetrics.ts)、[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts)、[`FairytaleIslandMap.tsx`](../../../src/components/ChildIsland/FairytaleIslandMap.tsx)）**
+   - 严格分离维护：
+     - `historicalCompletedCampGoals`：历史累计达成过的独立子目标（点亮小岛局部探索星光 `island-svg-camp-partial-stars`）；
+     - `hasEverCompletedFullCampRun`：是否在**单次尝试中**完整达成全部三项目标（唯一决定小岛树屋露营暖灯 `island-svg-camp-transfer-lantern` 是否点亮）；
+     - `latestCampTransferAttempt`：最近一次尝试的真实状态。
+   - **反例验证通过**：第一次只完成黑影（1/3）、第二次只完成边界（1/3）、第三次只完成共享照明（1/3），`historicalCompletedCampGoals` 累计为 `3/3`，但三次 `latestCampTransferAttempt.isCompleted` 均为 `false`，`hasEverCompletedFullCampRun` 严格保持 `false`。
+   - **同次会话冲突区分**：在同一会话达成三项目标后，若孩子再次点击恐慌/争抢等不成功行动（如 `camp_act_guess_monster_scream`），`evaluateCampTransferGoals` 判定 `isCurrentActionConflict: true` 且当前 `isAllGoalsCompleted: false`，当前画面如实呈现冲突状态（`data-camp-outcome="PANIC"`），绝不一边展示争抢冲突一边宣告当前所有问题已解决，同时保留历史 `hasEverCompletedFullCampRun: true` 成果。
 
-3. **FIX-03｜修正计数来自真实行为变化（[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts) `isGenuineActionRevision`）**
-   - 点击 `story-revise-action-btn`（“回到场景换个办法试试”）或 `camp-revise-method-btn`（“换个方法再试”）仅返回场景观察态，**不再直接增加 `revisionCount` 或点亮“已根据后果调整做法”**。
-   - 仅当已执行过前序行动并观察后果、随后执行了不同行动且产生可观察的不同场景结果时，才计入真实修正。
+3. **FIX-03｜自主试错不是外部辅助（[`productExperienceMetrics.ts`](../../../src/domain/cognitive/productExperienceMetrics.ts)、[`StoryGroveModal.tsx`](../../../src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx)）**
+   - 在 `StoryGroveTransferAttemptRecord` 中独立记录：
+     - `usedExternalHint`（是否点击显式提示按钮 `camp-request-external-hint-btn`）
+     - `viewedReferenceAnswer`（是否查看参考提示）
+     - `receivedAdultHelp`（是否展开成人共读辅助）
+     - `triedMultipleMethods`（是否自主尝试多种方法）
+     - `selfRevisedAfterConsequence`（是否在观察后果后自主修正）
+   - 孩子未使用外部提示/参考答案/成人帮助，仅通过自主试错、观察后果并调整做法完成挑战，严格判定为 `UNPROMPTED_AUTONOMOUS_COMPLETION`。
+   - 新增 `bestCampTransferIndependence`：若首次在提示辅助下完成（`HINT_ASSISTED_COMPLETION`），第二次完全自主完成（`UNPROMPTED_AUTONOMOUS_COMPLETION`），自动将最佳独立迁移状态升级为 `UNPROMPTED_AUTONOMOUS_COMPLETION`，并将 `transferScenarioStates['leaf-camp-transfer']` 从 `COMPLETED_WITH_PROMPT` 升级为 `COMPLETED_INDEPENDENT`，同步更新 `independentTransferCount` 与 `promptedTransferCount`。
 
-4. **FIX-04｜历史成果与最新尝试独立保存（[`productExperienceMetrics.ts`](../../../src/domain/cognitive/productExperienceMetrics.ts) `recordStoryGroveTransferAttempt`、[`FairytaleIslandMap.tsx`](../../../src/components/ChildIsland/FairytaleIslandMap.tsx)）**
-   - 分离 `historicalCompletedCampGoals`、`hasEverCompletedCampTransfer` 与 `latestCampTransferAttempt`。
-   - 首次完成露营夜三项目标后小岛树屋暖灯（`island-svg-camp-transfer-lantern`）常亮；随后重新进入并执行未成功的尝试（`camp_act_guess_monster_scream`）退出后，最近一次尝试记录为未完成（`latestCampTransferAttempt.isCompleted === false`），但历史已完成目标与小岛暖灯保持常亮不消失。
+4. **FIX-04｜两处核心场景直接触控拖拽强化（[`StoryGroveModal.tsx`](../../../src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx)）**
+   - **《杯子大小》直接拖拽与磁吸比对**：支持按住 SVG 中的蓝水杯（`movable-blue-cup-prop`）直接左右拖动到小积木旁（`cup-dropzone-NEXT_TO_BLOCK`）、桌面中央（`cup-dropzone-CENTER_TABLE`）、大水桶旁（`cup-dropzone-NEXT_TO_BUCKET`）三个带磁吸高亮（`cup-snap-highlight`）的放置区，松手即完成吸附并自动生成对应参照观察证据；超出范围松手会温和回弹并给出友好提示（`cup-drag-recovery-hint`），同时保留原有按钮作为无障碍兜底路径。
+   - **《树屋露营夜》手电光束连续拖动照明**：支持在露营夜 SVG 画布（`camp-interactive-svg-canvas`）或手电筒手柄（`camp-draggable-flashlight`）上直接按住拖动，连续旋转/移动光束与聚光光斑（`camp-beam-spotlight-circle`）照向窗外黑影、窗外树枝、帐篷内同伴和柔光灯罩四个热区（`camp-beam-zone-*`），实时改变局部照度、轮廓显影、观察证据与角色反馈，同时保留四向按钮作为无障碍兜底路径。
 
-5. **FIX-05｜隐藏提前剧透信息（[`interactiveStoryLeaves.ts`](../../../src/domain/storyGrove/interactiveStoryLeaves.ts)、[`StoryGroveModal.tsx`](../../../src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx)）**
-   - 未探索前热点使用中性名称：`窗外的影子`、`帐篷旁边的东西`、`地上的照明工具`、`身旁紧张的同伴`，行动按钮不提前揭示“松果树枝”或“柔光灯罩”谜底。
-   - 仅当孩子用手电筒照亮或点击检查 `camp_obj_pinecone_branch` 后，才揭示真相标签 `风中摇晃的松果树枝`。
-
----
-
-## 二、儿童沉浸体验深化（样板 A & 样板 B）
-
-- **样板 A｜《杯子大小》直接道具移动比对**：提供可移动的“森林蓝水杯”道具（`move-cup-to-block` / `move-cup-to-center` / `move-cup-to-bucket`），移动到小积木旁直观显示 `比小积木高一截 ↑`，移动到大水桶旁直观显示 `比大水桶矮好多 ↓`，刻度尺恒定指示 `2格高(不变)`，并折叠成人共读说明抽屉以降低儿童端文字密度。
-- **样板 B｜《树屋露营夜》手电筒光束探索与三目标徽章**：提供 4 向手电筒光束控制（`aim-flashlight-SHADOW_CURTAIN` / `OUTSIDE_BRANCH` / `LANTERN_DIFFUSER` / `TENT_INSIDE`），实时改变 SVG 光锥指向、局部照明、窗外松果树枝显影、柔光灯罩暖光扩散及同伴表情姿态。
+5. **FIX-05｜真实浏览器脚本严格断言（[`scripts/verify-sprint4-browser.mjs`](../../../scripts/verify-sprint4-browser.mjs)）**
+   - 引入 `node:assert/strict`，对全部 7 项核心条件执行硬性断言（任一失败立即非零码退出），并在 `390×844` 移动端与 `1440×900` 桌面端通过真实鼠标/指针拖拽完成水杯比对与手电光束探索截图取证。
 
 ---
 
-## 三、测试与真实浏览器验证结果
+## 二、验证命令与真实浏览器截图存证
 
-- **8 项反例与回归测试**：`src/tests/sprint4AuthenticityAndImmersion.test.tsx`（5 项综合反例套件）+ 全量 33 个测试文件（304 项测试）100% 通过。
-- **真实浏览器多视口脚本**：[`scripts/verify-sprint4-browser.mjs`](../../../scripts/verify-sprint4-browser.mjs)（`1440×900` 与 `390×844` 均 `scrollWidth <= innerWidth`）。
-- **仓库内截图存证**：
-  - `docs/verification/sprint4/sprint4-mobile-390-showcaseA-cup-prop-manipulation.png`
-  - `docs/verification/sprint4/sprint4-mobile-390-showcaseB-camp-beam-and-multigoal.png`
-  - `docs/verification/sprint4/sprint4-desktop-1440-showcaseA-cup-prop-manipulation.png`
-  - `docs/verification/sprint4/sprint4-desktop-1440-showcaseB-camp-all-goals.png`
-  - `docs/verification/sprint4/sprint4-desktop-1440-fix04-island-lantern-persisted.png`
+- **类型检查与单元测试**：
+  - `./node_modules/.bin/tsc --noEmit`（0 错误）
+  - `./node_modules/.bin/vitest run`（33 个测试文件 / 308 项测试 100% 通过）
+  - `./node_modules/.bin/vite build`（生产构建通过）
+- **真实浏览器多视口严格断言脚本**：
+  - `node scripts/verify-sprint4-browser.mjs`（7 大类硬性断言全部通过，退出码 `0`）
+- **双视口核心截图**：
+  - `docs/verification/sprint4/sprint4-mobile-390-showcaseA-cup-prop-manipulation.png`（`390×844` 拖拽杯子完成参照比较）
+  - `docs/verification/sprint4/sprint4-mobile-390-showcaseB-camp-beam-and-multigoal.png`（`390×844` 拖动光束与多目标进展）
+  - `docs/verification/sprint4/sprint4-desktop-1440-showcaseA-cup-prop-manipulation.png`（`1440×900` 拖拽杯子完成参照比较）
+  - `docs/verification/sprint4/sprint4-desktop-1440-showcaseB-camp-all-goals.png`（`1440×900` 拖动光束完成三目标与自主试错修正）
+  - `docs/verification/sprint4/sprint4-desktop-1440-fix04-island-lantern-persisted.png`（`1440×900` 完整通关后再次失败尝试仍保留历史露营暖灯）

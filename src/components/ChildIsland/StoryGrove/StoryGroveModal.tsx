@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   DoorOpen,
   Sparkles,
@@ -47,7 +47,9 @@ import {
   CupTablePosition,
   FlashlightBeamTarget,
   evaluateInteractiveLeafGoalCompletion,
+  resolveInteractiveLeafActionEffectiveOutcome,
   evaluateCampTransferGoals,
+  resolveCampActionEffectiveOutcome,
   isGenuineActionRevision,
 } from '../../../domain/storyGrove/interactiveStoryLeaves';
 import { ParentGateModal } from '../../ParentGateModal';
@@ -75,7 +77,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   const [isParentGateOpen, setIsParentGateOpen] = useState<boolean>(false);
   const [, setAccessVersion] = useState<number>(0);
 
-  // Stage B interactive leaf states (with Sprint 4 Showcase A cup manipulation & FIX-03 genuine revision tracking)
+  // Stage B interactive leaf states (with Sprint 4.1 direct drag/snap cup manipulation & FIX-01..03)
   const [leafMode, setLeafMode] = useState<'interactiveScene' | 'classicDoors'>('interactiveScene');
   const [inspectedHotspotIds, setInspectedHotspotIds] = useState<string[]>([]);
   const [activeHotspotId, setActiveHotspotId] = useState<string | null>(null);
@@ -92,7 +94,15 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   >([]);
   const [showParentCoReadDrawer, setShowParentCoReadDrawer] = useState<boolean>(false);
 
-  // Stage C cross-game cognitive transfer challenge states (with Sprint 4 Showcase B flashlight beam & FIX-01..05)
+  // Sprint 4.1 FIX-04: Direct drag/drop state for cup-size SVG prop
+  const svgCupRef = useRef<SVGSVGElement | null>(null);
+  const [isDraggingCup, setIsDraggingCup] = useState<boolean>(false);
+  const [dragCupSvgX, setDragCupSvgX] = useState<number | null>(null);
+  const [dragStartClientX, setDragStartClientX] = useState<number | null>(null);
+  const [hoveredCupDropZone, setHoveredCupDropZone] = useState<CupTablePosition | null>(null);
+  const [cupDragRecoveryNote, setCupDragRecoveryNote] = useState<string | null>(null);
+
+  // Stage C cross-game cognitive transfer challenge states (with Sprint 4.1 FIX-01..04)
   const [campInspectedIds, setCampInspectedIds] = useState<string[]>([]);
   const [activeCampHotspotId, setActiveCampHotspotId] = useState<string | null>(null);
   const [campBeamTarget, setCampBeamTarget] = useState<FlashlightBeamTarget>('OFF');
@@ -106,9 +116,17 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   } | null>(null);
   const [campRevisionCount, setCampRevisionCount] = useState<number>(0);
   const [campRevisedMethod, setCampRevisedMethod] = useState<boolean>(false);
-  const [campUsedHintOrPrompt, setCampUsedHintOrPrompt] = useState<boolean>(false);
+  // Sprint 4.1 FIX-03: Separate explicit external assistance flags from autonomous trial-and-error
+  const [campUsedExternalHint, setCampUsedExternalHint] = useState<boolean>(false);
+  const [campViewedReferenceAnswer, setCampViewedReferenceAnswer] = useState<boolean>(false);
+  const [campReceivedAdultHelp, setCampReceivedAdultHelp] = useState<boolean>(false);
   const [campUnknownAcknowledged, setCampUnknownAcknowledged] = useState<boolean>(false);
   const [showCampParentDrawer, setShowCampParentDrawer] = useState<boolean>(false);
+
+  // Sprint 4.1 FIX-04: Direct touch/pointer beam steering state for camp-transfer SVG scene
+  const svgCampRef = useRef<SVGSVGElement | null>(null);
+  const [isSteeringBeam, setIsSteeringBeam] = useState<boolean>(false);
+  const [beamSvgPoint, setBeamSvgPoint] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     return subscribeParentAccess(() => {
@@ -201,24 +219,36 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setCustomQuote(childQuotes[leafId] || '');
     setCompareAnswered(false);
     setShowParentCoReadDrawer(false);
+    setIsDraggingCup(false);
+    setDragCupSvgX(null);
+    setHoveredCupDropZone(null);
+    setCupDragRecoveryNote(null);
 
     if (leafId === 'cup-size' || leafId === 'toy-share') {
       setLeafMode('interactiveScene');
       const savedMetrics = loadProductExperienceMetrics();
       const savedLeafState = savedMetrics.storyLeafStatesById[leafId];
-      setInspectedHotspotIds(savedLeafState?.inspectedObjectIds || []);
+      const restoredInspected = savedLeafState?.inspectedObjectIds || [];
+      const restoredCompared = savedLeafState?.comparedCupPositions || [];
+      const lastActId = savedLeafState?.chosenActionId || null;
+      setInspectedHotspotIds(restoredInspected);
       setActiveHotspotId(null);
-      setSelectedSceneActionId(savedLeafState?.chosenActionId || null);
+      setSelectedSceneActionId(lastActId);
       setActionAttemptHistory(savedLeafState?.actionAttemptHistory || []);
       setRevisionCount(savedLeafState?.revisionCount || 0);
-      const lastActId = savedLeafState?.chosenActionId || null;
-      const leafDef = INTERACTIVE_STORY_LEAVES[leafId as InteractiveStoryLeafId];
-      const lastActObj = leafDef.actions.find((a) => a.id === lastActId);
+      const effectiveSaved = resolveInteractiveLeafActionEffectiveOutcome(
+        leafId as InteractiveStoryLeafId,
+        lastActId,
+        restoredInspected,
+        restoredCompared
+      );
       setLastObservedLeafAction(
-        lastActObj ? { actionId: lastActObj.id, outcomeState: lastActObj.sceneVisualEffect } : null
+        lastActId
+          ? { actionId: lastActId, outcomeState: effectiveSaved.effectiveSceneVisualEffect }
+          : null
       );
       setCupPosition(savedLeafState?.cupPosition || 'CENTER_TABLE');
-      setComparedCupPositions(savedLeafState?.comparedCupPositions || []);
+      setComparedCupPositions(restoredCompared);
     } else {
       setLeafMode('classicDoors');
     }
@@ -244,9 +274,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setCampLastObservedAction(null);
     setCampRevisionCount(0);
     setCampRevisedMethod(false);
-    setCampUsedHintOrPrompt(false);
+    setCampUsedExternalHint(false);
+    setCampViewedReferenceAnswer(false);
+    setCampReceivedAdultHelp(false);
     setCampUnknownAcknowledged(false);
     setShowCampParentDrawer(false);
+    setIsSteeringBeam(false);
+    setBeamSvgPoint(null);
   };
 
   const handleRequestAdultReview = () => {
@@ -261,11 +295,12 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     speechNarrator.speak(text);
   };
 
-  // Sprint 4 样板 A: 直接移动蓝水杯道具到小积木旁、桌子中间或大水桶旁
+  // Sprint 4.1 样板 A: 直接移动/拖拽蓝水杯道具到小积木旁、桌子中间或大水桶旁
   const handleMoveCupToPosition = (targetPosition: CupTablePosition) => {
     if (!interactiveLeafDef || interactiveLeafDef.id !== 'cup-size') return;
     sounds.playClick();
     setCupPosition(targetPosition);
+    setCupDragRecoveryNote(null);
 
     let mappedHotspotId = 'obj_blue_cup';
     let nextCompared = comparedCupPositions;
@@ -296,12 +331,19 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setInspectedHotspotIds(nextInspected);
     handleSpeak(spokenLine);
 
-    const { isGoalCompleted } = evaluateInteractiveLeafGoalCompletion(
+    const effectiveOutcome = resolveInteractiveLeafActionEffectiveOutcome(
       interactiveLeafDef.id,
       selectedSceneActionId,
       nextInspected,
       nextCompared
     );
+
+    const moveSummary =
+      targetPosition === 'NEXT_TO_BLOCK'
+        ? '把蓝水杯移到小积木旁比高低'
+        : targetPosition === 'NEXT_TO_BUCKET'
+          ? '把蓝水杯移到大水桶旁比大小'
+          : '观察桌子中间的蓝水杯';
 
     recordStoryGroveLeafProgress(
       {
@@ -310,7 +352,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         chosenActionId: selectedSceneActionId,
         actionAttemptHistory,
         revisionCount,
-        isCompleted: isGoalCompleted,
+        isCompleted: effectiveOutcome.isGoalCompleted,
         cupPosition: targetPosition,
         comparedCupPositions: nextCompared,
         updatedAt: new Date().toISOString(),
@@ -318,24 +360,98 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       {
         gameId: 'story_grove',
         scenarioTitle: interactiveLeafDef.title,
-        eventStage: isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
-        childChoiceSummary:
-          targetPosition === 'NEXT_TO_BLOCK'
-            ? '把蓝水杯移到小积木旁比高低'
-            : targetPosition === 'NEXT_TO_BUCKET'
-              ? '把蓝水杯移到大水桶旁比大小'
-              : '观察桌子中间的蓝水杯',
-        companionReactionText: spokenLine,
+        eventStage: effectiveOutcome.isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+        childChoiceSummary: effectiveOutcome.isGoalCompleted
+          ? effectiveOutcome.effectiveCompanionSummary
+          : moveSummary,
+        companionReactionText: effectiveOutcome.isGoalCompleted
+          ? effectiveOutcome.effectiveCompanionReaction
+          : spokenLine,
         updatedAt: new Date().toISOString(),
       }
     );
 
-    if (isGoalCompleted && !isPlaytestIsolated()) {
+    if (effectiveOutcome.isGoalCompleted && !isPlaytestIsolated()) {
       markLeafComplete(interactiveLeafDef.id);
     }
   };
 
-  // Stage B hotspot inspection (linked to prop movement in cup-size and evidence check in FIX-02)
+  // Sprint 4.1 FIX-04: Convert client (x, y) to SVG (0..420, 0..220) coordinates for cup-size
+  const clientPointToCupSvg = (clientX: number, clientY: number): { svgX: number; svgY: number } => {
+    const svgEl = svgCupRef.current;
+    const rect = svgEl?.getBoundingClientRect();
+    const width = rect && rect.width > 0 ? rect.width : 420;
+    const height = rect && rect.height > 0 ? rect.height : 220;
+    const left = rect && rect.width > 0 ? rect.left : 0;
+    const top = rect && rect.height > 0 ? rect.top : 0;
+    return {
+      svgX: ((clientX - left) / width) * 420,
+      svgY: ((clientY - top) / height) * 220,
+    };
+  };
+
+  const mapSvgXToCupDropZone = (svgX: number): CupTablePosition => {
+    if (svgX < 165) return 'NEXT_TO_BLOCK';
+    if (svgX > 232) return 'NEXT_TO_BUCKET';
+    return 'CENTER_TABLE';
+  };
+
+  const handleCupPointerDown = (e: React.PointerEvent<SVGGElement>) => {
+    e.stopPropagation();
+    if (typeof e.currentTarget.setPointerCapture === 'function') {
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch {
+        // Ignore in synthetic test environments
+      }
+    }
+    const { svgX } = clientPointToCupSvg(e.clientX, e.clientY);
+    setIsDraggingCup(true);
+    setDragStartClientX(e.clientX);
+    setDragCupSvgX(svgX);
+    setHoveredCupDropZone(mapSvgXToCupDropZone(svgX));
+    setCupDragRecoveryNote(null);
+  };
+
+  const handleCupSvgPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isDraggingCup) return;
+    const { svgX } = clientPointToCupSvg(e.clientX, e.clientY);
+    setDragCupSvgX(svgX);
+    setHoveredCupDropZone(mapSvgXToCupDropZone(svgX));
+  };
+
+  const handleCupSvgPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isDraggingCup) return;
+    const { svgX, svgY } = clientPointToCupSvg(e.clientX, e.clientY);
+    const deltaX = dragStartClientX !== null ? Math.abs(e.clientX - dragStartClientX) : 0;
+    const targetZone = mapSvgXToCupDropZone(svgX);
+
+    setIsDraggingCup(false);
+    setDragCupSvgX(null);
+    setDragStartClientX(null);
+    setHoveredCupDropZone(null);
+
+    // Accidental touch / out-of-bounds recovery: bounce back cleanly without corrupting state
+    if (svgY < -20 || svgY > 240 || (deltaX < 6 && targetZone === cupPosition)) {
+      setCupDragRecoveryNote(
+        '蓝水杯稳稳留在原位啦！按住蓝水杯往左拖到小积木旁，或往右拖到大水桶旁就能吸附比大小哦。'
+      );
+      return;
+    }
+
+    handleMoveCupToPosition(targetZone);
+  };
+
+  const handleCupSvgPointerCancel = () => {
+    if (!isDraggingCup) return;
+    setIsDraggingCup(false);
+    setDragCupSvgX(null);
+    setDragStartClientX(null);
+    setHoveredCupDropZone(null);
+    setCupDragRecoveryNote('水杯轻轻回到木桌原位啦，可以再按住水杯拖到积木或水桶旁试试！');
+  };
+
+  // Stage B hotspot inspection (linked to prop movement in cup-size and evidence check in FIX-01/FIX-02)
   const handleInspectStoryHotspot = (hotspotId: string) => {
     if (!interactiveLeafDef) return;
     const hotspot = interactiveLeafDef.hotspots.find((h) => h.id === hotspotId);
@@ -369,7 +485,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setInspectedHotspotIds(nextInspected);
     handleSpeak(`${hotspot.label}。${hotspot.inspectObservation} ${hotspot.inspectCharacterLine}`);
 
-    const { isGoalCompleted } = evaluateInteractiveLeafGoalCompletion(
+    const effectiveOutcome = resolveInteractiveLeafActionEffectiveOutcome(
       interactiveLeafDef.id,
       selectedSceneActionId,
       nextInspected,
@@ -383,7 +499,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         chosenActionId: selectedSceneActionId,
         actionAttemptHistory,
         revisionCount,
-        isCompleted: isGoalCompleted,
+        isCompleted: effectiveOutcome.isGoalCompleted,
         cupPosition: nextCupPos,
         comparedCupPositions: nextCompared,
         updatedAt: new Date().toISOString(),
@@ -391,29 +507,40 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       {
         gameId: 'story_grove',
         scenarioTitle: interactiveLeafDef.title,
-        eventStage: isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
-        childChoiceSummary: `观察了「${hotspot.label}」`,
-        companionReactionText: hotspot.inspectCharacterLine,
+        eventStage: effectiveOutcome.isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+        childChoiceSummary: effectiveOutcome.isGoalCompleted
+          ? effectiveOutcome.effectiveCompanionSummary
+          : `观察了「${hotspot.label}」`,
+        companionReactionText: effectiveOutcome.isGoalCompleted
+          ? effectiveOutcome.effectiveCompanionReaction
+          : hotspot.inspectCharacterLine,
         updatedAt: new Date().toISOString(),
       }
     );
-    if (isGoalCompleted && !isPlaytestIsolated()) {
+    if (effectiveOutcome.isGoalCompleted && !isPlaytestIsolated()) {
       markLeafComplete(interactiveLeafDef.id);
     }
   };
 
-  // Stage B action selection (with FIX-02 action-linked evidence and FIX-03 genuine revision counting)
+  // Stage B action selection (with FIX-01 effective evidence outcome, FIX-02 action-linked evidence, FIX-03 genuine revision counting)
   const handleSelectStoryAction = (actionId: string) => {
     if (!interactiveLeafDef) return;
     const action = interactiveLeafDef.actions.find((a) => a.id === actionId);
     if (!action) return;
     sounds.playBell();
 
+    const effectiveOutcome = resolveInteractiveLeafActionEffectiveOutcome(
+      interactiveLeafDef.id,
+      actionId,
+      inspectedHotspotIds,
+      comparedCupPositions
+    );
+
     const isGenuineRev = isGenuineActionRevision(
       lastObservedLeafAction?.actionId ?? null,
       lastObservedLeafAction?.outcomeState ?? null,
       action.id,
-      action.sceneVisualEffect
+      effectiveOutcome.effectiveSceneVisualEffect
     );
 
     const nextHistory = actionAttemptHistory.includes(actionId)
@@ -426,18 +553,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setRevisionCount(nextRevisionCount);
     setLastObservedLeafAction({
       actionId: action.id,
-      outcomeState: action.sceneVisualEffect,
+      outcomeState: effectiveOutcome.effectiveSceneVisualEffect,
     });
 
-    const reactionSpeech = action.characterResponses.map((r) => `${r.speaker}说：${r.line}`).join(' ');
-    handleSpeak(`${action.consequenceSummary} ${reactionSpeech}`);
-
-    const { isGoalCompleted } = evaluateInteractiveLeafGoalCompletion(
-      interactiveLeafDef.id,
-      actionId,
-      inspectedHotspotIds,
-      comparedCupPositions
-    );
+    const reactionSpeech = effectiveOutcome.effectiveCharacterResponses
+      .map((r) => `${r.speaker}说：${r.line}`)
+      .join(' ');
+    handleSpeak(`${effectiveOutcome.effectiveConsequenceSummary} ${reactionSpeech}`);
 
     recordStoryGroveLeafProgress(
       {
@@ -446,7 +568,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         chosenActionId: actionId,
         actionAttemptHistory: nextHistory,
         revisionCount: nextRevisionCount,
-        isCompleted: isGoalCompleted,
+        isCompleted: effectiveOutcome.isGoalCompleted,
         cupPosition,
         comparedCupPositions,
         updatedAt: new Date().toISOString(),
@@ -454,13 +576,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       {
         gameId: 'story_grove',
         scenarioTitle: interactiveLeafDef.title,
-        eventStage: isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
-        childChoiceSummary: action.shortTag,
-        companionReactionText: action.consequenceSummary,
+        eventStage: effectiveOutcome.isGoalCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+        childChoiceSummary: effectiveOutcome.effectiveCompanionSummary,
+        companionReactionText: effectiveOutcome.effectiveCompanionReaction,
         updatedAt: new Date().toISOString(),
       }
     );
-    if (isGoalCompleted && !isPlaytestIsolated()) {
+    if (effectiveOutcome.isGoalCompleted && !isPlaytestIsolated()) {
       markLeafComplete(interactiveLeafDef.id);
     }
   };
@@ -471,8 +593,14 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setSelectedSceneActionId(null);
   };
 
-  // Sprint 4 样板 B: 操作手电筒光束照向不同区域
-  const handleAimFlashlight = (target: FlashlightBeamTarget) => {
+  // Sprint 4.1 样板 B: 操作/拖动/照射手电筒光束照向不同区域
+  const handleAimFlashlight = (
+    target: FlashlightBeamTarget,
+    options?: { silentIfSameTarget?: boolean }
+  ) => {
+    if (options?.silentIfSameTarget && target === campBeamTarget) {
+      return;
+    }
     sounds.playClick();
     setCampBeamTarget(target);
     const nextIlluminated =
@@ -500,21 +628,102 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       const { completedGoals, isAllGoalsCompleted } = evaluateCampTransferGoals(
         nextInspected,
         nextIlluminated,
-        campTriedActionIds
+        campTriedActionIds,
+        campCurrentActionId
       );
-      recordStoryGroveTransferAttempt({
-        scenarioId: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.id,
-        inspectedObjectIds: nextInspected,
-        illuminatedBeamTargets: nextIlluminated,
-        chosenActions: campTriedActionIds,
-        completedGoals,
-        revisionCount: campRevisionCount,
-        revisedAfterConsequence: campRevisedMethod,
-        usedHintOrRevisionPrompt: campUsedHintOrPrompt,
-        isCompleted: isAllGoalsCompleted,
-        completedAt: new Date().toISOString(),
-      });
+      const effectiveCampOutcome = resolveCampActionEffectiveOutcome(
+        campCurrentActionId,
+        nextInspected,
+        nextIlluminated
+      );
+      const anyExternalAssistance = Boolean(
+        campUsedExternalHint || campViewedReferenceAnswer || campReceivedAdultHelp
+      );
+      recordStoryGroveTransferAttempt(
+        {
+          scenarioId: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.id,
+          inspectedObjectIds: nextInspected,
+          illuminatedBeamTargets: nextIlluminated,
+          chosenActions: campTriedActionIds,
+          completedGoals,
+          revisionCount: campRevisionCount,
+          revisedAfterConsequence: campRevisedMethod,
+          usedHintOrRevisionPrompt: anyExternalAssistance,
+          usedExternalHint: campUsedExternalHint,
+          viewedReferenceAnswer: campViewedReferenceAnswer,
+          receivedAdultHelp: campReceivedAdultHelp,
+          triedMultipleMethods: new Set(campTriedActionIds).size > 1 || campRevisionCount > 0,
+          selfRevisedAfterConsequence: campRevisedMethod,
+          isCompleted: isAllGoalsCompleted,
+          completedAt: new Date().toISOString(),
+        },
+        campCurrentActionId
+          ? {
+              gameId: 'story_grove',
+              scenarioTitle: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.title,
+              eventStage: isAllGoalsCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+              childChoiceSummary: effectiveCampOutcome.effectiveChoiceSummary,
+              companionReactionText: effectiveCampOutcome.effectiveIslandFeedbackText,
+              updatedAt: new Date().toISOString(),
+            }
+          : undefined
+      );
     }
+  };
+
+  // Sprint 4.1 FIX-04: Direct touch/pointer flashlight beam steering across the camp SVG scene
+  const clientPointToCampSvg = (clientX: number, clientY: number): { svgX: number; svgY: number } => {
+    const svgEl = svgCampRef.current;
+    const rect = svgEl?.getBoundingClientRect();
+    const width = rect && rect.width > 0 ? rect.width : 420;
+    const height = rect && rect.height > 0 ? rect.height : 220;
+    const left = rect && rect.width > 0 ? rect.left : 0;
+    const top = rect && rect.height > 0 ? rect.top : 0;
+    return {
+      svgX: Math.max(10, Math.min(410, ((clientX - left) / width) * 420)),
+      svgY: Math.max(10, Math.min(210, ((clientY - top) / height) * 220)),
+    };
+  };
+
+  const mapCampSvgPointToBeamTarget = (svgX: number, svgY: number): FlashlightBeamTarget => {
+    if (svgX < 145 && svgY < 145) {
+      return 'SHADOW_CURTAIN';
+    }
+    if (svgX >= 145 && svgX <= 280 && svgY < 122) {
+      return 'OUTSIDE_BRANCH';
+    }
+    if (svgX > 280) {
+      return 'TENT_INSIDE';
+    }
+    return 'LANTERN_DIFFUSER';
+  };
+
+  const handleCampScenePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (typeof e.currentTarget.setPointerCapture === 'function') {
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch {
+        // Ignore in synthetic test environments
+      }
+    }
+    const { svgX, svgY } = clientPointToCampSvg(e.clientX, e.clientY);
+    setIsSteeringBeam(true);
+    setBeamSvgPoint({ x: svgX, y: svgY });
+    const target = mapCampSvgPointToBeamTarget(svgX, svgY);
+    handleAimFlashlight(target, { silentIfSameTarget: false });
+  };
+
+  const handleCampScenePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isSteeringBeam) return;
+    const { svgX, svgY } = clientPointToCampSvg(e.clientX, e.clientY);
+    setBeamSvgPoint({ x: svgX, y: svgY });
+    const target = mapCampSvgPointToBeamTarget(svgX, svgY);
+    handleAimFlashlight(target, { silentIfSameTarget: true });
+  };
+
+  const handleCampScenePointerUpOrCancel = () => {
+    if (!isSteeringBeam) return;
+    setIsSteeringBeam(false);
   };
 
   // Stage C hotspot inspection (synchronizes with flashlight beam direction)
@@ -542,24 +751,50 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       const { completedGoals, isAllGoalsCompleted } = evaluateCampTransferGoals(
         nextInspected,
         nextIlluminated,
-        campTriedActionIds
+        campTriedActionIds,
+        campCurrentActionId
       );
-      recordStoryGroveTransferAttempt({
-        scenarioId: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.id,
-        inspectedObjectIds: nextInspected,
-        illuminatedBeamTargets: nextIlluminated,
-        chosenActions: campTriedActionIds,
-        completedGoals,
-        revisionCount: campRevisionCount,
-        revisedAfterConsequence: campRevisedMethod,
-        usedHintOrRevisionPrompt: campUsedHintOrPrompt,
-        isCompleted: isAllGoalsCompleted,
-        completedAt: new Date().toISOString(),
-      });
+      const effectiveCampOutcome = resolveCampActionEffectiveOutcome(
+        campCurrentActionId,
+        nextInspected,
+        nextIlluminated
+      );
+      const anyExternalAssistance = Boolean(
+        campUsedExternalHint || campViewedReferenceAnswer || campReceivedAdultHelp
+      );
+      recordStoryGroveTransferAttempt(
+        {
+          scenarioId: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.id,
+          inspectedObjectIds: nextInspected,
+          illuminatedBeamTargets: nextIlluminated,
+          chosenActions: campTriedActionIds,
+          completedGoals,
+          revisionCount: campRevisionCount,
+          revisedAfterConsequence: campRevisedMethod,
+          usedHintOrRevisionPrompt: anyExternalAssistance,
+          usedExternalHint: campUsedExternalHint,
+          viewedReferenceAnswer: campViewedReferenceAnswer,
+          receivedAdultHelp: campReceivedAdultHelp,
+          triedMultipleMethods: new Set(campTriedActionIds).size > 1 || campRevisionCount > 0,
+          selfRevisedAfterConsequence: campRevisedMethod,
+          isCompleted: isAllGoalsCompleted,
+          completedAt: new Date().toISOString(),
+        },
+        campCurrentActionId
+          ? {
+              gameId: 'story_grove',
+              scenarioTitle: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.title,
+              eventStage: isAllGoalsCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
+              childChoiceSummary: effectiveCampOutcome.effectiveChoiceSummary,
+              companionReactionText: effectiveCampOutcome.effectiveIslandFeedbackText,
+              updatedAt: new Date().toISOString(),
+            }
+          : undefined
+      );
     }
   };
 
-  // Stage C action selection (with FIX-01 multi-goal evaluation, FIX-03 genuine revision, FIX-04 separate history vs latest)
+  // Stage C action selection (with FIX-01 effective evidence outcome, FIX-02 current conflict separation, FIX-03 autonomous vs external hint)
   const handleSelectCampAction = (actionId: string) => {
     const action = STORY_GROVE_CAMP_TRANSFER_CHALLENGE.actions.find((a) => a.id === actionId);
     if (!action) return;
@@ -569,10 +804,17 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       ? campTriedActionIds
       : [...campTriedActionIds, actionId];
 
+    const effectiveOutcome = resolveCampActionEffectiveOutcome(
+      actionId,
+      campInspectedIds,
+      campIlluminatedTargets
+    );
+
     const { completedGoals, isAllGoalsCompleted } = evaluateCampTransferGoals(
       campInspectedIds,
       campIlluminatedTargets,
-      nextTried
+      nextTried,
+      actionId
     );
 
     const isGenuineRev =
@@ -581,7 +823,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         campLastObservedAction?.actionId ?? null,
         campLastObservedAction?.outcomeState ?? null,
         action.id,
-        action.visualOutcomeState
+        effectiveOutcome.effectiveVisualOutcomeState
       );
 
     const isCurrentActionUnsuccessful =
@@ -591,22 +833,26 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
 
     const nextRevisionCount = isGenuineRev ? campRevisionCount + 1 : campRevisionCount;
     const nextRevisedMethod = Boolean(campRevisedMethod || isGenuineRev);
-    const nextUsedHint = Boolean(campUsedHintOrPrompt || !action.resolvesProblem);
+    // Sprint 4.1 FIX-03: Autonomous trial-and-error or self-revision NEVER sets external hint flags
+    const anyExternalAssistance = Boolean(
+      campUsedExternalHint || campViewedReferenceAnswer || campReceivedAdultHelp
+    );
 
     setCampCurrentActionId(actionId);
     setCampTriedActionIds(nextTried);
     setCampLastObservedAction({
       actionId: action.id,
-      outcomeState: action.visualOutcomeState,
+      outcomeState: effectiveOutcome.effectiveVisualOutcomeState,
       wasUnsuccessfulOrIncomplete: isCurrentActionUnsuccessful,
     });
     setCampRevisionCount(nextRevisionCount);
     setCampRevisedMethod(nextRevisedMethod);
-    setCampUsedHintOrPrompt(nextUsedHint);
     setCampUnknownAcknowledged(false);
 
-    const reactionsText = action.characterReactions.map((r) => `${r.speaker}说：${r.line}`).join(' ');
-    handleSpeak(`${action.consequenceNarrative} ${reactionsText}`);
+    const reactionsText = effectiveOutcome.effectiveCharacterReactions
+      .map((r) => `${r.speaker}说：${r.line}`)
+      .join(' ');
+    handleSpeak(`${effectiveOutcome.effectiveConsequenceNarrative} ${reactionsText}`);
 
     recordStoryGroveTransferAttempt(
       {
@@ -617,7 +863,12 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         completedGoals,
         revisionCount: nextRevisionCount,
         revisedAfterConsequence: nextRevisedMethod,
-        usedHintOrRevisionPrompt: nextUsedHint,
+        usedHintOrRevisionPrompt: anyExternalAssistance,
+        usedExternalHint: campUsedExternalHint,
+        viewedReferenceAnswer: campViewedReferenceAnswer,
+        receivedAdultHelp: campReceivedAdultHelp,
+        triedMultipleMethods: new Set(nextTried).size > 1 || nextRevisionCount > 0,
+        selfRevisedAfterConsequence: nextRevisedMethod,
         isCompleted: isAllGoalsCompleted,
         completedAt: new Date().toISOString(),
       },
@@ -625,8 +876,8 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
         gameId: 'story_grove',
         scenarioTitle: STORY_GROVE_CAMP_TRANSFER_CHALLENGE.title,
         eventStage: isAllGoalsCompleted ? 'COMPLETED_OBSERVED' : 'ARRANGED_OR_STARTED',
-        childChoiceSummary: action.shortTag,
-        companionReactionText: action.islandFeedbackText,
+        childChoiceSummary: effectiveOutcome.effectiveChoiceSummary,
+        companionReactionText: effectiveOutcome.effectiveIslandFeedbackText,
         updatedAt: new Date().toISOString(),
       }
     );
@@ -638,6 +889,14 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
     setCampCurrentActionId(null);
   };
 
+  const handleRequestCampExternalHint = () => {
+    sounds.playClick();
+    setCampUsedExternalHint(true);
+    handleSpeak(
+      '小提示：试试先拖动或点击手电筒照亮窗外黑影和树枝，再对同伴说出你的想法，最后把光罩放到软布灯罩上共享照明。'
+    );
+  };
+
   const handleCampUnknownPause = () => {
     sounds.playClick();
     recordUnknownHonestyChoice('story_grove:leaf-camp-transfer');
@@ -646,14 +905,26 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
   };
 
   const savedMetricsSnapshot = loadProductExperienceMetrics();
-  const hasCompletedCampTransfer = Boolean(
-    savedMetricsSnapshot.hasEverCompletedCampTransfer ||
-      savedMetricsSnapshot.storyGroveTransferAttempts.some((a) => a.isCompleted)
-  );
+  // Sprint 4.1 FIX-02: Only a true full single-run completion lights up the full camp lantern
+  const hasCompletedCampTransfer = Boolean(savedMetricsSnapshot.hasEverCompletedFullCampRun);
   const currentCampGoalProgress = evaluateCampTransferGoals(
     campInspectedIds,
     campIlluminatedTargets,
-    campTriedActionIds
+    campTriedActionIds,
+    campCurrentActionId
+  );
+  const effectiveLeafOutcome = interactiveLeafDef
+    ? resolveInteractiveLeafActionEffectiveOutcome(
+        interactiveLeafDef.id,
+        selectedSceneActionId,
+        inspectedHotspotIds,
+        comparedCupPositions
+      )
+    : null;
+  const effectiveCampOutcome = resolveCampActionEffectiveOutcome(
+    campCurrentActionId,
+    campInspectedIds,
+    campIlluminatedTargets
   );
 
   return (
@@ -926,8 +1197,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 <div
                   data-testid={`interactive-leaf-scene-${interactiveLeafDef.id}`}
                   data-scene-effect={
-                    interactiveLeafDef.actions.find((a) => a.id === selectedSceneActionId)
-                      ?.sceneVisualEffect || 'INITIAL_OBSERVE'
+                    selectedSceneActionId
+                      ? effectiveLeafOutcome?.effectiveSceneVisualEffect || 'OBSERVING'
+                      : 'INITIAL_OBSERVE'
                   }
                   data-cup-position={
                     interactiveLeafDef.id === 'cup-size' ? cupPosition : undefined
@@ -937,20 +1209,110 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       ? comparedCupPositions.length
                       : undefined
                   }
-                  className="relative rounded-2xl overflow-hidden border-2 border-amber-200 bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-100 h-56 sm:h-64 select-none"
+                  className="relative rounded-2xl overflow-hidden border-2 border-amber-200 bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-100 h-56 sm:h-64 select-none touch-none"
                 >
                   {interactiveLeafDef.id === 'cup-size' ? (
                     <svg
+                      ref={svgCupRef}
+                      data-testid="story-interactive-svg-cup-size"
                       viewBox="0 0 420 220"
-                      className="w-full h-full"
+                      className="w-full h-full touch-none"
                       role="img"
-                      aria-label="一只杯子是大还是小童话木桌场景"
+                      aria-label="一只杯子是大还是小童话木桌场景（可按住水杯左右拖动对比）"
+                      onPointerMove={handleCupSvgPointerMove}
+                      onPointerUp={handleCupSvgPointerUp}
+                      onPointerCancel={handleCupSvgPointerCancel}
                     >
                       <circle cx="65" cy="40" r="45" fill="#A7F3D0" opacity="0.55" />
                       <circle cx="355" cy="36" r="52" fill="#6EE7B7" opacity="0.45" />
                       <rect x="20" y="142" width="380" height="22" rx="8" fill="#B45309" />
                       <rect x="48" y="164" width="18" height="46" rx="4" fill="#92400E" />
                       <rect x="354" y="164" width="18" height="46" rx="4" fill="#92400E" />
+
+                      {/* Sprint 4.1 FIX-04: Three visual drop zones on table for direct drag & snap */}
+                      <rect
+                        data-testid="cup-dropzone-NEXT_TO_BLOCK"
+                        x="94"
+                        y="86"
+                        width="62"
+                        height="56"
+                        rx="10"
+                        fill={hoveredCupDropZone === 'NEXT_TO_BLOCK' ? '#A7F3D0' : '#FEF3C7'}
+                        fillOpacity={
+                          isDraggingCup
+                            ? hoveredCupDropZone === 'NEXT_TO_BLOCK'
+                              ? '0.68'
+                              : '0.32'
+                            : '0.16'
+                        }
+                        stroke={hoveredCupDropZone === 'NEXT_TO_BLOCK' ? '#059669' : '#D97706'}
+                        strokeWidth={hoveredCupDropZone === 'NEXT_TO_BLOCK' ? '2.5' : '1.5'}
+                        strokeDasharray="4 3"
+                        onClick={() => handleMoveCupToPosition('NEXT_TO_BLOCK')}
+                        style={{ cursor: 'pointer' }}
+                      />
+                      <rect
+                        data-testid="cup-dropzone-CENTER_TABLE"
+                        x="174"
+                        y="86"
+                        width="62"
+                        height="56"
+                        rx="10"
+                        fill={hoveredCupDropZone === 'CENTER_TABLE' ? '#BAE6FD' : '#FEF3C7'}
+                        fillOpacity={
+                          isDraggingCup
+                            ? hoveredCupDropZone === 'CENTER_TABLE'
+                              ? '0.68'
+                              : '0.32'
+                            : '0.16'
+                        }
+                        stroke={hoveredCupDropZone === 'CENTER_TABLE' ? '#0284C7' : '#D97706'}
+                        strokeWidth={hoveredCupDropZone === 'CENTER_TABLE' ? '2.5' : '1.5'}
+                        strokeDasharray="4 3"
+                        onClick={() => handleMoveCupToPosition('CENTER_TABLE')}
+                        style={{ cursor: 'pointer' }}
+                      />
+                      <rect
+                        data-testid="cup-dropzone-NEXT_TO_BUCKET"
+                        x="236"
+                        y="86"
+                        width="62"
+                        height="56"
+                        rx="10"
+                        fill={hoveredCupDropZone === 'NEXT_TO_BUCKET' ? '#A7F3D0' : '#FEF3C7'}
+                        fillOpacity={
+                          isDraggingCup
+                            ? hoveredCupDropZone === 'NEXT_TO_BUCKET'
+                              ? '0.68'
+                              : '0.32'
+                            : '0.16'
+                        }
+                        stroke={hoveredCupDropZone === 'NEXT_TO_BUCKET' ? '#059669' : '#D97706'}
+                        strokeWidth={hoveredCupDropZone === 'NEXT_TO_BUCKET' ? '2.5' : '1.5'}
+                        strokeDasharray="4 3"
+                        onClick={() => handleMoveCupToPosition('NEXT_TO_BUCKET')}
+                        style={{ cursor: 'pointer' }}
+                      />
+
+                      {isDraggingCup && hoveredCupDropZone && (
+                        <circle
+                          data-testid="cup-snap-highlight"
+                          data-snap-zone={hoveredCupDropZone}
+                          cx={
+                            hoveredCupDropZone === 'NEXT_TO_BLOCK'
+                              ? '125'
+                              : hoveredCupDropZone === 'NEXT_TO_BUCKET'
+                                ? '267'
+                                : '205'
+                          }
+                          cy="114"
+                          r="30"
+                          fill="none"
+                          stroke="#10B981"
+                          strokeWidth="3"
+                          strokeDasharray="5 3"
+                        />
+                      )}
 
                       {/* Left: Squirrel Tiaotiao + Small Wooden Block */}
                       <g
@@ -1055,18 +1417,30 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </text>
                       </g>
 
-                      {/* Movable Forest Blue Cup Prop (Translates across table) */}
+                      {/* Movable Forest Blue Cup Prop (Supports Direct Drag & Snap + Click Fallback) */}
                       <g
                         data-testid="movable-blue-cup-prop"
                         data-cup-position={cupPosition}
+                        data-dragging={isDraggingCup ? 'true' : 'false'}
+                        onPointerDown={handleCupPointerDown}
+                        style={{ cursor: isDraggingCup ? 'grabbing' : 'grab' }}
                         transform={
-                          cupPosition === 'NEXT_TO_BLOCK'
-                            ? 'translate(106, 90)'
-                            : cupPosition === 'NEXT_TO_BUCKET'
-                              ? 'translate(242, 90)'
-                              : 'translate(186, 90)'
+                          isDraggingCup && dragCupSvgX !== null
+                            ? `translate(${Math.round(Math.max(58, Math.min(308, dragCupSvgX - 19)))}, 84)`
+                            : cupPosition === 'NEXT_TO_BLOCK'
+                              ? 'translate(106, 90)'
+                              : cupPosition === 'NEXT_TO_BUCKET'
+                                ? 'translate(242, 90)'
+                                : 'translate(186, 90)'
                         }
                       >
+                        <rect
+                          x="-6"
+                          y="0"
+                          width="54"
+                          height="56"
+                          fill="transparent"
+                        />
                         <rect
                           x="0"
                           y="10"
@@ -1074,13 +1448,13 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                           height="42"
                           rx="6"
                           fill="#38BDF8"
-                          stroke="#0284C7"
-                          strokeWidth="2.8"
+                          stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
+                          strokeWidth={isDraggingCup ? '3.5' : '2.8'}
                         />
                         <path
                           d="M38 18 C48 18, 48 36, 38 36"
                           fill="none"
-                          stroke="#0284C7"
+                          stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
                           strokeWidth="3.5"
                         />
                         <line
@@ -1184,7 +1558,11 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       )}
 
                       {/* Bottom Twig Ruler */}
-                      <g transform="translate(115, 172)">
+                      <g
+                        transform="translate(115, 172)"
+                        onClick={() => handleInspectStoryHotspot('obj_twig_ruler')}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <rect
                           x="0"
                           y="0"
@@ -1200,44 +1578,71 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         <line x1="155" y1="0" x2="155" y2="10" stroke="#FDE68A" strokeWidth="2" />
                       </g>
 
-                      {selectedSceneActionId === 'act_compare_both_sides' && (
-                        <g data-testid="svg-effect-compare-both">
-                          <path
-                            d="M96 105 Q145 65 186 98"
-                            fill="none"
-                            stroke="#059669"
-                            strokeWidth="3"
-                            strokeDasharray="5 3"
-                          />
-                          <path
-                            d="M232 98 Q265 60 292 88"
-                            fill="none"
-                            stroke="#0284C7"
-                            strokeWidth="3"
-                            strokeDasharray="5 3"
-                          />
-                          <rect
-                            x="96"
-                            y="44"
-                            width="228"
-                            height="24"
-                            rx="12"
-                            fill="#ECFDF5"
-                            stroke="#10B981"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="210"
-                            y="60"
-                            fontSize="10.5"
-                            textAnchor="middle"
-                            fill="#065F46"
-                            fontWeight="bold"
-                          >
-                            同一只杯子没变：比积木大 ↑ · 比水桶小 ↓
-                          </text>
-                        </g>
-                      )}
+                      {selectedSceneActionId === 'act_compare_both_sides' &&
+                        effectiveLeafOutcome?.hasAllRequiredEvidence && (
+                          <g data-testid="svg-effect-compare-both">
+                            <path
+                              d="M96 105 Q145 65 186 98"
+                              fill="none"
+                              stroke="#059669"
+                              strokeWidth="3"
+                              strokeDasharray="5 3"
+                            />
+                            <path
+                              d="M232 98 Q265 60 292 88"
+                              fill="none"
+                              stroke="#0284C7"
+                              strokeWidth="3"
+                              strokeDasharray="5 3"
+                            />
+                            <rect
+                              x="96"
+                              y="44"
+                              width="228"
+                              height="24"
+                              rx="12"
+                              fill="#ECFDF5"
+                              stroke="#10B981"
+                              strokeWidth="2"
+                            />
+                            <text
+                              x="210"
+                              y="60"
+                              fontSize="10.5"
+                              textAnchor="middle"
+                              fill="#065F46"
+                              fontWeight="bold"
+                            >
+                              同一只杯子没变：比积木大 ↑ · 比水桶小 ↓
+                            </text>
+                          </g>
+                        )}
+
+                      {selectedSceneActionId === 'act_compare_both_sides' &&
+                        !effectiveLeafOutcome?.hasAllRequiredEvidence && (
+                          <g data-testid="svg-effect-pending-evidence">
+                            <rect
+                              x="78"
+                              y="44"
+                              width="264"
+                              height="24"
+                              rx="12"
+                              fill="#EFF6FF"
+                              stroke="#38BDF8"
+                              strokeWidth="2"
+                            />
+                            <text
+                              x="210"
+                              y="60"
+                              fontSize="10"
+                              textAnchor="middle"
+                              fill="#0369A1"
+                              fontWeight="bold"
+                            >
+                              按住蓝水杯分别拖到小积木和大水桶旁比比看！
+                            </text>
+                          </g>
+                        )}
 
                       {selectedSceneActionId === 'act_only_look_squirrel' && (
                         <g data-testid="svg-effect-single-side">
@@ -1263,50 +1668,51 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </g>
                       )}
 
-                      {selectedSceneActionId === 'act_ask_usage_need' && (
-                        <g data-testid="svg-effect-ask-need">
-                          <rect
-                            x="26"
-                            y="44"
-                            width="132"
-                            height="26"
-                            rx="12"
-                            fill="#FFFBEB"
-                            stroke="#F59E0B"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="92"
-                            y="61"
-                            fontSize="10"
-                            textAnchor="middle"
-                            fill="#92400E"
-                            fontWeight="bold"
-                          >
-                            跳跳：浇3棵小花苗
-                          </text>
-                          <rect
-                            x="252"
-                            y="44"
-                            width="142"
-                            height="26"
-                            rx="12"
-                            fill="#EFF6FF"
-                            stroke="#3B82F6"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="323"
-                            y="61"
-                            fontSize="10"
-                            textAnchor="middle"
-                            fill="#1E40AF"
-                            fontWeight="bold"
-                          >
-                            噗噗：装满一桶洗澡水
-                          </text>
-                        </g>
-                      )}
+                      {selectedSceneActionId === 'act_ask_usage_need' &&
+                        effectiveLeafOutcome?.hasAllRequiredEvidence && (
+                          <g data-testid="svg-effect-ask-need">
+                            <rect
+                              x="26"
+                              y="44"
+                              width="132"
+                              height="26"
+                              rx="12"
+                              fill="#FFFBEB"
+                              stroke="#F59E0B"
+                              strokeWidth="2"
+                            />
+                            <text
+                              x="92"
+                              y="61"
+                              fontSize="10"
+                              textAnchor="middle"
+                              fill="#92400E"
+                              fontWeight="bold"
+                            >
+                              跳跳：浇3棵小花苗
+                            </text>
+                            <rect
+                              x="252"
+                              y="44"
+                              width="142"
+                              height="26"
+                              rx="12"
+                              fill="#EFF6FF"
+                              stroke="#3B82F6"
+                              strokeWidth="2"
+                            />
+                            <text
+                              x="323"
+                              y="61"
+                              fontSize="10"
+                              textAnchor="middle"
+                              fill="#1E40AF"
+                              fontWeight="bold"
+                            >
+                              噗噗：装满一桶洗澡水
+                            </text>
+                          </g>
+                        )}
                     </svg>
                   ) : (
                     <svg
@@ -1360,7 +1766,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
 
                       <g
                         transform={
-                          selectedSceneActionId === 'act_cooperate_station_driver'
+                          effectiveLeafOutcome?.effectiveSceneVisualEffect === 'COOPERATE_ROLES'
                             ? 'translate(248, 86)'
                             : selectedSceneActionId === 'act_grab_first'
                               ? 'translate(105, 42) rotate(-14)'
@@ -1437,7 +1843,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         />
                       </g>
 
-                      {selectedSceneActionId === 'act_cooperate_station_driver' && (
+                      {effectiveLeafOutcome?.effectiveSceneVisualEffect === 'COOPERATE_ROLES' && (
                         <g data-testid="svg-effect-cooperate-roles">
                           <rect
                             x="92"
@@ -1462,7 +1868,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </g>
                       )}
 
-                      {selectedSceneActionId === 'act_hourglass_turns' && (
+                      {effectiveLeafOutcome?.effectiveSceneVisualEffect === 'HOURGLASS_TURNS' && (
                         <g data-testid="svg-effect-hourglass-turns">
                           <rect
                             x="96"
@@ -1513,8 +1919,16 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       )}
                     </svg>
                   )}
-
                 </div>
+
+                {cupDragRecoveryNote && (
+                  <div
+                    data-testid="cup-drag-recovery-hint"
+                    className="p-2 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 font-bold text-center"
+                  >
+                    {cupDragRecoveryNote}
+                  </div>
+                )}
 
                 {/* 场景物件观察条：不遮挡童话插画本体，390px 双列 / 桌面四列清晰触控 */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-0.5">
@@ -1542,7 +1956,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   })}
                 </div>
 
-                {/* Showcase A Direct Prop Manipulation Bar for cup-size */}
+                {/* Showcase A Direct Prop Manipulation Bar for cup-size (Fallback alongside direct SVG drag) */}
                 {interactiveLeafDef.id === 'cup-size' && (
                   <div
                     data-testid="cup-prop-manipulation-bar"
@@ -1612,7 +2026,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 ) : (
                   <div className="p-2 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-600 text-center font-bold">
                     {interactiveLeafDef.id === 'cup-size'
-                      ? '👆 点击上方按钮把蓝水杯移到小积木和大水桶旁边比一比！'
+                      ? '👆 按住画面里的蓝水杯直接拖到小积木或大水桶旁（也可点按钮），亲自比一比！'
                       : '👆 先点点上方画面里的物件，看看每个角色遇到了什么情况吧！'}
                   </div>
                 )}
@@ -1661,19 +2075,14 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 </div>
 
                 {selectedSceneActionId &&
+                  effectiveLeafOutcome &&
                   (() => {
                     const selectedAction = interactiveLeafDef.actions.find(
                       (a) => a.id === selectedSceneActionId
                     );
                     if (!selectedAction) return null;
-                    const { isGoalCompleted: isLeafCompleted, missingHotspotIds } =
-                      evaluateInteractiveLeafGoalCompletion(
-                        interactiveLeafDef.id,
-                        selectedSceneActionId,
-                        inspectedHotspotIds,
-                        comparedCupPositions
-                      );
-                    const missingLabels = missingHotspotIds
+                    const isLeafCompleted = effectiveLeafOutcome.isGoalCompleted;
+                    const missingLabels = effectiveLeafOutcome.missingHotspotIds
                       .map(
                         (id) =>
                           interactiveLeafDef.hotspots.find((h) => h.id === id)?.label || id
@@ -1683,17 +2092,20 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     return (
                       <div
                         data-testid="story-action-outcome-panel"
+                        data-has-required-evidence={
+                          effectiveLeafOutcome.hasAllRequiredEvidence ? 'true' : 'false'
+                        }
                         className="mt-2.5 p-3 rounded-2xl bg-amber-50/90 border-2 border-amber-300 space-y-2.5 animate-in fade-in"
                       >
                         <div className="text-xs sm:text-sm font-black text-stone-900">
-                          画面变化：{selectedAction.consequenceSummary}
+                          画面变化：{effectiveLeafOutcome.effectiveConsequenceSummary}
                         </div>
 
                         <div
                           data-testid="story-character-reactions"
                           className="grid sm:grid-cols-2 gap-2"
                         >
-                          {selectedAction.characterResponses.map((resp, idx) => (
+                          {effectiveLeafOutcome.effectiveCharacterResponses.map((resp, idx) => (
                             <div
                               key={idx}
                               className={`p-2.5 rounded-xl border text-xs sm:text-sm ${
@@ -1732,7 +2144,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                             data-testid="story-missing-evidence-prompt"
                             className="p-2.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 font-bold"
                           >
-                            再去上方画面亲自观察或移动对比「{missingLabels}」，就能完整验证这个办法并点亮小岛果子啦！
+                            再去上方画面亲自观察或拖动水杯对比「{missingLabels}」，就能完整验证这个办法并点亮小岛果子啦！
                           </div>
                         )}
 
@@ -1761,7 +2173,11 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                             onClick={() => setShowParentCoReadDrawer((v) => !v)}
                             className="text-xs font-bold text-amber-900 hover:text-amber-700 cursor-pointer flex items-center gap-1"
                           >
-                            <span>{showParentCoReadDrawer ? '收起家长共读小贴士 ▲' : '展开家长共读小贴士 ▼'}</span>
+                            <span>
+                              {showParentCoReadDrawer
+                                ? '收起家长共读小贴士 ▲'
+                                : '展开家长共读小贴士 ▼'}
+                            </span>
                           </button>
                           {showParentCoReadDrawer && (
                             <div
@@ -1797,13 +2213,22 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   已观察 {campInspectedIds.length}/
                   {STORY_GROVE_CAMP_TRANSFER_CHALLENGE.hotspots.length}
                 </span>
-                {hasCompletedCampTransfer && (
+                {hasCompletedCampTransfer ? (
                   <span
                     data-testid="camp-historical-lantern-badge"
                     className="text-xs bg-amber-100 text-amber-950 px-2.5 py-1 rounded-full font-extrabold border border-amber-300"
                   >
                     🏮 小岛历史暖灯常亮中
                   </span>
+                ) : (
+                  savedMetricsSnapshot.historicalCompletedCampGoals.length > 0 && (
+                    <span
+                      data-testid="camp-historical-partial-badge"
+                      className="text-xs bg-sky-100 text-sky-950 px-2.5 py-1 rounded-full font-extrabold border border-sky-300"
+                    >
+                      ✨ 历史累计探索 {savedMetricsSnapshot.historicalCompletedCampGoals.length}/3 项
+                    </span>
+                  )
                 )}
               </div>
             </div>
@@ -1858,22 +2283,26 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 })}
               </div>
 
-              {/* Treehouse Camp Night Interactive SVG with Movable Flashlight Beam */}
+              {/* Treehouse Camp Night Interactive SVG with Direct Touch/Drag Flashlight Beam Steering */}
               <div
                 data-testid="camp-transfer-svg-scene"
-                data-camp-outcome={
-                  STORY_GROVE_CAMP_TRANSFER_CHALLENGE.actions.find(
-                    (a) => a.id === campCurrentActionId
-                  )?.visualOutcomeState || 'NIGHT_MYSTERY'
-                }
+                data-camp-outcome={effectiveCampOutcome.effectiveVisualOutcomeState}
                 data-beam-target={campBeamTarget}
-                className="relative rounded-2xl overflow-hidden border-2 border-indigo-300 bg-gradient-to-b from-slate-900 via-indigo-950 to-amber-950 h-56 sm:h-64 select-none"
+                data-beam-steering={isSteeringBeam ? 'true' : 'false'}
+                className="relative rounded-2xl overflow-hidden border-2 border-indigo-300 bg-gradient-to-b from-slate-900 via-indigo-950 to-amber-950 h-56 sm:h-64 select-none touch-none"
               >
                 <svg
+                  ref={svgCampRef}
+                  data-testid="camp-interactive-svg-canvas"
                   viewBox="0 0 420 220"
-                  className="w-full h-full"
+                  className="w-full h-full touch-none"
                   role="img"
-                  aria-label="树屋露营夜的神秘影子与唯一手电筒场景"
+                  aria-label="树屋露营夜的神秘影子与唯一手电筒场景（可直接在画面上滑动光束照射）"
+                  onPointerDown={handleCampScenePointerDown}
+                  onPointerMove={handleCampScenePointerMove}
+                  onPointerUp={handleCampScenePointerUpOrCancel}
+                  onPointerCancel={handleCampScenePointerUpOrCancel}
+                  style={{ cursor: isSteeringBeam ? 'grabbing' : 'crosshair' }}
                 >
                   <circle cx="48" cy="28" r="2" fill="#FDE68A" />
                   <circle cx="145" cy="22" r="2.5" fill="#FDE68A" />
@@ -1881,14 +2310,20 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
 
                   {/* Outside Window Area */}
                   <rect
+                    data-testid="camp-region-OUTSIDE_BRANCH"
                     x="150"
                     y="24"
                     width="120"
                     height="78"
                     rx="10"
-                    fill={campBeamTarget === 'OUTSIDE_BRANCH' ? '#FEF3C7' : '#1E293B'}
-                    stroke="#64748B"
-                    strokeWidth="3"
+                    fill={
+                      campBeamTarget === 'OUTSIDE_BRANCH' ||
+                      campIlluminatedTargets.includes('OUTSIDE_BRANCH')
+                        ? '#FEF3C7'
+                        : '#1E293B'
+                    }
+                    stroke={campBeamTarget === 'OUTSIDE_BRANCH' ? '#F59E0B' : '#64748B'}
+                    strokeWidth={campBeamTarget === 'OUTSIDE_BRANCH' ? '3.5' : '3'}
                   />
                   <path
                     d="M162 52 Q210 42 254 64"
@@ -1897,7 +2332,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     strokeWidth="5"
                     strokeLinecap="round"
                   />
-                  {/* Pinecones only brightly visible when illuminated or inspected */}
+                  {/* Pinecones only brightly visible when genuinely illuminated or inspected */}
                   <ellipse
                     cx="204"
                     cy="60"
@@ -1905,7 +2340,8 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     ry="12"
                     fill={
                       campInspectedIds.includes('camp_obj_pinecone_branch') ||
-                      campBeamTarget === 'OUTSIDE_BRANCH'
+                      campBeamTarget === 'OUTSIDE_BRANCH' ||
+                      campIlluminatedTargets.includes('OUTSIDE_BRANCH')
                         ? '#D97706'
                         : '#0F172A'
                     }
@@ -1917,57 +2353,91 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     ry="13"
                     fill={
                       campInspectedIds.includes('camp_obj_pinecone_branch') ||
-                      campBeamTarget === 'OUTSIDE_BRANCH'
+                      campBeamTarget === 'OUTSIDE_BRANCH' ||
+                      campIlluminatedTargets.includes('OUTSIDE_BRANCH')
                         ? '#F59E0B'
                         : '#0F172A'
                     }
                   />
 
-                  {/* Left Tent Curtain Shadow */}
+                  {/* Left Tent Curtain Shadow (Only brightens when illuminated or when evidence is verified) */}
                   <polygon
+                    data-testid="camp-region-SHADOW_CURTAIN"
                     points="46,44 132,34 136,118 42,118"
                     fill={
                       campBeamTarget === 'SHADOW_CURTAIN' ||
-                      campCurrentActionId === 'camp_act_shine_light_check_branch' ||
-                      campCurrentActionId === 'camp_act_share_flashlight_roles'
+                      campIlluminatedTargets.includes('SHADOW_CURTAIN') ||
+                      (campCurrentActionId === 'camp_act_shine_light_check_branch' &&
+                        effectiveCampOutcome.hasRequiredActionEvidence)
                         ? '#FEF3C7'
                         : '#334155'
                     }
+                    stroke={campBeamTarget === 'SHADOW_CURTAIN' ? '#F59E0B' : 'none'}
+                    strokeWidth={campBeamTarget === 'SHADOW_CURTAIN' ? '2.5' : '0'}
                     opacity="0.88"
                   />
                   <path
                     d="M78 62 L92 48 L104 66 L114 52 L116 96 L74 96 Z"
                     fill={
-                      campCurrentActionId === 'camp_act_shine_light_check_branch' ||
-                      campCurrentActionId === 'camp_act_share_flashlight_roles'
+                      (campCurrentActionId === 'camp_act_shine_light_check_branch' &&
+                        effectiveCampOutcome.hasRequiredActionEvidence) ||
+                      (campBeamTarget === 'SHADOW_CURTAIN' &&
+                        campInspectedIds.includes('camp_obj_pinecone_branch'))
                         ? '#D97706'
                         : '#0F172A'
                     }
                   />
 
-                  {/* Interactive Flashlight Beam Cone */}
-                  {(campBeamTarget !== 'OFF' ||
-                    campCurrentActionId === 'camp_act_shine_light_check_branch' ||
-                    campCurrentActionId === 'camp_act_share_flashlight_roles') && (
-                    <polygon
-                      data-testid="camp-svg-light-beam"
-                      data-beam-direction={campBeamTarget}
-                      points={
-                        campBeamTarget === 'SHADOW_CURTAIN'
-                          ? '202,152 44,40 134,40'
-                          : campBeamTarget === 'TENT_INSIDE'
-                            ? '202,152 286,98 370,152'
-                            : campBeamTarget === 'LANTERN_DIFFUSER'
-                              ? '202,152 150,120 266,120'
-                              : '202,152 148,24 272,24'
-                      }
-                      fill="#FDE68A"
-                      opacity="0.42"
-                    />
+                  {/* Interactive Flashlight Beam Cone (Tracks continuous pointer drag or target region) */}
+                  {campBeamTarget !== 'OFF' && (
+                    <g>
+                      <polygon
+                        data-testid="camp-svg-light-beam"
+                        data-beam-direction={campBeamTarget}
+                        points={
+                          beamSvgPoint
+                            ? `202,152 ${Math.round(beamSvgPoint.x - 42)},${Math.round(beamSvgPoint.y)} ${Math.round(beamSvgPoint.x + 42)},${Math.round(beamSvgPoint.y)}`
+                            : campBeamTarget === 'SHADOW_CURTAIN'
+                              ? '202,152 44,40 134,40'
+                              : campBeamTarget === 'TENT_INSIDE'
+                                ? '202,152 286,98 370,152'
+                                : campBeamTarget === 'LANTERN_DIFFUSER'
+                                  ? '202,152 150,120 266,120'
+                                  : '202,152 148,24 272,24'
+                        }
+                        fill="#FDE68A"
+                        opacity="0.45"
+                      />
+                      {beamSvgPoint && (
+                        <circle
+                          data-testid="camp-beam-spotlight-circle"
+                          cx={Math.round(beamSvgPoint.x)}
+                          cy={Math.round(beamSvgPoint.y)}
+                          r="32"
+                          fill="#FEF08A"
+                          fillOpacity="0.28"
+                          stroke="#FDE047"
+                          strokeWidth="2"
+                          strokeDasharray="4 2"
+                        />
+                      )}
+                    </g>
                   )}
 
-                  {/* Center Flashlight & Diffuser */}
-                  <g transform="translate(182, 146)">
+                  {/* Center Flashlight & Diffuser (Draggable / Interactive Handle) */}
+                  <g
+                    data-testid="camp-draggable-flashlight"
+                    transform="translate(182, 146)"
+                    style={{ cursor: 'grab' }}
+                  >
+                    <rect
+                      x="-8"
+                      y="-4"
+                      width="84"
+                      height="36"
+                      rx="10"
+                      fill="transparent"
+                    />
                     <rect
                       x="0"
                       y="6"
@@ -1979,21 +2449,29 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       strokeWidth="2"
                     />
                     <circle
+                      data-testid="camp-region-LANTERN_DIFFUSER"
                       cx="52"
                       cy="14"
                       r={campBeamTarget === 'LANTERN_DIFFUSER' ? '15' : '11'}
                       fill="#FDE68A"
+                      stroke={campBeamTarget === 'LANTERN_DIFFUSER' ? '#10B981' : 'none'}
+                      strokeWidth="2.5"
                       opacity="0.92"
                     />
                   </g>
 
                   {/* Right Peer Hedgehog Diandian */}
-                  <g transform="translate(306, 112)">
+                  <g
+                    data-testid="camp-region-TENT_INSIDE"
+                    transform="translate(306, 112)"
+                  >
                     <circle
                       cx="28"
                       cy="26"
                       r="20"
-                      fill={campBeamTarget === 'TENT_INSIDE' ? '#D6D3D1' : '#A8A29E'}
+                      fill={campBeamTarget === 'TENT_INSIDE' ? '#FDE68A' : '#A8A29E'}
+                      stroke={campBeamTarget === 'TENT_INSIDE' ? '#F59E0B' : 'none'}
+                      strokeWidth="2.5"
                     />
                     <circle cx="22" cy="22" r="2.5" fill="#1C1917" />
                     <circle cx="34" cy="22" r="2.5" fill="#1C1917" />
@@ -2029,7 +2507,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 })}
               </div>
 
-              {/* Showcase B Direct Flashlight Beam Control Bar */}
+              {/* Showcase B Direct Flashlight Beam Control Bar (Accessible fallback alongside direct SVG drag) */}
               <div
                 data-testid="camp-flashlight-control-bar"
                 className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-0.5"
@@ -2110,7 +2588,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 })()
               ) : (
                 <div className="p-2 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-600 text-center font-bold">
-                  👆 先转动手电筒光束照一照帐篷内外，看看发现了什么！
+                  👆 按住画面里的手电光束直接滑动照亮四周（或点击下方按钮），看看发现了什么！
                 </div>
               )}
             </div>
@@ -2121,7 +2599,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 <h4 className="text-sm sm:text-base font-black text-stone-900">
                   你想先处理哪件事？（可按任意顺序尝试）
                 </h4>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   {campRevisedMethod && campRevisionCount > 0 && (
                     <span
                       data-testid="camp-method-revised-badge"
@@ -2132,6 +2610,14 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   )}
                   <button
                     type="button"
+                    data-testid="camp-request-external-hint-btn"
+                    onClick={handleRequestCampExternalHint}
+                    className="min-h-[36px] px-2.5 py-1 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold cursor-pointer"
+                  >
+                    💡 看一点提示
+                  </button>
+                  <button
+                    type="button"
                     data-testid="camp-unknown-wait-btn"
                     onClick={handleCampUnknownPause}
                     className="min-h-[36px] px-2.5 py-1 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold cursor-pointer"
@@ -2140,6 +2626,15 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   </button>
                 </div>
               </div>
+
+              {campUsedExternalHint && (
+                <div
+                  data-testid="camp-external-hint-banner"
+                  className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-950 font-bold"
+                >
+                  💡 提示引导：先转动手电筒照亮窗外黑影和树枝，再对同伴说出你的边界想法，最后把光罩放在软布灯罩上共享照明。
+                </div>
+              )}
 
               {campUnknownAcknowledged && (
                 <div
@@ -2206,24 +2701,26 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                     (a) => a.id === campCurrentActionId
                   );
                   if (!currentAct) return null;
-                  const isThisGoalMet =
-                    currentAct.targetGoalId &&
-                    currentCampGoalProgress.completedGoals.includes(currentAct.targetGoalId);
-                  const missingForThisAction = (currentAct.requiredHotspotIds || []).filter(
-                    (reqId) => !campInspectedIds.includes(reqId)
-                  );
+                  const isThisGoalMet = effectiveCampOutcome.isActionGoalCompleted;
+                  const missingForThisAction = effectiveCampOutcome.missingHotspotIds;
 
                   return (
                     <div
                       data-testid="camp-action-consequence-panel"
+                      data-has-required-evidence={
+                        effectiveCampOutcome.hasRequiredActionEvidence ? 'true' : 'false'
+                      }
+                      data-current-conflict={
+                        currentCampGoalProgress.isCurrentActionConflict ? 'true' : 'false'
+                      }
                       className="p-3 rounded-2xl bg-amber-50 border-2 border-amber-300 space-y-2.5 animate-in fade-in"
                     >
                       <div className="text-xs sm:text-sm font-black text-stone-900">
-                        结果观察：{currentAct.consequenceNarrative}
+                        结果观察：{effectiveCampOutcome.effectiveConsequenceNarrative}
                       </div>
 
                       <div className="grid sm:grid-cols-2 gap-2">
-                        {currentAct.characterReactions.map((r, i) => (
+                        {effectiveCampOutcome.effectiveCharacterReactions.map((r, i) => (
                           <div
                             key={i}
                             className={`p-2.5 rounded-xl border text-xs sm:text-sm ${
@@ -2247,11 +2744,21 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </div>
                       )}
 
+                      {currentCampGoalProgress.isCurrentActionConflict && (
+                        <div
+                          data-testid="camp-current-conflict-status"
+                          className="p-2.5 rounded-xl bg-rose-100 border border-rose-300 text-xs text-rose-950 font-bold"
+                        >
+                          当前场景状态：刚刚的做法引发了帐篷里的紧张或争抢，当前挑战尚未处于解决状态（即使之前曾完成过其他目标，也需要重新选择合适的方法化解当前局面）。
+                        </div>
+                      )}
+
                       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-1">
                         <span className="text-xs font-bold text-stone-700">
-                          {currentCampGoalProgress.isAllGoalsCompleted
+                          {currentCampGoalProgress.isAllGoalsCompleted &&
+                          !currentCampGoalProgress.isCurrentActionConflict
                             ? '🎉 太棒啦！窗外黑影、个人边界与共享照明三件事都解决了，树屋露营暖灯已点亮！'
-                            : currentAct.revisionHint}
+                            : effectiveCampOutcome.effectiveRevisionHint}
                         </span>
                         <div className="flex items-center gap-2 shrink-0">
                           <button
@@ -2263,7 +2770,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                             <RefreshCw className="w-3.5 h-3.5" />
                             <span>换个方法再试</span>
                           </button>
-                          {currentAct.resolvesProblem && (
+                          {currentAct.resolvesProblem && isThisGoalMet && (
                             <button
                               type="button"
                               data-testid="camp-return-island-btn"
@@ -2282,7 +2789,12 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         <button
                           type="button"
                           data-testid="camp-parent-co-read-toggle"
-                          onClick={() => setShowCampParentDrawer((v) => !v)}
+                          onClick={() => {
+                            if (!showCampParentDrawer && !currentCampGoalProgress.isAllGoalsCompleted) {
+                              setCampReceivedAdultHelp(true);
+                            }
+                            setShowCampParentDrawer((v) => !v);
+                          }}
                           className="text-xs font-bold text-amber-900 hover:text-amber-700 cursor-pointer"
                         >
                           {showCampParentDrawer ? '收起家长共读说明 ▲' : '展开家长共读说明 ▼'}

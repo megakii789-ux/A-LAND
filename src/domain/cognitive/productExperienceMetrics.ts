@@ -139,9 +139,19 @@ export interface StoryGroveTransferAttemptRecord {
   /** Sprint 4 FIX-03: 真实行为修正次数（必须经过执行行动 -> 观察后果 -> 执行不同行动 -> 产生不同结果） */
   revisionCount?: number;
   revisedAfterConsequence: boolean;
+  /** Sprint 4.1 FIX-03: 是否使用外部提示 */
+  usedExternalHint?: boolean;
+  /** Sprint 4.1 FIX-03: 是否查看参考答案 */
+  viewedReferenceAnswer?: boolean;
+  /** Sprint 4.1 FIX-03: 是否由成人提供帮助 */
+  receivedAdultHelp?: boolean;
+  /** Sprint 4.1 FIX-03: 是否主动尝试不同方法 */
+  triedMultipleMethods?: boolean;
+  /** Sprint 4.1 FIX-03: 是否根据后果自主修正 */
+  selfRevisedAfterConsequence?: boolean;
   /** Sprint 4 FIX-01: 区分普通尝试、参考帮助后完成、无提示自主完成 */
   independenceLevel?: TransferCompletionIndependence;
-  /** Sprint 4 FIX-01: 是否在完成前经历过受挫提示或引导 */
+  /** Sprint 4 FIX-01: 是否在完成前调用过外部提示或参考帮助（注：自主试错/自主修正不在此列） */
   usedHintOrRevisionPrompt?: boolean;
   isCompleted: boolean;
   completedAt: string;
@@ -197,10 +207,14 @@ export interface ProductExperienceMetrics {
   storyGroveTransferAttempts: StoryGroveTransferAttemptRecord[];
   /** Sprint 4 FIX-01 & FIX-04: 树屋露营夜历史已达成的子目标集合（不会因重新尝试失败而丢失） */
   historicalCompletedCampGoals: CampTransferGoalId[];
-  /** Sprint 4 FIX-04: 历史是否曾完整达成树屋露营夜全部三项目标（保护小岛历史暖灯不因后续重玩失败而熄灭） */
+  /** Sprint 4.1 FIX-02: 是否至少一次完整尝试在单次挑战中达成全部三项目标（三次独立局部完成不得冒充 true） */
+  hasEverCompletedFullCampRun: boolean;
+  /** Sprint 4 FIX-04: 历史是否曾完整达成树屋露营夜全部三项目标（与 hasEverCompletedFullCampRun 同步，保护小岛历史暖灯不因后续重玩失败而熄灭） */
   hasEverCompletedCampTransfer: boolean;
   /** Sprint 4 FIX-04: 最近一次树屋露营夜尝试状态（与历史成果独立保存） */
   latestCampTransferAttempt: StoryGroveTransferAttemptRecord | null;
+  /** Sprint 4.1 FIX-03: 树屋露营夜历史最佳自主完成表现 */
+  bestCampTransferIndependence: TransferCompletionIndependence | null;
   /** Sprint 2: 动物伙伴对孩子当前会话具体选择的温暖记忆 */
   latestCompanionMemory: CompanionSessionMemory | null;
   lastUpdatedAt: string | null;
@@ -243,8 +257,10 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
     storyLeafStatesById: {},
     storyGroveTransferAttempts: [],
     historicalCompletedCampGoals: [],
+    hasEverCompletedFullCampRun: false,
     hasEverCompletedCampTransfer: false,
     latestCampTransferAttempt: null,
+    bestCampTransferIndependence: null,
     latestCompanionMemory: null,
     lastUpdatedAt: null,
   };
@@ -395,10 +411,21 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
       historicalCompletedCampGoals: Array.isArray(parsed.historicalCompletedCampGoals)
         ? parsed.historicalCompletedCampGoals
         : [],
-      hasEverCompletedCampTransfer: Boolean(parsed.hasEverCompletedCampTransfer),
+      hasEverCompletedFullCampRun: Boolean(
+        parsed.hasEverCompletedFullCampRun ?? parsed.hasEverCompletedCampTransfer
+      ),
+      hasEverCompletedCampTransfer: Boolean(
+        parsed.hasEverCompletedFullCampRun ?? parsed.hasEverCompletedCampTransfer
+      ),
       latestCampTransferAttempt:
         parsed.latestCampTransferAttempt && typeof parsed.latestCampTransferAttempt === 'object'
           ? parsed.latestCampTransferAttempt
+          : null,
+      bestCampTransferIndependence:
+        parsed.bestCampTransferIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION' ||
+        parsed.bestCampTransferIndependence === 'HINT_ASSISTED_COMPLETION' ||
+        parsed.bestCampTransferIndependence === 'ORDINARY_ATTEMPT'
+          ? parsed.bestCampTransferIndependence
           : null,
       latestCompanionMemory:
         parsed.latestCompanionMemory && typeof parsed.latestCompanionMemory === 'object'
@@ -1070,11 +1097,12 @@ const ALL_CAMP_TRANSFER_GOALS: CampTransferGoalId[] = [
 ];
 
 /**
- * Sprint 3 Stage C & Sprint 4 FIX-01 / FIX-03 / FIX-04:
+ * Sprint 3 Stage C & Sprint 4 / 4.1 FIX-01 / FIX-02 / FIX-03 / FIX-04:
  * 记录故事森林跨方法自主迁移尝试与方法调整：
  * 1. 多目标进展（SHADOW_INVESTIGATION / PERSONAL_BOUNDARY / SHARED_RESOURCE）：完成任意一个即记录对应目标成果，但局部完成绝不判定为整个复合情境完成；
- * 2. 区分 ORDINARY_ATTEMPT（普通尝试）、HINT_ASSISTED_COMPLETION（参考帮助或受挫修正后完成）、UNPROMPTED_AUTONOMOUS_COMPLETION（无提示自主完成）；
- * 3. 历史已完成目标（historicalCompletedCampGoals / hasEverCompletedCampTransfer）与最近一次尝试（latestCampTransferAttempt）独立保存，绝不因后续重玩未完成而抹除历史暖灯。
+ * 2. FIX-02：严格区分 historicalCompletedCampGoals（历史累计独立子目标）与 hasEverCompletedFullCampRun（单次完整尝试达成全部三项目标），三次独立局部完成绝不冒充单次复合任务完成；
+ * 3. FIX-03：独立记录外部提示（usedExternalHint）、查看参考答案（viewedReferenceAnswer）、成人帮助（receivedAdultHelp）、主动尝试不同方法（triedMultipleMethods）与自主修正（selfRevisedAfterConsequence）；没有外部辅助的自我修正仍属于 UNPROMPTED_AUTONOMOUS_COMPLETION，且先靠提示完成、后独立完成时准确升级历史最佳表现；
+ * 4. FIX-04：历史已完成目标与最近一次尝试（latestCampTransferAttempt）独立保存，绝不因后续重玩未完成而抹除历史成果。
  */
 export function recordStoryGroveTransferAttempt(
   attempt: StoryGroveTransferAttemptRecord,
@@ -1089,7 +1117,9 @@ export function recordStoryGroveTransferAttempt(
       )
     : [];
 
+  // FIX-02: 仅当本次尝试自身显式完成且同时达成全部 3 项子目标时，才算单次完整复合挑战完成
   const isCurrentAttemptAllThreeMet =
+    Boolean(attempt.isCompleted) &&
     validAttemptGoals.length === ALL_CAMP_TRANSFER_GOALS.length &&
     ALL_CAMP_TRANSFER_GOALS.every((g) => validAttemptGoals.includes(g));
 
@@ -1100,14 +1130,11 @@ export function recordStoryGroveTransferAttempt(
     ])
   );
 
-  const isHistoricalAllThreeMet =
-    ALL_CAMP_TRANSFER_GOALS.every((g) => nextHistoricalGoals.includes(g));
-
-  const nextHasEverCompletedCampTransfer = Boolean(
-    current.hasEverCompletedCampTransfer ||
-      isCurrentAttemptAllThreeMet ||
-      isHistoricalAllThreeMet
+  // FIX-02: 历史累计 3/3 局部目标不得冒充 hasEverCompletedFullCampRun
+  const nextHasEverCompletedFullCampRun = Boolean(
+    current.hasEverCompletedFullCampRun || isCurrentAttemptAllThreeMet
   );
+  const nextHasEverCompletedCampTransfer = nextHasEverCompletedFullCampRun;
 
   const sanitizedRevisionCount =
     typeof attempt.revisionCount === 'number' && attempt.revisionCount > 0
@@ -1117,15 +1144,29 @@ export function recordStoryGroveTransferAttempt(
     sanitizedRevisionCount > 0 && attempt.revisedAfterConsequence
   );
 
-  const hadAssistanceOrRevision = Boolean(
-    attempt.usedHintOrRevisionPrompt ||
-      sanitizedRevisedAfterConsequence ||
+  // FIX-03: 独立记录五项语义维度，自主试错与自主修正不等于外部辅助
+  const usedExternalHint = Boolean(attempt.usedExternalHint || attempt.usedHintOrRevisionPrompt);
+  const viewedReferenceAnswer = Boolean(attempt.viewedReferenceAnswer);
+  const receivedAdultHelp = Boolean(attempt.receivedAdultHelp);
+  const triedMultipleMethods = Boolean(
+    attempt.triedMultipleMethods ??
+      ((Array.isArray(attempt.chosenActions) && new Set(attempt.chosenActions).size > 1) ||
+        sanitizedRevisionCount > 0)
+  );
+  const selfRevisedAfterConsequence = Boolean(
+    attempt.selfRevisedAfterConsequence ?? sanitizedRevisedAfterConsequence
+  );
+
+  const hadExternalAssistance = Boolean(
+    usedExternalHint ||
+      viewedReferenceAnswer ||
+      receivedAdultHelp ||
       attempt.independenceLevel === 'HINT_ASSISTED_COMPLETION'
   );
 
   const resolvedIndependence: TransferCompletionIndependence = !isCurrentAttemptAllThreeMet
     ? 'ORDINARY_ATTEMPT'
-    : hadAssistanceOrRevision
+    : hadExternalAssistance
       ? 'HINT_ASSISTED_COMPLETION'
       : 'UNPROMPTED_AUTONOMOUS_COMPLETION';
 
@@ -1134,6 +1175,12 @@ export function recordStoryGroveTransferAttempt(
     completedGoals: validAttemptGoals,
     revisionCount: sanitizedRevisionCount,
     revisedAfterConsequence: sanitizedRevisedAfterConsequence,
+    usedExternalHint,
+    viewedReferenceAnswer,
+    receivedAdultHelp,
+    triedMultipleMethods,
+    selfRevisedAfterConsequence,
+    usedHintOrRevisionPrompt: hadExternalAssistance,
     independenceLevel: resolvedIndependence,
     isCompleted: isCurrentAttemptAllThreeMet,
   };
@@ -1159,6 +1206,10 @@ export function recordStoryGroveTransferAttempt(
       completedGoals: nextHistoricalGoals,
       revisionCount: mergedRevisionCount,
       revisedAfterConsequence: mergedRevised,
+      selfRevisedAfterConsequence: Boolean(
+        prev.selfRevisedAfterConsequence || selfRevisedAfterConsequence
+      ),
+      triedMultipleMethods: Boolean(prev.triedMultipleMethods || triedMultipleMethods),
       independenceLevel: mergedIndependence,
       isCompleted: mergedCompleted,
     };
@@ -1166,23 +1217,40 @@ export function recordStoryGroveTransferAttempt(
     nextAttempts.push(latestAttemptRecord);
   }
 
-  const isFirstFullCompletion =
-    isCurrentAttemptAllThreeMet &&
-    !current.completedTransferScenarioIds.includes(attempt.scenarioId);
+  let nextBestIndependence: TransferCompletionIndependence | null =
+    current.bestCampTransferIndependence;
+  if (resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION') {
+    nextBestIndependence = 'UNPROMPTED_AUTONOMOUS_COMPLETION';
+  } else if (
+    resolvedIndependence === 'HINT_ASSISTED_COMPLETION' &&
+    nextBestIndependence !== 'UNPROMPTED_AUTONOMOUS_COMPLETION'
+  ) {
+    nextBestIndependence = 'HINT_ASSISTED_COMPLETION';
+  } else if (!nextBestIndependence && validAttemptGoals.length > 0) {
+    nextBestIndependence = 'ORDINARY_ATTEMPT';
+  }
+
+  const wasScenarioAlreadyCompleted = current.completedTransferScenarioIds.includes(
+    attempt.scenarioId
+  );
+  const isFirstFullCompletion = isCurrentAttemptAllThreeMet && !wasScenarioAlreadyCompleted;
 
   const nextCompletedTransferIds =
-    nextHasEverCompletedCampTransfer &&
-    !current.completedTransferScenarioIds.includes(attempt.scenarioId)
+    nextHasEverCompletedFullCampRun && !wasScenarioAlreadyCompleted
       ? [...current.completedTransferScenarioIds, attempt.scenarioId]
       : current.completedTransferScenarioIds;
 
   const priorTransferState = current.transferScenarioStates[attempt.scenarioId];
   let nextScenarioStatus: TransferTaskStatus = 'ATTEMPTED';
   if (isCurrentAttemptAllThreeMet) {
-    nextScenarioStatus =
-      resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION'
-        ? 'COMPLETED_INDEPENDENT'
-        : 'COMPLETED_WITH_PROMPT';
+    if (
+      resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION' ||
+      priorTransferState === 'COMPLETED_INDEPENDENT'
+    ) {
+      nextScenarioStatus = 'COMPLETED_INDEPENDENT';
+    } else {
+      nextScenarioStatus = 'COMPLETED_WITH_PROMPT';
+    }
   } else if (
     priorTransferState === 'COMPLETED_INDEPENDENT' ||
     priorTransferState === 'COMPLETED_WITH_PROMPT'
@@ -1190,6 +1258,25 @@ export function recordStoryGroveTransferAttempt(
     // FIX-04: 绝不因最新一次尝试未完成而把历史已完成状态降级回 ATTEMPTED
     nextScenarioStatus = priorTransferState;
   }
+
+  // FIX-03: 若此前仅借助外部提示完成（COMPLETED_WITH_PROMPT），本次完全独立完成，则升级最佳状态并同步修正独立/提示完成计数，确保完成总数与情境状态零矛盾
+  const upgradedFromPromptedToAutonomous =
+    wasScenarioAlreadyCompleted &&
+    priorTransferState === 'COMPLETED_WITH_PROMPT' &&
+    isCurrentAttemptAllThreeMet &&
+    resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION';
+
+  const nextIndependentTransferCount =
+    current.independentTransferCount +
+    (isFirstFullCompletion && resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION' ? 1 : 0) +
+    (upgradedFromPromptedToAutonomous ? 1 : 0);
+
+  const nextPromptedTransferCount = Math.max(
+    0,
+    current.promptedTransferCount +
+      (isFirstFullCompletion && resolvedIndependence === 'HINT_ASSISTED_COMPLETION' ? 1 : 0) -
+      (upgradedFromPromptedToAutonomous ? 1 : 0)
+  );
 
   const nextTransferStates: Record<string, TransferTaskStatus> = {
     ...current.transferScenarioStates,
@@ -1201,18 +1288,14 @@ export function recordStoryGroveTransferAttempt(
       ...current,
       storyGroveTransferAttempts: nextAttempts,
       historicalCompletedCampGoals: nextHistoricalGoals,
+      hasEverCompletedFullCampRun: nextHasEverCompletedFullCampRun,
       hasEverCompletedCampTransfer: nextHasEverCompletedCampTransfer,
       latestCampTransferAttempt: latestAttemptRecord,
+      bestCampTransferIndependence: nextBestIndependence,
       completedTransferScenarioIds: nextCompletedTransferIds,
       transferScenarioStates: nextTransferStates,
-      independentTransferCount:
-        current.independentTransferCount +
-        (isFirstFullCompletion && resolvedIndependence === 'UNPROMPTED_AUTONOMOUS_COMPLETION'
-          ? 1
-          : 0),
-      promptedTransferCount:
-        current.promptedTransferCount +
-        (isFirstFullCompletion && resolvedIndependence === 'HINT_ASSISTED_COMPLETION' ? 1 : 0),
+      independentTransferCount: nextIndependentTransferCount,
+      promptedTransferCount: nextPromptedTransferCount,
       latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
     },
     scope

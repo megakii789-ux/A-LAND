@@ -104,14 +104,12 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
     completedStoriesCount,
     expMetrics.completedStoryLeafIds.length
   );
-  const completedCampTransferCount =
-    expMetrics.hasEverCompletedCampTransfer ||
-    expMetrics.storyGroveTransferAttempts.some((a) => a.isCompleted)
-      ? Math.max(
-          1,
-          expMetrics.storyGroveTransferAttempts.filter((a) => a.isCompleted).length
-        )
-      : 0;
+  const completedCampTransferCount = expMetrics.hasEverCompletedFullCampRun
+    ? Math.max(
+        1,
+        expMetrics.storyGroveTransferAttempts.filter((a) => a.isCompleted).length
+      )
+    : 0;
   const historicalCampGoalsCount = expMetrics.historicalCompletedCampGoals.length;
 
   const landmarks: LandmarkData[] = [
@@ -1035,8 +1033,8 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               </g>
             )}
 
-            {/* Stage C: 完成树屋露营夜综合迁移挑战后，故事林挂起常亮露营暖灯 */}
-            {completedCampTransferCount > 0 && (
+            {/* Stage C: 完成树屋露营夜综合迁移挑战后，故事林挂起常亮露营暖灯；若仅达成历史局部目标，点亮对应星光斑 */}
+            {completedCampTransferCount > 0 ? (
               <g data-testid="island-svg-camp-transfer-lantern" transform="translate(0, -56)">
                 <circle cx="0" cy="0" r="11" fill="#FDE047" opacity="0.45" />
                 <rect
@@ -1050,7 +1048,21 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                   strokeWidth="1.5"
                 />
               </g>
-            )}
+            ) : historicalCampGoalsCount > 0 ? (
+              <g
+                data-testid="island-svg-camp-partial-stars"
+                data-partial-goals={String(historicalCampGoalsCount)}
+                transform="translate(0, -56)"
+              >
+                <circle cx="-8" cy="0" r="4" fill="#FDE047" opacity="0.85" />
+                {historicalCampGoalsCount >= 2 && (
+                  <circle cx="0" cy="-4" r="4" fill="#6EE7B7" opacity="0.85" />
+                )}
+                {historicalCampGoalsCount >= 3 && (
+                  <circle cx="8" cy="0" r="4" fill="#93C5FD" opacity="0.85" />
+                )}
+              </g>
+            ) : null}
 
             {/* 树干 */}
             <rect x="-8" y="-10" width="16" height="28" rx="4" fill="#78350F" stroke="#451A03" strokeWidth="1.5" />

@@ -652,20 +652,123 @@ export function evaluateInteractiveLeafGoalCompletion(
 }
 
 /**
- * Sprint 4 FIX-01:
+ * Sprint 4.1 FIX-01:
+ * 统一互动故事叶的“行动执行 -> 观察证据校验 -> 有效场景状态与结果反馈”。
+ * 当行动所需的关键观察证据尚未具备时，绝不提前呈现最终真相、完成画面或最终伙伴记忆。
+ */
+export function resolveInteractiveLeafActionEffectiveOutcome(
+  leafId: InteractiveStoryLeafId,
+  chosenActionId: string | null,
+  inspectedHotspotIds: string[],
+  comparedCupPositions: ('NEXT_TO_BLOCK' | 'NEXT_TO_BUCKET')[] = []
+): {
+  hasAllRequiredEvidence: boolean;
+  isGoalCompleted: boolean;
+  missingHotspotIds: string[];
+  missingNeutralLabels: string[];
+  effectiveSceneVisualEffect: 'OBSERVING' | StorySceneActionChoice['sceneVisualEffect'];
+  effectiveConsequenceSummary: string;
+  effectiveCharacterResponses: {
+    speaker: string;
+    mood: 'HAPPY' | 'THOUGHTFUL' | 'SURPRISED' | 'UPSET';
+    line: string;
+  }[];
+  effectiveCompanionSummary: string;
+  effectiveCompanionReaction: string;
+} {
+  const leaf = INTERACTIVE_STORY_LEAVES[leafId];
+  const action = chosenActionId ? leaf?.actions.find((a) => a.id === chosenActionId) : undefined;
+  if (!leaf || !action) {
+    return {
+      hasAllRequiredEvidence: false,
+      isGoalCompleted: false,
+      missingHotspotIds: [],
+      missingNeutralLabels: [],
+      effectiveSceneVisualEffect: 'OBSERVING',
+      effectiveConsequenceSummary: '',
+      effectiveCharacterResponses: [],
+      effectiveCompanionSummary: '',
+      effectiveCompanionReaction: '',
+    };
+  }
+
+  const { isGoalCompleted, missingHotspotIds } = evaluateInteractiveLeafGoalCompletion(
+    leafId,
+    chosenActionId,
+    inspectedHotspotIds,
+    comparedCupPositions
+  );
+
+  const missingNeutralLabels = missingHotspotIds.map(
+    (id) => leaf.hotspots.find((h) => h.id === id)?.label || id
+  );
+
+  if (!action.encouragesRevision && missingHotspotIds.length > 0) {
+    const joinedLabels = missingNeutralLabels.join('、');
+    return {
+      hasAllRequiredEvidence: false,
+      isGoalCompleted: false,
+      missingHotspotIds,
+      missingNeutralLabels,
+      effectiveSceneVisualEffect: 'OBSERVING',
+      effectiveConsequenceSummary:
+        leafId === 'cup-size'
+          ? `你想「${action.shortTag}」，不过还没有把蓝水杯移到「${joinedLabels}」旁边亲自比过呢！先在画面里拖动或移动蓝水杯去比一比吧。`
+          : `你想「${action.shortTag}」，不过还没有观察了解「${joinedLabels}」的情况呢！先点一点上方场景里的物件看看吧。`,
+      effectiveCharacterResponses:
+        leafId === 'cup-size'
+          ? [
+              {
+                speaker: '小松鼠跳跳',
+                mood: 'THOUGHTFUL',
+                line: `先把蓝水杯移到「${joinedLabels}」旁边亲眼看一看，我们才知道两边比起来怎么样呀！`,
+              },
+            ]
+          : [
+              {
+                speaker: '小兔朵朵',
+                mood: 'THOUGHTFUL',
+                line: `先看看「${joinedLabels}」，弄清楚大家各自想玩什么，我们再一起分工吧！`,
+              },
+            ],
+      effectiveCompanionSummary: `准备尝试「${action.shortTag}」（尚未完成「${joinedLabels}」观察比对）`,
+      effectiveCompanionReaction: `还没有亲自观察「${joinedLabels}」，先动手在场景里看一看吧！`,
+    };
+  }
+
+  return {
+    hasAllRequiredEvidence: true,
+    isGoalCompleted,
+    missingHotspotIds: [],
+    missingNeutralLabels: [],
+    effectiveSceneVisualEffect: action.sceneVisualEffect,
+    effectiveConsequenceSummary: action.consequenceSummary,
+    effectiveCharacterResponses: action.characterResponses,
+    effectiveCompanionSummary: action.shortTag,
+    effectiveCompanionReaction: action.consequenceSummary,
+  };
+}
+
+/**
+ * Sprint 4 FIX-01 & Sprint 4.1 FIX-02:
  * 计算树屋露营夜复合情境的三个可观察子目标完成情况。
  * 每个子目标必须同时具备：
  * 1) 对该问题对应关键热点的真实观察（或手电筒照射）；
  * 2) 执行了解决该问题的对应行动。
  * 局部完成只记录对应子目标，绝不自动冒充全部三项目标完成。
+ * 此外（Sprint 4.1 FIX-02）：若当前选择的行动是冲突/未解决行动（如抢走手电筒躲起来），
+ * 当前场景处于冲突未解决状态（isCurrentActionConflict = true），当前尝试的 isAllGoalsCompleted 必须为 false，
+ * 严禁一边展示争抢冲突一边宣告当前所有问题已经解决。
  */
 export function evaluateCampTransferGoals(
   inspectedHotspotIds: string[],
   illuminatedBeamTargets: FlashlightBeamTarget[],
-  executedActionIds: string[]
+  executedActionIds: string[],
+  currentActionId?: string | null
 ): {
   completedGoals: CampTransferGoalId[];
   isAllGoalsCompleted: boolean;
+  isCurrentActionConflict: boolean;
 } {
   const effectiveHotspots = new Set<string>(inspectedHotspotIds);
   for (const hotspot of STORY_GROVE_CAMP_TRANSFER_CHALLENGE.hotspots) {
@@ -673,6 +776,11 @@ export function evaluateCampTransferGoals(
       effectiveHotspots.add(hotspot.id);
     }
   }
+
+  const currentAction = currentActionId
+    ? STORY_GROVE_CAMP_TRANSFER_CHALLENGE.actions.find((a) => a.id === currentActionId)
+    : undefined;
+  const isCurrentActionConflict = Boolean(currentAction && !currentAction.resolvesProblem);
 
   const actionSet = new Set<string>(executedActionIds);
   const completedGoals: CampTransferGoalId[] = [];
@@ -688,12 +796,120 @@ export function evaluateCampTransferGoals(
   }
 
   const isAllGoalsCompleted =
+    !isCurrentActionConflict &&
     completedGoals.length === STORY_GROVE_CAMP_TRANSFER_CHALLENGE.goals.length &&
     STORY_GROVE_CAMP_TRANSFER_CHALLENGE.goals.every((g) => completedGoals.includes(g.id));
 
   return {
     completedGoals,
     isAllGoalsCompleted,
+    isCurrentActionConflict,
+  };
+}
+
+/**
+ * Sprint 4.1 FIX-01:
+ * 统一《树屋露营夜》复合情境的“行动执行 -> 真实观察证据校验 -> 有效场景状态/台词/伙伴记忆”。
+ * 若某个正向行动所依赖的关键观察证据尚未通过手电筒照射或点击检查获得：
+ * - 有效画面状态保持 'PENDING_OBSERVATION'，不提前渲染真相画面（如松果树枝或柔光夜灯）；
+ * - 结果文字与角色反应提示孩子先用手电筒照亮对应未知区域，不提前剧透真相；
+ * - 伙伴记忆同步记录“尚待照亮核实”，杜绝“已观察完成”与“尚无观察证据”的矛盾。
+ */
+export function resolveCampActionEffectiveOutcome(
+  actionId: string | null,
+  inspectedHotspotIds: string[],
+  illuminatedBeamTargets: FlashlightBeamTarget[]
+): {
+  hasAllRequiredEvidence: boolean;
+  hasRequiredActionEvidence: boolean;
+  isActionGoalCompleted: boolean;
+  missingHotspotIds: string[];
+  missingNeutralLabels: string[];
+  effectiveVisualOutcomeState:
+    | 'INITIAL_DARK'
+    | 'PENDING_OBSERVATION'
+    | 'PANIC_CONFLICT'
+    | 'SHADOW_REVEALED'
+    | 'BOUNDARY_CALMED'
+    | 'FLASHLIGHT_SHARED';
+  effectiveConsequenceNarrative: string;
+  effectiveCharacterReactions: {
+    speaker: string;
+    mood: 'HAPPY' | 'CALM' | 'SCARED' | 'UPSET';
+    line: string;
+  }[];
+  effectiveRevisionHint: string;
+  effectiveIslandFeedbackText: string;
+  effectiveChoiceSummary: string;
+} {
+  const action = actionId
+    ? STORY_GROVE_CAMP_TRANSFER_CHALLENGE.actions.find((a) => a.id === actionId)
+    : undefined;
+  if (!action) {
+    return {
+      hasAllRequiredEvidence: false,
+      hasRequiredActionEvidence: false,
+      isActionGoalCompleted: false,
+      missingHotspotIds: [],
+      missingNeutralLabels: [],
+      effectiveVisualOutcomeState: 'INITIAL_DARK',
+      effectiveConsequenceNarrative: '',
+      effectiveCharacterReactions: [],
+      effectiveRevisionHint: '',
+      effectiveIslandFeedbackText: '',
+      effectiveChoiceSummary: '',
+    };
+  }
+
+  const effectiveHotspots = new Set<string>(inspectedHotspotIds);
+  for (const hotspot of STORY_GROVE_CAMP_TRANSFER_CHALLENGE.hotspots) {
+    if (illuminatedBeamTargets.includes(hotspot.beamTarget)) {
+      effectiveHotspots.add(hotspot.id);
+    }
+  }
+
+  const missingHotspotIds = action.requiredHotspotIds.filter(
+    (reqId) => !effectiveHotspots.has(reqId)
+  );
+  const missingNeutralLabels = missingHotspotIds.map(
+    (id) => STORY_GROVE_CAMP_TRANSFER_CHALLENGE.hotspots.find((h) => h.id === id)?.label || id
+  );
+
+  if (action.resolvesProblem && missingHotspotIds.length > 0) {
+    const joinedLabels = missingNeutralLabels.join('、');
+    return {
+      hasAllRequiredEvidence: false,
+      hasRequiredActionEvidence: false,
+      isActionGoalCompleted: false,
+      missingHotspotIds,
+      missingNeutralLabels,
+      effectiveVisualOutcomeState: 'PENDING_OBSERVATION',
+      effectiveConsequenceNarrative: `你打算「${action.shortTag}」，不过还没有用手电筒照亮并观察「${joinedLabels}」，现在还看不清真实情况哦！`,
+      effectiveCharacterReactions: [
+        {
+          speaker: '小狐狸果果',
+          mood: 'CALM',
+          line: `我们先在上方画面拖动或转动手电筒光束，把「${joinedLabels}」照亮看清楚，再判断吧！`,
+        },
+      ],
+      effectiveRevisionHint: `先用上方手电筒光束照亮「${joinedLabels}」，获得真实观察证据后就能揭开结果啦！`,
+      effectiveIslandFeedbackText: `你准备在树屋露营夜里「${action.shortTag}」，正要去照亮「${joinedLabels}」收集观察证据。`,
+      effectiveChoiceSummary: `准备「${action.shortTag}」（待观察：${joinedLabels}）`,
+    };
+  }
+
+  return {
+    hasAllRequiredEvidence: true,
+    hasRequiredActionEvidence: true,
+    isActionGoalCompleted: Boolean(action.resolvesProblem && action.targetGoalId),
+    missingHotspotIds: [],
+    missingNeutralLabels: [],
+    effectiveVisualOutcomeState: action.visualOutcomeState,
+    effectiveConsequenceNarrative: action.consequenceNarrative,
+    effectiveCharacterReactions: action.characterReactions,
+    effectiveRevisionHint: action.revisionHint,
+    effectiveIslandFeedbackText: action.islandFeedbackText,
+    effectiveChoiceSummary: action.shortTag,
   };
 }
 

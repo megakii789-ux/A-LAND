@@ -299,6 +299,57 @@ function createStatefulTestRenderer(initialElement: React.ReactElement) {
       });
       flushRender();
     },
+    pointerDown(target: { props: any } | null, clientX: number, clientY: number) {
+      if (!target || typeof target.props.onPointerDown !== 'function') {
+        throw new Error('Target has no onPointerDown handler');
+      }
+      target.props.onPointerDown({
+        pointerId: 1,
+        clientX,
+        clientY,
+        currentTarget: { setPointerCapture: () => {} },
+        stopPropagation: () => {},
+        preventDefault: () => {},
+      });
+      flushRender();
+    },
+    pointerMove(target: { props: any } | null, clientX: number, clientY: number) {
+      if (!target || typeof target.props.onPointerMove !== 'function') {
+        throw new Error('Target has no onPointerMove handler');
+      }
+      target.props.onPointerMove({
+        pointerId: 1,
+        clientX,
+        clientY,
+        stopPropagation: () => {},
+        preventDefault: () => {},
+      });
+      flushRender();
+    },
+    pointerUp(target: { props: any } | null, clientX: number, clientY: number) {
+      if (!target || typeof target.props.onPointerUp !== 'function') {
+        throw new Error('Target has no onPointerUp handler');
+      }
+      target.props.onPointerUp({
+        pointerId: 1,
+        clientX,
+        clientY,
+        stopPropagation: () => {},
+        preventDefault: () => {},
+      });
+      flushRender();
+    },
+    pointerCancel(target: { props: any } | null) {
+      if (!target || typeof target.props.onPointerCancel !== 'function') {
+        throw new Error('Target has no onPointerCancel handler');
+      }
+      target.props.onPointerCancel({
+        pointerId: 1,
+        stopPropagation: () => {},
+        preventDefault: () => {},
+      });
+      flushRender();
+    },
     unmount() {
       for (const [, inst] of Array.from(instances.entries())) {
         for (const h of inst.hooks) {
@@ -657,6 +708,363 @@ describe('Sprint 4 Cognitive Transfer Authenticity & Child Immersion Counterexam
     expect(branchBtnAfter?.text).toContain('风中摇晃的松果树枝');
     expect(campView.findByTestId('camp-hotspot-observation-card')?.text).toContain('两颗大松果');
 
+    campView.unmount();
+  });
+
+  it('Sprint 4.1 FIX-01 Counterexample: Choosing "照亮窗外核实黑影" without illuminating outside objects NEVER prematurely reveals the pinecone truth or marks SVG/companion state as verified', () => {
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+
+    view.click(view.findByTestId('open-camp-transfer-challenge'));
+
+    // Directly select camp_act_shine_light_check_branch WITHOUT illuminating SHADOW_CURTAIN or OUTSIDE_BRANCH
+    view.click(view.findByTestId('camp-action-camp_act_shine_light_check_branch'));
+
+    const scene = view.findByTestId('camp-transfer-svg-scene');
+    const panel = view.findByTestId('camp-action-consequence-panel');
+    const metricsBefore = getPlaytestExperienceMetrics();
+
+    // Scene state, SVG light beam, narrative, character lines, and companion memory must all consistently reflect "unverified / observation needed"
+    expect(scene?.props['data-camp-outcome']).toBe('PENDING_OBSERVATION');
+    expect(view.findByTestId('camp-svg-light-beam')).toBeNull();
+    expect(panel?.props['data-has-required-evidence']).toBe('false');
+    expect(panel?.text).toContain('还没有用手电筒照亮并观察');
+    expect(panel?.text).not.toContain('松果树枝在晃动');
+    expect(panel?.text).not.toContain('两颗松果的树枝');
+    expect(view.findByTestId('camp-goal-badge-SHADOW_INVESTIGATION')?.props['data-completed']).toBe(
+      'false'
+    );
+    expect(metricsBefore.latestCompanionMemory?.eventStage).toBe('ARRANGED_OR_STARTED');
+    expect(metricsBefore.latestCompanionMemory?.companionReactionText).not.toContain('松果树枝');
+
+    // Now genuinely illuminate SHADOW_CURTAIN and OUTSIDE_BRANCH -> truth is revealed and goal is verified!
+    view.click(view.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    view.click(view.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+
+    const sceneAfter = view.findByTestId('camp-transfer-svg-scene');
+    const panelAfter = view.findByTestId('camp-action-consequence-panel');
+    expect(sceneAfter?.props['data-camp-outcome']).toBe('SHADOW_REVEALED');
+    expect(view.findByTestId('camp-svg-light-beam')).toBeTruthy();
+    expect(panelAfter?.props['data-has-required-evidence']).toBe('true');
+    expect(panelAfter?.text).toContain('两颗大松果');
+    expect(view.findByTestId('camp-goal-badge-SHADOW_INVESTIGATION')?.props['data-completed']).toBe(
+      'true'
+    );
+
+    view.unmount();
+  });
+
+  it('Sprint 4.1 FIX-02 Counterexample A & B: Three separate partial runs (1/3 each) accumulate 3/3 history but hasEverCompletedFullCampRun stays false; and conflict action after 3/3 in same session never claims current scene is solved', () => {
+    // Run 1: Complete ONLY SHADOW_INVESTIGATION
+    const run1 = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    run1.click(run1.findByTestId('open-camp-transfer-challenge'));
+    run1.click(run1.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    run1.click(run1.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+    run1.click(run1.findByTestId('camp-action-camp_act_shine_light_check_branch'));
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.completedGoals).toEqual([
+      'SHADOW_INVESTIGATION',
+    ]);
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.isCompleted).toBe(false);
+    expect(getPlaytestExperienceMetrics().hasEverCompletedFullCampRun).toBe(false);
+    run1.unmount();
+
+    // Run 2: Complete ONLY PERSONAL_BOUNDARY
+    const run2 = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    run2.click(run2.findByTestId('open-camp-transfer-challenge'));
+    run2.click(run2.findByTestId('aim-flashlight-TENT_INSIDE'));
+    run2.click(run2.findByTestId('camp-action-camp_act_state_comfort_boundary'));
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.completedGoals).toEqual([
+      'PERSONAL_BOUNDARY',
+    ]);
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.isCompleted).toBe(false);
+    expect(getPlaytestExperienceMetrics().hasEverCompletedFullCampRun).toBe(false);
+    run2.unmount();
+
+    // Run 3: Complete ONLY SHARED_RESOURCE
+    const run3 = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    run3.click(run3.findByTestId('open-camp-transfer-challenge'));
+    run3.click(run3.findByTestId('aim-flashlight-LANTERN_DIFFUSER'));
+    run3.click(run3.findByTestId('camp-action-camp_act_share_flashlight_roles'));
+
+    const metricsAfter3Partial = getPlaytestExperienceMetrics();
+    expect(metricsAfter3Partial.historicalCompletedCampGoals).toEqual([
+      'SHADOW_INVESTIGATION',
+      'PERSONAL_BOUNDARY',
+      'SHARED_RESOURCE',
+    ]);
+    expect(metricsAfter3Partial.latestCampTransferAttempt?.completedGoals).toEqual([
+      'SHARED_RESOURCE',
+    ]);
+    expect(metricsAfter3Partial.latestCampTransferAttempt?.isCompleted).toBe(false);
+    expect(metricsAfter3Partial.hasEverCompletedFullCampRun).toBe(false);
+    expect(metricsAfter3Partial.hasEverCompletedCampTransfer).toBe(false);
+    run3.unmount();
+
+    // Island map shows partial exploration stars, NOT the full camp lantern
+    const islandPartial = createStatefulTestRenderer(
+      <AppProvider>
+        <FairytaleIslandMap />
+      </AppProvider>
+    );
+    expect(islandPartial.findByTestId('island-svg-camp-transfer-lantern')).toBeNull();
+    expect(islandPartial.findByTestId('island-svg-camp-partial-stars')).toBeTruthy();
+    islandPartial.unmount();
+
+    // Counterexample B: In a new session, complete all 3 goals, then trigger a conflict action in the SAME session
+    const fullThenConflict = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    fullThenConflict.click(fullThenConflict.findByTestId('open-camp-transfer-challenge'));
+    fullThenConflict.click(fullThenConflict.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    fullThenConflict.click(fullThenConflict.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+    fullThenConflict.click(
+      fullThenConflict.findByTestId('camp-action-camp_act_shine_light_check_branch')
+    );
+    fullThenConflict.click(fullThenConflict.findByTestId('aim-flashlight-TENT_INSIDE'));
+    fullThenConflict.click(
+      fullThenConflict.findByTestId('camp-action-camp_act_state_comfort_boundary')
+    );
+    fullThenConflict.click(fullThenConflict.findByTestId('aim-flashlight-LANTERN_DIFFUSER'));
+    fullThenConflict.click(
+      fullThenConflict.findByTestId('camp-action-camp_act_share_flashlight_roles')
+    );
+
+    expect(getPlaytestExperienceMetrics().hasEverCompletedFullCampRun).toBe(true);
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.isCompleted).toBe(true);
+
+    // Now click the panic/conflict action in the same session
+    fullThenConflict.click(
+      fullThenConflict.findByTestId('camp-action-camp_act_guess_monster_scream')
+    );
+    const conflictPanel = fullThenConflict.findByTestId('camp-action-consequence-panel');
+    expect(conflictPanel?.props['data-current-conflict']).toBe('true');
+    expect(fullThenConflict.findByTestId('camp-current-conflict-status')).toBeTruthy();
+    expect(conflictPanel?.text).not.toContain('太棒啦！窗外黑影、个人边界与共享照明三件事都解决了');
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.isCompleted).toBe(false);
+    expect(getPlaytestExperienceMetrics().hasEverCompletedFullCampRun).toBe(true);
+
+    fullThenConflict.unmount();
+  });
+
+  it('Sprint 4.1 FIX-03 Counterexample A & B: Autonomous trial-and-error self-revision records UNPROMPTED_AUTONOMOUS_COMPLETION; hinted completion followed by autonomous completion upgrades best status and syncs counts', () => {
+    const autoReviseView = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    autoReviseView.click(autoReviseView.findByTestId('open-camp-transfer-challenge'));
+
+    // 1. Try wrong action first
+    autoReviseView.click(autoReviseView.findByTestId('camp-action-camp_act_guess_monster_scream'));
+    expect(getPlaytestExperienceMetrics().latestCampTransferAttempt?.usedExternalHint).toBe(false);
+
+    // 2. Self-revise and complete all 3 goals without clicking hint or parent drawer
+    autoReviseView.click(autoReviseView.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    autoReviseView.click(autoReviseView.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+    autoReviseView.click(
+      autoReviseView.findByTestId('camp-action-camp_act_shine_light_check_branch')
+    );
+    autoReviseView.click(autoReviseView.findByTestId('aim-flashlight-TENT_INSIDE'));
+    autoReviseView.click(
+      autoReviseView.findByTestId('camp-action-camp_act_state_comfort_boundary')
+    );
+    autoReviseView.click(autoReviseView.findByTestId('aim-flashlight-LANTERN_DIFFUSER'));
+    autoReviseView.click(
+      autoReviseView.findByTestId('camp-action-camp_act_share_flashlight_roles')
+    );
+
+    const metricsAutoRev = getPlaytestExperienceMetrics();
+    expect(metricsAutoRev.latestCampTransferAttempt?.isCompleted).toBe(true);
+    expect(metricsAutoRev.latestCampTransferAttempt?.usedExternalHint).toBe(false);
+    expect(metricsAutoRev.latestCampTransferAttempt?.viewedReferenceAnswer).toBe(false);
+    expect(metricsAutoRev.latestCampTransferAttempt?.receivedAdultHelp).toBe(false);
+    expect(metricsAutoRev.latestCampTransferAttempt?.triedMultipleMethods).toBe(true);
+    expect(metricsAutoRev.latestCampTransferAttempt?.selfRevisedAfterConsequence).toBe(true);
+    expect(metricsAutoRev.latestCampTransferAttempt?.independenceLevel).toBe(
+      'UNPROMPTED_AUTONOMOUS_COMPLETION'
+    );
+    expect(metricsAutoRev.bestCampTransferIndependence).toBe('UNPROMPTED_AUTONOMOUS_COMPLETION');
+    expect(metricsAutoRev.independentTransferCount).toBe(1);
+    expect(metricsAutoRev.promptedTransferCount).toBe(0);
+    autoReviseView.unmount();
+
+    // Counterexample B: Reset metrics -> Session 1 uses explicit external hint -> Session 2 completes autonomously -> upgrades best status & counts
+    resetProductExperienceMetrics();
+
+    const hintedSession = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    hintedSession.click(hintedSession.findByTestId('open-camp-transfer-challenge'));
+    hintedSession.click(hintedSession.findByTestId('camp-request-external-hint-btn'));
+    expect(hintedSession.findByTestId('camp-external-hint-banner')).toBeTruthy();
+
+    hintedSession.click(hintedSession.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    hintedSession.click(hintedSession.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+    hintedSession.click(
+      hintedSession.findByTestId('camp-action-camp_act_shine_light_check_branch')
+    );
+    hintedSession.click(hintedSession.findByTestId('aim-flashlight-TENT_INSIDE'));
+    hintedSession.click(
+      hintedSession.findByTestId('camp-action-camp_act_state_comfort_boundary')
+    );
+    hintedSession.click(hintedSession.findByTestId('aim-flashlight-LANTERN_DIFFUSER'));
+    hintedSession.click(
+      hintedSession.findByTestId('camp-action-camp_act_share_flashlight_roles')
+    );
+
+    const metricsAfterHinted = getPlaytestExperienceMetrics();
+    expect(metricsAfterHinted.latestCampTransferAttempt?.usedExternalHint).toBe(true);
+    expect(metricsAfterHinted.latestCampTransferAttempt?.independenceLevel).toBe(
+      'HINT_ASSISTED_COMPLETION'
+    );
+    expect(metricsAfterHinted.bestCampTransferIndependence).toBe('HINT_ASSISTED_COMPLETION');
+    expect(metricsAfterHinted.transferScenarioStates['leaf-camp-transfer']).toBe(
+      'COMPLETED_WITH_PROMPT'
+    );
+    expect(metricsAfterHinted.promptedTransferCount).toBe(1);
+    expect(metricsAfterHinted.independentTransferCount).toBe(0);
+    hintedSession.unmount();
+
+    // Session 2: Complete all 3 goals autonomously without hints
+    const autonomousSession = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    autonomousSession.click(autonomousSession.findByTestId('open-camp-transfer-challenge'));
+    autonomousSession.click(autonomousSession.findByTestId('aim-flashlight-SHADOW_CURTAIN'));
+    autonomousSession.click(autonomousSession.findByTestId('aim-flashlight-OUTSIDE_BRANCH'));
+    autonomousSession.click(
+      autonomousSession.findByTestId('camp-action-camp_act_shine_light_check_branch')
+    );
+    autonomousSession.click(autonomousSession.findByTestId('aim-flashlight-TENT_INSIDE'));
+    autonomousSession.click(
+      autonomousSession.findByTestId('camp-action-camp_act_state_comfort_boundary')
+    );
+    autonomousSession.click(autonomousSession.findByTestId('aim-flashlight-LANTERN_DIFFUSER'));
+    autonomousSession.click(
+      autonomousSession.findByTestId('camp-action-camp_act_share_flashlight_roles')
+    );
+
+    const metricsAfterUpgrade = getPlaytestExperienceMetrics();
+    expect(metricsAfterUpgrade.latestCampTransferAttempt?.independenceLevel).toBe(
+      'UNPROMPTED_AUTONOMOUS_COMPLETION'
+    );
+    expect(metricsAfterUpgrade.bestCampTransferIndependence).toBe(
+      'UNPROMPTED_AUTONOMOUS_COMPLETION'
+    );
+    expect(metricsAfterUpgrade.transferScenarioStates['leaf-camp-transfer']).toBe(
+      'COMPLETED_INDEPENDENT'
+    );
+    expect(metricsAfterUpgrade.independentTransferCount).toBe(1);
+    expect(metricsAfterUpgrade.promptedTransferCount).toBe(0);
+    autonomousSession.unmount();
+  });
+
+  it('Sprint 4.1 FIX-04: Direct pointer drag-and-snap on movable blue cup and continuous pointer beam steering on camp scene', () => {
+    const view = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+
+    // 1. Direct drag on movable-blue-cup-prop in cup-size
+    view.click(view.findByTestId('story-catalog-leaf-cup-size'));
+    expect(view.findByTestId('movable-blue-cup-prop')?.props['data-cup-position']).toBe(
+      'CENTER_TABLE'
+    );
+
+    // Drag cup left to NEXT_TO_BLOCK (clientX: 205 -> 115)
+    view.pointerDown(view.findByTestId('movable-blue-cup-prop'), 205, 110);
+    view.pointerMove(view.findByTestId('story-interactive-svg-cup-size'), 115, 110);
+    expect(view.findByTestId('cup-snap-highlight')?.props['data-snap-zone']).toBe('NEXT_TO_BLOCK');
+    view.pointerUp(view.findByTestId('story-interactive-svg-cup-size'), 115, 110);
+    expect(view.findByTestId('movable-blue-cup-prop')?.props['data-cup-position']).toBe(
+      'NEXT_TO_BLOCK'
+    );
+    expect(view.findByTestId('cup-vs-block-visual-badge')).toBeTruthy();
+
+    // Accidental tiny tap / pointer cancel recovery: bounces back cleanly and shows recovery hint
+    view.pointerDown(view.findByTestId('movable-blue-cup-prop'), 115, 110);
+    view.pointerCancel(view.findByTestId('story-interactive-svg-cup-size'));
+    expect(view.findByTestId('movable-blue-cup-prop')?.props['data-cup-position']).toBe(
+      'NEXT_TO_BLOCK'
+    );
+    expect(view.findByTestId('cup-drag-recovery-hint')).toBeTruthy();
+
+    // Drag cup right to NEXT_TO_BUCKET (clientX: 115 -> 280)
+    view.pointerDown(view.findByTestId('movable-blue-cup-prop'), 115, 110);
+    view.pointerMove(view.findByTestId('story-interactive-svg-cup-size'), 280, 110);
+    expect(view.findByTestId('cup-snap-highlight')?.props['data-snap-zone']).toBe('NEXT_TO_BUCKET');
+    view.pointerUp(view.findByTestId('story-interactive-svg-cup-size'), 280, 110);
+    expect(view.findByTestId('movable-blue-cup-prop')?.props['data-cup-position']).toBe(
+      'NEXT_TO_BUCKET'
+    );
+    expect(view.findByTestId('cup-vs-bucket-visual-badge')).toBeTruthy();
+    expect(view.findByTestId('interactive-leaf-scene-cup-size')?.props['data-compared-count']).toBe(
+      2
+    );
+    view.unmount();
+
+    // 2. Direct continuous beam steering across camp-interactive-svg-canvas
+    const campView = createStatefulTestRenderer(
+      <AppProvider>
+        <StoryGroveModal isOpen={true} onClose={() => {}} />
+      </AppProvider>
+    );
+    campView.click(campView.findByTestId('open-camp-transfer-challenge'));
+
+    expect(campView.findByTestId('camp-hotspot-camp_obj_pinecone_branch')?.text).not.toContain(
+      '松果'
+    );
+
+    campView.pointerDown(campView.findByTestId('camp-interactive-svg-canvas'), 85, 75);
+    expect(campView.findByTestId('camp-transfer-svg-scene')?.props['data-beam-target']).toBe(
+      'SHADOW_CURTAIN'
+    );
+    expect(campView.findByTestId('camp-beam-spotlight-circle')).toBeTruthy();
+
+    campView.pointerMove(campView.findByTestId('camp-interactive-svg-canvas'), 210, 60);
+    expect(campView.findByTestId('camp-transfer-svg-scene')?.props['data-beam-target']).toBe(
+      'OUTSIDE_BRANCH'
+    );
+    expect(campView.findByTestId('camp-hotspot-camp_obj_pinecone_branch')?.text).toContain(
+      '风中摇晃的松果树枝'
+    );
+
+    campView.pointerMove(campView.findByTestId('camp-interactive-svg-canvas'), 210, 160);
+    expect(campView.findByTestId('camp-transfer-svg-scene')?.props['data-beam-target']).toBe(
+      'LANTERN_DIFFUSER'
+    );
+
+    campView.pointerMove(campView.findByTestId('camp-interactive-svg-canvas'), 335, 130);
+    expect(campView.findByTestId('camp-transfer-svg-scene')?.props['data-beam-target']).toBe(
+      'TENT_INSIDE'
+    );
+    campView.pointerUp(campView.findByTestId('camp-interactive-svg-canvas'), 335, 130);
+
+    expect(campView.findByTestId('camp-transfer-clue-counter')?.text.replace(/\s+/g, '')).toContain(
+      '4/4'
+    );
     campView.unmount();
   });
 });
