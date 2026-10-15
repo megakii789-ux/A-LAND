@@ -24,9 +24,11 @@ export type HypothesisEvidenceRelation =
 
 export type EvidenceFindingState =
   | 'NOT_INVESTIGATED_YET'
+  | 'LACK_OF_SUPPORTING_EVIDENCE'
   | 'INSUFFICIENT_EVIDENCE'
   | 'SUPPORTED_BY_EVIDENCE'
   | 'CONTRADICTED_BY_EVIDENCE'
+  | 'MULTIPLE_PLAUSIBLE_EXPLANATIONS'
   | 'INCONCLUSIVE_AFTER_KEY_EVIDENCE';
 
 export interface HypothesisEvaluationResult {
@@ -220,11 +222,11 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
     {
       id: 'hyp_peer_took',
       label: '肯定是皮皮偷偷拿走了',
-      feedbackText: '这是我们着急时容易冒出的猜测，先记下来，一会儿看看证据支不支持它！',
+      feedbackText: '这是我们着急时容易冒出的猜测，先记下来，一会儿看看现场有没有证据支持它！',
       supportingClueIds: [],
-      contradictingClueIds: ['hs_curtain'],
-      contradictedFeedbackText: '我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它。要不要再看看刚才发现了什么？',
-      insufficientEvidenceFeedbackText: '奇奇虽然心里这样猜，但现场还没有任何证据证明皮皮拿过蜡笔哦。',
+      contradictingClueIds: [],
+      insufficientEvidenceFeedbackText:
+        '我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它。现场缺乏支持“皮皮拿过蜡笔”的证据，也不能把“暂时没有证据证明”直接当成“已经证明不是”。要不要再看看刚才发现了什么？',
     },
     {
       id: 'hyp_unknown_yet',
@@ -240,7 +242,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       isSupportedByEvidence: true,
       feedbackText: '这是一个很有可能的假设，我们去找找地上有没有滚落或小动物的痕迹吧！',
       supportingClueIds: ['hs_cat_tracks', 'hs_curtain'],
-      supportedFeedbackText: '证据完全吻合！地板上的彩色梅花印一路通向窗帘，掀开窗帘果然找到了带猫爪印的绿色蜡笔！',
+      supportedFeedbackText: '存在支持该解释的充分物证！地板上的彩色梅花印一路通向窗帘，掀开窗帘果然找到了带猫爪划痕的绿色蜡笔！',
       insufficientEvidenceFeedbackText: '这个方向很有希望！快顺着地板脚印或窗帘底下再找找关键物证吧！',
     },
   ],
@@ -267,16 +269,17 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       discoverySpokenText: '去场景里点一点奇奇的想法气泡和椅子上的书包，看看哪些是猜想、哪些还不知道。',
     },
   ],
-  resolutionSummary: '原来是小花猫跳上画架桌玩耍时，把绿色蜡笔拨到了窗帘底下，并不是皮皮拿走的！',
+  resolutionSummary:
+    '我们在窗帘底下找到了带猫爪划痕的绿色蜡笔，地板上的彩色梅花印也一路通向窗帘——现有证据支持“小花猫把蜡笔拨到窗帘下”的解释；而“皮皮拿走蜡笔”缺乏支持证据，不能把缺乏证据的猜测当成事实去怪伙伴！',
   nextActionChoices: [
     {
       id: 'act_pickup_and_apologize',
-      label: '捡起窗帘下的蜡笔，温和地告诉大家不是皮皮拿的',
-      feedbackText: '太棒啦！用真实证据帮伙伴解开误会，大家都笑起来了！',
+      label: '捡起窗帘下的蜡笔，温和地告诉大家物证支持是小猫拨落的，没有证据支持是皮皮拿的',
+      feedbackText: '太棒啦！既说清了有物证支持的解释，也不凭缺乏证据的猜测冤枉伙伴！',
       isRecommended: true,
-      consequenceBenefit: '收益：用真凭实据帮皮皮澄清了误会，大家开心地继续合画向日葵。',
+      consequenceBenefit: '收益：分清了“有证据支持的解释”与“缺乏支持证据的猜测”，大家开心地继续合画向日葵。',
       consequenceTradeoff: '代价：需要停下手里的画，花一点时间和大家一起擦掉地板上的猫爪颜料印。',
-      worldChangeSummary: '奇奇主动向皮皮道了歉，绿色蜡笔给向日葵涂上了饱满的绿叶，美术角充满欢笑！',
+      worldChangeSummary: '奇奇明白了没有证据支持就不能乱猜皮皮，绿色蜡笔给向日葵涂上了饱满的绿叶，美术角充满欢笑！',
     },
     {
       id: 'act_put_pen_box_rule',
@@ -289,12 +292,12 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
     },
     {
       id: 'act_still_blame',
-      label: '不看窗帘下的证据，还是大声怪皮皮',
-      feedbackText: '如果只凭猜测责怪别人，好朋友会很委屈哦。我们试试用找到的事实说话吧！',
+      label: '不看窗帘下的物证，还是凭猜测大声怪皮皮',
+      feedbackText: '没有任何支持证据却凭猜测责怪别人，好朋友会很委屈哦。我们试试根据找到的物证行动吧！',
       isRecommended: false,
       consequenceBenefit: '收益：一时把心里的着急发泄了出来。',
-      consequenceTradeoff: '代价：无视已经找到的窗帘蜡笔证据，会让无辜的皮皮很伤心，伙伴之间产生隔阂。',
-      worldChangeSummary: '皮皮委屈地低下了头，果果轻轻举起窗帘下带猫爪痕的绿色蜡笔，邀请我们重新看看事实。',
+      consequenceTradeoff: '代价：无视现场物证、凭空指责缺乏证据指向的皮皮，会让伙伴很伤心。',
+      worldChangeSummary: '皮皮委屈地低下了头，果果轻轻举起窗帘下带猫爪痕的绿色蜡笔，提醒我们看一看支持小猫拨落的物证。',
     },
   ],
 };
@@ -427,18 +430,19 @@ const DRAWING_SCENARIO_CASE_2: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了朵朵的猜测，还看到了盖紧的铁皮颜料盒。',
     },
   ],
-  resolutionSummary: '原来水彩笔没盖笔帽，被窗台吹来的微风一吹，顺着倾斜画板滚进了底部凹槽，同桌根本没有拿！',
+  resolutionSummary:
+    '桌面上留着笔帽和指向画板的水迹，画板凹槽里找到了金色水彩笔——现有物证支持“水彩笔被微风吹动滚进凹槽”的解释；而怀疑同桌拿走缺乏支持证据，不能凭猜测指责同桌！',
   nextActionChoices: [
     {
       id: 'act2_cap_pen_and_smile',
       label: '把金色水彩笔拿出来盖好笔帽，继续和同桌开心地画星星',
-      feedbackText: '太棒了！不仅找回了水彩笔，还养成了用完盖好笔帽的好习惯！',
+      feedbackText: '太棒了！不仅依据物证找回了水彩笔，还养成了用完盖好笔帽的好习惯！',
       isRecommended: true,
     },
     {
       id: 'act2_question_deskmate',
-      label: '就算找到了笔，还是埋怨同桌',
-      feedbackText: '证据已经证明笔是自己滚进凹槽的，冤枉同桌会让伙伴难过哦。',
+      label: '就算找到了笔，还是凭猜测埋怨同桌',
+      feedbackText: '现场物证支持笔是滚进凹槽的，怀疑同桌缺乏证据支持，凭空埋怨会让伙伴难过哦。',
       isRecommended: false,
     },
   ],
@@ -572,18 +576,19 @@ const SPORTS_SCENARIO: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了小刚的猜测，也看到了锁得紧紧的铁皮柜。',
     },
   ],
-  resolutionSummary: '原来足球滚过边线后，被路过的小狗拨进了冬青灌木丛底下，并不是隔壁班拿走的！',
+  resolutionSummary:
+    '草坪压痕、小狗爪印和灌木丛下的足球相互印证，支持“足球滚过边线被小狗拨进灌木丛”的解释；而怀疑隔壁班藏球缺乏任何支持证据！',
   nextActionChoices: [
     {
       id: 'act_sports_share_truth',
-      label: '把足球从灌木丛捡回来，告诉小刚不是隔壁班藏的',
-      feedbackText: '太棒了！用事实解开了误会，两个班依然是友好的球场伙伴！',
+      label: '把足球从灌木丛捡回来，告诉小刚现场物证支持是滚进草丛的，没有证据指向隔壁班',
+      feedbackText: '太棒了！用真实物证解开了误会，两个班依然是友好的球场伙伴！',
       isRecommended: true,
     },
     {
       id: 'act_sports_argue',
       label: '跑去跟隔壁班吵架',
-      feedbackText: '球已经在灌木丛里找到啦，凭空吵架会伤了和气哦。',
+      feedbackText: '球已经在灌木丛里找到啦，怀疑隔壁班缺乏证据支持，凭空吵架会伤了和气哦。',
       isRecommended: false,
     },
   ],
@@ -717,18 +722,19 @@ const SPORTS_SCENARIO_CASE_2: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了乐乐心里的念头，也看到了拉紧拉链的运动包。',
     },
   ],
-  resolutionSummary: '原来是拿毛巾擦汗时，不小心把黄色跳绳扫进了长椅正下方的蓝色收纳筐里，并不是小宇拿走的！',
+  resolutionSummary:
+    '椅背上的毛巾、木板缝露出的绳头和长椅下收纳筐里的黄色跳绳，支持了“擦汗时不小心把跳绳扫进收纳筐”的解释；而怀疑小宇拿走缺乏支持证据！',
   nextActionChoices: [
     {
       id: 'act_s2_invite_jump',
       label: '从收纳筐取出黄色跳绳，邀请小宇一起比赛跳绳',
-      feedbackText: '真棒！找到了跳绳，还和好朋友一起开心地跳了起来！',
+      feedbackText: '真棒！找到了跳绳，也不凭猜测怀疑朋友，大家一起开心地跳了起来！',
       isRecommended: true,
     },
     {
       id: 'act_s2_blame_xiaoyu',
       label: '不看收纳筐，非要打开别人的运动包',
-      feedbackText: '未经允许翻别人的包既不礼貌也没有必要，长椅下的收纳筐里已经找到跳绳啦！',
+      feedbackText: '未经允许翻别人的包既侵犯边界也没有证据支持，长椅下的收纳筐里已经找到跳绳啦！',
       isRecommended: false,
     },
   ],
@@ -1042,7 +1048,8 @@ const NATURE_SCENARIO_CASE_2: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了小海獭的猜测，也看到了紧紧闭着壳的大河蚌。',
     },
   ],
-  resolutionSummary: '原来水花打湿了倾斜的木板，光滑的彩色鹅卵石自己滑进了木板下方的浅水滩里，并不是小乌龟背走的！',
+  resolutionSummary:
+    '水花打湿了倾斜的木板并留下滑痕，浅水滩里找到了彩色鹅卵石——现有物证支持“鹅卵石从湿木板滑进浅水滩”的解释；而怀疑小乌龟背走缺乏支持证据！',
   nextActionChoices: [
     {
       id: 'act_n2_pick_dry_spot',
@@ -1053,7 +1060,7 @@ const NATURE_SCENARIO_CASE_2: ThemedDetectiveScenario = {
     {
       id: 'act_n2_chase_turtle',
       label: '去追小乌龟要石头',
-      feedbackText: '石头已经在浅水滩里找到啦，不要冤枉无辜的小乌龟哦。',
+      feedbackText: '石头已经在浅水滩里找到啦，怀疑小乌龟缺乏支持证据，不要冤枉无辜的邻居哦。',
       isRecommended: false,
     },
   ],
@@ -1187,18 +1194,19 @@ const PUZZLE_SCENARIO: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了明明的猜想，也看到了拉不开的木桌小抽屉。',
     },
   ],
-  resolutionSummary: '原来打开拼图盒时，最后一片彩虹拼图从桌边滑落，正好藏进了沙发抱枕底下，并不是弟弟扔掉的！',
+  resolutionSummary:
+    '桌角拼图盒、翻折地毯与抱枕下的彩虹拼图块相互印证，支持“拼图块从桌边滑进抱枕下”的解释；而怀疑弟弟故意扔掉缺乏支持证据！',
   nextActionChoices: [
     {
       id: 'act_puz_finish_together',
       label: '拿出抱枕下的彩虹拼图角，邀请弟弟一起拼上最后一块',
-      feedbackText: '太棒啦！完整的彩虹拼图拼好啦，兄弟俩一起欢呼起来！',
+      feedbackText: '太棒啦！完整的彩虹拼图拼好啦，也不凭空冤枉弟弟，兄弟俩一起欢呼起来！',
       isRecommended: true,
     },
     {
       id: 'act_puz_scold_brother',
       label: '就算找到了拼图，还是冲弟弟发脾气',
-      feedbackText: '拼图是自己滑到抱枕底下的，对无辜的弟弟发脾气会让大家都不开心哦。',
+      feedbackText: '怀疑弟弟故意扔掉缺乏任何证据支持，对弟弟发脾气会让大家都不开心哦。',
       isRecommended: false,
     },
   ],
@@ -1295,6 +1303,8 @@ const PUZZLE_SCENARIO_CASE_2: ThemedDetectiveScenario = {
       id: 'hyp_p2_factory',
       label: '肯定是盒子里本来就没有，别找了',
       feedbackText: '这是灰心时的猜测，如果直接放弃就装不好风车啦，我们先找找桌面证据吧！',
+      contradictingClueIds: ['hs_puz2_red_gear'],
+      contradictedFeedbackText: '我们在说明书夹层里亲眼找到了红色小齿轮，这与“盒子里本来就没有”真正相互冲突，反驳了这个猜想！',
     },
     {
       id: 'hyp_p2_unknown',
@@ -1332,7 +1342,7 @@ const PUZZLE_SCENARIO_CASE_2: ThemedDetectiveScenario = {
       discoverySpokenText: '我们听到了小哲的猜测，也看到了看不清内部的不透明铁罐。',
     },
   ],
-  resolutionSummary: '原来翻看大张说明书时，红色小齿轮恰好滑进了折页夹层里，幸好我们没有轻言放弃！',
+  resolutionSummary: '原来翻看大张说明书时，红色小齿轮恰好滑进了折页夹层里，直接反驳了“玩具厂没装齿轮”的猜测，幸好我们没有轻言放弃！',
   nextActionChoices: [
     {
       id: 'act_p2_install_gear',
@@ -1428,7 +1438,7 @@ export function getThemedScenarioByInterest(interestId: InterestActivityId): The
 }
 
 /**
- * 获取某兴趣主题下的全部案件列表（至少 2 个不同案件）
+ * 获取某兴趣主题下的全部案件列表（至少 2 个独立案件）
  */
 export function getThemedScenarioCasesByInterest(
   interestId: InterestActivityId
@@ -1449,12 +1459,12 @@ export function getThemedScenarioCase(
 }
 
 /**
- * Sprint 1.2 任务三：修复证据评估过早认证
- * 1. 移除森林案件使用任意两条线索便认定“有证据支持”的兜底逻辑；
- * 2. 引入案件级关键证据条件 (requiredKeyClueIds)；
- * 3. 严格区分：尚未发现足够证据 (INSUFFICIENT_EVIDENCE) / 现有证据支持某种可能 (SUPPORTED_BY_EVIDENCE) /
- *    现有证据反驳某种解释 (CONTRADICTED_BY_EVIDENCE) / 已经检查关键证据仍无法得出唯一结论 (INCONCLUSIVE_AFTER_KEY_EVIDENCE)；
- * 4. 绝不在孩子尚未观察枫叶堆或深树洞时，使用这些尚未发现的物体状态作为反馈依据。
+ * Sprint 2 S2-FIX02：修正证据“不支持”与“反驳”的区别
+ * 建立清晰的四类反馈规则：
+ * 1. 缺乏支持证据 (LACK_OF_SUPPORTING_EVIDENCE)：例如在窗帘下找到蜡笔，不能自动当成皮皮绝不可能碰过蜡笔的排除证据，而是“缺乏支持证据”，不能用“暂时没有证据证明”代替“已经证明不是”；
+ * 2. 存在支持某解释的证据 (SUPPORTED_BY_EVIDENCE)：已发现案件关键物证及佐证事实，有力支持该解释；
+ * 3. 存在真正相互冲突的证据 (CONTRADICTED_BY_EVIDENCE)：仅当已发现的物理事实与该假说发生直接排他冲突时（如假说称“橡果肯定藏在红枫叶堆下”，而翻开红枫叶堆只有空帽壳没有橡果）；
+ * 4. 仍存在多种合理解释 (MULTIPLE_PLAUSIBLE_EXPLANATIONS / INCONCLUSIVE_AFTER_KEY_EVIDENCE)：已查关键证据但多种可能并存，或仅找到单一果态物证尚未查清过程。
  */
 export function evaluateHypothesisAgainstEvidence(
   scenario: ThemedDetectiveScenario,
@@ -1496,23 +1506,17 @@ export function evaluateHypothesisAgainstEvidence(
         : [];
   const hasAllRequiredKeyClues = requiredKeyIds.every((id) => discoveredSet.has(id));
 
-  // 1. 先检查是否已被已发现的物证直接反驳 (CONTRADICTED_BY_EVIDENCE)
-  const contradictingIds =
-    hyp.contradictingClueIds !== undefined
-      ? hyp.contradictingClueIds
-      : !hyp.isSupportedByEvidence && !hyp.isUnknownOption && decisiveFactId
-        ? [decisiveFactId]
-        : [];
-
+  // 1. 仅当假说显式配置了 contradictingClueIds（存在真正相互冲突的物理证据）时，才判定为 CONTRADICTED_BY_EVIDENCE
+  const contradictingIds = hyp.contradictingClueIds ?? [];
   const matchedContradicting = contradictingIds.filter((id) => discoveredSet.has(id));
   if (matchedContradicting.length > 0) {
     return {
       relation: 'CONTRADICTED_BY_EVIDENCE',
       findingState: 'CONTRADICTED_BY_EVIDENCE',
-      badgeLabel: '现有证据反驳',
+      badgeLabel: '存在真正相互冲突的证据 · 现有证据反驳',
       spokenFeedback:
         hyp.contradictedFeedbackText ||
-        `我们找到了关键物证，不过这条线索还没有证明「${hyp.label}」。要不要再看看刚才发现了什么？`,
+        `现场发现的物证与「${hyp.label}」直接相互冲突，反驳了这个解释。我们再看看现场发现了什么吧！`,
       relevantClueIds: matchedContradicting,
     };
   }
@@ -1525,10 +1529,9 @@ export function evaluateHypothesisAgainstEvidence(
         : [];
   const matchedSupporting = supportingIds.filter((id) => discoveredSet.has(id));
 
-  // 2. 针对《森林落叶坚果》等冲突线索/无法得出唯一结论的案件 (isInconclusiveCase)
+  // 2. 针对《森林落叶坚果》等冲突线索/仍存在多种合理解释的案件 (isInconclusiveCase)
   if (scenario.isInconclusiveCase) {
     if (!hasAllRequiredKeyClues) {
-      // 严禁在尚未观察枫叶堆或深树洞时引用其内部状态（如“空帽壳”、“黑漆漆看不清”）
       const discoveredNames = scenario.hotspots
         .filter((h) => discoveredSet.has(h.id))
         .map((h) => h.name);
@@ -1541,17 +1544,17 @@ export function evaluateHypothesisAgainstEvidence(
         badgeLabel: '尚未发现足够证据',
         spokenFeedback: hyp.isUnknownOption
           ? `${discoveredSummary}，还没有把红枫叶堆和深树洞等关键位置都查验完，先去现场把关键物证找齐再下结论吧！`
-          : `${discoveredSummary}，还没有查验完关键位置的物证，现在还不能确认「${hyp.label}」哦！`,
+          : `${discoveredSummary}，还没有查验完关键位置的物证，缺乏足够证据支持「${hyp.label}」哦！`,
         relevantClueIds: matchedSupporting,
       };
     }
 
-    // 已查验全部关键证据（红枫叶堆 + 深树洞），确认案件本身无法得出单一排他结论
+    // 已查验全部关键证据（红枫叶堆 + 深树洞），确认案件仍存在多种合理解释
     if (hyp.isUnknownOption) {
       return {
         relation: 'SUPPORTED_BY_EVIDENCE',
         findingState: 'INCONCLUSIVE_AFTER_KEY_EVIDENCE',
-        badgeLabel: '已查关键证据·仍无唯一结论（有证据支持）',
+        badgeLabel: '仍存在多种合理解释 · 已查关键证据（有证据支持）',
         spokenFeedback:
           hyp.supportedFeedbackText ||
           '太有科学精神了！我们已经查验了关键物证，喜鹊叼走和滚进深洞两种可能都存在，承认“现在证据还不够、还不知道”才是最准确的结论！',
@@ -1562,23 +1565,35 @@ export function evaluateHypothesisAgainstEvidence(
     return {
       relation: 'INSUFFICIENT_EVIDENCE',
       findingState: 'INCONCLUSIVE_AFTER_KEY_EVIDENCE',
-      badgeLabel: '已查关键证据·仍无唯一结论',
+      badgeLabel: '仍存在多种合理解释 · 已查关键证据仍无唯一结论',
       spokenFeedback:
-        '我们已经检查了红枫叶堆和深树洞，虽然树洞口有羽毛，但滚痕也通向看不清内部的深树洞，两种可能都无法排除，不能单凭猜测断定唯一结论哦。',
+        '我们已经检查了红枫叶堆和深树洞，虽然树洞口有羽毛，但滚痕也通向看不清内部的深树洞，仍存在多种合理解释，不能单凭猜测断定唯一结论哦。',
       relevantClueIds: requiredKeyIds,
     };
   }
 
   // 3. 针对真相明确案件（如《美术角绿色蜡笔》）中“我还不知道”选项的评估
   if (hyp.isUnknownOption) {
-    if (hasAllRequiredKeyClues && decisiveFactId && discoveredSet.has(decisiveFactId)) {
+    const discoveredFactCount = factHotspots.filter((h) => discoveredSet.has(h.id)).length;
+    if (hasAllRequiredKeyClues && discoveredFactCount >= 2 && decisiveFactId) {
       return {
         relation: 'INSUFFICIENT_EVIDENCE',
         findingState: 'INSUFFICIENT_EVIDENCE',
-        badgeLabel: '当前证据不足',
+        badgeLabel: '已有支持某解释的证据 · 可更新判断',
         spokenFeedback:
-          '其实我们已经找到关键物证啦！再看看刚才在现场发现的事实，能不能更新一下我们的判断呢？',
+          '其实我们已经找到关键物证和轨迹啦！再看看刚才在现场发现的事实，能不能更新一下我们的判断呢？',
         relevantClueIds: [decisiveFactId],
+      };
+    }
+
+    if (hasAllRequiredKeyClues && discoveredFactCount < 2) {
+      return {
+        relation: 'INSUFFICIENT_EVIDENCE',
+        findingState: 'MULTIPLE_PLAUSIBLE_EXPLANATIONS',
+        badgeLabel: '仍存在多种合理解释',
+        spokenFeedback:
+          '虽然找到了物品的位置，但还没看清它是怎么滚过去的，仍存在多种合理解释，再去看看地面或桌角的痕迹吧！',
+        relevantClueIds: requiredKeyIds,
       };
     }
 
@@ -1592,42 +1607,54 @@ export function evaluateHypothesisAgainstEvidence(
     };
   }
 
-  // 4. 针对受证据支持的假设（必须已发现案件级关键物证 + 至少一条关联物证，不再用 discoveredSet.size >= 2 兜底）
+  // 4. 针对受证据支持的假设（如“被小猫碰滚到了窗帘下”）
   if (hyp.isSupportedByEvidence) {
-    const hasCorroboratingFact =
-      factHotspots.filter((h) => discoveredSet.has(h.id)).length >= 2;
-    const hasKeySupport = hasAllRequiredKeyClues && hasCorroboratingFact;
+    const discoveredFactCount = factHotspots.filter((h) => discoveredSet.has(h.id)).length;
+    const hasKeySupport = hasAllRequiredKeyClues && discoveredFactCount >= 2;
 
     if (hasKeySupport) {
       return {
         relation: 'SUPPORTED_BY_EVIDENCE',
         findingState: 'SUPPORTED_BY_EVIDENCE',
-        badgeLabel: '有证据支持',
+        badgeLabel: '存在支持某解释的证据（有证据支持）',
         spokenFeedback:
           hyp.supportedFeedbackText ||
-          `有理有据！现场找到的真实物证正好支持「${hyp.label}」！`,
+          `存在支持该解释的证据！现场找到的真实物证支持「${hyp.label}」！`,
         relevantClueIds: matchedSupporting.length > 0 ? matchedSupporting : requiredKeyIds,
+      };
+    }
+
+    if (hasAllRequiredKeyClues && discoveredFactCount < 2) {
+      return {
+        relation: 'INSUFFICIENT_EVIDENCE',
+        findingState: 'MULTIPLE_PLAUSIBLE_EXPLANATIONS',
+        badgeLabel: '仍存在多种合理解释',
+        spokenFeedback:
+          '我们已经找到了关键物品，但还没查看周围的轨迹线索，目前仍存在多种合理解释，再去场景里找找脚印或桌面痕迹吧！',
+        relevantClueIds: requiredKeyIds,
       };
     }
 
     return {
       relation: 'INSUFFICIENT_EVIDENCE',
       findingState: 'INSUFFICIENT_EVIDENCE',
-      badgeLabel: '尚未发现足够证据',
+      badgeLabel: '缺乏支持证据',
       spokenFeedback:
         hyp.insufficientEvidenceFeedbackText ||
-        '这个方向很有道理，不过关键物证还没找齐，再去场景里翻一翻、看一看吧！',
+        '这个方向很有可能，不过关键物证还没找齐，目前还缺乏足够的支持证据，再去场景里翻一翻、看一看吧！',
       relevantClueIds: matchedSupporting,
     };
   }
 
+  // 5. 针对缺乏证据支持的同伴猜测（如《美术角绿色蜡笔》中的“肯定是皮皮偷偷拿走了”）：
+  // 严格区分“缺乏支持证据”与“已经反驳排除”，绝不用“暂时没有证据证明”代替“已经证明不是”
   return {
     relation: 'INSUFFICIENT_EVIDENCE',
-    findingState: 'INSUFFICIENT_EVIDENCE',
-    badgeLabel: '尚未发现足够证据',
+    findingState: 'LACK_OF_SUPPORTING_EVIDENCE',
+    badgeLabel: '缺乏支持证据',
     spokenFeedback:
       hyp.insufficientEvidenceFeedbackText ||
-      '目前找到的现场线索还不能证明这个想法哦，再去场景里找找其他物证吧！',
+      `目前找到的现场线索缺乏支持「${hyp.label}」的证据；我们既不能凭空认定它是真的，也不能把“暂时没有证据证明”当成“已经证明绝对不是”，去看看现场物证支持哪种解释吧！`,
     relevantClueIds: [],
   };
 }

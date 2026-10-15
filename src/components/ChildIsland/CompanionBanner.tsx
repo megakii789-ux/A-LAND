@@ -6,6 +6,11 @@ import { speechNarrator, KaraokeSyncState, normalizeTextForTtsKey } from '../../
 import { sounds } from '../../utils/sound';
 import { CompanionAvatarSvg, InterestBadgeSvg } from './CompanionIcons';
 import { tokens } from '../../design-system/tokens';
+import {
+  getProductExperienceMetrics,
+  subscribeProductExperienceMetrics,
+  CompanionSessionMemory,
+} from '../../domain/cognitive/productExperienceMetrics';
 
 interface Props {
   onSpeakGreeting?: () => void;
@@ -17,13 +22,27 @@ interface Props {
  * - 展示儿童自选的中性动物伙伴原创 SVG 形象 (果果/贝贝/天天/奇奇)
  * - 自动联动切换该伙伴专属的真实神经语音音色与 Web Audio 乐器调式
  * - 朗读问候语时支持毫秒级逐词高亮伴读 (Karaoke Highlighting) 与伙伴姿态切换
+ * - Sprint 2: 记住孩子在当前会话中的具体选择（如社交边界表达或小船协商方案）
  * - 核心操作按钮符合 >= 56x56px 触控标准
  */
 export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
   const { personalization } = useApp();
   const companion = ANIMAL_COMPANIONS[personalization.companionId] || ANIMAL_COMPANIONS.guoguo_squirrel;
   const interest = INTEREST_ACTIVITIES[personalization.primaryInterest] || INTEREST_ACTIVITIES.drawing;
-  const greetingText = `你好呀！我是${companion.name}。${companion.greetingText}`;
+  const [sessionMemory, setSessionMemory] = useState<CompanionSessionMemory | null>(
+    () => getProductExperienceMetrics().latestCompanionMemory
+  );
+
+  useEffect(() => {
+    setSessionMemory(getProductExperienceMetrics().latestCompanionMemory);
+    return subscribeProductExperienceMetrics((m) => {
+      setSessionMemory(m.latestCompanionMemory);
+    });
+  }, []);
+
+  const greetingText = sessionMemory
+    ? `你好呀！我是${companion.name}。${sessionMemory.companionReactionText}`
+    : `你好呀！我是${companion.name}。${companion.greetingText}`;
 
   const [isSpeaking, setIsSpeaking] = useState<boolean>(speechNarrator.getSpeaking());
   const [karaoke, setKaraoke] = useState<KaraokeSyncState>(speechNarrator.getKaraokeState());
@@ -90,6 +109,14 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
               <InterestBadgeSvg interestId={interest.id} className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               <span>{interest.label}</span>
             </span>
+            {sessionMemory && (
+              <span
+                data-testid="companion-session-memory"
+                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-black px-2.5 py-0.5 rounded-xl bg-emerald-100 text-emerald-950 border border-emerald-300 min-w-0 max-w-full break-words"
+              >
+                <span className="min-w-0 break-words">🌟 伙伴记得：{sessionMemory.childChoiceSummary}</span>
+              </span>
+            )}
           </div>
 
           {isSpeakingThisGreeting ? (
@@ -113,7 +140,10 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
               ))}
             </p>
           ) : (
-            <p className="text-xs sm:text-base text-stone-700 mt-0.5 sm:mt-1 leading-snug sm:leading-relaxed font-medium line-clamp-1 sm:line-clamp-none">
+            <p
+              data-testid="companion-greeting-text"
+              className="text-xs sm:text-base text-stone-700 mt-0.5 sm:mt-1 leading-snug sm:leading-relaxed font-medium line-clamp-1 sm:line-clamp-none"
+            >
               {greetingText}
             </p>
           )}

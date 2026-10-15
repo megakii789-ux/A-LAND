@@ -17,6 +17,9 @@ import {
   resetProductExperienceMetrics,
   recordLandmarkVisit,
   clearActiveLandmarkSession,
+  recordDetectiveCaseCompletion,
+  recordDetectiveCaseState,
+  resetCaseSessionDeduplication,
 } from '../domain/cognitive/productExperienceMetrics';
 import {
   grantParentAccess,
@@ -529,8 +532,10 @@ describe('Sprint 1.1 Playability & Cognitive Loop Deepening', () => {
     const feedbackBox = view.findByTestId('hypothesis-evaluation-feedback');
     expect(feedbackBox).toBeTruthy();
     const feedbackText = view.getText();
-    expect(feedbackText).toContain('我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它。要不要再看看刚才发现了什么？');
-    expect(view.findByTestId('hypothesis-evaluation-badge')?.props['data-relation']).toBe('CONTRADICTED_BY_EVIDENCE');
+    expect(feedbackText).toContain('我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它');
+    expect(feedbackText).toContain('缺乏支持证据');
+    expect(view.findByTestId('hypothesis-evaluation-badge')?.props['data-relation']).toBe('INSUFFICIENT_EVIDENCE');
+    expect(view.findByTestId('hypothesis-evaluation-badge')?.props['data-finding-state']).toBe('LACK_OF_SUPPORTING_EVIDENCE');
 
     // Now child revises to evidence-supported hypothesis "可能被小动物或什么东西碰滚走了"
     const reviseRolledBtn = view.findByTestId('revise-hypothesis-hyp_rolled_away');
@@ -797,6 +802,95 @@ describe('Sprint 1.1 Playability & Cognitive Loop Deepening', () => {
     expect(metrics.independentDetectiveCaseIds).toEqual([]);
 
     view.unmount();
+  });
+
+  // =========================================================================
+  // Sprint 2 前置定向修复：S2-FIX01 & S2-FIX02
+  // =========================================================================
+
+  it('S2-FIX01 Regression Test: Checking the same completion state 3 times records only 1 participation; replaying records a new session; missing verification fields never default to pass', () => {
+    const caseId = 'scenario_detective_drawing_v1';
+
+    // 1. Missing/incomplete verification fields must NEVER default to pass
+    recordDetectiveCaseCompletion(caseId, 0, {
+      discoveredClueCount: 3,
+      hasSelectedHypothesis: true,
+      hasSelectedAction: true,
+      // Missing hasKeyEvidence / hasAttemptedSorting / hasCheckedHypothesisWithEvidence / hasProportionateAction
+    });
+    expect(getChildSessionExperienceMetrics().completedDetectiveCaseIds).toEqual([]);
+    expect(getChildSessionExperienceMetrics().taskParticipationCounts[caseId] || 0).toBe(0);
+
+    // 2. Starting and checking completion state 3 times in a single session records participation ONLY ONCE
+    recordDetectiveCaseState(caseId, 'EXPLORING');
+    const validVerification = {
+      discoveredClueCount: 3,
+      hasSelectedHypothesis: true,
+      hasSelectedAction: true,
+      hasKeyEvidence: true,
+      hasAttemptedSorting: true,
+      hasCheckedHypothesisWithEvidence: true,
+      hasProportionateAction: true,
+      hasViewedReferenceBeforeCompletion: false,
+    };
+
+    recordDetectiveCaseCompletion(caseId, 1, validVerification);
+    recordDetectiveCaseCompletion(caseId, 1, validVerification);
+    recordDetectiveCaseCompletion(caseId, 1, validVerification);
+    recordDetectiveCaseState(caseId, 'COMPLETED');
+
+    const metricsAfterThreeChecks = getChildSessionExperienceMetrics();
+    expect(metricsAfterThreeChecks.taskParticipationCounts[caseId]).toBe(1);
+    expect(metricsAfterThreeChecks.completedDetectiveCaseIds).toEqual([caseId]);
+
+    // 3. Replaying the same case (resetting session deduplication) records a 2nd session participation while completed cases stays 1
+    resetCaseSessionDeduplication(caseId);
+    recordDetectiveCaseState(caseId, 'EXPLORING');
+    recordDetectiveCaseCompletion(caseId, 1, validVerification);
+
+    const metricsAfterReplay = getChildSessionExperienceMetrics();
+    expect(metricsAfterReplay.taskParticipationCounts[caseId]).toBe(2);
+    expect(metricsAfterReplay.completedDetectiveCaseIds).toEqual([caseId]);
+  });
+
+  it('S2-FIX02 Regression Test: Finding the green crayon under the curtain is LACK_OF_SUPPORTING_EVIDENCE (not CONTRADICTED_BY_EVIDENCE) for Pipi taking it, and all 4 evidence states are distinct', () => {
+    const drawingCase = getThemedScenarioCase('drawing', 0);
+
+    // 1. Finding crayon under curtain (hs_curtain) + cat tracks (hs_cat_tracks) does NOT prove Pipi never touched it -> LACK_OF_SUPPORTING_EVIDENCE
+    const pipiEval = evaluateHypothesisAgainstEvidence(drawingCase, 'hyp_peer_took', [
+      'hs_curtain',
+      'hs_cat_tracks',
+    ]);
+    expect(pipiEval.relation).toBe('INSUFFICIENT_EVIDENCE');
+    expect(pipiEval.findingState).toBe('LACK_OF_SUPPORTING_EVIDENCE');
+    expect(pipiEval.badgeLabel).toBe('缺乏支持证据');
+    expect(pipiEval.spokenFeedback).toContain('不能把“暂时没有证据证明”直接当成“已经证明不是”');
+
+    // 2. Supported by evidence state -> SUPPORTED_BY_EVIDENCE
+    const catEval = evaluateHypothesisAgainstEvidence(drawingCase, 'hyp_rolled_away', [
+      'hs_curtain',
+      'hs_cat_tracks',
+    ]);
+    expect(catEval.relation).toBe('SUPPORTED_BY_EVIDENCE');
+    expect(catEval.findingState).toBe('SUPPORTED_BY_EVIDENCE');
+    expect(catEval.badgeLabel).toContain('存在支持某解释的证据');
+
+    // 3. Multiple plausible explanations when only curtain is found without floor tracks -> MULTIPLE_PLAUSIBLE_EXPLANATIONS
+    const partialCatEval = evaluateHypothesisAgainstEvidence(drawingCase, 'hyp_rolled_away', [
+      'hs_curtain',
+    ]);
+    expect(partialCatEval.relation).toBe('INSUFFICIENT_EVIDENCE');
+    expect(partialCatEval.findingState).toBe('MULTIPLE_PLAUSIBLE_EXPLANATIONS');
+    expect(partialCatEval.badgeLabel).toBe('仍存在多种合理解释');
+
+    // 4. Genuine conflicting evidence in Forest Case (empty acorn cap under maple leaf pile directly contradicts "acorn is sitting inside the maple leaf pile") -> CONTRADICTED_BY_EVIDENCE
+    const natureCase = getThemedScenarioCase('nature', 0);
+    const contradictedEval = evaluateHypothesisAgainstEvidence(natureCase, 'hyp_nat_wind', [
+      'hs_nature_leaf_pile',
+    ]);
+    expect(contradictedEval.relation).toBe('CONTRADICTED_BY_EVIDENCE');
+    expect(contradictedEval.findingState).toBe('CONTRADICTED_BY_EVIDENCE');
+    expect(contradictedEval.badgeLabel).toContain('存在真正相互冲突的证据');
   });
 });
 

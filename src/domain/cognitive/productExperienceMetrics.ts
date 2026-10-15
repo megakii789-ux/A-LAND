@@ -26,6 +26,34 @@ export type TransferTaskStatus =
   | 'COMPLETED_WITH_PROMPT'
   | 'ENDED_EARLY';
 
+export interface FriendHomeSessionSnapshot {
+  activeScenarioId: string;
+  currentNodeId: string;
+  historyNodeIds: string[];
+  chosenExpressionModes: string[];
+  chosenChoiceLabels: string[];
+  isCompleted: boolean;
+}
+
+export interface ToyBoatSessionSnapshot {
+  activeTaskId: string;
+  firstTurnActor: 'rabbit' | 'bear' | 'both';
+  turnDurationSeconds: number;
+  planStrategy: 'TURN_WAIT' | 'COOPERATE_ROLES' | 'EXCHANGE_ALT';
+  waitingActivityId: string;
+  boatPositionZone: 'RABBIT_DOCK' | 'CENTER_POND' | 'BEAR_DOCK' | 'CANAL_HARBOR';
+  executionPhase: 'PLANNING' | 'RUNNING' | 'OBSERVED_RESULT';
+  completedRoundCount: number;
+}
+
+export interface CompanionSessionMemory {
+  gameId: 'friend_asks_home' | 'toy_boat' | 'crayon_detective';
+  scenarioTitle: string;
+  childChoiceSummary: string;
+  companionReactionText: string;
+  updatedAt: string;
+}
+
 export interface ProductExperienceMetrics {
   sessionScope: MetricsSessionScope;
   completedDetectiveCaseIds: string[];
@@ -54,6 +82,16 @@ export interface ProductExperienceMetrics {
   voluntaryExitNodes: string[];
   /** Section 8.3: 不同任务的真实参与次数 */
   taskParticipationCounts: Record<string, number>;
+  /** Sprint 2: 《朋友问起我的家》已体验完成的多轮情境 ID */
+  completedFriendHomeScenarioIds: string[];
+  /** Sprint 2: 《玩具船协商》已执行观察完成的任务 ID */
+  completedToyBoatTaskIds: string[];
+  /** Sprint 2: 《朋友问起我的家》退出再进入时的任务恢复快照 */
+  friendHomeSessionState: FriendHomeSessionSnapshot | null;
+  /** Sprint 2: 《玩具船协商》退出再进入时的任务恢复快照 */
+  toyBoatSessionState: ToyBoatSessionSnapshot | null;
+  /** Sprint 2: 动物伙伴对孩子当前会话具体选择的温暖记忆 */
+  latestCompanionMemory: CompanionSessionMemory | null;
   lastUpdatedAt: string | null;
 }
 
@@ -83,6 +121,11 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
     totalPromptCalls: 0,
     voluntaryExitNodes: [],
     taskParticipationCounts: {},
+    completedFriendHomeScenarioIds: [],
+    completedToyBoatTaskIds: [],
+    friendHomeSessionState: null,
+    toyBoatSessionState: null,
+    latestCompanionMemory: null,
     lastUpdatedAt: null,
   };
 }
@@ -96,6 +139,7 @@ let lastVisitedLandmarkKey: string | null = null;
 let lastVisitedLandmarkTimestamp = 0;
 const rewardedUnknownContextKeys = new Set<string>();
 const recordedRevisionTransitionKeys = new Set<string>();
+const activeSessionParticipationKeys = new Set<string>();
 
 export function getActiveMetricsScope(): MetricsSessionScope {
   return isInternalPlaytestEnabled() ? 'PLAYTEST' : 'CHILD_SESSION';
@@ -193,6 +237,24 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
         parsed.taskParticipationCounts && typeof parsed.taskParticipationCounts === 'object'
           ? parsed.taskParticipationCounts
           : {},
+      completedFriendHomeScenarioIds: Array.isArray(parsed.completedFriendHomeScenarioIds)
+        ? parsed.completedFriendHomeScenarioIds
+        : [],
+      completedToyBoatTaskIds: Array.isArray(parsed.completedToyBoatTaskIds)
+        ? parsed.completedToyBoatTaskIds
+        : [],
+      friendHomeSessionState:
+        parsed.friendHomeSessionState && typeof parsed.friendHomeSessionState === 'object'
+          ? parsed.friendHomeSessionState
+          : null,
+      toyBoatSessionState:
+        parsed.toyBoatSessionState && typeof parsed.toyBoatSessionState === 'object'
+          ? parsed.toyBoatSessionState
+          : null,
+      latestCompanionMemory:
+        parsed.latestCompanionMemory && typeof parsed.latestCompanionMemory === 'object'
+          ? parsed.latestCompanionMemory
+          : null,
       lastUpdatedAt: typeof parsed.lastUpdatedAt === 'string' ? parsed.lastUpdatedAt : null,
     };
   } catch {
@@ -302,7 +364,11 @@ export function recordActiveExploration(taskKey?: string): ProductExperienceMetr
   const current = getProductExperienceMetrics(scope);
   const nextParticipation = { ...current.taskParticipationCounts };
   if (taskKey) {
-    nextParticipation[taskKey] = (nextParticipation[taskKey] || 0) + 1;
+    const sessionKey = `${scope}:${taskKey}`;
+    if (!activeSessionParticipationKeys.has(sessionKey)) {
+      activeSessionParticipationKeys.add(sessionKey);
+      nextParticipation[taskKey] = (nextParticipation[taskKey] || 0) + 1;
+    }
   }
   return saveProductExperienceMetrics(
     {
@@ -340,9 +406,22 @@ export function recordDetectiveCaseState(
       ? [...current.earlyPeekedDetectiveCaseIds, caseId]
       : current.earlyPeekedDetectiveCaseIds;
 
+  // S2-FIX01: 一次实际开始的游戏会话只记录一次参与
+  const nextParticipation = { ...current.taskParticipationCounts };
+  let participationChanged = false;
+  if (status === 'EXPLORING' || status === 'REFLECTING' || status === 'ACTION_SELECTED') {
+    const sessionKey = `${scope}:${caseId}`;
+    if (!activeSessionParticipationKeys.has(sessionKey)) {
+      activeSessionParticipationKeys.add(sessionKey);
+      nextParticipation[caseId] = (nextParticipation[caseId] || 0) + 1;
+      participationChanged = true;
+    }
+  }
+
   if (
     current.detectiveCaseStates[caseId] === status &&
-    nextEarlyPeeked.length === current.earlyPeekedDetectiveCaseIds.length
+    nextEarlyPeeked.length === current.earlyPeekedDetectiveCaseIds.length &&
+    !participationChanged
   ) {
     return current;
   }
@@ -354,6 +433,7 @@ export function recordDetectiveCaseState(
         ...current.detectiveCaseStates,
         [caseId]: status,
       },
+      taskParticipationCounts: nextParticipation,
     },
     scope
   );
@@ -375,12 +455,13 @@ export function recordClueClassificationAttempt(isCorrectFirstTry: boolean): Pro
 }
 
 /**
- * 重置指定案件的“不知道”与“修正”单回合去重锁（在点击“重新开始”或切换案件时调用）
+ * 重置指定案件的“不知道”、“修正”与“单次会话参与”去重锁（在点击“重新开始/重玩”或切换案件时调用，允许重玩记录新的真实会话）
  */
 export function resetCaseSessionDeduplication(caseId?: string): void {
   if (!caseId) {
     rewardedUnknownContextKeys.clear();
     recordedRevisionTransitionKeys.clear();
+    activeSessionParticipationKeys.clear();
     return;
   }
   for (const key of Array.from(rewardedUnknownContextKeys)) {
@@ -391,6 +472,11 @@ export function resetCaseSessionDeduplication(caseId?: string): void {
   for (const key of Array.from(recordedRevisionTransitionKeys)) {
     if (key.includes(caseId)) {
       recordedRevisionTransitionKeys.delete(key);
+    }
+  }
+  for (const key of Array.from(activeSessionParticipationKeys)) {
+    if (key.endsWith(`:${caseId}`) || key.includes(caseId)) {
+      activeSessionParticipationKeys.delete(key);
     }
   }
 }
@@ -459,10 +545,10 @@ export function recordHypothesisRevision(
 export interface DetectiveCompletionVerification {
   status?: DetectiveCaseStatus;
   discoveredClueCount: number;
-  hasKeyEvidence?: boolean;
-  hasAttemptedSorting?: boolean;
-  hasCheckedHypothesisWithEvidence?: boolean;
-  hasProportionateAction?: boolean;
+  hasKeyEvidence: boolean;
+  hasAttemptedSorting: boolean;
+  hasCheckedHypothesisWithEvidence: boolean;
+  hasProportionateAction: boolean;
   hasViewedReferenceBeforeCompletion?: boolean;
   hasReflectedOrSorted?: boolean;
   hasSelectedHypothesis?: boolean;
@@ -470,14 +556,15 @@ export interface DetectiveCompletionVerification {
 }
 
 /**
- * 记录侦探案件完成：
- * 必须经过真实认知闭环（关键证据获取 + 区分观察与推测 + 结合证据核验判断 + 相称行动选择），
- * 并严格区分「独立探索完成 (COMPLETED)」与「提前查看参考后完成 (COMPLETED_AFTER_REFERENCE)」。
+ * S2-FIX01 记录侦探案件完成：
+ * 1. 必须要求完整且明确的验证条件（discoveredClueCount >= 2 且 hasKeyEvidence / hasAttemptedSorting / hasCheckedHypothesisWithEvidence / hasProportionateAction 均显式为 true），绝不接受缺省字段被默认为通过；
+ * 2. 一次实际开始的游戏会话只记录一次参与，已完成案件重新检查状态不增加新会话次数；
+ * 3. 完成案例数量（completedDetectiveCaseIds）与参与会话次数（taskParticipationCounts）分别统计。
  */
 export function recordDetectiveCaseCompletion(
   caseId: string,
-  operationCountOrVerification?: number | DetectiveCompletionVerification,
-  explicitVerification?: DetectiveCompletionVerification
+  operationCountOrVerification?: number | Partial<DetectiveCompletionVerification>,
+  explicitVerification?: Partial<DetectiveCompletionVerification>
 ): ProductExperienceMetrics {
   const scope = getActiveMetricsScope();
   const current = getProductExperienceMetrics(scope);
@@ -489,30 +576,37 @@ export function recordDetectiveCaseCompletion(
       ? operationCountOrVerification
       : explicitVerification;
 
-  if (verification) {
-    const hasThoughtStep = Boolean(
-      verification.hasReflectedOrSorted ?? verification.hasSelectedHypothesis ?? true
-    );
-    const meetsCognitiveCriteria =
+  const hasExplicitCompleteVerification = Boolean(
+    verification &&
+      typeof verification.discoveredClueCount === 'number' &&
       verification.discoveredClueCount >= 2 &&
-      hasThoughtStep &&
-      verification.hasKeyEvidence !== false &&
-      verification.hasAttemptedSorting !== false &&
-      verification.hasCheckedHypothesisWithEvidence !== false &&
-      verification.hasProportionateAction !== false;
+      verification.hasKeyEvidence === true &&
+      verification.hasAttemptedSorting === true &&
+      verification.hasCheckedHypothesisWithEvidence === true &&
+      verification.hasProportionateAction === true
+  );
 
-    if (!meetsCognitiveCriteria) {
-      return saveProductExperienceMetrics(
-        {
-          ...current,
-          detectiveCaseStates: {
-            ...current.detectiveCaseStates,
-            [caseId]: verification.discoveredClueCount === 0 ? 'ENDED_EARLY' : 'EXPLORING',
-          },
+  if (!hasExplicitCompleteVerification) {
+    const discoveredCount =
+      typeof verification?.discoveredClueCount === 'number' ? verification.discoveredClueCount : 0;
+    const fallbackStatus: DetectiveCaseStatus =
+      current.detectiveCaseStates[caseId] === 'COMPLETED' ||
+      current.detectiveCaseStates[caseId] === 'COMPLETED_AFTER_REFERENCE'
+        ? current.detectiveCaseStates[caseId]
+        : discoveredCount === 0
+          ? 'ENDED_EARLY'
+          : 'EXPLORING';
+
+    return saveProductExperienceMetrics(
+      {
+        ...current,
+        detectiveCaseStates: {
+          ...current.detectiveCaseStates,
+          [caseId]: fallbackStatus,
         },
-        scope
-      );
-    }
+      },
+      scope
+    );
   }
 
   const wasEarlyReferenceViewed = Boolean(
@@ -543,10 +637,14 @@ export function recordDetectiveCaseCompletion(
   const nextLandmarks = current.visitedLandmarks.includes('detective')
     ? current.visitedLandmarks
     : [...current.visitedLandmarks, 'detective'];
-  const nextParticipation = {
-    ...current.taskParticipationCounts,
-    [caseId]: (current.taskParticipationCounts[caseId] || 0) + 1,
-  };
+
+  // S2-FIX01: 同一会话仅记录一次参与；已完成案件重复检查完成状态不增加新会话次数
+  const sessionKey = `${scope}:${caseId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[caseId] = (nextParticipation[caseId] || 0) + 1;
+  }
 
   return saveProductExperienceMetrics(
     {
@@ -655,10 +753,12 @@ export function recordTransferScenarioCompletion(
   const nextScenarios = isFirstCompletionForScenario
     ? [...current.completedTransferScenarioIds, scenarioId]
     : current.completedTransferScenarioIds;
-  const nextParticipation = {
-    ...current.taskParticipationCounts,
-    [scenarioId]: (current.taskParticipationCounts[scenarioId] || 0) + 1,
-  };
+  const sessionKey = `${scope}:${scenarioId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[scenarioId] = (nextParticipation[scenarioId] || 0) + 1;
+  }
 
   return saveProductExperienceMetrics(
     {
@@ -679,12 +779,84 @@ export function recordTransferScenarioCompletion(
   );
 }
 
+/**
+ * Sprint 2: 记录《朋友问起我的家》多轮社交情境进展、可恢复任务状态与动物伙伴记忆
+ */
+export function recordFriendHomeSessionProgress(
+  snapshot: FriendHomeSessionSnapshot,
+  companionMemory?: CompanionSessionMemory
+): ProductExperienceMetrics {
+  const scope = getActiveMetricsScope();
+  const current = getProductExperienceMetrics(scope);
+
+  const nextCompleted =
+    snapshot.isCompleted && !current.completedFriendHomeScenarioIds.includes(snapshot.activeScenarioId)
+      ? [...current.completedFriendHomeScenarioIds, snapshot.activeScenarioId]
+      : current.completedFriendHomeScenarioIds;
+
+  const sessionKey = `${scope}:friend_home:${snapshot.activeScenarioId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[`friend_home:${snapshot.activeScenarioId}`] =
+      (nextParticipation[`friend_home:${snapshot.activeScenarioId}`] || 0) + 1;
+  }
+
+  return saveProductExperienceMetrics(
+    {
+      ...current,
+      completedFriendHomeScenarioIds: nextCompleted,
+      friendHomeSessionState: snapshot,
+      latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
+      taskParticipationCounts: nextParticipation,
+    },
+    scope
+  );
+}
+
+/**
+ * Sprint 2: 记录《玩具船协商》物体操作与协商方案进展、可恢复任务状态与动物伙伴记忆
+ */
+export function recordToyBoatSessionProgress(
+  snapshot: ToyBoatSessionSnapshot,
+  companionMemory?: CompanionSessionMemory
+): ProductExperienceMetrics {
+  const scope = getActiveMetricsScope();
+  const current = getProductExperienceMetrics(scope);
+
+  const isTaskCompleted = snapshot.executionPhase === 'OBSERVED_RESULT' || snapshot.completedRoundCount > 0;
+  const nextCompleted =
+    isTaskCompleted && !current.completedToyBoatTaskIds.includes(snapshot.activeTaskId)
+      ? [...current.completedToyBoatTaskIds, snapshot.activeTaskId]
+      : current.completedToyBoatTaskIds;
+
+  const sessionKey = `${scope}:toy_boat:${snapshot.activeTaskId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[`toy_boat:${snapshot.activeTaskId}`] =
+      (nextParticipation[`toy_boat:${snapshot.activeTaskId}`] || 0) + 1;
+  }
+
+  return saveProductExperienceMetrics(
+    {
+      ...current,
+      completedToyBoatTaskIds: nextCompleted,
+      toyBoatSessionState: snapshot,
+      latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
+      taskParticipationCounts: nextParticipation,
+    },
+    scope
+  );
+}
+
 export function resetProductExperienceMetrics(explicitScope?: MetricsSessionScope): ProductExperienceMetrics {
   preFirstEntryActionCounter = 0;
   lastVisitedLandmarkKey = null;
   lastVisitedLandmarkTimestamp = 0;
   rewardedUnknownContextKeys.clear();
   recordedRevisionTransitionKeys.clear();
+  activeSessionParticipationKeys.clear();
 
   if (typeof window !== 'undefined' && window.localStorage) {
     try {

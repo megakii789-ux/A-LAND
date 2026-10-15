@@ -34,6 +34,7 @@ import {
   recordDetectiveCaseState,
   recordHypothesisRevision,
   recordUnknownHonestyChoice,
+  resetCaseSessionDeduplication,
   subscribeProductExperienceMetrics,
 } from '../../../domain/cognitive/productExperienceMetrics';
 import { ParentGateModal } from '../../ParentGateModal';
@@ -583,6 +584,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   }, [activeTheme, activeCaseIndex]);
 
   const resetCaseState = (targetScenarioIntro: string) => {
+    resetCaseSessionDeduplication(scenario.id);
     setCaseStatus('NOT_STARTED');
     setDiscoveredClueIds([]);
     setHighlightedHotspotIds([]);

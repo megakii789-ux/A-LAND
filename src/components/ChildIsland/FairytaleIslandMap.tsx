@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Volume2, Sparkles, Wind, BookOpen, Search, Shield, Heart, Moon, Sun, Wrench, Compass, Eye, CheckCircle2 } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { IslandPlace } from '../../context/AppContext';
 import { IslandUiIconSvg } from './CompanionIcons';
-import { loadProductExperienceMetrics, recordLandmarkVisit } from '../../domain/cognitive/productExperienceMetrics';
+import {
+  loadProductExperienceMetrics,
+  recordLandmarkVisit,
+  subscribeProductExperienceMetrics,
+} from '../../domain/cognitive/productExperienceMetrics';
 
 export interface FairytaleIslandMapProps {
   onSelectPlace?: (place: IslandPlace) => void;
@@ -74,8 +78,18 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
   rainCount = 0,
 }) => {
   const [activeLandmark, setActiveLandmark] = useState<LandmarkId | null>(null);
+  const [, setMetricsTick] = useState(0);
+
+  useEffect(() => {
+    return subscribeProductExperienceMetrics(() => {
+      setMetricsTick((v) => v + 1);
+    });
+  }, []);
+
   const expMetrics = loadProductExperienceMetrics();
   const solvedCasesCount = completedDetectiveCasesCount ?? expMetrics.completedDetectiveCaseIds.length;
+  const completedFriendHomeCount = expMetrics.completedFriendHomeScenarioIds.length;
+  const completedToyBoatCount = expMetrics.completedToyBoatTaskIds.length;
 
   const landmarks: LandmarkData[] = [
     {
@@ -172,9 +186,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       id: 'bridge',
       placeKey: 'bridge',
       title: '双向桥小驿',
-      subTitle: '两个温暖家 · 日程安心想念',
-      tag: '温暖两家',
-      desc: '一座美丽的木拱桥连着两头温暖的家，看日程表、收拾书包、想念可以安心说。',
+      subTitle:
+        completedToyBoatCount > 0
+          ? `小船已顺畅通航 ${completedToyBoatCount} 次 · 两个温暖家`
+          : '两个温暖家 · 日程安心想念',
+      tag: completedToyBoatCount > 0 ? `已通航 ${completedToyBoatCount} 次` : '温暖两家',
+      desc:
+        completedToyBoatCount > 0
+          ? `桥下溪流的小木船已完成 ${completedToyBoatCount} 项协商试航！两头温暖的家连得更紧密啦。`
+          : '一座美丽的木拱桥连着两头温暖的家，看日程表、收拾书包、想念可以安心说。',
       actionText: '踏上双向小桥',
       ariaLabel: '进入双向桥小驿（进入照顾小桥）：两个温暖的家，看日程安排、收拾小书包与安心想念',
       colorScheme: {
@@ -228,9 +248,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       id: 'courage',
       placeKey: 'courage',
       title: '勇气小屋',
-      subTitle: '练习说真心话 · 学会坚定说不',
-      tag: '安全表达',
-      desc: '在大树下温暖的小木屋里，练习把心里话告诉可信赖的大人，保护自己的身体与心。',
+      subTitle:
+        completedFriendHomeCount > 0
+          ? `已点亮 ${completedFriendHomeCount} 朵边界小花 · 学会坚定说不`
+          : '练习说真心话 · 学会坚定说不',
+      tag: completedFriendHomeCount > 0 ? `已表达 ${completedFriendHomeCount} 幕` : '安全表达',
+      desc:
+        completedFriendHomeCount > 0
+          ? `勇气小屋花园已点亮 ${completedFriendHomeCount} 朵边界守护花！你懂得按自己的意愿表达和求助啦。`
+          : '在大树下温暖的小木屋里，练习把心里话告诉可信赖的大人，保护自己的身体与心。',
       actionText: '进屋练习说话',
       ariaLabel: '进入勇气小屋（进入勇气说话屋）：练习把心里话说出来，有权说不，找可信任的大人',
       colorScheme: {
@@ -412,6 +438,22 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               <span className="text-[11px] font-bold bg-amber-100 text-amber-950 px-2.5 py-0.5 rounded-full border border-amber-300">
                 🔍 已破案 {solvedCasesCount} 起
               </span>
+              {completedFriendHomeCount > 0 && (
+                <span
+                  data-testid="island-friend-home-progress-badge"
+                  className="text-[11px] font-bold bg-rose-100 text-rose-950 px-2.5 py-0.5 rounded-full border border-rose-300"
+                >
+                  🛡️ 边界表达 {completedFriendHomeCount} 幕
+                </span>
+              )}
+              {completedToyBoatCount > 0 && (
+                <span
+                  data-testid="island-toy-boat-progress-badge"
+                  className="text-[11px] font-bold bg-teal-100 text-teal-950 px-2.5 py-0.5 rounded-full border border-teal-300"
+                >
+                  ⛵ 小船协商 {completedToyBoatCount} 项
+                </span>
+              )}
               <span className="text-[11px] font-bold bg-emerald-100 text-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-300">
                 📖 已读故事 {completedStoriesCount} 篇
               </span>
@@ -424,14 +466,17 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 </span>
               )}
             </div>
-            {solvedCasesCount > 0 && (
+            {(solvedCasesCount > 0 || completedFriendHomeCount > 0 || completedToyBoatCount > 0) && (
               <div
                 data-testid="island-world-reaction-banner"
                 className="mt-1.5 px-3 py-1.5 rounded-xl bg-amber-100/90 border border-amber-300 text-xs font-bold text-amber-950 flex items-center gap-1.5"
               >
                 <span>✨</span>
                 <span>
-                  侦探木屋窗台点亮了 {solvedCasesCount} 枚真实取证徽章！伙伴们正为你用证据查清真相而开心呢。
+                  {solvedCasesCount > 0 && `侦探木屋窗台点亮了 ${solvedCasesCount} 枚真实取证徽章！`}
+                  {completedFriendHomeCount > 0 && ` 勇气小屋盛开了 ${completedFriendHomeCount} 朵边界守护花！`}
+                  {completedToyBoatCount > 0 && ` 双向桥溪流的小木船完成了 ${completedToyBoatCount} 次协商试航！`}
+                  伙伴们正为你的每一次思考与尝试开心呢。
                 </span>
               </div>
             )}

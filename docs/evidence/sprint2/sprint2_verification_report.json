@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-10-15T11:15:34.175Z",
+  "checks": {
+    "mobileFriendAsksHome": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "round1Text": "“咦，昨天是你爸爸来接你，今天怎么只有你妈妈呀？他们为什么不一起接你呢？”",
+      "round2ProbingText": "“啊？住在两个家？那你的玩具和画笔放哪边呀？会不会弄丢呀？”",
+      "s1TerminalVisible": true,
+      "round2GrumbleText": "“哼，小气鬼，问一下都不行吗？我只是好奇嘛！”",
+      "pauseAffirmationVisible": true
+    },
+    "mobileToyBoatNegotiation": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "boatAtBearDock": "true",
+      "rabbitImpatientState": "LOW_FRUSTRATED",
+      "rabbitSatisfiedState": "HIGH_SATISFIED",
+      "bearSatisfiedState": "HIGH_SATISFIED",
+      "observedBadgeVisible": true
+    },
+    "s2Fix01And02": {
+      "pipiFindingState": "LACK_OF_SUPPORTING_EVIDENCE",
+      "pipiBadgeText": "缺乏支持证据",
+      "caseAParticipationCount": 1,
+      "completedDetectiveCaseIds": [
+        "scenario_detective_drawing_v1"
+      ]
+    },
+    "islandAndCompanionLinkage": {
+      "bullyingRound2Speech": "其中一个同学被你的大声吓了一跳，但另一个还在小声嘟囔：“略略略，凶什么凶……”",
+      "companionMemoryText": "🌟 伙伴记得：在「浅水溪湾的松果渡船挑战」安排了【小兔提莫先玩 · 分工合作运货】",
+      "friendBadgeText": "🛡️ 边界表达 1 幕",
+      "boatBadgeText": "⛵ 小船协商 1 项",
+      "worldReactionText": "✨侦探木屋窗台点亮了 1 枚真实取证徽章！ 勇气小屋盛开了 1 朵边界守护花！ 双向桥溪流的小木船完成了 1 次协商试航！伙伴们正为你的每一次思考与尝试开心呢。"
+    }
+  },
+  "actionSequences": {
+    "run1_mobile_friend_asks_home": {
+      "gameAndScenario": "《朋友问起我的家》｜情境 1（朋友出于好奇询问）& 情境 2（同学反复追问隐私）",
+      "executedSelectionSequence": [
+        "情境 1 第 1 轮：选择 DIRECT_ANSWER（opt_c1_direct：直接说明住在两个家）",
+        "情境 1 第 2 轮：选择 STATE_BOUNDARY（opt_c1_r2_boundary：温和说明玩具放哪里是家里的秘密并转向积木游戏）",
+        "切换至情境 2 第 1 轮：选择 STATE_BOUNDARY（opt_p1_boundary：礼貌拒绝回答画里的隐私问题）",
+        "情境 2 第 2 轮：点击 pause-conversation-anytime-btn（主动使用暂停对话权利）"
+      ],
+      "branchOutcomes": [
+        "情境 1 第 1 轮后：小明并未立刻结束话题，而是继续好奇追问玩具和画笔放哪边（真实非完美同伴反应）",
+        "情境 1 第 2 轮后：小明尊重边界并一起去搭积木，进入第 3 轮完成总结卡",
+        "情境 2 第 1 轮后：同桌豆豆未立即道歉，而是嘟囔“小气鬼”（真实同伴挫败反应，但明确肯定孩子划定边界完全正确）",
+        "情境 2 第 2 轮暂停后：展示正向权利肯定卡「你成功使用了暂停对话的权利」，绝不判定为失败"
+      ],
+      "lifecycleStatusTriggered": "情境 1 触发 COMPLETED（完成）；情境 2 触发 PAUSED_VOLUNTARILY（主动暂停）并支持随时重来或继续探索",
+      "evidencePaths": [
+        "docs/evidence/sprint2/sprint2-mobile-390-friend-home-multiturn.png",
+        "docs/evidence/sprint2/sprint2-mobile-390-friend-home-boundary-pause.png"
+      ]
+    },
+    "run2_mobile_toy_boat_negotiation": {
+      "gameAndScenario": "《玩具船协商》｜任务一（阳光水塘的唯一小木船 · 侧重轮流与等待）",
+      "executedSelectionSequence": [
+        "动手移动小木船至 BEAR_DOCK（右岸·小熊码头）",
+        "设置小熊波波先玩（order-actor-bear）+ 每轮真实 5 秒（duration-seconds-5）+ 岸上空手干等（waiting-activity-wait_empty_hands）",
+        "观察小兔提莫需求满足状态变为 LOW_FRUSTRATED（干等太久着急）后，重新调整为每轮真实 3 秒（duration-seconds-3）+ 交换与替代开沙滩挖掘机修水渠（strategy-option-EXCHANGE_ALT）",
+        "点击开始执行协商方案（execute-negotiation-plan-btn）-> 完成第 1 轮交接 -> 完成第 2 轮交接并查看真实结果"
+      ],
+      "branchOutcomes": [
+        "空手干等 5 秒方案下：小熊满足（HIGH_SATISFIED），小兔因空手等待过久产生真实不耐烦反应（LOW_FRUSTRATED）",
+        "调整为 3 秒快节奏交接 + 沙滩挖掘机修水渠后：双方均获得可操作玩具，双方需求满足状态均变为 HIGH_SATISFIED",
+        "执行两轮试航后：四维结果观察面板清晰呈现「谁先玩 / 谁在等 / 是否需要配合 / 双方是否满意」"
+      ],
+      "lifecycleStatusTriggered": "触发重新协商修改（RENEGOTIATED）与两轮执行完成（OBSERVED_RESULT / COMPLETED）",
+      "evidencePaths": [
+        "docs/evidence/sprint2/sprint2-mobile-390-toy-boat-executed.png"
+      ]
+    },
+    "run3_desktop_s2_fixes_and_island_linkage": {
+      "gameAndScenario": "《蜡笔侦探》（S2-FIX01/02）+《朋友问起我的家》情境 4（起哄安全保护）+《玩具船协商》任务二（资源有限合作渡船）+ 晴雨小岛主地图联动",
+      "executedSelectionSequence": [
+        "《蜡笔侦探》美术角案件：先选 hyp_unknown_yet -> 掀开窗帘并领取绿蜡笔线索 -> 调查小猫脚印 -> 选择 hyp_peer_took（皮皮拿走）验证 S2-FIX02 -> 改选 hyp_rolled_away + act_pickup_and_apologize -> 连续打开结局面板 3 次验证 S2-FIX01",
+        "《朋友问起我的家》情境 4（多名同学起哄）：第 1 轮选择 STATE_BOUNDARY（大声制止）-> 第 2 轮选择 SEEK_ADULT_HELP（寻找值日老师保护）",
+        "《玩具船协商》任务二（浅水溪湾的松果渡船挑战）：选择分工合作运松果方案并执行两轮试航",
+        "关闭游戏集返回晴雨小岛首页，检查伙伴记忆横幅与 2.5D 小岛地图徽章变化"
+      ],
+      "branchOutcomes": [
+        "S2-FIX02：窗帘下找到蜡笔后选择皮皮拿走，反馈徽章为 LACK_OF_SUPPORTING_EVIDENCE（缺乏支持证据），而非反驳",
+        "S2-FIX01：同一完成状态连续检查 3 次，taskParticipationCounts 仅记录 1 次真实会话参与",
+        "情境 4 安全保护：面对起哄无需说服或原谅对方，值日老师果断介入保护",
+        "小岛与伙伴联动：CompanionBanner 显示最近一次儿童选择记忆，2.5D 地图同步点亮侦探、边界表达与小船协商三项进展"
+      ],
+      "lifecycleStatusTriggered": "全部触发 COMPLETED 并持久化至端侧记录，支持刷新与跨组件恢复",
+      "evidencePaths": [
+        "docs/evidence/sprint2/sprint2-desktop-1440-friend-home-safety.png",
+        "docs/evidence/sprint2/sprint2-desktop-1440-toy-boat-task2-coop.png",
+        "docs/evidence/sprint2/sprint2-desktop-1440-island-companion-memory.png"
+      ]
+    }
+  },
+  "screenshots": [
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-mobile-390-friend-home-multiturn.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-mobile-390-friend-home-boundary-pause.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-mobile-390-toy-boat-executed.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-desktop-1440-friend-home-safety.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-desktop-1440-toy-boat-task2-coop.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint2/sprint2-desktop-1440-island-companion-memory.png"
+  ],
+  "honestObservationDisclosure": "未进行真实儿童观察（本次全部数据来自自动化真实浏览器触控与端到端交互验证，未虚构真实儿童反应）"
+}
