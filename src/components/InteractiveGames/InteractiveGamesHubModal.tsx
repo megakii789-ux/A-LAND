@@ -12,6 +12,9 @@ import {
   revokeAdultPreviewSession,
   lockParentAccess,
   subscribeParentAccess,
+  isInternalPlaytestEnabled,
+  enableInternalPlaytestMode,
+  disableInternalPlaytestMode,
 } from '../../domain/privacy/parentAccess';
 import { ParentGateModal } from '../ParentGateModal';
 
@@ -33,6 +36,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
 
   const [previewSessionToken, setPreviewSessionToken] = useState<string | null>(null);
   const [isParentGateOpen, setIsParentGateOpen] = useState(false);
+  const [pendingPlaytestActivation, setPendingPlaytestActivation] = useState(false);
   const [, setAccessVersion] = useState(0);
 
   useEffect(() => {
@@ -45,9 +49,12 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
     if (!isOpen) {
       setPreviewSessionToken(null);
       setIsParentGateOpen(false);
+      setPendingPlaytestActivation(false);
       setIsTransferOpen(false);
       revokeAdultPreviewSession();
-      lockParentAccess();
+      if (!isInternalPlaytestEnabled()) {
+        lockParentAccess();
+      }
     }
     return () => {
       revokeAdultPreviewSession();
@@ -65,6 +72,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
       ? 'game_toy_boat'
       : 'game_transfer_lab';
 
+  const playtestActive = isInternalPlaytestEnabled();
   const adultPreviewUnlocked = isAdultPreviewSessionValid(currentScopeKey, previewSessionToken);
 
   const isDetectiveApproved = ContentAuditRegistry.canRenderContent('game_crayon_detective');
@@ -84,9 +92,12 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
     speechNarrator.stop();
     setPreviewSessionToken(null);
     setIsParentGateOpen(false);
+    setPendingPlaytestActivation(false);
     setIsTransferOpen(false);
     revokeAdultPreviewSession();
-    lockParentAccess();
+    if (!isInternalPlaytestEnabled()) {
+      lockParentAccess();
+    }
     onClose();
   };
 
@@ -95,8 +106,11 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
     speechNarrator.stop();
     setPreviewSessionToken(null);
     setIsParentGateOpen(false);
+    setPendingPlaytestActivation(false);
     revokeAdultPreviewSession();
-    lockParentAccess();
+    if (!isInternalPlaytestEnabled()) {
+      lockParentAccess();
+    }
     if (game === 'transfer') {
       setIsTransferOpen(true);
     } else {
@@ -108,9 +122,27 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
   const handleRequestAdultPreview = () => {
     sounds.playClick();
     setPreviewSessionToken(null);
+    setPendingPlaytestActivation(false);
     revokeAdultPreviewSession();
     lockParentAccess();
     setIsParentGateOpen(true);
+  };
+
+  const handleRequestInternalPlaytest = () => {
+    sounds.playClick();
+    setPreviewSessionToken(null);
+    setPendingPlaytestActivation(true);
+    revokeAdultPreviewSession();
+    lockParentAccess();
+    setIsParentGateOpen(true);
+  };
+
+  const handleExitInternalPlaytest = () => {
+    sounds.playClick();
+    setPreviewSessionToken(null);
+    disableInternalPlaytestMode();
+    revokeAdultPreviewSession();
+    lockParentAccess();
   };
 
   return (
@@ -208,7 +240,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
               <p className="text-xs sm:text-sm text-stone-700 max-w-md mx-auto leading-relaxed font-medium">
                 大人们正在为这个互动小游戏做最后的安全检查，准备好后再陪你一起玩。现在你可以先回小岛去呼吸角、晴雨气象台或做一件找回勇气的小事哦！
               </p>
-              <div className="pt-2 flex flex-col sm:flex-row justify-center gap-2.5">
+              <div className="pt-2 flex flex-col sm:flex-row flex-wrap justify-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleCloseHub}
@@ -223,14 +255,40 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
                 >
                   家长 / 审阅人验证预览
                 </button>
+                <button
+                  type="button"
+                  data-testid="enable-internal-playtest-btn"
+                  onClick={handleRequestInternalPlaytest}
+                  className="min-h-[44px] px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 font-bold rounded-2xl text-xs cursor-pointer"
+                >
+                  🧪 开启内部研发连续试玩（需 PIN）
+                </button>
               </div>
             </div>
           ) : (
             <>
               {adultPreviewUnlocked && !isCurrentGameApproved && (
                 <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-2 rounded-xl mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <span>⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放</span>
-                  <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded-full">大人陪伴审阅</span>
+                  <span>
+                    {playtestActive
+                      ? '🧪 内部研发连续试玩模式 · 正式审核状态仍为 PENDING_REVIEW（未向儿童开放）'
+                      : '⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放'}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded-full">
+                      {playtestActive ? '连续试玩已激活' : '大人陪伴审阅'}
+                    </span>
+                    {playtestActive && (
+                      <button
+                        type="button"
+                        data-testid="exit-internal-playtest-btn"
+                        onClick={handleExitInternalPlaytest}
+                        className="text-[11px] bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-lg font-black cursor-pointer"
+                      >
+                        退出试玩
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
               {activeGame === 'detective' && (
@@ -238,6 +296,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
                   onExit={handleCloseHub}
                   isAdultPreview={adultPreviewUnlocked}
                   previewSessionToken={previewSessionToken}
+                  onOpenTransferLab={() => setIsTransferOpen(true)}
                 />
               )}
               {activeGame === 'friend_asks' && (
@@ -265,15 +324,24 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             setIsTransferOpen(false);
             setPreviewSessionToken(null);
             revokeAdultPreviewSession();
-            lockParentAccess();
+            if (!isInternalPlaytestEnabled()) {
+              lockParentAccess();
+            }
           }}
         />
 
         <ParentGateModal
           isOpen={isParentGateOpen}
-          onClose={() => setIsParentGateOpen(false)}
+          onClose={() => {
+            setIsParentGateOpen(false);
+            setPendingPlaytestActivation(false);
+          }}
           onSuccess={() => {
             setIsParentGateOpen(false);
+            if (pendingPlaytestActivation) {
+              enableInternalPlaytestMode();
+              setPendingPlaytestActivation(false);
+            }
             const token = issueAdultPreviewSession(currentScopeKey);
             setPreviewSessionToken(token || null);
           }}
@@ -282,4 +350,3 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
     </div>
   );
 };
-

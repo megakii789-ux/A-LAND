@@ -31,6 +31,7 @@ let granted = false;
 let verificationEpoch = 0;
 let previewSessionCounter = 0;
 let activePreviewSession: AdultPreviewSession | null = null;
+let internalPlaytestEnabled = false;
 const accessListeners = new Set<ParentAccessListener>();
 
 // Consecutive failed attempts rate-limiting (anti-bruteforce)
@@ -69,6 +70,25 @@ export function grantParentAccess(): void {
   notifyAccessListeners();
 }
 
+export function isInternalPlaytestEnabled(): boolean {
+  return internalPlaytestEnabled;
+}
+
+export function enableInternalPlaytestMode(): boolean {
+  if (!granted) {
+    return false;
+  }
+  internalPlaytestEnabled = true;
+  notifyAccessListeners();
+  return true;
+}
+
+export function disableInternalPlaytestMode(): void {
+  if (!internalPlaytestEnabled) return;
+  internalPlaytestEnabled = false;
+  notifyAccessListeners();
+}
+
 export function issueAdultPreviewSession(scopeKey: string): string {
   const normalizedScope = typeof scopeKey === 'string' ? scopeKey.trim() : '';
   if (!granted || !normalizedScope) {
@@ -85,7 +105,13 @@ export function issueAdultPreviewSession(scopeKey: string): string {
 }
 
 export function isAdultPreviewSessionValid(scopeKey: string, token?: string | null): boolean {
-  if (!granted || !activePreviewSession || !token || typeof token !== 'string') {
+  if (!granted) {
+    return false;
+  }
+  if (internalPlaytestEnabled && Boolean(scopeKey?.trim())) {
+    return true;
+  }
+  if (!activePreviewSession || !token || typeof token !== 'string') {
     return false;
   }
   return (
@@ -105,6 +131,7 @@ export function revokeAdultPreviewSession(scopeKey?: string): void {
 export function lockParentAccess(): void {
   granted = false;
   activePreviewSession = null;
+  internalPlaytestEnabled = false;
   verificationEpoch += 1;
   failedAttempts = 0;
   lockoutUntil = 0;
@@ -114,6 +141,7 @@ export function lockParentAccess(): void {
 export function resetParentPinForTesting(): void {
   granted = false;
   activePreviewSession = null;
+  internalPlaytestEnabled = false;
   verificationEpoch += 1;
   failedAttempts = 0;
   lockoutUntil = 0;

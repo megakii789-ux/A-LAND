@@ -4,12 +4,14 @@ import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { IslandPlace } from '../../context/AppContext';
 import { IslandUiIconSvg } from './CompanionIcons';
+import { loadProductExperienceMetrics, recordLandmarkVisit } from '../../domain/cognitive/productExperienceMetrics';
 
 export interface FairytaleIslandMapProps {
   onSelectPlace?: (place: IslandPlace) => void;
   onSelectLocation?: (locationId: string) => void;
   onOpenBreaker?: () => void;
   completedStoriesCount?: number;
+  completedDetectiveCasesCount?: number;
   sunCount?: number;
   rainCount?: number;
 }
@@ -67,10 +69,13 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
   onSelectLocation,
   onOpenBreaker,
   completedStoriesCount = 0,
+  completedDetectiveCasesCount,
   sunCount = 0,
   rainCount = 0,
 }) => {
   const [activeLandmark, setActiveLandmark] = useState<LandmarkId | null>(null);
+  const expMetrics = loadProductExperienceMetrics();
+  const solvedCasesCount = completedDetectiveCasesCount ?? expMetrics.completedDetectiveCaseIds.length;
 
   const landmarks: LandmarkData[] = [
     {
@@ -302,15 +307,11 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
   const handleLandmarkClick = (landmark: LandmarkData) => {
     sounds.playKalimbaBloom();
     speechNarrator.stop();
+    recordLandmarkVisit(landmark.id);
 
     if (landmark.placeKey === 'breaker') {
       if (onOpenBreaker) {
         onOpenBreaker();
-        return;
-      }
-      const breakerBtn = document.querySelector<HTMLElement>('button[aria-label*="大困难拆解台"], [aria-label*="去拆解"], [aria-label*="拆解"]');
-      if (breakerBtn) {
-        breakerBtn.click();
         return;
       }
       if (onSelectLocation) {
@@ -392,12 +393,31 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 童话小岛探索地图
               </h2>
               <span className="text-xs bg-amber-200/90 text-amber-900 font-extrabold px-2.5 py-0.5 rounded-full border border-amber-300 shrink-0">
-                2.5D 立体故事岛 · 点击建筑去玩
+                2.5D 立体故事岛 · 八大探索空间
               </span>
             </div>
             <p className="text-xs sm:text-base text-stone-600 font-medium mt-0.5">
-              宁静海湾、双家小桥、思考侦探木屋与星光树屋，点一点直接进入
+              宁静海湾、双家小桥、思考侦探木屋与星光树屋，点一点先听线索或直接进入
             </p>
+            <div
+              data-testid="island-progress-summary"
+              className="flex flex-wrap items-center gap-1.5 mt-1.5"
+            >
+              <span className="text-[11px] font-bold bg-amber-100 text-amber-950 px-2.5 py-0.5 rounded-full border border-amber-300">
+                🔍 已破案 {solvedCasesCount} 起
+              </span>
+              <span className="text-[11px] font-bold bg-emerald-100 text-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                📖 已读故事 {completedStoriesCount} 篇
+              </span>
+              <span className="text-[11px] font-bold bg-sky-100 text-sky-950 px-2.5 py-0.5 rounded-full border border-sky-300">
+                ☀️ {sunCount}阳 · 🌧️ {rainCount}雨
+              </span>
+              {expMetrics.visitedLandmarks.length > 0 && (
+                <span className="text-[11px] font-bold bg-purple-100 text-purple-950 px-2.5 py-0.5 rounded-full border border-purple-300">
+                  🧭 已探索 {expMetrics.visitedLandmarks.length}/8 处
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1024,24 +1044,30 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
         </svg>
       </div>
 
-      {/* 选定/悬浮地标故事小导览栏 (置于 SVG 地图下方文档流中，绝对不遮挡小岛底部建筑) */}
-      {activeLandmark && (() => {
-        const current = landmarks.find((l) => l.id === activeLandmark);
+      {/* 选定/悬浮地标故事小导览栏 & 今日小岛微探索线索栏 */}
+      {(() => {
+        const current = landmarks.find((l) => l.id === (activeLandmark ?? 'detective'));
         if (!current) return null;
         return (
           <div
-            className="mt-3 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 border-2 border-amber-300 shadow-md flex items-center justify-between gap-3 animate-fadeIn"
+            data-testid="island-micro-clue-bar"
+            className="mt-3 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 border-2 border-amber-300 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fadeIn"
             role="status"
             aria-live="polite"
           >
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-black bg-amber-400 text-stone-900 px-2.5 py-0.5 rounded-full">
+                  {activeLandmark ? '📍 地标微探索预览' : '🔍 今日小岛探索线索'}
+                </span>
                 <span className="text-base sm:text-lg font-black text-stone-900">{current.title}</span>
                 <span className="text-xs bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-full font-bold">
-                  {current.tag}
+                  {current.id === 'detective' && solvedCasesCount > 0
+                    ? `已破案 ${solvedCasesCount} 起`
+                    : current.tag}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-stone-600 font-medium truncate mt-0.5">
+              <p className="text-xs sm:text-sm text-stone-600 font-medium mt-1">
                 {current.desc}
               </p>
             </div>
@@ -1049,16 +1075,16 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               <button
                 type="button"
                 onClick={(e) => handleReadLandmark(e, current.speechText)}
-                className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center shrink-0 border border-amber-200 cursor-pointer shadow-2xs focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
-                aria-label={`朗读${current.title}介绍`}
-                title={`朗读${current.title}介绍`}
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center shrink-0 border border-amber-200 cursor-pointer shadow-2xs focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+                aria-label={`朗读${current.title}线索介绍`}
+                title={`朗读${current.title}线索介绍`}
               >
                 <Volume2 className="w-5 h-5 text-amber-800" />
               </button>
               <button
                 type="button"
                 onClick={() => handleLandmarkClick(current)}
-                className="min-h-[48px] px-3.5 py-2 bg-stone-900 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black shadow-xs transition-colors whitespace-nowrap cursor-pointer"
+                className="min-h-[56px] px-4 py-2.5 bg-stone-900 hover:bg-amber-600 text-white rounded-xl text-xs sm:text-sm font-black shadow-xs transition-colors whitespace-nowrap cursor-pointer"
               >
                 {current.actionText} →
               </button>
@@ -1068,86 +1094,101 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       })()}
 
       {/* ========================================================================= */}
-      {/* 6 大核心地点故事书画卷快捷导航条 (触控全部 >= 56px，移动端零溢出) */}
+      {/* 8 大探索空间故事书画卷快捷导航条 (进入与朗读语义分离，触控全部 >= 56px) */}
       {/* ========================================================================= */}
       <div className="mt-4 pt-3 border-t-2 border-stone-200/80">
         <div className="flex items-center justify-between mb-2 px-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm sm:text-base font-black text-stone-900">
-              童话小岛六大空间直接进入
+              童话小岛八大探索空间直接进入
             </span>
             <span className="text-xs bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full font-bold">
               触控目标 ≥ 56px
             </span>
           </div>
           <span className="text-xs text-stone-500 font-medium hidden sm:inline">
-            轻触下方卡片即可直接前往
+            左侧直接进入地点，右侧独立听取语音介绍
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
-          {landmarks.map((lm) => (
-            <div
-              key={lm.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => handleLandmarkClick(lm)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleLandmarkClick(lm);
-                }
-              }}
-              onMouseEnter={() => setActiveLandmark(lm.id)}
-              onMouseLeave={() => setActiveLandmark(null)}
-              className={`group flex items-center justify-between p-3 rounded-2xl bg-linear-to-b ${lm.colorScheme.bg} border-2 ${lm.colorScheme.border} hover:border-amber-400 shadow-xs hover:shadow-md transition-all cursor-pointer min-h-[56px] focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none`}
-              aria-label={lm.ariaLabel}
-            >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div
-                  className="w-11 h-11 rounded-xl bg-white/90 text-stone-900 flex items-center justify-center font-black text-base shadow-2xs border border-stone-200 shrink-0"
-                  aria-hidden="true"
-                >
-                  {lm.id === 'calm' && '🌿'}
-                  {lm.id === 'breaker' && '🔨'}
-                  {lm.id === 'detective' && '🔍'}
-                  {lm.id === 'bridge' && '🌉'}
-                  {lm.id === 'story' && '📖'}
-                  {lm.id === 'courage' && '🛡️'}
-                  {lm.id === 'starlight' && '⭐'}
-                  {lm.id === 'weather' && '⛅'}
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-base font-black text-stone-900 group-hover:text-amber-900 transition-colors whitespace-nowrap">
-                      {lm.title}
-                    </span>
-                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${lm.colorScheme.badgeBg} ${lm.colorScheme.badgeText}`}>
-                      {lm.tag}
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-600 font-medium truncate mt-0.5">
-                    {lm.subTitle}
-                  </p>
-                </div>
-              </div>
+          {landmarks.map((lm) => {
+            const isVisited = expMetrics.visitedLandmarks.includes(lm.id);
+            const dynamicBadge =
+              lm.id === 'detective' && solvedCasesCount > 0
+                ? `已破案 ${solvedCasesCount} 起`
+                : lm.id === 'story' && completedStoriesCount > 0
+                ? `已读 ${completedStoriesCount} 篇`
+                : lm.tag;
 
-              <div className="flex items-center gap-1.5 shrink-0 ml-2">
+            return (
+              <div
+                key={lm.id}
+                onMouseEnter={() => setActiveLandmark(lm.id)}
+                onMouseLeave={() => setActiveLandmark(null)}
+                className={`group flex items-stretch justify-between gap-2 p-2.5 rounded-2xl bg-linear-to-b ${lm.colorScheme.bg} border-2 ${lm.colorScheme.border} hover:border-amber-400 shadow-xs hover:shadow-md transition-all`}
+              >
+                <button
+                  type="button"
+                  onClick={() => handleLandmarkClick(lm)}
+                  onFocus={() => setActiveLandmark(lm.id)}
+                  onBlur={() => setActiveLandmark(null)}
+                  className="flex-1 flex items-center justify-between gap-2 text-left min-h-[56px] min-w-0 px-1.5 py-1 rounded-xl cursor-pointer focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+                  aria-label={lm.ariaLabel}
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div
+                      className="w-11 h-11 rounded-xl bg-white/90 text-stone-900 flex items-center justify-center font-black text-base shadow-2xs border border-stone-200 shrink-0"
+                      aria-hidden="true"
+                    >
+                      {lm.id === 'calm' && '🌿'}
+                      {lm.id === 'breaker' && '🔨'}
+                      {lm.id === 'detective' && '🔍'}
+                      {lm.id === 'bridge' && '🌉'}
+                      {lm.id === 'story' && '📖'}
+                      {lm.id === 'courage' && '🛡️'}
+                      {lm.id === 'starlight' && '⭐'}
+                      {lm.id === 'weather' && '⛅'}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-base font-black text-stone-900 group-hover:text-amber-900 transition-colors whitespace-nowrap">
+                          {lm.title}
+                        </span>
+                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${lm.colorScheme.badgeBg} ${lm.colorScheme.badgeText}`}>
+                          {dynamicBadge}
+                        </span>
+                        {isVisited && (
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-600 text-white">
+                            已探索
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-stone-600 font-medium truncate mt-0.5">
+                        {lm.subTitle}
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    className="w-9 h-9 rounded-xl bg-stone-900 text-white flex items-center justify-center text-sm font-black shadow-xs group-hover:bg-amber-600 shrink-0 transition-colors"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </button>
+
                 <button
                   type="button"
                   onClick={(e) => handleReadLandmark(e, lm.speechText)}
-                  className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-xl bg-white/90 hover:bg-white text-stone-800 flex items-center justify-center transition-colors cursor-pointer border border-stone-200 shadow-2xs focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] self-center rounded-xl bg-white/95 hover:bg-white text-stone-800 flex items-center justify-center transition-colors cursor-pointer border border-stone-200 shadow-2xs shrink-0 focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
                   aria-label={`朗读${lm.title}介绍`}
                   title={`朗读${lm.title}介绍`}
                 >
                   <Volume2 className="w-5 h-5 text-amber-700" />
                 </button>
-                <span className="w-9 h-9 rounded-xl bg-stone-900 text-white flex items-center justify-center text-sm font-black shadow-xs group-hover:bg-amber-600 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0 transition-all">
-                  →
-                </span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

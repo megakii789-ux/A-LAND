@@ -22,6 +22,7 @@ export interface HotspotEvidence {
   readonly spokenText: string;
   readonly category: EvidenceCategory; // 属于客观事实还是主观猜测还是未知
   readonly hint: string;
+  readonly observationPrompt?: string; // 归类前展示的中性客观观察提示（不剧透分类答案）
   readonly icon: string;
   readonly isPermanentUnknown?: boolean; // 永远无法确认的盲区（如：蜡笔现在到底在谁口袋里）
 }

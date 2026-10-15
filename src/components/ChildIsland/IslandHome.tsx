@@ -26,6 +26,7 @@ import { InteractiveGamesHubModal } from '../InteractiveGames/InteractiveGamesHu
 import { PersonalizationSettingsModal } from './Personalization/PersonalizationSettingsModal';
 import { IslandUiIconSvg } from './CompanionIcons';
 import { tokens } from '../../design-system/tokens';
+import { loadProductExperienceMetrics, recordLandmarkVisit } from '../../domain/cognitive/productExperienceMetrics';
 
 /**
  * 晴雨小岛 · 儿童首页 Shell (Child Island Home Shell)
@@ -72,6 +73,9 @@ export const IslandHome: React.FC = () => {
   const handleOpenPlace = (place: typeof childPlace) => {
     speechNarrator.stop();
     sounds.playModalOpen();
+    if (place !== 'island') {
+      recordLandmarkVisit(place);
+    }
     setChildPlace(place);
   };
 
@@ -83,6 +87,7 @@ export const IslandHome: React.FC = () => {
 
   const sunCount = medals.filter((m) => m.type === 'sun' && m.unlocked).length;
   const rainCount = medals.filter((m) => m.type === 'rain' && m.unlocked).length;
+  const expMetrics = loadProductExperienceMetrics();
 
   return (
     <div className={`min-h-screen ${tokens.surface.islandBackground} ${tokens.spacing.container} pt-3 pb-32 sm:pb-36 relative flex flex-col justify-between max-w-full`}>
@@ -215,7 +220,13 @@ export const IslandHome: React.FC = () => {
         {viewMode === 'map' ? (
           <FairytaleIslandMap
             onSelectPlace={handleOpenPlace}
+            onOpenBreaker={() => {
+              sounds.playClick();
+              recordLandmarkVisit('breaker');
+              setIsBreakerOpen(true);
+            }}
             completedStoriesCount={completedLeaves.length}
+            completedDetectiveCasesCount={expMetrics.completedDetectiveCaseIds.length}
             sunCount={sunCount}
             rainCount={rainCount}
           />
@@ -263,7 +274,11 @@ export const IslandHome: React.FC = () => {
                 accentColor="text-amber-700"
                 borderColor="border-amber-300"
                 hoverBorderColor="hover:border-amber-500"
-                badge="放大镜线索"
+                badge={
+                  expMetrics.completedDetectiveCaseIds.length > 0
+                    ? `已破案 ${expMetrics.completedDetectiveCaseIds.length} 起`
+                    : '放大镜线索'
+                }
                 onOpen={() => handleOpenPlace('detective')}
               />
 

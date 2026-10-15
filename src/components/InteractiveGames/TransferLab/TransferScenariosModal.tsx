@@ -13,7 +13,9 @@ import {
   revokeAdultPreviewSession,
   lockParentAccess,
   subscribeParentAccess,
+  isInternalPlaytestEnabled,
 } from '../../../domain/privacy/parentAccess';
+import { recordTransferScenarioCompletion } from '../../../domain/cognitive/productExperienceMetrics';
 import { ParentGateModal } from '../../ParentGateModal';
 
 interface Props {
@@ -159,7 +161,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
       setPreviewSessionToken(null);
       setIsParentGateOpen(false);
       revokeAdultPreviewSession();
-      lockParentAccess();
+      if (!isInternalPlaytestEnabled()) {
+        lockParentAccess();
+      }
     }
     return () => {
       revokeAdultPreviewSession();
@@ -178,7 +182,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
     setPreviewSessionToken(null);
     setIsParentGateOpen(false);
     revokeAdultPreviewSession();
-    lockParentAccess();
+    if (!isInternalPlaytestEnabled()) {
+      lockParentAccess();
+    }
     onClose();
   };
 
@@ -197,13 +203,16 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
   const handleCompleteScenario = () => {
     sounds.playClick();
     setShowOutcome(true);
+    recordTransferScenarioCompletion(currentScenario.id, adultPromptCount);
     speechNarrator.speak(currentScenario.objectiveOutcome);
   };
 
+  // 修复跨任务提示次数污染：切换或重置情境时同步清空 adultPromptCount
   const handleResetScenario = () => {
     sounds.playClick();
     setChosenOptionIds([]);
     setShowOutcome(false);
+    setAdultPromptCount(0);
   };
 
   const handleRequestAdultPreview = () => {
@@ -260,7 +269,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                   setPreviewSessionToken(null);
                   setIsParentGateOpen(false);
                   revokeAdultPreviewSession();
-                  lockParentAccess();
+                  if (!isInternalPlaytestEnabled()) {
+                    lockParentAccess();
+                  }
                   setSelectedScenarioIndex(idx);
                   handleResetScenario();
                 }}
@@ -277,8 +288,14 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
           {adultPreviewUnlocked && !isScenarioApproved && (
             <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-black px-3.5 py-2 rounded-2xl flex flex-wrap items-center justify-between gap-2">
-              <span>⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放</span>
-              <span className="text-[10px] bg-amber-200 px-2.5 py-0.5 rounded-full">大人陪伴审阅</span>
+              <span>
+                {isInternalPlaytestEnabled()
+                  ? '🧪 内部研发连续试玩模式 · 正式审核状态仍为 PENDING_REVIEW'
+                  : '⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放'}
+              </span>
+              <span className="text-[10px] bg-amber-200 px-2.5 py-0.5 rounded-full">
+                {isInternalPlaytestEnabled() ? '内部试玩中' : '大人陪伴审阅'}
+              </span>
             </div>
           )}
 
@@ -390,7 +407,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                   </svg>
                   <div>
                     <span className="font-bold">大人陪伴提示记录：</span>
-                    <span className="ml-1 text-sm font-black text-amber-800">{adultPromptCount} 次</span>
+                    <span data-testid="adult-prompt-count-value" className="ml-1 text-sm font-black text-amber-800">{adultPromptCount} 次</span>
                     <span className="text-stone-400 ml-2">（仅作客观观察记录）</span>
                   </div>
                 </div>
@@ -403,16 +420,30 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 </button>
               </div>
 
-              {/* 客观发现呈现 */}
+              {/* 客观发现呈现（区分独立完成与提示后完成） */}
               {showOutcome && (
                 <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-2 animate-in fade-in">
-                  <h5 className="font-black text-emerald-950 text-sm flex items-center gap-2">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    <span>客观探索发现：</span>
-                  </h5>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h5 className="font-black text-emerald-950 text-sm flex items-center gap-2">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                      <span>客观探索发现：</span>
+                    </h5>
+                    <span
+                      data-testid="transfer-independence-badge"
+                      className={`text-xs font-extrabold px-2.5 py-1 rounded-full border ${
+                        adultPromptCount === 0
+                          ? 'bg-amber-100 text-amber-950 border-amber-300'
+                          : 'bg-sky-100 text-sky-900 border-sky-300'
+                      }`}
+                    >
+                      {adultPromptCount === 0
+                        ? '🌟 独立迁移完成（0 次提示）'
+                        : `🤝 陪伴提示下完成（${adultPromptCount} 次提示）`}
+                    </span>
+                  </div>
                   <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-bold">
                     {currentScenario.objectiveOutcome}
                   </p>

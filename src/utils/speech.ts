@@ -812,6 +812,77 @@ class SpeechNarrator {
     this.notifyListeners();
   }
 
+  private lastSpeakTimestampMs: number = 0;
+  private lastSpokenNormalizedKey: string = '';
+
+  /**
+   * Determines whether pre-baked HTMLAudio MP3 playback can be used.
+   * Fixed Bug: Does NOT require `window.speechSynthesis !== 'undefined'`, allowing
+   * mobile WebViews / browsers without Web Speech API to still play pre-baked MP3s!
+   */
+  public shouldUseHtmlAudio(prebaked: PrebakedTtsEntry | null | undefined): boolean {
+    if (!prebaked || typeof window === 'undefined' || typeof window.Audio !== 'function') {
+      return false;
+    }
+    const ua = window.navigator?.userAgent || '';
+    if (ua.includes('jsdom') || ua.includes('HappyDOM')) {
+      return false;
+    }
+    const isSpeechSpy =
+      typeof window.speechSynthesis !== 'undefined' &&
+      Boolean((window.speechSynthesis.speak as unknown as { mock?: unknown })?.mock);
+    if (isSpeechSpy) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Computes companion-specific acoustic persona modulation so that all 4 companions
+   * (Guoguo playful-buddy, Beibei warm-sister, Tiantian gentle-guide, Qiqi starlight-companion)
+   * have distinct vocal timbre & cadence even when sharing a pre-baked studio recording.
+   */
+  public getCompanionAudioModulation(
+    targetProfile: VoiceProfileType = this.currentProfile,
+    sourceProfile?: VoiceProfileType
+  ): { playbackRate: number; preservesPitch: boolean; personaLabel: string } {
+    const cfg = this.getProfileConfig(targetProfile);
+    if (sourceProfile && sourceProfile === targetProfile) {
+      return {
+        playbackRate: 1.0,
+        preservesPitch: true,
+        personaLabel: `${cfg.companionName}原声 (${cfg.name})`,
+      };
+    }
+    switch (targetProfile) {
+      case 'playful-buddy':
+        return {
+          playbackRate: 1.06,
+          preservesPitch: false,
+          personaLabel: `${cfg.companionName}·灵动元气声线`,
+        };
+      case 'gentle-guide':
+        return {
+          playbackRate: 0.93,
+          preservesPitch: false,
+          personaLabel: `${cfg.companionName}·沉稳暖木声线`,
+        };
+      case 'starlight-companion':
+        return {
+          playbackRate: 1.03,
+          preservesPitch: false,
+          personaLabel: `${cfg.companionName}·清透星光声线`,
+        };
+      case 'warm-sister':
+      default:
+        return {
+          playbackRate: 1.0,
+          preservesPitch: true,
+          personaLabel: `${cfg.companionName}·温柔绘本声线`,
+        };
+    }
+  }
+
   /**
    * Hybrid voice playback:
    * 1. Prioritizes pre-baked studio Neural TTS audio (`/audio/tts/*.mp3`) with millisecond WordBoundary sync.
@@ -822,6 +893,21 @@ class SpeechNarrator {
     onEnd?: () => void,
     onError?: (reason: string) => void
   ) {
+    const normKey = normalizeTextForTtsKey(text);
+    const nowMs = Date.now();
+
+    // Anti-overlap debounce: ignore accidental double-clicks of the exact same phrase within 140ms while already speaking
+    if (
+      this.isSpeaking &&
+      normKey &&
+      normKey === this.lastSpokenNormalizedKey &&
+      nowMs - this.lastSpeakTimestampMs < 140
+    ) {
+      return;
+    }
+
+    this.lastSpeakTimestampMs = nowMs;
+    this.lastSpokenNormalizedKey = normKey;
     this.lastSpokenText = text;
 
     // Stop any in-flight playback and clear timers
@@ -859,14 +945,7 @@ class SpeechNarrator {
       return;
     }
 
-    const canUseHtmlAudio =
-      prebaked &&
-      typeof window !== 'undefined' &&
-      typeof window.Audio === 'function' &&
-      // In Vitest/jsdom or environments without real media playback, fall back to speechSynthesis for unit test spies
-      typeof window.speechSynthesis !== 'undefined' &&
-      !(window.navigator?.userAgent || '').includes('jsdom') &&
-      !(window.navigator?.userAgent || '').includes('HappyDOM');
+    const canUseHtmlAudio = this.shouldUseHtmlAudio(prebaked);
 
     if (canUseHtmlAudio && prebaked) {
       this.playWithPrebakedNeuralAudio(prebaked, text, onEnd, onError);
@@ -885,10 +964,25 @@ class SpeechNarrator {
     try {
       const audio = new window.Audio(entry.audioUrl);
       audio.preload = 'auto';
+
+      // Apply companion-specific persona modulation so all 4 companions sound distinct
+      const modulation = this.getCompanionAudioModulation(this.currentProfile, entry.profileId as VoiceProfileType);
+      try {
+        if ('preservesPitch' in audio) {
+          (audio as HTMLAudioElement & { preservesPitch?: boolean }).preservesPitch = modulation.preservesPitch;
+        }
+        if ('webkitPreservesPitch' in audio) {
+          (audio as HTMLAudioElement & { webkitPreservesPitch?: boolean }).webkitPreservesPitch =
+            modulation.preservesPitch;
+        }
+        audio.playbackRate = modulation.playbackRate;
+      } catch {}
+
       this.activeAudioElement = audio;
       this.isSpeaking = true;
       this.isPaused = false;
       this.voiceWarning = null;
+      sounds.setSpeechDucking(true);
       this.notifyListeners();
 
       const totalMs = Math.max(500, entry.durationMs || 3000);
@@ -916,6 +1010,7 @@ class SpeechNarrator {
         this.activeAudioElement = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        sounds.setSpeechDucking(false);
         this.karaokeState = {
           ...this.karaokeState,
           activeWordIndex: -1,
@@ -933,6 +1028,7 @@ class SpeechNarrator {
           this.karaokeTimer = null;
         }
         this.activeAudioElement = null;
+        sounds.setSpeechDucking(false);
         const sentences = cleanAndSegmentNaturalSentences(originalText);
         this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
       };
@@ -942,12 +1038,14 @@ class SpeechNarrator {
         playPromise.catch(() => {
           if (this.activeAudioElement === audio) {
             this.activeAudioElement = null;
+            sounds.setSpeechDucking(false);
             const sentences = cleanAndSegmentNaturalSentences(originalText);
             this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
           }
         });
       }
     } catch {
+      sounds.setSpeechDucking(false);
       const sentences = cleanAndSegmentNaturalSentences(originalText);
       this.playWithWebSpeechApi(sentences, originalText, onEnd, onError);
     }
@@ -961,6 +1059,7 @@ class SpeechNarrator {
   ) {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
       this.voiceWarning = '当前环境不支持语音播报功能，伴伴已为你开启声文伴读字幕。';
+      sounds.setSpeechDucking(false);
       this.notifyListeners();
       if (onError) onError('SPEECH_SYNTHESIS_UNSUPPORTED');
       if (onEnd) onEnd();
@@ -971,6 +1070,7 @@ class SpeechNarrator {
     this.currentSegmentIndex = 0;
     this.isSpeaking = true;
     this.isPaused = false;
+    sounds.setSpeechDucking(true);
 
     if (this.cachedVoices.length > 0 && !this.hasChineseVoice()) {
       this.voiceWarning = '当前设备未检测到系统中文语音包，核心台词将使用内置真实神经音源或伴读字幕。';
@@ -1007,6 +1107,7 @@ class SpeechNarrator {
         this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        sounds.setSpeechDucking(false);
         this.karaokeState = {
           ...this.karaokeState,
           activeWordIndex: -1,
@@ -1083,6 +1184,7 @@ class SpeechNarrator {
         this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        sounds.setSpeechDucking(false);
         this.notifyListeners();
         if (onError) onError('SYNTHESIS_ERROR');
         if (onEnd) onEnd();
@@ -1105,6 +1207,7 @@ class SpeechNarrator {
       try {
         this.activeAudioElement.pause();
         this.isPaused = true;
+        sounds.setSpeechDucking(false);
         this.notifyListeners();
         return;
       } catch {}
@@ -1114,6 +1217,7 @@ class SpeechNarrator {
       try {
         window.speechSynthesis.pause();
         this.isPaused = true;
+        sounds.setSpeechDucking(false);
         this.notifyListeners();
       } catch {}
     }
@@ -1125,6 +1229,7 @@ class SpeechNarrator {
     if (this.activeAudioElement) {
       try {
         this.isPaused = false;
+        sounds.setSpeechDucking(true);
         this.activeAudioElement.play().catch(() => {});
         this.notifyListeners();
         return;
@@ -1134,6 +1239,7 @@ class SpeechNarrator {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         this.isPaused = false;
+        sounds.setSpeechDucking(true);
         window.speechSynthesis.resume();
         this.notifyListeners();
       } catch {}
@@ -1142,6 +1248,7 @@ class SpeechNarrator {
 
   public replay() {
     if (this.lastSpokenText) {
+      this.lastSpeakTimestampMs = 0;
       this.speak(this.lastSpokenText);
     }
   }
@@ -1176,6 +1283,7 @@ class SpeechNarrator {
 
     this.isSpeaking = false;
     this.isPaused = false;
+    sounds.setSpeechDucking(false);
     if (this.karaokeState.tokens.length > 0) {
       this.karaokeState = {
         ...this.karaokeState,

@@ -276,6 +276,7 @@ class SoundPlayer {
   private reverbBufferCache: AudioBuffer | null = null;
   private sharedConvolver: ConvolverNode | null = null;
   private sharedReverbSend: GainNode | null = null;
+  private isSpeechDucking: boolean = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -392,6 +393,14 @@ class SoundPlayer {
     return this.isMuted;
   }
 
+  public setSpeechDucking(ducking: boolean) {
+    this.isSpeechDucking = ducking;
+  }
+
+  public getSpeechDucking(): boolean {
+    return this.isSpeechDucking;
+  }
+
   public setTemplate(templateId: AudioTemplateId) {
     if (!TEMPLATE_ACOUSTIC_PROFILES[templateId]) return;
     this.activeTemplate = templateId;
@@ -489,9 +498,9 @@ class SoundPlayer {
     dampingFilter.type = 'lowpass';
     dampingFilter.frequency.setValueAtTime(frequencyCurve.highCutFreq * 0.8, now);
 
-    // Stage 6: Master Output & Stereo Panning
+    // Stage 6: Master Output & Stereo Panning (automatically ducks by ~70% while speech is narrating)
     const masterOut = ctx.createGain();
-    masterOut.gain.setValueAtTime(0.92, now);
+    masterOut.gain.setValueAtTime(this.isSpeechDucking ? 0.26 : 0.92, now);
 
     // Wire serial EQ + WaveShaper chain
     lowShelfFilter.connect(formantFilter);

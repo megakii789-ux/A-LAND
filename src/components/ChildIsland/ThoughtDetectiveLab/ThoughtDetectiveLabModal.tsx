@@ -26,6 +26,8 @@ import {
   DetectiveMagnifierIllustration
 } from '../StoryGrove/StoryIllustrations';
 import { CrayonDetectiveGame } from '../../InteractiveGames/CrayonDetectiveGame/CrayonDetectiveGame';
+import { TransferScenariosModal } from '../../InteractiveGames/TransferLab/TransferScenariosModal';
+import { loadProductExperienceMetrics } from '../../../domain/cognitive/productExperienceMetrics';
 
 interface Props {
   isOpen: boolean;
@@ -36,6 +38,8 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
   const [activeTab, setActiveTab] = useState<'tools' | 'threeBoxes' | 'circles' | 'fourSteps'>('tools');
   const [isBreakerOpen, setIsBreakerOpen] = useState<boolean>(false);
   const [isCrayonGameOpen, setIsCrayonGameOpen] = useState<boolean>(false);
+  const [isTransferLabOpen, setIsTransferLabOpen] = useState<boolean>(false);
+  const expMetrics = loadProductExperienceMetrics();
 
   // Tool Workshop State
   const [activeTool, setActiveTool] = useState<'flag' | 'lenses' | 'coin' | 'scale' | 'fence'>('flag');
@@ -152,8 +156,12 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
           <div className="flex items-center gap-2.5">
             <span className="text-2xl shrink-0" aria-hidden="true">🔍</span>
             <span className="text-left">
-              <span>开始真实探案互动：《蜡笔侦探》</span>
-              <span className="block text-xs font-normal text-amber-100 mt-0.5">用手指拖动放大镜找线索，把事实与猜测分一分</span>
+              <span>开始真实探案互动：《蜡笔侦探》（含多案件与新证据反转）</span>
+              <span className="block text-xs font-normal text-amber-100 mt-0.5">
+                {expMetrics.completedDetectiveCaseIds.length > 0
+                  ? `已解开 ${expMetrics.completedDetectiveCaseIds.length} 起案件 · 修正判断 ${expMetrics.hypothesisRevisionCount} 次 · 迁移练习 ${expMetrics.completedTransferScenarioIds.length} 个`
+                  : '用手指移动放大镜找线索，区分事实与猜测，在发现新证据后修正判断'}
+              </span>
             </span>
           </div>
           <span className="text-xs bg-amber-700/60 px-3 py-1.5 rounded-full font-bold shrink-0 whitespace-nowrap">
@@ -172,7 +180,13 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
                 ← 返回想法侦探社
               </button>
             </div>
-            <CrayonDetectiveGame onExit={() => setIsCrayonGameOpen(false)} />
+            <CrayonDetectiveGame
+              onExit={() => setIsCrayonGameOpen(false)}
+              onOpenTransferLab={() => {
+                setIsCrayonGameOpen(false);
+                setIsTransferLabOpen(true);
+              }}
+            />
           </div>
         ) : (
           <>
@@ -845,6 +859,12 @@ export const ThoughtDetectiveLabModal: React.FC<Props> = ({ isOpen, onClose }) =
         <DifficultyBreakerModal
           isOpen={isBreakerOpen}
           onClose={() => setIsBreakerOpen(false)}
+        />
+
+        {/* Transfer Scenarios Modal */}
+        <TransferScenariosModal
+          isOpen={isTransferLabOpen}
+          onClose={() => setIsTransferLabOpen(false)}
         />
       </div>
     </div>

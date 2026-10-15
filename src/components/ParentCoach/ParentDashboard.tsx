@@ -33,6 +33,7 @@ import { ParentMedalsWall } from './ParentMedalsWall';
 import { CognitiveDevelopmentEncyclopedia } from './CognitiveDevelopmentEncyclopedia';
 import { INITIAL_PARENT_MEDALS, calculateParentMedals } from '../../data/parentMedalsData';
 import { ParentMedal } from '../../types';
+import { loadProductExperienceMetrics } from '../../domain/cognitive/productExperienceMetrics';
 
 export const ParentDashboard: React.FC = () => {
   const {
@@ -794,6 +795,55 @@ export const ParentDashboard: React.FC = () => {
                   <span className="text-[11px] text-amber-600 mt-1 block">正在自发驱动脚手架淡出</span>
                 </div>
               </div>
+
+              {(() => {
+                const expMetrics = loadProductExperienceMetrics();
+                const accuracyPct =
+                  expMetrics.totalCluesClassified > 0
+                    ? Math.round((expMetrics.firstTryCorrectClassifications / expMetrics.totalCluesClassified) * 100)
+                    : 0;
+                return (
+                  <div
+                    data-testid="parent-cognitive-process-metrics"
+                    className="p-4 bg-indigo-50/70 rounded-2xl border border-indigo-200 space-y-2.5"
+                  >
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <span className="text-xs sm:text-sm font-black text-indigo-950">
+                        🔍 六层思考过程行为记录（本机非敏感计数）
+                      </span>
+                      <span className="text-[11px] font-bold bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full">
+                        不记录私密原话 · 仅统计思考方法练习
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                        <span className="text-[11px] text-stone-500 block">已完成侦探案件</span>
+                        <span className="text-base font-black text-indigo-950">
+                          {expMetrics.completedDetectiveCaseIds.length} 起
+                        </span>
+                      </div>
+                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                        <span className="text-[11px] text-stone-500 block">新证据后修正判断</span>
+                        <span className="text-base font-black text-emerald-800">
+                          {expMetrics.hypothesisRevisionCount} 次
+                        </span>
+                      </div>
+                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                        <span className="text-[11px] text-stone-500 block">事实/猜测首次分准</span>
+                        <span className="text-base font-black text-amber-900">
+                          {expMetrics.totalCluesClassified > 0 ? `${accuracyPct}%` : '待练习'}
+                        </span>
+                      </div>
+                      <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
+                        <span className="text-[11px] text-stone-500 block">迁移实验室完成</span>
+                        <span className="text-base font-black text-teal-900">
+                          {expMetrics.independentTransferCount} 独立 / {expMetrics.promptedTransferCount} 提示
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 text-xs text-stone-600 leading-relaxed">
                 <strong>今晚建议行动：</strong>孩子今天身体感觉主要是“{todayWeather?.bodySensations.join('、') || '松松的'}”，
