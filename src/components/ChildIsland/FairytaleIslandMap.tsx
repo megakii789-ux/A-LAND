@@ -860,6 +860,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               {/* 宝盒 3: 感觉 (粉色) */}
               <rect x="6" y="2" width="8" height="7" rx="1.5" fill="#FB7185" stroke="#E11D48" strokeWidth="1" />
             </g>
+
+            {/* P1-E: 破案后侦探木屋屋檐下点亮的金色取证星章 */}
+            {solvedCasesCount > 0 && (
+              <g data-testid="island-svg-detective-badges" transform="translate(0, 12)">
+                <circle cx="-10" cy="0" r="5" fill="#FDE047" stroke="#B45309" strokeWidth="1.5" />
+                <circle cx="0" cy="0" r="5" fill="#F59E0B" stroke="#78350F" strokeWidth="1.5" />
+                <circle cx="10" cy="0" r="5" fill="#FEF08A" stroke="#D97706" strokeWidth="1.5" />
+              </g>
+            )}
           </g>
 
           {/* ======================================================= */}
@@ -888,6 +897,31 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
             <line x1="30" y1="2" x2="30" y2="-12" stroke="#78350F" strokeWidth="2.5" />
             {/* 桥中央温暖明灯 */}
             <circle cx="0" cy="-24" r="5" fill="#FEF08A" stroke="#F59E0B" strokeWidth="1.5" />
+
+            {/* P1-E: 完成《玩具船协商》任务后，双向桥下清泉出现顺畅通航的小木船与水波 */}
+            {completedToyBoatCount > 0 && (
+              <g
+                data-testid="island-svg-bridge-sailing-boat"
+                data-completed-count={String(completedToyBoatCount)}
+                transform="translate(0, 18)"
+              >
+                <ellipse cx="0" cy="6" rx="22" ry="6" fill="#E0F2FE" opacity="0.85" />
+                <path
+                  d="M -16 2 L 16 2 L 11 10 L -11 10 Z"
+                  fill="#D97706"
+                  stroke="#78350F"
+                  strokeWidth="1.5"
+                />
+                <line x1="0" y1="2" x2="0" y2="-12" stroke="#78350F" strokeWidth="2" />
+                <polygon
+                  points="0,-11 13,-2 0,-2"
+                  fill="#FFFFFF"
+                  stroke="#0284C7"
+                  strokeWidth="1.2"
+                />
+                <polygon points="0,-12 -7,-9 0,-6" fill="#F43F5E" />
+              </g>
+            )}
 
             {/* 左岸温馨小屋 (Peach Roof Cottage) */}
             <g transform="translate(-62, -4)">
@@ -963,6 +997,23 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
               <path d="M -3 -1 Q 0 -4 3 -1 Q 0 4 -3 -1 Z" fill="#E11D48" />
               {/* 勇气明灯 */}
               <circle cx="16" cy="-4" r="3.5" fill="#FDE047" stroke="#F59E0B" strokeWidth="1" />
+
+              {/* P1-E: 完成《朋友问起我的家》后，勇气小屋前盛开发光边界守护花丛 */}
+              {completedFriendHomeCount > 0 && (
+                <g
+                  data-testid="island-svg-courage-boundary-flower"
+                  data-completed-count={String(completedFriendHomeCount)}
+                  transform="translate(0, 18)"
+                >
+                  <ellipse cx="0" cy="2" rx="22" ry="6" fill="#A7F3D0" stroke="#059669" strokeWidth="1.2" />
+                  <circle cx="-10" cy="-1" r="4.5" fill="#FDA4AF" stroke="#E11D48" strokeWidth="1.2" />
+                  <circle cx="-10" cy="-1" r="2" fill="#FEF08A" />
+                  <circle cx="0" cy="-3" r="5" fill="#F43F5E" stroke="#FFF1F2" strokeWidth="1.2" />
+                  <circle cx="0" cy="-3" r="2.2" fill="#FDE047" />
+                  <circle cx="10" cy="-1" r="4.5" fill="#C4B5FD" stroke="#7C3AED" strokeWidth="1.2" />
+                  <circle cx="10" cy="-1" r="2" fill="#FEF08A" />
+                </g>
+              )}
             </g>
 
             {/* 上层建筑: 星光树屋与望远镜 (Starlight Observatory) */}

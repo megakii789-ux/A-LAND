@@ -26,13 +26,48 @@ export type TransferTaskStatus =
   | 'COMPLETED_WITH_PROMPT'
   | 'ENDED_EARLY';
 
-export interface FriendHomeSessionSnapshot {
-  activeScenarioId: string;
+export type FriendHomeFramingMode = 'STORY_CHILD' | 'OWN_EXPRESSION';
+
+export interface FriendHomeScenarioProgressSnapshot {
+  scenarioId: string;
   currentNodeId: string;
   historyNodeIds: string[];
   chosenExpressionModes: string[];
   chosenChoiceLabels: string[];
+  endedEarlyVoluntarily: boolean;
   isCompleted: boolean;
+  composerState?: {
+    shareAmount: 'NONE' | 'LITTLE' | 'OPEN';
+    toneStyle: 'WARM' | 'CALM_FIRM' | 'ASK_BACK';
+    topicFocus: 'WHO_PICKS_UP' | 'SHIFT_TO_PLAY' | 'PRIVATE_MATTER';
+  };
+}
+
+export interface FriendHomeSessionSnapshot {
+  activeScenarioId: string;
+  framingMode?: FriendHomeFramingMode;
+  currentNodeId: string;
+  historyNodeIds: string[];
+  chosenExpressionModes: string[];
+  chosenChoiceLabels: string[];
+  endedEarlyVoluntarily?: boolean;
+  isCompleted: boolean;
+  /** P1-D: 每个社交情境独立保存自己的当前轮次、历史路径和暂停状态 */
+  scenarioStatesById?: Record<string, FriendHomeScenarioProgressSnapshot>;
+}
+
+export type ToyBoatCompletionMode = 'FULL_WAIT_TIMER' | 'MANUAL_EARLY_HANDOFF';
+
+export interface ToyBoatTaskProgressSnapshot {
+  taskId: string;
+  firstTurnActor: 'rabbit' | 'bear' | 'both';
+  turnDurationSeconds: number;
+  planStrategy: 'TURN_WAIT' | 'COOPERATE_ROLES' | 'EXCHANGE_ALT';
+  waitingActivityId: string;
+  boatPositionZone: 'RABBIT_DOCK' | 'CENTER_POND' | 'BEAR_DOCK' | 'CANAL_HARBOR';
+  executionPhase: 'PLANNING' | 'RUNNING' | 'OBSERVED_RESULT';
+  completedRoundCount: number;
+  completionMode?: ToyBoatCompletionMode | null;
 }
 
 export interface ToyBoatSessionSnapshot {
@@ -44,11 +79,19 @@ export interface ToyBoatSessionSnapshot {
   boatPositionZone: 'RABBIT_DOCK' | 'CENTER_POND' | 'BEAR_DOCK' | 'CANAL_HARBOR';
   executionPhase: 'PLANNING' | 'RUNNING' | 'OBSERVED_RESULT';
   completedRoundCount: number;
+  /** P0-A: 区分真实等待两轮倒计时完成 vs 手动提前摇铃交接完成 */
+  completionMode?: ToyBoatCompletionMode | null;
+  /** P0-B: 明确标识本次完成归属的任务 ID，严禁切换任务时把旧任务完成数带入新任务 */
+  completedForTaskId?: string | null;
+  /** P0-B: 按任务 ID 独立保存的执行状态映射 */
+  taskStatesById?: Record<string, ToyBoatTaskProgressSnapshot>;
 }
 
 export interface CompanionSessionMemory {
   gameId: 'friend_asks_home' | 'toy_boat' | 'crayon_detective';
   scenarioTitle: string;
+  /** P1-B: 区分“已安排/正在进行但尚未观察结果”与“已完成并观察结果” */
+  eventStage?: 'ARRANGED_OR_STARTED' | 'COMPLETED_OBSERVED';
   childChoiceSummary: string;
   companionReactionText: string;
   updatedAt: string;
@@ -86,6 +129,8 @@ export interface ProductExperienceMetrics {
   completedFriendHomeScenarioIds: string[];
   /** Sprint 2: 《玩具船协商》已执行观察完成的任务 ID */
   completedToyBoatTaskIds: string[];
+  /** Sprint 2.1 P0-A: 《玩具船协商》各任务完成方式记录（完整等待 FULL_WAIT_TIMER vs 手动提前交接 MANUAL_EARLY_HANDOFF） */
+  toyBoatTaskCompletionModes: Record<string, ToyBoatCompletionMode>;
   /** Sprint 2: 《朋友问起我的家》退出再进入时的任务恢复快照 */
   friendHomeSessionState: FriendHomeSessionSnapshot | null;
   /** Sprint 2: 《玩具船协商》退出再进入时的任务恢复快照 */
@@ -123,6 +168,7 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
     taskParticipationCounts: {},
     completedFriendHomeScenarioIds: [],
     completedToyBoatTaskIds: [],
+    toyBoatTaskCompletionModes: {},
     friendHomeSessionState: null,
     toyBoatSessionState: null,
     latestCompanionMemory: null,
@@ -243,6 +289,10 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
       completedToyBoatTaskIds: Array.isArray(parsed.completedToyBoatTaskIds)
         ? parsed.completedToyBoatTaskIds
         : [],
+      toyBoatTaskCompletionModes:
+        parsed.toyBoatTaskCompletionModes && typeof parsed.toyBoatTaskCompletionModes === 'object'
+          ? parsed.toyBoatTaskCompletionModes
+          : {},
       friendHomeSessionState:
         parsed.friendHomeSessionState && typeof parsed.friendHomeSessionState === 'object'
           ? parsed.friendHomeSessionState
@@ -815,7 +865,9 @@ export function recordFriendHomeSessionProgress(
 }
 
 /**
- * Sprint 2: 记录《玩具船协商》物体操作与协商方案进展、可恢复任务状态与动物伙伴记忆
+ * Sprint 2 / 2.1: 记录《玩具船协商》物体操作与协商方案进展、可恢复任务状态与动物伙伴记忆
+ * P0-A: 统一记录真实倒计时完成（FULL_WAIT_TIMER）与手动提前交接（MANUAL_EARLY_HANDOFF）
+ * P0-B: 严禁仅凭其他任务遗留的 completedRoundCount > 0 宣告当前任务完成
  */
 export function recordToyBoatSessionProgress(
   snapshot: ToyBoatSessionSnapshot,
@@ -824,11 +876,23 @@ export function recordToyBoatSessionProgress(
   const scope = getActiveMetricsScope();
   const current = getProductExperienceMetrics(scope);
 
-  const isTaskCompleted = snapshot.executionPhase === 'OBSERVED_RESULT' || snapshot.completedRoundCount > 0;
+  const isCurrentTaskVerifiedComplete =
+    snapshot.executionPhase === 'OBSERVED_RESULT' &&
+    snapshot.completedRoundCount >= 2 &&
+    (snapshot.completedForTaskId === undefined ||
+      snapshot.completedForTaskId === snapshot.activeTaskId);
+
   const nextCompleted =
-    isTaskCompleted && !current.completedToyBoatTaskIds.includes(snapshot.activeTaskId)
+    isCurrentTaskVerifiedComplete && !current.completedToyBoatTaskIds.includes(snapshot.activeTaskId)
       ? [...current.completedToyBoatTaskIds, snapshot.activeTaskId]
       : current.completedToyBoatTaskIds;
+
+  const nextCompletionModes: Record<string, ToyBoatCompletionMode> = {
+    ...current.toyBoatTaskCompletionModes,
+  };
+  if (isCurrentTaskVerifiedComplete && snapshot.completionMode) {
+    nextCompletionModes[snapshot.activeTaskId] = snapshot.completionMode;
+  }
 
   const sessionKey = `${scope}:toy_boat:${snapshot.activeTaskId}`;
   const nextParticipation = { ...current.taskParticipationCounts };
@@ -842,6 +906,7 @@ export function recordToyBoatSessionProgress(
     {
       ...current,
       completedToyBoatTaskIds: nextCompleted,
+      toyBoatTaskCompletionModes: nextCompletionModes,
       toyBoatSessionState: snapshot,
       latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
       taskParticipationCounts: nextParticipation,

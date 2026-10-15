@@ -172,7 +172,13 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             </button>
           </div>
 
-          {/* 游戏切换标签（单行紧凑横向滑动） */}
+          {/* 游戏切换标签（单行紧凑横向滑动 + 390px 明确切换提示） */}
+          <div className="flex items-center justify-between gap-2 text-[11px] font-bold text-stone-500 px-0.5">
+            <span>选择小岛互动游戏：</span>
+            <span data-testid="games-nav-scroll-hint" className="text-amber-800">
+              ⇄ 左右滑动或点按切换 4 个游戏
+            </span>
+          </div>
           <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 min-w-0 max-w-full">
             <button
               type="button"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { AppProvider } from '../context/AppContext';
 import { FriendAsksHomeGame } from '../components/InteractiveGames/FriendAsksHomeGame/FriendAsksHomeGame';
 import { ToyBoatNegotiationGame } from '../components/InteractiveGames/ToyBoatNegotiationGame/ToyBoatNegotiationGame';
@@ -307,7 +307,7 @@ function createStatefulTestRenderer(initialElement: React.ReactElement) {
   };
 }
 
-describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationGame & Island Linkage', () => {
+describe('Sprint 2 & Sprint 2.1 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationGame & Island Linkage', () => {
   beforeEach(() => {
     const localStore = new Map<string, string>();
     const sessionStore = new Map<string, string>();
@@ -346,13 +346,14 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     disableInternalPlaytestMode();
     lockParentAccess();
     resetParentPinForTesting();
     resetProductExperienceMetrics();
   });
 
-  it('FriendAsksHomeGame covers 5 peer scenarios and 7 expression modes, with realistic non-instant peer reactions and session resume', () => {
+  it('FriendAsksHomeGame covers 5 peer scenarios, 7 expression modes, per-scenario progress preservation (A -> B -> A), and framing protection (P1-C / P1-D)', () => {
     expect(FRIEND_HOME_SCENARIOS.length).toBe(5);
     expect(Object.keys(EXPRESSION_MODE_META)).toEqual([
       'DIRECT_ANSWER',
@@ -373,7 +374,16 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
       </AppProvider>
     );
 
-    // Scenario 1: Curious friend asking -> Round 1 choose DIRECT_ANSWER
+    // P1-C: Framing selector defaults to STORY_CHILD and switching to OWN_EXPRESSION uses neutral family wording when two-homes schedule is not configured
+    expect(view.findByTestId('active-framing-status')?.props['data-framing-mode']).toBe('STORY_CHILD');
+    view.click(view.findByTestId('framing-mode-OWN_EXPRESSION'));
+    expect(view.findByTestId('active-framing-status')?.props['data-framing-mode']).toBe('OWN_EXPRESSION');
+    expect(view.findByTestId('active-framing-status')?.props['data-two-homes-configured']).toBe('false');
+    expect(view.findByTestId('dialogue-option-opt_c1_direct')?.text).toContain('因为我们家每天接送的安排不一样');
+
+    // Switch back to STORY_CHILD to test Scenario 1 Round 1 -> Round 2
+    view.click(view.findByTestId('framing-mode-STORY_CHILD'));
+    expect(view.findByTestId('scenario1-expression-composer')).toBeTruthy();
     expect(view.findByTestId('friend-dialogue-round-badge')?.text.replace(/\s+/g, '')).toContain('第1轮互动');
     view.click(view.findByTestId('dialogue-option-opt_c1_direct'));
 
@@ -381,9 +391,26 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
     expect(view.findByTestId('friend-dialogue-round-badge')?.text.replace(/\s+/g, '')).toContain('第2轮互动');
     expect(view.findByTestId('peer-current-speech')?.text).toContain('那你的玩具和画笔放哪边呀');
 
-    // Child sets boundary in Round 2 -> reaches Round 3 terminal state
+    // P1-B: While Scenario 1 is at Round 2 (not yet completed), companion memory eventStage is ARRANGED_OR_STARTED
+    expect(getPlaytestExperienceMetrics().latestCompanionMemory?.eventStage).toBe('ARRANGED_OR_STARTED');
+
+    // P1-C: Switch from Scenario 1 (at Round 2) -> Scenario 2 (at Round 1) -> back to Scenario 1
+    // Scenario 1 MUST preserve its Round 2 progress instead of resetting!
+    view.click(view.findByTestId('friend-scenario-tab-scenario_probing_classmate_drawing'));
+    expect(view.findByTestId('friend-dialogue-round-badge')?.text.replace(/\s+/g, '')).toContain('第1轮互动');
+    expect(view.findByTestId('scenario2-boundary-loop-panel')).toBeTruthy();
+    expect(view.findByTestId('peer-reaction-visual-cue')?.text).toContain('胳膊肘撑在画纸边');
+
+    // Switch back to Scenario 1 -> verify Round 2 is restored!
+    view.click(view.findByTestId('friend-scenario-tab-scenario_curious_friend_pickup'));
+    expect(view.findByTestId('friend-dialogue-round-badge')?.text.replace(/\s+/g, '')).toContain('第2轮互动');
+    expect(view.findByTestId('peer-current-speech')?.text).toContain('那你的玩具和画笔放哪边呀');
+    expect(view.findByTestId('friend-dialogue-history')?.text.replace(/\s+/g, '')).toContain('第1轮');
+
+    // Complete Scenario 1 in Round 2 -> reaches Round 3 terminal state
     view.click(view.findByTestId('dialogue-option-opt_c1_r2_boundary'));
     expect(view.findByTestId('friend-scenario-terminal-card')).toBeTruthy();
+    expect(getPlaytestExperienceMetrics().latestCompanionMemory?.eventStage).toBe('COMPLETED_OBSERVED');
 
     // Switch to Scenario 2: Repeated privacy probing by classmate Doudou
     view.click(view.findByTestId('friend-scenario-tab-scenario_probing_classmate_drawing'));
@@ -393,7 +420,7 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
     view.click(view.findByTestId('dialogue-option-opt_p1_boundary'));
     expect(view.findByTestId('peer-current-speech')?.text).toContain('小气鬼');
 
-    // Unmount and remount -> verifies session state is restored at Round 2 of Scenario 2!
+    // Unmount and remount -> verifies session state is restored at Round 2 of Scenario 2 AND Scenario 1 state is still in scenarioStatesById!
     view.unmount();
 
     const resumedView = createStatefulTestRenderer(
@@ -413,11 +440,13 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
     expect(metrics.completedFriendHomeScenarioIds).toContain('scenario_curious_friend_pickup');
     expect(metrics.completedFriendHomeScenarioIds).toContain('scenario_probing_classmate_drawing');
     expect(metrics.latestCompanionMemory?.gameId).toBe('friend_asks_home');
+    expect(metrics.latestCompanionMemory?.eventStage).toBe('COMPLETED_OBSERVED');
 
     resumedView.unmount();
   });
 
-  it('ToyBoatNegotiationGame supports movable boat zones, turn order, real 3s/5s durations, 2 conflict tasks, and island/companion linkage', () => {
+  it('ToyBoatNegotiationGame P0-A & P0-B & P1-A & P1-B: natural countdown completion persists to storage, distinguishes timer vs manual early handoff, hides result before execution, and prevents Task 1 -> Task 2 false completion', () => {
+    vi.useFakeTimers();
     expect(TOY_BOAT_TASKS.length).toBe(2);
 
     // Verify evaluation logic distinguishes empty-hand waiting frustration vs cooperative/exchange satisfaction
@@ -456,39 +485,106 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
     expect(view.getText()).not.toContain('3分钟');
     expect(view.getText()).not.toContain('3 分钟');
 
-    // 1. Move boat to BEAR_DOCK
+    // P1-A: In PLANNING phase, 4D result panel MUST NOT be visible! Only expectation hint is shown.
+    expect(view.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe('PLANNING');
+    expect(view.findByTestId('planning-expectation-hint')).toBeTruthy();
+    expect(view.findByTestId('negotiation-result-observation')).toBeNull();
+
+    // 1. Move boat to BEAR_DOCK, arrange 3s duration + sand digger exchange
     view.click(view.findByTestId('move-boat-zone-BEAR_DOCK'));
     expect(view.findByTestId('move-boat-zone-BEAR_DOCK')?.props['data-has-boat']).toBe('true');
-
-    // 2. Arrange Bear first, 5s duration, empty-handed wait -> Rabbit becomes LOW_FRUSTRATED
     view.click(view.findByTestId('order-actor-bear'));
-    view.click(view.findByTestId('duration-seconds-5'));
-    view.click(view.findByTestId('waiting-activity-wait_empty_hands'));
-    expect(view.findByTestId('rabbit-reaction-card')?.props['data-satisfaction']).toBe('LOW_FRUSTRATED');
-
-    // 3. Switch to 3s duration + sand digger exchange -> both become HIGH_SATISFIED
     view.click(view.findByTestId('duration-seconds-3'));
     view.click(view.findByTestId('strategy-option-EXCHANGE_ALT'));
-    expect(view.findByTestId('rabbit-reaction-card')?.props['data-satisfaction']).toBe('HIGH_SATISFIED');
-    expect(view.findByTestId('bear-reaction-card')?.props['data-satisfaction']).toBe('HIGH_SATISFIED');
 
-    // 4. Execute plan -> Round 1 -> Round 2 -> Observed Result
+    // 2. Start execution -> RUNNING phase
     view.click(view.findByTestId('execute-negotiation-plan-btn'));
     expect(view.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe('RUNNING');
-    view.click(view.findByTestId('advance-negotiation-round-btn'));
-    view.click(view.findByTestId('advance-negotiation-round-btn'));
+    // P1-A: Still no result observation panel during RUNNING!
+    expect(view.findByTestId('negotiation-result-observation')).toBeNull();
+    // P1-B: Companion memory records ARRANGED_OR_STARTED while running, NOT completed!
+    expect(getPlaytestExperienceMetrics().latestCompanionMemory?.eventStage).toBe('ARRANGED_OR_STARTED');
+    expect(getPlaytestExperienceMetrics().completedToyBoatTaskIds).toEqual([]);
+
+    // 3. P0-A: Let the REAL 3-second countdown finish Round 1 -> Round 2 -> Observed Result naturally!
+    for (let sec = 0; sec < 3; sec++) {
+      vi.advanceTimersByTime(1000);
+      view.rerender();
+    }
+    // After 3 seconds, Round 1 finishes and Round 2 starts automatically
+    expect(view.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe('RUNNING');
+    expect(view.findByTestId('boat-execution-status-badge')?.text.replace(/\s+/g, '')).toContain(
+      '正在执行第2/2轮'
+    );
+
+    for (let sec = 0; sec < 3; sec++) {
+      vi.advanceTimersByTime(1000);
+      view.rerender();
+    }
+    // After another 3 seconds, Round 2 finishes naturally and persists FULL_WAIT_TIMER!
     expect(view.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe('OBSERVED_RESULT');
-    expect(view.findByTestId('negotiation-observed-complete-badge')).toBeTruthy();
+    expect(view.findByTestId('negotiation-result-observation')).toBeTruthy();
+    expect(view.findByTestId('negotiation-observed-complete-badge')?.props['data-completion-mode']).toBe(
+      'FULL_WAIT_TIMER'
+    );
+    expect(view.findByTestId('negotiation-observed-complete-badge')?.text).toContain('完整等待两轮倒计时结束');
 
-    // 5. Switch to Task 2 (Limited Resource Cooperation) and execute
-    view.click(view.findByTestId('boat-task-tab-task_limited_resource_coop'));
-    view.click(view.findByTestId('execute-negotiation-plan-btn'));
-    view.click(view.findByTestId('advance-negotiation-round-btn'));
-    view.click(view.findByTestId('advance-negotiation-round-btn'));
-    expect(view.findByTestId('toy-boat-completed-count')?.text.replace(/\s+/g, '')).toContain('已完成2/2个协商任务');
+    const metricsAfterTask1 = getPlaytestExperienceMetrics();
+    expect(metricsAfterTask1.completedToyBoatTaskIds).toEqual(['task_turn_and_waiting']);
+    expect(metricsAfterTask1.toyBoatTaskCompletionModes['task_turn_and_waiting']).toBe('FULL_WAIT_TIMER');
+    expect(metricsAfterTask1.latestCompanionMemory?.eventStage).toBe('COMPLETED_OBSERVED');
+
+    // P0-A Persistence check: Unmount and remount -> Task 1 OBSERVED_RESULT and FULL_WAIT_TIMER are restored from localStorage!
     view.unmount();
+    const remountedView = createStatefulTestRenderer(
+      <AppProvider>
+        <ToyBoatNegotiationGame onExit={() => {}} />
+      </AppProvider>
+    );
+    expect(remountedView.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe(
+      'OBSERVED_RESULT'
+    );
+    expect(
+      remountedView.findByTestId('negotiation-observed-complete-badge')?.props['data-completion-mode']
+    ).toBe('FULL_WAIT_TIMER');
 
-    // 6. Verify FairytaleIslandMap and CompanionBanner reflect the child's choices!
+    // 4. P0-B Negative Test: Switch from completed Task 1 to Task 2 WITHOUT executing Task 2
+    remountedView.click(remountedView.findByTestId('boat-task-tab-task_limited_resource_coop'));
+    expect(remountedView.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe('PLANNING');
+    expect(remountedView.findByTestId('negotiation-result-observation')).toBeNull();
+    // Even if child clicks options in Task 2 planning phase, Task 2 MUST NOT be marked completed!
+    remountedView.click(remountedView.findByTestId('duration-seconds-5'));
+    const metricsAfterSwitch = getPlaytestExperienceMetrics();
+    expect(metricsAfterSwitch.completedToyBoatTaskIds).toEqual(['task_turn_and_waiting']);
+    expect(metricsAfterSwitch.completedToyBoatTaskIds).not.toContain('task_limited_resource_coop');
+
+    // 5. Execute Task 2 using manual early handoff -> verify it records MANUAL_EARLY_HANDOFF and completes Task 2
+    remountedView.click(remountedView.findByTestId('execute-negotiation-plan-btn'));
+    remountedView.click(remountedView.findByTestId('advance-negotiation-round-btn'));
+    remountedView.click(remountedView.findByTestId('advance-negotiation-round-btn'));
+    expect(remountedView.findByTestId('boat-execution-status-badge')?.props['data-phase']).toBe(
+      'OBSERVED_RESULT'
+    );
+    expect(
+      remountedView.findByTestId('negotiation-observed-complete-badge')?.props['data-completion-mode']
+    ).toBe('MANUAL_EARLY_HANDOFF');
+    expect(remountedView.findByTestId('negotiation-observed-complete-badge')?.text).toContain(
+      '主动提前交接完成'
+    );
+    expect(
+      remountedView.findByTestId('toy-boat-completed-count')?.text.replace(/\s+/g, '')
+    ).toContain('已完成2/2个协商任务');
+    const finalBoatMetrics = getPlaytestExperienceMetrics();
+    expect(finalBoatMetrics.completedToyBoatTaskIds).toEqual([
+      'task_turn_and_waiting',
+      'task_limited_resource_coop',
+    ]);
+    expect(finalBoatMetrics.toyBoatTaskCompletionModes['task_limited_resource_coop']).toBe(
+      'MANUAL_EARLY_HANDOFF'
+    );
+    remountedView.unmount();
+
+    // 6. P1-E: Verify FairytaleIslandMap renders visible SVG progress elements (sailing boat under bridge) and CompanionBanner reflects completion!
     const islandView = createStatefulTestRenderer(
       <AppProvider>
         <CompanionBanner />
@@ -496,9 +592,17 @@ describe('Sprint 2 Interactive Depth — FriendAsksHomeGame, ToyBoatNegotiationG
       </AppProvider>
     );
     expect(islandView.findByTestId('companion-session-memory')).toBeTruthy();
+    expect(islandView.findByTestId('companion-session-memory')?.props['data-event-stage']).toBe(
+      'COMPLETED_OBSERVED'
+    );
     expect(islandView.findByTestId('companion-session-memory')?.text).toContain('浅水溪湾的松果渡船挑战');
-    expect(islandView.findByTestId('island-toy-boat-progress-badge')?.text.replace(/\s+/g, '')).toContain('小船协商2项');
-    expect(islandView.findByTestId('island-world-reaction-banner')?.text.replace(/\s+/g, '')).toContain('双向桥溪流的小木船完成了2次协商试航');
+    expect(islandView.findByTestId('island-toy-boat-progress-badge')?.text.replace(/\s+/g, '')).toContain(
+      '小船协商2项'
+    );
+    expect(islandView.findByTestId('island-svg-bridge-sailing-boat')).toBeTruthy();
+    expect(islandView.findByTestId('island-svg-bridge-sailing-boat')?.props['data-completed-count']).toBe(
+      '2'
+    );
 
     islandView.unmount();
   });

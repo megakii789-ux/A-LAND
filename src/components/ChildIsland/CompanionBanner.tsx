@@ -112,9 +112,18 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
             {sessionMemory && (
               <span
                 data-testid="companion-session-memory"
-                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-black px-2.5 py-0.5 rounded-xl bg-emerald-100 text-emerald-950 border border-emerald-300 min-w-0 max-w-full break-words"
+                data-event-stage={sessionMemory.eventStage || 'COMPLETED_OBSERVED'}
+                className={`inline-flex items-center gap-1 text-[11px] sm:text-xs font-black px-2.5 py-0.5 rounded-xl border min-w-0 max-w-full break-words ${
+                  sessionMemory.eventStage === 'ARRANGED_OR_STARTED'
+                    ? 'bg-amber-100 text-amber-950 border-amber-300'
+                    : 'bg-emerald-100 text-emerald-950 border-emerald-300'
+                }`}
               >
-                <span className="min-w-0 break-words">🌟 伙伴记得：{sessionMemory.childChoiceSummary}</span>
+                <span className="min-w-0 break-words">
+                  {sessionMemory.eventStage === 'ARRANGED_OR_STARTED'
+                    ? `⏳ 伙伴陪你尝试中：${sessionMemory.childChoiceSummary}`
+                    : `🌟 伙伴记得：${sessionMemory.childChoiceSummary}`}
+                </span>
               </span>
             )}
           </div>
