@@ -15,8 +15,21 @@ import {
   subscribeParentAccess,
   isInternalPlaytestEnabled,
 } from '../../../domain/privacy/parentAccess';
-import { recordTransferScenarioCompletion } from '../../../domain/cognitive/productExperienceMetrics';
+import {
+  TransferTaskStatus,
+  recordTransferScenarioCompletion,
+  recordUnknownHonestyChoice,
+} from '../../../domain/cognitive/productExperienceMetrics';
 import { ParentGateModal } from '../../ParentGateModal';
+
+const TRANSFER_STATUS_LABELS: Record<TransferTaskStatus, string> = {
+  NOT_STARTED: '尚未开始',
+  ATTEMPTED: '已尝试选择',
+  REFERENCE_VIEWED: '仅查看客观参考',
+  COMPLETED_INDEPENDENT: '独立迁移完成',
+  COMPLETED_WITH_PROMPT: '陪伴提示下完成',
+  ENDED_EARLY: '已自主暂停退出',
+};
 
 interface Props {
   isOpen: boolean;
@@ -32,7 +45,6 @@ const TransferCueIcon: React.FC<{
   categoryOrPath?: string;
   className?: string;
 }> = ({ cueId, categoryOrPath, className = 'w-7 h-7' }) => {
-  // 1. 饼干碎屑
   if (cueId.includes('crumbs')) {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
@@ -46,8 +58,7 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 2. 狗毛 / 爪印
-  if (cueId.includes('dog')) {
+  if (cueId.includes('dog') || cueId.includes('footprints')) {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
         <ellipse cx="16" cy="18" rx="6" ry="4.5" fill="#FBBF24" />
@@ -59,8 +70,7 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 3. 走过去的弟弟 / 人物步子
-  if (cueId.includes('brother')) {
+  if (cueId.includes('brother') || cueId.includes('classes')) {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
         <circle cx="16" cy="9" r="4" fill="#FEF3C7" stroke="#D97706" strokeWidth="1.5" />
@@ -70,8 +80,7 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 4. 猜想气泡
-  if (cueId.includes('thought') || categoryOrPath === 'INFERENCE') {
+  if (cueId.includes('thought') || cueId.includes('blame') || categoryOrPath === 'INFERENCE') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
         <path
@@ -86,8 +95,7 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 5. 未知秘密
-  if (cueId.includes('unknown') || categoryOrPath === 'UNKNOWN') {
+  if (cueId.includes('unknown') || cueId.includes('uncertainty') || categoryOrPath === 'UNKNOWN') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
         <rect x="7" y="10" width="18" height="17" rx="3.5" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.8" />
@@ -97,7 +105,6 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 6. 数数轮流玩 (沙漏/秒表)
   if (cueId.includes('count') || categoryOrPath === 'TAKE_TURNS') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
@@ -109,7 +116,6 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 7. 双人跷跷板
   if (cueId.includes('seesaw') || categoryOrPath === 'ALTERNATIVE_TOGETHER') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
@@ -121,7 +127,6 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 8. 合作推秋千
   if (cueId.includes('push') || categoryOrPath === 'COOPERATE_PUSH') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
@@ -132,7 +137,6 @@ const TransferCueIcon: React.FC<{
     );
   }
 
-  // 默认标志
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
       <circle cx="16" cy="16" r="11" fill="#D1FAE5" stroke="#059669" strokeWidth="1.8" />
@@ -145,7 +149,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
   const [selectedScenarioIndex, setSelectedScenarioIndex] = useState<number>(0);
   const [adultPromptCount, setAdultPromptCount] = useState<number>(0);
   const [chosenOptionIds, setChosenOptionIds] = useState<string[]>([]);
+  const [taskStatus, setTaskStatus] = useState<TransferTaskStatus>('NOT_STARTED');
   const [showOutcome, setShowOutcome] = useState<boolean>(false);
+  const [evaluationNote, setEvaluationNote] = useState<string | null>(null);
   const [previewSessionToken, setPreviewSessionToken] = useState<string | null>(null);
   const [isParentGateOpen, setIsParentGateOpen] = useState(false);
   const [, setAccessVersion] = useState(0);
@@ -179,6 +185,9 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
   const handleCloseModal = () => {
     speechNarrator.stop();
+    if (taskStatus === 'NOT_STARTED' || taskStatus === 'ATTEMPTED') {
+      setTaskStatus('ENDED_EARLY');
+    }
     setPreviewSessionToken(null);
     setIsParentGateOpen(false);
     revokeAdultPreviewSession();
@@ -190,9 +199,16 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
   const handleToggleOption = (optionId: string) => {
     sounds.playClick();
-    setChosenOptionIds((prev) =>
-      prev.includes(optionId) ? prev.filter((id) => id !== optionId) : [...prev, optionId]
-    );
+    setEvaluationNote(null);
+    setChosenOptionIds((prev) => {
+      const next = prev.includes(optionId) ? prev.filter((id) => id !== optionId) : [...prev, optionId];
+      if (next.length > 0 && (taskStatus === 'NOT_STARTED' || taskStatus === 'REFERENCE_VIEWED' || taskStatus === 'ENDED_EARLY')) {
+        setTaskStatus('ATTEMPTED');
+      } else if (next.length === 0 && taskStatus === 'ATTEMPTED') {
+        setTaskStatus('NOT_STARTED');
+      }
+      return next;
+    });
   };
 
   const handleIncrementAdultPrompt = () => {
@@ -200,19 +216,75 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
     setAdultPromptCount((prev) => prev + 1);
   };
 
+  /**
+   * P0-04：检查迁移任务是否实际完成了有效判断/策略选择
+   * 若 0 选择直接点击“看一看客观结果”，仅记为 REFERENCE_VIEWED，绝不增加独立迁移完成数！
+   */
   const handleCompleteScenario = () => {
     sounds.playClick();
     setShowOutcome(true);
-    recordTransferScenarioCompletion(currentScenario.id, adultPromptCount);
+
+    if (chosenOptionIds.length === 0) {
+      setTaskStatus('REFERENCE_VIEWED');
+      setEvaluationNote(
+        '你还没有勾选任何线索或方案就打开了参考结果，本次仅记录为「参考查看」，不会计入迁移完成哦！随时可以勾选你认定的选项后再提交。'
+      );
+      recordTransferScenarioCompletion(currentScenario.id, adultPromptCount, {
+        status: 'REFERENCE_VIEWED',
+        selectedOptionCount: 0,
+      });
+      speechNarrator.speak(currentScenario.objectiveOutcome);
+      return;
+    }
+
+    const selectedItems = currentScenario.cluesOrChoices.filter((c) =>
+      chosenOptionIds.includes(c.id)
+    );
+    const hasSelectedInferenceBlame = selectedItems.some((c) => c.categoryOrPath === 'INFERENCE');
+    const hasSelectedUnknownOption = selectedItems.some((c) => c.categoryOrPath === 'UNKNOWN');
+
+    if (hasSelectedUnknownOption) {
+      recordUnknownHonestyChoice(`transfer:${currentScenario.id}`);
+    }
+
+    // 在事实与猜想迁移情境中，如果把无证据的指责当成了事实依据，提醒再次核对，状态保持 ATTEMPTED
+    if (currentScenario.underlyingStructure === 'FACT_VS_INFERENCE' && hasSelectedInferenceBlame) {
+      setTaskStatus('ATTEMPTED');
+      setEvaluationNote(
+        '再仔细看一看：你勾选的选项里包含了一条没有证据的猜测指责哦！试着去掉凭空猜测的指责、只保留真实事实和“现在还不知道”，再来确认完成吧。'
+      );
+      speechNarrator.speak(
+        '你勾选的选项里有一条是没有证据的猜测指责哦，试着把它去掉再确认吧！'
+      );
+      return;
+    }
+
+    const finalStatus: TransferTaskStatus =
+      adultPromptCount === 0 ? 'COMPLETED_INDEPENDENT' : 'COMPLETED_WITH_PROMPT';
+    setTaskStatus(finalStatus);
+    setEvaluationNote(null);
+    recordTransferScenarioCompletion(currentScenario.id, adultPromptCount, {
+      status: finalStatus,
+      selectedOptionCount: chosenOptionIds.length,
+    });
     speechNarrator.speak(currentScenario.objectiveOutcome);
   };
 
-  // 修复跨任务提示次数污染：切换或重置情境时同步清空 adultPromptCount
+  const handleEndEarly = () => {
+    sounds.playClick();
+    setTaskStatus('ENDED_EARLY');
+    setShowOutcome(false);
+    setEvaluationNote('已记录为「自主暂停 / 暂不作答」，不计入迁移完成统计。');
+  };
+
+  // 修复跨任务提示次数污染：切换或重置情境时同步清空 adultPromptCount 与状态
   const handleResetScenario = () => {
     sounds.playClick();
     setChosenOptionIds([]);
     setShowOutcome(false);
+    setEvaluationNote(null);
     setAdultPromptCount(0);
+    setTaskStatus('NOT_STARTED');
   };
 
   const handleRequestAdultPreview = () => {
@@ -237,9 +309,24 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
               </svg>
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-stone-900">
-                独立生活小情境（无提示检验）
-              </h2>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-base sm:text-xl font-black text-stone-900">
+                  独立生活小情境（无提示检验）
+                </h2>
+                <span
+                  data-testid="transfer-task-status-badge"
+                  data-status={taskStatus}
+                  className={`text-[11px] font-black px-2.5 py-0.5 rounded-full ${
+                    taskStatus === 'COMPLETED_INDEPENDENT' || taskStatus === 'COMPLETED_WITH_PROMPT'
+                      ? 'bg-emerald-600 text-white'
+                      : taskStatus === 'REFERENCE_VIEWED' || taskStatus === 'ENDED_EARLY'
+                        ? 'bg-stone-300 text-stone-800'
+                        : 'bg-amber-200 text-amber-950'
+                  }`}
+                >
+                  {TRANSFER_STATUS_LABELS[taskStatus]}
+                </span>
+              </div>
               <p className="text-xs text-stone-600 font-medium">
                 未受训练新情境 · 零方法名称透露 · 客观观察记录
               </p>
@@ -258,12 +345,13 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
         {/* 内容区 */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
-          {/* 情境切换 Tab (触控 targets >= 48px) */}
+          {/* 情境切换 Tab */}
           <div className="flex flex-wrap items-center gap-2">
             {TRANSFER_SCENARIOS.map((sc, idx) => (
               <button
                 key={sc.id}
                 type="button"
+                data-testid={`transfer-scenario-tab-${idx + 1}`}
                 onClick={() => {
                   sounds.playClick();
                   setPreviewSessionToken(null);
@@ -275,7 +363,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                   setSelectedScenarioIndex(idx);
                   handleResetScenario();
                 }}
-                className={`min-h-[48px] px-4 py-2 rounded-2xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center ${
+                className={`min-h-[44px] px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center ${
                   selectedScenarioIndex === idx
                     ? 'bg-amber-500 text-white shadow-xs'
                     : 'bg-white border-2 border-stone-200 text-stone-700 hover:bg-stone-100'
@@ -340,7 +428,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
             </div>
           ) : (
             <>
-              {/* 情境描述卡片 (Tactile Illustrated Card) */}
+              {/* 情境描述卡片 */}
               <div className="bg-white rounded-2xl border-2 border-stone-200 p-4 sm:p-5 space-y-2 shadow-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
@@ -356,10 +444,10 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 </p>
               </div>
 
-              {/* 选项与分类交互 (触控 targets >= 56px 视觉卡片) */}
+              {/* 选项与分类交互 */}
               <div className="space-y-2.5">
                 <h4 className="text-xs sm:text-sm font-black text-stone-700">
-                  请选择或标记你认为的线索与动作：
+                  请先勾选你认同的客观事实或解决做法（至少选 1 项后再验证）：
                 </h4>
 
                 <div className="space-y-2">
@@ -369,6 +457,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                       <button
                         key={item.id}
                         type="button"
+                        data-testid={`transfer-option-${item.id}`}
                         onClick={() => handleToggleOption(item.id)}
                         className={`w-full min-h-[56px] p-3.5 rounded-2xl border-2 text-left transition-all flex items-center justify-between gap-3 cursor-pointer ${
                           isSelected
@@ -397,7 +486,7 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 </div>
               </div>
 
-              {/* 成人提示次数计数器 (单独记录，无羞耻) */}
+              {/* 成人提示次数计数器 */}
               <div className="bg-stone-100/90 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-stone-700 border border-stone-200">
                 <div className="flex items-center gap-2">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor" strokeWidth="2">
@@ -420,7 +509,16 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 </button>
               </div>
 
-              {/* 客观发现呈现（区分独立完成与提示后完成） */}
+              {evaluationNote && (
+                <div
+                  data-testid="transfer-evaluation-note"
+                  className="p-3.5 bg-amber-50 border-2 border-amber-300 rounded-2xl text-xs sm:text-sm font-bold text-amber-950"
+                >
+                  💡 {evaluationNote}
+                </div>
+              )}
+
+              {/* 客观发现呈现（严格区分 REFERENCE_VIEWED / ATTEMPTED / COMPLETED_INDEPENDENT / COMPLETED_WITH_PROMPT） */}
               {showOutcome && (
                 <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-2 animate-in fade-in">
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -431,18 +529,27 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
                       </svg>
                       <span>客观探索发现：</span>
                     </h5>
-                    <span
-                      data-testid="transfer-independence-badge"
-                      className={`text-xs font-extrabold px-2.5 py-1 rounded-full border ${
-                        adultPromptCount === 0
-                          ? 'bg-amber-100 text-amber-950 border-amber-300'
-                          : 'bg-sky-100 text-sky-900 border-sky-300'
-                      }`}
-                    >
-                      {adultPromptCount === 0
-                        ? '🌟 独立迁移完成（0 次提示）'
-                        : `🤝 陪伴提示下完成（${adultPromptCount} 次提示）`}
-                    </span>
+                    {taskStatus === 'REFERENCE_VIEWED' || taskStatus === 'ATTEMPTED' ? (
+                      <span
+                        data-testid="transfer-reference-only-badge"
+                        className="text-xs font-extrabold px-2.5 py-1 rounded-full border bg-stone-200 text-stone-800 border-stone-300"
+                      >
+                        📖 仅查看参考（未计入迁移完成）
+                      </span>
+                    ) : (
+                      <span
+                        data-testid="transfer-independence-badge"
+                        className={`text-xs font-extrabold px-2.5 py-1 rounded-full border ${
+                          taskStatus === 'COMPLETED_INDEPENDENT'
+                            ? 'bg-amber-100 text-amber-950 border-amber-300'
+                            : 'bg-sky-100 text-sky-900 border-sky-300'
+                        }`}
+                      >
+                        {taskStatus === 'COMPLETED_INDEPENDENT'
+                          ? '🌟 独立迁移完成（0 次提示）'
+                          : `🤝 陪伴提示下完成（${adultPromptCount} 次提示）`}
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-bold">
                     {currentScenario.objectiveOutcome}
@@ -457,21 +564,32 @@ export const TransferScenariosModal: React.FC<Props> = ({ isOpen, onClose }) => 
         </div>
 
         {/* 底部按钮栏 */}
-        <div className="bg-stone-100 px-4 py-3 border-t border-stone-200 flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={handleResetScenario}
-            className="min-h-[48px] px-4 py-2 rounded-xl bg-white border border-stone-300 text-stone-700 text-xs sm:text-sm font-bold hover:bg-stone-50 cursor-pointer flex items-center justify-center"
-          >
-            重置选择
-          </button>
+        <div className="bg-stone-100 px-4 py-3 border-t border-stone-200 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleResetScenario}
+              className="min-h-[48px] px-3.5 py-2 rounded-xl bg-white border border-stone-300 text-stone-700 text-xs sm:text-sm font-bold hover:bg-stone-50 cursor-pointer flex items-center justify-center"
+            >
+              重置选择
+            </button>
+            <button
+              type="button"
+              data-testid="transfer-end-early-btn"
+              onClick={handleEndEarly}
+              className="min-h-[48px] px-3.5 py-2 rounded-xl bg-white border border-stone-300 text-stone-600 text-xs sm:text-sm font-bold hover:bg-stone-50 cursor-pointer flex items-center justify-center"
+            >
+              暂不作答
+            </button>
+          </div>
 
           <button
             type="button"
+            data-testid="transfer-submit-or-view-btn"
             onClick={handleCompleteScenario}
             className="min-h-[56px] px-6 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-black shadow-md transition-colors cursor-pointer flex items-center justify-center"
           >
-            看一看客观结果
+            {chosenOptionIds.length > 0 ? '确认选择并看客观结果' : '看一看客观结果'}
           </button>
         </div>
       </div>

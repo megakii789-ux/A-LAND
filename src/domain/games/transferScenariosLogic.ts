@@ -1,12 +1,13 @@
 /**
  * 独立迁移情境逻辑 (Transfer Scenarios Logic)
  * 认知目标：未受训练情境下的独立迁移检验
- * 
+ *
  * 核心规则：
  * 1. 不显示“事实与猜测”、“双面币”、“协商模型”等方法名称；
- * 2. 不提供暗示正确答案的提示；
+ * 2. 不提供暗示正确答案的提示词（如严禁直接写“心里想：”暴露分类标签）；
  * 3. 记录成人提示数量 (adultPromptCount)；
- * 4. 迁移有效性作为开放性研究问题，不自动声称已经培养成功。
+ * 4. 包含“证据仍不足、应保留不确定性”的迁移情境；
+ * 5. 迁移有效性作为开放性研究问题，不自动声称已经培养成功。
  */
 
 import { TransferScenarioDefinition } from './types';
@@ -17,7 +18,7 @@ export const TRANSFER_SCENARIOS: ReadonlyArray<TransferScenarioDefinition> = [
     title: '小客厅的饼干盒',
     surfaceSituation: '茶几上的铁盒子打开了，里面的圆形曲奇饼干少了两块。',
     underlyingStructure: 'FACT_VS_INFERENCE',
-    promptSpokenText: '桌上的小饼干少了两块，我们来看看周围有些什么，把看到的和想到的分一分吧。',
+    promptSpokenText: '桌上的小饼干少了两块，请先选出真正有现场依据的发现，以及当下最合理的判断吧。',
     cluesOrChoices: [
       {
         id: 't1_crumbs',
@@ -39,45 +40,82 @@ export const TRANSFER_SCENARIOS: ReadonlyArray<TransferScenarioDefinition> = [
       },
       {
         id: 't4_inference_thought',
-        label: '心里想：“一定是弟弟偷吃了饼干！”',
+        label: '“肯定是弟弟刚才路过时把两块饼干偷吃掉了！”',
         categoryOrPath: 'INFERENCE',
         icon: '💭',
       },
       {
         id: 't5_unknown_who',
-        label: '到底是谁吃了饼干？',
+        label: '现有线索还看不出是谁吃了饼干，现在还不知道',
         categoryOrPath: 'UNKNOWN',
         icon: '❓',
       },
     ],
-    objectiveOutcome: '客观发现：我们只拍到了碎屑、狗毛和走过的弟弟，到底是谁吃了饼干其实还不知道。不能凭空冤枉弟弟，也不能冤枉小狗。',
+    objectiveOutcome:
+      '客观发现：现场只有饼干碎屑、狗毛和路过的弟弟，没有任何证据拍到是谁吃了饼干，所以不能凭空冤枉弟弟。不勾选无证据的指责、承认“现在还不知道”，才是不冤枉别人的科学态度。',
   },
   {
     id: 'transfer_swing_seesaw',
     title: '公园的秋千与跷跷板',
     surfaceSituation: '小松鼠和小刺猬都飞快跑到了公园唯一的红色大秋千前，两个人都想先坐上去。',
     underlyingStructure: 'CHOICE_TRADEOFF',
-    promptSpokenText: '秋千只有一个，两个好朋友都想玩，试着帮他们找找办法吧。',
+    promptSpokenText: '秋千只有一个，两个好朋友都想玩，试着帮他们选出能兼顾双方的办法吧。',
     cluesOrChoices: [
       {
         id: 't_path_count_10',
-        label: '数 10 下轮流荡秋千（一人数数，一人荡）',
+        label: '数 10 下轮流荡秋千（一人数数，一人荡，但要排队等待）',
         categoryOrPath: 'TAKE_TURNS',
         icon: '⏱️',
       },
       {
         id: 't_path_double_seesaw',
-        label: '一起去玩旁边的双人跷跷板（一起飞高高）',
+        label: '一起去玩旁边的双人跷跷板（不用等，但要暂时放下秋千）',
         categoryOrPath: 'ALTERNATIVE_TOGETHER',
         icon: '⚖️',
       },
       {
         id: 't_path_push_partner',
-        label: '小刺猬坐秋千，小松鼠在后面轻轻推（两人合作）',
+        label: '小刺猬先坐秋千，小松鼠在后面轻轻推，一会儿再换过来',
         categoryOrPath: 'COOPERATE_PUSH',
         icon: '🤝',
       },
     ],
-    objectiveOutcome: '三种方案都可以避免吵架：数数轮流要排队，跷跷板需要放下秋千，推秋千一人玩一人推。每种办法都有开心的地方，也需要一点点商量。',
+    objectiveOutcome:
+      '三种方案都可以避免争抢：数数轮流要排队等待，跷跷板需要暂时放下秋千，合作推秋千需要一人先推一人先坐。每种做法都有收获，也有小小代价。',
+  },
+  {
+    id: 'transfer_rainy_umbrella_uncertainty',
+    title: '走廊边的湿雨伞与水脚印',
+    surfaceSituation: '午睡起来后，教室门口伞架上少了一把黄色小雨伞，地板上有一串湿漉漉的水脚印通向走廊拐角。',
+    underlyingStructure: 'FACT_VS_INFERENCE',
+    promptSpokenText: '黄色小雨伞不见了，地上有一串水脚印。请勾选有事实依据的观察，并做出最稳妥的判断！',
+    cluesOrChoices: [
+      {
+        id: 'u1_wet_footprints',
+        label: '伞架旁有一串湿漉漉的水脚印通向走廊拐角',
+        categoryOrPath: 'FACT',
+        icon: '👣',
+      },
+      {
+        id: 'u2_two_classes_passed',
+        label: '刚才中班和大班都有小朋友冒雨从走廊经过',
+        categoryOrPath: 'FACT',
+        icon: '🌧️',
+      },
+      {
+        id: 'u3_blame_mingming',
+        label: '“肯定是隔壁班明明故意把黄色小雨伞拿回家了！”',
+        categoryOrPath: 'INFERENCE',
+        icon: '💭',
+      },
+      {
+        id: 'u4_retain_uncertainty',
+        label: '水脚印看不出是谁踩的，现在证据还不足，还不知道是谁拿了伞',
+        categoryOrPath: 'UNKNOWN',
+        icon: '❓',
+      },
+    ],
+    objectiveOutcome:
+      '客观发现：地面水脚印和两个班路过都是事实，但水脚印无法证明是谁拿了雨伞（可能是拿错，也可能是保育老师收去晾干）。当证据不足时，保留“现在还不知道”最合理！',
   },
 ];

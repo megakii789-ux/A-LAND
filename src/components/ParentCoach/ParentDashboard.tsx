@@ -33,7 +33,10 @@ import { ParentMedalsWall } from './ParentMedalsWall';
 import { CognitiveDevelopmentEncyclopedia } from './CognitiveDevelopmentEncyclopedia';
 import { INITIAL_PARENT_MEDALS, calculateParentMedals } from '../../data/parentMedalsData';
 import { ParentMedal } from '../../types';
-import { loadProductExperienceMetrics } from '../../domain/cognitive/productExperienceMetrics';
+import {
+  getChildSessionExperienceMetrics,
+  getPlaytestExperienceMetrics,
+} from '../../domain/cognitive/productExperienceMetrics';
 
 export const ParentDashboard: React.FC = () => {
   const {
@@ -797,13 +800,21 @@ export const ParentDashboard: React.FC = () => {
               </div>
 
               {(() => {
-                const expMetrics = loadProductExperienceMetrics();
+                const expMetrics = getChildSessionExperienceMetrics();
+                const playtestMetrics = getPlaytestExperienceMetrics();
                 const hasData = Boolean(
                   expMetrics.lastUpdatedAt !== null ||
                     expMetrics.completedDetectiveCaseIds.length > 0 ||
                     expMetrics.totalCluesClassified > 0 ||
                     expMetrics.hypothesisRevisionCount > 0 ||
                     expMetrics.completedTransferScenarioIds.length > 0
+                );
+                const hasPlaytestData = Boolean(
+                  playtestMetrics.lastUpdatedAt !== null ||
+                    playtestMetrics.completedDetectiveCaseIds.length > 0 ||
+                    playtestMetrics.totalCluesClassified > 0 ||
+                    playtestMetrics.hypothesisRevisionCount > 0 ||
+                    playtestMetrics.completedTransferScenarioIds.length > 0
                 );
                 const accuracyPct =
                   expMetrics.totalCluesClassified > 0
@@ -816,10 +827,10 @@ export const ParentDashboard: React.FC = () => {
                   >
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <span className="text-xs sm:text-sm font-black text-indigo-950">
-                        🔍 六层思考过程行为记录（本机非敏感计数）
+                        🔍 六层思考过程行为记录（儿童会话客观计数）
                       </span>
                       <span className="text-[11px] font-bold bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full">
-                        不记录私密原话 · 仅统计思考方法练习
+                        不记录私密原话 · 已隔离成人内测数据
                       </span>
                     </div>
                     {!hasData ? (
@@ -827,7 +838,7 @@ export const ParentDashboard: React.FC = () => {
                         data-testid="parent-cognitive-process-empty"
                         className="p-3 bg-white rounded-xl border border-indigo-100 text-xs text-stone-500 text-center font-medium"
                       >
-                        尚无记录（待孩子在侦探所或迁移实验室开始探索后自动生成客观计数）
+                        尚无记录（待孩子在正式儿童会话中开始探索后自动生成客观计数）
                       </div>
                     ) : (
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
@@ -855,6 +866,14 @@ export const ParentDashboard: React.FC = () => {
                             {expMetrics.independentTransferCount} 独立 / {expMetrics.promptedTransferCount} 提示
                           </span>
                         </div>
+                      </div>
+                    )}
+                    {hasPlaytestData && (
+                      <div
+                        data-testid="parent-playtest-isolation-note"
+                        className="px-3 py-1.5 bg-amber-50/90 border border-amber-200 rounded-xl text-[11px] font-bold text-amber-900"
+                      >
+                        🧪 本机同时存在成人内测试玩记录（已完成 {playtestMetrics.completedDetectiveCaseIds.length} 起案件），已自动与儿童会话成长记录隔离。
                       </div>
                     )}
                   </div>

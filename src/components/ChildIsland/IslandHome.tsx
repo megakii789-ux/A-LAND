@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
@@ -26,7 +26,12 @@ import { InteractiveGamesHubModal } from '../InteractiveGames/InteractiveGamesHu
 import { PersonalizationSettingsModal } from './Personalization/PersonalizationSettingsModal';
 import { IslandUiIconSvg } from './CompanionIcons';
 import { tokens } from '../../design-system/tokens';
-import { loadProductExperienceMetrics, recordLandmarkVisit } from '../../domain/cognitive/productExperienceMetrics';
+import {
+  clearActiveLandmarkSession,
+  loadProductExperienceMetrics,
+  recordLandmarkVisit,
+  subscribeProductExperienceMetrics,
+} from '../../domain/cognitive/productExperienceMetrics';
 
 /**
  * 晴雨小岛 · 儿童首页 Shell (Child Island Home Shell)
@@ -60,6 +65,13 @@ export const IslandHome: React.FC = () => {
   const [isBreakerOpen, setIsBreakerOpen] = useState(false);
   const [isGamesHubOpen, setIsGamesHubOpen] = useState(false);
   const [selectedHubGame, setSelectedHubGame] = useState<'detective' | 'friend_asks' | 'boat' | 'transfer'>('detective');
+  const [expMetrics, setExpMetrics] = useState(() => loadProductExperienceMetrics());
+
+  useEffect(() => {
+    return subscribeProductExperienceMetrics((m) => {
+      setExpMetrics(m);
+    });
+  }, []);
 
   // Modal open states based on childPlace
   const isWeatherOpen = childPlace === 'weather';
@@ -82,12 +94,12 @@ export const IslandHome: React.FC = () => {
   const handleCloseModal = () => {
     speechNarrator.stop();
     sounds.playModalClose();
+    clearActiveLandmarkSession();
     setChildPlace('island');
   };
 
   const sunCount = medals.filter((m) => m.type === 'sun' && m.unlocked).length;
   const rainCount = medals.filter((m) => m.type === 'rain' && m.unlocked).length;
-  const expMetrics = loadProductExperienceMetrics();
 
   return (
     <div className={`min-h-screen ${tokens.surface.islandBackground} ${tokens.spacing.container} pt-3 pb-32 sm:pb-36 relative flex flex-col justify-between max-w-full`}>

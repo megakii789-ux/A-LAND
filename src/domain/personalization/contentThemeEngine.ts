@@ -16,12 +16,30 @@ import { StructureId } from '../transfer/types';
 
 export type AuditedContentStatus = 'AUDITED_FROZEN_V1' | 'PENDING_HUMAN_REVIEW' | 'REJECTED';
 
+export type HypothesisEvidenceRelation =
+  | 'SUPPORTED_BY_EVIDENCE'
+  | 'CONTRADICTED_BY_EVIDENCE'
+  | 'INSUFFICIENT_EVIDENCE'
+  | 'NOT_INVESTIGATED_YET';
+
+export interface HypothesisEvaluationResult {
+  readonly relation: HypothesisEvidenceRelation;
+  readonly badgeLabel: string;
+  readonly spokenFeedback: string;
+  readonly relevantClueIds: ReadonlyArray<string>;
+}
+
 export interface DetectiveHypothesisOption {
   readonly id: string;
   readonly label: string;
   readonly isUnknownOption?: boolean;
   readonly isSupportedByEvidence?: boolean;
   readonly feedbackText: string;
+  readonly supportingClueIds?: ReadonlyArray<string>;
+  readonly contradictingClueIds?: ReadonlyArray<string>;
+  readonly supportedFeedbackText?: string;
+  readonly contradictedFeedbackText?: string;
+  readonly insufficientEvidenceFeedbackText?: string;
 }
 
 export interface DetectiveInvestigationLead {
@@ -37,6 +55,9 @@ export interface DetectiveNextActionChoice {
   readonly label: string;
   readonly feedbackText: string;
   readonly isRecommended: boolean;
+  readonly consequenceBenefit?: string;
+  readonly consequenceTradeoff?: string;
+  readonly worldChangeSummary?: string;
 }
 
 export interface ThemedDetectiveScenario {
@@ -121,6 +142,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       observationPrompt: '桌角留着几粒绿色的蜡笔碎屑和刚画了一半的向日葵。',
       hint: '这是小眼睛清清楚楚拍到的。',
       icon: '🎨',
+      interactionVerb: '查看画架桌角',
     },
     {
       id: 'hs_cat_tracks',
@@ -134,6 +156,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       observationPrompt: '木地板上有一串沾着颜料的小梅花脚印，通向窗帘那边。',
       hint: '这是真实踩在地板上的脚印。',
       icon: '🐾',
+      interactionVerb: '追踪地板梅花印',
     },
     {
       id: 'hs_curtain',
@@ -144,9 +167,12 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       foundDescription: '窗帘角下滚着一支绿色蜡笔，上面有被猫爪拨动玩耍的划痕。',
       spokenText: '在窗帘底下找到了一支绿色蜡笔！上面还有被小猫咪抓过的小划痕。',
       category: 'FACT',
-      observationPrompt: '窗帘布底下露出一截绿色的笔杆，上面有细细的抓痕。',
+      observationPrompt: '掀开窗帘布角，底下露出一截绿色的笔杆，上面有细细的猫爪划痕。',
       hint: '小蜡笔真的滚在窗帘底下了。',
       icon: '🖍️',
+      interactionVerb: '掀开窗帘底',
+      requiresObjectReveal: true,
+      unrevealedPrompt: '窗帘角微微鼓起，再点一下亲手掀开窗帘看看！',
     },
     {
       id: 'hs_qiqi_thought',
@@ -160,6 +186,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       observationPrompt: '奇奇冒出一个念头：“皮皮刚才看了一眼，肯定是他拿走的！”',
       hint: '这是奇奇脑子里猜的想法，眼睛可没有拍到皮皮拿蜡笔哦。',
       icon: '💭',
+      interactionVerb: '听听奇奇的念头',
     },
     {
       id: 'hs_backpack',
@@ -174,6 +201,7 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       hint: '拉链拉着，眼睛看不见里面，这是不知道的事情。',
       icon: '🎒',
       isPermanentUnknown: true,
+      interactionVerb: '查看拉紧的书包',
     },
   ],
   sortingBaskets: SHARED_SORTING_BASKETS,
@@ -182,18 +210,27 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       id: 'hyp_peer_took',
       label: '肯定是皮皮偷偷拿走了',
       feedbackText: '这是我们着急时容易冒出的猜测，先记下来，一会儿看看证据支不支持它！',
+      supportingClueIds: [],
+      contradictingClueIds: ['hs_curtain'],
+      contradictedFeedbackText: '我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它。要不要再看看刚才发现了什么？',
+      insufficientEvidenceFeedbackText: '奇奇虽然心里这样猜，但现场还没有任何证据证明皮皮拿过蜡笔哦。',
     },
     {
       id: 'hyp_unknown_yet',
       label: '现在证据还不够，我还不知道',
       isUnknownOption: true,
       feedbackText: '好清醒的小侦探！在没看清全部线索前，勇敢说“还不知道”是最科学的做法！',
+      supportingClueIds: ['hs_backpack'],
+      supportedFeedbackText: '保持诚实与谨慎！在证据拼齐之前，承认“还不知道”也是很棒的侦探品质。',
     },
     {
       id: 'hyp_rolled_away',
       label: '可能被小动物或什么东西碰滚走了',
       isSupportedByEvidence: true,
       feedbackText: '这是一个很有可能的假设，我们去找找地上有没有滚落或小动物的痕迹吧！',
+      supportingClueIds: ['hs_cat_tracks', 'hs_curtain'],
+      supportedFeedbackText: '证据完全吻合！地板上的彩色梅花印一路通向窗帘，掀开窗帘果然找到了带猫爪印的绿色蜡笔！',
+      insufficientEvidenceFeedbackText: '这个方向很有希望！快顺着地板脚印或窗帘底下再找找关键物证吧！',
     },
   ],
   investigationLeads: [
@@ -202,21 +239,21 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       label: '顺着地板上的脚印找',
       icon: '🐾',
       targetHotspotIds: ['hs_easel', 'hs_cat_tracks'],
-      discoverySpokenText: '我们蹲下来顺着桌边往地上看，发现了蜡笔碎屑和一串梅花脚印！',
+      discoverySpokenText: '来看看画架桌角和地板上的脚印！请直接在场景中点一点闪光的目标物。',
     },
     {
       id: 'lead_check_curtain',
       label: '掀开窗帘底下看看',
       icon: '🪟',
       targetHotspotIds: ['hs_curtain'],
-      discoverySpokenText: '轻轻掀开窗帘角，哇，绿色蜡笔就滚在窗帘底下呢！',
+      discoverySpokenText: '窗帘角好像藏着什么！请去场景右侧亲手掀开窗帘看看吧。',
     },
     {
       id: 'lead_listen_and_bag',
       label: '听听大家的想法并看一眼书包',
       icon: '🎒',
       targetHotspotIds: ['hs_qiqi_thought', 'hs_backpack'],
-      discoverySpokenText: '我们听到了奇奇心里的猜测，又看了看拉着拉链的书包。',
+      discoverySpokenText: '去场景里点一点奇奇的想法气泡和椅子上的书包，看看哪些是猜想、哪些还不知道。',
     },
   ],
   resolutionSummary: '原来是小花猫跳上画架桌玩耍时，把绿色蜡笔拨到了窗帘底下，并不是皮皮拿走的！',
@@ -226,12 +263,27 @@ const DRAWING_SCENARIO: ThemedDetectiveScenario = {
       label: '捡起窗帘下的蜡笔，温和地告诉大家不是皮皮拿的',
       feedbackText: '太棒啦！用真实证据帮伙伴解开误会，大家都笑起来了！',
       isRecommended: true,
+      consequenceBenefit: '收益：用真凭实据帮皮皮澄清了误会，大家开心地继续合画向日葵。',
+      consequenceTradeoff: '代价：需要停下手里的画，花一点时间和大家一起擦掉地板上的猫爪颜料印。',
+      worldChangeSummary: '奇奇主动向皮皮道了歉，绿色蜡笔给向日葵涂上了饱满的绿叶，美术角充满欢笑！',
+    },
+    {
+      id: 'act_put_pen_box_rule',
+      label: '把蜡笔收进稳固的高处笔筒，和大家约定用完立刻放回',
+      feedbackText: '好办法！从源头保护画笔，下次小花猫再跳上桌也不怕蜡笔滚丢啦！',
+      isRecommended: true,
+      consequenceBenefit: '收益：建立了桌面收纳好习惯，以后蜡笔再也不会被小猫拨到地上。',
+      consequenceTradeoff: '代价：每次换颜色都要伸手去高处笔筒拿，比随手放桌边稍微慢一点点。',
+      worldChangeSummary: '画架桌中央摆上了稳稳的木笔筒，彩色蜡笔整整齐齐立在里面，小花猫只能在旁边好奇地看。',
     },
     {
       id: 'act_still_blame',
-      label: '不看证据，还是大声怪皮皮',
+      label: '不看窗帘下的证据，还是大声怪皮皮',
       feedbackText: '如果只凭猜测责怪别人，好朋友会很委屈哦。我们试试用找到的事实说话吧！',
       isRecommended: false,
+      consequenceBenefit: '收益：一时把心里的着急发泄了出来。',
+      consequenceTradeoff: '代价：无视已经找到的窗帘蜡笔证据，会让无辜的皮皮很伤心，伙伴之间产生隔阂。',
+      worldChangeSummary: '皮皮委屈地低下了头，果果轻轻举起窗帘下带猫爪痕的绿色蜡笔，邀请我们重新看看事实。',
     },
   ],
 };
@@ -672,7 +724,7 @@ const SPORTS_SCENARIO_CASE_2: ThemedDetectiveScenario = {
 };
 
 // ============================================================================
-// 3. 动物与自然主题 Case 1：《森林落叶坚果侦探》
+// 3. 动物与自然主题 Case 1：《森林落叶坚果侦探》（冲突线索与保留不确定性案件）
 // ============================================================================
 const NATURE_SCENARIO: ThemedDetectiveScenario = {
   id: 'scenario_detective_nature_v1',
@@ -685,48 +737,53 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
   auditStatus: 'AUDITED_FROZEN_V1',
   auditorSignOff: 'ChildCognitiveSafetyCommittee-2026-03-C',
   frozenVersion: '1.0.0-frozen',
-  sceneDescription: '大橡树底下，小松鼠辛辛苦苦收集的大橡果不见了，一起当小森林侦探！',
-  spokenIntro: '欢迎来到大橡树下！小松鼠放在树洞旁的大橡果找不到了，我们拿起放大镜，看看落叶和树皮。',
+  sceneDescription: '大橡树底下，小松鼠收集的大橡果不见了！现场既有喜鹊羽毛又有分岔滚痕，真相究竟是什么？',
+  spokenIntro: '欢迎来到大橡树下！小松鼠放在树洞旁的大橡果找不到了，我们拿起放大镜，去拨开落叶、看看树洞和地面痕迹吧。',
   missingItemLabel: '金黄橡果',
   hotspots: [
     {
       id: 'hs_nature_tree_moss',
-      name: '树皮上的干松针',
+      name: '树洞口的青苔与喜鹊羽',
       xPercent: 25,
       yPercent: 36,
       radiusPercent: 12,
-      foundDescription: '老树皮上挂着被大风吹落的松针，树洞口还有细软的绿色青苔被刮乱。',
-      spokenText: '树干上的青苔被擦掉了一小块，旁边还有几根从头顶落下来的松针。',
+      foundDescription: '树洞口的绿色青苔被刮乱了一小块，旁边落着一根黑白相间的喜鹊尾羽。',
+      spokenText: '树洞口青苔被擦乱了一小块，旁边落着一根黑白喜鹊羽毛，说明喜鹊曾停在附近。',
       category: 'FACT',
-      observationPrompt: '树干上的青苔被刮乱了一小块，旁边落着几根干松针。',
-      hint: '这是树皮上真实的刮痕和松针。',
-      icon: '🌲',
+      observationPrompt: '树洞口的青苔被刮乱了一小块，旁边落着一根黑白相间的喜鹊尾羽。',
+      hint: '青苔刮痕和喜鹊羽毛是眼睛亲眼看到的事实，但还没有拍到喜鹊叼橡果哦。',
+      icon: '🪶',
+      interactionVerb: '查看树洞口羽毛',
     },
     {
       id: 'hs_nature_wind_trail',
-      name: '风吹叶子滑道',
+      name: '分岔的滚落压痕',
       xPercent: 50,
       yPercent: 74,
       radiusPercent: 14,
-      foundDescription: '地面上的红枫叶被一阵大风吹开了一条散开的斜坡，像个小滑梯。',
-      spokenText: '地上的落叶被风刮出了一条长长的滑道，从树下一直滑向小草堆。',
+      foundDescription: '湿润草地上的圆形滚落压痕在树根处分成了两条岔道：一条通向红枫叶堆，另一条通向黑树洞。',
+      spokenText: '草地上的滚动压痕在树根旁分成了两条岔路，一条通向红枫叶堆，另一条通向深树洞！',
       category: 'FACT',
-      observationPrompt: '地面上的红枫叶被风吹开了一条通向草堆的小斜坡。',
-      hint: '这是风吹走落叶留在地面的真实痕迹。',
+      observationPrompt: '草地上的滚动压痕在树根旁分成了两条岔路，分别指向红枫叶堆和深树洞。',
+      hint: '这是草地上实实在在能拍到的两条分岔滚痕。',
       icon: '🍂',
+      interactionVerb: '追踪分岔滚痕',
     },
     {
       id: 'hs_nature_leaf_pile',
-      name: '枫叶堆底下的橡果',
+      name: '红枫叶堆下的空帽壳',
       xPercent: 82,
       yPercent: 56,
       radiusPercent: 13,
-      foundDescription: '在厚厚的一堆红枫叶底下，露出了圆滚滚的橡果小帽尖。',
-      spokenText: '在落叶堆底下找到大橡果了！它圆滚滚的小帽子正卡在泥土边呢。',
+      foundDescription: '拨开厚厚的红枫叶堆，下面只有半个空空的橡果小帽壳，金黄橡果并不在叶子堆里！',
+      spokenText: '我们亲手拨开红枫叶堆，哇，底下只有半个空空的橡果帽壳，橡果肉并不在这里！',
       category: 'FACT',
-      observationPrompt: '厚厚的红枫叶堆底下，露出了半个圆滚滚的橡果小帽尖。',
-      hint: '橡果真真实实地躺在叶子底下。',
+      observationPrompt: '拨开厚厚的红枫叶堆后，下面只躺着半个空空的橡果小帽壳，没有橡果肉。',
+      hint: '空帽壳是眼睛看到的事实，说明橡果没有停留在枫叶堆下。',
       icon: '🌰',
+      interactionVerb: '拨开红枫叶堆',
+      requiresObjectReveal: true,
+      unrevealedPrompt: '厚厚的红枫叶堆鼓起一小块，再点一下亲手拨开红枫叶看看！',
     },
     {
       id: 'hs_nature_squirrel_thought',
@@ -734,12 +791,13 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       xPercent: 18,
       yPercent: 18,
       radiusPercent: 14,
-      foundDescription: '“小松鼠觉得刚才喜鹊在树顶上叫唤，肯定是被坏小偷叼走了。”',
-      spokenText: '小松鼠心里急着想：“刚才喜鹊大叫了一声，肯定是有小偷把它偷走了！”',
+      foundDescription: '“小松鼠觉得刚才喜鹊在树顶上叫唤，肯定是喜鹊把整颗橡果吞进肚子里了。”',
+      spokenText: '小松鼠心里急着想：“刚才喜鹊大叫了一声，肯定是它把我的橡果偷吃掉了！”',
       category: 'INFERENCE',
-      observationPrompt: '小松鼠心里冒出一个念头：“刚才喜鹊叫了一声，肯定是被叼走了！”',
-      hint: '这是心里着急猜的念头，眼睛没有拍到小偷哦。',
+      observationPrompt: '小松鼠心里冒出一个念头：“刚才喜鹊叫了一声，肯定是它把橡果吞掉了！”',
+      hint: '这是心里着急猜的念头，眼睛并没有拍到喜鹊吃橡果哦。',
       icon: '💭',
+      interactionVerb: '听听小松鼠的猜想',
     },
     {
       id: 'hs_nature_deep_burrow',
@@ -747,13 +805,14 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
       xPercent: 68,
       yPercent: 30,
       radiusPercent: 12,
-      foundDescription: '倒木深处有一个黑漆漆的小树洞，里面太暗了，有没有别的东西根本看不见。',
-      spokenText: '倒下的老树洞里面黑咕隆咚的，眼睛完全看不清。里面藏着什么，我们谁也不知道。',
+      foundDescription: '倒木深处有一个窄窄的黑树洞，光线照不进去、小手也够不着，橡果有没有滚进最里面谁也看不见。',
+      spokenText: '倒木深处的老树洞黑咕隆咚的，眼睛完全看不清。橡果是不是滚进了最深处，我们现在谁也不知道。',
       category: 'UNKNOWN',
-      observationPrompt: '倒木深处有个黑漆漆的小树洞，光线照不进去，看不清里面。',
-      hint: '洞里太暗看不见，不知道就是不知道。',
+      observationPrompt: '倒木深处有个黑漆漆的小树洞，光线照不进去，看不清里面有什么。',
+      hint: '洞里太暗看不见，橡果在不在里面属于还不知道的事。',
       icon: '🕳️',
       isPermanentUnknown: true,
+      interactionVerb: '探看黑乎乎的深树洞',
     },
   ],
   sortingBaskets: SHARED_SORTING_BASKETS,
@@ -761,57 +820,83 @@ const NATURE_SCENARIO: ThemedDetectiveScenario = {
     {
       id: 'hyp_nat_magpie',
       label: '肯定是树顶的喜鹊把橡果叼走了',
-      feedbackText: '这是小松鼠着急时的猜想，我们先去树根和落叶堆找找证据吧！',
+      feedbackText: '这是小松鼠着急时的猜想，虽然树洞口有羽毛，但还有别的地面痕迹，快去仔细调查吧！',
+      supportingClueIds: [],
+      contradictingClueIds: [],
+      insufficientEvidenceFeedbackText: '树洞口虽然有一根喜鹊羽毛，但草地上还有通向深树洞的滚痕，单凭羽毛还不能肯定就是喜鹊叼走的哦。',
     },
     {
       id: 'hyp_nat_unknown',
       label: '现在证据还不够，我还不知道',
       isUnknownOption: true,
-      feedbackText: '真清醒！在没检查周围落叶前，先说“还不知道”最棒！',
+      isSupportedByEvidence: true,
+      feedbackText: '真清醒！在线索指向不同方向、关键地方还看不清时，诚实说“还不知道”最棒！',
+      supportingClueIds: ['hs_nature_leaf_pile', 'hs_nature_deep_burrow'],
+      supportedFeedbackText: '太有科学精神了！枫叶堆下只有空帽壳，而喜鹊羽毛和通向黑树洞的滚痕让两种可能都存在，承认“现在证据还不够、还不知道”才是最准确的结论！',
+      insufficientEvidenceFeedbackText: '很稳重！去拨开红枫叶堆、再看看深树洞，检验一下现有证据够不够下结论吧！',
     },
     {
       id: 'hyp_nat_wind',
-      label: '可能被大风吹下树洞口，滚进落叶堆了',
-      isSupportedByEvidence: true,
-      feedbackText: '好想法！圆滚滚的橡果被风一吹很容易顺着斜坡滚落，快去找找看！',
+      label: '橡果肯定就藏在红枫叶堆底下',
+      isSupportedByEvidence: false,
+      feedbackText: '地面有一条压痕通向红枫叶堆，我们去亲手拨开红枫叶堆验证一下吧！',
+      supportingClueIds: [],
+      contradictingClueIds: ['hs_nature_leaf_pile'],
+      contradictedFeedbackText: '我们亲手拨开了红枫叶堆，下面只有半个空空的橡果帽壳，证据反驳了“藏在枫叶堆下”的猜想哦！',
+      insufficientEvidenceFeedbackText: '虽然有一条滚痕指向红枫叶堆，但还没拨开叶子看之前，还不能确定橡果一定在里面哦。',
     },
   ],
   investigationLeads: [
     {
       id: 'lead_nat_trail',
-      label: '观察树干刮痕与地面落叶滑道',
+      label: '查看树洞口羽毛与地面分岔滚痕',
       icon: '🍂',
       targetHotspotIds: ['hs_nature_tree_moss', 'hs_nature_wind_trail'],
-      discoverySpokenText: '我们看到树皮上的松针，还有地上被风吹开的落叶小滑道！',
+      discoverySpokenText: '注意树洞口和草地！请在场景中点一点树洞口的羽毛和草地上的分岔滚痕。',
     },
     {
       id: 'lead_nat_pile',
-      label: '拨开厚厚的红枫叶堆看看',
+      label: '亲手拨开厚厚的红枫叶堆',
       icon: '🌰',
       targetHotspotIds: ['hs_nature_leaf_pile'],
-      discoverySpokenText: '轻轻拨开红枫叶堆，金黄的大橡果正躺在下面呢！',
+      discoverySpokenText: '去场景右下角点一点红枫叶堆，亲手拨开落叶看看底下到底有什么！',
     },
     {
       id: 'lead_nat_burrow',
-      label: '听听小松鼠想法并看一眼深树洞',
+      label: '听听小松鼠猜想并探看深树洞',
       icon: '🕳️',
       targetHotspotIds: ['hs_nature_squirrel_thought', 'hs_nature_deep_burrow'],
-      discoverySpokenText: '我们听到了小松鼠的猜测，也看到了黑乎乎的深树洞。',
+      discoverySpokenText: '点一点小松鼠的想法气泡和倒木深处的黑树洞，看看哪些是猜想、哪些看不见。',
     },
   ],
-  resolutionSummary: '原来是一阵山风吹过，圆滚滚的大橡果顺着落叶斜坡滚进了红枫叶堆底下，喜鹊并没有叼走它！',
+  resolutionSummary: '拨开红枫叶堆只发现了半个空帽壳；树洞口虽有喜鹊羽毛，但草地滚痕同时通向黑乎乎的深树洞。因为深洞内部看不见，喜鹊叼走和滚进深洞两种可能都存在，保留“现在证据还不够、还不知道”才是最科学的侦探结论！',
   nextActionChoices: [
     {
       id: 'act_nat_pickup_wave',
-      label: '把橡果抱回安全的小竹篮，朝树顶的喜鹊友好地挥挥手',
-      feedbackText: '太温暖啦！用证据查明真相，森林里的小伙伴依然和睦相处！',
+      label: '在深树洞口铺几粒平整细沙，放好备粮，明天再来观察有没有新脚印',
+      feedbackText: '太有智慧啦！在证据不足时不冤枉喜鹊、也不冒险伸手进黑洞，而是用科学方法继续观察！',
       isRecommended: true,
+      consequenceBenefit: '收益：既保护了小手安全、没有冤枉喜鹊邻居，又能收集明天的新脚印证据。',
+      consequenceTradeoff: '代价：今晚暂时拿不回那颗失踪的橡果，需要耐心等待一天。',
+      worldChangeSummary: '小松鼠在深树洞口铺好了平整的细沙观察带，朝树顶的喜鹊友好地挥挥手，安心等待明天的线索！',
+    },
+    {
+      id: 'act_nat_bamboo_cover',
+      label: '把空帽壳收进标本袋，给树洞储藏点加上松果小木盖',
+      feedbackText: '好主意！不管是风吹滚落还是小鸟啄食，加上小木盖都能稳稳护住以后的橡果！',
+      isRecommended: true,
+      consequenceBenefit: '收益：给储藏点加装防护盖，以后收集的坚果再也不怕滚进深洞或被叼走。',
+      consequenceTradeoff: '代价：每次放橡果都要先打开小木盖，比直接放树洞口多花一点点力气。',
+      worldChangeSummary: '树洞储藏点装上了可爱的松果小木盖，小松鼠把半个空帽壳收进了侦探标本袋！',
     },
     {
       id: 'act_nat_shout_magpie',
-      label: '冲着树上的喜鹊大喊大叫',
-      feedbackText: '橡果已经在枫叶堆下找到啦，喜鹊是无辜的哦。',
+      label: '证据还没查清，就一口咬定是喜鹊偷的并冲树顶大喊',
+      feedbackText: '只有一根羽毛和半个空壳，还不能证明是喜鹊偷吃的哦，凭猜测指责邻居会让伙伴伤心。',
       isRecommended: false,
+      consequenceBenefit: '收益：大喊一声把心里的着急发泄了出来。',
+      consequenceTradeoff: '代价：万一橡果其实滚进了黑树洞，就会白白冤枉无辜的喜鹊，森林里少了友好的笑声。',
+      worldChangeSummary: '喜鹊委屈地飞到了远处的树枝上，果果指了指深树洞旁那条分岔的滚痕，提醒我们证据还不够。',
     },
   ],
 };
@@ -1349,3 +1434,189 @@ export function getThemedScenarioCase(
   const safeIndex = Math.abs(caseIndex) % cases.length;
   return cases[safeIndex] || cases[0];
 }
+
+/**
+ * P0-02：根据当前已发现的现场线索，评估某条假设与证据之间的真实支撑关系
+ * 区分：SUPPORTED_BY_EVIDENCE / CONTRADICTED_BY_EVIDENCE / INSUFFICIENT_EVIDENCE / NOT_INVESTIGATED_YET
+ */
+export function evaluateHypothesisAgainstEvidence(
+  scenario: ThemedDetectiveScenario,
+  hypothesisId: string,
+  discoveredClueIds: ReadonlyArray<string>
+): HypothesisEvaluationResult {
+  const hyp = (scenario.initialHypotheses || []).find((h) => h.id === hypothesisId);
+  const discoveredSet = new Set(discoveredClueIds);
+
+  if (!hyp) {
+    return {
+      relation: 'NOT_INVESTIGATED_YET',
+      badgeLabel: '尚未调查',
+      spokenFeedback: '请先在场景中调查线索后再做判断。',
+      relevantClueIds: [],
+    };
+  }
+
+  if (discoveredSet.size === 0) {
+    return {
+      relation: 'NOT_INVESTIGATED_YET',
+      badgeLabel: '尚未调查',
+      spokenFeedback: hyp.isUnknownOption
+        ? hyp.feedbackText
+        : '我们还一条现场线索都没查看呢！先去场景里点一点物体找证据，再来检验这个猜想吧。',
+      relevantClueIds: [],
+    };
+  }
+
+  const factHotspots = scenario.hotspots.filter((h) => h.category === 'FACT');
+  const decisiveFactId = factHotspots[2]?.id || factHotspots[factHotspots.length - 1]?.id;
+
+  const contradictingIds =
+    hyp.contradictingClueIds !== undefined
+      ? hyp.contradictingClueIds
+      : !hyp.isSupportedByEvidence && !hyp.isUnknownOption && decisiveFactId
+        ? [decisiveFactId]
+        : [];
+
+  const matchedContradicting = contradictingIds.filter((id) => discoveredSet.has(id));
+  if (matchedContradicting.length > 0) {
+    return {
+      relation: 'CONTRADICTED_BY_EVIDENCE',
+      badgeLabel: '有证据反驳',
+      spokenFeedback:
+        hyp.contradictedFeedbackText ||
+        `我们找到了关键物证，不过这条线索还没有证明「${hyp.label}」。要不要再看看刚才发现了什么？`,
+      relevantClueIds: matchedContradicting,
+    };
+  }
+
+  const supportingIds =
+    hyp.supportingClueIds !== undefined
+      ? hyp.supportingClueIds
+      : hyp.isSupportedByEvidence
+        ? factHotspots.slice(1).map((h) => h.id)
+        : [];
+
+  const matchedSupporting = supportingIds.filter((id) => discoveredSet.has(id));
+
+  if (hyp.isUnknownOption) {
+    // 针对线索冲突/保留不确定性的案件（如森林落叶坚果侦探），查验关键物证后“还不知道”本身就是受证据支持的科学结论
+    if (hyp.isSupportedByEvidence && (matchedSupporting.length > 0 || discoveredSet.size >= 2)) {
+      return {
+        relation: 'SUPPORTED_BY_EVIDENCE',
+        badgeLabel: '有证据支持',
+        spokenFeedback:
+          hyp.supportedFeedbackText ||
+          '太有科学精神了！现有线索指向不同可能，承认“现在证据还不够、还不知道”才是最准确的结论！',
+        relevantClueIds: matchedSupporting,
+      };
+    }
+
+    // 在真相明确的案件中，如果已经翻出了决定性物证（如窗帘下的绿色蜡笔），提醒孩子结合新物证再看一看
+    if (!hyp.isSupportedByEvidence && decisiveFactId && discoveredSet.has(decisiveFactId)) {
+      return {
+        relation: 'INSUFFICIENT_EVIDENCE',
+        badgeLabel: '当前证据不足',
+        spokenFeedback:
+          '其实我们已经找到关键物证啦！再看看刚才在现场发现的事实，能不能更新一下我们的判断呢？',
+        relevantClueIds: [decisiveFactId],
+      };
+    }
+
+    return {
+      relation: 'INSUFFICIENT_EVIDENCE',
+      badgeLabel: '当前证据不足',
+      spokenFeedback:
+        hyp.supportedFeedbackText ||
+        '目前关键物证还没拼齐，在证据不足时保持“还不知道”是非常诚实稳妥的做法！',
+      relevantClueIds: matchedSupporting,
+    };
+  }
+
+  if (hyp.isSupportedByEvidence) {
+    const hasKeySupport =
+      supportingIds.length > 0
+        ? supportingIds.some((id) => discoveredSet.has(id)) &&
+          (decisiveFactId ? discoveredSet.has(decisiveFactId) : true)
+        : discoveredSet.size >= 2;
+
+    if (hasKeySupport) {
+      return {
+        relation: 'SUPPORTED_BY_EVIDENCE',
+        badgeLabel: '有证据支持',
+        spokenFeedback:
+          hyp.supportedFeedbackText ||
+          `有理有据！现场找到的真实物证正好支持「${hyp.label}」！`,
+        relevantClueIds: matchedSupporting,
+      };
+    }
+
+    return {
+      relation: 'INSUFFICIENT_EVIDENCE',
+      badgeLabel: '当前证据不足',
+      spokenFeedback:
+        hyp.insufficientEvidenceFeedbackText ||
+        '这个方向很有道理，不过关键物证还没找齐，再去场景里翻一翻、看一看吧！',
+      relevantClueIds: matchedSupporting,
+    };
+  }
+
+  return {
+    relation: 'INSUFFICIENT_EVIDENCE',
+    badgeLabel: '当前证据不足',
+    spokenFeedback:
+      hyp.insufficientEvidenceFeedbackText ||
+      '目前找到的现场线索还不能证明这个想法哦，再去场景里找找其他物证吧！',
+    relevantClueIds: [],
+  };
+}
+
+/**
+ * P0-03：根据儿童探索场景物体的先后顺序生成差异化伴随反馈
+ */
+export function getOrderAwareDiscoveryFeedback(
+  scenario: ThemedDetectiveScenario,
+  hotspot: HotspotEvidence,
+  priorDiscoveredClueIds: ReadonlyArray<string>
+): string {
+  const priorSet = new Set(priorDiscoveredClueIds);
+  const stepOrderNumber = priorSet.size + 1;
+
+  // 案件 A（画画 Case 1）脚印与窗帘的顺序联动
+  if (scenario.id === 'scenario_detective_drawing_v1') {
+    if (hotspot.id === 'hs_curtain') {
+      if (priorSet.has('hs_cat_tracks')) {
+        return `第 ${stepOrderNumber} 步发现：顺着刚才的彩色猫爪印掀开窗帘，果然在窗帘底下找到了带抓痕的绿色蜡笔！脚印和蜡笔两条证据连起来啦！`;
+      }
+      return `第 ${stepOrderNumber} 步发现：你直接掀开窗帘找到了带抓痕的绿色蜡笔！它是怎么滚到这里来的呢？去地板和画架旁看看有没有痕迹吧！`;
+    }
+    if (hotspot.id === 'hs_cat_tracks') {
+      if (priorSet.has('hs_curtain')) {
+        return `第 ${stepOrderNumber} 步发现：原来地板上有一串通向窗帘的猫爪印！这正好解释了刚才为什么在窗帘下找到了绿色蜡笔！`;
+      }
+      return `第 ${stepOrderNumber} 步发现：木地板上有一串沾着颜料的猫爪梅花印，正一路通向右侧窗帘底下呢，快去掀开窗帘看看！`;
+    }
+  }
+
+  // 案件 B（自然 Case 1）分岔滚痕、枫叶堆空壳与深树洞的顺序联动
+  if (scenario.id === 'scenario_detective_nature_v1') {
+    if (hotspot.id === 'hs_nature_leaf_pile') {
+      if (priorSet.has('hs_nature_wind_trail')) {
+        return `第 ${stepOrderNumber} 步发现：顺着刚才的分岔滚痕拨开红枫叶堆，底下竟然只有半个空帽壳！看来橡果有可能滚向了另一条岔路上的黑树洞！`;
+      }
+      return `第 ${stepOrderNumber} 步发现：亲手拨开红枫叶堆，底下只有半个空空的橡果帽壳，没有橡果肉！去看看草地滚痕和树洞口还有什么线索吧！`;
+    }
+    if (hotspot.id === 'hs_nature_deep_burrow') {
+      if (priorSet.has('hs_nature_leaf_pile')) {
+        return `第 ${stepOrderNumber} 步发现：枫叶堆里只有空帽壳，而这个深树洞里又黑漆漆看不见，所以橡果到底在不在洞里，现在真的还不知道！`;
+      }
+      return `第 ${stepOrderNumber} 步发现：倒木深处的树洞黑漆漆的看不清里面，再去拨开红枫叶堆看看橡果在不在那边吧！`;
+    }
+  }
+
+  const baseText = hotspot.observationPrompt || hotspot.foundDescription;
+  if (priorSet.size === 0) {
+    return `第 1 个现场发现：${baseText} 再去点点场景里的其他物体，看看线索之间有什么关系！`;
+  }
+  return `第 ${stepOrderNumber} 个现场发现：${baseText}`;
+}
+

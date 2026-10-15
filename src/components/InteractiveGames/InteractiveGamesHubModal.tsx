@@ -149,15 +149,15 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
     <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
       <div className="bg-stone-100 rounded-3xl max-w-4xl w-full max-h-[96vh] flex flex-col shadow-2xl border-2 border-stone-300 overflow-hidden">
         {/* 顶部主导航控制栏 */}
-        <div className="bg-white px-3 sm:px-6 py-2.5 sm:py-3.5 border-b border-stone-200 flex flex-col gap-2.5">
+        <div className="bg-white px-3 sm:px-5 py-2 sm:py-3 border-b border-stone-200 flex flex-col gap-1.5 sm:gap-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-2xl shrink-0" aria-hidden="true">🎮</span>
+              <span className="text-xl sm:text-2xl shrink-0" aria-hidden="true">🎮</span>
               <div className="min-w-0">
-                <h2 className="text-base sm:text-xl font-black text-stone-900 truncate">
+                <h2 className="text-sm sm:text-lg font-black text-stone-900 truncate">
                   真实动动手探险岛
                 </h2>
-                <p className="text-[11px] sm:text-xs text-stone-500 truncate">
+                <p className="hidden sm:block text-xs text-stone-500 truncate">
                   低识字量优先 · 真实物理交互 · 无对错打分
                 </p>
               </div>
@@ -165,19 +165,19 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             <button
               type="button"
               onClick={handleCloseHub}
-              className="min-w-[44px] min-h-[44px] p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 text-base font-black flex items-center justify-center shrink-0 cursor-pointer"
+              className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] p-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 text-sm sm:text-base font-black flex items-center justify-center shrink-0 cursor-pointer"
               aria-label="关闭游戏集"
             >
               ✕
             </button>
           </div>
 
-          {/* 游戏切换标签（移动端自动折行，避免 360px 横向挤压） */}
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          {/* 游戏切换标签（单行紧凑横向滑动） */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
             <button
               type="button"
               onClick={() => handleSwitchGame('detective')}
-              className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`min-h-[38px] sm:min-h-[42px] px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                 activeGame === 'detective'
                   ? 'bg-amber-500 text-white shadow-xs'
                   : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -185,13 +185,13 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             >
               <span>🖍️ 蜡笔侦探</span>
               {!isDetectiveApproved && (
-                <span className="text-[10px] px-1.5 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
+                <span className="text-[10px] px-1 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
               )}
             </button>
             <button
               type="button"
               onClick={() => handleSwitchGame('friend_asks')}
-              className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`min-h-[38px] sm:min-h-[42px] px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                 activeGame === 'friend_asks'
                   ? 'bg-rose-500 text-white shadow-xs'
                   : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -199,13 +199,13 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             >
               <span>💬 问起我的家</span>
               {!isFriendAsksApproved && (
-                <span className="text-[10px] px-1.5 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
+                <span className="text-[10px] px-1 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
               )}
             </button>
             <button
               type="button"
               onClick={() => handleSwitchGame('boat')}
-              className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`min-h-[38px] sm:min-h-[42px] px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                 activeGame === 'boat'
                   ? 'bg-teal-600 text-white shadow-xs'
                   : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -213,13 +213,13 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
             >
               <span>⛵ 小船协商</span>
               {!isBoatApproved && (
-                <span className="text-[10px] px-1.5 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
+                <span className="text-[10px] px-1 py-0.5 bg-stone-200/90 text-stone-800 rounded font-medium">准备中</span>
               )}
             </button>
             <button
               type="button"
               onClick={() => handleSwitchGame('transfer')}
-              className="min-h-[44px] px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 cursor-pointer"
+              className="min-h-[38px] sm:min-h-[42px] px-2.5 py-1 rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 shrink-0 cursor-pointer"
             >
               🌱 独立迁移
             </button>
@@ -227,7 +227,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
         </div>
 
         {/* 动态游戏主体展示 */}
-        <div className="flex-1 overflow-y-auto p-2 sm:p-4">
+        <div className="flex-1 overflow-y-auto p-1.5 sm:p-3">
           {!isCurrentGameApproved && !adultPreviewUnlocked ? (
             <div
               data-testid="interactive-game-audit-gate-blocked"
@@ -268,14 +268,14 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
           ) : (
             <>
               {adultPreviewUnlocked && !isCurrentGameApproved && (
-                <div className="bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-2 rounded-xl mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <span>
+                <div className="bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-bold px-2.5 py-1 rounded-xl mb-1.5 flex items-center justify-between gap-2">
+                  <span className="truncate">
                     {playtestActive
-                      ? '🧪 内部研发连续试玩模式 · 正式审核状态仍为 PENDING_REVIEW（未向儿童开放）'
+                      ? '🧪 内部研发连续试玩 · 正式状态 PENDING_REVIEW'
                       : '⚠️ 家长与审阅人预览模式 · 请在成年人陪伴下审阅，尚未面向儿童正式开放'}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded-full">
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="hidden sm:inline text-[10px] bg-amber-200 px-2 py-0.5 rounded-full">
                       {playtestActive ? '连续试玩已激活' : '大人陪伴审阅'}
                     </span>
                     {playtestActive && (
@@ -283,7 +283,7 @@ export const InteractiveGamesHubModal: React.FC<Props> = ({
                         type="button"
                         data-testid="exit-internal-playtest-btn"
                         onClick={handleExitInternalPlaytest}
-                        className="text-[11px] bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-lg font-black cursor-pointer"
+                        className="text-[10px] bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-lg font-black cursor-pointer"
                       >
                         退出试玩
                       </button>

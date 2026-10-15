@@ -7,6 +7,9 @@ import {
   getThemedScenarioByInterest,
   getThemedScenarioCasesByInterest,
   evaluateThemedCluePlacement,
+  evaluateHypothesisAgainstEvidence,
+  getOrderAwareDiscoveryFeedback,
+  HypothesisEvaluationResult,
 } from '../../../domain/personalization';
 import { HotspotEvidence, SortingBasketType } from '../../../domain/games/types';
 import { sounds } from '../../../utils/sound';
@@ -22,6 +25,7 @@ import {
   isInternalPlaytestEnabled,
 } from '../../../domain/privacy/parentAccess';
 import {
+  DetectiveCaseStatus,
   getProductExperienceMetrics,
   recordClueClassificationAttempt,
   recordDetectiveCaseCompletion,
@@ -34,6 +38,15 @@ import { CompanionAvatarSvg, InterestBadgeSvg } from '../../ChildIsland/Companio
 import { TransferScenariosModal } from '../TransferLab/TransferScenariosModal';
 
 const SCOPE_KEY = 'game_crayon_detective';
+
+const CASE_STATUS_LABELS: Record<DetectiveCaseStatus, string> = {
+  NOT_STARTED: '尚未开始调查',
+  EXPLORING: '正在现场调查',
+  REFLECTING: '整理证据与判断',
+  ACTION_SELECTED: '已尝试行动方案',
+  COMPLETED: '已完成破案闭环',
+  ENDED_EARLY: '已暂停 / 仅查看参考',
+};
 
 interface Props {
   onExit: () => void;
@@ -110,7 +123,15 @@ const ClueVisualIcon: React.FC<{
   }
 
   // 5. 书包 / 盲区未知
-  if (clueId.includes('backpack') || clueId.includes('locker') || icon === '🎒' || icon === '🔒' || category === 'UNKNOWN') {
+  if (
+    clueId.includes('backpack') ||
+    clueId.includes('locker') ||
+    clueId.includes('burrow') ||
+    icon === '🎒' ||
+    icon === '🔒' ||
+    icon === '🕳️' ||
+    category === 'UNKNOWN'
+  ) {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
         <path d="M11 9C11 6.5 13 4.5 16 4.5C19 4.5 21 6.5 21 9V11H11V9Z" stroke="#0284C7" strokeWidth="1.8" fill="#E0F2FE" />
@@ -137,13 +158,14 @@ const ClueVisualIcon: React.FC<{
     );
   }
 
-  // 7. 树叶 / 青草 / 自然
-  if (icon === '🌱' || icon === '🌲' || icon === '🍂' || icon === '🌰' || icon === '🍀') {
+  // 7. 羽毛 / 橡果 / 树叶 / 自然
+  if (icon === '🪶' || icon === '🌱' || icon === '🌲' || icon === '🍂' || icon === '🌰' || icon === '🍀') {
     return (
       <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
-        <path d="M16 27V12" stroke="#059669" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16 27V11" stroke="#059669" strokeWidth="2" strokeLinecap="round" />
         <path d="M16 14C12 11 8 13 8 18C13 18 15 16 16 14Z" fill="#34D399" stroke="#059669" strokeWidth="1.5" />
         <path d="M16 17C20 14 24 16 24 21C19 21 17 19 16 17Z" fill="#10B981" stroke="#047857" strokeWidth="1.5" />
+        <ellipse cx="16" cy="9" rx="3.5" ry="2.5" fill="#D97706" />
       </svg>
     );
   }
@@ -216,6 +238,241 @@ const BasketCrateSvg: React.FC<{
   }
 };
 
+/**
+ * P1-02：主题差异化可交互 SVG 环境画布
+ * 为画画美术角（窗帘可掀起、猫爪印连线、画架向日葵、拉链书包）与自然森林（大橡树洞、喜鹊羽毛、分岔滚痕、可拨开红枫叶堆与空帽壳、深树洞）提供鲜明视觉环境
+ */
+const DetectiveEnvironmentSceneSvg: React.FC<{
+  themeId: InterestActivityId;
+  scenarioId: string;
+  revealedObjectIds: ReadonlyArray<string>;
+  selectedActionId: string | null;
+}> = ({ themeId, scenarioId, revealedObjectIds, selectedActionId }) => {
+  const isCurtainLifted = revealedObjectIds.includes('hs_curtain');
+  const isMaplePileOpened = revealedObjectIds.includes('hs_nature_leaf_pile');
+
+  if (themeId === 'nature') {
+    return (
+      <svg
+        data-testid="scene-env-nature"
+        viewBox="0 0 800 380"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#DCFCE7" />
+            <stop offset="55%" stopColor="#FEF9C3" />
+            <stop offset="100%" stopColor="#BBF7D0" />
+          </linearGradient>
+          <linearGradient id="oakTrunk" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#78350F" />
+            <stop offset="50%" stopColor="#92400E" />
+            <stop offset="100%" stopColor="#57534E" />
+          </linearGradient>
+        </defs>
+        <rect width="800" height="380" fill="url(#forestSky)" />
+        {/* 远景树冠与林间光斑 */}
+        <circle cx="150" cy="60" r="95" fill="#86EFAC" opacity="0.45" />
+        <circle cx="330" cy="40" r="110" fill="#4ADE80" opacity="0.35" />
+        <circle cx="670" cy="70" r="90" fill="#A7F3D0" opacity="0.5" />
+        {/* 森林草地斜坡 */}
+        <path d="M0 245 Q260 220 520 250 T800 240 L800 380 L0 380 Z" fill="#86EFAC" opacity="0.7" />
+        <path d="M0 285 Q380 255 800 295 L800 380 L0 380 Z" fill="#4ADE80" opacity="0.55" />
+
+        {/* 左侧大橡树树干与储粮树洞 (25%, 36%) */}
+        <path d="M125 20 L255 20 L285 285 L95 285 Z" fill="url(#oakTrunk)" />
+        <ellipse cx="200" cy="138" rx="34" ry="44" fill="#292524" stroke="#451A03" strokeWidth="6" />
+        {/* 青苔刮痕与喜鹊尾羽 */}
+        <path d="M172 168 Q200 182 228 168" stroke="#22C55E" strokeWidth="8" strokeLinecap="round" />
+        <path d="M218 148 Q242 132 252 152 Q232 160 218 148 Z" fill="#1E293B" stroke="#F8FAFC" strokeWidth="2" />
+
+        {/* 倒木与黑乎乎的深树洞 (68%, 30%) */}
+        <rect x="465" y="86" width="165" height="62" rx="26" fill="#78350F" stroke="#451A03" strokeWidth="4" />
+        <ellipse cx="545" cy="117" rx="28" ry="22" fill="#09090B" stroke="#27272A" strokeWidth="4" />
+        {selectedActionId === 'act_nat_pickup_wave' && (
+          <ellipse cx="545" cy="144" rx="40" ry="9" fill="#FDE68A" stroke="#D97706" strokeWidth="2" />
+        )}
+
+        {/* 草地上的两条分岔滚落压痕 (50%, 74% -> 一条通向枫叶堆 82%,56%，一条通向深树洞 68%,30%) */}
+        <path
+          d="M215 200 Q340 275 400 280"
+          stroke="#B45309"
+          strokeWidth="6"
+          strokeDasharray="10 8"
+          fill="none"
+          opacity="0.75"
+        />
+        <path
+          d="M400 280 Q530 265 645 220"
+          stroke="#D97706"
+          strokeWidth="5"
+          strokeDasharray="8 7"
+          fill="none"
+          opacity="0.8"
+        />
+        <path
+          d="M400 280 Q480 210 538 142"
+          stroke="#78350F"
+          strokeWidth="5"
+          strokeDasharray="8 7"
+          fill="none"
+          opacity="0.8"
+        />
+
+        {/* 右侧红枫叶堆 (82%, 56%)：未拨开时盖住，拨开后显露半个空橡果帽壳 */}
+        <g transform="translate(610, 175)">
+          {/* 拨开后显露的半个空橡果帽壳 */}
+          <ellipse cx="48" cy="45" rx="26" ry="14" fill="#FEF3C7" stroke="#D97706" strokeWidth="2" />
+          <path d="M32 44 C32 28, 64 28, 64 44 Z" fill="#92400E" stroke="#451A03" strokeWidth="2.5" />
+          <line x1="48" y1="26" x2="52" y2="19" stroke="#451A03" strokeWidth="3" strokeLinecap="round" />
+
+          {/* 红枫叶遮挡层 */}
+          <g
+            transform={isMaplePileOpened ? 'translate(34, -26) rotate(22)' : 'translate(0, 0)'}
+            style={{ transition: 'transform 0.35s ease' }}
+          >
+            <ellipse cx="45" cy="42" rx="46" ry="26" fill="#EF4444" opacity="0.92" />
+            <ellipse cx="32" cy="36" rx="32" ry="20" fill="#F97316" opacity="0.9" />
+            <ellipse cx="62" cy="40" rx="28" ry="18" fill="#DC2626" opacity="0.9" />
+          </g>
+        </g>
+      </svg>
+    );
+  }
+
+  if (themeId === 'sports') {
+    return (
+      <svg
+        data-testid="scene-env-sports"
+        viewBox="0 0 800 380"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <rect width="800" height="380" fill="#ECFDF5" />
+        <rect y="140" width="800" height="240" fill="#86EFAC" opacity="0.55" />
+        <line x1="60" y1="150" x2="740" y2="150" stroke="#FFFFFF" strokeWidth="6" />
+        <line x1="180" y1="150" x2="110" y2="370" stroke="#FFFFFF" strokeWidth="6" />
+        {/* 球门框 */}
+        <rect x="330" y="65" width="160" height="95" fill="none" stroke="#FFFFFF" strokeWidth="8" rx="6" />
+        {/* 右侧冬青灌木丛 */}
+        <circle cx="670" cy="205" r="55" fill="#15803D" opacity="0.75" />
+        <circle cx="710" cy="220" r="45" fill="#166534" opacity="0.8" />
+      </svg>
+    );
+  }
+
+  if (themeId === 'puzzle') {
+    return (
+      <svg
+        data-testid="scene-env-puzzle"
+        viewBox="0 0 800 380"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <rect width="800" height="380" fill="#FFFBEB" />
+        {/* 拼图木桌 */}
+        <rect x="120" y="105" width="260" height="120" rx="14" fill="#FDE68A" stroke="#D97706" strokeWidth="4" />
+        {/* 毛绒地毯与翻折角 */}
+        <polygon points="210,255 590,255 630,360 175,360" fill="#DDD6FE" stroke="#7C3AED" strokeWidth="4" />
+        <polygon points="390,255 445,255 425,295" fill="#C4B5FD" stroke="#6D28D9" strokeWidth="3" />
+        {/* 沙发抱枕 */}
+        <rect x="615" y="175" width="95" height="72" rx="22" fill="#FBCFE8" stroke="#DB2777" strokeWidth="3" />
+      </svg>
+    );
+  }
+
+  // 默认画画主题（Case A：《美术角绿色蜡笔》及 Case 2）
+  return (
+    <svg
+      data-testid="scene-env-drawing"
+      viewBox="0 0 800 380"
+      preserveAspectRatio="xMidYMid slice"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="studioWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FEF3C7" />
+          <stop offset="68%" stopColor="#FFFBEB" />
+          <stop offset="100%" stopColor="#FDE68A" />
+        </linearGradient>
+      </defs>
+      <rect width="800" height="380" fill="url(#studioWall)" />
+      {/* 阳光木地板 */}
+      <rect x="0" y="250" width="800" height="130" fill="#FCD34D" opacity="0.45" />
+      <line x1="0" y1="250" x2="800" y2="250" stroke="#D97706" strokeWidth="3" />
+
+      {/* 左侧画架与向日葵画布 (28%, 38%) */}
+      <g transform="translate(155, 78)">
+        <line x1="30" y1="165" x2="55" y2="10" stroke="#92400E" strokeWidth="6" strokeLinecap="round" />
+        <line x1="115" y1="165" x2="90" y2="10" stroke="#92400E" strokeWidth="6" strokeLinecap="round" />
+        <rect x="24" y="24" width="98" height="78" rx="8" fill="#FFFFFF" stroke="#B45309" strokeWidth="4" />
+        <circle cx="73" cy="58" r="16" fill="#F59E0B" stroke="#78350F" strokeWidth="2" />
+        {/* 行动反馈：若选了捡起蜡笔继续画，补上饱满绿叶 */}
+        <path
+          d="M73 74 L73 96"
+          stroke="#10B981"
+          strokeWidth={selectedActionId === 'act_pickup_and_apologize' ? '6' : '3'}
+          strokeLinecap="round"
+        />
+        {selectedActionId === 'act_put_pen_box_rule' && (
+          <rect x="98" y="68" width="22" height="30" rx="4" fill="#34D399" stroke="#047857" strokeWidth="2" />
+        )}
+      </g>
+
+      {/* 椅子与拉紧拉链的皮皮书包 (68%, 30%) */}
+      <g transform="translate(500, 74)">
+        <rect x="10" y="18" width="68" height="76" rx="18" fill="#BAE6FD" stroke="#0284C7" strokeWidth="4" />
+        <line x1="22" y1="45" x2="66" y2="45" stroke="#0369A1" strokeWidth="4" strokeDasharray="5 3" />
+        <rect x="38" y="40" width="12" height="12" rx="3" fill="#0284C7" />
+      </g>
+
+      {/* 地板上的彩色猫爪梅花印轨迹 (48%, 76% -> 通向右侧窗帘 82%, 58%) */}
+      {scenarioId === 'scenario_detective_drawing_v1' && (
+        <g opacity="0.85">
+          <circle cx="310" cy="285" r="7" fill="#10B981" />
+          <circle cx="365" cy="296" r="8" fill="#F59E0B" />
+          <circle cx="425" cy="288" r="8" fill="#10B981" />
+          <circle cx="495" cy="276" r="7" fill="#34D399" />
+          <circle cx="565" cy="256" r="8" fill="#10B981" />
+          <path
+            d="M285 275 Q430 305 630 232"
+            stroke="#059669"
+            strokeWidth="3.5"
+            strokeDasharray="7 7"
+            fill="none"
+          />
+        </g>
+      )}
+
+      {/* 右侧窗户与可掀开的布窗帘 (82%, 58%) */}
+      <g transform="translate(612, 36)">
+        <rect x="0" y="0" width="118" height="145" rx="10" fill="#E0F2FE" stroke="#F59E0B" strokeWidth="5" />
+        {/* 窗帘底下的绿色蜡笔（掀开窗帘后完整显露） */}
+        <g transform="translate(26, 168)">
+          <rect x="0" y="0" width="54" height="14" rx="5" fill="#10B981" stroke="#047857" strokeWidth="2.5" />
+          <polygon points="54,0 68,7 54,14" fill="#059669" />
+        </g>
+        {/* 可掀开的暖橙窗帘布 */}
+        <path
+          d={
+            isCurtainLifted
+              ? 'M8 0 L112 0 L92 128 Q56 112 18 136 Z'
+              : 'M8 0 L112 0 L116 196 Q60 206 6 194 Z'
+          }
+          fill="#FDE68A"
+          stroke="#D97706"
+          strokeWidth="4"
+        />
+      </g>
+    </svg>
+  );
+};
+
 export const CrayonDetectiveGame: React.FC<Props> = ({
   onExit,
   initialTheme,
@@ -267,12 +524,19 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   const currentCompanion =
     ANIMAL_COMPANIONS[personalization.companionId] || ANIMAL_COMPANIONS.guoguo_squirrel;
 
+  // P0-01：显式案件状态机
+  const [caseStatus, setCaseStatus] = useState<DetectiveCaseStatus>('NOT_STARTED');
+
   // 放大镜位置（百分比）
   const [lensPos, setLensPos] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
   const [isDraggingLens, setIsDraggingLens] = useState(false);
 
-  // 已发现的线索 ID 列表
+  // 已发现的线索 ID 列表（仅当儿童真实触碰/操作场景物体后加入）
   const [discoveredClueIds, setDiscoveredClueIds] = useState<string[]>([]);
+  // 调查方向高亮提示的目标热点 ID 列表（P0-03：调查方向只高亮引导，不替儿童自动领取全部线索）
+  const [highlightedHotspotIds, setHighlightedHotspotIds] = useState<string[]>([]);
+  // 已在场景中掀开/拨开的遮挡物热点 ID
+  const [revealedObjectIds, setRevealedObjectIds] = useState<string[]>([]);
   // 当前处于探照焦点的热点
   const [activeHotspot, setActiveHotspot] = useState<HotspotEvidence | null>(null);
 
@@ -288,19 +552,18 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   const [initialHypothesisId, setInitialHypothesisId] = useState<string | null>(null);
   // 阶段 2（通）：已探索的调查方向 ID 列表
   const [exploredLeadIds, setExploredLeadIds] = useState<string[]>([]);
-  // 阶段 3（辨）：发现新证据后修正/确认后的判断 ID
+  // 阶段 3（辨）：发现新证据后修正/确认后的判断 ID + 证据关系评估结果
   const [revisedHypothesisId, setRevisedHypothesisId] = useState<string | null>(null);
+  const [hypothesisEvaluation, setHypothesisEvaluation] = useState<HypothesisEvaluationResult | null>(null);
   // 阶段 4（择）：选择的下一步温和行动 ID
   const [chosenNextActionId, setChosenNextActionId] = useState<string | null>(null);
   // 内嵌能力迁移实验室弹窗开关
   const [isEmbeddedTransferOpen, setIsEmbeddedTransferOpen] = useState(false);
 
   // 当前温和提示语
-  const [feedbackPrompt, setFeedbackPrompt] = useState<string>(
-    scenario.spokenIntro
-  );
+  const [feedbackPrompt, setFeedbackPrompt] = useState<string>(scenario.spokenIntro);
 
-  // 是否已完成全部事实猜测梳理
+  // 是否打开破案手册浮层
   const [isSynthesisOpen, setIsSynthesisOpen] = useState(false);
 
   const sceneContainerRef = useRef<HTMLDivElement>(null);
@@ -314,7 +577,10 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   }, [activeTheme, activeCaseIndex]);
 
   const resetCaseState = (targetScenarioIntro: string) => {
+    setCaseStatus('NOT_STARTED');
     setDiscoveredClueIds([]);
+    setHighlightedHotspotIds([]);
+    setRevealedObjectIds([]);
     setPlacements({});
     setAttemptedClueIds([]);
     setSelectedClueId(null);
@@ -322,10 +588,34 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     setInitialHypothesisId(null);
     setExploredLeadIds([]);
     setRevisedHypothesisId(null);
+    setHypothesisEvaluation(null);
     setChosenNextActionId(null);
     setLensPos({ x: 50, y: 50 });
     setIsSynthesisOpen(false);
     setFeedbackPrompt(targetScenarioIntro);
+  };
+
+  /**
+   * P0-01：检验并推进案件真实完成状态
+   * 必须满足：真实发现 >= 2 条现场线索 + 做出/更新过判断 + 尝试了下一步行动
+   */
+  const tryCompleteDetectiveLoop = (params: {
+    cluesCount: number;
+    hasHypothesis: boolean;
+    hasAction: boolean;
+  }): boolean => {
+    if (params.cluesCount >= 2 && params.hasHypothesis && params.hasAction) {
+      setCaseStatus('COMPLETED');
+      recordDetectiveCaseCompletion(scenario.id, {
+        status: 'COMPLETED',
+        discoveredClueCount: params.cluesCount,
+        hasSelectedHypothesis: params.hasHypothesis,
+        hasSelectedAction: params.hasAction,
+      });
+      unlockMedal('sun-detective');
+      return true;
+    }
+    return false;
   };
 
   // 切换主题场景时安全重置探索进度
@@ -355,50 +645,143 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
   const handleSelectInitialHypothesis = (hypId: string) => {
     sounds.playCardSelect();
     setInitialHypothesisId(hypId);
+    setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
     const hyp = scenario.initialHypotheses?.find((h) => h.id === hypId);
     if (hyp) {
       if (hyp.isUnknownOption) {
-        recordUnknownHonestyChoice();
+        recordUnknownHonestyChoice(scenario.id);
       }
       setFeedbackPrompt(`${currentCompanion.name}：${hyp.feedbackText}`);
       speechNarrator.speak(hyp.feedbackText);
     }
   };
 
-  // 阶段 2：主动选择调查方向，解锁对应隐藏/关键线索
+  // 阶段 2（P0-03）：选择调查方向仅高亮引导场景目标物，不替孩子自动解锁全部线索
   const handleChooseInvestigationLead = (leadId: string) => {
     const lead = scenario.investigationLeads?.find((l) => l.id === leadId);
     if (!lead) return;
     sounds.playDiscoveryChime();
+    setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
     if (!exploredLeadIds.includes(leadId)) {
       setExploredLeadIds((prev) => [...prev, leadId]);
     }
+    setHighlightedHotspotIds([...lead.targetHotspotIds]);
     const targetSpots = currentHotspots.filter((h) => lead.targetHotspotIds.includes(h.id));
     if (targetSpots.length > 0) {
-      const firstSpot = targetSpots[0];
-      setLensPos({ x: firstSpot.xPercent, y: firstSpot.yPercent });
-      setActiveHotspot(firstSpot);
-      setDiscoveredClueIds((prev) => {
-        const merged = new Set([...prev, ...targetSpots.map((s) => s.id)]);
-        return Array.from(merged);
-      });
+      const firstUnfound = targetSpots.find((s) => !discoveredClueIds.includes(s.id)) || targetSpots[0];
+      setLensPos({ x: firstUnfound.xPercent, y: firstUnfound.yPercent });
     }
     setFeedbackPrompt(`${currentCompanion.name}：${lead.discoverySpokenText}`);
     speechNarrator.speak(lead.discoverySpokenText);
   };
 
-  // 阶段 3：发现新证据后修正/确认判断
+  // 阶段 3（P0-02）：发现新证据后修正/确认判断（根据真实已发现线索评估支持/反驳/证据不足）
   const handleReviseHypothesis = (hypId: string) => {
     sounds.playDiscoveryChime();
-    const isChanged = initialHypothesisId !== null && initialHypothesisId !== hypId;
+    const previousJudgmentId = revisedHypothesisId ?? initialHypothesisId;
     setRevisedHypothesisId(hypId);
-    recordHypothesisRevision();
+
+    const evaluation = evaluateHypothesisAgainstEvidence(scenario, hypId, discoveredClueIds);
+    setHypothesisEvaluation(evaluation);
+
     const hyp = scenario.initialHypotheses?.find((h) => h.id === hypId);
-    const msg = isChanged
-      ? `太棒啦！看到新证据后，你把刚才的想法修正为「${hyp?.label || ''}」，这就是真正的科学小侦探！`
-      : `你结合收集到的真实证据确认了判断：「${hyp?.label || ''}」！`;
-    setFeedbackPrompt(msg);
-    speechNarrator.speak(msg);
+    if (hyp?.isUnknownOption) {
+      recordUnknownHonestyChoice(scenario.id);
+    }
+
+    // 仅当判断真实发生变化且已有发现线索时才计入判断修正次数
+    recordHypothesisRevision({
+      caseId: scenario.id,
+      previousHypothesisId: previousJudgmentId,
+      nextHypothesisId: hypId,
+      discoveredClueCount: discoveredClueIds.length,
+    });
+
+    setCaseStatus((prev) => {
+      if (prev === 'COMPLETED') return 'COMPLETED';
+      if (chosenNextActionId) return 'ACTION_SELECTED';
+      return 'REFLECTING';
+    });
+
+    if (chosenNextActionId) {
+      tryCompleteDetectiveLoop({
+        cluesCount: discoveredClueIds.length,
+        hasHypothesis: true,
+        hasAction: true,
+      });
+    }
+
+    setFeedbackPrompt(evaluation.spokenFeedback);
+    speechNarrator.speak(evaluation.spokenFeedback);
+  };
+
+  // 阶段 4（P0-01 / P1-02）：选择下一步行动并观察场景与角色反应
+  const handleSelectNextAction = (actionId: string) => {
+    const choice = scenario.nextActionChoices?.find((c) => c.id === actionId);
+    if (!choice) return;
+    sounds.playCardSelect();
+    setChosenNextActionId(actionId);
+
+    const hasHypothesis = Boolean(initialHypothesisId || revisedHypothesisId);
+    const completed = tryCompleteDetectiveLoop({
+      cluesCount: discoveredClueIds.length,
+      hasHypothesis,
+      hasAction: true,
+    });
+
+    if (!completed) {
+      setCaseStatus('ACTION_SELECTED');
+    }
+
+    const spoken = choice.worldChangeSummary
+      ? `${choice.feedbackText} ${choice.worldChangeSummary}`
+      : choice.feedbackText;
+    setFeedbackPrompt(spoken);
+    speechNarrator.speak(spoken);
+  };
+
+  // 触碰或放大镜命中场景物体时的真实探索反馈（含遮挡物翻开与顺序感知反馈）
+  const inspectSceneObject = (spot: HotspotEvidence) => {
+    setLensPos({ x: spot.xPercent, y: spot.yPercent });
+    setActiveHotspot(spot);
+    setSelectedClueId(spot.id);
+    setCaseStatus((prev) => (prev === 'NOT_STARTED' || prev === 'ENDED_EARLY' ? 'EXPLORING' : prev));
+
+    if (spot.requiresObjectReveal && !revealedObjectIds.includes(spot.id)) {
+      setRevealedObjectIds((prev) => [...prev, spot.id]);
+    }
+
+    const isFirstTimeDiscovery = !discoveredClueIds.includes(spot.id);
+    const priorClues = discoveredClueIds;
+
+    if (isFirstTimeDiscovery) {
+      sounds.playClick();
+      const nextClues = [...discoveredClueIds, spot.id];
+      setDiscoveredClueIds(nextClues);
+
+      // 若已选过修正判断，随着新证据加入实时刷新证据支撑评估
+      if (revisedHypothesisId) {
+        setHypothesisEvaluation(evaluateHypothesisAgainstEvidence(scenario, revisedHypothesisId, nextClues));
+      }
+
+      if (chosenNextActionId && (initialHypothesisId || revisedHypothesisId)) {
+        tryCompleteDetectiveLoop({
+          cluesCount: nextClues.length,
+          hasHypothesis: true,
+          hasAction: true,
+        });
+      }
+    } else {
+      sounds.playClick();
+    }
+
+    const orderFeedback = getOrderAwareDiscoveryFeedback(
+      scenario,
+      spot,
+      isFirstTimeDiscovery ? priorClues : priorClues.filter((id) => id !== spot.id)
+    );
+    setFeedbackPrompt(orderFeedback);
+    speechNarrator.speak(spot.spokenText);
   };
 
   // 检查放大镜位置是否命中热点
@@ -415,13 +798,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     }
 
     if (foundHit) {
-      setActiveHotspot(foundHit);
-      if (!discoveredClueIds.includes(foundHit.id)) {
-        sounds.playClick();
-        setDiscoveredClueIds((prev) => [...prev, foundHit.id]);
-        setFeedbackPrompt(`发现新线索：【${foundHit.name}】！${foundHit.foundDescription}`);
-        speechNarrator.speak(foundHit.spokenText);
-      }
+      inspectSceneObject(foundHit);
     } else {
       setActiveHotspot(null);
     }
@@ -453,14 +830,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
 
   // 直接点击热点探照按钮（触控等效）
   const handleDirectInspect = (spot: HotspotEvidence) => {
-    setLensPos({ x: spot.xPercent, y: spot.yPercent });
-    setActiveHotspot(spot);
-    if (!discoveredClueIds.includes(spot.id)) {
-      sounds.playClick();
-      setDiscoveredClueIds((prev) => [...prev, spot.id]);
-    }
-    setFeedbackPrompt(`发现线索：【${spot.name}】${spot.foundDescription}`);
-    speechNarrator.speak(spot.spokenText);
+    inspectSceneObject(spot);
   };
 
   // 选择放置卡片
@@ -469,18 +839,20 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     setSelectedClueId(clueId === selectedClueId ? null : clueId);
     const clue = currentHotspots.find((h) => h.id === clueId);
     if (clue) {
+      setActiveHotspot(clue);
       speechNarrator.speak(clue.spokenText);
     }
   };
 
-  // 放置到目标箩筐（支持点击分配与撤销）
-  const handlePlaceIntoBasket = (basketId: SortingBasketType) => {
-    if (!selectedClueId) {
-      setFeedbackPrompt('先点一张找到的线索卡，再点要放进的盒子吧！');
+  // 放置到目标箩筐（支持从场景内浮层直接归类，或选中卡片后点击盒子归类）
+  const handlePlaceIntoBasket = (basketId: SortingBasketType, explicitClueId?: string) => {
+    const targetId = explicitClueId ?? selectedClueId ?? activeHotspot?.id ?? null;
+    if (!targetId) {
+      setFeedbackPrompt('先在场景里点一件线索物体，再点要放进的盒子吧！');
       return;
     }
 
-    const clue = currentHotspots.find((h) => h.id === selectedClueId);
+    const clue = currentHotspots.find((h) => h.id === targetId);
     if (!clue) return;
 
     sounds.playClick();
@@ -491,11 +863,14 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
       recordClueClassificationAttempt(evaluation.isMatch);
     }
 
-    // 记录放置（无论对错都允许放置与调整，不阻断）
     setPlacements((prev) => ({
       ...prev,
-      [selectedClueId]: basketId,
+      [targetId]: basketId,
     }));
+    setCaseStatus((prev) => {
+      if (prev === 'COMPLETED' || prev === 'ACTION_SELECTED') return prev;
+      return 'REFLECTING';
+    });
     setSelectedClueId(null);
     setFeedbackPrompt(evaluation.spokenFeedback);
     speechNarrator.speak(evaluation.spokenFeedback);
@@ -519,15 +894,38 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     speechNarrator.speak('已重新整理场景，拿起放大镜重新找找吧！');
   };
 
-  // 打开侦探破案手册并记录案件完成与勋章点亮
+  /**
+   * P0-01：打开侦探破案手册
+   * 严禁无条件记录完成或点亮奖章！
+   * 仅当已完成真实探索闭环（>=2 条线索 + 有判断 + 已选行动）时记为 COMPLETED；
+   * 若零探索或未完成关键动作提前查看，标记为 ENDED_EARLY（提前查看参考），不增加完成计数。
+   */
   const handleOpenSynthesis = () => {
     sounds.playDiscoveryChime();
     setIsSynthesisOpen(true);
-    recordDetectiveCaseCompletion(scenario.id);
-    unlockMedal('sun-detective');
+
+    const hasHypothesis = Boolean(initialHypothesisId || revisedHypothesisId);
+    const hasAction = Boolean(chosenNextActionId);
+    const isCompletedLoop = tryCompleteDetectiveLoop({
+      cluesCount: discoveredClueIds.length,
+      hasHypothesis,
+      hasAction,
+    });
+
+    if (!isCompletedLoop && caseStatus !== 'COMPLETED') {
+      setCaseStatus('ENDED_EARLY');
+      const earlyMsg =
+        discoveredClueIds.length < 2
+          ? '你打开了侦探参考卡！目前还没完成现场取证，先看参考不会直接算作破案完成哦，随时可以回现场继续探索。'
+          : '还差最后一步：在手册或页面里试着选一个下一步行动，就能完成整个破案闭环啦！';
+      setFeedbackPrompt(earlyMsg);
+      speechNarrator.speak(earlyMsg);
+      return;
+    }
+
     const summarySpeech = scenario.resolutionSummary
       ? `太棒了小侦探！${scenario.resolutionSummary}`
-      : '太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。';
+      : '太棒了小侦探！我们完成了完整的现场取证与破案闭环。';
     speechNarrator.speak(summarySpeech);
   };
 
@@ -596,10 +994,18 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
     return evaluateThemedCluePlacement(h.category, placed).isMatch;
   }).length;
 
+  const selectedActionObj = scenario.nextActionChoices?.find((c) => c.id === chosenNextActionId) || null;
+
   return (
-    <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col my-2">
+    <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-3xl border-2 border-stone-200 shadow-xl overflow-hidden flex flex-col">
       {adultPreviewUnlocked && !isApproved && (
-        <div className="bg-amber-500 text-white text-xs font-black px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+        <div
+          className={
+            onOpenTransferLab
+              ? 'sr-only'
+              : 'bg-amber-500 text-white text-xs font-black px-3 py-1 flex flex-wrap items-center justify-between gap-2'
+          }
+        >
           <div className="flex items-center gap-1.5">
             <svg viewBox="0 0 20 20" className="w-4 h-4 fill-current shrink-0" aria-hidden="true">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -616,50 +1022,61 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
         </div>
       )}
 
-      {/* 顶部状态与安全退出栏 */}
-      <div className="bg-amber-100/90 px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-amber-200">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-amber-200/90 flex items-center justify-center shrink-0 shadow-xs">
-            <MagnifierLensSvg className="w-7 h-7 text-amber-800" />
+      {/* 顶部紧凑状态与安全退出栏 */}
+      <div className="bg-amber-100/90 px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-center justify-between gap-2 border-b border-amber-200">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-200/90 flex items-center justify-center shrink-0 shadow-xs">
+            <MagnifierLensSvg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-800" />
           </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-xl sm:text-2xl font-black text-amber-950">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h2 className="text-sm sm:text-lg font-black text-amber-950 truncate">
                 {scenario.sceneTitle}
               </h2>
-              <span className="text-xs bg-amber-200/90 text-amber-900 font-bold px-2.5 py-0.5 rounded-full">
-                {scenario.caseBadge ? `${scenario.caseBadge} · 结构同构 · 人工审核` : '结构同构 · 人工审核'}
+              <span
+                data-testid="detective-case-status-badge"
+                data-status={caseStatus}
+                className={`text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full ${
+                  caseStatus === 'COMPLETED'
+                    ? 'bg-emerald-600 text-white'
+                    : caseStatus === 'ENDED_EARLY'
+                      ? 'bg-stone-300 text-stone-800'
+                      : 'bg-amber-200/90 text-amber-950'
+                }`}
+              >
+                {CASE_STATUS_LABELS[caseStatus]}
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-amber-800 mt-0.5">
-              <span>寻找目标：{scenario.missingItemLabel}</span>
+            <div className="flex flex-wrap items-center gap-1 text-[11px] text-amber-900">
+              <span>找：{scenario.missingItemLabel}</span>
               <span aria-hidden="true">·</span>
-              <span className="font-bold">已发现 {discoveredClueIds.length} / {currentHotspots.length}</span>
+              <span className="font-bold">线索 {discoveredClueIds.length}/{currentHotspots.length}</span>
               <span aria-hidden="true">·</span>
               <span className="font-bold text-emerald-800">
-                已破获 {experienceMetrics.completedDetectiveCaseIds.length} 个案件
+                已破案 {experienceMetrics.completedDetectiveCaseIds.length} 起
               </span>
+              <span className="hidden sm:inline text-amber-800/80">· 结构同构 · 人工审核</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-1 shrink-0">
           <button
             type="button"
             onClick={() => speechNarrator.speak(feedbackPrompt)}
-            className="min-h-[48px] px-3.5 py-2 rounded-xl bg-amber-200/90 hover:bg-amber-300 text-amber-950 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="min-h-[38px] sm:min-h-[42px] px-2 py-1 rounded-xl bg-amber-200/90 hover:bg-amber-300 text-amber-950 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
             aria-label="重听语音引导"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             </svg>
-            <span>重听提示</span>
+            <span className="hidden sm:inline">重听提示</span>
           </button>
           <button
             type="button"
             onClick={handleExitGame}
-            className="min-h-[48px] px-4 py-2 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs sm:text-sm font-bold transition-colors cursor-pointer flex items-center justify-center"
+            className="min-h-[38px] sm:min-h-[42px] px-2.5 py-1 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold transition-colors cursor-pointer flex items-center justify-center"
             aria-label="离开侦探社"
           >
             离开
@@ -668,13 +1085,12 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
       </div>
 
       {/* 兴趣皮肤快速切换栏 + 同主题双案件切换器 */}
-      <div className="bg-amber-50/70 px-4 py-2 border-b border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="bg-amber-50/70 px-2.5 py-1 border-b border-amber-200 flex items-center justify-between gap-1.5 overflow-x-auto">
         <div
           role="tablist"
           aria-label="选择侦探场景兴趣主题"
-          className="flex items-center gap-2 overflow-x-auto"
+          className="flex items-center gap-1 shrink-0"
         >
-          <span className="text-xs font-bold text-stone-600 shrink-0">场景主题：</span>
           {(Object.keys(INTEREST_ACTIVITIES) as InterestActivityId[]).map((themeKey) => {
             const act = INTEREST_ACTIVITIES[themeKey];
             const isCurrent = activeTheme === themeKey;
@@ -685,24 +1101,22 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 role="tab"
                 aria-selected={isCurrent}
                 onClick={() => handleSwitchTheme(themeKey)}
-                className={`min-h-[48px] px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-2 shrink-0 ${
+                className={`min-h-[34px] sm:min-h-[38px] px-2 py-0.5 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1 shrink-0 ${
                   isCurrent
                     ? 'bg-amber-400 text-stone-900 shadow-xs ring-2 ring-amber-300'
                     : 'bg-white/80 text-stone-700 hover:bg-white border border-stone-200'
                 }`}
                 aria-label={`切换为${act.label}主题`}
               >
-                <InterestBadgeSvg interestId={themeKey} className="w-5 h-5 shrink-0" />
+                <InterestBadgeSvg interestId={themeKey} className="w-3.5 h-3.5 shrink-0" />
                 <span>{act.label}</span>
               </button>
             );
           })}
         </div>
 
-        {/* 同主题多案件切换（防止背答案，每个案件拥有不同线索位置与不同原因解释） */}
         {themeCases.length > 1 && (
-          <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-xs font-bold text-stone-600">选择案件：</span>
+          <div className="flex items-center gap-1 shrink-0">
             {themeCases.map((c, idx) => {
               const isCurrentCase = idx === activeCaseIndex;
               const isSolved = experienceMetrics.completedDetectiveCaseIds.includes(c.id);
@@ -712,7 +1126,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                   type="button"
                   data-testid={`switch-case-${idx + 1}`}
                   onClick={() => handleSwitchCase(idx)}
-                  className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1 ${
+                  className={`min-h-[34px] sm:min-h-[38px] px-2 py-0.5 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1 ${
                     isCurrentCase
                       ? 'bg-emerald-600 text-white shadow-xs'
                       : 'bg-white text-stone-700 hover:bg-emerald-50 border border-stone-200'
@@ -728,94 +1142,9 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
         )}
       </div>
 
-      {/* 核心探索与交互区 */}
-      <div className="p-3 sm:p-5 space-y-4">
-        {/* 阶段一 & 二：六层思考引导面板（1. 初步判断 / 允许不知道 -> 2. 主动选择调查方向） */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {/* 步骤 1：停 & 初步判断 */}
-          <div
-            data-testid="detective-step-hypothesis"
-            className="bg-white rounded-2xl border-2 border-amber-200 p-3.5 space-y-2 shadow-2xs"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-black text-amber-950 flex items-center gap-1.5">
-                <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs">
-                  第 1 步 · 停一停
-                </span>
-                <span>还没找全证据前，你觉得呢？</span>
-              </span>
-              {initialHypothesisId && (
-                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                  已记录初判
-                </span>
-              )}
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {(scenario.initialHypotheses || []).map((hyp) => {
-                const isSelected = initialHypothesisId === hyp.id;
-                return (
-                  <button
-                    key={hyp.id}
-                    type="button"
-                    data-testid={`initial-hypothesis-${hyp.id}`}
-                    onClick={() => handleSelectInitialHypothesis(hyp.id)}
-                    className={`min-h-[48px] px-3 py-2 rounded-xl text-left text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-between gap-2 border ${
-                      isSelected
-                        ? 'bg-amber-100 border-amber-500 text-amber-950 shadow-2xs'
-                        : 'bg-stone-50 hover:bg-amber-50/60 border-stone-200 text-stone-700'
-                    }`}
-                  >
-                    <span>{hyp.label}</span>
-                    {isSelected && <span className="text-xs font-black text-amber-800 shrink-0">✓ 当前想法</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 步骤 2：通 & 主动选择调查方向 */}
-          <div
-            data-testid="detective-step-leads"
-            className="bg-white rounded-2xl border-2 border-sky-200 p-3.5 space-y-2 shadow-2xs"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs sm:text-sm font-black text-sky-950 flex items-center gap-1.5">
-                <span className="px-2 py-0.5 rounded-full bg-sky-100 text-sky-900 text-xs">
-                  第 2 步 · 选方向
-                </span>
-                <span>接下来你想先调查哪里？</span>
-              </span>
-              <span className="text-[11px] font-bold text-sky-700">
-                已调查 {exploredLeadIds.length} / {(scenario.investigationLeads || []).length} 处
-              </span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {(scenario.investigationLeads || []).map((lead) => {
-                const isExplored = exploredLeadIds.includes(lead.id);
-                return (
-                  <button
-                    key={lead.id}
-                    type="button"
-                    data-testid={`investigation-lead-${lead.id}`}
-                    onClick={() => handleChooseInvestigationLead(lead.id)}
-                    className={`min-h-[48px] px-3 py-2 rounded-xl text-left text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-between gap-2 border ${
-                      isExplored
-                        ? 'bg-sky-50 border-sky-400 text-sky-950'
-                        : 'bg-stone-50 hover:bg-sky-50/60 border-stone-200 text-stone-700'
-                    }`}
-                  >
-                    <span>🔍 {lead.label}</span>
-                    <span className="text-[11px] font-extrabold text-sky-700 shrink-0">
-                      {isExplored ? '✓ 已发现线索' : '去看看 →'}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* 1. 探索场景画布 (Interactive Magnifier Scene) */}
+      {/* P1-01：场景优先 + 伙伴简短提示 + 单步紧凑引导区 */}
+      <div className="p-2 sm:p-3.5 space-y-2.5">
+        {/* 1. 核心探索场景画布 (Scene-First Interactive Canvas - 手机首屏直接可见) */}
         <div
           ref={sceneContainerRef}
           onPointerDown={(e) => {
@@ -825,42 +1154,60 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
           onPointerMove={handlePointerMove}
           onPointerUp={() => setIsDraggingLens(false)}
           onPointerCancel={() => setIsDraggingLens(false)}
-          className="relative w-full h-64 sm:h-80 bg-linear-to-b from-sky-50 via-amber-50 to-emerald-50 rounded-2xl border-2 border-amber-200 overflow-hidden cursor-crosshair touch-none select-none shadow-inner"
+          className="relative w-full h-56 sm:h-72 rounded-2xl border-2 border-amber-300 overflow-hidden cursor-crosshair touch-none select-none shadow-inner bg-amber-50"
           aria-label="侦探探索小房间全景"
         >
-          {/* 房间背景手绘插画元素 */}
-          <div className="absolute inset-0 pointer-events-none opacity-40">
-            {/* 窗户 */}
-            <div className="absolute top-4 right-8 w-24 h-28 border-4 border-amber-300 bg-sky-200/60 rounded-t-xl" />
-            {/* 窗帘 */}
-            <div className="absolute top-4 right-5 w-12 h-36 bg-amber-200/80 rounded-b-xl border border-amber-300" />
-            {/* 桌子 */}
-            <div className="absolute top-20 left-12 w-36 h-28 border-2 border-stone-300 bg-amber-100/70 rounded-lg shadow-sm" />
-            {/* 地板条纹 */}
-            <div className="absolute bottom-0 inset-x-0 h-20 bg-linear-to-t from-stone-200/50 to-transparent" />
-          </div>
+          {/* 差异化 SVG 主题场景环境 */}
+          <DetectiveEnvironmentSceneSvg
+            themeId={activeTheme}
+            scenarioId={scenario.id}
+            revealedObjectIds={revealedObjectIds}
+            selectedActionId={chosenNextActionId}
+          />
 
-          {/* 场景热点图标与探照标记 (触控 targets >= 56px) */}
+          {/* 场景热点物体（区分：可掀开遮挡物、客观物证、虚线主观猜想气泡、上锁未知盲区） */}
           {currentHotspots.map((spot) => {
             const isDiscovered = discoveredClueIds.includes(spot.id);
+            const isHighlighted = highlightedHotspotIds.includes(spot.id) && !isDiscovered;
+            const isRevealed = revealedObjectIds.includes(spot.id);
+            const isThoughtBubble = spot.category === 'INFERENCE';
+            const isUnknownSpot = spot.category === 'UNKNOWN';
+
             return (
               <button
                 key={spot.id}
                 type="button"
-                onClick={() => handleDirectInspect(spot)}
+                data-testid={`scene-hotspot-${spot.id}`}
+                data-category={spot.category}
+                data-highlighted={isHighlighted ? 'true' : 'false'}
+                data-revealed={isRevealed ? 'true' : 'false'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDirectInspect(spot);
+                }}
                 style={{
                   left: `${spot.xPercent}%`,
                   top: `${spot.yPercent}%`,
                 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 p-2 rounded-2xl transition-all duration-300 min-w-[56px] min-h-[56px] flex items-center justify-center cursor-pointer ${
+                className={`absolute -translate-x-1/2 -translate-y-1/2 px-2 py-1.5 rounded-2xl transition-all duration-300 min-w-[54px] min-h-[54px] flex flex-col items-center justify-center cursor-pointer ${
                   isDiscovered
-                    ? 'bg-amber-400 text-amber-950 scale-110 shadow-md ring-4 ring-amber-200/80'
-                    : 'bg-white/95 text-stone-700 hover:scale-105 shadow-sm border-2 border-stone-300/80'
+                    ? 'bg-amber-400 text-amber-950 scale-105 shadow-md ring-4 ring-amber-200/90'
+                    : isHighlighted
+                      ? 'bg-sky-100 text-sky-950 scale-110 shadow-lg ring-4 ring-sky-400 animate-pulse border-2 border-sky-500'
+                      : isThoughtBubble
+                        ? 'bg-amber-50/95 text-amber-900 border-2 border-dashed border-amber-500 shadow-xs'
+                        : isUnknownSpot
+                          ? 'bg-sky-50/95 text-sky-900 border-2 border-sky-400 shadow-xs'
+                          : 'bg-white/95 text-stone-800 hover:scale-105 shadow-sm border-2 border-stone-300'
                 }`}
                 aria-label={`查看${spot.name}`}
               >
-                <ClueVisualIcon icon={spot.icon} clueId={spot.id} category={spot.category} className="w-8 h-8" />
-                <span className="sr-only">{spot.name}</span>
+                <ClueVisualIcon icon={spot.icon} clueId={spot.id} category={spot.category} className="w-6 h-6 sm:w-7 sm:h-7" />
+                <span className="text-[10px] font-black leading-tight mt-0.5 max-w-[76px] truncate">
+                  {spot.requiresObjectReveal && !isRevealed
+                    ? spot.interactionVerb || spot.name
+                    : spot.name}
+                </span>
               </button>
             );
           })}
@@ -873,204 +1220,314 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
             }}
             className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-75"
           >
-            {/* 镜片光圈 */}
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-amber-600 bg-amber-100/35 backdrop-blur-xs shadow-2xl ring-4 ring-amber-300/60 flex items-center justify-center">
-              <span className="text-[11px] sm:text-xs font-black text-amber-950 bg-white/95 px-2.5 py-0.5 rounded-full shadow-xs border border-amber-200">
-                {activeHotspot ? activeHotspot.name : '移动照一照'}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-amber-600 bg-amber-100/25 backdrop-blur-[1px] shadow-xl ring-2 ring-amber-300/60 flex items-end justify-center pb-1">
+              <span className="text-[10px] font-black text-amber-950 bg-white/95 px-2 py-0.5 rounded-full shadow-2xs border border-amber-200 truncate max-w-[90px]">
+                {activeHotspot ? activeHotspot.name : '点物体调查'}
               </span>
             </div>
-            {/* 放大镜手柄 */}
-            <div className="w-3.5 h-12 bg-amber-800 rounded-b-md mx-auto -mt-1 shadow-md transform rotate-25 origin-top" />
-          </div>
-
-          {/* 拖拽提示指示 */}
-          <div className="absolute bottom-2 left-3 bg-white/90 px-3 py-1.5 rounded-xl text-xs text-stone-700 font-bold pointer-events-none border border-amber-200/60 flex items-center gap-1.5">
-            <MagnifierLensSvg className="w-4 h-4" />
-            <span>用手指拖动放大镜，或点上方调查方向/小圆圈探索</span>
           </div>
         </div>
 
-        {/* 2. 动物伙伴实时陪伴与语音引导气泡 */}
-        <div className="bg-amber-50/90 border-2 border-amber-200 rounded-2xl p-3 sm:p-4 flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-white border border-amber-200 flex items-center justify-center shrink-0 p-1 shadow-2xs">
+        {/* 动物伙伴实时简短提示条（紧随场景画布下方） */}
+        <div className="bg-amber-50/90 border border-amber-200 rounded-2xl px-3 py-1.5 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-white border border-amber-200 flex items-center justify-center shrink-0 p-1">
             <CompanionAvatarSvg companionId={currentCompanion.id} className="w-full h-full" />
           </div>
-          <div className="flex-1 min-w-0">
-            <span className="text-[11px] font-bold text-amber-800 block">
-              伙伴 {currentCompanion.name} 陪你探案：
-            </span>
-            <p className="text-sm sm:text-base font-black text-stone-800 leading-snug">
-              {feedbackPrompt}
-            </p>
-          </div>
+          <p
+            data-testid="detective-companion-prompt"
+            className="flex-1 min-w-0 text-xs font-black text-stone-800 leading-snug"
+          >
+            {feedbackPrompt}
+          </p>
           <button
             type="button"
             onClick={handleResetGame}
-            className="min-h-[48px] text-xs px-3 py-1.5 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold transition-colors shrink-0 flex items-center justify-center cursor-pointer"
+            className="min-h-[36px] text-xs px-2.5 py-1 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold transition-colors shrink-0 cursor-pointer"
           >
-            重新开始
+            重来
           </button>
         </div>
 
-        {/* 3. 已发现线索卡待分堆（卡片只展示中性观察描述 observationPrompt，绝不提前剧透答案类别！） */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm sm:text-base font-black text-stone-800 flex items-center gap-1.5">
-              <span>第 3 步 · 分一分：收集到的线索卡片</span>
-              <span className="text-xs text-stone-500 font-normal">（点击卡片，再点击下方盒子归类）</span>
-            </h3>
-            {discoveredClueIds.length === 0 && (
-              <span className="text-xs text-amber-700 font-bold">先用放大镜或调查方向找线索哦</span>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 min-h-[72px]">
-            {discoveredClueIds.map((id) => {
-              const clue = currentHotspots.find((h) => h.id === id);
-              if (!clue) return null;
-              const isPlaced = placements[id] !== undefined;
-              const isSelected = selectedClueId === id;
-
-              return (
-                <div
-                  key={id}
-                  onClick={() => handleSelectCard(id)}
-                  className={`p-3 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-2 min-h-[56px] ${
-                    isSelected
-                      ? 'bg-amber-100 border-amber-500 shadow-md scale-102 ring-2 ring-amber-300'
-                      : isPlaced
-                      ? 'bg-stone-100 border-stone-300 opacity-60'
-                      : 'bg-white border-stone-200 hover:border-amber-300 hover:shadow-xs'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center shrink-0">
-                      <ClueVisualIcon icon={clue.icon} clueId={clue.id} category={clue.category} className="w-7 h-7" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-black text-stone-800 truncate">{clue.name}</p>
-                      <p className="text-[11px] text-stone-500 truncate">
-                        {clue.observationPrompt || clue.foundDescription}
-                      </p>
-                    </div>
-                  </div>
-
-                  {isPlaced ? (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleUndoPlacement(id);
-                      }}
-                      className="min-h-[48px] px-3 py-1.5 bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold rounded-xl shrink-0 cursor-pointer flex items-center justify-center"
-                      aria-label={`取出${clue.name}`}
-                    >
-                      放回
-                    </button>
-                  ) : (
-                    <span className="min-h-[48px] px-3 py-1.5 text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded-xl shrink-0 flex items-center justify-center">
-                      {isSelected ? '已选' : '点击选择'}
-                    </span>
-                  )}
+        {/* P1-01：场景内选中的线索即时查看与一键三盒归类浮层 (Scene Object Popover) */}
+        {activeHotspot && (
+          <div
+            data-testid="scene-object-popover"
+            className="bg-white rounded-2xl border-2 border-amber-300 p-3 shadow-md space-y-2"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0">
+                  <ClueVisualIcon
+                    icon={activeHotspot.icon}
+                    clueId={activeHotspot.id}
+                    category={activeHotspot.category}
+                    className="w-6 h-6"
+                  />
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 4. 分类目标盒 (Sorting Baskets) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          {currentBaskets.map((basket) => {
-            const placedInThisBasket = currentHotspots.filter(
-              (h) => placements[h.id] === basket.id
-            );
-
-            return (
-              <div
-                key={basket.id}
-                onClick={() => handlePlaceIntoBasket(basket.id)}
-                className={`p-4 rounded-2xl border-2 ${basket.borderColor} ${basket.colorBg} cursor-pointer transition-all duration-200 hover:shadow-md flex flex-col justify-between min-h-[150px]`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <div className="flex items-center gap-2">
-                      <BasketCrateSvg type={basket.id} className="w-7 h-7 shrink-0" />
-                      <h4 className="text-base sm:text-lg font-black text-stone-900">
-                        {basket.label}
-                      </h4>
-                    </div>
-                    <span className="text-xs font-bold text-stone-600 bg-white/80 px-2.5 py-0.5 rounded-full border border-stone-200">
-                      {placedInThisBasket.length} 张
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-xs sm:text-sm font-black text-stone-900">
+                      {activeHotspot.name}
                     </span>
+                    {activeHotspot.requiresObjectReveal && revealedObjectIds.includes(activeHotspot.id) && (
+                      <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                        ✓ 已亲手翻开查看
+                      </span>
+                    )}
+                    {activeHotspot.isPermanentUnknown && (
+                      <span className="text-[10px] font-black bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full">
+                        🔒 外部无法看清内部
+                      </span>
+                    )}
                   </div>
-                  <p className="text-xs text-stone-600 font-medium mb-3">
-                    {basket.subLabel}
+                  <p className="text-xs text-stone-700 font-medium mt-0.5">
+                    {activeHotspot.observationPrompt || activeHotspot.foundDescription}
                   </p>
                 </div>
-
-                {/* 放在该盒子里的卡片缩略列表 */}
-                <div className="space-y-1.5">
-                  {placedInThisBasket.map((clue) => {
-                    const isCorrect = evaluateThemedCluePlacement(clue.category, basket.id).isMatch;
-                    return (
-                      <div
-                        key={clue.id}
-                        className="bg-white/95 px-2.5 py-1.5 rounded-xl border border-stone-200 text-xs flex items-center justify-between shadow-2xs"
-                      >
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <ClueVisualIcon icon={clue.icon} clueId={clue.id} category={clue.category} className="w-4 h-4 shrink-0" />
-                          <span className="font-bold text-stone-800 truncate">{clue.name}</span>
-                          {isCorrect && (
-                            <span className="text-[10px] font-black text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full shrink-0">
-                              ✓ 分清啦
-                            </span>
-                          )}
-                        </div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleUndoPlacement(clue.id);
-                          }}
-                          className="min-w-[44px] min-h-[44px] text-stone-400 hover:text-stone-700 font-black flex items-center justify-center cursor-pointer"
-                          aria-label="移出卡片"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    );
-                  })}
-
-                  {placedInThisBasket.length === 0 && (
-                    <div className="text-center py-2 text-xs text-stone-400 border border-dashed border-stone-300 rounded-xl">
-                      点击放入这里
-                    </div>
-                  )}
-                </div>
               </div>
-            );
-          })}
-        </div>
+              <button
+                type="button"
+                onClick={() => setActiveHotspot(null)}
+                className="min-w-[36px] min-h-[36px] rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-black cursor-pointer"
+                aria-label="收起线索详情"
+              >
+                ✕
+              </button>
+            </div>
 
-        {/* 4B. 阶段三核心：发现新证据后修正/确认判断 (Hypothesis Revision Panel) */}
-        {discoveredClueIds.length >= 2 && scenario.initialHypotheses && (
+            {/* 场景浮层内直接一键归入三盒 */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-stone-100">
+              <span className="text-[11px] font-bold text-stone-500">放进哪个盒：</span>
+              {currentBaskets.map((basket) => {
+                const isPlacedHere = placements[activeHotspot.id] === basket.id;
+                return (
+                  <button
+                    key={basket.id}
+                    type="button"
+                    data-testid={`quick-sort-${activeHotspot.id}-${basket.id}`}
+                    onClick={() => handlePlaceIntoBasket(basket.id, activeHotspot.id)}
+                    className={`min-h-[40px] px-2.5 py-1 rounded-xl text-xs font-black border transition-all cursor-pointer flex items-center gap-1 ${
+                      isPlacedHere
+                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
+                        : `${basket.colorBg} ${basket.borderColor} text-stone-800 hover:brightness-95`
+                    }`}
+                  >
+                    <span>{basket.icon}</span>
+                    <span>{basket.label}</span>
+                    {isPlacedHere && <span>✓</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* 阶段一 & 二：紧凑双栏引导（1. 初步判断 -> 2. 调查方向区域高亮） */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {/* 步骤 1：停 & 初步判断 */}
           <div
-            data-testid="detective-step-revise"
-            className="bg-emerald-50/90 border-2 border-emerald-200 rounded-2xl p-4 space-y-2.5"
+            data-testid="detective-step-hypothesis"
+            className="bg-white rounded-2xl border-2 border-amber-200 p-3 space-y-1.5 shadow-2xs"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm sm:text-base font-black text-emerald-950 flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-200 text-emerald-950 text-xs">
-                  第 4 步 · 辨一辨
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black text-amber-950 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px]">
+                  1 · 停一停
                 </span>
-                <span>看完了现场证据，你现在的判断是什么？（可以修改刚才的想法哦！）</span>
-              </h4>
-              {revisedHypothesisId && (
-                <span className="text-xs font-extrabold text-emerald-800 bg-white px-2.5 py-1 rounded-full border border-emerald-300">
-                  ✓ 已根据新证据更新判断
+                <span>调查前你觉得呢？</span>
+              </span>
+              {initialHypothesisId && (
+                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  已记初判
                 </span>
               )}
             </div>
+            <div className="flex flex-col gap-1.5">
+              {(scenario.initialHypotheses || []).map((hyp) => {
+                const isSelected = initialHypothesisId === hyp.id;
+                return (
+                  <button
+                    key={hyp.id}
+                    type="button"
+                    data-testid={`initial-hypothesis-${hyp.id}`}
+                    onClick={() => handleSelectInitialHypothesis(hyp.id)}
+                    className={`min-h-[44px] px-3 py-1.5 rounded-xl text-left text-xs font-bold transition-all cursor-pointer flex items-center justify-between gap-2 border ${
+                      isSelected
+                        ? 'bg-amber-100 border-amber-500 text-amber-950 shadow-2xs'
+                        : 'bg-stone-50 hover:bg-amber-50/60 border-stone-200 text-stone-700'
+                    }`}
+                  >
+                    <span>{hyp.label}</span>
+                    {isSelected && <span className="text-[11px] font-black text-amber-800 shrink-0">✓ 初判</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 步骤 2：通 & 调查方向（只高亮场景区域，引导孩子自己点物体） */}
+          <div
+            data-testid="detective-step-leads"
+            className="bg-white rounded-2xl border-2 border-sky-200 p-3 space-y-1.5 shadow-2xs"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black text-sky-950 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded-full bg-sky-100 text-sky-900 text-[11px]">
+                  2 · 找线索
+                </span>
+                <span>点方向高亮区域，再去点场景物体</span>
+              </span>
+              <span className="text-[10px] font-bold text-sky-700">
+                已找到 {discoveredClueIds.length}/{currentHotspots.length}
+              </span>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              {(scenario.investigationLeads || []).map((lead) => {
+                const isExplored = exploredLeadIds.includes(lead.id);
+                const allTargetsFound = lead.targetHotspotIds.every((id) =>
+                  discoveredClueIds.includes(id)
+                );
+                return (
+                  <button
+                    key={lead.id}
+                    type="button"
+                    data-testid={`investigation-lead-${lead.id}`}
+                    onClick={() => handleChooseInvestigationLead(lead.id)}
+                    className={`min-h-[44px] px-3 py-1.5 rounded-xl text-left text-xs font-bold transition-all cursor-pointer flex items-center justify-between gap-2 border ${
+                      allTargetsFound
+                        ? 'bg-emerald-50 border-emerald-400 text-emerald-950'
+                        : isExplored
+                          ? 'bg-sky-50 border-sky-400 text-sky-950'
+                          : 'bg-stone-50 hover:bg-sky-50/60 border-stone-200 text-stone-700'
+                    }`}
+                  >
+                    <span>🔍 {lead.label}</span>
+                    <span className="text-[10px] font-extrabold text-sky-700 shrink-0">
+                      {allTargetsFound ? '✓ 物体已查验' : isExplored ? '去点闪光物体 ↑' : '指引位置 →'}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* 步骤 3：紧凑三盒分类栏（点击已找到的线索卡或从浮层直接放入三盒） */}
+        {discoveredClueIds.length > 0 && (
+          <div className="bg-white rounded-2xl border border-stone-200 p-3 space-y-2">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <span className="text-xs font-black text-stone-800">
+                3 · 分一分：已发现的线索（点卡片再点下方分类盒）
+              </span>
+              <span className="text-[11px] font-bold text-emerald-700">
+                已分清 {correctlySortedCount} / {currentHotspots.length}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-1">
+              {discoveredClueIds.map((id) => {
+                const clue = currentHotspots.find((h) => h.id === id);
+                if (!clue) return null;
+                const isPlaced = placements[id] !== undefined;
+                const isSelected = selectedClueId === id;
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => handleSelectCard(id)}
+                    className={`min-h-[44px] px-3 py-1.5 rounded-xl border text-xs font-bold shrink-0 flex items-center gap-1.5 cursor-pointer transition-all ${
+                      isSelected
+                        ? 'bg-amber-100 border-amber-500 text-amber-950 ring-2 ring-amber-300'
+                        : isPlaced
+                          ? 'bg-stone-100 border-stone-300 text-stone-500'
+                          : 'bg-stone-50 border-stone-200 text-stone-800 hover:border-amber-300'
+                    }`}
+                  >
+                    <ClueVisualIcon icon={clue.icon} clueId={clue.id} category={clue.category} className="w-4 h-4 shrink-0" />
+                    <span>{clue.name}</span>
+                    {isPlaced && <span className="text-[10px] text-emerald-700">✓</span>}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              {currentBaskets.map((basket) => {
+                const placedInThisBasket = currentHotspots.filter(
+                  (h) => placements[h.id] === basket.id
+                );
+                return (
+                  <div
+                    key={basket.id}
+                    onClick={() => handlePlaceIntoBasket(basket.id)}
+                    className={`p-2.5 rounded-xl border-2 ${basket.borderColor} ${basket.colorBg} cursor-pointer transition-all hover:shadow-xs flex flex-col justify-between min-h-[84px]`}
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="text-xs sm:text-sm font-black text-stone-900 flex items-center gap-1">
+                        <BasketCrateSvg type={basket.id} className="w-4 h-4 shrink-0" />
+                        <span>{basket.label}</span>
+                      </span>
+                      <span className="text-[10px] font-bold text-stone-600 bg-white/80 px-1.5 py-0.5 rounded-full">
+                        {placedInThisBasket.length}
+                      </span>
+                    </div>
+                    <div className="space-y-1 mt-1.5">
+                      {placedInThisBasket.map((clue) => (
+                        <div
+                          key={clue.id}
+                          className="bg-white/95 px-2 py-1 rounded-lg border border-stone-200 text-[11px] flex items-center justify-between"
+                        >
+                          <span className="font-bold text-stone-800 truncate">{clue.name}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleUndoPlacement(clue.id);
+                            }}
+                            className="min-w-[28px] min-h-[28px] text-stone-400 hover:text-stone-700 font-black flex items-center justify-center cursor-pointer"
+                            aria-label={`移出${clue.name}`}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* 步骤 4（P0-02）：发现 >= 2 条证据后，基于证据支撑关系修正/验证判断 */}
+        {discoveredClueIds.length >= 2 && scenario.initialHypotheses && (
+          <div
+            data-testid="detective-step-revise"
+            className="bg-emerald-50/90 border-2 border-emerald-200 rounded-2xl p-3.5 space-y-2.5"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h4 className="text-xs sm:text-sm font-black text-emerald-950 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-950 text-[11px]">
+                  4 · 辨一辨
+                </span>
+                <span>对照刚刚找到的物证，现在的判断是什么？</span>
+              </h4>
+              {hypothesisEvaluation && (
+                <span
+                  data-testid="hypothesis-evaluation-badge"
+                  data-relation={hypothesisEvaluation.relation}
+                  className={`text-xs font-black px-2.5 py-0.5 rounded-full border ${
+                    hypothesisEvaluation.relation === 'SUPPORTED_BY_EVIDENCE'
+                      ? 'bg-emerald-600 text-white border-emerald-700'
+                      : hypothesisEvaluation.relation === 'CONTRADICTED_BY_EVIDENCE'
+                        ? 'bg-rose-100 text-rose-900 border-rose-300'
+                        : 'bg-amber-100 text-amber-950 border-amber-300'
+                  }`}
+                >
+                  {hypothesisEvaluation.badgeLabel}
+                </span>
+              )}
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {scenario.initialHypotheses.map((hyp) => {
                 const isRevisedSelected = revisedHypothesisId === hyp.id;
@@ -1081,56 +1538,141 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                     type="button"
                     data-testid={`revise-hypothesis-${hyp.id}`}
                     onClick={() => handleReviseHypothesis(hyp.id)}
-                    className={`min-h-[52px] p-3 rounded-xl text-left text-xs sm:text-sm font-bold transition-all cursor-pointer border-2 flex flex-col justify-between ${
+                    className={`min-h-[48px] p-2.5 rounded-xl text-left text-xs font-bold transition-all cursor-pointer border-2 flex flex-col justify-between ${
                       isRevisedSelected
-                        ? 'bg-white border-emerald-600 text-emerald-950 shadow-sm ring-2 ring-emerald-200'
+                        ? 'bg-white border-emerald-600 text-emerald-950 shadow-xs ring-2 ring-emerald-200'
                         : 'bg-white/80 hover:bg-white border-emerald-200 text-stone-700'
                     }`}
                   >
                     <span>{hyp.label}</span>
-                    <div className="flex items-center justify-between mt-1.5 pt-1 border-t border-stone-100 text-[11px]">
+                    <div className="flex items-center justify-between mt-1 pt-1 border-t border-stone-100 text-[10px]">
                       {wasInitial ? (
-                        <span className="text-amber-700 font-bold">最初的想法</span>
+                        <span className="text-amber-700 font-bold">最初想法</span>
                       ) : (
-                        <span className="text-stone-400">新判断选项</span>
+                        <span className="text-stone-400">可选判断</span>
                       )}
                       {isRevisedSelected && (
-                        <span className="text-emerald-700 font-black">✓ 最终判断</span>
+                        <span className="text-emerald-700 font-black">✓ 当前判断</span>
                       )}
                     </div>
                   </button>
                 );
               })}
             </div>
+
+            {hypothesisEvaluation && (
+              <div
+                data-testid="hypothesis-evaluation-feedback"
+                className={`p-2.5 rounded-xl text-xs font-bold border ${
+                  hypothesisEvaluation.relation === 'CONTRADICTED_BY_EVIDENCE'
+                    ? 'bg-rose-50 border-rose-200 text-rose-950'
+                    : hypothesisEvaluation.relation === 'SUPPORTED_BY_EVIDENCE'
+                      ? 'bg-emerald-100/80 border-emerald-300 text-emerald-950'
+                      : 'bg-amber-50 border-amber-200 text-amber-950'
+                }`}
+              >
+                {hypothesisEvaluation.spokenFeedback}
+              </div>
+            )}
           </div>
         )}
 
-        {/* 5. 探索梳理与破案大结局 */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* 步骤 5（P0-01 / P1-02）：选择下一步行动并查看收益、代价与世界变化 */}
+        {discoveredClueIds.length >= 2 && scenario.nextActionChoices && (
+          <div
+            data-testid="detective-step-action"
+            className="bg-indigo-50/90 border-2 border-indigo-200 rounded-2xl p-3.5 space-y-2.5"
+          >
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <h4 className="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded-full bg-indigo-200 text-indigo-950 text-[11px]">
+                  5 · 试行动
+                </span>
+                <span>接下来我们怎么做？看看每种做法带来的收获与代价：</span>
+              </h4>
+              {chosenNextActionId && (
+                <span className="text-[11px] font-black text-indigo-800 bg-white px-2.5 py-0.5 rounded-full border border-indigo-300">
+                  ✓ 已尝试行动
+                </span>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {scenario.nextActionChoices.map((choice) => {
+                const isPicked = chosenNextActionId === choice.id;
+                return (
+                  <button
+                    key={choice.id}
+                    type="button"
+                    data-testid={`next-action-${choice.id}`}
+                    onClick={() => handleSelectNextAction(choice.id)}
+                    className={`w-full min-h-[48px] p-2.5 rounded-xl text-left text-xs font-bold transition-all cursor-pointer border-2 ${
+                      isPicked
+                        ? 'bg-white border-indigo-600 text-indigo-950 shadow-xs'
+                        : 'bg-white/80 hover:bg-white border-indigo-200 text-stone-700'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span>{choice.label}</span>
+                      {isPicked && <span className="text-indigo-700 font-black shrink-0">✓ 已尝试</span>}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {selectedActionObj && (
+              <div
+                data-testid="detective-action-consequence"
+                className="bg-white rounded-xl border border-indigo-200 p-3 space-y-1.5 text-xs"
+              >
+                <p className="font-black text-indigo-950">{selectedActionObj.feedbackText}</p>
+                {selectedActionObj.consequenceBenefit && (
+                  <p className="text-emerald-800 font-bold">✨ {selectedActionObj.consequenceBenefit}</p>
+                )}
+                {selectedActionObj.consequenceTradeoff && (
+                  <p className="text-amber-900 font-bold">⚖️ {selectedActionObj.consequenceTradeoff}</p>
+                )}
+                {selectedActionObj.worldChangeSummary && (
+                  <p className="text-stone-700 font-medium">🌍 现场变化：{selectedActionObj.worldChangeSummary}</p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 底部操作栏：诚实保留“还不确定” + 打开破案手册（区分提前查看参考 vs 完成破案） */}
+        <div className="pt-1 flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <button
             type="button"
+            data-testid="detective-honest-unsure-btn"
             onClick={() => {
               sounds.playClick();
-              recordUnknownHonestyChoice();
+              recordUnknownHonestyChoice(scenario.id);
               setFeedbackPrompt('有些事情我们暂时还不知道，这是很正常的！不用急着猜。');
               speechNarrator.speak('有些事情我们暂时还不知道，这是很正常的！不用急着猜。');
             }}
-            className="w-full sm:w-auto min-h-[56px] px-5 py-2.5 rounded-2xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 text-sm font-bold transition-colors flex items-center justify-center cursor-pointer"
+            className="w-full sm:w-auto min-h-[48px] px-4 py-2 rounded-2xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 text-xs sm:text-sm font-bold transition-colors flex items-center justify-center cursor-pointer"
           >
             我还不确定 / 需要再看看
           </button>
 
           <button
             type="button"
+            data-testid="open-detective-synthesis-btn"
             onClick={handleOpenSynthesis}
-            className="w-full sm:w-auto min-h-[56px] px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-base font-black shadow-md transition-all active:scale-98 flex items-center justify-center cursor-pointer"
+            className={`w-full sm:w-auto min-h-[48px] px-5 py-2.5 rounded-2xl text-white text-sm sm:text-base font-black shadow-md transition-all active:scale-98 flex items-center justify-center cursor-pointer ${
+              caseStatus === 'COMPLETED' || (discoveredClueIds.length >= 2 && (initialHypothesisId || revisedHypothesisId) && chosenNextActionId)
+                ? 'bg-emerald-600 hover:bg-emerald-700'
+                : 'bg-amber-500 hover:bg-amber-600'
+            }`}
           >
             查看侦探破案手册 {correctlySortedCount > 0 ? `(${correctlySortedCount}/${currentHotspots.length})` : ''}
           </button>
         </div>
       </div>
 
-      {/* 破案总结浮层 (Synthesis Modal：包含真相揭晓 + 下一步行动选择“择” + 迁移挑战“验”) */}
+      {/* 破案总结浮层 (Synthesis Modal：严格区分提前参考 ENDED_EARLY 与真实破案完成 COMPLETED) */}
       {isSynthesisOpen && (
         <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-4 border-2 border-amber-300 shadow-2xl max-h-[90vh] flex flex-col">
@@ -1140,40 +1682,49 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                   <MagnifierLensSvg className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-stone-900">
-                    小侦探的破案发现
+                  <h3 className="text-lg sm:text-xl font-black text-stone-900">
+                    {caseStatus === 'COMPLETED' ? '小侦探的破案发现（已完成闭环）' : '侦探参考手册（尚未完成取证闭环）'}
                   </h3>
                   <p className="text-xs text-stone-500 font-medium">
-                    场景：{scenario.sceneTitle} · {scenario.caseBadge || '审核冻结版本'}
+                    场景：{scenario.sceneTitle} · 状态：{CASE_STATUS_LABELS[caseStatus]}
                   </p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsSynthesisOpen(false)}
-                className="min-w-[48px] min-h-[48px] rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-lg font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-base font-bold cursor-pointer"
                 aria-label="关闭总结"
               >
                 ✕
               </button>
             </div>
 
-            <div className="space-y-3 text-stone-800 text-sm sm:text-base leading-relaxed overflow-y-auto pr-1 flex-1">
-              {/* 本案真相揭晓 */}
+            <div className="space-y-3 text-stone-800 text-sm leading-relaxed overflow-y-auto pr-1 flex-1">
+              {caseStatus !== 'COMPLETED' && (
+                <div
+                  data-testid="synthesis-early-peek-banner"
+                  className="p-3 bg-stone-100 rounded-2xl border-2 border-stone-300 text-stone-800 text-xs sm:text-sm font-bold"
+                >
+                  💡 当前为「提前查看参考 / 自主暂停」模式（已发现 {discoveredClueIds.length} 条线索）。
+                  提前看结局不会自动计入已完成案件或点亮破案奖章；回到场景查验至少 2 条线索、做出判断并选择下一步行动后即可正式完成破案！
+                </div>
+              )}
+
               {scenario.resolutionSummary && (
                 <div className="p-3.5 bg-amber-100/80 rounded-2xl border-2 border-amber-300">
-                  <p className="font-black text-amber-950 text-sm sm:text-base">
-                    🎉 破案真相：{scenario.resolutionSummary}
+                  <p className="font-black text-amber-950 text-xs sm:text-sm">
+                    🎉 案件复盘：{scenario.resolutionSummary}
                   </p>
                 </div>
               )}
 
-              <div className="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200">
-                <p className="font-black text-emerald-950 mb-1.5 flex items-center gap-2">
+              <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200">
+                <p className="font-black text-emerald-950 mb-1 flex items-center gap-2 text-xs sm:text-sm">
                   <BasketCrateSvg type="EYES_OBSERVED" className="w-5 h-5 shrink-0" />
                   <span>眼睛拍到的客观事实：</span>
                 </p>
-                <ul className="text-emerald-900 text-xs sm:text-sm space-y-1.5">
+                <ul className="text-emerald-900 text-xs space-y-1">
                   {currentHotspots
                     .filter((h) => h.category === 'FACT')
                     .map((h) => (
@@ -1185,12 +1736,12 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                 </ul>
               </div>
 
-              <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200">
-                <p className="font-black text-amber-950 mb-1.5 flex items-center gap-2">
+              <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200">
+                <p className="font-black text-amber-950 mb-1 flex items-center gap-2 text-xs sm:text-sm">
                   <BasketCrateSvg type="MIND_GUESSED" className="w-5 h-5 shrink-0" />
                   <span>脑袋里的猜想泡泡：</span>
                 </p>
-                <ul className="text-amber-900 text-xs sm:text-sm space-y-1.5">
+                <ul className="text-amber-900 text-xs space-y-1">
                   {currentHotspots
                     .filter((h) => h.category === 'INFERENCE')
                     .map((h) => (
@@ -1200,17 +1751,14 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                       </li>
                     ))}
                 </ul>
-                <p className="text-xs text-amber-800 font-bold mt-2">
-                  提示：猜想没有眼睛拍到的证据，不能直接当真哦。
-                </p>
               </div>
 
-              <div className="p-3.5 bg-sky-50 rounded-2xl border border-sky-200">
-                <p className="font-black text-sky-950 mb-1.5 flex items-center gap-2">
+              <div className="p-3 bg-sky-50 rounded-2xl border border-sky-200">
+                <p className="font-black text-sky-950 mb-1 flex items-center gap-2 text-xs sm:text-sm">
                   <BasketCrateSvg type="STILL_UNKNOWN" className="w-5 h-5 shrink-0" />
-                  <span>永远保持的清醒盲区（未知）：</span>
+                  <span>保持清醒的盲区（未知）：</span>
                 </p>
-                <ul className="text-sky-900 text-xs sm:text-sm space-y-1.5">
+                <ul className="text-sky-900 text-xs space-y-1">
                   {currentHotspots
                     .filter((h) => h.category === 'UNKNOWN')
                     .map((h) => (
@@ -1220,16 +1768,13 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                       </li>
                     ))}
                 </ul>
-                <p className="text-xs text-sky-800 font-bold mt-2">
-                  承认“现在还不知道”是最有力量的事，绝不凭空冤枉同伴！
-                </p>
               </div>
 
-              {/* 第 5 步（择）：选择温和有建设性的下一步行动 */}
+              {/* 在手册中同样可以选择下一步行动以完成闭环 */}
               {scenario.nextActionChoices && scenario.nextActionChoices.length > 0 && (
-                <div className="p-3.5 bg-indigo-50 rounded-2xl border border-indigo-200 space-y-2">
-                  <p className="font-black text-indigo-950 text-xs sm:text-sm">
-                    🌟 第 5 步（择 · 选做法）：查明真相后，我们接下来怎么做最好？
+                <div className="p-3 bg-indigo-50 rounded-2xl border border-indigo-200 space-y-2">
+                  <p className="font-black text-indigo-950 text-xs">
+                    🌟 第 5 步（择 · 选做法）：查明情况后，我们接下来怎么做？
                   </p>
                   <div className="space-y-1.5">
                     {scenario.nextActionChoices.map((choice) => {
@@ -1238,13 +1783,9 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                         <button
                           key={choice.id}
                           type="button"
-                          data-testid={`next-action-${choice.id}`}
-                          onClick={() => {
-                            sounds.playCardSelect();
-                            setChosenNextActionId(choice.id);
-                            speechNarrator.speak(choice.feedbackText);
-                          }}
-                          className={`w-full min-h-[48px] p-2.5 rounded-xl text-left text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
+                          data-testid={`modal-next-action-${choice.id}`}
+                          onClick={() => handleSelectNextAction(choice.id)}
+                          className={`w-full min-h-[44px] p-2.5 rounded-xl text-left text-xs font-bold transition-all cursor-pointer border ${
                             isPicked
                               ? 'bg-white border-indigo-500 text-indigo-950 shadow-xs'
                               : 'bg-white/70 hover:bg-white border-indigo-200 text-stone-700'
@@ -1255,9 +1796,11 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                             {isPicked && <span className="text-indigo-700 font-black shrink-0">✓ 已选</span>}
                           </div>
                           {isPicked && (
-                            <p className="text-xs text-emerald-800 mt-1 font-medium">
-                              {choice.feedbackText}
-                            </p>
+                            <div className="mt-1 space-y-0.5 text-[11px]">
+                              <p className="text-emerald-800 font-bold">{choice.feedbackText}</p>
+                              {choice.consequenceBenefit && <p className="text-emerald-700">{choice.consequenceBenefit}</p>}
+                              {choice.consequenceTradeoff && <p className="text-amber-800">{choice.consequenceTradeoff}</p>}
+                            </div>
                           )}
                         </button>
                       );
@@ -1267,7 +1810,6 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
               )}
             </div>
 
-            {/* 底部第 6 步（验）：挑战本主题另一案件 / 进入迁移实验室 / 返回探索 */}
             <div className="pt-2 border-t border-stone-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shrink-0">
               <div className="flex flex-col sm:flex-row gap-2">
                 {themeCases.length > 1 && (
@@ -1279,7 +1821,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                       setIsSynthesisOpen(false);
                       handleSwitchCase(nextIdx);
                     }}
-                    className="min-h-[48px] px-4 py-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-black transition-colors cursor-pointer flex items-center justify-center"
+                    className="min-h-[44px] px-4 py-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition-colors cursor-pointer flex items-center justify-center"
                   >
                     🔍 挑战案件 {(activeCaseIndex + 1) % themeCases.length + 1}
                   </button>
@@ -1296,7 +1838,7 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
                       setIsEmbeddedTransferOpen(true);
                     }
                   }}
-                  className="min-h-[48px] px-4 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-black transition-colors cursor-pointer flex items-center justify-center"
+                  className="min-h-[44px] px-4 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-colors cursor-pointer flex items-center justify-center"
                 >
                   🚀 去新场景检验本领（迁移实验）
                 </button>
@@ -1304,16 +1846,15 @@ export const CrayonDetectiveGame: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => setIsSynthesisOpen(false)}
-                className="min-h-[48px] px-5 py-2 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-black transition-colors cursor-pointer flex items-center justify-center"
+                className="min-h-[44px] px-4 py-2 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-black transition-colors cursor-pointer flex items-center justify-center"
               >
-                我知道啦，继续探索
+                返回现场继续探索
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* 内嵌能力迁移实验室（当未传外部 onOpenTransferLab 时直接打开） */}
       {isEmbeddedTransferOpen && (
         <TransferScenariosModal
           isOpen={isEmbeddedTransferOpen}

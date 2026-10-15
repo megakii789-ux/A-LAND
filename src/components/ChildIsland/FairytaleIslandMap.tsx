@@ -138,9 +138,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       id: 'detective',
       placeKey: 'detective',
       title: '思考侦探所',
-      subTitle: '放大镜找线索 · 区分事实猜测',
-      tag: '线索机关',
-      desc: '拿起黄铜放大镜，在好奇心树下寻找证据，看清什么是事实，什么是猜测。',
+      subTitle:
+        solvedCasesCount > 0
+          ? `木屋已点亮 ${solvedCasesCount} 枚线索徽章 · 区分事实猜测`
+          : '放大镜找线索 · 区分事实猜测',
+      tag: solvedCasesCount > 0 ? `已破案 ${solvedCasesCount} 起` : '线索机关',
+      desc:
+        solvedCasesCount > 0
+          ? `侦探木屋窗台已挂起 ${solvedCasesCount} 枚真实取证徽章！拿起黄铜放大镜继续探索新案件吧。`
+          : '拿起黄铜放大镜，在好奇心树下寻找证据，看清什么是事实，什么是猜测。',
       actionText: '拿起放大镜调查',
       ariaLabel: '进入思考侦探所（进入想法侦探社）：用放大镜寻找真实线索，区分看到的事实与脑子里的猜测',
       colorScheme: {
@@ -418,6 +424,17 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
                 </span>
               )}
             </div>
+            {solvedCasesCount > 0 && (
+              <div
+                data-testid="island-world-reaction-banner"
+                className="mt-1.5 px-3 py-1.5 rounded-xl bg-amber-100/90 border border-amber-300 text-xs font-bold text-amber-950 flex items-center gap-1.5"
+              >
+                <span>✨</span>
+                <span>
+                  侦探木屋窗台点亮了 {solvedCasesCount} 枚真实取证徽章！伙伴们正为你用证据查清真相而开心呢。
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

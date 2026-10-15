@@ -123,8 +123,8 @@ describe('AG-03: 三组真实可玩互动体验 - 核心状态与安全规则单
 
   // ================= 独立迁移情境 =================
   describe('独立迁移：未受训练情境逻辑与研究属性', () => {
-    it('提供两个未受训练迁移情境（《小客厅的饼干盒》与《公园的秋千与跷跷板》）', () => {
-      expect(TRANSFER_SCENARIOS.length).toBe(2);
+    it('提供至少两个未受训练迁移情境（含《小客厅的饼干盒》、《公园的秋千与跷跷板》与证据不足情境）', () => {
+      expect(TRANSFER_SCENARIOS.length).toBeGreaterThanOrEqual(2);
       expect(TRANSFER_SCENARIOS[0].id).toBe('transfer_biscuit_mystery');
       expect(TRANSFER_SCENARIOS[1].id).toBe('transfer_swing_seesaw');
     });

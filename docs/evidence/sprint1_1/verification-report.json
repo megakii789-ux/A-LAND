@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-10-15T09:14:01.740Z",
+  "checks": {
+    "mobile390SceneFirstLayout": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "sceneTop": 269,
+      "sceneBottom": 493,
+      "sceneHeight": 224
+    },
+    "negativeZeroExplorationBlocked": {
+      "passed": true,
+      "statusAfterEarlyPeek": "已暂停 / 仅查看参考",
+      "completedDetectiveCaseIds": []
+    },
+    "evidenceContradictionFeedback": {
+      "relation": "CONTRADICTED_BY_EVIDENCE",
+      "feedback": "我们找到了蜡笔，不过这条线索还没有证明皮皮拿过它。要不要再看看刚才发现了什么？"
+    },
+    "caseBNatureUnknownSupported": {
+      "relation": "SUPPORTED_BY_EVIDENCE",
+      "feedback": "太有科学精神了！枫叶堆下只有空帽壳，而喜鹊羽毛和通向黑树洞的滚痕让两种可能都存在，承认“现在证据还不够、还不知道”才是最准确的结论！"
+    },
+    "negativeTransferZeroSelectionBlocked": {
+      "passed": true,
+      "independentTransferCount": 0
+    }
+  },
+  "screenshots": [
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-detective-mobile-390-scene-first.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-detective-mobile-390-curtain-reveal-popover.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-detective-desktop-1440-contradicted-feedback.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-detective-desktop-1440-action-consequence.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-detective-desktop-1440-case-b-nature.png",
+    "/media/voga/2788bfd9-0c2b-4b57-a443-25be8df442ca/system_offload/projects/A-LAND/docs/evidence/sprint1_1/sprint1_1-transfer-desktop-1440-reference-guard.png"
+  ]
+}

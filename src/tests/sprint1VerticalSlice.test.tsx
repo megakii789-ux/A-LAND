@@ -381,12 +381,16 @@ describe('Sprint 1 Vertical Slice: 6-Layer Thinking Detective Loop, Internal Pla
     // Stage 2: Investigation leads appear
     expect(view.findByTestId('detective-step-leads')).toBeTruthy();
 
-    // Unlock hotspots by clicking them on the SVG scene
+    // Unlock hotspots by clicking them on the SVG scene (2 taps if requiresObjectReveal)
     const currentCase = getThemedScenarioCase('drawing', 0);
     for (const spot of currentCase.hotspots) {
-      const hotspotBtn = view.findButtonByAriaLabel(`查看${spot.name}`);
+      const hotspotBtn = view.findByTestId(`scene-hotspot-${spot.id}`);
       expect(hotspotBtn).toBeTruthy();
       view.click(hotspotBtn);
+      if (spot.requiresObjectReveal) {
+        const revealedHotspotBtn = view.findByTestId(`scene-hotspot-${spot.id}`);
+        view.click(revealedHotspotBtn);
+      }
     }
 
     // Hypothesis revision step appears once >= 2 clues are discovered
@@ -400,8 +404,16 @@ describe('Sprint 1 Vertical Slice: 6-Layer Thinking Detective Loop, Internal Pla
     metrics = getProductExperienceMetrics();
     expect(metrics.hypothesisRevisionCount).toBeGreaterThanOrEqual(1);
 
-    // Stage 4: Open Detective Synthesis Modal
-    const synthesisBtn = view.findButtonByText('查看侦探破案手册');
+    // Stage 3b: Choose next action and observe consequence
+    const nextActionBtn = view.findAll((n) =>
+      typeof n.props['data-testid'] === 'string' && n.props['data-testid'].startsWith('next-action-')
+    )[0];
+    expect(nextActionBtn).toBeTruthy();
+    view.click(nextActionBtn);
+    expect(view.findByTestId('detective-action-consequence')).toBeTruthy();
+
+    // Stage 4: Open Detective Synthesis Modal after meaningful completion
+    const synthesisBtn = view.findByTestId('open-detective-synthesis-btn');
     expect(synthesisBtn).toBeTruthy();
     view.click(synthesisBtn);
 

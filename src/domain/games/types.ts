@@ -25,6 +25,9 @@ export interface HotspotEvidence {
   readonly observationPrompt?: string; // 归类前展示的中性客观观察提示（不剧透分类答案）
   readonly icon: string;
   readonly isPermanentUnknown?: boolean; // 永远无法确认的盲区（如：蜡笔现在到底在谁口袋里）
+  readonly interactionVerb?: string; // 场景内物象操作动词（如：掀开窗帘、拨开红枫叶堆、顺着脚印看）
+  readonly requiresObjectReveal?: boolean; // 是否需要在场景中先执行翻开/拨开等动作才能显露隐藏物证
+  readonly unrevealedPrompt?: string; // 尚未翻开遮挡物时的环境微提示
 }
 
 export interface ClueCardItem {
