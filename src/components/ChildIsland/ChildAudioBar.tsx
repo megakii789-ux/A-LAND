@@ -21,19 +21,31 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
   const [isSpeaking, setIsSpeaking] = useState<boolean>(speechNarrator.getSpeaking());
   const [isPaused, setIsPaused] = useState<boolean>(speechNarrator.getIsPaused());
   const [voiceWarning, setVoiceWarning] = useState<string | null>(speechNarrator.getVoiceWarning());
-  const [isAmbientMuted, setIsAmbientMuted] = useState<boolean>(sounds.getMuted());
+  const [isSfxMuted, setIsSfxMuted] = useState<boolean>(sounds.getSfxMuted());
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState<boolean>(speechNarrator.getVoiceEnabled());
+  const [activeProfileConfig, setActiveProfileConfig] = useState(() =>
+    speechNarrator.getProfileConfig()
+  );
   const [lastText, setLastText] = useState<string>(speechNarrator.getLastText());
   const [karaoke, setKaraoke] = useState<KaraokeSyncState>(speechNarrator.getKaraokeState());
 
   useEffect(() => {
-    const unsubscribe = speechNarrator.subscribe(() => {
+    const unsubscribeSpeech = speechNarrator.subscribe(() => {
       setIsSpeaking(speechNarrator.getSpeaking());
       setIsPaused(speechNarrator.getIsPaused());
       setVoiceWarning(speechNarrator.getVoiceWarning());
+      setIsVoiceEnabled(speechNarrator.getVoiceEnabled());
+      setActiveProfileConfig(speechNarrator.getProfileConfig());
       setLastText(speechNarrator.getLastText());
       setKaraoke(speechNarrator.getKaraokeState());
     });
-    return unsubscribe;
+    const unsubscribeSound = sounds.subscribe(() => {
+      setIsSfxMuted(sounds.getSfxMuted());
+    });
+    return () => {
+      unsubscribeSpeech();
+      unsubscribeSound();
+    };
   }, []);
 
   const handleReplay = () => {
@@ -54,10 +66,10 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
     speechNarrator.stop();
   };
 
-  const handleToggleAmbient = () => {
-    const nextMuted = !isAmbientMuted;
-    sounds.setMuted(nextMuted);
-    setIsAmbientMuted(nextMuted);
+  const handleToggleSfx = () => {
+    const nextMuted = !isSfxMuted;
+    sounds.setSfxMuted(nextMuted);
+    setIsSfxMuted(nextMuted);
     if (!nextMuted) {
       sounds.playNatureChime();
     }
@@ -119,15 +131,27 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-xs font-black text-stone-800 whitespace-nowrap">
+              <span
+                data-testid="audio-bar-companion-voice-badge"
+                className="text-xs font-black text-stone-800 whitespace-nowrap"
+              >
                 {isSpeaking
                   ? isPaused
-                    ? '语音已暂停'
-                    : '伴伴正在轻声朗读'
-                  : '伴伴声文伴读'}
+                    ? `${activeProfileConfig.companionName}语音已暂停`
+                    : `${activeProfileConfig.companionName}正在轻声朗读`
+                  : isVoiceEnabled
+                    ? `${activeProfileConfig.companionName} · ${activeProfileConfig.name}`
+                    : `${activeProfileConfig.companionName} · 字幕伴读（语音已关）`}
               </span>
-              {karaoke.isPrebakedNeural && lastText && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full">
+              {lastText && (
+                <span
+                  data-testid="audio-bar-voice-source-label"
+                  className={`inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
+                    karaoke.isPrebakedNeural
+                      ? 'bg-amber-100 text-amber-900 border-amber-300'
+                      : 'bg-stone-100 text-stone-700 border-stone-300'
+                  }`}
+                >
                   <Sparkles className="w-2.5 h-2.5 text-amber-600" />
                   <span>{karaoke.voiceSourceLabel}</span>
                 </span>
@@ -207,20 +231,21 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
             </button>
           )}
 
-          {/* 环境声效开关 (默认关闭，不自动播放背景音) */}
+          {/* 环境声效独立开关 (仅控制点击与环境音效，不影响伙伴朗读语音) */}
           <button
             type="button"
-            onClick={handleToggleAmbient}
+            data-testid="audio-bar-sfx-toggle"
+            onClick={handleToggleSfx}
             className={`min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer border focus-visible:ring-4 focus-visible:ring-teal-500 focus-visible:outline-none ${
-              !isAmbientMuted
+              !isSfxMuted
                 ? 'bg-teal-100 text-teal-900 border-teal-300'
                 : 'bg-stone-100 text-stone-600 border-stone-200 hover:bg-stone-200'
             }`}
-            aria-label={!isAmbientMuted ? '环境音效已开启，点击静音' : '环境音效已静音，点击开启'}
-            title="环境音效开关"
+            aria-label={!isSfxMuted ? '环境音效已开启，点击关闭音效（不影响伙伴朗读语音）' : '环境音效已关闭，点击开启音效'}
+            title="环境音效开关（不影响伙伴语音朗读）"
           >
-            {!isAmbientMuted ? <Volume2 className="w-4 h-4 text-teal-700 shrink-0" /> : <VolumeX className="w-4 h-4 shrink-0" />}
-            <span className="hidden sm:inline">{!isAmbientMuted ? '音效开' : '静音'}</span>
+            {!isSfxMuted ? <Volume2 className="w-4 h-4 text-teal-700 shrink-0" /> : <VolumeX className="w-4 h-4 shrink-0" />}
+            <span className="hidden sm:inline">{!isSfxMuted ? '音效开' : '音效关'}</span>
           </button>
         </div>
       </div>

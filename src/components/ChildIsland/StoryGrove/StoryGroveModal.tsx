@@ -173,6 +173,18 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       ? INTERACTIVE_STORY_LEAVES[activeLeafId as InteractiveStoryLeafId]
       : null;
 
+  useEffect(() => {
+    if (!isOpen) return;
+    if (!isCurrentLeafApproved && !adultPreviewUnlocked) return;
+    if (stage === 'transferChallenge') {
+      speechNarrator.speak(STORY_GROVE_CAMP_TRANSFER_CHALLENGE.openingNarrative);
+    } else if (stage === 'doorIntro') {
+      speechNarrator.speak(
+        interactiveLeafDef ? interactiveLeafDef.sceneSettingPrompt : currentLeaf.summary
+      );
+    }
+  }, [isOpen, stage, activeLeafId, isCurrentLeafApproved, adultPreviewUnlocked]);
+
   if (!isOpen) return null;
 
   const isPlaytestIsolated = () =>

@@ -15,6 +15,8 @@ import {
 import {
   speechNarrator,
   VOICE_PROFILES,
+  VOICE_PROFILE_TO_COMPANION,
+  COMPANION_TO_VOICE_PROFILE,
   VoiceProfileType,
   DetectedVoice
 } from '../../utils/speech';
@@ -22,27 +24,44 @@ import {
   sounds,
   TEMPLATE_ACOUSTIC_PROFILES
 } from '../../utils/sound';
+import {
+  loadPersonalizationProfile,
+  savePersonalizationProfile
+} from '../../domain/personalization';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onConfirmCompanionChange?: (companionId: 'guoguo_squirrel' | 'beibei_otter' | 'tiantian_raccoon' | 'qiqi_deer') => void;
 }
 
 const EQ_BAND_LABELS = ['60Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz'];
 
-export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) => {
+export const VoiceSystemAuditionModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  onConfirmCompanionChange
+}) => {
   const [currentProfile, setCurrentProfile] = useState<VoiceProfileType>(speechNarrator.getProfile());
+  const [committedProfile, setCommittedProfile] = useState<VoiceProfileType>(
+    speechNarrator.getCommittedProfile()
+  );
+  const [isAuditioningPreview, setIsAuditioningPreview] = useState<boolean>(
+    speechNarrator.isAuditionPreviewActive()
+  );
   const [isSpeaking, setIsSpeaking] = useState<boolean>(speechNarrator.getSpeaking());
   const [detectedVoices, setDetectedVoices] = useState<DetectedVoice[]>(speechNarrator.getDetectedVoices());
   const [activeVoice, setActiveVoice] = useState<DetectedVoice | null>(speechNarrator.getActiveVoice());
   const [customText, setCustomText] = useState<string>('你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。');
-  const [isMuted, setIsMuted] = useState<boolean>(sounds.getMuted());
+  const [isMuted, setIsMuted] = useState<boolean>(sounds.getSfxMuted());
   const [playingSound, setPlayingSound] = useState<string | null>(null);
 
   useEffect(() => {
     const unsubscribe = speechNarrator.subscribe(() => {
       setIsSpeaking(speechNarrator.getSpeaking());
       setCurrentProfile(speechNarrator.getProfile());
+      setCommittedProfile(speechNarrator.getCommittedProfile());
+      setIsAuditioningPreview(speechNarrator.isAuditionPreviewActive());
       setDetectedVoices(speechNarrator.getDetectedVoices());
       setActiveVoice(speechNarrator.getActiveVoice());
     });
@@ -52,15 +71,51 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
     };
   }, []);
 
+  useEffect(() => {
+    if (!isOpen && speechNarrator.isAuditionPreviewActive()) {
+      speechNarrator.endAuditionPreview();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  const activeAcousticProfile = TEMPLATE_ACOUSTIC_PROFILES[currentProfile] || TEMPLATE_ACOUSTIC_PROFILES['warm-sister'];
+  const activeAcousticProfile =
+    TEMPLATE_ACOUSTIC_PROFILES[currentProfile] || TEMPLATE_ACOUSTIC_PROFILES['playful-buddy'];
+  const committedCompanionCfg = VOICE_PROFILES[committedProfile];
+  const previewCompanionCfg = VOICE_PROFILES[currentProfile];
+  const hasUncommittedPreview = currentProfile !== committedProfile || isAuditioningPreview;
 
+  // 临时试听：仅改变当前试听声线，不直接覆盖全域伙伴，退出时自动恢复原伙伴
   const handleSelectProfile = (profileKey: VoiceProfileType) => {
-    speechNarrator.setProfile(profileKey);
+    speechNarrator.startAuditionPreview(profileKey);
     setCurrentProfile(profileKey);
-    // Play the template's distinct 4-note Web Audio signature motif through its custom DSP filter chain
     sounds.playTemplateSignature(profileKey);
+    speechNarrator.speak('你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。');
+  };
+
+  // 正式确认切换：同步更新 personalization.companionId、语音引擎与声学模板
+  const handleConfirmGlobalCompanion = (profileKey: VoiceProfileType = currentProfile) => {
+    const nextCompanionId = VOICE_PROFILE_TO_COMPANION[profileKey];
+    savePersonalizationProfile({ companionId: nextCompanionId });
+    speechNarrator.syncWithCompanion(nextCompanionId);
+    if (onConfirmCompanionChange) {
+      onConfirmCompanionChange(nextCompanionId);
+    }
+    setCommittedProfile(COMPANION_TO_VOICE_PROFILE[nextCompanionId]);
+    setCurrentProfile(COMPANION_TO_VOICE_PROFILE[nextCompanionId]);
+    setIsAuditioningPreview(false);
+    sounds.playWarmBloom();
+  };
+
+  // 退出临时试听并恢复原本伙伴角色
+  const handleCancelAndRestore = () => {
+    if (speechNarrator.isAuditionPreviewActive()) {
+      speechNarrator.endAuditionPreview();
+    } else {
+      const persisted = loadPersonalizationProfile();
+      speechNarrator.syncWithCompanion(persisted.companionId);
+    }
+    onClose();
   };
 
   const handleAudition = (text: string) => {
@@ -75,7 +130,7 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
 
   const handleToggleMute = () => {
     const nextMuted = !isMuted;
-    sounds.setMuted(nextMuted);
+    sounds.setSfxMuted(nextMuted);
     setIsMuted(nextMuted);
     if (!nextMuted) {
       sounds.playTemplateSignature(currentProfile);
@@ -137,8 +192,17 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
                   Web Audio API 多级声学滤波与调制引擎
                 </span>
-                <span className="text-xs text-stone-500">
-                  四套独立频响曲线 · 告别高重复度 AI 机械音
+                <span
+                  data-testid="audition-mode-status-badge"
+                  className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+                    hasUncommittedPreview
+                      ? 'bg-sky-100 text-sky-900 border-sky-300'
+                      : 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                  }`}
+                >
+                  {hasUncommittedPreview
+                    ? `临时试听中：${previewCompanionCfg.companionName}（当前全岛伙伴：${committedCompanionCfg.companionName}）`
+                    : `当前全岛生效伙伴：${committedCompanionCfg.companionName} (${committedCompanionCfg.name})`}
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-stone-900 mt-1">
@@ -148,12 +212,10 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
           </div>
 
           <button
-            onClick={() => {
-              speechNarrator.stop();
-              onClose();
-            }}
+            data-testid="audition-close-restore-btn"
+            onClick={handleCancelAndRestore}
             className="text-stone-400 hover:text-stone-700 p-2 rounded-full hover:bg-stone-100 transition-colors cursor-pointer"
-            aria-label="关闭语音调优面板"
+            aria-label="关闭语音试听并恢复原伙伴声线"
           >
             <X className="w-6 h-6" />
           </button>
@@ -168,16 +230,16 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
                 当前匹配声源与 DSP 链路：
               </span>
               <span className="text-xs font-extrabold text-stone-900 bg-white px-2 py-0.5 rounded-lg border border-amber-200 shadow-2xs">
-                {activeVoice ? activeVoice.name : '系统标准清晰普通话'}
+                { `${previewCompanionCfg.companionName}专属神经语音 (${previewCompanionCfg.neuralVoiceId})` }
               </span>
               <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-lg">
                 {activeAcousticProfile.timbreModulation.instrumentModelName}
               </span>
             </div>
             <p className="text-xs text-stone-600">
-              {activeVoice?.tier === 'neural-natural'
-                ? `🌟 已启用自然人声 + [${activeAcousticProfile.name}] 专属三段参数均衡与谐波激振节点（检测到 ${detectedVoices.length} 个本地声源）。`
-                : '🍃 已启用动态分句语调曲线 + Web Audio API 物理腔体滤波节点，消除传统 TTS 平直机械感。'}
+              {hasUncommittedPreview
+                ? `🎧 正在临时试听【${previewCompanionCfg.companionName} · ${previewCompanionCfg.name}】。直接关闭窗口将自动恢复原伙伴【${committedCompanionCfg.companionName}】；点击下方“确认切换全岛伙伴”可正式设为全岛伴读伙伴。`
+                : `🌟 当前全岛已绑定【${committedCompanionCfg.companionName} · ${committedCompanionCfg.name}】专属预制神经音源与三段声学滤波链路。`}
             </p>
           </div>
 
@@ -189,7 +251,7 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
                   ? 'bg-rose-50 text-rose-700 border-rose-300'
                   : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100 shadow-2xs'
               }`}
-              title={isMuted ? '已静音' : '声音正常'}
+              title={isMuted ? '音效已静音' : '音效正常'}
               aria-label="切换静音状态"
             >
               {isMuted ? <VolumeX className="w-4 h-4 text-rose-600" /> : <Volume2 className="w-4 h-4 text-emerald-600" />}
@@ -203,9 +265,9 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
           <div className="flex items-center justify-between flex-wrap gap-2">
             <h3 className="text-sm font-black text-stone-900 flex items-center gap-2">
               <Sliders className="w-4 h-4 text-amber-600" />
-              <span>四种儿童声学模板（独立频响曲线 EQ + 泛音调制参数）</span>
+              <span>四种儿童声学模板（点击卡片为临时试听，确认后同步全岛伙伴）</span>
             </h3>
-            <span className="text-xs text-stone-500">点击卡片即时切换并试听专属泛音信标</span>
+            <span className="text-xs text-stone-500">点击卡片临时试听专属泛音信标</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -213,10 +275,12 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
               const cfg = VOICE_PROFILES[key];
               const dsp = cfg.acousticProfile;
               const isSelected = currentProfile === key;
+              const isCommitted = committedProfile === key;
 
               return (
                 <div
                   key={key}
+                  data-testid={`audition-profile-card-${key}`}
                   onClick={() => handleSelectProfile(key)}
                   className={`p-4 rounded-2xl border-2 transition-all cursor-pointer space-y-2.5 relative ${
                     isSelected
@@ -224,14 +288,26 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
                       : 'bg-stone-50/80 border-stone-200 hover:border-amber-300 hover:bg-white'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-1 flex-wrap">
                     <span className="text-2xl">{cfg.emoji}</span>
-                    {isSelected && (
-                      <span className="text-[11px] font-black text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" />
-                        当前模板
-                      </span>
-                    )}
+                    <div className="flex items-center gap-1">
+                      {isCommitted && (
+                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-300">
+                          全岛当前伙伴
+                        </span>
+                      )}
+                      {isSelected && !isCommitted && (
+                        <span className="text-[10px] font-black text-sky-900 bg-sky-100 px-2 py-0.5 rounded-full border border-sky-300">
+                          试听中
+                        </span>
+                      )}
+                      {isSelected && isCommitted && (
+                        <span className="text-[11px] font-black text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          当前模板
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-stone-900">
@@ -253,14 +329,14 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
                       <span>LFO: {dsp.timbreModulation.vibratoRateHz}Hz</span>
                     </div>
                     <div className="flex items-center justify-between text-stone-500">
-                      <span>基频音阶: {dsp.timbreModulation.scaleFrequencies[0]}Hz</span>
-                      <span>呼吸停顿: {cfg.breathPauseMs}ms</span>
+                      <span>神经声源: {cfg.neuralVoiceId.replace('zh-CN-', '')}</span>
+                      <span>停顿: {cfg.breathPauseMs}ms</span>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-[10px] text-stone-500 pt-1 border-t border-stone-200/60">
                     <span>语速 {(cfg.rate * 100).toFixed(0)}% · 音高 {(cfg.pitch * 100).toFixed(0)}%</span>
-                    <span className="font-bold text-amber-700">点击试听信标</span>
+                    <span className="font-bold text-amber-700">点击临时试听</span>
                   </div>
                 </div>
               );
@@ -534,17 +610,50 @@ export const VoiceSystemAuditionModal: React.FC<Props> = ({ isOpen, onClose }) =
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-end gap-3 pt-2 border-t border-stone-100">
-          <button
-            onClick={() => {
-              speechNarrator.stop();
-              onClose();
-            }}
-            className="min-h-[44px] px-6 py-2.5 bg-stone-900 hover:bg-black text-white rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer shadow-sm"
-          >
-            完成设定并返回
-          </button>
+        {/* Footer: 明确区分“临时试听退出（恢复原本伙伴）”与“确认切换全岛伙伴声线” */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-stone-100">
+          <div className="text-xs text-stone-600 font-medium">
+            {hasUncommittedPreview ? (
+              <span>
+                临时试听中：若不点击确认，退出后将自动恢复原本伙伴【
+                <strong className="text-stone-900">{committedCompanionCfg.companionName}</strong>
+                】
+              </span>
+            ) : (
+              <span>
+                当前全岛伙伴声线已同步为【
+                <strong className="text-stone-900">{committedCompanionCfg.companionName} · {committedCompanionCfg.name}</strong>
+                】
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2.5 ml-auto">
+            <button
+              type="button"
+              data-testid="audition-cancel-restore-btn"
+              onClick={handleCancelAndRestore}
+              className="min-h-[48px] px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer"
+            >
+              {hasUncommittedPreview
+                ? `退出试听（恢复${committedCompanionCfg.companionName}）`
+                : '关闭窗口'}
+            </button>
+
+            <button
+              type="button"
+              data-testid="audition-confirm-global-btn"
+              onClick={() => {
+                handleConfirmGlobalCompanion(currentProfile);
+                onClose();
+              }}
+              className="min-h-[48px] px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-black transition-colors cursor-pointer shadow-sm"
+            >
+              {hasUncommittedPreview
+                ? `确认切换全岛伙伴为【${previewCompanionCfg.companionName}】`
+                : `保持【${committedCompanionCfg.companionName}】并返回`}
+            </button>
+          </div>
         </div>
 
       </div>

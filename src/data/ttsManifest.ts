@@ -18,12 +18,12 @@ export interface PrebakedTtsEntry {
 }
 
 export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
-  "playful-buddy:你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
+  "playful-buddy:你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索": {
+    "id": "playful-buddy:你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
+    "normKey": "你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-18784a652712f68a.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-baf74c7a798320c8.mp3",
     "durationMs": 8028,
     "boundaries": [
       {
@@ -143,162 +143,12 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "playful-buddy:你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
+  "playful-buddy:我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索": {
+    "id": "playful-buddy:我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
+    "normKey": "我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-63856b0261d6ed09.mp3",
-    "durationMs": 9343,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 284,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 385,
-        "durationMs": 180,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1147,
-        "durationMs": 129,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1276,
-        "durationMs": 142,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1430,
-        "durationMs": 142,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1572,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 1675,
-        "durationMs": 219,
-        "text": "小"
-      },
-      {
-        "offsetMs": 1894,
-        "durationMs": 309,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2307,
-        "durationMs": 438,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 2758,
-        "durationMs": 503,
-        "text": "果果"
-      },
-      {
-        "offsetMs": 3840,
-        "durationMs": 142,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3982,
-        "durationMs": 129,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4124,
-        "durationMs": 180,
-        "text": "小"
-      },
-      {
-        "offsetMs": 4304,
-        "durationMs": 400,
-        "text": "松鼠"
-      },
-      {
-        "offsetMs": 4716,
-        "durationMs": 541,
-        "text": "果果"
-      },
-      {
-        "offsetMs": 5554,
-        "durationMs": 103,
-        "text": "我"
-      },
-      {
-        "offsetMs": 5670,
-        "durationMs": 348,
-        "text": "喜欢"
-      },
-      {
-        "offsetMs": 6031,
-        "durationMs": 374,
-        "text": "收捡"
-      },
-      {
-        "offsetMs": 6418,
-        "durationMs": 348,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 6765,
-        "durationMs": 116,
-        "text": "里"
-      },
-      {
-        "offsetMs": 6881,
-        "durationMs": 116,
-        "text": "的"
-      },
-      {
-        "offsetMs": 7010,
-        "durationMs": 168,
-        "text": "每"
-      },
-      {
-        "offsetMs": 7178,
-        "durationMs": 284,
-        "text": "一片"
-      },
-      {
-        "offsetMs": 7474,
-        "durationMs": 168,
-        "text": "小"
-      },
-      {
-        "offsetMs": 7642,
-        "durationMs": 438,
-        "text": "树叶"
-      },
-      {
-        "offsetMs": 8196,
-        "durationMs": 168,
-        "text": "和"
-      },
-      {
-        "offsetMs": 8376,
-        "durationMs": 271,
-        "text": "秘密"
-      },
-      {
-        "offsetMs": 8660,
-        "durationMs": 503,
-        "text": "线索"
-      }
-    ]
-  },
-  "playful-buddy:我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-f53bd0b6515fb006.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-e53486c80584ee79.mp3",
     "durationMs": 5604,
     "boundaries": [
       {
@@ -393,12 +243,12 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "warm-sister:你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
+  "warm-sister:你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸": {
+    "id": "warm-sister:你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
+    "normKey": "你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-2890bd6d52df42e6.mp3",
+    "audioUrl": "/audio/tts/warm-sister-3f8b18c96d7ca94d.mp3",
     "durationMs": 9076,
     "boundaries": [
       {
@@ -513,157 +363,12 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "warm-sister:你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
+  "warm-sister:我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸": {
+    "id": "warm-sister:我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
+    "normKey": "我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-69ca84132243ae77.mp3",
-    "durationMs": 10167,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 359,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 462,
-        "durationMs": 306,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1356,
-        "durationMs": 173,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1529,
-        "durationMs": 173,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1715,
-        "durationMs": 120,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1835,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 1942,
-        "durationMs": 199,
-        "text": "小"
-      },
-      {
-        "offsetMs": 2141,
-        "durationMs": 186,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2327,
-        "durationMs": 465,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 2886,
-        "durationMs": 479,
-        "text": "贝贝"
-      },
-      {
-        "offsetMs": 3976,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4136,
-        "durationMs": 146,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4295,
-        "durationMs": 359,
-        "text": "小海"
-      },
-      {
-        "offsetMs": 4654,
-        "durationMs": 625,
-        "text": "獭贝贝"
-      },
-      {
-        "offsetMs": 5638,
-        "durationMs": 266,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 5918,
-        "durationMs": 266,
-        "text": "觉得"
-      },
-      {
-        "offsetMs": 6197,
-        "durationMs": 293,
-        "text": "累"
-      },
-      {
-        "offsetMs": 6489,
-        "durationMs": 226,
-        "text": "了"
-      },
-      {
-        "offsetMs": 7035,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 7261,
-        "durationMs": 266,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 7553,
-        "durationMs": 452,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 8019,
-        "durationMs": 226,
-        "text": "躺"
-      },
-      {
-        "offsetMs": 8245,
-        "durationMs": 133,
-        "text": "在"
-      },
-      {
-        "offsetMs": 8391,
-        "durationMs": 465,
-        "text": "水面"
-      },
-      {
-        "offsetMs": 8856,
-        "durationMs": 199,
-        "text": "上"
-      },
-      {
-        "offsetMs": 9082,
-        "durationMs": 346,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 9442,
-        "durationMs": 545,
-        "text": "呼吸"
-      }
-    ]
-  },
-  "warm-sister:我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-30b4dabdee6de744.mp3",
+    "audioUrl": "/audio/tts/warm-sister-bd4abd3dfde99548.mp3",
     "durationMs": 6294,
     "boundaries": [
       {
@@ -753,1697 +458,952 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "gentle-guide:你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
+  "gentle-guide:你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看": {
+    "id": "gentle-guide:你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "normKey": "你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-8cd5f59a0fca0dfd.mp3",
-    "durationMs": 8478,
+    "audioUrl": "/audio/tts/gentle-guide-87eccc780cd48a04.mp3",
+    "durationMs": 8568,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 426,
+        "offsetMs": 104,
+        "durationMs": 430,
         "text": "你好"
       },
       {
-        "offsetMs": 529,
-        "durationMs": 479,
+        "offsetMs": 534,
+        "durationMs": 484,
         "text": "呀"
       },
       {
-        "offsetMs": 1609,
-        "durationMs": 306,
+        "offsetMs": 1626,
+        "durationMs": 309,
         "text": "我"
       },
       {
-        "offsetMs": 1915,
-        "durationMs": 120,
+        "offsetMs": 1936,
+        "durationMs": 121,
         "text": "是"
       },
       {
-        "offsetMs": 2048,
-        "durationMs": 598,
+        "offsetMs": 2070,
+        "durationMs": 605,
         "text": "天天"
       },
       {
-        "offsetMs": 3258,
-        "durationMs": 160,
+        "offsetMs": 3293,
+        "durationMs": 161,
         "text": "我"
       },
       {
-        "offsetMs": 3418,
-        "durationMs": 106,
+        "offsetMs": 3454,
+        "durationMs": 108,
         "text": "是"
       },
       {
-        "offsetMs": 3537,
-        "durationMs": 306,
+        "offsetMs": 3575,
+        "durationMs": 309,
         "text": "小浣"
       },
       {
-        "offsetMs": 3843,
-        "durationMs": 160,
+        "offsetMs": 3884,
+        "durationMs": 161,
         "text": "熊"
       },
       {
-        "offsetMs": 4016,
-        "durationMs": 545,
+        "offsetMs": 4059,
+        "durationMs": 551,
         "text": "天天"
       },
       {
-        "offsetMs": 4934,
-        "durationMs": 266,
+        "offsetMs": 4987,
+        "durationMs": 269,
         "text": "遇到"
       },
       {
-        "offsetMs": 5226,
-        "durationMs": 133,
+        "offsetMs": 5282,
+        "durationMs": 134,
         "text": "解"
       },
       {
-        "offsetMs": 5359,
-        "durationMs": 93,
+        "offsetMs": 5417,
+        "durationMs": 94,
         "text": "不"
       },
       {
-        "offsetMs": 5452,
-        "durationMs": 120,
+        "offsetMs": 5511,
+        "durationMs": 121,
         "text": "开"
       },
       {
-        "offsetMs": 5572,
-        "durationMs": 80,
+        "offsetMs": 5632,
+        "durationMs": 81,
         "text": "的"
       },
       {
-        "offsetMs": 5665,
-        "durationMs": 519,
+        "offsetMs": 5726,
+        "durationMs": 524,
         "text": "谜题"
       },
       {
-        "offsetMs": 6503,
-        "durationMs": 213,
+        "offsetMs": 6573,
+        "durationMs": 215,
         "text": "我们"
       },
       {
-        "offsetMs": 6729,
-        "durationMs": 186,
+        "offsetMs": 6801,
+        "durationMs": 188,
         "text": "拆"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 93,
+        "offsetMs": 6989,
+        "durationMs": 94,
         "text": "成"
       },
       {
-        "offsetMs": 7035,
-        "durationMs": 93,
+        "offsetMs": 7110,
+        "durationMs": 94,
         "text": "一"
       },
       {
-        "offsetMs": 7128,
-        "durationMs": 266,
+        "offsetMs": 7204,
+        "durationMs": 269,
         "text": "小步"
       },
       {
-        "offsetMs": 7420,
-        "durationMs": 80,
+        "offsetMs": 7500,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 7581,
+        "durationMs": 242,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 7836,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 7944,
+        "durationMs": 444,
+        "text": "看看"
+      }
+    ]
+  },
+  "gentle-guide:我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看": {
+    "id": "gentle-guide:我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "normKey": "我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-8e18da5a31eaefbe.mp3",
+    "durationMs": 5378,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 386,
+        "durationMs": 309,
+        "text": "小浣"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 161,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 870,
+        "durationMs": 551,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 1797,
+        "durationMs": 269,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2093,
+        "durationMs": 134,
+        "text": "解"
+      },
+      {
+        "offsetMs": 2227,
+        "durationMs": 94,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2322,
+        "durationMs": 121,
+        "text": "开"
+      },
+      {
+        "offsetMs": 2442,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2537,
+        "durationMs": 524,
+        "text": "谜题"
+      },
+      {
+        "offsetMs": 3383,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3612,
+        "durationMs": 188,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 3800,
+        "durationMs": 94,
+        "text": "成"
+      },
+      {
+        "offsetMs": 3921,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4015,
+        "durationMs": 269,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 4311,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4391,
+        "durationMs": 242,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 4647,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 4754,
+        "durationMs": 444,
+        "text": "看看"
+      }
+    ]
+  },
+  "gentle-guide:你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚": {
+    "id": "gentle-guide:你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "normKey": "你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-98283360012ff314.mp3",
+    "durationMs": 8823,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 430,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 534,
+        "durationMs": 484,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1626,
+        "durationMs": 309,
+        "text": "我"
+      },
+      {
+        "offsetMs": 1936,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2070,
+        "durationMs": 605,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 3293,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3454,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3575,
+        "durationMs": 336,
+        "text": "小浣"
+      },
+      {
+        "offsetMs": 3911,
+        "durationMs": 148,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 4073,
+        "durationMs": 524,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 4933,
+        "durationMs": 188,
+        "text": "再"
+      },
+      {
+        "offsetMs": 5121,
+        "durationMs": 121,
+        "text": "乱"
+      },
+      {
+        "offsetMs": 5242,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5323,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5511,
+        "durationMs": 282,
+        "text": "书包"
+      },
+      {
+        "offsetMs": 5820,
+        "durationMs": 81,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 578,
+        "text": "难题"
+      },
+      {
+        "offsetMs": 6909,
+        "durationMs": 403,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 7325,
+        "durationMs": 175,
         "text": "一"
       },
       {
         "offsetMs": 7500,
-        "durationMs": 239,
-        "text": "小步"
+        "durationMs": 134,
+        "text": "步"
       },
       {
-        "offsetMs": 7753,
-        "durationMs": 106,
-        "text": "来"
+        "offsetMs": 7648,
+        "durationMs": 108,
+        "text": "一"
       },
       {
-        "offsetMs": 7859,
-        "durationMs": 439,
-        "text": "看看"
+        "offsetMs": 7755,
+        "durationMs": 121,
+        "text": "步"
+      },
+      {
+        "offsetMs": 7903,
+        "durationMs": 81,
+        "text": "就"
+      },
+      {
+        "offsetMs": 7984,
+        "durationMs": 108,
+        "text": "能"
+      },
+      {
+        "offsetMs": 8105,
+        "durationMs": 121,
+        "text": "理"
+      },
+      {
+        "offsetMs": 8226,
+        "durationMs": 417,
+        "text": "清楚"
       }
     ]
   },
-  "gentle-guide:你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
+  "gentle-guide:我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚": {
+    "id": "gentle-guide:我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "normKey": "我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-a1ed106293d7a07d.mp3",
-    "durationMs": 9728,
+    "audioUrl": "/audio/tts/gentle-guide-4e1de9ca6c855f9b.mp3",
+    "durationMs": 5634,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 426,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 529,
-        "durationMs": 479,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1609,
-        "durationMs": 266,
+        "offsetMs": 104,
+        "durationMs": 161,
         "text": "我"
       },
       {
-        "offsetMs": 1875,
-        "durationMs": 120,
+        "offsetMs": 265,
+        "durationMs": 108,
         "text": "是"
       },
       {
-        "offsetMs": 2008,
-        "durationMs": 93,
-        "text": "你"
-      },
-      {
-        "offsetMs": 2101,
-        "durationMs": 66,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2181,
-        "durationMs": 226,
-        "text": "小"
-      },
-      {
-        "offsetMs": 2407,
-        "durationMs": 319,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2859,
-        "durationMs": 479,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 3351,
-        "durationMs": 545,
-        "text": "天天"
-      },
-      {
-        "offsetMs": 4508,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4668,
-        "durationMs": 106,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4787,
-        "durationMs": 306,
+        "offsetMs": 386,
+        "durationMs": 336,
         "text": "小浣"
       },
       {
-        "offsetMs": 5093,
-        "durationMs": 160,
+        "offsetMs": 722,
+        "durationMs": 148,
         "text": "熊"
       },
       {
-        "offsetMs": 5266,
-        "durationMs": 545,
+        "offsetMs": 883,
+        "durationMs": 524,
         "text": "天天"
       },
       {
-        "offsetMs": 6184,
-        "durationMs": 266,
-        "text": "遇到"
+        "offsetMs": 1744,
+        "durationMs": 188,
+        "text": "再"
       },
       {
-        "offsetMs": 6476,
-        "durationMs": 133,
-        "text": "解"
+        "offsetMs": 1932,
+        "durationMs": 121,
+        "text": "乱"
       },
       {
-        "offsetMs": 6609,
-        "durationMs": 93,
-        "text": "不"
-      },
-      {
-        "offsetMs": 6702,
-        "durationMs": 120,
-        "text": "开"
-      },
-      {
-        "offsetMs": 6822,
-        "durationMs": 80,
+        "offsetMs": 2053,
+        "durationMs": 67,
         "text": "的"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 519,
-        "text": "谜题"
-      },
-      {
-        "offsetMs": 7753,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 7979,
-        "durationMs": 186,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 8165,
-        "durationMs": 93,
-        "text": "成"
-      },
-      {
-        "offsetMs": 8285,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 8378,
-        "durationMs": 266,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 8670,
-        "durationMs": 80,
-        "text": "一"
-      },
-      {
-        "offsetMs": 8750,
-        "durationMs": 239,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 9003,
-        "durationMs": 106,
-        "text": "来"
-      },
-      {
-        "offsetMs": 9109,
-        "durationMs": 439,
-        "text": "看看"
-      }
-    ]
-  },
-  "gentle-guide:我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-f6e9ceb0c88e9dd5.mp3",
-    "durationMs": 5323,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 263,
-        "durationMs": 106,
-        "text": "是"
-      },
-      {
-        "offsetMs": 382,
-        "durationMs": 306,
-        "text": "小浣"
-      },
-      {
-        "offsetMs": 688,
-        "durationMs": 160,
-        "text": "熊"
-      },
-      {
-        "offsetMs": 861,
-        "durationMs": 545,
-        "text": "天天"
-      },
-      {
-        "offsetMs": 1779,
-        "durationMs": 266,
-        "text": "遇到"
-      },
-      {
-        "offsetMs": 2071,
-        "durationMs": 133,
-        "text": "解"
-      },
-      {
-        "offsetMs": 2204,
-        "durationMs": 93,
-        "text": "不"
-      },
-      {
-        "offsetMs": 2297,
-        "durationMs": 120,
-        "text": "开"
-      },
-      {
-        "offsetMs": 2417,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2510,
-        "durationMs": 519,
-        "text": "谜题"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 3574,
-        "durationMs": 186,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 3760,
-        "durationMs": 93,
-        "text": "成"
-      },
-      {
-        "offsetMs": 3880,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 3973,
-        "durationMs": 266,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 4265,
-        "durationMs": 80,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4345,
-        "durationMs": 239,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 4598,
-        "durationMs": 106,
-        "text": "来"
-      },
-      {
-        "offsetMs": 4704,
-        "durationMs": 439,
-        "text": "看看"
-      }
-    ]
-  },
-  "starlight-companion:你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-56d1873822060fff.mp3",
-    "durationMs": 9229,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 571,
-        "durationMs": 300,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1458,
-        "durationMs": 208,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1667,
-        "durationMs": 156,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1836,
-        "durationMs": 612,
-        "text": "奇奇"
-      },
-      {
-        "offsetMs": 3034,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3190,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 3346,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 4570,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 5013,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 5143,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 5638,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 6211,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 6393,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 6589,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 6836,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 7370,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 7617,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 7734,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 7930,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 8203,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8307,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "starlight-companion:你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-23629aa9481794de.mp3",
-    "durationMs": 10505,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 571,
-        "durationMs": 300,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1458,
-        "durationMs": 195,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1654,
-        "durationMs": 169,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1836,
-        "durationMs": 130,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1966,
-        "durationMs": 104,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2083,
-        "durationMs": 221,
+        "offsetMs": 2133,
+        "durationMs": 188,
         "text": "小"
       },
       {
-        "offsetMs": 2305,
-        "durationMs": 195,
-        "text": "岛"
+        "offsetMs": 2322,
+        "durationMs": 282,
+        "text": "书包"
       },
       {
-        "offsetMs": 2500,
-        "durationMs": 482,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 3086,
-        "durationMs": 638,
-        "text": "奇奇"
-      },
-      {
-        "offsetMs": 4310,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4466,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4622,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 5846,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 6289,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 6419,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 6914,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 7487,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 7669,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 7865,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 8112,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 8646,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 8893,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 9010,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 9206,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 9479,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 9583,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "starlight-companion:我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-463262e7f400548e.mp3",
-    "durationMs": 6298,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 258,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 415,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 1639,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 2081,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 2211,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 2706,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 3279,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3461,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 3657,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 3904,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 4438,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 4685,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4803,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 4998,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 5271,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5376,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "warm-sister:绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。": {
-    "id": "warm-sister:绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。",
-    "normKey": "绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-57ac6312a811a869.mp3",
-    "durationMs": 11098,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "绿"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 226,
-        "text": "草"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 399,
-        "text": "呼吸"
-      },
-      {
-        "offsetMs": 981,
-        "durationMs": 771,
-        "text": "平静角"
-      },
-      {
-        "offsetMs": 2367,
-        "durationMs": 279,
-        "text": "跟着"
-      },
-      {
-        "offsetMs": 2660,
-        "durationMs": 479,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 3165,
-        "durationMs": 399,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 3577,
-        "durationMs": 426,
-        "text": "吸气"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 133,
+        "offsetMs": 2631,
+        "durationMs": 81,
         "text": "和"
       },
       {
-        "offsetMs": 4176,
-        "durationMs": 572,
-        "text": "呼气"
+        "offsetMs": 2725,
+        "durationMs": 578,
+        "text": "难题"
       },
       {
-        "offsetMs": 4973,
-        "durationMs": 386,
-        "text": "放松"
+        "offsetMs": 3719,
+        "durationMs": 403,
+        "text": "我们"
       },
       {
-        "offsetMs": 5372,
-        "durationMs": 572,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 6383,
-        "durationMs": 266,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 6662,
-        "durationMs": 306,
-        "text": "遇到"
-      },
-      {
-        "offsetMs": 6995,
-        "durationMs": 186,
-        "text": "大"
-      },
-      {
-        "offsetMs": 7181,
-        "durationMs": 532,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 7965,
-        "durationMs": 133,
-        "text": "也"
-      },
-      {
-        "offsetMs": 8112,
-        "durationMs": 253,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 8378,
-        "durationMs": 173,
-        "text": "去"
-      },
-      {
-        "offsetMs": 8551,
-        "durationMs": 785,
-        "text": "拆解台"
-      },
-      {
-        "offsetMs": 9442,
-        "durationMs": 160,
-        "text": "把"
-      },
-      {
-        "offsetMs": 9601,
-        "durationMs": 133,
-        "text": "它"
-      },
-      {
-        "offsetMs": 9747,
-        "durationMs": 213,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 9960,
-        "durationMs": 186,
-        "text": "成"
-      },
-      {
-        "offsetMs": 10173,
-        "durationMs": 213,
-        "text": "三"
-      },
-      {
-        "offsetMs": 10386,
-        "durationMs": 532,
-        "text": "小步"
-      }
-    ]
-  },
-  "warm-sister:身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。": {
-    "id": "warm-sister:身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。",
-    "normKey": "身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-45633cb73886cf46.mp3",
-    "durationMs": 8332,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 439,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 160,
-        "text": "有"
-      },
-      {
-        "offsetMs": 728,
-        "durationMs": 386,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 1114,
-        "durationMs": 253,
-        "text": "在"
-      },
-      {
-        "offsetMs": 1726,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1819,
-        "durationMs": 239,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2085,
-        "durationMs": 386,
-        "text": "随时"
-      },
-      {
-        "offsetMs": 2484,
-        "durationMs": 226,
-        "text": "停"
-      },
-      {
-        "offsetMs": 2710,
-        "durationMs": 519,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 3335,
-        "durationMs": 160,
-        "text": "去"
-      },
-      {
-        "offsetMs": 3494,
-        "durationMs": 173,
-        "text": "找"
-      },
-      {
-        "offsetMs": 3680,
-        "durationMs": 319,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 4026,
-        "durationMs": 213,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 4239,
-        "durationMs": 120,
+        "offsetMs": 4136,
+        "durationMs": 175,
         "text": "一"
       },
       {
-        "offsetMs": 4358,
-        "durationMs": 266,
-        "text": "抱"
+        "offsetMs": 4311,
+        "durationMs": 134,
+        "text": "步"
       },
       {
-        "offsetMs": 5226,
-        "durationMs": 199,
-        "text": "点"
+        "offsetMs": 4459,
+        "durationMs": 108,
+        "text": "一"
       },
       {
-        "offsetMs": 5426,
-        "durationMs": 505,
-        "text": "一点"
+        "offsetMs": 4566,
+        "durationMs": 121,
+        "text": "步"
       },
       {
-        "offsetMs": 6037,
-        "durationMs": 253,
-        "text": "可以"
+        "offsetMs": 4714,
+        "durationMs": 81,
+        "text": "就"
       },
       {
-        "offsetMs": 6303,
-        "durationMs": 386,
-        "text": "打开"
+        "offsetMs": 4795,
+        "durationMs": 108,
+        "text": "能"
       },
       {
-        "offsetMs": 6715,
-        "durationMs": 359,
-        "text": "本机"
+        "offsetMs": 4916,
+        "durationMs": 121,
+        "text": "理"
       },
       {
-        "offsetMs": 7088,
-        "durationMs": 346,
-        "text": "抱抱"
-      },
-      {
-        "offsetMs": 7434,
-        "durationMs": 718,
-        "text": "求助卡"
+        "offsetMs": 5037,
+        "durationMs": 417,
+        "text": "清楚"
       }
     ]
   },
-  "warm-sister:已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。": {
-    "id": "warm-sister:已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。",
-    "normKey": "已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-de065c52b9229f6e.mp3",
-    "durationMs": 12760,
+  "starlight-companion:你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声": {
+    "id": "starlight-companion:你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "normKey": "你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-fbd0fee64949a515.mp3",
+    "durationMs": 9325,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 160,
-        "text": "已"
+        "durationMs": 474,
+        "text": "你好"
       },
       {
-        "offsetMs": 263,
-        "durationMs": 226,
-        "text": "为"
+        "offsetMs": 576,
+        "durationMs": 303,
+        "text": "呀"
       },
       {
-        "offsetMs": 489,
-        "durationMs": 319,
-        "text": "你"
+        "offsetMs": 1474,
+        "durationMs": 211,
+        "text": "我"
       },
       {
-        "offsetMs": 914,
-        "durationMs": 199,
-        "text": "记"
+        "offsetMs": 1684,
+        "durationMs": 158,
+        "text": "是"
       },
       {
-        "offsetMs": 1114,
-        "durationMs": 160,
-        "text": "在"
+        "offsetMs": 1855,
+        "durationMs": 618,
+        "text": "奇奇"
       },
       {
-        "offsetMs": 1300,
-        "durationMs": 346,
-        "text": "本机"
+        "offsetMs": 3066,
+        "durationMs": 158,
+        "text": "我"
       },
       {
-        "offsetMs": 1646,
-        "durationMs": 346,
-        "text": "抱抱"
+        "offsetMs": 3224,
+        "durationMs": 145,
+        "text": "是"
       },
       {
-        "offsetMs": 2005,
-        "durationMs": 492,
-        "text": "提醒"
+        "offsetMs": 3382,
+        "durationMs": 987,
+        "text": "小鹿奇奇"
       },
       {
-        "offsetMs": 2497,
-        "durationMs": 226,
+        "offsetMs": 4618,
+        "durationMs": 447,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 5066,
+        "durationMs": 118,
         "text": "里"
       },
       {
-        "offsetMs": 3324,
-        "durationMs": 160,
-        "text": "这"
+        "offsetMs": 5197,
+        "durationMs": 500,
+        "text": "起风"
       },
       {
-        "offsetMs": 3497,
-        "durationMs": 346,
-        "text": "不会"
+        "offsetMs": 5697,
+        "durationMs": 329,
+        "text": "时"
       },
       {
-        "offsetMs": 3856,
-        "durationMs": 386,
-        "text": "自动"
+        "offsetMs": 6276,
+        "durationMs": 184,
+        "text": "我"
       },
       {
-        "offsetMs": 4255,
-        "durationMs": 160,
-        "text": "发"
+        "offsetMs": 6461,
+        "durationMs": 184,
+        "text": "会"
       },
       {
-        "offsetMs": 4415,
-        "durationMs": 146,
-        "text": "到"
+        "offsetMs": 6658,
+        "durationMs": 250,
+        "text": "停"
       },
       {
-        "offsetMs": 4588,
-        "durationMs": 426,
-        "text": "远端"
+        "offsetMs": 6908,
+        "durationMs": 434,
+        "text": "下来"
       },
       {
-        "offsetMs": 5027,
-        "durationMs": 545,
-        "text": "手机"
+        "offsetMs": 7447,
+        "durationMs": 250,
+        "text": "听"
       },
       {
-        "offsetMs": 6184,
-        "durationMs": 558,
-        "text": "现在"
-      },
-      {
-        "offsetMs": 6769,
-        "durationMs": 199,
-        "text": "请"
-      },
-      {
-        "offsetMs": 6981,
-        "durationMs": 359,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 7354,
-        "durationMs": 173,
-        "text": "去"
-      },
-      {
-        "offsetMs": 7527,
-        "durationMs": 213,
-        "text": "找"
-      },
-      {
-        "offsetMs": 7766,
-        "durationMs": 386,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 8152,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8258,
-        "durationMs": 346,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 8630,
-        "durationMs": 199,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 8830,
-        "durationMs": 133,
+        "offsetMs": 7697,
+        "durationMs": 118,
         "text": "一"
       },
       {
-        "offsetMs": 8963,
-        "durationMs": 266,
-        "text": "抱"
+        "offsetMs": 7816,
+        "durationMs": 184,
+        "text": "听"
       },
       {
-        "offsetMs": 9588,
-        "durationMs": 306,
-        "text": "或者"
-      },
-      {
-        "offsetMs": 9907,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 10066,
-        "durationMs": 160,
-        "text": "这"
-      },
-      {
-        "offsetMs": 10226,
-        "durationMs": 186,
-        "text": "张"
-      },
-      {
-        "offsetMs": 10426,
-        "durationMs": 598,
-        "text": "卡片"
-      },
-      {
-        "offsetMs": 11130,
-        "durationMs": 293,
-        "text": "拿给"
-      },
-      {
-        "offsetMs": 11436,
-        "durationMs": 399,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 11835,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 11942,
-        "durationMs": 346,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 12287,
-        "durationMs": 293,
-        "text": "看"
-      }
-    ]
-  },
-  "warm-sister:这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。": {
-    "id": "warm-sister:这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。",
-    "normKey": "这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ac1878cae136f1f1.mp3",
-    "durationMs": 9622,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 412,
-        "text": "这里"
-      },
-      {
-        "offsetMs": 542,
-        "durationMs": 319,
-        "text": "不会"
-      },
-      {
-        "offsetMs": 861,
-        "durationMs": 186,
-        "text": "向"
-      },
-      {
-        "offsetMs": 1061,
-        "durationMs": 452,
-        "text": "手机"
-      },
-      {
-        "offsetMs": 1526,
-        "durationMs": 359,
-        "text": "发送"
-      },
-      {
-        "offsetMs": 1912,
-        "durationMs": 372,
-        "text": "远程"
-      },
-      {
-        "offsetMs": 2297,
-        "durationMs": 545,
-        "text": "消息"
-      },
-      {
-        "offsetMs": 3457,
-        "durationMs": 226,
-        "text": "请"
-      },
-      {
-        "offsetMs": 3697,
-        "durationMs": 359,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 4069,
-        "durationMs": 186,
-        "text": "走"
-      },
-      {
-        "offsetMs": 4255,
-        "durationMs": 173,
-        "text": "到"
-      },
-      {
-        "offsetMs": 4455,
-        "durationMs": 426,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 4907,
-        "durationMs": 133,
-        "text": "你"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 372,
-        "text": "信任"
-      },
-      {
-        "offsetMs": 5426,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5532,
-        "durationMs": 359,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 5904,
-        "durationMs": 439,
-        "text": "那里"
-      },
-      {
-        "offsetMs": 6662,
-        "durationMs": 279,
-        "text": "或者"
-      },
-      {
-        "offsetMs": 6955,
-        "durationMs": 160,
-        "text": "把"
-      },
-      {
-        "offsetMs": 7128,
-        "durationMs": 612,
-        "text": "求助"
-      },
-      {
-        "offsetMs": 7753,
-        "durationMs": 372,
-        "text": "卡拿"
-      },
-      {
-        "offsetMs": 8125,
-        "durationMs": 160,
-        "text": "给"
-      },
-      {
-        "offsetMs": 8298,
-        "durationMs": 399,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 8697,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8803,
-        "durationMs": 332,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 9136,
-        "durationMs": 306,
-        "text": "看"
-      }
-    ]
-  },
-  "warm-sister:小提醒已关闭。有大人在身边，慢慢来。": {
-    "id": "warm-sister:小提醒已关闭。有大人在身边，慢慢来。",
-    "normKey": "小提醒已关闭。有大人在身边，慢慢来。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-3cde524aecb4cdd3.mp3",
-    "durationMs": 4502,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 253,
-        "text": "小"
-      },
-      {
-        "offsetMs": 356,
-        "durationMs": 426,
-        "text": "提醒"
-      },
-      {
-        "offsetMs": 808,
-        "durationMs": 146,
-        "text": "已"
-      },
-      {
-        "offsetMs": 954,
-        "durationMs": 532,
-        "text": "关闭"
-      },
-      {
-        "offsetMs": 2074,
-        "durationMs": 173,
-        "text": "有"
-      },
-      {
-        "offsetMs": 2261,
-        "durationMs": 372,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 2646,
-        "durationMs": 160,
-        "text": "在"
-      },
-      {
-        "offsetMs": 2806,
-        "durationMs": 532,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 3630,
-        "durationMs": 399,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 293,
-        "text": "来"
-      }
-    ]
-  },
-  "warm-sister:走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。": {
-    "id": "warm-sister:走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。",
-    "normKey": "走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-062422275165d6f0.mp3",
-    "durationMs": 4751,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 186,
-        "text": "走"
-      },
-      {
-        "offsetMs": 289,
-        "durationMs": 133,
-        "text": "到"
-      },
-      {
-        "offsetMs": 449,
-        "durationMs": 332,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 795,
-        "durationMs": 386,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 1207,
-        "durationMs": 293,
-        "text": "拉拉"
-      },
-      {
-        "offsetMs": 1513,
-        "durationMs": 545,
-        "text": "衣角"
-      },
-      {
-        "offsetMs": 2390,
-        "durationMs": 293,
-        "text": "告诉"
-      },
-      {
-        "offsetMs": 2696,
-        "durationMs": 519,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 3242,
-        "durationMs": 106,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 319,
-        "text": "需要"
-      },
-      {
-        "offsetMs": 3680,
-        "durationMs": 120,
-        "text": "你"
-      },
-      {
-        "offsetMs": 3800,
-        "durationMs": 199,
-        "text": "陪"
-      },
-      {
-        "offsetMs": 3999,
-        "durationMs": 120,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4132,
-        "durationMs": 439,
-        "text": "一会儿"
-      }
-    ]
-  },
-  "warm-sister:如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。": {
-    "id": "warm-sister:如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。",
-    "normKey": "如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-4f70ef4f5198ef75.mp3",
-    "durationMs": 6667,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 293,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 422,
-        "durationMs": 372,
-        "text": "熟悉"
-      },
-      {
-        "offsetMs": 795,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 901,
-        "durationMs": 505,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 1433,
-        "durationMs": 359,
-        "text": "暂时"
-      },
-      {
-        "offsetMs": 1805,
-        "durationMs": 465,
-        "text": "不在"
-      },
-      {
-        "offsetMs": 2563,
-        "durationMs": 266,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2843,
-        "durationMs": 346,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 3202,
-        "durationMs": 199,
-        "text": "找"
-      },
-      {
-        "offsetMs": 3428,
-        "durationMs": 545,
-        "text": "老师"
-      },
-      {
-        "offsetMs": 4252,
-        "durationMs": 612,
-        "text": "护士"
-      },
-      {
-        "offsetMs": 4970,
-        "durationMs": 173,
-        "text": "或"
-      },
-      {
-        "offsetMs": 5156,
-        "durationMs": 399,
-        "text": "其他"
-      },
-      {
-        "offsetMs": 5569,
-        "durationMs": 386,
-        "text": "信任"
-      },
-      {
-        "offsetMs": 5954,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6061,
-        "durationMs": 426,
-        "text": "大人"
-      }
-    ]
-  },
-  "warm-sister:不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。": {
-    "id": "warm-sister:不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。",
-    "normKey": "不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-d4ba5d4e9b473d15.mp3",
-    "durationMs": 6882,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 386,
-        "text": "不想"
-      },
-      {
-        "offsetMs": 489,
-        "durationMs": 160,
-        "text": "说"
-      },
-      {
-        "offsetMs": 675,
-        "durationMs": 133,
-        "text": "也"
-      },
-      {
-        "offsetMs": 808,
-        "durationMs": 745,
-        "text": "没关系"
-      },
-      {
-        "offsetMs": 2154,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 2314,
-        "durationMs": 319,
-        "text": "心里"
-      },
-      {
-        "offsetMs": 2633,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2739,
-        "durationMs": 386,
-        "text": "小门"
-      },
-      {
-        "offsetMs": 3152,
-        "durationMs": 332,
-        "text": "轻轻"
-      },
-      {
-        "offsetMs": 3497,
-        "durationMs": 545,
-        "text": "关好"
-      },
-      {
-        "offsetMs": 4348,
-        "durationMs": 293,
+        "offsetMs": 8013,
+        "durationMs": 276,
         "text": "自己"
       },
       {
-        "offsetMs": 4654,
-        "durationMs": 213,
-        "text": "待"
-      },
-      {
-        "offsetMs": 4867,
-        "durationMs": 439,
-        "text": "一会儿"
-      },
-      {
-        "offsetMs": 5412,
-        "durationMs": 279,
-        "text": "也是"
-      },
-      {
-        "offsetMs": 5705,
-        "durationMs": 439,
-        "text": "完全"
-      },
-      {
-        "offsetMs": 6157,
-        "durationMs": 346,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 6503,
-        "durationMs": 199,
+        "offsetMs": 8289,
+        "durationMs": 92,
         "text": "的"
+      },
+      {
+        "offsetMs": 8395,
+        "durationMs": 750,
+        "text": "心跳声"
       }
     ]
   },
-  "playful-buddy:欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？": {
-    "id": "playful-buddy:欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？",
-    "normKey": "欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？",
+  "starlight-companion:我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声": {
+    "id": "starlight-companion:我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "normKey": "我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-4f29eda128a4f91e.mp3",
+    "durationMs": 6362,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 261,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 418,
+        "durationMs": 987,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 1655,
+        "durationMs": 447,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 2103,
+        "durationMs": 118,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2234,
+        "durationMs": 500,
+        "text": "起风"
+      },
+      {
+        "offsetMs": 2734,
+        "durationMs": 329,
+        "text": "时"
+      },
+      {
+        "offsetMs": 3313,
+        "durationMs": 184,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3497,
+        "durationMs": 184,
+        "text": "会"
+      },
+      {
+        "offsetMs": 3695,
+        "durationMs": 250,
+        "text": "停"
+      },
+      {
+        "offsetMs": 3945,
+        "durationMs": 434,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 4484,
+        "durationMs": 250,
+        "text": "听"
+      },
+      {
+        "offsetMs": 4734,
+        "durationMs": 118,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4853,
+        "durationMs": 184,
+        "text": "听"
+      },
+      {
+        "offsetMs": 5050,
+        "durationMs": 276,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 5326,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5432,
+        "durationMs": 750,
+        "text": "心跳声"
+      }
+    ]
+  },
+  "starlight-companion:你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧": {
+    "id": "starlight-companion:你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "normKey": "你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-d738cec4e3391a06.mp3",
+    "durationMs": 9930,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 576,
+        "durationMs": 303,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1474,
+        "durationMs": 211,
+        "text": "我"
+      },
+      {
+        "offsetMs": 1684,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1855,
+        "durationMs": 618,
+        "text": "奇奇"
+      },
+      {
+        "offsetMs": 3066,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3224,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3382,
+        "durationMs": 974,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 4579,
+        "durationMs": 566,
+        "text": "每个人"
+      },
+      {
+        "offsetMs": 5158,
+        "durationMs": 474,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 5750,
+        "durationMs": 171,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5921,
+        "durationMs": 145,
+        "text": "有"
+      },
+      {
+        "offsetMs": 6079,
+        "durationMs": 474,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 6553,
+        "durationMs": 184,
+        "text": "颗"
+      },
+      {
+        "offsetMs": 6750,
+        "durationMs": 382,
+        "text": "闪亮"
+      },
+      {
+        "offsetMs": 7132,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7250,
+        "durationMs": 211,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 539,
+        "text": "星星"
+      },
+      {
+        "offsetMs": 8316,
+        "durationMs": 263,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 8592,
+        "durationMs": 395,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 9000,
+        "durationMs": 145,
+        "text": "去"
+      },
+      {
+        "offsetMs": 9145,
+        "durationMs": 382,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9526,
+        "durationMs": 224,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧": {
+    "id": "starlight-companion:我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "normKey": "我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-35ae2a47897ce6a0.mp3",
+    "durationMs": 6967,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 261,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 418,
+        "durationMs": 974,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 1616,
+        "durationMs": 566,
+        "text": "每个人"
+      },
+      {
+        "offsetMs": 2195,
+        "durationMs": 474,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2787,
+        "durationMs": 171,
+        "text": "都"
+      },
+      {
+        "offsetMs": 2958,
+        "durationMs": 145,
+        "text": "有"
+      },
+      {
+        "offsetMs": 3116,
+        "durationMs": 474,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 3589,
+        "durationMs": 184,
+        "text": "颗"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 382,
+        "text": "闪亮"
+      },
+      {
+        "offsetMs": 4168,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4287,
+        "durationMs": 211,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4497,
+        "durationMs": 539,
+        "text": "星星"
+      },
+      {
+        "offsetMs": 5353,
+        "durationMs": 263,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5629,
+        "durationMs": 395,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6037,
+        "durationMs": 145,
+        "text": "去"
+      },
+      {
+        "offsetMs": 6182,
+        "durationMs": 382,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6563,
+        "durationMs": 224,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢": {
+    "id": "playful-buddy:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "normKey": "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-312604ffda9eaff9.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-2db2b4be2624f226.mp3",
     "durationMs": 15077,
     "boundaries": [
       {
@@ -2648,403 +1608,5623 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "playful-buddy:情绪天气站。看今天头顶的天气与身体感觉": {
-    "id": "playful-buddy:情绪天气站。看今天头顶的天气与身体感觉",
-    "normKey": "情绪天气站。看今天头顶的天气与身体感觉",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-71d041b69befec6e.mp3",
-    "durationMs": 4717,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 438,
-        "text": "情绪"
-      },
-      {
-        "offsetMs": 553,
-        "durationMs": 348,
-        "text": "天气"
-      },
-      {
-        "offsetMs": 900,
-        "durationMs": 245,
-        "text": "站"
-      },
-      {
-        "offsetMs": 1727,
-        "durationMs": 258,
-        "text": "看"
-      },
-      {
-        "offsetMs": 1985,
-        "durationMs": 387,
-        "text": "今天"
-      },
-      {
-        "offsetMs": 2384,
-        "durationMs": 361,
-        "text": "头顶"
-      },
-      {
-        "offsetMs": 2745,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2848,
-        "durationMs": 554,
-        "text": "天气"
-      },
-      {
-        "offsetMs": 3518,
-        "durationMs": 129,
-        "text": "与"
-      },
-      {
-        "offsetMs": 3660,
-        "durationMs": 361,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 4034,
-        "durationMs": 503,
-        "text": "感觉"
-      }
-    ]
-  },
-  "warm-sister:故事林。走一圈、想一想，探索生活小故事": {
-    "id": "warm-sister:故事林。走一圈、想一想，探索生活小故事",
-    "normKey": "故事林。走一圈、想一想，探索生活小故事",
+  "warm-sister:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢": {
+    "id": "warm-sister:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "normKey": "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-e429129462250554.mp3",
-    "durationMs": 5007,
+    "audioUrl": "/audio/tts/warm-sister-eb2d31b7ea9ba58a.mp3",
+    "durationMs": 16111,
     "boundaries": [
       {
         "offsetMs": 103,
         "durationMs": 412,
-        "text": "故事"
+        "text": "欢迎"
       },
       {
-        "offsetMs": 515,
-        "durationMs": 386,
-        "text": "林"
+        "offsetMs": 529,
+        "durationMs": 319,
+        "text": "来到"
       },
       {
-        "offsetMs": 1489,
-        "durationMs": 213,
-        "text": "走"
+        "offsetMs": 874,
+        "durationMs": 306,
+        "text": "晴雨"
       },
       {
-        "offsetMs": 1702,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1835,
-        "durationMs": 346,
-        "text": "圈"
-      },
-      {
-        "offsetMs": 2407,
+        "offsetMs": 1180,
         "durationMs": 253,
-        "text": "想"
+        "text": "小"
       },
       {
-        "offsetMs": 2660,
-        "durationMs": 133,
-        "text": "一"
+        "offsetMs": 1433,
+        "durationMs": 306,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 2340,
+        "durationMs": 452,
+        "text": "海面"
       },
       {
         "offsetMs": 2793,
-        "durationMs": 319,
-        "text": "想"
+        "durationMs": 213,
+        "text": "上"
       },
       {
-        "offsetMs": 3364,
-        "durationMs": 372,
-        "text": "探索"
+        "offsetMs": 3032,
+        "durationMs": 186,
+        "text": "飘"
       },
       {
-        "offsetMs": 3763,
-        "durationMs": 293,
-        "text": "生活"
+        "offsetMs": 3218,
+        "durationMs": 93,
+        "text": "着"
       },
       {
-        "offsetMs": 4069,
+        "offsetMs": 3324,
         "durationMs": 226,
         "text": "小"
       },
       {
-        "offsetMs": 4295,
+        "offsetMs": 3551,
         "durationMs": 532,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 4362,
+        "durationMs": 253,
+        "text": "山"
+      },
+      {
+        "offsetMs": 4614,
+        "durationMs": 213,
+        "text": "巅"
+      },
+      {
+        "offsetMs": 4840,
+        "durationMs": 173,
+        "text": "有"
+      },
+      {
+        "offsetMs": 5027,
+        "durationMs": 386,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 5426,
+        "durationMs": 386,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 5811,
+        "durationMs": 266,
+        "text": "站"
+      },
+      {
+        "offsetMs": 6463,
+        "durationMs": 332,
+        "text": "树林"
+      },
+      {
+        "offsetMs": 6808,
+        "durationMs": 532,
+        "text": "深处"
+      },
+      {
+        "offsetMs": 7367,
+        "durationMs": 146,
+        "text": "是"
+      },
+      {
+        "offsetMs": 7527,
+        "durationMs": 293,
         "text": "故事"
+      },
+      {
+        "offsetMs": 7832,
+        "durationMs": 558,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 8697,
+        "durationMs": 399,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 9109,
+        "durationMs": 532,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 9668,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 9840,
+        "durationMs": 824,
+        "text": "温暖的家"
+      },
+      {
+        "offsetMs": 10891,
+        "durationMs": 399,
+        "text": "还有"
+      },
+      {
+        "offsetMs": 11316,
+        "durationMs": 492,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 11822,
+        "durationMs": 532,
+        "text": "木屋"
+      },
+      {
+        "offsetMs": 12460,
+        "durationMs": 173,
+        "text": "与"
+      },
+      {
+        "offsetMs": 12646,
+        "durationMs": 439,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 13085,
+        "durationMs": 226,
+        "text": "树"
+      },
+      {
+        "offsetMs": 13311,
+        "durationMs": 279,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 14189,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 14335,
+        "durationMs": 186,
+        "text": "想"
+      },
+      {
+        "offsetMs": 14535,
+        "durationMs": 199,
+        "text": "先"
+      },
+      {
+        "offsetMs": 14734,
+        "durationMs": 120,
+        "text": "去"
+      },
+      {
+        "offsetMs": 14867,
+        "durationMs": 319,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 15199,
+        "durationMs": 479,
+        "text": "探险"
+      },
+      {
+        "offsetMs": 15678,
+        "durationMs": 253,
+        "text": "呢"
       }
     ]
   },
-  "playful-buddy:想法侦探社。用放大镜找线索，区分事实与猜测": {
-    "id": "playful-buddy:想法侦探社。用放大镜找线索，区分事实与猜测",
-    "normKey": "想法侦探社。用放大镜找线索，区分事实与猜测",
+  "gentle-guide:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢": {
+    "id": "gentle-guide:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "normKey": "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-63d544e4efb1116e.mp3",
+    "durationMs": 15220,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 430,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 547,
+        "durationMs": 228,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 803,
+        "durationMs": 309,
+        "text": "晴雨"
+      },
+      {
+        "offsetMs": 1112,
+        "durationMs": 215,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 323,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 2258,
+        "durationMs": 390,
+        "text": "海面"
+      },
+      {
+        "offsetMs": 2648,
+        "durationMs": 242,
+        "text": "上"
+      },
+      {
+        "offsetMs": 2917,
+        "durationMs": 188,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 3105,
+        "durationMs": 81,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3199,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3387,
+        "durationMs": 511,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 4207,
+        "durationMs": 323,
+        "text": "山"
+      },
+      {
+        "offsetMs": 4530,
+        "durationMs": 161,
+        "text": "巅"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 148,
+        "text": "有"
+      },
+      {
+        "offsetMs": 4866,
+        "durationMs": 403,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 5282,
+        "durationMs": 323,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 5605,
+        "durationMs": 242,
+        "text": "站"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 390,
+        "text": "树林"
+      },
+      {
+        "offsetMs": 6653,
+        "durationMs": 524,
+        "text": "深处"
+      },
+      {
+        "offsetMs": 7204,
+        "durationMs": 134,
+        "text": "是"
+      },
+      {
+        "offsetMs": 7352,
+        "durationMs": 269,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 7634,
+        "durationMs": 524,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 8481,
+        "durationMs": 444,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 8938,
+        "durationMs": 309,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 9274,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 9382,
+        "durationMs": 726,
+        "text": "温暖的家"
+      },
+      {
+        "offsetMs": 10349,
+        "durationMs": 269,
+        "text": "还有"
+      },
+      {
+        "offsetMs": 10645,
+        "durationMs": 484,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 11142,
+        "durationMs": 511,
+        "text": "木屋"
+      },
+      {
+        "offsetMs": 11761,
+        "durationMs": 175,
+        "text": "与"
+      },
+      {
+        "offsetMs": 11949,
+        "durationMs": 417,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 12366,
+        "durationMs": 175,
+        "text": "树"
+      },
+      {
+        "offsetMs": 12540,
+        "durationMs": 269,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 13414,
+        "durationMs": 336,
+        "text": "你"
+      },
+      {
+        "offsetMs": 13750,
+        "durationMs": 134,
+        "text": "想"
+      },
+      {
+        "offsetMs": 13898,
+        "durationMs": 134,
+        "text": "先"
+      },
+      {
+        "offsetMs": 14032,
+        "durationMs": 81,
+        "text": "去"
+      },
+      {
+        "offsetMs": 14126,
+        "durationMs": 202,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 14341,
+        "durationMs": 336,
+        "text": "探险"
+      },
+      {
+        "offsetMs": 14677,
+        "durationMs": 363,
+        "text": "呢"
+      }
+    ]
+  },
+  "starlight-companion:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢": {
+    "id": "starlight-companion:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "normKey": "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-c2c88219ed175c79.mp3",
+    "durationMs": 16128,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 408,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 524,
+        "durationMs": 303,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 839,
+        "durationMs": 368,
+        "text": "晴雨"
+      },
+      {
+        "offsetMs": 1208,
+        "durationMs": 250,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1458,
+        "durationMs": 303,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 2355,
+        "durationMs": 461,
+        "text": "海面"
+      },
+      {
+        "offsetMs": 2816,
+        "durationMs": 224,
+        "text": "上"
+      },
+      {
+        "offsetMs": 3053,
+        "durationMs": 211,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 3263,
+        "durationMs": 105,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3382,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3605,
+        "durationMs": 539,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 4382,
+        "durationMs": 329,
+        "text": "山"
+      },
+      {
+        "offsetMs": 4711,
+        "durationMs": 171,
+        "text": "巅"
+      },
+      {
+        "offsetMs": 4895,
+        "durationMs": 171,
+        "text": "有"
+      },
+      {
+        "offsetMs": 5079,
+        "durationMs": 421,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 5513,
+        "durationMs": 408,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 5921,
+        "durationMs": 276,
+        "text": "站"
+      },
+      {
+        "offsetMs": 6461,
+        "durationMs": 421,
+        "text": "树林"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 434,
+        "text": "深处"
+      },
+      {
+        "offsetMs": 7342,
+        "durationMs": 184,
+        "text": "是"
+      },
+      {
+        "offsetMs": 7539,
+        "durationMs": 316,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 7868,
+        "durationMs": 579,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 8750,
+        "durationMs": 461,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 9224,
+        "durationMs": 421,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 9658,
+        "durationMs": 171,
+        "text": "是"
+      },
+      {
+        "offsetMs": 9842,
+        "durationMs": 803,
+        "text": "温暖的家"
+      },
+      {
+        "offsetMs": 10895,
+        "durationMs": 382,
+        "text": "还有"
+      },
+      {
+        "offsetMs": 11289,
+        "durationMs": 605,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 11908,
+        "durationMs": 474,
+        "text": "木屋"
+      },
+      {
+        "offsetMs": 12487,
+        "durationMs": 158,
+        "text": "与"
+      },
+      {
+        "offsetMs": 12658,
+        "durationMs": 434,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 13092,
+        "durationMs": 197,
+        "text": "树"
+      },
+      {
+        "offsetMs": 13289,
+        "durationMs": 276,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 14158,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 14342,
+        "durationMs": 171,
+        "text": "想"
+      },
+      {
+        "offsetMs": 14526,
+        "durationMs": 210,
+        "text": "先"
+      },
+      {
+        "offsetMs": 14737,
+        "durationMs": 145,
+        "text": "去"
+      },
+      {
+        "offsetMs": 14895,
+        "durationMs": 355,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 15263,
+        "durationMs": 447,
+        "text": "探险"
+      },
+      {
+        "offsetMs": 15711,
+        "durationMs": 237,
+        "text": "呢"
+      }
+    ]
+  },
+  "playful-buddy:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉": {
+    "id": "playful-buddy:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "normKey": "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-ca4c2696195b2f5b.mp3",
-    "durationMs": 5399,
+    "audioUrl": "/audio/tts/playful-buddy-b46935934656ce5e.mp3",
+    "durationMs": 8428,
     "boundaries": [
       {
         "offsetMs": 102,
-        "durationMs": 490,
-        "text": "想法"
+        "durationMs": 361,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 116,
+        "text": "是"
       },
       {
         "offsetMs": 604,
+        "durationMs": 348,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 348,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 245,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2139,
+        "durationMs": 219,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2358,
+        "durationMs": 103,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2474,
+        "durationMs": 425,
+        "text": "山顶"
+      },
+      {
+        "offsetMs": 2912,
+        "durationMs": 180,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 3093,
+        "durationMs": 116,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3222,
+        "durationMs": 490,
+        "text": "微风"
+      },
+      {
+        "offsetMs": 3995,
+        "durationMs": 374,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4381,
+        "durationMs": 361,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 4742,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4845,
+        "durationMs": 528,
+        "text": "天空"
+      },
+      {
+        "offsetMs": 5631,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 5773,
+        "durationMs": 296,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 6082,
+        "durationMs": 284,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6379,
+        "durationMs": 412,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 180,
+        "text": "里"
+      },
+      {
+        "offsetMs": 6985,
+        "durationMs": 322,
+        "text": "正在"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 348,
+        "text": "流动"
+      },
+      {
+        "offsetMs": 7668,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7758,
+        "durationMs": 490,
+        "text": "感觉"
+      }
+    ]
+  },
+  "warm-sister:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉": {
+    "id": "warm-sister:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "normKey": "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-3208417461550c92.mp3",
+    "durationMs": 9289,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 529,
+        "durationMs": 173,
+        "text": "是"
+      },
+      {
+        "offsetMs": 728,
+        "durationMs": 426,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 1167,
+        "durationMs": 386,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 1553,
+        "durationMs": 293,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2447,
+        "durationMs": 226,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2673,
+        "durationMs": 133,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2819,
+        "durationMs": 479,
+        "text": "山顶"
+      },
+      {
+        "offsetMs": 3324,
+        "durationMs": 173,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 3497,
+        "durationMs": 106,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3617,
+        "durationMs": 519,
+        "text": "微风"
+      },
+      {
+        "offsetMs": 4442,
+        "durationMs": 346,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4814,
+        "durationMs": 372,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 5186,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5279,
+        "durationMs": 532,
+        "text": "天空"
+      },
+      {
+        "offsetMs": 6077,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6223,
+        "durationMs": 399,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 6636,
+        "durationMs": 319,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6968,
+        "durationMs": 426,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 7394,
+        "durationMs": 266,
+        "text": "里"
+      },
+      {
+        "offsetMs": 7686,
+        "durationMs": 359,
+        "text": "正在"
+      },
+      {
+        "offsetMs": 8058,
+        "durationMs": 426,
+        "text": "流动"
+      },
+      {
+        "offsetMs": 8484,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8590,
+        "durationMs": 519,
+        "text": "感觉"
+      }
+    ]
+  },
+  "gentle-guide:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉": {
+    "id": "gentle-guide:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "normKey": "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-defed0ebdf2abf82.mp3",
+    "durationMs": 8863,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 444,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 188,
+        "text": "是"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 376,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 1166,
+        "durationMs": 323,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 1488,
+        "durationMs": 390,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 228,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2715,
+        "durationMs": 81,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2809,
+        "durationMs": 511,
+        "text": "山顶"
+      },
+      {
+        "offsetMs": 3347,
+        "durationMs": 202,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 3548,
+        "durationMs": 94,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3656,
+        "durationMs": 524,
+        "text": "微风"
+      },
+      {
+        "offsetMs": 4503,
+        "durationMs": 336,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4866,
+        "durationMs": 309,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 5175,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5255,
+        "durationMs": 564,
+        "text": "天空"
+      },
+      {
+        "offsetMs": 6223,
+        "durationMs": 161,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6384,
+        "durationMs": 282,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 6680,
+        "durationMs": 215,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6909,
+        "durationMs": 376,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 7285,
+        "durationMs": 161,
+        "text": "里"
+      },
+      {
+        "offsetMs": 7473,
+        "durationMs": 282,
+        "text": "正在"
+      },
+      {
+        "offsetMs": 7769,
+        "durationMs": 336,
+        "text": "流动"
+      },
+      {
+        "offsetMs": 8105,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8186,
+        "durationMs": 497,
+        "text": "感觉"
+      }
+    ]
+  },
+  "starlight-companion:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉": {
+    "id": "starlight-companion:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "normKey": "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-ac7e14732203b889.mp3",
+    "durationMs": 9312,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 355,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 471,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 642,
+        "durationMs": 421,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 1076,
+        "durationMs": 395,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 289,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2355,
+        "durationMs": 224,
+        "text": "站"
+      },
+      {
+        "offsetMs": 2579,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2750,
+        "durationMs": 447,
+        "text": "山顶"
+      },
+      {
+        "offsetMs": 3211,
+        "durationMs": 224,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 3434,
+        "durationMs": 105,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3553,
+        "durationMs": 539,
+        "text": "微风"
+      },
+      {
+        "offsetMs": 4342,
+        "durationMs": 395,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4750,
+        "durationMs": 395,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 5145,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5263,
+        "durationMs": 605,
+        "text": "天空"
+      },
+      {
+        "offsetMs": 6118,
+        "durationMs": 237,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6355,
+        "durationMs": 368,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 6737,
+        "durationMs": 329,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 7079,
+        "durationMs": 395,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 7474,
+        "durationMs": 211,
+        "text": "里"
+      },
+      {
+        "offsetMs": 7697,
+        "durationMs": 421,
+        "text": "正在"
+      },
+      {
+        "offsetMs": 8132,
+        "durationMs": 434,
+        "text": "流动"
+      },
+      {
+        "offsetMs": 8566,
+        "durationMs": 79,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8658,
+        "durationMs": 474,
+        "text": "感觉"
+      }
+    ]
+  },
+  "playful-buddy:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的": {
+    "id": "playful-buddy:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "normKey": "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b6728d14a17b1917.mp3",
+    "durationMs": 9871,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 733,
+        "durationMs": 271,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 567,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1944,
+        "durationMs": 129,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 90,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2176,
+        "durationMs": 335,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 335,
+        "text": "林"
+      },
+      {
+        "offsetMs": 3428,
+        "durationMs": 322,
+        "text": "古老"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 374,
+        "text": "大树"
+      },
+      {
+        "offsetMs": 4227,
+        "durationMs": 309,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4639,
+        "durationMs": 168,
+        "text": "有"
+      },
+      {
+        "offsetMs": 4807,
+        "durationMs": 296,
+        "text": "一本"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 193,
+        "text": "本"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 399,
+        "text": "好看"
+      },
+      {
+        "offsetMs": 5709,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5812,
+        "durationMs": 412,
+        "text": "绘本"
+      },
+      {
+        "offsetMs": 6495,
+        "durationMs": 180,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 6688,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6881,
+        "durationMs": 271,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 7152,
+        "durationMs": 168,
+        "text": "们"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 271,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 7616,
+        "durationMs": 451,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8196,
+        "durationMs": 245,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8557,
+        "durationMs": 348,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 8918,
+        "durationMs": 193,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9111,
+        "durationMs": 361,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 9472,
+        "durationMs": 219,
+        "text": "的"
+      }
+    ]
+  },
+  "warm-sister:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的": {
+    "id": "warm-sister:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "normKey": "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-d46d7982e74e1b89.mp3",
+    "durationMs": 10645,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 372,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 489,
+        "durationMs": 173,
+        "text": "是"
+      },
+      {
+        "offsetMs": 688,
+        "durationMs": 293,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 994,
+        "durationMs": 625,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 1819,
+        "durationMs": 173,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1992,
+        "durationMs": 160,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2151,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 359,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 346,
+        "text": "林"
+      },
+      {
+        "offsetMs": 3617,
+        "durationMs": 346,
+        "text": "古老"
+      },
+      {
+        "offsetMs": 3963,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4069,
+        "durationMs": 386,
+        "text": "大树"
+      },
+      {
+        "offsetMs": 4455,
+        "durationMs": 346,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4907,
+        "durationMs": 146,
+        "text": "有"
+      },
+      {
+        "offsetMs": 5053,
+        "durationMs": 319,
+        "text": "一本"
+      },
+      {
+        "offsetMs": 5386,
+        "durationMs": 133,
+        "text": "本"
+      },
+      {
+        "offsetMs": 5519,
+        "durationMs": 399,
+        "text": "好看"
+      },
+      {
+        "offsetMs": 5918,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6011,
+        "durationMs": 479,
+        "text": "绘本"
+      },
+      {
+        "offsetMs": 6835,
+        "durationMs": 160,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7008,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7221,
+        "durationMs": 319,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 7540,
+        "durationMs": 213,
+        "text": "们"
+      },
+      {
+        "offsetMs": 7779,
+        "durationMs": 306,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 8098,
+        "durationMs": 572,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8777,
+        "durationMs": 253,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9029,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 9176,
+        "durationMs": 412,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 9601,
+        "durationMs": 226,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9827,
+        "durationMs": 412,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 10239,
+        "durationMs": 226,
+        "text": "的"
+      }
+    ]
+  },
+  "gentle-guide:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的": {
+    "id": "gentle-guide:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "normKey": "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-bfa888b1157a49f0.mp3",
+    "durationMs": 10167,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 363,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 480,
+        "durationMs": 148,
+        "text": "是"
+      },
+      {
+        "offsetMs": 655,
+        "durationMs": 282,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 951,
+        "durationMs": 591,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 1878,
+        "durationMs": 175,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2053,
+        "durationMs": 121,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2174,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2308,
+        "durationMs": 336,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 2644,
+        "durationMs": 269,
+        "text": "林"
+      },
+      {
+        "offsetMs": 3522,
+        "durationMs": 363,
+        "text": "古老"
+      },
+      {
+        "offsetMs": 3884,
+        "durationMs": 108,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4005,
+        "durationMs": 363,
+        "text": "大树"
+      },
+      {
+        "offsetMs": 4368,
+        "durationMs": 430,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4906,
+        "durationMs": 188,
+        "text": "有"
+      },
+      {
+        "offsetMs": 5094,
+        "durationMs": 215,
+        "text": "一本"
+      },
+      {
+        "offsetMs": 5323,
+        "durationMs": 202,
+        "text": "本"
+      },
+      {
+        "offsetMs": 5524,
+        "durationMs": 309,
+        "text": "好看"
+      },
+      {
+        "offsetMs": 5833,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 403,
+        "text": "绘本"
+      },
+      {
+        "offsetMs": 6694,
+        "durationMs": 175,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 6882,
+        "durationMs": 255,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7137,
+        "durationMs": 228,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 7366,
+        "durationMs": 175,
+        "text": "们"
+      },
+      {
+        "offsetMs": 7567,
+        "durationMs": 269,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 7849,
+        "durationMs": 551,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8508,
+        "durationMs": 323,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 8831,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8938,
+        "durationMs": 323,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 9274,
+        "durationMs": 188,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9462,
+        "durationMs": 323,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 9785,
+        "durationMs": 202,
+        "text": "的"
+      }
+    ]
+  },
+  "starlight-companion:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的": {
+    "id": "starlight-companion:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "normKey": "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-5818fa775793fd52.mp3",
+    "durationMs": 10667,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 382,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 497,
+        "durationMs": 197,
+        "text": "是"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 329,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 1050,
+        "durationMs": 605,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 1853,
+        "durationMs": 211,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2063,
+        "durationMs": 158,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2221,
+        "durationMs": 132,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2366,
+        "durationMs": 395,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 2761,
+        "durationMs": 329,
+        "text": "林"
+      },
+      {
+        "offsetMs": 3684,
+        "durationMs": 382,
+        "text": "古老"
+      },
+      {
+        "offsetMs": 4066,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4184,
+        "durationMs": 382,
+        "text": "大树"
+      },
+      {
+        "offsetMs": 4566,
+        "durationMs": 329,
+        "text": "下"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 224,
+        "text": "有"
+      },
+      {
+        "offsetMs": 5224,
+        "durationMs": 303,
+        "text": "一本"
+      },
+      {
+        "offsetMs": 5539,
+        "durationMs": 211,
+        "text": "本"
+      },
+      {
+        "offsetMs": 5750,
+        "durationMs": 421,
+        "text": "好看"
+      },
+      {
+        "offsetMs": 6171,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 487,
+        "text": "绘本"
+      },
+      {
+        "offsetMs": 6987,
+        "durationMs": 197,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7197,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7421,
+        "durationMs": 276,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 7697,
+        "durationMs": 92,
+        "text": "们"
+      },
+      {
+        "offsetMs": 7803,
+        "durationMs": 408,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 8224,
+        "durationMs": 487,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8816,
+        "durationMs": 303,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9118,
+        "durationMs": 132,
+        "text": "是"
+      },
+      {
+        "offsetMs": 9263,
+        "durationMs": 395,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 9671,
+        "durationMs": 224,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9895,
+        "durationMs": 382,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 10276,
+        "durationMs": 211,
+        "text": "的"
+      }
+    ]
+  },
+  "playful-buddy:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜": {
+    "id": "playful-buddy:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "normKey": "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-3eaad999d2f968ad.mp3",
+    "durationMs": 10580,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 412,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 348,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 412,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1429,
+        "durationMs": 271,
+        "text": "所"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 142,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2215,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2331,
+        "durationMs": 374,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 2718,
         "durationMs": 438,
         "text": "侦探"
       },
       {
-        "offsetMs": 1042,
+        "offsetMs": 3156,
         "durationMs": 284,
         "text": "社"
       },
       {
-        "offsetMs": 1907,
-        "durationMs": 245,
+        "offsetMs": 4021,
+        "durationMs": 193,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4214,
+        "durationMs": 348,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4575,
+        "durationMs": 168,
+        "text": "当"
+      },
+      {
+        "offsetMs": 4742,
+        "durationMs": 90,
+        "text": "个"
+      },
+      {
+        "offsetMs": 4845,
+        "durationMs": 322,
+        "text": "聪明"
+      },
+      {
+        "offsetMs": 5168,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 168,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 503,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 180,
         "text": "用"
       },
       {
-        "offsetMs": 2165,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 2809,
-        "durationMs": 168,
-        "text": "找"
-      },
-      {
-        "offsetMs": 2990,
-        "durationMs": 515,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 3750,
-        "durationMs": 425,
-        "text": "区分"
-      },
-      {
-        "offsetMs": 4188,
+        "offsetMs": 6430,
         "durationMs": 387,
-        "text": "事实"
+        "text": "放大"
       },
       {
-        "offsetMs": 4588,
-        "durationMs": 129,
-        "text": "与"
+        "offsetMs": 6817,
+        "durationMs": 258,
+        "text": "镜"
       },
       {
-        "offsetMs": 4729,
-        "durationMs": 490,
-        "text": "猜测"
+        "offsetMs": 7088,
+        "durationMs": 258,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 348,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 7706,
+        "durationMs": 412,
+        "text": "眼前"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 309,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8544,
+        "durationMs": 387,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 9201,
+        "durationMs": 168,
+        "text": "不"
+      },
+      {
+        "offsetMs": 9369,
+        "durationMs": 219,
+        "text": "凭"
+      },
+      {
+        "offsetMs": 9600,
+        "durationMs": 284,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 9897,
+        "durationMs": 503,
+        "text": "瞎猜"
       }
     ]
   },
-  "gentle-guide:勇气说话屋。学会把心里话好好告诉可信大人": {
-    "id": "gentle-guide:勇气说话屋。学会把心里话好好告诉可信大人",
-    "normKey": "勇气说话屋。学会把心里话好好告诉可信大人",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-970d604fe8148aa0.mp3",
-    "durationMs": 4954,
+  "warm-sister:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜": {
+    "id": "warm-sister:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "normKey": "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ca6169788041df45.mp3",
+    "durationMs": 11603,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 452,
+        "durationMs": 346,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 146,
+        "text": "是"
+      },
+      {
+        "offsetMs": 622,
+        "durationMs": 426,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 1061,
+        "durationMs": 492,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1553,
+        "durationMs": 346,
+        "text": "所"
+      },
+      {
+        "offsetMs": 2151,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2297,
+        "durationMs": 146,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2444,
+        "durationMs": 120,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 412,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 3015,
+        "durationMs": 465,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 3481,
+        "durationMs": 332,
+        "text": "社"
+      },
+      {
+        "offsetMs": 4415,
+        "durationMs": 199,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4614,
+        "durationMs": 439,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 5080,
+        "durationMs": 173,
+        "text": "当"
+      },
+      {
+        "offsetMs": 5253,
+        "durationMs": 80,
+        "text": "个"
+      },
+      {
+        "offsetMs": 5346,
+        "durationMs": 359,
+        "text": "聪明"
+      },
+      {
+        "offsetMs": 5705,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5798,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6011,
+        "durationMs": 532,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 6902,
+        "durationMs": 213,
+        "text": "用"
+      },
+      {
+        "offsetMs": 7128,
+        "durationMs": 412,
+        "text": "放大"
+      },
+      {
+        "offsetMs": 7540,
+        "durationMs": 319,
+        "text": "镜"
+      },
+      {
+        "offsetMs": 7886,
+        "durationMs": 226,
+        "text": "看"
+      },
+      {
+        "offsetMs": 8112,
+        "durationMs": 386,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 8524,
+        "durationMs": 426,
+        "text": "眼前"
+      },
+      {
+        "offsetMs": 8963,
+        "durationMs": 346,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 9308,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9402,
+        "durationMs": 505,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 10133,
+        "durationMs": 160,
+        "text": "不"
+      },
+      {
+        "offsetMs": 10293,
+        "durationMs": 226,
+        "text": "凭"
+      },
+      {
+        "offsetMs": 10532,
+        "durationMs": 346,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 10891,
+        "durationMs": 532,
+        "text": "瞎猜"
+      }
+    ]
+  },
+  "gentle-guide:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜": {
+    "id": "gentle-guide:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "normKey": "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-b3384893b0a2f395.mp3",
+    "durationMs": 10556,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 336,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 453,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 588,
+        "durationMs": 417,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 470,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1488,
+        "durationMs": 363,
+        "text": "所"
+      },
+      {
+        "offsetMs": 2133,
+        "durationMs": 148,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 108,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2389,
+        "durationMs": 81,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 376,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 2886,
+        "durationMs": 457,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 3343,
+        "durationMs": 296,
+        "text": "社"
+      },
+      {
+        "offsetMs": 4247,
+        "durationMs": 175,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4422,
+        "durationMs": 255,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 121,
+        "text": "当"
+      },
+      {
+        "offsetMs": 4825,
+        "durationMs": 67,
+        "text": "个"
+      },
+      {
+        "offsetMs": 4906,
+        "durationMs": 282,
+        "text": "聪明"
+      },
+      {
+        "offsetMs": 5188,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5269,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5457,
+        "durationMs": 511,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 6331,
+        "durationMs": 175,
+        "text": "用"
+      },
+      {
+        "offsetMs": 6519,
+        "durationMs": 376,
+        "text": "放大"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 188,
+        "text": "镜"
+      },
+      {
+        "offsetMs": 7110,
+        "durationMs": 202,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7312,
+        "durationMs": 444,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 7782,
+        "durationMs": 349,
+        "text": "眼前"
+      },
+      {
+        "offsetMs": 8145,
+        "durationMs": 255,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 8401,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8481,
+        "durationMs": 417,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 9328,
+        "durationMs": 161,
+        "text": "不"
+      },
+      {
+        "offsetMs": 9489,
+        "durationMs": 134,
+        "text": "凭"
+      },
+      {
+        "offsetMs": 9637,
+        "durationMs": 242,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 9892,
+        "durationMs": 484,
+        "text": "瞎猜"
+      }
+    ]
+  },
+  "starlight-companion:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜": {
+    "id": "starlight-companion:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "normKey": "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-21487e160de1ca29.mp3",
+    "durationMs": 11719,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 368,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 484,
+        "durationMs": 171,
+        "text": "是"
+      },
+      {
+        "offsetMs": 668,
+        "durationMs": 447,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 1129,
+        "durationMs": 447,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1576,
+        "durationMs": 329,
+        "text": "所"
+      },
+      {
+        "offsetMs": 2089,
+        "durationMs": 211,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2300,
+        "durationMs": 158,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2458,
+        "durationMs": 118,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2589,
+        "durationMs": 461,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 3063,
+        "durationMs": 474,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 3537,
+        "durationMs": 303,
+        "text": "社"
+      },
+      {
+        "offsetMs": 4434,
+        "durationMs": 211,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4645,
+        "durationMs": 382,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 5039,
+        "durationMs": 184,
+        "text": "当"
+      },
+      {
+        "offsetMs": 5224,
+        "durationMs": 118,
+        "text": "个"
+      },
+      {
+        "offsetMs": 5355,
+        "durationMs": 395,
+        "text": "聪明"
+      },
+      {
+        "offsetMs": 5750,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5855,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6079,
+        "durationMs": 539,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 224,
+        "text": "用"
+      },
+      {
+        "offsetMs": 7132,
+        "durationMs": 447,
+        "text": "放大"
+      },
+      {
+        "offsetMs": 7579,
+        "durationMs": 237,
+        "text": "镜"
+      },
+      {
+        "offsetMs": 7829,
+        "durationMs": 276,
+        "text": "看"
+      },
+      {
+        "offsetMs": 8105,
+        "durationMs": 382,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 8500,
+        "durationMs": 421,
+        "text": "眼前"
+      },
+      {
+        "offsetMs": 8934,
+        "durationMs": 355,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 9289,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9408,
+        "durationMs": 553,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 10237,
+        "durationMs": 211,
+        "text": "不"
+      },
+      {
+        "offsetMs": 10447,
+        "durationMs": 211,
+        "text": "凭"
+      },
+      {
+        "offsetMs": 10671,
+        "durationMs": 316,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 11000,
+        "durationMs": 539,
+        "text": "瞎猜"
+      }
+    ]
+  },
+  "playful-buddy:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听": {
+    "id": "playful-buddy:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "normKey": "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-caf73c8aa43c87d0.mp3",
+    "durationMs": 9613,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 387,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 168,
+        "text": "是"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 374,
         "text": "勇气"
       },
       {
-        "offsetMs": 569,
-        "durationMs": 412,
+        "offsetMs": 1055,
+        "durationMs": 438,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1738,
+        "durationMs": 168,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1906,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2047,
+        "durationMs": 348,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 387,
         "text": "说话"
       },
       {
-        "offsetMs": 981,
-        "durationMs": 332,
+        "offsetMs": 2795,
+        "durationMs": 232,
         "text": "屋"
       },
       {
-        "offsetMs": 1915,
+        "offsetMs": 3608,
+        "durationMs": 180,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3802,
+        "durationMs": 322,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4137,
+        "durationMs": 387,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 4536,
+        "durationMs": 361,
+        "text": "大声"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 361,
+        "text": "说出"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 245,
+        "text": "不"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 412,
+        "text": "学会"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6366,
+        "durationMs": 309,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6675,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 451,
+        "text": "困惑"
+      },
+      {
+        "offsetMs": 7255,
+        "durationMs": 155,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7423,
+        "durationMs": 490,
+        "text": "委屈"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 219,
+        "text": "讲"
+      },
+      {
+        "offsetMs": 8247,
+        "durationMs": 129,
+        "text": "给"
+      },
+      {
+        "offsetMs": 8389,
+        "durationMs": 335,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 8724,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8827,
+        "durationMs": 348,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 9175,
+        "durationMs": 258,
+        "text": "听"
+      }
+    ]
+  },
+  "warm-sister:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听": {
+    "id": "warm-sister:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "normKey": "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ec0e1361b2fff17c.mp3",
+    "durationMs": 10154,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 346,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 449,
+        "durationMs": 146,
+        "text": "是"
+      },
+      {
+        "offsetMs": 622,
+        "durationMs": 359,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 994,
+        "durationMs": 532,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1752,
+        "durationMs": 133,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1885,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2031,
+        "durationMs": 386,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 2430,
+        "durationMs": 426,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 2856,
+        "durationMs": 279,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 3723,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3910,
+        "durationMs": 386,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4308,
+        "durationMs": 386,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 4721,
+        "durationMs": 359,
+        "text": "大声"
+      },
+      {
+        "offsetMs": 5093,
+        "durationMs": 399,
+        "text": "说出"
+      },
+      {
+        "offsetMs": 5492,
+        "durationMs": 266,
+        "text": "不"
+      },
+      {
+        "offsetMs": 6104,
         "durationMs": 346,
         "text": "学会"
       },
       {
-        "offsetMs": 2287,
-        "durationMs": 106,
+        "offsetMs": 6449,
+        "durationMs": 146,
         "text": "把"
       },
       {
-        "offsetMs": 2407,
-        "durationMs": 864,
-        "text": "心里话"
-      },
-      {
-        "offsetMs": 3378,
-        "durationMs": 505,
-        "text": "好好"
-      },
-      {
-        "offsetMs": 3896,
-        "durationMs": 239,
-        "text": "告诉"
-      },
-      {
-        "offsetMs": 4162,
-        "durationMs": 266,
-        "text": "可信"
-      },
-      {
-        "offsetMs": 4442,
-        "durationMs": 332,
-        "text": "大人"
-      }
-    ]
-  },
-  "gentle-guide:照顾小桥。看交接日历、收拾小书包与安心想念": {
-    "id": "gentle-guide:照顾小桥。看交接日历、收拾小书包与安心想念",
-    "normKey": "照顾小桥。看交接日历、收拾小书包与安心想念",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-7c885ccaa790aaf5.mp3",
-    "durationMs": 5446,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 439,
-        "text": "照顾"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 585,
-        "text": "小桥"
-      },
-      {
-        "offsetMs": 1755,
-        "durationMs": 293,
-        "text": "看"
-      },
-      {
-        "offsetMs": 2048,
-        "durationMs": 372,
-        "text": "交接"
-      },
-      {
-        "offsetMs": 2434,
-        "durationMs": 479,
-        "text": "日历"
-      },
-      {
-        "offsetMs": 3218,
-        "durationMs": 399,
-        "text": "收拾"
-      },
-      {
-        "offsetMs": 3630,
-        "durationMs": 186,
-        "text": "小"
-      },
-      {
-        "offsetMs": 3816,
-        "durationMs": 465,
-        "text": "书包"
-      },
-      {
-        "offsetMs": 4375,
-        "durationMs": 120,
-        "text": "与"
-      },
-      {
-        "offsetMs": 4508,
+        "offsetMs": 6622,
         "durationMs": 319,
-        "text": "安心"
+        "text": "心里"
       },
       {
-        "offsetMs": 4840,
-        "durationMs": 426,
-        "text": "想念"
-      }
-    ]
-  },
-  "starlight-companion:星光小屋。点亮你的独特爱好与强项拼图": {
-    "id": "starlight-companion:星光小屋。点亮你的独特爱好与强项拼图",
-    "normKey": "星光小屋。点亮你的独特爱好与强项拼图",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-8b3bdd34d37ab3a1.mp3",
-    "durationMs": 4686,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "星光"
-      },
-      {
-        "offsetMs": 584,
-        "durationMs": 508,
-        "text": "小屋"
-      },
-      {
-        "offsetMs": 1680,
-        "durationMs": 430,
-        "text": "点亮"
-      },
-      {
-        "offsetMs": 2109,
-        "durationMs": 104,
-        "text": "你"
-      },
-      {
-        "offsetMs": 2214,
-        "durationMs": 117,
+        "offsetMs": 6942,
+        "durationMs": 93,
         "text": "的"
       },
       {
-        "offsetMs": 2344,
-        "durationMs": 365,
-        "text": "独特"
+        "offsetMs": 7048,
+        "durationMs": 465,
+        "text": "困惑"
       },
       {
-        "offsetMs": 2721,
-        "durationMs": 482,
-        "text": "爱好"
+        "offsetMs": 7540,
+        "durationMs": 146,
+        "text": "和"
       },
       {
-        "offsetMs": 3294,
-        "durationMs": 169,
-        "text": "与"
+        "offsetMs": 7699,
+        "durationMs": 585,
+        "text": "委屈"
       },
       {
-        "offsetMs": 3477,
-        "durationMs": 469,
-        "text": "强项"
+        "offsetMs": 8391,
+        "durationMs": 239,
+        "text": "讲"
       },
       {
-        "offsetMs": 3958,
-        "durationMs": 221,
-        "text": "拼"
+        "offsetMs": 8630,
+        "durationMs": 146,
+        "text": "给"
       },
       {
-        "offsetMs": 4180,
-        "durationMs": 326,
-        "text": "图"
+        "offsetMs": 8803,
+        "durationMs": 412,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 9215,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9322,
+        "durationMs": 346,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 9668,
+        "durationMs": 306,
+        "text": "听"
       }
     ]
   },
-  "warm-sister:绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪": {
-    "id": "warm-sister:绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪",
-    "normKey": "绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪",
+  "gentle-guide:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听": {
+    "id": "gentle-guide:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "normKey": "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-dda2b70306225417.mp3",
+    "durationMs": 9575,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 336,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 440,
+        "durationMs": 148,
+        "text": "是"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 336,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 964,
+        "durationMs": 564,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1744,
+        "durationMs": 175,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1918,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2053,
+        "durationMs": 323,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 2389,
+        "durationMs": 349,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 2738,
+        "durationMs": 296,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 3642,
+        "durationMs": 175,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3831,
+        "durationMs": 242,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4086,
+        "durationMs": 349,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 4462,
+        "durationMs": 336,
+        "text": "大声"
+      },
+      {
+        "offsetMs": 4812,
+        "durationMs": 296,
+        "text": "说出"
+      },
+      {
+        "offsetMs": 5108,
+        "durationMs": 242,
+        "text": "不"
+      },
+      {
+        "offsetMs": 5712,
+        "durationMs": 363,
+        "text": "学会"
+      },
+      {
+        "offsetMs": 6075,
+        "durationMs": 134,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 296,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6532,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6626,
+        "durationMs": 457,
+        "text": "困惑"
+      },
+      {
+        "offsetMs": 7110,
+        "durationMs": 121,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7245,
+        "durationMs": 591,
+        "text": "委屈"
+      },
+      {
+        "offsetMs": 7957,
+        "durationMs": 255,
+        "text": "讲"
+      },
+      {
+        "offsetMs": 8212,
+        "durationMs": 94,
+        "text": "给"
+      },
+      {
+        "offsetMs": 8333,
+        "durationMs": 376,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 8710,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8790,
+        "durationMs": 296,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 9086,
+        "durationMs": 309,
+        "text": "听"
+      }
+    ]
+  },
+  "starlight-companion:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听": {
+    "id": "starlight-companion:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "normKey": "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-b6750a18c6a47c1a.mp3",
+    "durationMs": 10430,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 382,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 484,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 655,
+        "durationMs": 421,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 1089,
+        "durationMs": 526,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1813,
+        "durationMs": 237,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2050,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2208,
+        "durationMs": 408,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 2629,
+        "durationMs": 382,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 3011,
+        "durationMs": 276,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 3882,
+        "durationMs": 184,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4079,
+        "durationMs": 316,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4408,
+        "durationMs": 368,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 4789,
+        "durationMs": 408,
+        "text": "大声"
+      },
+      {
+        "offsetMs": 5211,
+        "durationMs": 382,
+        "text": "说出"
+      },
+      {
+        "offsetMs": 5592,
+        "durationMs": 316,
+        "text": "不"
+      },
+      {
+        "offsetMs": 6158,
+        "durationMs": 474,
+        "text": "学会"
+      },
+      {
+        "offsetMs": 6632,
+        "durationMs": 184,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6829,
+        "durationMs": 355,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 7184,
+        "durationMs": 118,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7316,
+        "durationMs": 487,
+        "text": "困惑"
+      },
+      {
+        "offsetMs": 7816,
+        "durationMs": 171,
+        "text": "和"
+      },
+      {
+        "offsetMs": 8000,
+        "durationMs": 553,
+        "text": "委屈"
+      },
+      {
+        "offsetMs": 8658,
+        "durationMs": 263,
+        "text": "讲"
+      },
+      {
+        "offsetMs": 8921,
+        "durationMs": 158,
+        "text": "给"
+      },
+      {
+        "offsetMs": 9092,
+        "durationMs": 382,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 9474,
+        "durationMs": 79,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9566,
+        "durationMs": 395,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 9961,
+        "durationMs": 289,
+        "text": "听"
+      }
+    ]
+  },
+  "playful-buddy:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你": {
+    "id": "playful-buddy:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "normKey": "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b45ea80ef876680c.mp3",
+    "durationMs": 10206,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 387,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 501,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 630,
+        "durationMs": 567,
+        "text": "双向桥"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 309,
+        "text": "驿"
+      },
+      {
+        "offsetMs": 1919,
+        "durationMs": 168,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2086,
+        "durationMs": 155,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2241,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 284,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 2653,
+        "durationMs": 593,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 3827,
+        "durationMs": 271,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 4098,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4214,
+        "durationMs": 554,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 4871,
+        "durationMs": 142,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5142,
+        "durationMs": 168,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5451,
+        "durationMs": 116,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 296,
+        "text": "家"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 348,
+        "text": "日程"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 902,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 7616,
+        "durationMs": 387,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8106,
+        "durationMs": 245,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 464,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 129,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9072,
+        "durationMs": 954,
+        "text": "深深爱着你"
+      }
+    ]
+  },
+  "warm-sister:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你": {
+    "id": "warm-sister:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "normKey": "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-3521c557c75f8159.mp3",
-    "durationMs": 6589,
+    "audioUrl": "/audio/tts/warm-sister-727f81dc1ebbfe16.mp3",
+    "durationMs": 11230,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 372,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 489,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 675,
+        "durationMs": 625,
+        "text": "双向桥"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 239,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1553,
+        "durationMs": 319,
+        "text": "驿"
+      },
+      {
+        "offsetMs": 2111,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2257,
+        "durationMs": 146,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2404,
+        "durationMs": 120,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 293,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 2856,
+        "durationMs": 652,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 4122,
+        "durationMs": 266,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 4388,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4495,
+        "durationMs": 585,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 5186,
+        "durationMs": 173,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5359,
+        "durationMs": 146,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5519,
+        "durationMs": 226,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 5745,
+        "durationMs": 133,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5878,
+        "durationMs": 120,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5997,
+        "durationMs": 293,
+        "text": "家"
+      },
+      {
+        "offsetMs": 6622,
+        "durationMs": 426,
+        "text": "日程"
+      },
+      {
+        "offsetMs": 7074,
+        "durationMs": 971,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 8378,
+        "durationMs": 359,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 8737,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8843,
+        "durationMs": 306,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 9162,
+        "durationMs": 519,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 9801,
+        "durationMs": 160,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9973,
+        "durationMs": 1077,
+        "text": "深深爱着你"
+      }
+    ]
+  },
+  "gentle-guide:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你": {
+    "id": "gentle-guide:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "normKey": "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-6c3a334c4135a36e.mp3",
+    "durationMs": 10651,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 444,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 188,
+        "text": "是"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 632,
+        "text": "双向桥"
+      },
+      {
+        "offsetMs": 1421,
+        "durationMs": 242,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1663,
+        "durationMs": 228,
+        "text": "驿"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 161,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2308,
+        "durationMs": 121,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2429,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2563,
+        "durationMs": 282,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 2859,
+        "durationMs": 605,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 4086,
+        "durationMs": 282,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 4368,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4462,
+        "durationMs": 605,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 5188,
+        "durationMs": 161,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5349,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5457,
+        "durationMs": 161,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 5618,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5712,
+        "durationMs": 108,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5820,
+        "durationMs": 323,
+        "text": "家"
+      },
+      {
+        "offsetMs": 6519,
+        "durationMs": 349,
+        "text": "日程"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 874,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 8199,
+        "durationMs": 323,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 8522,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8602,
+        "durationMs": 228,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 8844,
+        "durationMs": 551,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 9489,
+        "durationMs": 121,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9624,
+        "durationMs": 847,
+        "text": "深深爱着你"
+      }
+    ]
+  },
+  "starlight-companion:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你": {
+    "id": "starlight-companion:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "normKey": "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-8364682de3852e9e.mp3",
+    "durationMs": 10838,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 382,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 497,
+        "durationMs": 184,
+        "text": "是"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 645,
+        "text": "双向桥"
+      },
+      {
+        "offsetMs": 1353,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1589,
+        "durationMs": 250,
+        "text": "驿"
+      },
+      {
+        "offsetMs": 2011,
+        "durationMs": 224,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2234,
+        "durationMs": 158,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2392,
+        "durationMs": 118,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2524,
+        "durationMs": 342,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 2879,
+        "durationMs": 605,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 4079,
+        "durationMs": 276,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 4355,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4474,
+        "durationMs": 566,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 5145,
+        "durationMs": 197,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5342,
+        "durationMs": 118,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5474,
+        "durationMs": 171,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 118,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5763,
+        "durationMs": 118,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5882,
+        "durationMs": 316,
+        "text": "家"
+      },
+      {
+        "offsetMs": 6421,
+        "durationMs": 434,
+        "text": "日程"
+      },
+      {
+        "offsetMs": 6868,
+        "durationMs": 908,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 7987,
+        "durationMs": 421,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 8408,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8513,
+        "durationMs": 316,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 8842,
+        "durationMs": 539,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 9500,
+        "durationMs": 184,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9697,
+        "durationMs": 961,
+        "text": "深深爱着你"
+      }
+    ]
+  },
+  "playful-buddy:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光": {
+    "id": "playful-buddy:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "normKey": "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f42a80f1fda85b1c.mp3",
+    "durationMs": 11958,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 387,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 219,
+        "text": "树"
+      },
+      {
+        "offsetMs": 1223,
+        "durationMs": 219,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1687,
+        "durationMs": 155,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1841,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1970,
+        "durationMs": 374,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 425,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 219,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 348,
+        "text": "夜空"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 387,
+        "text": "树梢"
+      },
+      {
+        "offsetMs": 4343,
+        "durationMs": 322,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4768,
+        "durationMs": 361,
+        "text": "点亮"
+      },
+      {
+        "offsetMs": 5142,
+        "durationMs": 309,
+        "text": "属于"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5606,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5722,
+        "durationMs": 515,
+        "text": "爱好"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 387,
+        "text": "特长"
+      },
+      {
+        "offsetMs": 6959,
+        "durationMs": 90,
+        "text": "与"
+      },
+      {
+        "offsetMs": 7062,
+        "durationMs": 232,
+        "text": "好"
+      },
+      {
+        "offsetMs": 7294,
+        "durationMs": 451,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 554,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 8570,
+        "durationMs": 245,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 8827,
+        "durationMs": 541,
+        "text": "大拼图"
+      },
+      {
+        "offsetMs": 9369,
+        "durationMs": 116,
+        "text": "里"
+      },
+      {
+        "offsetMs": 9485,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9588,
+        "durationMs": 451,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 10296,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10412,
+        "durationMs": 477,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 10902,
+        "durationMs": 412,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 11327,
+        "durationMs": 451,
+        "text": "发光"
+      }
+    ]
+  },
+  "warm-sister:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光": {
+    "id": "warm-sister:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "normKey": "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ce7bf6f81fb73830.mp3",
+    "durationMs": 12946,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 359,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 173,
+        "text": "是"
+      },
+      {
+        "offsetMs": 662,
+        "durationMs": 399,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 1061,
+        "durationMs": 239,
+        "text": "树"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 279,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1805,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1952,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2111,
+        "durationMs": 386,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 2510,
+        "durationMs": 519,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 3644,
+        "durationMs": 186,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3843,
+        "durationMs": 346,
+        "text": "夜空"
+      },
+      {
+        "offsetMs": 4202,
+        "durationMs": 412,
+        "text": "树梢"
+      },
+      {
+        "offsetMs": 4614,
+        "durationMs": 359,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5080,
+        "durationMs": 426,
+        "text": "点亮"
+      },
+      {
+        "offsetMs": 5532,
+        "durationMs": 306,
+        "text": "属于"
+      },
+      {
+        "offsetMs": 5851,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5997,
+        "durationMs": 106,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6117,
+        "durationMs": 572,
+        "text": "爱好"
+      },
+      {
+        "offsetMs": 6902,
+        "durationMs": 412,
+        "text": "特长"
+      },
+      {
+        "offsetMs": 7340,
+        "durationMs": 93,
+        "text": "与"
+      },
+      {
+        "offsetMs": 7447,
+        "durationMs": 239,
+        "text": "好"
+      },
+      {
+        "offsetMs": 7686,
+        "durationMs": 558,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 8604,
+        "durationMs": 625,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 9255,
+        "durationMs": 279,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 9548,
+        "durationMs": 598,
+        "text": "大拼图"
+      },
+      {
+        "offsetMs": 10146,
+        "durationMs": 120,
+        "text": "里"
+      },
+      {
+        "offsetMs": 10266,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10359,
+        "durationMs": 545,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 11157,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11303,
+        "durationMs": 465,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 11795,
+        "durationMs": 465,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 12274,
+        "durationMs": 492,
+        "text": "发光"
+      }
+    ]
+  },
+  "gentle-guide:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光": {
+    "id": "gentle-guide:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "normKey": "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-9d01ddd7eb9cc6e7.mp3",
+    "durationMs": 12385,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 390,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 215,
+        "text": "是"
+      },
+      {
+        "offsetMs": 736,
+        "durationMs": 444,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 1179,
+        "durationMs": 215,
+        "text": "树"
+      },
+      {
+        "offsetMs": 1394,
+        "durationMs": 336,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1986,
+        "durationMs": 175,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2160,
+        "durationMs": 148,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2335,
+        "durationMs": 376,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 2725,
+        "durationMs": 470,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 3817,
+        "durationMs": 175,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4005,
+        "durationMs": 323,
+        "text": "夜空"
+      },
+      {
+        "offsetMs": 4341,
+        "durationMs": 349,
+        "text": "树梢"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 376,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5175,
+        "durationMs": 376,
+        "text": "点亮"
+      },
+      {
+        "offsetMs": 5578,
+        "durationMs": 228,
+        "text": "属于"
+      },
+      {
+        "offsetMs": 5820,
+        "durationMs": 108,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5927,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6022,
+        "durationMs": 484,
+        "text": "爱好"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 417,
+        "text": "特长"
+      },
+      {
+        "offsetMs": 7339,
+        "durationMs": 81,
+        "text": "与"
+      },
+      {
+        "offsetMs": 7433,
+        "durationMs": 202,
+        "text": "好"
+      },
+      {
+        "offsetMs": 7634,
+        "durationMs": 484,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 8468,
+        "durationMs": 511,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 9005,
+        "durationMs": 202,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 9220,
+        "durationMs": 497,
+        "text": "大拼图"
+      },
+      {
+        "offsetMs": 9718,
+        "durationMs": 81,
+        "text": "里"
+      },
+      {
+        "offsetMs": 9798,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9892,
+        "durationMs": 390,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 10645,
+        "durationMs": 228,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10874,
+        "durationMs": 457,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 11358,
+        "durationMs": 390,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 11761,
+        "durationMs": 444,
+        "text": "发光"
+      }
+    ]
+  },
+  "starlight-companion:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光": {
+    "id": "starlight-companion:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "normKey": "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-eff45790b341fd58.mp3",
+    "durationMs": 12890,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 368,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 471,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 629,
+        "durationMs": 434,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 1063,
+        "durationMs": 224,
+        "text": "树"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 329,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1813,
+        "durationMs": 224,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2037,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2195,
+        "durationMs": 395,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 2603,
+        "durationMs": 500,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 3697,
+        "durationMs": 211,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3921,
+        "durationMs": 408,
+        "text": "夜空"
+      },
+      {
+        "offsetMs": 4342,
+        "durationMs": 447,
+        "text": "树梢"
+      },
+      {
+        "offsetMs": 4789,
+        "durationMs": 289,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5197,
+        "durationMs": 434,
+        "text": "点亮"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 289,
+        "text": "属于"
+      },
+      {
+        "offsetMs": 5947,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6092,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6197,
+        "durationMs": 513,
+        "text": "爱好"
+      },
+      {
+        "offsetMs": 7066,
+        "durationMs": 434,
+        "text": "特长"
+      },
+      {
+        "offsetMs": 7513,
+        "durationMs": 118,
+        "text": "与"
+      },
+      {
+        "offsetMs": 7645,
+        "durationMs": 237,
+        "text": "好"
+      },
+      {
+        "offsetMs": 7882,
+        "durationMs": 513,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 8645,
+        "durationMs": 513,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 9171,
+        "durationMs": 289,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 9474,
+        "durationMs": 658,
+        "text": "大拼图"
+      },
+      {
+        "offsetMs": 10132,
+        "durationMs": 132,
+        "text": "里"
+      },
+      {
+        "offsetMs": 10263,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10368,
+        "durationMs": 500,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 11053,
+        "durationMs": 197,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11250,
+        "durationMs": 434,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 11697,
+        "durationMs": 461,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 12171,
+        "durationMs": 539,
+        "text": "发光"
+      }
+    ]
+  },
+  "playful-buddy:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息": {
+    "id": "playful-buddy:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "normKey": "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d2d52247688af218.mp3",
+    "durationMs": 9755,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 142,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 746,
+        "durationMs": 193,
+        "text": "草"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 735,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2255,
+        "durationMs": 361,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 2629,
+        "durationMs": 322,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 2964,
+        "durationMs": 335,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 232,
+        "text": "累"
+      },
+      {
+        "offsetMs": 3647,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 374,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 4330,
+        "durationMs": 670,
+        "text": "噗通噗通"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 258,
+        "text": "跳"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 180,
+        "text": "就"
+      },
+      {
+        "offsetMs": 5747,
+        "durationMs": 116,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5876,
+        "durationMs": 335,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 6224,
+        "durationMs": 245,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 348,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 6843,
+        "durationMs": 683,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 7809,
+        "durationMs": 477,
+        "text": "随时"
+      },
+      {
+        "offsetMs": 8299,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 8582,
+        "durationMs": 219,
+        "text": "停"
+      },
+      {
+        "offsetMs": 8802,
+        "durationMs": 271,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 9085,
+        "durationMs": 490,
+        "text": "休息"
+      }
+    ]
+  },
+  "warm-sister:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息": {
+    "id": "warm-sister:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "normKey": "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-84d9577a1ef3fd3d.mp3",
+    "durationMs": 10539,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 372,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 489,
+        "durationMs": 199,
+        "text": "是"
+      },
+      {
+        "offsetMs": 715,
+        "durationMs": 173,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 226,
+        "text": "草"
+      },
+      {
+        "offsetMs": 1114,
+        "durationMs": 758,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 306,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 2806,
+        "durationMs": 253,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3085,
+        "durationMs": 386,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3484,
+        "durationMs": 293,
+        "text": "累"
+      },
+      {
+        "offsetMs": 3870,
+        "durationMs": 332,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 4215,
+        "durationMs": 412,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 4654,
+        "durationMs": 758,
+        "text": "噗通噗通"
+      },
+      {
+        "offsetMs": 5412,
+        "durationMs": 319,
+        "text": "跳"
+      },
+      {
+        "offsetMs": 6037,
+        "durationMs": 146,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6184,
+        "durationMs": 133,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6330,
+        "durationMs": 439,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 6795,
+        "durationMs": 226,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 7035,
+        "durationMs": 399,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 7460,
+        "durationMs": 692,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 8497,
+        "durationMs": 505,
+        "text": "随时"
+      },
+      {
+        "offsetMs": 9016,
+        "durationMs": 253,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 9295,
+        "durationMs": 213,
+        "text": "停"
+      },
+      {
+        "offsetMs": 9508,
+        "durationMs": 293,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 9814,
+        "durationMs": 545,
+        "text": "休息"
+      }
+    ]
+  },
+  "gentle-guide:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息": {
+    "id": "gentle-guide:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "normKey": "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-114a1832dc3f8b38.mp3",
+    "durationMs": 9535,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 228,
+        "text": "是"
+      },
+      {
+        "offsetMs": 749,
+        "durationMs": 175,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 924,
+        "durationMs": 255,
+        "text": "草"
+      },
+      {
+        "offsetMs": 1179,
+        "durationMs": 726,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2527,
+        "durationMs": 282,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 2823,
+        "durationMs": 188,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 269,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3320,
+        "durationMs": 336,
+        "text": "累"
+      },
+      {
+        "offsetMs": 3777,
+        "durationMs": 282,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 4073,
+        "durationMs": 282,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 4382,
+        "durationMs": 632,
+        "text": "噗通噗通"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 282,
+        "text": "跳"
+      },
+      {
+        "offsetMs": 5686,
+        "durationMs": 161,
+        "text": "就"
+      },
+      {
+        "offsetMs": 5847,
+        "durationMs": 81,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5941,
+        "durationMs": 309,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 6277,
+        "durationMs": 202,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 6492,
+        "durationMs": 349,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 6868,
+        "durationMs": 618,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 7836,
+        "durationMs": 497,
+        "text": "随时"
+      },
+      {
+        "offsetMs": 8347,
+        "durationMs": 175,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 8548,
+        "durationMs": 148,
+        "text": "停"
+      },
+      {
+        "offsetMs": 8696,
+        "durationMs": 202,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 8911,
+        "durationMs": 444,
+        "text": "休息"
+      }
+    ]
+  },
+  "starlight-companion:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息": {
+    "id": "starlight-companion:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "normKey": "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-da4059151b376d3d.mp3",
+    "durationMs": 10482,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 368,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 484,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 655,
+        "durationMs": 211,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 866,
+        "durationMs": 224,
+        "text": "草"
+      },
+      {
+        "offsetMs": 1089,
+        "durationMs": 724,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 355,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 2776,
+        "durationMs": 303,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3092,
+        "durationMs": 368,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3474,
+        "durationMs": 289,
+        "text": "累"
+      },
+      {
+        "offsetMs": 3868,
+        "durationMs": 342,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 4224,
+        "durationMs": 408,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 4645,
+        "durationMs": 776,
+        "text": "噗通噗通"
+      },
+      {
+        "offsetMs": 5421,
+        "durationMs": 303,
+        "text": "跳"
+      },
+      {
+        "offsetMs": 5987,
+        "durationMs": 211,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6197,
+        "durationMs": 132,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6342,
+        "durationMs": 342,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 6697,
+        "durationMs": 303,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 7013,
+        "durationMs": 408,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 7434,
+        "durationMs": 724,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 8368,
+        "durationMs": 513,
+        "text": "随时"
+      },
+      {
+        "offsetMs": 8895,
+        "durationMs": 276,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 9184,
+        "durationMs": 250,
+        "text": "停"
+      },
+      {
+        "offsetMs": 9434,
+        "durationMs": 329,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 9776,
+        "durationMs": 526,
+        "text": "休息"
+      }
+    ]
+  },
+  "playful-buddy:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去": {
+    "id": "playful-buddy:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "normKey": "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-5893f3d01f74ba14.mp3",
+    "durationMs": 9162,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 412,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 168,
+        "text": "大"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 361,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 735,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 2526,
+        "durationMs": 296,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2835,
+        "durationMs": 271,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3119,
+        "durationMs": 193,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 180,
+        "text": "难"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 374,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 3982,
+        "durationMs": 168,
+        "text": "别"
+      },
+      {
+        "offsetMs": 4150,
+        "durationMs": 503,
+        "text": "着急"
+      },
+      {
+        "offsetMs": 4936,
+        "durationMs": 335,
+        "text": "动动"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 309,
+        "text": "手用"
+      },
+      {
+        "offsetMs": 5593,
+        "durationMs": 644,
+        "text": "小木槌"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 129,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 103,
+        "text": "它"
+      },
+      {
+        "offsetMs": 6598,
+        "durationMs": 361,
+        "text": "敲成"
+      },
+      {
+        "offsetMs": 6959,
+        "durationMs": 180,
+        "text": "三"
+      },
+      {
+        "offsetMs": 7152,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 258,
+        "text": "块"
+      },
+      {
+        "offsetMs": 7887,
+        "durationMs": 142,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 129,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8170,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8299,
+        "durationMs": 116,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8428,
+        "durationMs": 180,
+        "text": "迈"
+      },
+      {
+        "offsetMs": 8608,
+        "durationMs": 374,
+        "text": "过去"
+      }
+    ]
+  },
+  "warm-sister:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去": {
+    "id": "warm-sister:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "normKey": "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-217ef640a0c7ccf3.mp3",
+    "durationMs": 10020,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 452,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 755,
+        "durationMs": 173,
+        "text": "大"
+      },
+      {
+        "offsetMs": 928,
+        "durationMs": 359,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 785,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 2699,
+        "durationMs": 293,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 3005,
+        "durationMs": 266,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3298,
+        "durationMs": 199,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3497,
+        "durationMs": 199,
+        "text": "难"
+      },
+      {
+        "offsetMs": 3697,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3803,
+        "durationMs": 346,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 4176,
+        "durationMs": 146,
+        "text": "别"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 558,
+        "text": "着急"
+      },
+      {
+        "offsetMs": 5253,
+        "durationMs": 359,
+        "text": "动动"
+      },
+      {
+        "offsetMs": 5612,
+        "durationMs": 332,
+        "text": "手用"
+      },
+      {
+        "offsetMs": 5957,
+        "durationMs": 745,
+        "text": "小木槌"
+      },
+      {
+        "offsetMs": 6808,
+        "durationMs": 133,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6942,
+        "durationMs": 120,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7074,
+        "durationMs": 399,
+        "text": "敲成"
+      },
+      {
+        "offsetMs": 7473,
+        "durationMs": 186,
+        "text": "三"
+      },
+      {
+        "offsetMs": 7673,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7886,
+        "durationMs": 306,
+        "text": "块"
+      },
+      {
+        "offsetMs": 8511,
+        "durationMs": 186,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8697,
+        "durationMs": 146,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8856,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9003,
+        "durationMs": 146,
+        "text": "步"
+      },
+      {
+        "offsetMs": 9176,
+        "durationMs": 213,
+        "text": "迈"
+      },
+      {
+        "offsetMs": 9388,
+        "durationMs": 452,
+        "text": "过去"
+      }
+    ]
+  },
+  "gentle-guide:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去": {
+    "id": "gentle-guide:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "normKey": "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-ad340c1011bc374e.mp3",
+    "durationMs": 9817,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 175,
+        "text": "是"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 202,
+        "text": "大"
+      },
+      {
+        "offsetMs": 897,
+        "durationMs": 390,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 874,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 2796,
+        "durationMs": 269,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 3078,
+        "durationMs": 202,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3306,
+        "durationMs": 188,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3495,
+        "durationMs": 175,
+        "text": "难"
+      },
+      {
+        "offsetMs": 3669,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 390,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 4167,
+        "durationMs": 148,
+        "text": "别"
+      },
+      {
+        "offsetMs": 4314,
+        "durationMs": 470,
+        "text": "着急"
+      },
+      {
+        "offsetMs": 5242,
+        "durationMs": 390,
+        "text": "动动"
+      },
+      {
+        "offsetMs": 5632,
+        "durationMs": 349,
+        "text": "手用"
+      },
+      {
+        "offsetMs": 5995,
+        "durationMs": 753,
+        "text": "小木槌"
+      },
+      {
+        "offsetMs": 6855,
+        "durationMs": 161,
+        "text": "把"
+      },
+      {
+        "offsetMs": 7016,
+        "durationMs": 108,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7137,
+        "durationMs": 444,
+        "text": "敲成"
+      },
+      {
+        "offsetMs": 7581,
+        "durationMs": 202,
+        "text": "三"
+      },
+      {
+        "offsetMs": 7796,
+        "durationMs": 175,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7970,
+        "durationMs": 269,
+        "text": "块"
+      },
+      {
+        "offsetMs": 8495,
+        "durationMs": 228,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8723,
+        "durationMs": 148,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8884,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8978,
+        "durationMs": 121,
+        "text": "步"
+      },
+      {
+        "offsetMs": 9126,
+        "durationMs": 175,
+        "text": "迈"
+      },
+      {
+        "offsetMs": 9301,
+        "durationMs": 336,
+        "text": "过去"
+      }
+    ]
+  },
+  "starlight-companion:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去": {
+    "id": "starlight-companion:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "normKey": "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-8e30b049e11dd3d6.mp3",
+    "durationMs": 10206,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 355,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 471,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 642,
+        "durationMs": 197,
+        "text": "大"
+      },
+      {
+        "offsetMs": 839,
+        "durationMs": 368,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 1221,
+        "durationMs": 763,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 2579,
+        "durationMs": 342,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2934,
+        "durationMs": 303,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3250,
+        "durationMs": 224,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3474,
+        "durationMs": 184,
+        "text": "难"
+      },
+      {
+        "offsetMs": 3658,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3776,
+        "durationMs": 368,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 4158,
+        "durationMs": 224,
+        "text": "别"
+      },
+      {
+        "offsetMs": 4382,
+        "durationMs": 539,
+        "text": "着急"
+      },
+      {
+        "offsetMs": 5197,
+        "durationMs": 395,
+        "text": "动动"
+      },
+      {
+        "offsetMs": 5592,
+        "durationMs": 355,
+        "text": "手用"
+      },
+      {
+        "offsetMs": 5961,
+        "durationMs": 737,
+        "text": "小木槌"
+      },
+      {
+        "offsetMs": 6803,
+        "durationMs": 211,
+        "text": "把"
+      },
+      {
+        "offsetMs": 7013,
+        "durationMs": 132,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7158,
+        "durationMs": 408,
+        "text": "敲成"
+      },
+      {
+        "offsetMs": 7566,
+        "durationMs": 224,
+        "text": "三"
+      },
+      {
+        "offsetMs": 7803,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8026,
+        "durationMs": 289,
+        "text": "块"
+      },
+      {
+        "offsetMs": 8566,
+        "durationMs": 289,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8855,
+        "durationMs": 211,
+        "text": "步"
+      },
+      {
+        "offsetMs": 9079,
+        "durationMs": 158,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9237,
+        "durationMs": 145,
+        "text": "步"
+      },
+      {
+        "offsetMs": 9395,
+        "durationMs": 210,
+        "text": "迈"
+      },
+      {
+        "offsetMs": 9605,
+        "durationMs": 421,
+        "text": "过去"
+      }
+    ]
+  },
+  "playful-buddy:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步": {
+    "id": "playful-buddy:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "normKey": "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d8f98720d704100c.mp3",
+    "durationMs": 10257,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 180,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 282,
+        "durationMs": 219,
+        "text": "草"
+      },
+      {
+        "offsetMs": 514,
+        "durationMs": 348,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 875,
+        "durationMs": 709,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2165,
+        "durationMs": 296,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 2474,
+        "durationMs": 425,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 2912,
+        "durationMs": 309,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 438,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 3686,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 528,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 4665,
+        "durationMs": 400,
+        "text": "放松"
+      },
+      {
+        "offsetMs": 5077,
+        "durationMs": 515,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 5915,
+        "durationMs": 348,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 258,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 6546,
+        "durationMs": 180,
+        "text": "大"
+      },
+      {
+        "offsetMs": 6727,
+        "durationMs": 464,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 116,
+        "text": "也"
+      },
+      {
+        "offsetMs": 7590,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 709,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 8814,
+        "durationMs": 129,
+        "text": "把"
+      },
+      {
+        "offsetMs": 8943,
+        "durationMs": 103,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9059,
+        "durationMs": 206,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 9265,
+        "durationMs": 155,
+        "text": "成"
+      },
+      {
+        "offsetMs": 9433,
+        "durationMs": 193,
+        "text": "三"
+      },
+      {
+        "offsetMs": 9626,
+        "durationMs": 451,
+        "text": "小步"
+      }
+    ]
+  },
+  "warm-sister:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步": {
+    "id": "warm-sister:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "normKey": "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-e3caa03a5c0400a1.mp3",
+    "durationMs": 11098,
     "boundaries": [
       {
         "offsetMs": 103,
@@ -3068,267 +7248,2347 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       },
       {
         "offsetMs": 2367,
-        "durationMs": 412,
-        "text": "跟随"
-      },
-      {
-        "offsetMs": 2793,
-        "durationMs": 492,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 3311,
-        "durationMs": 346,
-        "text": "呼吸"
-      },
-      {
-        "offsetMs": 3670,
-        "durationMs": 612,
-        "text": "练习"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 412,
-        "text": "放松"
-      },
-      {
-        "offsetMs": 5013,
-        "durationMs": 386,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 5426,
-        "durationMs": 372,
-        "text": "平复"
-      },
-      {
-        "offsetMs": 5811,
-        "durationMs": 598,
-        "text": "情绪"
-      }
-    ]
-  },
-  "gentle-guide:大石头变小魔法拆解台。把大困难拆成容易迈出的三小步": {
-    "id": "gentle-guide:大石头变小魔法拆解台。把大困难拆成容易迈出的三小步",
-    "normKey": "大石头变小魔法拆解台。把大困难拆成容易迈出的三小步",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-830b8fdabe511435.mp3",
-    "durationMs": 5938,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 226,
-        "text": "大"
-      },
-      {
-        "offsetMs": 329,
-        "durationMs": 572,
-        "text": "石头"
-      },
-      {
-        "offsetMs": 928,
-        "durationMs": 146,
-        "text": "变"
-      },
-      {
-        "offsetMs": 1087,
-        "durationMs": 199,
-        "text": "小"
-      },
-      {
-        "offsetMs": 1287,
         "durationMs": 279,
-        "text": "魔法"
+        "text": "跟着"
       },
       {
-        "offsetMs": 1579,
-        "durationMs": 771,
-        "text": "拆解台"
-      },
-      {
-        "offsetMs": 2965,
-        "durationMs": 199,
-        "text": "把"
-      },
-      {
-        "offsetMs": 3178,
-        "durationMs": 226,
-        "text": "大"
-      },
-      {
-        "offsetMs": 3404,
-        "durationMs": 519,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 439,
-        "text": "拆成"
-      },
-      {
-        "offsetMs": 4495,
-        "durationMs": 226,
-        "text": "容易"
-      },
-      {
-        "offsetMs": 4734,
-        "durationMs": 306,
-        "text": "迈出"
-      },
-      {
-        "offsetMs": 5040,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5146,
-        "durationMs": 612,
-        "text": "三小步"
-      }
-    ]
-  },
-  "warm-sister:请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。": {
-    "id": "warm-sister:请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。",
-    "normKey": "请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-4128625183463576.mp3",
-    "durationMs": 4818,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 199,
-        "text": "请"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 359,
-        "text": "跟随"
-      },
-      {
-        "offsetMs": 688,
-        "durationMs": 572,
+        "offsetMs": 2660,
+        "durationMs": 479,
         "text": "圆圈"
       },
       {
-        "offsetMs": 1499,
-        "durationMs": 359,
+        "offsetMs": 3165,
+        "durationMs": 399,
         "text": "慢慢"
       },
       {
-        "offsetMs": 1872,
-        "durationMs": 558,
+        "offsetMs": 3577,
+        "durationMs": 426,
         "text": "吸气"
       },
       {
-        "offsetMs": 2749,
-        "durationMs": 293,
-        "text": "肚子"
+        "offsetMs": 4029,
+        "durationMs": 133,
+        "text": "和"
       },
       {
-        "offsetMs": 3069,
+        "offsetMs": 4176,
+        "durationMs": 572,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 386,
+        "text": "放松"
+      },
+      {
+        "offsetMs": 5372,
+        "durationMs": 572,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 6383,
+        "durationMs": 266,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 6662,
+        "durationMs": 306,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 6995,
+        "durationMs": 186,
+        "text": "大"
+      },
+      {
+        "offsetMs": 7181,
+        "durationMs": 532,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 7965,
+        "durationMs": 133,
+        "text": "也"
+      },
+      {
+        "offsetMs": 8112,
+        "durationMs": 253,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 8378,
+        "durationMs": 173,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8551,
+        "durationMs": 785,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 9442,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 9601,
+        "durationMs": 133,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9747,
+        "durationMs": 213,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 9960,
+        "durationMs": 186,
+        "text": "成"
+      },
+      {
+        "offsetMs": 10173,
+        "durationMs": 213,
+        "text": "三"
+      },
+      {
+        "offsetMs": 10386,
+        "durationMs": 532,
+        "text": "小步"
+      }
+    ]
+  },
+  "gentle-guide:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步": {
+    "id": "gentle-guide:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "normKey": "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-3703a75261697e64.mp3",
+    "durationMs": 10301,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 188,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 292,
+        "durationMs": 202,
+        "text": "草"
+      },
+      {
+        "offsetMs": 507,
+        "durationMs": 457,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 739,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2352,
+        "durationMs": 296,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 2661,
+        "durationMs": 497,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 3186,
+        "durationMs": 309,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3508,
+        "durationMs": 484,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 4019,
+        "durationMs": 81,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4113,
+        "durationMs": 511,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 4866,
+        "durationMs": 403,
+        "text": "放松"
+      },
+      {
+        "offsetMs": 5282,
+        "durationMs": 470,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 6263,
+        "durationMs": 202,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 6478,
+        "durationMs": 215,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 6720,
+        "durationMs": 202,
+        "text": "大"
+      },
+      {
+        "offsetMs": 6922,
+        "durationMs": 484,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 7634,
+        "durationMs": 148,
+        "text": "也"
+      },
+      {
+        "offsetMs": 7796,
+        "durationMs": 175,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 7984,
+        "durationMs": 108,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8091,
+        "durationMs": 726,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 8911,
+        "durationMs": 134,
+        "text": "把"
+      },
+      {
+        "offsetMs": 9046,
+        "durationMs": 81,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9140,
+        "durationMs": 202,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 9341,
+        "durationMs": 148,
+        "text": "成"
+      },
+      {
+        "offsetMs": 9516,
+        "durationMs": 202,
+        "text": "三"
+      },
+      {
+        "offsetMs": 9718,
+        "durationMs": 403,
+        "text": "小步"
+      }
+    ]
+  },
+  "starlight-companion:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步": {
+    "id": "starlight-companion:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "normKey": "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-a593b8dc30eafca0.mp3",
+    "durationMs": 11128,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 197,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 300,
+        "durationMs": 237,
+        "text": "草"
+      },
+      {
+        "offsetMs": 550,
+        "durationMs": 408,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 971,
+        "durationMs": 750,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2316,
+        "durationMs": 368,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 2697,
+        "durationMs": 461,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 3171,
+        "durationMs": 382,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3566,
+        "durationMs": 447,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 4026,
+        "durationMs": 145,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4184,
+        "durationMs": 566,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 461,
+        "text": "放松"
+      },
+      {
+        "offsetMs": 5500,
+        "durationMs": 553,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 6289,
+        "durationMs": 421,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 6724,
+        "durationMs": 276,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 7013,
+        "durationMs": 224,
+        "text": "大"
+      },
+      {
+        "offsetMs": 7237,
+        "durationMs": 526,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 8000,
+        "durationMs": 211,
+        "text": "也"
+      },
+      {
+        "offsetMs": 8224,
+        "durationMs": 276,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 8513,
+        "durationMs": 158,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8671,
+        "durationMs": 750,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 9513,
+        "durationMs": 171,
+        "text": "把"
+      },
+      {
+        "offsetMs": 9684,
+        "durationMs": 118,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9816,
+        "durationMs": 224,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 10039,
+        "durationMs": 158,
+        "text": "成"
+      },
+      {
+        "offsetMs": 10211,
+        "durationMs": 263,
+        "text": "三"
+      },
+      {
+        "offsetMs": 10474,
+        "durationMs": 474,
+        "text": "小步"
+      }
+    ]
+  },
+  "playful-buddy:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以": {
+    "id": "playful-buddy:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "normKey": "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-55641d06baf225ee.mp3",
+    "durationMs": 7371,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 451,
+        "text": "挑选"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 374,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1416,
+        "durationMs": 528,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2526,
+        "durationMs": 477,
+        "text": "晴"
+      },
+      {
+        "offsetMs": 3273,
+        "durationMs": 309,
+        "text": "阴"
+      },
+      {
+        "offsetMs": 3866,
+        "durationMs": 284,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 4369,
+        "durationMs": 309,
+        "text": "雷"
+      },
+      {
+        "offsetMs": 4936,
+        "durationMs": 271,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 5425,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5722,
+        "durationMs": 335,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 271,
+        "text": "选"
+      },
+      {
+        "offsetMs": 6546,
+        "durationMs": 180,
+        "text": "都"
+      },
+      {
+        "offsetMs": 6727,
+        "durationMs": 464,
+        "text": "可以"
+      }
+    ]
+  },
+  "warm-sister:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以": {
+    "id": "warm-sister:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "normKey": "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-d2ef6d1a145f0004.mp3",
+    "durationMs": 7654,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 558,
+        "text": "挑选"
+      },
+      {
+        "offsetMs": 688,
+        "durationMs": 346,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 1061,
+        "durationMs": 399,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 1460,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1566,
+        "durationMs": 572,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2753,
+        "durationMs": 426,
+        "text": "晴"
+      },
+      {
+        "offsetMs": 3404,
+        "durationMs": 293,
+        "text": "阴"
+      },
+      {
+        "offsetMs": 3949,
+        "durationMs": 319,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 4495,
+        "durationMs": 319,
+        "text": "雷"
+      },
+      {
+        "offsetMs": 5040,
+        "durationMs": 266,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 5612,
+        "durationMs": 253,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5878,
+        "durationMs": 346,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 332,
+        "text": "选"
+      },
+      {
+        "offsetMs": 6808,
+        "durationMs": 186,
+        "text": "都"
+      },
+      {
+        "offsetMs": 6995,
+        "durationMs": 479,
+        "text": "可以"
+      }
+    ]
+  },
+  "gentle-guide:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以": {
+    "id": "gentle-guide:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "normKey": "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-d9208891ad65f098.mp3",
+    "durationMs": 8339,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 591,
+        "text": "挑选"
+      },
+      {
+        "offsetMs": 722,
+        "durationMs": 269,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 323,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1421,
+        "durationMs": 618,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2648,
+        "durationMs": 430,
+        "text": "晴"
+      },
+      {
+        "offsetMs": 3347,
+        "durationMs": 430,
+        "text": "阴"
+      },
+      {
+        "offsetMs": 4113,
+        "durationMs": 336,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 4758,
+        "durationMs": 430,
+        "text": "雷"
+      },
+      {
+        "offsetMs": 5511,
+        "durationMs": 390,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 6317,
+        "durationMs": 255,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 6586,
+        "durationMs": 323,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 6922,
+        "durationMs": 309,
+        "text": "选"
+      },
+      {
+        "offsetMs": 7554,
+        "durationMs": 215,
+        "text": "都"
+      },
+      {
+        "offsetMs": 7769,
+        "durationMs": 390,
+        "text": "可以"
+      }
+    ]
+  },
+  "starlight-companion:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以": {
+    "id": "starlight-companion:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "normKey": "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-e4d3625662a2a1df.mp3",
+    "durationMs": 7970,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "挑选"
+      },
+      {
+        "offsetMs": 589,
+        "durationMs": 368,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 971,
+        "durationMs": 368,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1445,
+        "durationMs": 566,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2605,
+        "durationMs": 461,
+        "text": "晴"
+      },
+      {
+        "offsetMs": 3342,
+        "durationMs": 447,
+        "text": "阴"
+      },
+      {
+        "offsetMs": 4053,
+        "durationMs": 289,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 4553,
+        "durationMs": 368,
+        "text": "雷"
+      },
+      {
+        "offsetMs": 5184,
+        "durationMs": 289,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 5658,
+        "durationMs": 355,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 6026,
+        "durationMs": 421,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 6461,
+        "durationMs": 368,
+        "text": "选"
+      },
+      {
+        "offsetMs": 7053,
+        "durationMs": 250,
+        "text": "都"
+      },
+      {
+        "offsetMs": 7303,
+        "durationMs": 487,
+        "text": "可以"
+      }
+    ]
+  },
+  "playful-buddy:我现在像暖洋洋的太阳亮堂堂的": {
+    "id": "playful-buddy:我现在像暖洋洋的太阳亮堂堂的",
+    "normKey": "我现在像暖洋洋的太阳亮堂堂的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-356c21a5279774de.mp3",
+    "durationMs": 3155,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 412,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 180,
+        "text": "像"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 490,
+        "text": "暖洋洋"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1429,
+        "durationMs": 477,
+        "text": "太阳"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 619,
+        "text": "亮堂堂"
+      },
+      {
+        "offsetMs": 2756,
+        "durationMs": 219,
+        "text": "的"
+      }
+    ]
+  },
+  "warm-sister:我现在像暖洋洋的太阳亮堂堂的": {
+    "id": "warm-sister:我现在像暖洋洋的太阳亮堂堂的",
+    "normKey": "我现在像暖洋洋的太阳亮堂堂的",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-86cd275b55e72b30.mp3",
+    "durationMs": 3488,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 236,
+        "durationMs": 386,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 648,
         "durationMs": 213,
         "text": "像"
       },
       {
-        "offsetMs": 3295,
-        "durationMs": 426,
-        "text": "气球"
+        "offsetMs": 888,
+        "durationMs": 585,
+        "text": "暖洋洋"
       },
       {
-        "offsetMs": 3734,
-        "durationMs": 293,
-        "text": "一样"
+        "offsetMs": 1473,
+        "durationMs": 93,
+        "text": "的"
       },
       {
-        "offsetMs": 4053,
-        "durationMs": 173,
-        "text": "鼓"
+        "offsetMs": 1579,
+        "durationMs": 558,
+        "text": "太阳"
       },
       {
-        "offsetMs": 4226,
-        "durationMs": 412,
-        "text": "起来"
+        "offsetMs": 2390,
+        "durationMs": 705,
+        "text": "亮堂堂"
+      },
+      {
+        "offsetMs": 3095,
+        "durationMs": 213,
+        "text": "的"
       }
     ]
   },
-  "warm-sister:请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。": {
-    "id": "warm-sister:请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。",
-    "normKey": "请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ee3cc3cff8540195.mp3",
-    "durationMs": 5270,
+  "gentle-guide:我现在像暖洋洋的太阳亮堂堂的": {
+    "id": "gentle-guide:我现在像暖洋洋的太阳亮堂堂的",
+    "normKey": "我现在像暖洋洋的太阳亮堂堂的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-308f4cff791230dd.mp3",
+    "durationMs": 3281,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 323,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 175,
+        "text": "像"
+      },
+      {
+        "offsetMs": 816,
+        "durationMs": 430,
+        "text": "暖洋洋"
+      },
+      {
+        "offsetMs": 1246,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 564,
+        "text": "太阳"
+      },
+      {
+        "offsetMs": 2187,
+        "durationMs": 712,
+        "text": "亮堂堂"
+      },
+      {
+        "offsetMs": 2899,
+        "durationMs": 202,
+        "text": "的"
+      }
+    ]
+  },
+  "starlight-companion:我现在像暖洋洋的太阳亮堂堂的": {
+    "id": "starlight-companion:我现在像暖洋洋的太阳亮堂堂的",
+    "normKey": "我现在像暖洋洋的太阳亮堂堂的",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-ee3b84049f65c90e.mp3",
+    "durationMs": 3520,
     "boundaries": [
       {
         "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 447,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 734,
+        "durationMs": 197,
+        "text": "像"
+      },
+      {
+        "offsetMs": 945,
+        "durationMs": 553,
+        "text": "暖洋洋"
+      },
+      {
+        "offsetMs": 1497,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1616,
+        "durationMs": 513,
+        "text": "太阳"
+      },
+      {
+        "offsetMs": 2366,
+        "durationMs": 763,
+        "text": "亮堂堂"
+      },
+      {
+        "offsetMs": 3129,
+        "durationMs": 211,
+        "text": "的"
+      }
+    ]
+  },
+  "playful-buddy:我现在像慢慢飘的厚云有一点点心事": {
+    "id": "playful-buddy:我现在像慢慢飘的厚云有一点点心事",
+    "normKey": "我现在像慢慢飘的厚云有一点点心事",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f011138d2177b1ac.mp3",
+    "durationMs": 3529,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "我"
+      },
+      {
+        "offsetMs": 243,
+        "durationMs": 438,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 694,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 322,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 1236,
+        "durationMs": 168,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1506,
+        "durationMs": 503,
+        "text": "厚云"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 116,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 438,
+        "text": "一点点"
+      },
+      {
+        "offsetMs": 2808,
+        "durationMs": 541,
+        "text": "心事"
+      }
+    ]
+  },
+  "warm-sister:我现在像慢慢飘的厚云有一点点心事": {
+    "id": "warm-sister:我现在像慢慢飘的厚云有一点点心事",
+    "normKey": "我现在像慢慢飘的厚云有一点点心事",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-7dc64de2e353c789.mp3",
+    "durationMs": 3847,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 236,
+        "durationMs": 386,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 648,
+        "durationMs": 199,
+        "text": "像"
+      },
+      {
+        "offsetMs": 861,
+        "durationMs": 386,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 1260,
         "durationMs": 213,
-        "text": "请"
+        "text": "飘"
       },
       {
-        "offsetMs": 329,
-        "durationMs": 359,
-        "text": "跟随"
+        "offsetMs": 1473,
+        "durationMs": 93,
+        "text": "的"
       },
       {
-        "offsetMs": 702,
+        "offsetMs": 1579,
         "durationMs": 572,
-        "text": "圆圈"
+        "text": "厚云"
       },
       {
-        "offsetMs": 1486,
+        "offsetMs": 2390,
+        "durationMs": 120,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2523,
+        "durationMs": 519,
+        "text": "一点点"
+      },
+      {
+        "offsetMs": 3055,
+        "durationMs": 612,
+        "text": "心事"
+      }
+    ]
+  },
+  "gentle-guide:我现在像慢慢飘的厚云有一点点心事": {
+    "id": "gentle-guide:我现在像慢慢飘的厚云有一点点心事",
+    "normKey": "我现在像慢慢飘的厚云有一点点心事",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-f7e015f92e85c96b.mp3",
+    "durationMs": 3402,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "我"
+      },
+      {
+        "offsetMs": 278,
+        "durationMs": 255,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 121,
+        "text": "像"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 269,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 977,
+        "durationMs": 175,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 1152,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1233,
+        "durationMs": 578,
+        "text": "厚云"
+      },
+      {
+        "offsetMs": 2214,
+        "durationMs": 188,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2416,
+        "durationMs": 336,
+        "text": "一点点"
+      },
+      {
+        "offsetMs": 2765,
+        "durationMs": 457,
+        "text": "心事"
+      }
+    ]
+  },
+  "starlight-companion:我现在像慢慢飘的厚云有一点点心事": {
+    "id": "starlight-companion:我现在像慢慢飘的厚云有一点点心事",
+    "normKey": "我现在像慢慢飘的厚云有一点点心事",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-b2a59523fd965e53.mp3",
+    "durationMs": 3941,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 447,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 734,
+        "durationMs": 211,
+        "text": "像"
+      },
+      {
+        "offsetMs": 958,
+        "durationMs": 368,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 197,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 1537,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1655,
+        "durationMs": 592,
+        "text": "厚云"
+      },
+      {
+        "offsetMs": 2471,
+        "durationMs": 211,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2695,
+        "durationMs": 474,
+        "text": "一点点"
+      },
+      {
+        "offsetMs": 3182,
+        "durationMs": 579,
+        "text": "心事"
+      }
+    ]
+  },
+  "playful-buddy:我现在像下雨天眼眶或心里有点湿湿的": {
+    "id": "playful-buddy:我现在像下雨天眼眶或心里有点湿湿的",
+    "normKey": "我现在像下雨天眼眶或心里有点湿湿的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-efc003ab15238e09.mp3",
+    "durationMs": 3993,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
         "durationMs": 412,
-        "text": "缓缓"
+        "text": "现在"
       },
       {
-        "offsetMs": 1912,
-        "durationMs": 505,
-        "text": "呼气"
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
       },
       {
-        "offsetMs": 2736,
-        "durationMs": 146,
-        "text": "把"
+        "offsetMs": 836,
+        "durationMs": 670,
+        "text": "下雨天"
+      },
+      {
+        "offsetMs": 1764,
+        "durationMs": 412,
+        "text": "眼眶"
+      },
+      {
+        "offsetMs": 2189,
+        "durationMs": 129,
+        "text": "或"
+      },
+      {
+        "offsetMs": 2331,
+        "durationMs": 438,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2885,
+        "durationMs": 284,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3181,
+        "durationMs": 438,
+        "text": "湿湿"
+      },
+      {
+        "offsetMs": 3620,
+        "durationMs": 193,
+        "text": "的"
+      }
+    ]
+  },
+  "warm-sister:我现在像下雨天眼眶或心里有点湿湿的": {
+    "id": "warm-sister:我现在像下雨天眼眶或心里有点湿湿的",
+    "normKey": "我现在像下雨天眼眶或心里有点湿湿的",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-bbd0b658645689b6.mp3",
+    "durationMs": 4286,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 236,
+        "durationMs": 359,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 622,
+        "durationMs": 173,
+        "text": "像"
+      },
+      {
+        "offsetMs": 808,
+        "durationMs": 745,
+        "text": "下雨天"
+      },
+      {
+        "offsetMs": 1845,
+        "durationMs": 439,
+        "text": "眼眶"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 120,
+        "text": "或"
+      },
+      {
+        "offsetMs": 2444,
+        "durationMs": 558,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 3108,
+        "durationMs": 293,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3414,
+        "durationMs": 479,
+        "text": "湿湿"
+      },
+      {
+        "offsetMs": 3893,
+        "durationMs": 213,
+        "text": "的"
+      }
+    ]
+  },
+  "gentle-guide:我现在像下雨天眼眶或心里有点湿湿的": {
+    "id": "gentle-guide:我现在像下雨天眼眶或心里有点湿湿的",
+    "normKey": "我现在像下雨天眼眶或心里有点湿湿的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-13c232064b415552.mp3",
+    "durationMs": 4181,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 282,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 134,
+        "text": "像"
+      },
+      {
+        "offsetMs": 722,
+        "durationMs": 726,
+        "text": "下雨天"
+      },
+      {
+        "offsetMs": 1851,
+        "durationMs": 470,
+        "text": "眼眶"
+      },
+      {
+        "offsetMs": 2348,
+        "durationMs": 94,
+        "text": "或"
+      },
+      {
+        "offsetMs": 2456,
+        "durationMs": 511,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 3088,
+        "durationMs": 309,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3410,
+        "durationMs": 430,
+        "text": "湿湿"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 161,
+        "text": "的"
+      }
+    ]
+  },
+  "starlight-companion:我现在像下雨天眼眶或心里有点湿湿的": {
+    "id": "starlight-companion:我现在像下雨天眼眶或心里有点湿湿的",
+    "normKey": "我现在像下雨天眼眶或心里有点湿湿的",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-24c63e599dd3955a.mp3",
+    "durationMs": 4691,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 421,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 211,
+        "text": "像"
+      },
+      {
+        "offsetMs": 932,
+        "durationMs": 763,
+        "text": "下雨天"
+      },
+      {
+        "offsetMs": 1984,
+        "durationMs": 539,
+        "text": "眼眶"
+      },
+      {
+        "offsetMs": 2537,
+        "durationMs": 171,
+        "text": "或"
+      },
+      {
+        "offsetMs": 2721,
+        "durationMs": 553,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 3379,
+        "durationMs": 395,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 513,
+        "text": "湿湿"
+      },
+      {
+        "offsetMs": 4300,
+        "durationMs": 211,
+        "text": "的"
+      }
+    ]
+  },
+  "playful-buddy:我现在像打雷闪电肚子里有火或者好急好冲": {
+    "id": "playful-buddy:我现在像打雷闪电肚子里有火或者好急好冲",
+    "normKey": "我现在像打雷闪电肚子里有火或者好急好冲",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d3b8bbef5c3add88.mp3",
+    "durationMs": 4418,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "我"
+      },
+      {
+        "offsetMs": 256,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 309,
+        "text": "打雷"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 490,
+        "text": "闪电"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 309,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2266,
+        "durationMs": 129,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 490,
+        "text": "有火"
+      },
+      {
+        "offsetMs": 3014,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3310,
+        "durationMs": 245,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3555,
+        "durationMs": 193,
+        "text": "急"
+      },
+      {
+        "offsetMs": 3761,
+        "durationMs": 477,
+        "text": "好冲"
+      }
+    ]
+  },
+  "warm-sister:我现在像打雷闪电肚子里有火或者好急好冲": {
+    "id": "warm-sister:我现在像打雷闪电肚子里有火或者好急好冲",
+    "normKey": "我现在像打雷闪电肚子里有火或者好急好冲",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-a67372d2beb7b22b.mp3",
+    "durationMs": 4645,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 236,
+        "durationMs": 399,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 662,
+        "durationMs": 186,
+        "text": "像"
+      },
+      {
+        "offsetMs": 861,
+        "durationMs": 293,
+        "text": "打雷"
+      },
+      {
+        "offsetMs": 1167,
+        "durationMs": 545,
+        "text": "闪电"
+      },
+      {
+        "offsetMs": 2071,
+        "durationMs": 306,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2377,
+        "durationMs": 93,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2484,
+        "durationMs": 585,
+        "text": "有火"
+      },
+      {
+        "offsetMs": 3175,
+        "durationMs": 293,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3481,
+        "durationMs": 253,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3734,
+        "durationMs": 186,
+        "text": "急"
+      },
+      {
+        "offsetMs": 3933,
+        "durationMs": 532,
+        "text": "好冲"
+      }
+    ]
+  },
+  "gentle-guide:我现在像打雷闪电肚子里有火或者好急好冲": {
+    "id": "gentle-guide:我现在像打雷闪电肚子里有火或者好急好冲",
+    "normKey": "我现在像打雷闪电肚子里有火或者好急好冲",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-b1e61e06121d8880.mp3",
+    "durationMs": 4384,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 242,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 534,
+        "durationMs": 161,
+        "text": "像"
+      },
+      {
+        "offsetMs": 709,
+        "durationMs": 282,
+        "text": "打雷"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 538,
+        "text": "闪电"
+      },
+      {
+        "offsetMs": 1945,
+        "durationMs": 309,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2254,
+        "durationMs": 81,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2348,
+        "durationMs": 591,
+        "text": "有火"
+      },
+      {
+        "offsetMs": 3074,
+        "durationMs": 282,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3370,
+        "durationMs": 242,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3612,
+        "durationMs": 134,
+        "text": "急"
+      },
+      {
+        "offsetMs": 3760,
+        "durationMs": 444,
+        "text": "好冲"
+      }
+    ]
+  },
+  "starlight-companion:我现在像打雷闪电肚子里有火或者好急好冲": {
+    "id": "starlight-companion:我现在像打雷闪电肚子里有火或者好急好冲",
+    "normKey": "我现在像打雷闪电肚子里有火或者好急好冲",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-299ae4672923a09b.mp3",
+    "durationMs": 4822,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 408,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 224,
+        "text": "像"
+      },
+      {
+        "offsetMs": 932,
+        "durationMs": 355,
+        "text": "打雷"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 539,
+        "text": "闪电"
+      },
+      {
+        "offsetMs": 2155,
+        "durationMs": 329,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2484,
+        "durationMs": 132,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2629,
+        "durationMs": 579,
+        "text": "有火"
+      },
+      {
+        "offsetMs": 3313,
+        "durationMs": 342,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3668,
+        "durationMs": 237,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3905,
+        "durationMs": 211,
+        "text": "急"
+      },
+      {
+        "offsetMs": 4129,
+        "durationMs": 513,
+        "text": "好冲"
+      }
+    ]
+  },
+  "playful-buddy:我现在像在一团雾里懵懵的看不清": {
+    "id": "playful-buddy:我现在像在一团雾里懵懵的看不清",
+    "normKey": "我现在像在一团雾里懵懵的看不清",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-68444ed9c938eb2b.mp3",
+    "durationMs": 3129,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 451,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 694,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 103,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 90,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1094,
+        "durationMs": 193,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 193,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 1493,
+        "durationMs": 206,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1944,
+        "durationMs": 309,
+        "text": "懵懵"
+      },
+      {
+        "offsetMs": 2254,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 193,
+        "text": "看"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2640,
+        "durationMs": 309,
+        "text": "清"
+      }
+    ]
+  },
+  "warm-sister:我现在像在一团雾里懵懵的看不清": {
+    "id": "warm-sister:我现在像在一团雾里懵懵的看不清",
+    "normKey": "我现在像在一团雾里懵懵的看不清",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-45ae75bf68dcd884.mp3",
+    "durationMs": 3408,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 236,
+        "durationMs": 359,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 622,
+        "durationMs": 199,
+        "text": "像"
+      },
+      {
+        "offsetMs": 821,
+        "durationMs": 133,
+        "text": "在"
+      },
+      {
+        "offsetMs": 968,
+        "durationMs": 120,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1087,
+        "durationMs": 239,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 253,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 1593,
+        "durationMs": 239,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2098,
+        "durationMs": 386,
+        "text": "懵懵"
+      },
+      {
+        "offsetMs": 2484,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 213,
+        "text": "看"
+      },
+      {
+        "offsetMs": 2803,
+        "durationMs": 93,
+        "text": "不"
       },
       {
         "offsetMs": 2896,
         "durationMs": 332,
-        "text": "心里"
-      },
-      {
-        "offsetMs": 3228,
-        "durationMs": 106,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 519,
-        "text": "烦恼"
-      },
-      {
-        "offsetMs": 3973,
-        "durationMs": 412,
-        "text": "轻轻"
-      },
-      {
-        "offsetMs": 4398,
-        "durationMs": 239,
-        "text": "吹"
-      },
-      {
-        "offsetMs": 4638,
-        "durationMs": 452,
-        "text": "出去"
+        "text": "清"
       }
     ]
   },
-  "warm-sister:没关系，不想选是完全可以的。你想在小岛上玩什么都可以。": {
-    "id": "warm-sister:没关系，不想选是完全可以的。你想在小岛上玩什么都可以。",
-    "normKey": "没关系，不想选是完全可以的。你想在小岛上玩什么都可以。",
+  "gentle-guide:我现在像在一团雾里懵懵的看不清": {
+    "id": "gentle-guide:我现在像在一团雾里懵懵的看不清",
+    "normKey": "我现在像在一团雾里懵懵的看不清",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-7f5e60640bddd240.mp3",
+    "durationMs": 3254,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 282,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 175,
+        "text": "像"
+      },
+      {
+        "offsetMs": 749,
+        "durationMs": 94,
+        "text": "在"
+      },
+      {
+        "offsetMs": 856,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 951,
+        "durationMs": 161,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 188,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 309,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1986,
+        "durationMs": 376,
+        "text": "懵懵"
+      },
+      {
+        "offsetMs": 2362,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2442,
+        "durationMs": 202,
+        "text": "看"
+      },
+      {
+        "offsetMs": 2644,
+        "durationMs": 94,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2738,
+        "durationMs": 336,
+        "text": "清"
+      }
+    ]
+  },
+  "starlight-companion:我现在像在一团雾里懵懵的看不清": {
+    "id": "starlight-companion:我现在像在一团雾里懵懵的看不清",
+    "normKey": "我现在像在一团雾里懵懵的看不清",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-2eb09de7135e6614.mp3",
+    "durationMs": 3493,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 421,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 237,
+        "text": "像"
+      },
+      {
+        "offsetMs": 945,
+        "durationMs": 145,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1103,
+        "durationMs": 118,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1221,
+        "durationMs": 211,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1445,
+        "durationMs": 237,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 1682,
+        "durationMs": 224,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2129,
+        "durationMs": 382,
+        "text": "懵懵"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2616,
+        "durationMs": 250,
+        "text": "看"
+      },
+      {
+        "offsetMs": 2866,
+        "durationMs": 105,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2971,
+        "durationMs": 342,
+        "text": "清"
+      }
+    ]
+  },
+  "playful-buddy:我今天先不挑天气先自己安安静静呆着": {
+    "id": "playful-buddy:我今天先不挑天气先自己安安静静呆着",
+    "normKey": "我今天先不挑天气先自己安安静静呆着",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-af777d261d84e4d1.mp3",
+    "durationMs": 3928,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 116,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 477,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 720,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 952,
+        "durationMs": 103,
+        "text": "不"
+      },
+      {
+        "offsetMs": 1055,
+        "durationMs": 193,
+        "text": "挑"
+      },
+      {
+        "offsetMs": 1261,
+        "durationMs": 528,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 219,
+        "text": "先"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 309,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 2666,
+        "durationMs": 644,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 3323,
+        "durationMs": 206,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 3529,
+        "durationMs": 219,
+        "text": "着"
+      }
+    ]
+  },
+  "warm-sister:我今天先不挑天气先自己安安静静呆着": {
+    "id": "warm-sister:我今天先不挑天气先自己安安静静呆着",
+    "normKey": "我今天先不挑天气先自己安安静静呆着",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-c7cb70f2b5f1f77a.mp3",
+    "audioUrl": "/audio/tts/warm-sister-63447d3ae85d2ea5.mp3",
+    "durationMs": 3980,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 249,
+        "durationMs": 386,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 662,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 874,
+        "durationMs": 93,
+        "text": "不"
+      },
+      {
+        "offsetMs": 968,
+        "durationMs": 213,
+        "text": "挑"
+      },
+      {
+        "offsetMs": 1194,
+        "durationMs": 545,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2058,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 2284,
+        "durationMs": 319,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 2630,
+        "durationMs": 678,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 3321,
+        "durationMs": 239,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 3561,
+        "durationMs": 239,
+        "text": "着"
+      }
+    ]
+  },
+  "gentle-guide:我今天先不挑天气先自己安安静静呆着": {
+    "id": "gentle-guide:我今天先不挑天气先自己安安静静呆着",
+    "normKey": "我今天先不挑天气先自己安安静静呆着",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-3c3411c18cebfb34.mp3",
+    "durationMs": 3577,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "我"
+      },
+      {
+        "offsetMs": 292,
+        "durationMs": 228,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 547,
+        "durationMs": 148,
+        "text": "先"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 148,
+        "text": "挑"
+      },
+      {
+        "offsetMs": 937,
+        "durationMs": 591,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 1811,
+        "durationMs": 296,
+        "text": "先"
+      },
+      {
+        "offsetMs": 2120,
+        "durationMs": 242,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 2389,
+        "durationMs": 564,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 2967,
+        "durationMs": 215,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 3182,
+        "durationMs": 215,
+        "text": "着"
+      }
+    ]
+  },
+  "starlight-companion:我今天先不挑天气先自己安安静静呆着": {
+    "id": "starlight-companion:我今天先不挑天气先自己安安静静呆着",
+    "normKey": "我今天先不挑天气先自己安安静静呆着",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-08c7aab25eaa994b.mp3",
+    "durationMs": 4125,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "我"
+      },
+      {
+        "offsetMs": 287,
+        "durationMs": 408,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 237,
+        "text": "先"
+      },
+      {
+        "offsetMs": 945,
+        "durationMs": 145,
+        "text": "不"
+      },
+      {
+        "offsetMs": 1089,
+        "durationMs": 197,
+        "text": "挑"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 566,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2103,
+        "durationMs": 263,
+        "text": "先"
+      },
+      {
+        "offsetMs": 2379,
+        "durationMs": 329,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 2721,
+        "durationMs": 737,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 3471,
+        "durationMs": 250,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 3721,
+        "durationMs": 224,
+        "text": "着"
+      }
+    ]
+  },
+  "playful-buddy:没关系不想选是完全可以的你想在小岛上玩什么都可以": {
+    "id": "playful-buddy:没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "normKey": "没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-53b66ff3ec6f0d79.mp3",
+    "durationMs": 5669,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 670,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 335,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 193,
+        "text": "选"
+      },
+      {
+        "offsetMs": 1558,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1674,
+        "durationMs": 374,
+        "text": "完全"
+      },
+      {
+        "offsetMs": 2060,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2370,
+        "durationMs": 245,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3196,
+        "durationMs": 168,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 206,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 155,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3737,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3918,
+        "durationMs": 168,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4085,
+        "durationMs": 180,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 206,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4497,
+        "durationMs": 992,
+        "text": "什么都可以"
+      }
+    ]
+  },
+  "warm-sister:没关系不想选是完全可以的你想在小岛上玩什么都可以": {
+    "id": "warm-sister:没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "normKey": "没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-cce9649a89da785f.mp3",
     "durationMs": 5912,
     "boundaries": [
       {
@@ -3408,12 +9668,1147 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "warm-sister:好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。": {
-    "id": "warm-sister:好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。",
-    "normKey": "好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。",
+  "gentle-guide:没关系不想选是完全可以的你想在小岛上玩什么都可以": {
+    "id": "gentle-guide:没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "normKey": "没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-ad91c0505fbc4e54.mp3",
+    "durationMs": 5771,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 806,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 349,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 1690,
+        "durationMs": 202,
+        "text": "选"
+      },
+      {
+        "offsetMs": 1891,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2039,
+        "durationMs": 349,
+        "text": "完全"
+      },
+      {
+        "offsetMs": 2402,
+        "durationMs": 255,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 228,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3495,
+        "durationMs": 363,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3858,
+        "durationMs": 121,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3978,
+        "durationMs": 94,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4086,
+        "durationMs": 202,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4288,
+        "durationMs": 148,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4436,
+        "durationMs": 134,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4597,
+        "durationMs": 121,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4731,
+        "durationMs": 860,
+        "text": "什么都可以"
+      }
+    ]
+  },
+  "starlight-companion:没关系不想选是完全可以的你想在小岛上玩什么都可以": {
+    "id": "starlight-companion:没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "normKey": "没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-12329f0629472365.mp3",
+    "durationMs": 5996,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 803,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 1142,
+        "durationMs": 368,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 1524,
+        "durationMs": 224,
+        "text": "选"
+      },
+      {
+        "offsetMs": 1747,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1905,
+        "durationMs": 434,
+        "text": "完全"
+      },
+      {
+        "offsetMs": 2353,
+        "durationMs": 342,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2695,
+        "durationMs": 224,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3513,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3684,
+        "durationMs": 197,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3882,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 4053,
+        "durationMs": 197,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4250,
+        "durationMs": 184,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4434,
+        "durationMs": 171,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4618,
+        "durationMs": 197,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4829,
+        "durationMs": 987,
+        "text": "什么都可以"
+      }
+    ]
+  },
+  "playful-buddy:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来": {
+    "id": "playful-buddy:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "normKey": "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-e2f6d42d22f61844.mp3",
+    "durationMs": 7525,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 206,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 683,
+        "text": "暴风雨"
+      },
+      {
+        "offsetMs": 2423,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2758,
+        "durationMs": 515,
+        "text": "生气"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 284,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3789,
+        "durationMs": 168,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 361,
+        "text": "喊"
+      },
+      {
+        "offsetMs": 4897,
+        "durationMs": 142,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5039,
+        "durationMs": 168,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5206,
+        "durationMs": 296,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 5760,
+        "durationMs": 206,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5979,
+        "durationMs": 322,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6302,
+        "durationMs": 129,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6443,
+        "durationMs": 335,
+        "text": "雷声"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 219,
+        "text": "停"
+      },
+      {
+        "offsetMs": 7010,
+        "durationMs": 335,
+        "text": "下来"
+      }
+    ]
+  },
+  "warm-sister:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来": {
+    "id": "warm-sister:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "normKey": "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-f19129439e78c898.mp3",
+    "audioUrl": "/audio/tts/warm-sister-fc62745f216f25bc.mp3",
+    "durationMs": 8198,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 263,
+        "durationMs": 399,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 662,
+        "durationMs": 199,
+        "text": "像"
+      },
+      {
+        "offsetMs": 874,
+        "durationMs": 106,
+        "text": "一"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 239,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 745,
+        "text": "暴风雨"
+      },
+      {
+        "offsetMs": 2593,
+        "durationMs": 306,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2912,
+        "durationMs": 585,
+        "text": "生气"
+      },
+      {
+        "offsetMs": 3710,
+        "durationMs": 279,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 4003,
+        "durationMs": 186,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4189,
+        "durationMs": 386,
+        "text": "喊"
+      },
+      {
+        "offsetMs": 5173,
+        "durationMs": 160,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5332,
+        "durationMs": 199,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5532,
+        "durationMs": 319,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 6144,
+        "durationMs": 213,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6370,
+        "durationMs": 412,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6782,
+        "durationMs": 173,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6968,
+        "durationMs": 359,
+        "text": "雷声"
+      },
+      {
+        "offsetMs": 7340,
+        "durationMs": 226,
+        "text": "停"
+      },
+      {
+        "offsetMs": 7566,
+        "durationMs": 452,
+        "text": "下来"
+      }
+    ]
+  },
+  "gentle-guide:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来": {
+    "id": "gentle-guide:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "normKey": "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-3bb00d00ac354d80.mp3",
+    "durationMs": 7949,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 296,
+        "text": "你"
+      },
+      {
+        "offsetMs": 413,
+        "durationMs": 309,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 722,
+        "durationMs": 148,
+        "text": "像"
+      },
+      {
+        "offsetMs": 883,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 977,
+        "durationMs": 161,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1166,
+        "durationMs": 659,
+        "text": "暴风雨"
+      },
+      {
+        "offsetMs": 2446,
+        "durationMs": 255,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2715,
+        "durationMs": 618,
+        "text": "生气"
+      },
+      {
+        "offsetMs": 3656,
+        "durationMs": 269,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3938,
+        "durationMs": 188,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4126,
+        "durationMs": 336,
+        "text": "喊"
+      },
+      {
+        "offsetMs": 5067,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5228,
+        "durationMs": 121,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5349,
+        "durationMs": 430,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 6075,
+        "durationMs": 403,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6492,
+        "durationMs": 309,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6801,
+        "durationMs": 108,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6922,
+        "durationMs": 269,
+        "text": "雷声"
+      },
+      {
+        "offsetMs": 7204,
+        "durationMs": 175,
+        "text": "停"
+      },
+      {
+        "offsetMs": 7379,
+        "durationMs": 390,
+        "text": "下来"
+      }
+    ]
+  },
+  "starlight-companion:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来": {
+    "id": "starlight-companion:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "normKey": "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-3109e3a16fbd4337.mp3",
+    "durationMs": 8220,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 158,
+        "text": "你"
+      },
+      {
+        "offsetMs": 274,
+        "durationMs": 421,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 184,
+        "text": "像"
+      },
+      {
+        "offsetMs": 892,
+        "durationMs": 132,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1024,
+        "durationMs": 211,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 697,
+        "text": "暴风雨"
+      },
+      {
+        "offsetMs": 2539,
+        "durationMs": 355,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2908,
+        "durationMs": 579,
+        "text": "生气"
+      },
+      {
+        "offsetMs": 3684,
+        "durationMs": 316,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 4013,
+        "durationMs": 210,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4224,
+        "durationMs": 368,
+        "text": "喊"
+      },
+      {
+        "offsetMs": 5184,
+        "durationMs": 211,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5395,
+        "durationMs": 197,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5592,
+        "durationMs": 342,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 6158,
+        "durationMs": 250,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6421,
+        "durationMs": 421,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6842,
+        "durationMs": 158,
+        "text": "等"
+      },
+      {
+        "offsetMs": 7013,
+        "durationMs": 382,
+        "text": "雷声"
+      },
+      {
+        "offsetMs": 7408,
+        "durationMs": 237,
+        "text": "停"
+      },
+      {
+        "offsetMs": 7645,
+        "durationMs": 395,
+        "text": "下来"
+      }
+    ]
+  },
+  "playful-buddy:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点": {
+    "id": "playful-buddy:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "normKey": "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c7e70d5f22759451.mp3",
+    "durationMs": 7461,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 243,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 850,
+        "text": "一场大雨"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2603,
+        "durationMs": 541,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3376,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3711,
+        "durationMs": 232,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 142,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4085,
+        "durationMs": 309,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 4974,
+        "durationMs": 155,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5129,
+        "durationMs": 168,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5296,
+        "durationMs": 296,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 5876,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6108,
+        "durationMs": 284,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6405,
+        "durationMs": 155,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 103,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 6675,
+        "durationMs": 232,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6907,
+        "durationMs": 374,
+        "text": "一点"
+      }
+    ]
+  },
+  "warm-sister:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点": {
+    "id": "warm-sister:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "normKey": "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-10cfb26b8901a347.mp3",
+    "durationMs": 7733,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 249,
+        "durationMs": 372,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 648,
+        "durationMs": 186,
+        "text": "像"
+      },
+      {
+        "offsetMs": 848,
+        "durationMs": 944,
+        "text": "一场大雨"
+      },
+      {
+        "offsetMs": 2407,
+        "durationMs": 293,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2713,
+        "durationMs": 532,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3457,
+        "durationMs": 279,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 186,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 3936,
+        "durationMs": 133,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4069,
+        "durationMs": 332,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 4987,
+        "durationMs": 160,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5146,
+        "durationMs": 199,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5346,
+        "durationMs": 306,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 5931,
+        "durationMs": 213,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6157,
+        "durationMs": 386,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6556,
+        "durationMs": 173,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6729,
+        "durationMs": 106,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 6848,
+        "durationMs": 253,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7101,
+        "durationMs": 452,
+        "text": "一点"
+      }
+    ]
+  },
+  "gentle-guide:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点": {
+    "id": "gentle-guide:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "normKey": "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-8dfedc624bede8f8.mp3",
+    "durationMs": 7627,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 363,
+        "text": "你"
+      },
+      {
+        "offsetMs": 467,
+        "durationMs": 282,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 134,
+        "text": "像"
+      },
+      {
+        "offsetMs": 924,
+        "durationMs": 753,
+        "text": "一场大雨"
+      },
+      {
+        "offsetMs": 2298,
+        "durationMs": 282,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2594,
+        "durationMs": 605,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3495,
+        "durationMs": 228,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3737,
+        "durationMs": 228,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 3965,
+        "durationMs": 108,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4073,
+        "durationMs": 296,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 215,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5188,
+        "durationMs": 121,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 403,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 6048,
+        "durationMs": 417,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6478,
+        "durationMs": 202,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6694,
+        "durationMs": 108,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6801,
+        "durationMs": 94,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 6909,
+        "durationMs": 215,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7124,
+        "durationMs": 323,
+        "text": "一点"
+      }
+    ]
+  },
+  "starlight-companion:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点": {
+    "id": "starlight-companion:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "normKey": "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-3f0826c0f68e7823.mp3",
+    "durationMs": 7864,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 197,
+        "text": "你"
+      },
+      {
+        "offsetMs": 300,
+        "durationMs": 408,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 721,
+        "durationMs": 197,
+        "text": "像"
+      },
+      {
+        "offsetMs": 932,
+        "durationMs": 908,
+        "text": "一场大雨"
+      },
+      {
+        "offsetMs": 2434,
+        "durationMs": 342,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2789,
+        "durationMs": 539,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3526,
+        "durationMs": 368,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3908,
+        "durationMs": 263,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 4171,
+        "durationMs": 145,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4316,
+        "durationMs": 303,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 5211,
+        "durationMs": 197,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5408,
+        "durationMs": 211,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5618,
+        "durationMs": 316,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 6145,
+        "durationMs": 250,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6408,
+        "durationMs": 355,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6776,
+        "durationMs": 158,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6934,
+        "durationMs": 118,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 7066,
+        "durationMs": 250,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7316,
+        "durationMs": 368,
+        "text": "一点"
+      }
+    ]
+  },
+  "playful-buddy:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩": {
+    "id": "playful-buddy:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "normKey": "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c29391724a0161f9.mp3",
+    "durationMs": 7087,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 258,
+        "text": "好"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 219,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 129,
+        "text": "不"
+      },
+      {
+        "offsetMs": 978,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 1120,
+        "durationMs": 528,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 1661,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 464,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2848,
+        "durationMs": 296,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3157,
+        "durationMs": 400,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 696,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 232,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 4510,
+        "durationMs": 219,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 425,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 219,
+        "text": "换"
+      },
+      {
+        "offsetMs": 5657,
+        "durationMs": 90,
+        "text": "个"
+      },
+      {
+        "offsetMs": 5760,
+        "durationMs": 425,
+        "text": "轻巧"
+      },
+      {
+        "offsetMs": 6186,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6302,
+        "durationMs": 284,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 6585,
+        "durationMs": 322,
+        "text": "玩"
+      }
+    ]
+  },
+  "warm-sister:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩": {
+    "id": "warm-sister:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "normKey": "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-01848440c10dbc09.mp3",
     "durationMs": 7188,
     "boundaries": [
       {
@@ -3513,12 +10908,327 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "warm-sister:你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。": {
-    "id": "warm-sister:你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。",
-    "normKey": "你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。",
+  "gentle-guide:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩": {
+    "id": "gentle-guide:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "normKey": "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-1f2bd41ab3e47b57.mp3",
+    "durationMs": 6457,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "好"
+      },
+      {
+        "offsetMs": 346,
+        "durationMs": 309,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 134,
+        "text": "不"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 108,
+        "text": "去"
+      },
+      {
+        "offsetMs": 1246,
+        "durationMs": 444,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 1717,
+        "durationMs": 94,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1811,
+        "durationMs": 444,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2863,
+        "durationMs": 228,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3105,
+        "durationMs": 255,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3387,
+        "durationMs": 591,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 3992,
+        "durationMs": 228,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 4220,
+        "durationMs": 282,
+        "text": "着"
+      },
+      {
+        "offsetMs": 4772,
+        "durationMs": 242,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5027,
+        "durationMs": 215,
+        "text": "换"
+      },
+      {
+        "offsetMs": 5242,
+        "durationMs": 81,
+        "text": "个"
+      },
+      {
+        "offsetMs": 5349,
+        "durationMs": 309,
+        "text": "轻巧"
+      },
+      {
+        "offsetMs": 5659,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5753,
+        "durationMs": 255,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 6008,
+        "durationMs": 269,
+        "text": "玩"
+      }
+    ]
+  },
+  "starlight-companion:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩": {
+    "id": "starlight-companion:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "normKey": "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-06862b47d2ec479e.mp3",
+    "durationMs": 7588,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 289,
+        "text": "好"
+      },
+      {
+        "offsetMs": 392,
+        "durationMs": 316,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 971,
+        "durationMs": 158,
+        "text": "不"
+      },
+      {
+        "offsetMs": 1129,
+        "durationMs": 184,
+        "text": "去"
+      },
+      {
+        "offsetMs": 1326,
+        "durationMs": 618,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 1958,
+        "durationMs": 158,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2116,
+        "durationMs": 500,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3211,
+        "durationMs": 263,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3487,
+        "durationMs": 434,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3934,
+        "durationMs": 776,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 4724,
+        "durationMs": 237,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 4961,
+        "durationMs": 237,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5434,
+        "durationMs": 421,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5868,
+        "durationMs": 224,
+        "text": "换"
+      },
+      {
+        "offsetMs": 6092,
+        "durationMs": 105,
+        "text": "个"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 434,
+        "text": "轻巧"
+      },
+      {
+        "offsetMs": 6645,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6750,
+        "durationMs": 329,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 7079,
+        "durationMs": 329,
+        "text": "玩"
+      }
+    ]
+  },
+  "playful-buddy:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧": {
+    "id": "playful-buddy:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "normKey": "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-9c80a6bc5dba2b98.mp3",
+    "durationMs": 6740,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 168,
+        "text": "你"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 180,
+        "text": "真"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 438,
+        "text": "勇敢"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 219,
+        "text": "愿意"
+      },
+      {
+        "offsetMs": 1416,
+        "durationMs": 528,
+        "text": "和大人"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 155,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 400,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3093,
+        "durationMs": 219,
+        "text": "去"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 142,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3466,
+        "durationMs": 387,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 451,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 490,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 5296,
+        "durationMs": 155,
+        "text": "或"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 322,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 168,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 5966,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 219,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 6289,
+        "durationMs": 271,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧": {
+    "id": "warm-sister:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "normKey": "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ba40ef53b3af4ecd.mp3",
+    "audioUrl": "/audio/tts/warm-sister-e24a71be63d7e7ca.mp3",
     "durationMs": 7162,
     "boundaries": [
       {
@@ -3618,807 +11328,2982 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "warm-sister:欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！": {
-    "id": "warm-sister:欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！",
-    "normKey": "欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-5a7e435ac8fffa9f.mp3",
-    "durationMs": 7215,
+  "gentle-guide:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧": {
+    "id": "gentle-guide:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "normKey": "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-6b50a41e6192e27b.mp3",
+    "durationMs": 7008,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 255,
+        "text": "你"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 188,
+        "text": "真"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 564,
+        "text": "勇敢"
+      },
+      {
+        "offsetMs": 1596,
+        "durationMs": 282,
+        "text": "愿意"
+      },
+      {
+        "offsetMs": 1891,
+        "durationMs": 403,
+        "text": "和大人"
+      },
+      {
+        "offsetMs": 2308,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2416,
+        "durationMs": 376,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3401,
+        "durationMs": 188,
+        "text": "去"
+      },
+      {
+        "offsetMs": 3589,
+        "durationMs": 121,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3737,
+        "durationMs": 255,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 3992,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4073,
+        "durationMs": 618,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 538,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 202,
+        "text": "或"
+      },
+      {
+        "offsetMs": 5860,
+        "durationMs": 282,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 6169,
+        "durationMs": 175,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 6344,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 6425,
+        "durationMs": 188,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 6613,
+        "durationMs": 215,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧": {
+    "id": "starlight-companion:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "normKey": "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-454331eb9503b90b.mp3",
+    "durationMs": 7640,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 439,
+        "durationMs": 211,
+        "text": "你"
+      },
+      {
+        "offsetMs": 313,
+        "durationMs": 250,
+        "text": "真"
+      },
+      {
+        "offsetMs": 576,
+        "durationMs": 526,
+        "text": "勇敢"
+      },
+      {
+        "offsetMs": 1326,
+        "durationMs": 342,
+        "text": "愿意"
+      },
+      {
+        "offsetMs": 1682,
+        "durationMs": 592,
+        "text": "和大人"
+      },
+      {
+        "offsetMs": 2287,
+        "durationMs": 184,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2471,
+        "durationMs": 513,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3579,
+        "durationMs": 224,
+        "text": "去"
+      },
+      {
+        "offsetMs": 3803,
+        "durationMs": 184,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4000,
+        "durationMs": 382,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 4382,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4487,
+        "durationMs": 553,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 5329,
+        "durationMs": 553,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 5974,
+        "durationMs": 224,
+        "text": "或"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 408,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 6632,
+        "durationMs": 224,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 6855,
+        "durationMs": 105,
+        "text": "一"
+      },
+      {
+        "offsetMs": 6961,
+        "durationMs": 237,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 7197,
+        "durationMs": 263,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:深深吸气肚子鼓起来": {
+    "id": "playful-buddy:深深吸气肚子鼓起来",
+    "normKey": "深深吸气肚子鼓起来",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-518ee17064a4bf59.mp3",
+    "durationMs": 2705,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "深深"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 515,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 1701,
+        "durationMs": 296,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2010,
+        "durationMs": 206,
+        "text": "鼓"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 309,
+        "text": "起来"
+      }
+    ]
+  },
+  "warm-sister:深深吸气肚子鼓起来": {
+    "id": "warm-sister:深深吸气肚子鼓起来",
+    "normKey": "深深吸气肚子鼓起来",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-0da5a56f155f453a.mp3",
+    "durationMs": 2973,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 519,
+        "text": "深深"
+      },
+      {
+        "offsetMs": 635,
+        "durationMs": 558,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 1782,
+        "durationMs": 319,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2114,
+        "durationMs": 199,
+        "text": "鼓"
+      },
+      {
+        "offsetMs": 2314,
+        "durationMs": 479,
+        "text": "起来"
+      }
+    ]
+  },
+  "gentle-guide:深深吸气肚子鼓起来": {
+    "id": "gentle-guide:深深吸气肚子鼓起来",
+    "normKey": "深深吸气肚子鼓起来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-fa8333e5ba620775.mp3",
+    "durationMs": 2935,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 645,
+        "text": "深深"
+      },
+      {
+        "offsetMs": 762,
+        "durationMs": 538,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 1855,
+        "durationMs": 296,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2164,
+        "durationMs": 228,
+        "text": "鼓"
+      },
+      {
+        "offsetMs": 2392,
+        "durationMs": 363,
+        "text": "起来"
+      }
+    ]
+  },
+  "starlight-companion:深深吸气肚子鼓起来": {
+    "id": "starlight-companion:深深吸气肚子鼓起来",
+    "normKey": "深深吸气肚子鼓起来",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-69786ab0b5e1dbe3.mp3",
+    "durationMs": 3035,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 526,
+        "text": "深深"
+      },
+      {
+        "offsetMs": 642,
+        "durationMs": 566,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 355,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2171,
+        "durationMs": 263,
+        "text": "鼓"
+      },
+      {
+        "offsetMs": 2434,
+        "durationMs": 421,
+        "text": "起来"
+      }
+    ]
+  },
+  "playful-buddy:轻轻停一停感觉好安静": {
+    "id": "playful-buddy:轻轻停一停感觉好安静",
+    "normKey": "轻轻停一停感觉好安静",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-886033b8cf5c2b11.mp3",
+    "durationMs": 3015,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 477,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 591,
+        "durationMs": 193,
+        "text": "停"
+      },
+      {
+        "offsetMs": 785,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 913,
+        "durationMs": 335,
+        "text": "停"
+      },
+      {
+        "offsetMs": 1830,
+        "durationMs": 335,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 2178,
+        "durationMs": 206,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2384,
+        "durationMs": 451,
+        "text": "安静"
+      }
+    ]
+  },
+  "warm-sister:轻轻停一停感觉好安静": {
+    "id": "warm-sister:轻轻停一停感觉好安静",
+    "normKey": "轻轻停一停感觉好安静",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ea67a8e35831e85e.mp3",
+    "durationMs": 3159,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 465,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 213,
+        "text": "停"
+      },
+      {
+        "offsetMs": 795,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 941,
+        "durationMs": 293,
+        "text": "停"
+      },
+      {
+        "offsetMs": 1822,
+        "durationMs": 359,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 2207,
+        "durationMs": 226,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2434,
+        "durationMs": 545,
+        "text": "安静"
+      }
+    ]
+  },
+  "gentle-guide:轻轻停一停感觉好安静": {
+    "id": "gentle-guide:轻轻停一停感觉好安静",
+    "normKey": "轻轻停一停感觉好安静",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-042c5d328fe9346c.mp3",
+    "durationMs": 3003,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 524,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 641,
+        "durationMs": 188,
+        "text": "停"
+      },
+      {
+        "offsetMs": 830,
+        "durationMs": 134,
+        "text": "一"
+      },
+      {
+        "offsetMs": 964,
+        "durationMs": 390,
+        "text": "停"
+      },
+      {
+        "offsetMs": 1841,
+        "durationMs": 336,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 2204,
+        "durationMs": 161,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2366,
+        "durationMs": 457,
+        "text": "安静"
+      }
+    ]
+  },
+  "starlight-companion:轻轻停一停感觉好安静": {
+    "id": "starlight-companion:轻轻停一停感觉好安静",
+    "normKey": "轻轻停一停感觉好安静",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-7f043efe19ab5e8d.mp3",
+    "durationMs": 3180,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 421,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 224,
+        "text": "停"
+      },
+      {
+        "offsetMs": 761,
+        "durationMs": 145,
+        "text": "一"
+      },
+      {
+        "offsetMs": 905,
+        "durationMs": 355,
+        "text": "停"
+      },
+      {
+        "offsetMs": 1855,
+        "durationMs": 395,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 2263,
+        "durationMs": 237,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2500,
+        "durationMs": 500,
+        "text": "安静"
+      }
+    ]
+  },
+  "playful-buddy:缓缓呼气把烦恼吹出去": {
+    "id": "playful-buddy:缓缓呼气把烦恼吹出去",
+    "normKey": "缓缓呼气把烦恼吹出去",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-1f1922b3e4738228.mp3",
+    "durationMs": 3028,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "缓缓"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 477,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 1675,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1830,
+        "durationMs": 400,
+        "text": "烦恼"
+      },
+      {
+        "offsetMs": 2242,
+        "durationMs": 219,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 2461,
+        "durationMs": 387,
+        "text": "出去"
+      }
+    ]
+  },
+  "warm-sister:缓缓呼气把烦恼吹出去": {
+    "id": "warm-sister:缓缓呼气把烦恼吹出去",
+    "normKey": "缓缓呼气把烦恼吹出去",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-af903f58d9e88d03.mp3",
+    "durationMs": 3212,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 479,
+        "text": "缓缓"
+      },
+      {
+        "offsetMs": 595,
+        "durationMs": 519,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 1702,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1875,
+        "durationMs": 412,
+        "text": "烦恼"
+      },
+      {
+        "offsetMs": 2314,
+        "durationMs": 239,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 2553,
+        "durationMs": 479,
+        "text": "出去"
+      }
+    ]
+  },
+  "gentle-guide:缓缓呼气把烦恼吹出去": {
+    "id": "gentle-guide:缓缓呼气把烦恼吹出去",
+    "normKey": "缓缓呼气把烦恼吹出去",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-de34f868717b52a8.mp3",
+    "durationMs": 3123,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 564,
+        "text": "缓缓"
+      },
+      {
+        "offsetMs": 682,
+        "durationMs": 511,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 1774,
+        "durationMs": 175,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1962,
+        "durationMs": 390,
+        "text": "烦恼"
+      },
+      {
+        "offsetMs": 2379,
+        "durationMs": 188,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 2567,
+        "durationMs": 376,
+        "text": "出去"
+      }
+    ]
+  },
+  "starlight-companion:缓缓呼气把烦恼吹出去": {
+    "id": "starlight-companion:缓缓呼气把烦恼吹出去",
+    "normKey": "缓缓呼气把烦恼吹出去",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-e4fb80e5a8b2bc36.mp3",
+    "durationMs": 3298,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 500,
+        "text": "缓缓"
+      },
+      {
+        "offsetMs": 616,
+        "durationMs": 566,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 1776,
+        "durationMs": 184,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1974,
+        "durationMs": 421,
+        "text": "烦恼"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 276,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 2684,
+        "durationMs": 434,
+        "text": "出去"
+      }
+    ]
+  },
+  "playful-buddy:轻松休息身体松松的": {
+    "id": "playful-buddy:轻松休息身体松松的",
+    "normKey": "轻松休息身体松松的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-714e6f1dde9ffabf.mp3",
+    "durationMs": 2950,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 400,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 514,
+        "durationMs": 464,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 1559,
+        "durationMs": 528,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 2100,
+        "durationMs": 464,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 2564,
+        "durationMs": 206,
+        "text": "的"
+      }
+    ]
+  },
+  "warm-sister:轻松休息身体松松的": {
+    "id": "warm-sister:轻松休息身体松松的",
+    "normKey": "轻松休息身体松松的",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-26eea23d12232d59.mp3",
+    "durationMs": 3066,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 492,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 608,
+        "durationMs": 505,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 1702,
+        "durationMs": 465,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 2181,
+        "durationMs": 492,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 2673,
+        "durationMs": 213,
+        "text": "的"
+      }
+    ]
+  },
+  "gentle-guide:轻松休息身体松松的": {
+    "id": "gentle-guide:轻松休息身体松松的",
+    "normKey": "轻松休息身体松松的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-c011517638fc4f15.mp3",
+    "durationMs": 3123,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 511,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 628,
+        "durationMs": 538,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 1761,
+        "durationMs": 484,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 2258,
+        "durationMs": 403,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 2661,
+        "durationMs": 282,
+        "text": "的"
+      }
+    ]
+  },
+  "starlight-companion:轻松休息身体松松的": {
+    "id": "starlight-companion:轻松休息身体松松的",
+    "normKey": "轻松休息身体松松的",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-eb03cc63186e8955.mp3",
+    "durationMs": 3101,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 461,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 576,
+        "durationMs": 526,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 1697,
+        "durationMs": 553,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 2263,
+        "durationMs": 434,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 2697,
+        "durationMs": 224,
+        "text": "的"
+      }
+    ]
+  },
+  "playful-buddy:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么": {
+    "id": "playful-buddy:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "normKey": "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-737cbd99a0bc81d8.mp3",
+    "durationMs": 8235,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 477,
         "text": "欢迎"
       },
       {
-        "offsetMs": 555,
+        "offsetMs": 591,
+        "durationMs": 258,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 593,
+        "text": "美术角"
+      },
+      {
+        "offsetMs": 2036,
+        "durationMs": 219,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2255,
+        "durationMs": 180,
+        "text": "上"
+      },
+      {
+        "offsetMs": 2436,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2552,
+        "durationMs": 322,
+        "text": "绿色"
+      },
+      {
+        "offsetMs": 2887,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3067,
+        "durationMs": 335,
+        "text": "蜡笔"
+      },
+      {
+        "offsetMs": 3415,
+        "durationMs": 399,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 3814,
+        "durationMs": 193,
+        "text": "了"
+      },
+      {
+        "offsetMs": 4356,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 4588,
+        "durationMs": 168,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 142,
+        "text": "起"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 786,
+        "text": "小放大镜"
+      },
+      {
+        "offsetMs": 5966,
+        "durationMs": 374,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 348,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 6714,
+        "durationMs": 129,
+        "text": "和"
+      },
+      {
+        "offsetMs": 6856,
+        "durationMs": 451,
+        "text": "桌边"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 335,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 7668,
+        "durationMs": 387,
+        "text": "什么"
+      }
+    ]
+  },
+  "warm-sister:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么": {
+    "id": "warm-sister:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "normKey": "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-8cae7f6b17334c10.mp3",
+    "durationMs": 8837,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 529,
         "durationMs": 319,
         "text": "来到"
       },
       {
-        "offsetMs": 901,
-        "durationMs": 332,
-        "text": "故事"
+        "offsetMs": 874,
+        "durationMs": 731,
+        "text": "美术角"
       },
       {
-        "offsetMs": 1234,
-        "durationMs": 332,
-        "text": "林"
-      },
-      {
-        "offsetMs": 2168,
-        "durationMs": 293,
-        "text": "这里"
-      },
-      {
-        "offsetMs": 2473,
-        "durationMs": 146,
-        "text": "有"
-      },
-      {
-        "offsetMs": 2620,
-        "durationMs": 386,
-        "text": "很多"
-      },
-      {
-        "offsetMs": 3032,
-        "durationMs": 372,
-        "text": "有趣"
-      },
-      {
-        "offsetMs": 3404,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3497,
-        "durationMs": 306,
-        "text": "故事"
-      },
-      {
-        "offsetMs": 3803,
-        "durationMs": 253,
-        "text": "叶"
-      },
-      {
-        "offsetMs": 4322,
-        "durationMs": 372,
-        "text": "动手"
-      },
-      {
-        "offsetMs": 4694,
+        "offsetMs": 2221,
         "durationMs": 213,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 4920,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 279,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 5585,
-        "durationMs": 346,
-        "text": "发现"
-      },
-      {
-        "offsetMs": 5944,
-        "durationMs": 106,
-        "text": "你"
-      },
-      {
-        "offsetMs": 6051,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6157,
-        "durationMs": 372,
-        "text": "思考"
-      },
-      {
-        "offsetMs": 6543,
-        "durationMs": 492,
-        "text": "方法"
-      }
-    ]
-  },
-  "gentle-guide:大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！": {
-    "id": "gentle-guide:大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！",
-    "normKey": "大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-02126f41775552cd.mp3",
-    "durationMs": 9289,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "大"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 625,
-        "text": "石头"
-      },
-      {
-        "offsetMs": 1074,
-        "durationMs": 173,
-        "text": "被"
-      },
-      {
-        "offsetMs": 1247,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1340,
-        "durationMs": 359,
-        "text": "完全"
-      },
-      {
-        "offsetMs": 1712,
-        "durationMs": 572,
-        "text": "拆解"
-      },
-      {
-        "offsetMs": 2390,
-        "durationMs": 426,
-        "text": "成小"
-      },
-      {
-        "offsetMs": 2829,
-        "durationMs": 319,
-        "text": "动作"
-      },
-      {
-        "offsetMs": 3148,
-        "durationMs": 346,
-        "text": "啦"
-      },
-      {
-        "offsetMs": 4096,
-        "durationMs": 465,
-        "text": "走好"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 279,
-        "text": "脚下"
-      },
-      {
-        "offsetMs": 4867,
-        "durationMs": 66,
-        "text": "的"
-      },
-      {
-        "offsetMs": 4960,
-        "durationMs": 93,
-        "text": "这"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 5160,
-        "durationMs": 479,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 6037,
-        "durationMs": 213,
-        "text": "你"
-      },
-      {
-        "offsetMs": 6263,
-        "durationMs": 239,
-        "text": "已经"
-      },
-      {
-        "offsetMs": 6516,
-        "durationMs": 372,
-        "text": "拥有"
-      },
-      {
-        "offsetMs": 6915,
-        "durationMs": 386,
-        "text": "化解"
-      },
-      {
-        "offsetMs": 7327,
-        "durationMs": 186,
-        "text": "大"
-      },
-      {
-        "offsetMs": 7513,
-        "durationMs": 293,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 7806,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 7926,
-        "durationMs": 386,
-        "text": "思考"
-      },
-      {
-        "offsetMs": 8338,
-        "durationMs": 253,
-        "text": "超"
-      },
-      {
-        "offsetMs": 8590,
-        "durationMs": 319,
-        "text": "能力"
-      },
-      {
-        "offsetMs": 8910,
-        "durationMs": 199,
-        "text": "了"
-      }
-    ]
-  },
-  "playful-buddy:画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-29a6158d0c37bd40.mp3",
-    "durationMs": 9987,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 412,
-        "text": "画室"
-      },
-      {
-        "offsetMs": 527,
-        "durationMs": 515,
-        "text": "桌角"
-      },
-      {
-        "offsetMs": 1145,
-        "durationMs": 168,
-        "text": "有"
-      },
-      {
-        "offsetMs": 1313,
-        "durationMs": 142,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1455,
-        "durationMs": 219,
-        "text": "支"
-      },
-      {
-        "offsetMs": 1687,
-        "durationMs": 193,
-        "text": "断"
-      },
-      {
-        "offsetMs": 1880,
-        "durationMs": 180,
-        "text": "成"
-      },
-      {
-        "offsetMs": 2073,
-        "durationMs": 219,
-        "text": "两"
-      },
-      {
-        "offsetMs": 2292,
-        "durationMs": 155,
-        "text": "截"
-      },
-      {
-        "offsetMs": 2447,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2550,
-        "durationMs": 335,
-        "text": "红色"
-      },
-      {
-        "offsetMs": 2898,
-        "durationMs": 438,
-        "text": "蜡笔"
-      },
-      {
-        "offsetMs": 3658,
-        "durationMs": 515,
-        "text": "旁边"
-      },
-      {
-        "offsetMs": 4187,
-        "durationMs": 155,
-        "text": "有"
-      },
-      {
-        "offsetMs": 4341,
-        "durationMs": 142,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4483,
-        "durationMs": 193,
-        "text": "幅"
-      },
-      {
-        "offsetMs": 4689,
-        "durationMs": 193,
-        "text": "画"
-      },
-      {
-        "offsetMs": 4882,
-        "durationMs": 77,
-        "text": "了"
-      },
-      {
-        "offsetMs": 4973,
-        "durationMs": 348,
-        "text": "一半"
-      },
-      {
-        "offsetMs": 5321,
-        "durationMs": 77,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5411,
-        "durationMs": 515,
-        "text": "太阳"
-      },
-      {
-        "offsetMs": 6508,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 6881,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 7616,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 7977,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 8428,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 8570,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 8905,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 9201,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 9575,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "playful-buddy:绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-6b980863da547660.mp3",
-    "durationMs": 9007,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 606,
-        "text": "绿茵场"
-      },
-      {
-        "offsetMs": 707,
-        "durationMs": 309,
-        "text": "边"
-      },
-      {
-        "offsetMs": 1120,
-        "durationMs": 142,
-        "text": "有"
-      },
-      {
-        "offsetMs": 1261,
-        "durationMs": 129,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1390,
-        "durationMs": 193,
-        "text": "只"
-      },
-      {
-        "offsetMs": 1596,
-        "durationMs": 387,
-        "text": "滚出"
-      },
-      {
-        "offsetMs": 1983,
-        "durationMs": 348,
-        "text": "白线"
-      },
-      {
-        "offsetMs": 2331,
-        "durationMs": 90,
-        "text": "的"
+        "text": "桌"
       },
       {
         "offsetMs": 2434,
-        "durationMs": 554,
-        "text": "足球"
-      },
-      {
-        "offsetMs": 3246,
-        "durationMs": 425,
-        "text": "草地"
-      },
-      {
-        "offsetMs": 3671,
-        "durationMs": 193,
+        "durationMs": 213,
         "text": "上"
       },
       {
-        "offsetMs": 3877,
-        "durationMs": 155,
-        "text": "留"
+        "offsetMs": 2646,
+        "durationMs": 93,
+        "text": "的"
       },
       {
-        "offsetMs": 4032,
-        "durationMs": 116,
-        "text": "着"
+        "offsetMs": 2766,
+        "durationMs": 386,
+        "text": "绿色"
       },
       {
-        "offsetMs": 4161,
-        "durationMs": 103,
-        "text": "一"
+        "offsetMs": 3165,
+        "durationMs": 213,
+        "text": "小"
       },
       {
-        "offsetMs": 4264,
-        "durationMs": 129,
-        "text": "道"
+        "offsetMs": 3378,
+        "durationMs": 332,
+        "text": "蜡笔"
       },
       {
-        "offsetMs": 4406,
-        "durationMs": 541,
-        "text": "滑痕"
+        "offsetMs": 3737,
+        "durationMs": 452,
+        "text": "不见"
       },
       {
-        "offsetMs": 5528,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 5902,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 6637,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 6997,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7448,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 7590,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7925,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 8222,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 8595,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "playful-buddy:大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-b2ae47891a0bb4bf.mp3",
-    "durationMs": 8672,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 606,
-        "text": "大橡树"
-      },
-      {
-        "offsetMs": 707,
-        "durationMs": 322,
-        "text": "下"
-      },
-      {
-        "offsetMs": 1132,
-        "durationMs": 155,
-        "text": "掉"
-      },
-      {
-        "offsetMs": 1287,
-        "durationMs": 77,
+        "offsetMs": 4189,
+        "durationMs": 199,
         "text": "了"
       },
       {
-        "offsetMs": 1377,
-        "durationMs": 155,
-        "text": "几"
+        "offsetMs": 4721,
+        "durationMs": 213,
+        "text": "我们"
       },
       {
-        "offsetMs": 1532,
-        "durationMs": 180,
-        "text": "颗"
+        "offsetMs": 4947,
+        "durationMs": 199,
+        "text": "拿"
       },
       {
-        "offsetMs": 1725,
-        "durationMs": 348,
-        "text": "饱满"
+        "offsetMs": 5146,
+        "durationMs": 199,
+        "text": "起"
       },
       {
-        "offsetMs": 2073,
+        "offsetMs": 5372,
+        "durationMs": 878,
+        "text": "小放大镜"
+      },
+      {
+        "offsetMs": 6516,
+        "durationMs": 359,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6888,
+        "durationMs": 426,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 7340,
+        "durationMs": 120,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7473,
+        "durationMs": 412,
+        "text": "桌边"
+      },
+      {
+        "offsetMs": 7912,
+        "durationMs": 306,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 8231,
+        "durationMs": 426,
+        "text": "什么"
+      }
+    ]
+  },
+  "gentle-guide:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么": {
+    "id": "gentle-guide:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "normKey": "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-a64205c5efbdb637.mp3",
+    "durationMs": 8097,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 417,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 534,
+        "durationMs": 215,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 686,
+        "text": "美术角"
+      },
+      {
+        "offsetMs": 2083,
+        "durationMs": 242,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2325,
+        "durationMs": 134,
+        "text": "上"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2554,
+        "durationMs": 255,
+        "text": "绿色"
+      },
+      {
+        "offsetMs": 2823,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3011,
+        "durationMs": 282,
+        "text": "蜡笔"
+      },
+      {
+        "offsetMs": 3320,
+        "durationMs": 363,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 3683,
+        "durationMs": 228,
+        "text": "了"
+      },
+      {
+        "offsetMs": 4314,
+        "durationMs": 228,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 4556,
+        "durationMs": 134,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 148,
+        "text": "起"
+      },
+      {
+        "offsetMs": 4866,
+        "durationMs": 806,
+        "text": "小放大镜"
+      },
+      {
+        "offsetMs": 6062,
+        "durationMs": 376,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6452,
+        "durationMs": 417,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 94,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7003,
+        "durationMs": 296,
+        "text": "桌边"
+      },
+      {
+        "offsetMs": 7325,
+        "durationMs": 255,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 7594,
+        "durationMs": 323,
+        "text": "什么"
+      }
+    ]
+  },
+  "starlight-companion:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么": {
+    "id": "starlight-companion:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "normKey": "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-ebd5785fc94addf1.mp3",
+    "durationMs": 8759,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 421,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 289,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 839,
+        "durationMs": 711,
+        "text": "美术角"
+      },
+      {
+        "offsetMs": 2145,
+        "durationMs": 224,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2368,
+        "durationMs": 158,
+        "text": "上"
+      },
+      {
+        "offsetMs": 2526,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2645,
+        "durationMs": 355,
+        "text": "绿色"
+      },
+      {
+        "offsetMs": 3013,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3237,
+        "durationMs": 329,
+        "text": "蜡笔"
+      },
+      {
+        "offsetMs": 3579,
+        "durationMs": 460,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 4039,
+        "durationMs": 184,
+        "text": "了"
+      },
+      {
+        "offsetMs": 4487,
+        "durationMs": 316,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 4816,
+        "durationMs": 211,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 171,
+        "text": "起"
+      },
+      {
+        "offsetMs": 5211,
+        "durationMs": 921,
+        "text": "小放大镜"
+      },
+      {
+        "offsetMs": 6355,
+        "durationMs": 382,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6750,
+        "durationMs": 408,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 7171,
+        "durationMs": 158,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7342,
+        "durationMs": 408,
+        "text": "桌边"
+      },
+      {
+        "offsetMs": 7763,
+        "durationMs": 382,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 8158,
+        "durationMs": 421,
+        "text": "什么"
+      }
+    ]
+  },
+  "playful-buddy:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘": {
+    "id": "playful-buddy:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "normKey": "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-798f6521033afe89.mp3",
+    "durationMs": 8440,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 258,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 619,
+        "text": "绿茵场"
+      },
+      {
+        "offsetMs": 2088,
+        "durationMs": 490,
+        "text": "训练"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 142,
+        "text": "用"
+      },
+      {
+        "offsetMs": 2732,
         "durationMs": 90,
         "text": "的"
       },
       {
-        "offsetMs": 2176,
-        "durationMs": 503,
-        "text": "橡果"
+        "offsetMs": 2835,
+        "durationMs": 722,
+        "text": "小足球"
       },
       {
-        "offsetMs": 2937,
-        "durationMs": 503,
-        "text": "树枝"
+        "offsetMs": 3660,
+        "durationMs": 142,
+        "text": "不"
       },
       {
-        "offsetMs": 3452,
-        "durationMs": 206,
-        "text": "还"
+        "offsetMs": 3802,
+        "durationMs": 232,
+        "text": "知道"
       },
       {
-        "offsetMs": 3658,
-        "durationMs": 129,
+        "offsetMs": 4046,
+        "durationMs": 193,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 4240,
+        "durationMs": 155,
+        "text": "去"
+      },
+      {
+        "offsetMs": 4407,
+        "durationMs": 348,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 168,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5232,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 155,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 5619,
+        "durationMs": 142,
+        "text": "起"
+      },
+      {
+        "offsetMs": 5773,
+        "durationMs": 593,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6662,
+        "durationMs": 412,
+        "text": "仔细"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 322,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7423,
+        "durationMs": 361,
+        "text": "草坪"
+      },
+      {
+        "offsetMs": 7796,
+        "durationMs": 464,
+        "text": "边缘"
+      }
+    ]
+  },
+  "warm-sister:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘": {
+    "id": "warm-sister:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "normKey": "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-28999b1c61b60e42.mp3",
+    "durationMs": 9182,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 529,
+        "durationMs": 346,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 901,
+        "durationMs": 665,
+        "text": "绿茵场"
+      },
+      {
+        "offsetMs": 2181,
+        "durationMs": 452,
+        "text": "训练"
+      },
+      {
+        "offsetMs": 2646,
+        "durationMs": 160,
+        "text": "用"
+      },
+      {
+        "offsetMs": 2806,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2899,
+        "durationMs": 771,
+        "text": "小足球"
+      },
+      {
+        "offsetMs": 3777,
+        "durationMs": 133,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3910,
+        "durationMs": 293,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 4229,
+        "durationMs": 199,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 4428,
+        "durationMs": 160,
+        "text": "去"
+      },
+      {
+        "offsetMs": 4601,
+        "durationMs": 386,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 4987,
+        "durationMs": 226,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5585,
+        "durationMs": 213,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5811,
+        "durationMs": 186,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 5997,
+        "durationMs": 173,
+        "text": "起"
+      },
+      {
+        "offsetMs": 6184,
+        "durationMs": 652,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 7181,
+        "durationMs": 399,
+        "text": "仔细"
+      },
+      {
+        "offsetMs": 7593,
+        "durationMs": 399,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8019,
+        "durationMs": 426,
+        "text": "草坪"
+      },
+      {
+        "offsetMs": 8457,
+        "durationMs": 545,
+        "text": "边缘"
+      }
+    ]
+  },
+  "gentle-guide:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘": {
+    "id": "gentle-guide:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "normKey": "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-4de23cb25bb15ce7.mp3",
+    "durationMs": 8392,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 255,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 699,
+        "text": "绿茵场"
+      },
+      {
+        "offsetMs": 2097,
+        "durationMs": 417,
+        "text": "训练"
+      },
+      {
+        "offsetMs": 2527,
+        "durationMs": 108,
+        "text": "用"
+      },
+      {
+        "offsetMs": 2634,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2715,
+        "durationMs": 712,
+        "text": "小足球"
+      },
+      {
+        "offsetMs": 3548,
+        "durationMs": 161,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3710,
+        "durationMs": 188,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 3925,
+        "durationMs": 161,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 4086,
+        "durationMs": 134,
+        "text": "去"
+      },
+      {
+        "offsetMs": 4234,
+        "durationMs": 309,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 4543,
+        "durationMs": 215,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5134,
+        "durationMs": 349,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5497,
+        "durationMs": 148,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 94,
+        "text": "起"
+      },
+      {
+        "offsetMs": 5753,
+        "durationMs": 564,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6734,
+        "durationMs": 323,
+        "text": "仔细"
+      },
+      {
+        "offsetMs": 7070,
+        "durationMs": 309,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7406,
+        "durationMs": 363,
+        "text": "草坪"
+      },
+      {
+        "offsetMs": 7782,
+        "durationMs": 430,
+        "text": "边缘"
+      }
+    ]
+  },
+  "starlight-companion:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘": {
+    "id": "starlight-companion:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "normKey": "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-c7e6fd0a43df349c.mp3",
+    "durationMs": 9166,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 421,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 303,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 853,
+        "durationMs": 737,
+        "text": "绿茵场"
+      },
+      {
+        "offsetMs": 2184,
+        "durationMs": 421,
+        "text": "训练"
+      },
+      {
+        "offsetMs": 2618,
+        "durationMs": 171,
+        "text": "用"
+      },
+      {
+        "offsetMs": 2789,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2908,
+        "durationMs": 829,
+        "text": "小足球"
+      },
+      {
+        "offsetMs": 3842,
+        "durationMs": 158,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4000,
+        "durationMs": 289,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 4303,
+        "durationMs": 237,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 4539,
+        "durationMs": 171,
+        "text": "去"
+      },
+      {
+        "offsetMs": 4724,
+        "durationMs": 368,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 5092,
+        "durationMs": 197,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5539,
+        "durationMs": 303,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5855,
+        "durationMs": 224,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 6079,
+        "durationMs": 158,
+        "text": "起"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 711,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 7171,
+        "durationMs": 434,
+        "text": "仔细"
+      },
+      {
+        "offsetMs": 7618,
+        "durationMs": 342,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7974,
+        "durationMs": 461,
+        "text": "草坪"
+      },
+      {
+        "offsetMs": 8447,
+        "durationMs": 539,
+        "text": "边缘"
+      }
+    ]
+  },
+  "playful-buddy:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧": {
+    "id": "playful-buddy:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "normKey": "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-56cd4b6674038e87.mp3",
+    "durationMs": 10180,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 245,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 528,
+        "text": "大橡树"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 271,
+        "text": "下"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 271,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 490,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 2990,
+        "durationMs": 193,
+        "text": "放"
+      },
+      {
+        "offsetMs": 3183,
+        "durationMs": 116,
         "text": "在"
       },
       {
-        "offsetMs": 3800,
-        "durationMs": 387,
-        "text": "轻轻"
+        "offsetMs": 3312,
+        "durationMs": 335,
+        "text": "树洞"
       },
       {
-        "offsetMs": 4200,
+        "offsetMs": 3647,
+        "durationMs": 193,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4098,
         "durationMs": 412,
-        "text": "晃动"
+        "text": "橡果"
       },
       {
-        "offsetMs": 5193,
-        "durationMs": 361,
+        "offsetMs": 4523,
+        "durationMs": 180,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 232,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 193,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 309,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 593,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6972,
+        "durationMs": 180,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7165,
+        "durationMs": 155,
+        "text": "拨"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 168,
+        "text": "开"
+      },
+      {
+        "offsetMs": 7500,
+        "durationMs": 425,
+        "text": "落叶"
+      },
+      {
+        "offsetMs": 8183,
+        "durationMs": 335,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8531,
+        "durationMs": 348,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 8892,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 9046,
+        "durationMs": 296,
+        "text": "地面"
+      },
+      {
+        "offsetMs": 9356,
+        "durationMs": 425,
+        "text": "痕迹"
+      },
+      {
+        "offsetMs": 9781,
+        "durationMs": 219,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧": {
+    "id": "warm-sister:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "normKey": "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-66f68c9945d92382.mp3",
+    "durationMs": 11204,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 426,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 542,
+        "durationMs": 359,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 928,
+        "durationMs": 638,
+        "text": "大橡树"
+      },
+      {
+        "offsetMs": 1566,
+        "durationMs": 306,
+        "text": "下"
+      },
+      {
+        "offsetMs": 2473,
+        "durationMs": 253,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2726,
+        "durationMs": 612,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 3364,
+        "durationMs": 186,
+        "text": "放"
+      },
+      {
+        "offsetMs": 3551,
+        "durationMs": 160,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3723,
+        "durationMs": 359,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 4082,
+        "durationMs": 186,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 4269,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4388,
+        "durationMs": 160,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4548,
+        "durationMs": 426,
+        "text": "橡果"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 199,
+        "text": "找"
+      },
+      {
+        "offsetMs": 5199,
+        "durationMs": 93,
+        "text": "不"
+      },
+      {
+        "offsetMs": 5293,
+        "durationMs": 279,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5572,
+        "durationMs": 213,
+        "text": "了"
+      },
+      {
+        "offsetMs": 6170,
+        "durationMs": 213,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6396,
+        "durationMs": 359,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 6769,
+        "durationMs": 638,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 7673,
+        "durationMs": 173,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7859,
+        "durationMs": 160,
+        "text": "拨"
+      },
+      {
+        "offsetMs": 8019,
+        "durationMs": 173,
+        "text": "开"
+      },
+      {
+        "offsetMs": 8205,
+        "durationMs": 505,
+        "text": "落叶"
+      },
+      {
+        "offsetMs": 8896,
+        "durationMs": 372,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9282,
+        "durationMs": 519,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 9827,
+        "durationMs": 133,
+        "text": "和"
+      },
+      {
+        "offsetMs": 9973,
+        "durationMs": 319,
+        "text": "地面"
+      },
+      {
+        "offsetMs": 10306,
+        "durationMs": 465,
+        "text": "痕迹"
+      },
+      {
+        "offsetMs": 10771,
+        "durationMs": 253,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧": {
+    "id": "gentle-guide:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "normKey": "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-063d00c7bb79923f.mp3",
+    "durationMs": 10287,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 430,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 547,
+        "durationMs": 228,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 803,
+        "durationMs": 538,
+        "text": "大橡树"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 309,
+        "text": "下"
+      },
+      {
+        "offsetMs": 2258,
+        "durationMs": 296,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2554,
+        "durationMs": 457,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 161,
+        "text": "放"
+      },
+      {
+        "offsetMs": 3199,
+        "durationMs": 94,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3306,
+        "durationMs": 296,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 3602,
+        "durationMs": 148,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3844,
+        "durationMs": 161,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4005,
+        "durationMs": 376,
+        "text": "橡果"
+      },
+      {
+        "offsetMs": 4409,
+        "durationMs": 188,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4597,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4677,
+        "durationMs": 202,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4879,
+        "durationMs": 202,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5444,
+        "durationMs": 336,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5793,
+        "durationMs": 215,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 6022,
+        "durationMs": 524,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6909,
+        "durationMs": 175,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7097,
+        "durationMs": 134,
+        "text": "拨"
+      },
+      {
+        "offsetMs": 7231,
+        "durationMs": 148,
+        "text": "开"
+      },
+      {
+        "offsetMs": 7392,
+        "durationMs": 430,
+        "text": "落叶"
+      },
+      {
+        "offsetMs": 8186,
+        "durationMs": 309,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8508,
+        "durationMs": 551,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 9086,
+        "durationMs": 202,
+        "text": "和"
+      },
+      {
+        "offsetMs": 9301,
+        "durationMs": 242,
+        "text": "地面"
+      },
+      {
+        "offsetMs": 9556,
+        "durationMs": 323,
+        "text": "痕迹"
+      },
+      {
+        "offsetMs": 9879,
+        "durationMs": 228,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧": {
+    "id": "starlight-companion:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "normKey": "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-8229c00496353d04.mp3",
+    "durationMs": 11009,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 421,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 303,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 853,
+        "durationMs": 618,
+        "text": "大橡树"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 303,
+        "text": "下"
+      },
+      {
+        "offsetMs": 2368,
+        "durationMs": 289,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 461,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 3132,
+        "durationMs": 224,
+        "text": "放"
+      },
+      {
+        "offsetMs": 3355,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3526,
+        "durationMs": 408,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 3934,
+        "durationMs": 171,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 4105,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4224,
+        "durationMs": 197,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4421,
+        "durationMs": 408,
+        "text": "橡果"
+      },
+      {
+        "offsetMs": 4842,
+        "durationMs": 224,
+        "text": "找"
+      },
+      {
+        "offsetMs": 5066,
+        "durationMs": 105,
+        "text": "不"
+      },
+      {
+        "offsetMs": 5171,
+        "durationMs": 276,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5447,
+        "durationMs": 197,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5934,
+        "durationMs": 303,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 382,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 6645,
+        "durationMs": 724,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 7566,
+        "durationMs": 197,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7776,
+        "durationMs": 184,
+        "text": "拨"
+      },
+      {
+        "offsetMs": 7961,
+        "durationMs": 171,
+        "text": "开"
+      },
+      {
+        "offsetMs": 8145,
+        "durationMs": 447,
+        "text": "落叶"
+      },
+      {
+        "offsetMs": 8789,
+        "durationMs": 368,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9171,
+        "durationMs": 421,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 9605,
+        "durationMs": 158,
+        "text": "和"
+      },
+      {
+        "offsetMs": 9776,
+        "durationMs": 342,
+        "text": "地面"
+      },
+      {
+        "offsetMs": 10132,
+        "durationMs": 461,
+        "text": "痕迹"
+      },
+      {
+        "offsetMs": 10592,
+        "durationMs": 237,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找": {
+    "id": "playful-buddy:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "normKey": "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-48ee5381ec1f56a8.mp3",
+    "durationMs": 8518,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 284,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 875,
+        "durationMs": 219,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1094,
+        "durationMs": 142,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1248,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1455,
+        "durationMs": 296,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2332,
+        "durationMs": 515,
+        "text": "彩虹"
+      },
+      {
+        "offsetMs": 2861,
+        "durationMs": 219,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 3080,
+        "durationMs": 168,
+        "text": "图"
+      },
+      {
+        "offsetMs": 3247,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 335,
+        "text": "最后"
+      },
+      {
+        "offsetMs": 3711,
+        "durationMs": 296,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 142,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4162,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 232,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4485,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5245,
+        "durationMs": 309,
         "text": "拿起"
       },
       {
         "offsetMs": 5567,
-        "durationMs": 631,
+        "durationMs": 606,
         "text": "放大镜"
       },
       {
-        "offsetMs": 6302,
-        "durationMs": 348,
-        "text": "找找"
+        "offsetMs": 6405,
+        "durationMs": 168,
+        "text": "在"
       },
       {
-        "offsetMs": 6662,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7113,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 7255,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7590,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 7887,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 8260,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "playful-buddy:拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-e41bde2a0e6643b4.mp3",
-    "durationMs": 8737,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 245,
-        "text": "拼"
-      },
-      {
-        "offsetMs": 346,
-        "durationMs": 155,
-        "text": "图"
-      },
-      {
-        "offsetMs": 514,
-        "durationMs": 515,
+        "offsetMs": 6585,
+        "durationMs": 412,
         "text": "桌角"
       },
       {
-        "offsetMs": 1132,
-        "durationMs": 219,
-        "text": "少"
+        "offsetMs": 7010,
+        "durationMs": 142,
+        "text": "和"
       },
       {
-        "offsetMs": 1352,
-        "durationMs": 77,
-        "text": "了"
-      },
-      {
-        "offsetMs": 1442,
-        "durationMs": 309,
-        "text": "一块"
-      },
-      {
-        "offsetMs": 1764,
-        "durationMs": 361,
-        "text": "蓝天"
-      },
-      {
-        "offsetMs": 2138,
-        "durationMs": 451,
-        "text": "碎片"
-      },
-      {
-        "offsetMs": 2898,
+        "offsetMs": 7165,
         "durationMs": 399,
         "text": "地毯"
       },
       {
-        "offsetMs": 3297,
-        "durationMs": 258,
-        "text": "边"
+        "offsetMs": 7564,
+        "durationMs": 193,
+        "text": "上"
       },
       {
-        "offsetMs": 3568,
-        "durationMs": 296,
-        "text": "露出"
+        "offsetMs": 7771,
+        "durationMs": 193,
+        "text": "找"
       },
       {
-        "offsetMs": 3864,
-        "durationMs": 64,
-        "text": "了"
-      },
-      {
-        "offsetMs": 3942,
-        "durationMs": 155,
-        "text": "一个"
-      },
-      {
-        "offsetMs": 4109,
-        "durationMs": 567,
-        "text": "小角"
-      },
-      {
-        "offsetMs": 5258,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 5631,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 6366,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 6727,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7178,
+        "offsetMs": 7964,
         "durationMs": 129,
-        "text": "有"
+        "text": "一"
       },
       {
-        "offsetMs": 7320,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7655,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 7951,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 8325,
-        "durationMs": 232,
-        "text": "吧"
+        "offsetMs": 8093,
+        "durationMs": 245,
+        "text": "找"
       }
     ]
   },
-  "playful-buddy:有些事情我们暂时还不知道，这是很正常的！不用急着猜。": {
-    "id": "playful-buddy:有些事情我们暂时还不知道，这是很正常的！不用急着猜。",
-    "normKey": "有些事情我们暂时还不知道，这是很正常的！不用急着猜。",
+  "warm-sister:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找": {
+    "id": "warm-sister:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "normKey": "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-630defa3f6904f60.mp3",
+    "durationMs": 9183,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 529,
+        "durationMs": 332,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 239,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1127,
+        "durationMs": 146,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 253,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1539,
+        "durationMs": 346,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 412,
+        "text": "彩虹"
+      },
+      {
+        "offsetMs": 2912,
+        "durationMs": 226,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 3138,
+        "durationMs": 146,
+        "text": "图"
+      },
+      {
+        "offsetMs": 3285,
+        "durationMs": 120,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3431,
+        "durationMs": 386,
+        "text": "最后"
+      },
+      {
+        "offsetMs": 3830,
+        "durationMs": 346,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 4202,
+        "durationMs": 173,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4375,
+        "durationMs": 93,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4468,
+        "durationMs": 239,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4707,
+        "durationMs": 239,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 5279,
+        "durationMs": 199,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5492,
+        "durationMs": 359,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 5864,
+        "durationMs": 652,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6808,
+        "durationMs": 199,
+        "text": "在"
+      },
+      {
+        "offsetMs": 7021,
+        "durationMs": 519,
+        "text": "桌角"
+      },
+      {
+        "offsetMs": 7566,
+        "durationMs": 146,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7726,
+        "durationMs": 386,
+        "text": "地毯"
+      },
+      {
+        "offsetMs": 8112,
+        "durationMs": 199,
+        "text": "上"
+      },
+      {
+        "offsetMs": 8338,
+        "durationMs": 199,
+        "text": "找"
+      },
+      {
+        "offsetMs": 8537,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8684,
+        "durationMs": 319,
+        "text": "找"
+      }
+    ]
+  },
+  "gentle-guide:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找": {
+    "id": "gentle-guide:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "normKey": "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-bd8146a8f526576e.mp3",
+    "durationMs": 8123,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 403,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 520,
+        "durationMs": 282,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 830,
+        "durationMs": 188,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 108,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1139,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 336,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2272,
+        "durationMs": 390,
+        "text": "彩虹"
+      },
+      {
+        "offsetMs": 2675,
+        "durationMs": 161,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 2836,
+        "durationMs": 94,
+        "text": "图"
+      },
+      {
+        "offsetMs": 2930,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 282,
+        "text": "最后"
+      },
+      {
+        "offsetMs": 3333,
+        "durationMs": 255,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 3616,
+        "durationMs": 134,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3831,
+        "durationMs": 215,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 242,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 4718,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 4946,
+        "durationMs": 228,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 5188,
+        "durationMs": 564,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 5995,
+        "durationMs": 188,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6196,
+        "durationMs": 444,
+        "text": "桌角"
+      },
+      {
+        "offsetMs": 6667,
+        "durationMs": 108,
+        "text": "和"
+      },
+      {
+        "offsetMs": 6788,
+        "durationMs": 309,
+        "text": "地毯"
+      },
+      {
+        "offsetMs": 7097,
+        "durationMs": 228,
+        "text": "上"
+      },
+      {
+        "offsetMs": 7352,
+        "durationMs": 255,
+        "text": "找"
+      },
+      {
+        "offsetMs": 7608,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 7688,
+        "durationMs": 255,
+        "text": "找"
+      }
+    ]
+  },
+  "starlight-companion:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找": {
+    "id": "starlight-companion:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "normKey": "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-f2e38a1094a1891f.mp3",
+    "durationMs": 9140,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 434,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 550,
+        "durationMs": 342,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 905,
+        "durationMs": 224,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1129,
+        "durationMs": 132,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1274,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1511,
+        "durationMs": 316,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2421,
+        "durationMs": 487,
+        "text": "彩虹"
+      },
+      {
+        "offsetMs": 2921,
+        "durationMs": 224,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 3145,
+        "durationMs": 158,
+        "text": "图"
+      },
+      {
+        "offsetMs": 3303,
+        "durationMs": 118,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3434,
+        "durationMs": 395,
+        "text": "最后"
+      },
+      {
+        "offsetMs": 3842,
+        "durationMs": 329,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 4184,
+        "durationMs": 197,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4382,
+        "durationMs": 92,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4474,
+        "durationMs": 250,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4724,
+        "durationMs": 237,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 5237,
+        "durationMs": 276,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5526,
+        "durationMs": 382,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 5921,
+        "durationMs": 711,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6816,
+        "durationMs": 224,
+        "text": "在"
+      },
+      {
+        "offsetMs": 7053,
+        "durationMs": 487,
+        "text": "桌角"
+      },
+      {
+        "offsetMs": 7553,
+        "durationMs": 158,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7724,
+        "durationMs": 421,
+        "text": "地毯"
+      },
+      {
+        "offsetMs": 8145,
+        "durationMs": 171,
+        "text": "上"
+      },
+      {
+        "offsetMs": 8329,
+        "durationMs": 197,
+        "text": "找"
+      },
+      {
+        "offsetMs": 8526,
+        "durationMs": 145,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8671,
+        "durationMs": 289,
+        "text": "找"
+      }
+    ]
+  },
+  "playful-buddy:有些事情我们暂时还不知道这是很正常的不用急着猜": {
+    "id": "playful-buddy:有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "normKey": "有些事情我们暂时还不知道这是很正常的不用急着猜",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-33aa36053b6b3b3a.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-980477526bb00c98.mp3",
     "durationMs": 5231,
     "boundaries": [
       {
@@ -4503,102 +14388,282 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "playful-buddy:太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。": {
-    "id": "playful-buddy:太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。",
-    "normKey": "太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-c82bc59b241a00a1.mp3",
-    "durationMs": 6379,
+  "warm-sister:有些事情我们暂时还不知道这是很正常的不用急着猜": {
+    "id": "warm-sister:有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "normKey": "有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-98d4f9b5f3eccb77.mp3",
+    "durationMs": 5938,
     "boundaries": [
       {
-        "offsetMs": 102,
-        "durationMs": 284,
-        "text": "太"
+        "offsetMs": 103,
+        "durationMs": 359,
+        "text": "有些"
       },
       {
-        "offsetMs": 385,
-        "durationMs": 180,
-        "text": "棒"
+        "offsetMs": 476,
+        "durationMs": 652,
+        "text": "事情"
       },
       {
-        "offsetMs": 565,
-        "durationMs": 155,
-        "text": "了"
-      },
-      {
-        "offsetMs": 836,
-        "durationMs": 670,
-        "text": "小侦探"
-      },
-      {
-        "offsetMs": 2088,
-        "durationMs": 296,
+        "offsetMs": 1234,
+        "durationMs": 239,
         "text": "我们"
       },
       {
-        "offsetMs": 2397,
-        "durationMs": 142,
-        "text": "把"
+        "offsetMs": 1486,
+        "durationMs": 319,
+        "text": "暂时"
       },
       {
-        "offsetMs": 2539,
-        "durationMs": 374,
-        "text": "拍到"
+        "offsetMs": 1819,
+        "durationMs": 160,
+        "text": "还"
       },
       {
-        "offsetMs": 2912,
-        "durationMs": 90,
+        "offsetMs": 1978,
+        "durationMs": 133,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2111,
+        "durationMs": 412,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 2829,
+        "durationMs": 146,
+        "text": "这"
+      },
+      {
+        "offsetMs": 2976,
+        "durationMs": 120,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3108,
+        "durationMs": 253,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3361,
+        "durationMs": 519,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 3880,
+        "durationMs": 199,
         "text": "的"
       },
       {
-        "offsetMs": 3015,
-        "durationMs": 567,
-        "text": "照片"
+        "offsetMs": 4681,
+        "durationMs": 399,
+        "text": "不用"
       },
       {
-        "offsetMs": 3698,
-        "durationMs": 142,
-        "text": "和"
+        "offsetMs": 5093,
+        "durationMs": 186,
+        "text": "急"
       },
       {
-        "offsetMs": 3853,
-        "durationMs": 322,
-        "text": "心里"
+        "offsetMs": 5279,
+        "durationMs": 120,
+        "text": "着"
       },
       {
-        "offsetMs": 4175,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 4278,
-        "durationMs": 580,
-        "text": "猜想"
-      },
-      {
-        "offsetMs": 4961,
-        "durationMs": 193,
-        "text": "分"
-      },
-      {
-        "offsetMs": 5155,
-        "durationMs": 90,
-        "text": "得"
-      },
-      {
-        "offsetMs": 5258,
-        "durationMs": 941,
-        "text": "清清楚楚"
+        "offsetMs": 5399,
+        "durationMs": 359,
+        "text": "猜"
       }
     ]
   },
-  "playful-buddy:已重新整理场景，拿起放大镜重新找找吧！": {
-    "id": "playful-buddy:已重新整理场景，拿起放大镜重新找找吧！",
-    "normKey": "已重新整理场景，拿起放大镜重新找找吧！",
+  "gentle-guide:有些事情我们暂时还不知道这是很正常的不用急着猜": {
+    "id": "gentle-guide:有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "normKey": "有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-cacdb3c472c5b4eb.mp3",
+    "durationMs": 5624,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 632,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 1233,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 1461,
+        "durationMs": 282,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 1757,
+        "durationMs": 134,
+        "text": "还"
+      },
+      {
+        "offsetMs": 1891,
+        "durationMs": 121,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2012,
+        "durationMs": 484,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 175,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3047,
+        "durationMs": 81,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3141,
+        "durationMs": 148,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3289,
+        "durationMs": 417,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 3706,
+        "durationMs": 202,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4516,
+        "durationMs": 296,
+        "text": "不用"
+      },
+      {
+        "offsetMs": 4825,
+        "durationMs": 134,
+        "text": "急"
+      },
+      {
+        "offsetMs": 4960,
+        "durationMs": 121,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5081,
+        "durationMs": 363,
+        "text": "猜"
+      }
+    ]
+  },
+  "starlight-companion:有些事情我们暂时还不知道这是很正常的不用急着猜": {
+    "id": "starlight-companion:有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "normKey": "有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-ef91d2b24dec7b7a.mp3",
+    "durationMs": 6088,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 434,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 550,
+        "durationMs": 618,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 1261,
+        "durationMs": 303,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 1576,
+        "durationMs": 395,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 1984,
+        "durationMs": 197,
+        "text": "还"
+      },
+      {
+        "offsetMs": 2182,
+        "durationMs": 158,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2339,
+        "durationMs": 395,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 3011,
+        "durationMs": 184,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3195,
+        "durationMs": 132,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3339,
+        "durationMs": 276,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3616,
+        "durationMs": 513,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 4129,
+        "durationMs": 224,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4947,
+        "durationMs": 342,
+        "text": "不用"
+      },
+      {
+        "offsetMs": 5303,
+        "durationMs": 171,
+        "text": "急"
+      },
+      {
+        "offsetMs": 5474,
+        "durationMs": 118,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5592,
+        "durationMs": 316,
+        "text": "猜"
+      }
+    ]
+  },
+  "playful-buddy:已重新整理场景拿起放大镜重新找找吧": {
+    "id": "playful-buddy:已重新整理场景拿起放大镜重新找找吧",
+    "normKey": "已重新整理场景拿起放大镜重新找找吧",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-7a24128c015a11c0.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-6485c27573fe5040.mp3",
     "durationMs": 4006,
     "boundaries": [
       {
@@ -4648,253 +14713,5083 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "gentle-guide:校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。": {
-    "id": "gentle-guide:校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。",
-    "normKey": "校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-76b55809c97ee84a.mp3",
-    "durationMs": 10126,
+  "warm-sister:已重新整理场景拿起放大镜重新找找吧": {
+    "id": "warm-sister:已重新整理场景拿起放大镜重新找找吧",
+    "normKey": "已重新整理场景拿起放大镜重新找找吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-38d032c96f0c0340.mp3",
+    "durationMs": 4179,
     "boundaries": [
       {
         "offsetMs": 103,
+        "durationMs": 213,
+        "text": "已"
+      },
+      {
+        "offsetMs": 329,
+        "durationMs": 731,
+        "text": "重新整理"
+      },
+      {
+        "offsetMs": 1074,
         "durationMs": 572,
-        "text": "校门口"
+        "text": "场景"
       },
       {
-        "offsetMs": 688,
-        "durationMs": 359,
-        "text": "放学"
-      },
-      {
-        "offsetMs": 1047,
-        "durationMs": 386,
-        "text": "时"
-      },
-      {
-        "offsetMs": 1752,
-        "durationMs": 293,
-        "text": "同学"
+        "offsetMs": 1912,
+        "durationMs": 160,
+        "text": "拿"
       },
       {
         "offsetMs": 2071,
-        "durationMs": 319,
+        "durationMs": 160,
+        "text": "起"
+      },
+      {
+        "offsetMs": 2244,
+        "durationMs": 652,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 2922,
+        "durationMs": 439,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 3374,
+        "durationMs": 386,
+        "text": "找找"
+      },
+      {
+        "offsetMs": 3760,
+        "durationMs": 239,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:已重新整理场景拿起放大镜重新找找吧": {
+    "id": "gentle-guide:已重新整理场景拿起放大镜重新找找吧",
+    "normKey": "已重新整理场景拿起放大镜重新找找吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-2aa15fc5e940b68c.mp3",
+    "durationMs": 4343,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 148,
+        "text": "已"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 645,
+        "text": "重新整理"
+      },
+      {
+        "offsetMs": 924,
+        "durationMs": 605,
+        "text": "场景"
+      },
+      {
+        "offsetMs": 1945,
+        "durationMs": 551,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 94,
+        "text": "起"
+      },
+      {
+        "offsetMs": 2604,
+        "durationMs": 430,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 3061,
+        "durationMs": 390,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 3464,
+        "durationMs": 323,
+        "text": "找找"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 376,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:已重新整理场景拿起放大镜重新找找吧": {
+    "id": "starlight-companion:已重新整理场景拿起放大镜重新找找吧",
+    "normKey": "已重新整理场景拿起放大镜重新找找吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-918c5542b09455f6.mp3",
+    "durationMs": 4414,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 184,
+        "text": "已"
+      },
+      {
+        "offsetMs": 300,
+        "durationMs": 789,
+        "text": "重新整理"
+      },
+      {
+        "offsetMs": 1103,
+        "durationMs": 592,
+        "text": "场景"
+      },
+      {
+        "offsetMs": 1945,
+        "durationMs": 263,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 2208,
+        "durationMs": 171,
+        "text": "起"
+      },
+      {
+        "offsetMs": 2392,
+        "durationMs": 632,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 3037,
+        "durationMs": 500,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 3550,
+        "durationMs": 434,
+        "text": "找找"
+      },
+      {
+        "offsetMs": 3984,
+        "durationMs": 250,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "playful-buddy:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a907873494e79989.mp3",
+    "durationMs": 17139,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "放"
+      },
+      {
+        "offsetMs": 334,
+        "durationMs": 374,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 720,
+        "durationMs": 348,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 361,
         "text": "好奇"
       },
       {
-        "offsetMs": 2390,
-        "durationMs": 80,
-        "text": "地"
+        "offsetMs": 1558,
+        "durationMs": 438,
+        "text": "提问"
       },
       {
-        "offsetMs": 2484,
-        "durationMs": 279,
-        "text": "问"
+        "offsetMs": 2577,
+        "durationMs": 296,
+        "text": "好"
       },
       {
-        "offsetMs": 3188,
+        "offsetMs": 2874,
+        "durationMs": 322,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3209,
+        "durationMs": 361,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 322,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4162,
+        "durationMs": 361,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 515,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 5284,
+        "durationMs": 155,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5593,
+        "durationMs": 284,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 5889,
+        "durationMs": 142,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6044,
+        "durationMs": 219,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6263,
+        "durationMs": 232,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6765,
+        "durationMs": 528,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 7307,
+        "durationMs": 232,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 7552,
+        "durationMs": 271,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 7822,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 7951,
+        "durationMs": 335,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8286,
+        "durationMs": 232,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 284,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9394,
         "durationMs": 412,
         "text": "为什么"
       },
       {
-        "offsetMs": 3614,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 3694,
-        "durationMs": 199,
-        "text": "爸爸"
-      },
-      {
-        "offsetMs": 3906,
-        "durationMs": 332,
-        "text": "妈妈"
-      },
-      {
-        "offsetMs": 4265,
-        "durationMs": 133,
+        "offsetMs": 9820,
+        "durationMs": 103,
         "text": "不"
       },
       {
-        "offsetMs": 4398,
-        "durationMs": 239,
+        "offsetMs": 9923,
+        "durationMs": 284,
         "text": "一起"
       },
       {
-        "offsetMs": 4651,
-        "durationMs": 173,
+        "offsetMs": 10219,
+        "durationMs": 180,
         "text": "接"
       },
       {
-        "offsetMs": 4824,
-        "durationMs": 106,
+        "offsetMs": 10400,
+        "durationMs": 168,
         "text": "你"
       },
       {
-        "offsetMs": 4930,
-        "durationMs": 279,
-        "text": "呀"
+        "offsetMs": 10567,
+        "durationMs": 232,
+        "text": "呢"
       },
       {
-        "offsetMs": 5811,
-        "durationMs": 213,
-        "text": "别"
+        "offsetMs": 11379,
+        "durationMs": 142,
+        "text": "你"
       },
       {
-        "offsetMs": 6024,
-        "durationMs": 532,
-        "text": "着急"
+        "offsetMs": 11521,
+        "durationMs": 168,
+        "text": "想"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 239,
+        "offsetMs": 11701,
+        "durationMs": 193,
         "text": "怎么"
       },
       {
-        "offsetMs": 7154,
-        "durationMs": 372,
+        "offsetMs": 11907,
+        "durationMs": 374,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 12281,
+        "durationMs": 232,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 13093,
+        "durationMs": 258,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 13350,
+        "durationMs": 348,
         "text": "说"
       },
       {
-        "offsetMs": 7926,
-        "durationMs": 199,
-        "text": "跟"
-      },
-      {
-        "offsetMs": 8125,
-        "durationMs": 213,
-        "text": "谁"
-      },
-      {
-        "offsetMs": 8338,
-        "durationMs": 332,
+        "offsetMs": 13956,
+        "durationMs": 180,
         "text": "说"
       },
       {
-        "offsetMs": 9016,
-        "durationMs": 332,
-        "text": "完全"
+        "offsetMs": 14137,
+        "durationMs": 477,
+        "text": "多少"
       },
       {
-        "offsetMs": 9362,
-        "durationMs": 106,
+        "offsetMs": 14704,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 15000,
+        "durationMs": 374,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 15387,
+        "durationMs": 477,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 16095,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 16250,
+        "durationMs": 155,
         "text": "由"
       },
       {
-        "offsetMs": 9468,
-        "durationMs": 93,
+        "offsetMs": 16405,
+        "durationMs": 142,
         "text": "你"
       },
       {
-        "offsetMs": 9574,
-        "durationMs": 372,
+        "offsetMs": 16559,
+        "durationMs": 400,
         "text": "决定"
       }
     ]
   },
-  "gentle-guide:注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！": {
-    "id": "gentle-guide:注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！",
-    "normKey": "注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-1b127153746420b9.mp3",
-    "durationMs": 7613,
+  "warm-sister:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "warm-sister:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-02b4a2a037408253.mp3",
+    "durationMs": 18198,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 572,
-        "text": "注意"
+        "durationMs": 253,
+        "text": "放"
       },
       {
-        "offsetMs": 1114,
-        "durationMs": 266,
-        "text": "遇到"
+        "offsetMs": 369,
+        "durationMs": 426,
+        "text": "学校"
       },
       {
-        "offsetMs": 1393,
-        "durationMs": 439,
-        "text": "起哄"
+        "offsetMs": 808,
+        "durationMs": 399,
+        "text": "门口"
       },
       {
-        "offsetMs": 1858,
-        "durationMs": 80,
-        "text": "和"
+        "offsetMs": 1207,
+        "durationMs": 93,
+        "text": "的"
       },
       {
-        "offsetMs": 1952,
-        "durationMs": 479,
-        "text": "嘲笑"
+        "offsetMs": 1327,
+        "durationMs": 386,
+        "text": "好奇"
       },
       {
-        "offsetMs": 2430,
-        "durationMs": 439,
-        "text": "时"
+        "offsetMs": 1726,
+        "durationMs": 505,
+        "text": "提问"
       },
       {
-        "offsetMs": 3188,
+        "offsetMs": 2846,
         "durationMs": 213,
-        "text": "我们"
+        "text": "好"
       },
       {
-        "offsetMs": 3414,
-        "durationMs": 372,
-        "text": "绝对"
+        "offsetMs": 3058,
+        "durationMs": 266,
+        "text": "朋友"
       },
       {
-        "offsetMs": 3800,
+        "offsetMs": 3338,
+        "durationMs": 412,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 332,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4455,
+        "durationMs": 319,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 5106,
+        "durationMs": 439,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 5558,
+        "durationMs": 146,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5705,
         "durationMs": 133,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5851,
+        "durationMs": 306,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 6170,
+        "durationMs": 146,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6330,
+        "durationMs": 253,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6582,
+        "durationMs": 239,
+        "text": "你"
+      },
+      {
+        "offsetMs": 7168,
+        "durationMs": 439,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 7620,
+        "durationMs": 186,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 7819,
+        "durationMs": 266,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8085,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 8218,
+        "durationMs": 359,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8577,
+        "durationMs": 293,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 9468,
+        "durationMs": 266,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9747,
+        "durationMs": 452,
+        "text": "为什么"
+      },
+      {
+        "offsetMs": 10226,
+        "durationMs": 80,
         "text": "不"
       },
       {
-        "offsetMs": 3933,
+        "offsetMs": 10306,
+        "durationMs": 372,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 10692,
         "durationMs": 239,
-        "text": "需要"
+        "text": "接"
       },
       {
-        "offsetMs": 4186,
-        "durationMs": 439,
-        "text": "忍受"
+        "offsetMs": 10931,
+        "durationMs": 160,
+        "text": "你"
       },
       {
-        "offsetMs": 5239,
-        "durationMs": 319,
-        "text": "请"
-      },
-      {
-        "offsetMs": 5572,
+        "offsetMs": 11090,
         "durationMs": 279,
-        "text": "立刻"
+        "text": "呢"
       },
       {
-        "offsetMs": 5864,
-        "durationMs": 319,
-        "text": "使用"
+        "offsetMs": 11968,
+        "durationMs": 146,
+        "text": "你"
       },
       {
-        "offsetMs": 6210,
-        "durationMs": 412,
-        "text": "安全"
+        "offsetMs": 12114,
+        "durationMs": 226,
+        "text": "想"
       },
       {
-        "offsetMs": 6636,
-        "durationMs": 279,
-        "text": "保护"
+        "offsetMs": 12354,
+        "durationMs": 199,
+        "text": "怎么"
       },
       {
-        "offsetMs": 6928,
+        "offsetMs": 12566,
+        "durationMs": 426,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 12992,
+        "durationMs": 266,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 13856,
+        "durationMs": 266,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 14122,
+        "durationMs": 359,
+        "text": "说"
+      },
+      {
+        "offsetMs": 14734,
+        "durationMs": 199,
+        "text": "说"
+      },
+      {
+        "offsetMs": 14934,
+        "durationMs": 585,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 15625,
+        "durationMs": 293,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 15931,
+        "durationMs": 386,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 16330,
         "durationMs": 505,
-        "text": "行动"
+        "text": "对话"
+      },
+      {
+        "offsetMs": 17074,
+        "durationMs": 173,
+        "text": "都"
+      },
+      {
+        "offsetMs": 17247,
+        "durationMs": 160,
+        "text": "由"
+      },
+      {
+        "offsetMs": 17407,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 17566,
+        "durationMs": 452,
+        "text": "决定"
       }
     ]
   },
-  "gentle-guide:我们重新想一想，换一种你觉得最舒服的方式回答。": {
-    "id": "gentle-guide:我们重新想一想，换一种你觉得最舒服的方式回答。",
-    "normKey": "我们重新想一想，换一种你觉得最舒服的方式回答。",
+  "gentle-guide:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "gentle-guide:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-6eb9417c8fac6173.mp3",
-    "durationMs": 3980,
+    "audioUrl": "/audio/tts/gentle-guide-2ff58719d2efe388.mp3",
+    "durationMs": 17169,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 349,
+        "text": "放"
+      },
+      {
+        "offsetMs": 467,
+        "durationMs": 309,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 789,
+        "durationMs": 296,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1085,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1179,
+        "durationMs": 349,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1542,
+        "durationMs": 484,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2648,
+        "durationMs": 269,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2917,
+        "durationMs": 202,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3132,
+        "durationMs": 296,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3427,
+        "durationMs": 376,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4167,
+        "durationMs": 484,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 4960,
+        "durationMs": 296,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 5269,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5390,
+        "durationMs": 108,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5511,
+        "durationMs": 228,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 5753,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5874,
+        "durationMs": 188,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6062,
+        "durationMs": 255,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6707,
+        "durationMs": 282,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 7003,
+        "durationMs": 161,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 7177,
+        "durationMs": 175,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 7352,
+        "durationMs": 67,
+        "text": "你"
+      },
+      {
+        "offsetMs": 7433,
+        "durationMs": 282,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 7715,
+        "durationMs": 349,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 8669,
+        "durationMs": 269,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 8952,
+        "durationMs": 296,
+        "text": "为什么"
+      },
+      {
+        "offsetMs": 9274,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 9355,
+        "durationMs": 269,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 9637,
+        "durationMs": 215,
+        "text": "接"
+      },
+      {
+        "offsetMs": 9852,
+        "durationMs": 148,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10000,
+        "durationMs": 228,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 10833,
+        "durationMs": 282,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11116,
+        "durationMs": 161,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11290,
+        "durationMs": 161,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 11465,
+        "durationMs": 309,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 11774,
+        "durationMs": 282,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 12661,
+        "durationMs": 242,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 12903,
+        "durationMs": 430,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13763,
+        "durationMs": 269,
+        "text": "说"
+      },
+      {
+        "offsetMs": 14032,
+        "durationMs": 659,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 14812,
+        "durationMs": 296,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 15121,
+        "durationMs": 296,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 15430,
+        "durationMs": 470,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 16250,
+        "durationMs": 161,
+        "text": "都"
+      },
+      {
+        "offsetMs": 16411,
+        "durationMs": 121,
+        "text": "由"
+      },
+      {
+        "offsetMs": 16532,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 16640,
+        "durationMs": 349,
+        "text": "决定"
+      }
+    ]
+  },
+  "starlight-companion:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "starlight-companion:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-89da13adfc68182c.mp3",
+    "durationMs": 18496,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 263,
+        "text": "放"
+      },
+      {
+        "offsetMs": 379,
+        "durationMs": 408,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 800,
+        "durationMs": 368,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1168,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 434,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1734,
+        "durationMs": 526,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2855,
+        "durationMs": 263,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3118,
+        "durationMs": 303,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3434,
+        "durationMs": 408,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3842,
+        "durationMs": 329,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4434,
+        "durationMs": 434,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 5105,
+        "durationMs": 474,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 5592,
+        "durationMs": 171,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5763,
+        "durationMs": 158,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5934,
+        "durationMs": 329,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 158,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6447,
+        "durationMs": 250,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6697,
+        "durationMs": 237,
+        "text": "你"
+      },
+      {
+        "offsetMs": 7224,
+        "durationMs": 382,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 7618,
+        "durationMs": 276,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 7908,
+        "durationMs": 289,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8197,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 8355,
+        "durationMs": 368,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8724,
+        "durationMs": 263,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 9579,
+        "durationMs": 342,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9934,
+        "durationMs": 447,
+        "text": "为什么"
+      },
+      {
+        "offsetMs": 10395,
+        "durationMs": 132,
+        "text": "不"
+      },
+      {
+        "offsetMs": 10526,
+        "durationMs": 329,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 10868,
+        "durationMs": 237,
+        "text": "接"
+      },
+      {
+        "offsetMs": 11105,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11276,
+        "durationMs": 263,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 12132,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 12303,
+        "durationMs": 211,
+        "text": "想"
+      },
+      {
+        "offsetMs": 12526,
+        "durationMs": 237,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 12776,
+        "durationMs": 395,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 13171,
+        "durationMs": 224,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 13987,
+        "durationMs": 329,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 14316,
+        "durationMs": 355,
+        "text": "说"
+      },
+      {
+        "offsetMs": 14908,
+        "durationMs": 289,
+        "text": "说"
+      },
+      {
+        "offsetMs": 15197,
+        "durationMs": 526,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 15829,
+        "durationMs": 355,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 16197,
+        "durationMs": 421,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 16632,
+        "durationMs": 500,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 17368,
+        "durationMs": 197,
+        "text": "都"
+      },
+      {
+        "offsetMs": 17566,
+        "durationMs": 171,
+        "text": "由"
+      },
+      {
+        "offsetMs": 17737,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 17895,
+        "durationMs": 421,
+        "text": "决定"
+      }
+    ]
+  },
+  "playful-buddy:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "playful-buddy:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-53973cb54b679fd7.mp3",
+    "durationMs": 15773,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "放"
+      },
+      {
+        "offsetMs": 334,
+        "durationMs": 374,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 720,
+        "durationMs": 348,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 361,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1558,
+        "durationMs": 438,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2577,
+        "durationMs": 284,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2861,
+        "durationMs": 284,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3157,
+        "durationMs": 348,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3505,
+        "durationMs": 296,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 296,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 4562,
+        "durationMs": 400,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 4974,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 232,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 5361,
+        "durationMs": 142,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5515,
+        "durationMs": 155,
+        "text": "接"
+      },
+      {
+        "offsetMs": 5670,
+        "durationMs": 103,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 374,
+        "text": "放学"
+      },
+      {
+        "offsetMs": 6160,
+        "durationMs": 245,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 6985,
+        "durationMs": 284,
+        "text": "你们"
+      },
+      {
+        "offsetMs": 7268,
+        "durationMs": 193,
+        "text": "家"
+      },
+      {
+        "offsetMs": 7474,
+        "durationMs": 515,
+        "text": "平时"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8144,
+        "durationMs": 206,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 335,
+        "text": "安排"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 387,
+        "text": "接送"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9201,
+        "durationMs": 232,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 10013,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10155,
+        "durationMs": 168,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10335,
+        "durationMs": 193,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 10541,
+        "durationMs": 374,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 10915,
+        "durationMs": 232,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 11727,
+        "durationMs": 258,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 11985,
+        "durationMs": 348,
+        "text": "说"
+      },
+      {
+        "offsetMs": 12590,
+        "durationMs": 180,
+        "text": "说"
+      },
+      {
+        "offsetMs": 12771,
+        "durationMs": 477,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 13338,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 13634,
+        "durationMs": 374,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 14021,
+        "durationMs": 477,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 14729,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 14884,
+        "durationMs": 155,
+        "text": "由"
+      },
+      {
+        "offsetMs": 15039,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 15193,
+        "durationMs": 400,
+        "text": "决定"
+      }
+    ]
+  },
+  "warm-sister:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "warm-sister:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-1056b304f619bf9e.mp3",
+    "durationMs": 17161,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 253,
+        "text": "放"
+      },
+      {
+        "offsetMs": 369,
+        "durationMs": 426,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 808,
+        "durationMs": 399,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1207,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 386,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1726,
+        "durationMs": 505,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2846,
+        "durationMs": 213,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3058,
+        "durationMs": 253,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3324,
+        "durationMs": 426,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 332,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4442,
+        "durationMs": 306,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 5066,
+        "durationMs": 359,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 5439,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5572,
+        "durationMs": 226,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 5811,
+        "durationMs": 173,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5997,
+        "durationMs": 160,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6157,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6290,
+        "durationMs": 412,
+        "text": "放学"
+      },
+      {
+        "offsetMs": 6702,
+        "durationMs": 279,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 7580,
+        "durationMs": 279,
+        "text": "你们"
+      },
+      {
+        "offsetMs": 7859,
+        "durationMs": 186,
+        "text": "家"
+      },
+      {
+        "offsetMs": 8058,
+        "durationMs": 519,
+        "text": "平时"
+      },
+      {
+        "offsetMs": 8604,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8777,
+        "durationMs": 266,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 9056,
+        "durationMs": 386,
+        "text": "安排"
+      },
+      {
+        "offsetMs": 9468,
+        "durationMs": 479,
+        "text": "接送"
+      },
+      {
+        "offsetMs": 9947,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10040,
+        "durationMs": 293,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 10931,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11077,
+        "durationMs": 226,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11316,
+        "durationMs": 199,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 11529,
+        "durationMs": 426,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 11955,
+        "durationMs": 266,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 12819,
+        "durationMs": 266,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 13085,
+        "durationMs": 359,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13697,
+        "durationMs": 199,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13896,
+        "durationMs": 585,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 14588,
+        "durationMs": 293,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 14894,
+        "durationMs": 386,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 15293,
+        "durationMs": 505,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 16037,
+        "durationMs": 173,
+        "text": "都"
+      },
+      {
+        "offsetMs": 16210,
+        "durationMs": 160,
+        "text": "由"
+      },
+      {
+        "offsetMs": 16370,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 16529,
+        "durationMs": 452,
+        "text": "决定"
+      }
+    ]
+  },
+  "gentle-guide:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "gentle-guide:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-79f2c1ef7de56b83.mp3",
+    "durationMs": 16376,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 349,
+        "text": "放"
+      },
+      {
+        "offsetMs": 467,
+        "durationMs": 309,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 789,
+        "durationMs": 296,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1085,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1179,
+        "durationMs": 349,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1542,
+        "durationMs": 484,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2648,
+        "durationMs": 269,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2917,
+        "durationMs": 188,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3118,
+        "durationMs": 296,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3414,
+        "durationMs": 363,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4153,
+        "durationMs": 430,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 282,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5403,
+        "durationMs": 161,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 5578,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5699,
+        "durationMs": 121,
+        "text": "接"
+      },
+      {
+        "offsetMs": 5820,
+        "durationMs": 81,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 323,
+        "text": "放学"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 349,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 7191,
+        "durationMs": 349,
+        "text": "你们"
+      },
+      {
+        "offsetMs": 7540,
+        "durationMs": 121,
+        "text": "家"
+      },
+      {
+        "offsetMs": 7675,
+        "durationMs": 336,
+        "text": "平时"
+      },
+      {
+        "offsetMs": 8038,
+        "durationMs": 81,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8132,
+        "durationMs": 188,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 8333,
+        "durationMs": 242,
+        "text": "安排"
+      },
+      {
+        "offsetMs": 8602,
+        "durationMs": 323,
+        "text": "接送"
+      },
+      {
+        "offsetMs": 8925,
+        "durationMs": 108,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9032,
+        "durationMs": 403,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 10040,
+        "durationMs": 282,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10323,
+        "durationMs": 161,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10497,
+        "durationMs": 161,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 10672,
+        "durationMs": 309,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 10981,
+        "durationMs": 282,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 11868,
+        "durationMs": 242,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 12110,
+        "durationMs": 430,
+        "text": "说"
+      },
+      {
+        "offsetMs": 12970,
+        "durationMs": 269,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13239,
+        "durationMs": 659,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 14019,
+        "durationMs": 296,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 14328,
+        "durationMs": 296,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 14637,
+        "durationMs": 470,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 15457,
+        "durationMs": 161,
+        "text": "都"
+      },
+      {
+        "offsetMs": 15618,
+        "durationMs": 121,
+        "text": "由"
+      },
+      {
+        "offsetMs": 15739,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 15847,
+        "durationMs": 349,
+        "text": "决定"
+      }
+    ]
+  },
+  "starlight-companion:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "starlight-companion:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-0357bc98cbb57d91.mp3",
+    "durationMs": 17285,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 263,
+        "text": "放"
+      },
+      {
+        "offsetMs": 379,
+        "durationMs": 408,
+        "text": "学校"
+      },
+      {
+        "offsetMs": 800,
+        "durationMs": 368,
+        "text": "门口"
+      },
+      {
+        "offsetMs": 1168,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 434,
+        "text": "好奇"
+      },
+      {
+        "offsetMs": 1734,
+        "durationMs": 526,
+        "text": "提问"
+      },
+      {
+        "offsetMs": 2855,
+        "durationMs": 276,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3132,
+        "durationMs": 276,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3421,
+        "durationMs": 421,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3842,
+        "durationMs": 316,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4408,
+        "durationMs": 408,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 5092,
+        "durationMs": 395,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 5500,
+        "durationMs": 132,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5632,
+        "durationMs": 237,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 5882,
+        "durationMs": 145,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6039,
+        "durationMs": 184,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6224,
+        "durationMs": 118,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6355,
+        "durationMs": 421,
+        "text": "放学"
+      },
+      {
+        "offsetMs": 6776,
+        "durationMs": 303,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 7671,
+        "durationMs": 355,
+        "text": "你们"
+      },
+      {
+        "offsetMs": 8026,
+        "durationMs": 211,
+        "text": "家"
+      },
+      {
+        "offsetMs": 8250,
+        "durationMs": 487,
+        "text": "平时"
+      },
+      {
+        "offsetMs": 8750,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8921,
+        "durationMs": 276,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 9211,
+        "durationMs": 355,
+        "text": "安排"
+      },
+      {
+        "offsetMs": 9579,
+        "durationMs": 434,
+        "text": "接送"
+      },
+      {
+        "offsetMs": 10013,
+        "durationMs": 79,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10092,
+        "durationMs": 237,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 10921,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 11092,
+        "durationMs": 211,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11316,
+        "durationMs": 237,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 11566,
+        "durationMs": 395,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 11961,
+        "durationMs": 224,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 12776,
+        "durationMs": 329,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 13105,
+        "durationMs": 355,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13697,
+        "durationMs": 289,
+        "text": "说"
+      },
+      {
+        "offsetMs": 13987,
+        "durationMs": 526,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 14618,
+        "durationMs": 355,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 14987,
+        "durationMs": 421,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 15421,
+        "durationMs": 500,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 16158,
+        "durationMs": 197,
+        "text": "都"
+      },
+      {
+        "offsetMs": 16355,
+        "durationMs": 171,
+        "text": "由"
+      },
+      {
+        "offsetMs": 16526,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 16684,
+        "durationMs": 421,
+        "text": "决定"
+      }
+    ]
+  },
+  "playful-buddy:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界": {
+    "id": "playful-buddy:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "normKey": "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c691104d5375bdb5.mp3",
+    "durationMs": 6815,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 385,
+        "durationMs": 464,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 309,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 232,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1429,
+        "durationMs": 490,
+        "text": "情境"
+      },
+      {
+        "offsetMs": 2189,
+        "durationMs": 103,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2305,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2589,
+        "durationMs": 400,
+        "text": "尝试"
+      },
+      {
+        "offsetMs": 3001,
+        "durationMs": 322,
+        "text": "不同"
+      },
+      {
+        "offsetMs": 3323,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3426,
+        "durationMs": 451,
+        "text": "回答"
+      },
+      {
+        "offsetMs": 4109,
+        "durationMs": 296,
+        "text": "转移"
+      },
+      {
+        "offsetMs": 4419,
+        "durationMs": 554,
+        "text": "话题"
+      },
+      {
+        "offsetMs": 5089,
+        "durationMs": 322,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5424,
+        "durationMs": 335,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 5772,
+        "durationMs": 361,
+        "text": "划定"
+      },
+      {
+        "offsetMs": 6145,
+        "durationMs": 490,
+        "text": "边界"
+      }
+    ]
+  },
+  "warm-sister:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界": {
+    "id": "warm-sister:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "normKey": "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-b7ad199578468765.mp3",
+    "durationMs": 7305,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 226,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 343,
+        "durationMs": 479,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 835,
+        "durationMs": 332,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 1194,
+        "durationMs": 213,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1420,
+        "durationMs": 519,
+        "text": "情境"
+      },
+      {
+        "offsetMs": 2324,
+        "durationMs": 80,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2417,
+        "durationMs": 239,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 399,
+        "text": "尝试"
+      },
+      {
+        "offsetMs": 3095,
+        "durationMs": 372,
+        "text": "不同"
+      },
+      {
+        "offsetMs": 3468,
+        "durationMs": 106,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3587,
+        "durationMs": 519,
+        "text": "回答"
+      },
+      {
+        "offsetMs": 4305,
+        "durationMs": 359,
+        "text": "转移"
+      },
+      {
+        "offsetMs": 4678,
+        "durationMs": 652,
+        "text": "话题"
+      },
+      {
+        "offsetMs": 5436,
+        "durationMs": 306,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5755,
+        "durationMs": 399,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 6167,
+        "durationMs": 412,
+        "text": "划定"
+      },
+      {
+        "offsetMs": 6593,
+        "durationMs": 532,
+        "text": "边界"
+      }
+    ]
+  },
+  "gentle-guide:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界": {
+    "id": "gentle-guide:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "normKey": "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-13d389e078c1273c.mp3",
+    "durationMs": 7071,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 332,
+        "durationMs": 363,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 709,
+        "durationMs": 242,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 977,
+        "durationMs": 148,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1139,
+        "durationMs": 564,
+        "text": "情境"
+      },
+      {
+        "offsetMs": 2066,
+        "durationMs": 444,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2523,
+        "durationMs": 161,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2698,
+        "durationMs": 336,
+        "text": "尝试"
+      },
+      {
+        "offsetMs": 3061,
+        "durationMs": 296,
+        "text": "不同"
+      },
+      {
+        "offsetMs": 3356,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3451,
+        "durationMs": 538,
+        "text": "回答"
+      },
+      {
+        "offsetMs": 4405,
+        "durationMs": 363,
+        "text": "转移"
+      },
+      {
+        "offsetMs": 4781,
+        "durationMs": 605,
+        "text": "话题"
+      },
+      {
+        "offsetMs": 5507,
+        "durationMs": 282,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5803,
+        "durationMs": 296,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 6112,
+        "durationMs": 309,
+        "text": "划定"
+      },
+      {
+        "offsetMs": 6434,
+        "durationMs": 457,
+        "text": "边界"
+      }
+    ]
+  },
+  "starlight-companion:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界": {
+    "id": "starlight-companion:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "normKey": "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-cfb04416d68de008.mp3",
+    "durationMs": 7704,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 303,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 418,
+        "durationMs": 474,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 905,
+        "durationMs": 368,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 263,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1563,
+        "durationMs": 566,
+        "text": "情境"
+      },
+      {
+        "offsetMs": 2418,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2603,
+        "durationMs": 289,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2905,
+        "durationMs": 447,
+        "text": "尝试"
+      },
+      {
+        "offsetMs": 3366,
+        "durationMs": 421,
+        "text": "不同"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 118,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3918,
+        "durationMs": 513,
+        "text": "回答"
+      },
+      {
+        "offsetMs": 4642,
+        "durationMs": 368,
+        "text": "转移"
+      },
+      {
+        "offsetMs": 5024,
+        "durationMs": 632,
+        "text": "话题"
+      },
+      {
+        "offsetMs": 5747,
+        "durationMs": 408,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 6168,
+        "durationMs": 408,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 6589,
+        "durationMs": 408,
+        "text": "划定"
+      },
+      {
+        "offsetMs": 7011,
+        "durationMs": 513,
+        "text": "边界"
+      }
+    ]
+  },
+  "playful-buddy:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "playful-buddy:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-69609765da209e02.mp3",
+    "durationMs": 22177,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 425,
+        "text": "池塘"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 180,
+        "text": "边"
+      },
+      {
+        "offsetMs": 707,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 823,
+        "durationMs": 309,
+        "text": "唯一"
+      },
+      {
+        "offsetMs": 1145,
+        "durationMs": 219,
+        "text": "红"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 567,
+        "text": "帆船"
+      },
+      {
+        "offsetMs": 2513,
+        "durationMs": 400,
+        "text": "晴朗"
+      },
+      {
+        "offsetMs": 2925,
+        "durationMs": 425,
+        "text": "水塘"
+      },
+      {
+        "offsetMs": 3350,
+        "durationMs": 206,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3673,
+        "durationMs": 258,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 361,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 4317,
+        "durationMs": 374,
+        "text": "红帆"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4884,
+        "durationMs": 490,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 438,
+        "text": "小兔"
+      },
+      {
+        "offsetMs": 6405,
+        "durationMs": 361,
+        "text": "提莫"
+      },
+      {
+        "offsetMs": 6765,
+        "durationMs": 322,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7191,
+        "durationMs": 219,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7410,
+        "durationMs": 155,
+        "text": "当"
+      },
+      {
+        "offsetMs": 7577,
+        "durationMs": 387,
+        "text": "船长"
+      },
+      {
+        "offsetMs": 7977,
+        "durationMs": 425,
+        "text": "冲浪"
+      },
+      {
+        "offsetMs": 8686,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8892,
+        "durationMs": 206,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 425,
+        "text": "波波"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 180,
+        "text": "也"
+      },
+      {
+        "offsetMs": 9716,
+        "durationMs": 180,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9910,
+        "durationMs": 258,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 10180,
+        "durationMs": 374,
+        "text": "掌舵"
+      },
+      {
+        "offsetMs": 10567,
+        "durationMs": 155,
+        "text": "去"
+      },
+      {
+        "offsetMs": 10735,
+        "durationMs": 322,
+        "text": "芦苇"
+      },
+      {
+        "offsetMs": 11057,
+        "durationMs": 361,
+        "text": "丛"
+      },
+      {
+        "offsetMs": 11688,
+        "durationMs": 219,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 11907,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 12075,
+        "durationMs": 361,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 12448,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 12590,
+        "durationMs": 335,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 12938,
+        "durationMs": 425,
+        "text": "空手"
+      },
+      {
+        "offsetMs": 13376,
+        "durationMs": 348,
+        "text": "干等"
+      },
+      {
+        "offsetMs": 13737,
+        "durationMs": 245,
+        "text": "太"
+      },
+      {
+        "offsetMs": 13982,
+        "durationMs": 284,
+        "text": "久"
+      },
+      {
+        "offsetMs": 14845,
+        "durationMs": 245,
+        "text": "请"
+      },
+      {
+        "offsetMs": 15103,
+        "durationMs": 258,
+        "text": "先"
+      },
+      {
+        "offsetMs": 15374,
+        "durationMs": 284,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 15670,
+        "durationMs": 374,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 16057,
+        "durationMs": 503,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 16843,
+        "durationMs": 387,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 17242,
+        "durationMs": 335,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 17590,
+        "durationMs": 490,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 18196,
+        "durationMs": 168,
+        "text": "或"
+      },
+      {
+        "offsetMs": 18376,
+        "durationMs": 374,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 18763,
+        "durationMs": 425,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 19510,
+        "durationMs": 412,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 19936,
+        "durationMs": 348,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 20296,
+        "durationMs": 374,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 20683,
+        "durationMs": 374,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 21070,
+        "durationMs": 322,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 21405,
+        "durationMs": 361,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 21765,
+        "durationMs": 232,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "warm-sister:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-d3cd94dff6ca2be3.mp3",
+    "durationMs": 23571,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 479,
+        "text": "池塘"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 173,
+        "text": "边"
+      },
+      {
+        "offsetMs": 755,
+        "durationMs": 106,
+        "text": "的"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 359,
+        "text": "唯一"
+      },
+      {
+        "offsetMs": 1260,
+        "durationMs": 226,
+        "text": "红"
+      },
+      {
+        "offsetMs": 1486,
+        "durationMs": 572,
+        "text": "帆船"
+      },
+      {
+        "offsetMs": 2660,
+        "durationMs": 372,
+        "text": "晴朗"
+      },
+      {
+        "offsetMs": 3045,
+        "durationMs": 465,
+        "text": "水塘"
+      },
+      {
+        "offsetMs": 3511,
+        "durationMs": 279,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3896,
+        "durationMs": 266,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 4176,
+        "durationMs": 306,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 4508,
+        "durationMs": 386,
+        "text": "红帆"
+      },
+      {
+        "offsetMs": 4907,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5120,
+        "durationMs": 519,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 412,
+        "text": "小兔"
+      },
+      {
+        "offsetMs": 6662,
+        "durationMs": 386,
+        "text": "提莫"
+      },
+      {
+        "offsetMs": 7048,
+        "durationMs": 412,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7553,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7766,
+        "durationMs": 160,
+        "text": "当"
+      },
+      {
+        "offsetMs": 7939,
+        "durationMs": 399,
+        "text": "船长"
+      },
+      {
+        "offsetMs": 8351,
+        "durationMs": 492,
+        "text": "冲浪"
+      },
+      {
+        "offsetMs": 9202,
+        "durationMs": 186,
+        "text": "小"
+      },
+      {
+        "offsetMs": 9388,
+        "durationMs": 199,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 9588,
+        "durationMs": 492,
+        "text": "波波"
+      },
+      {
+        "offsetMs": 10106,
+        "durationMs": 199,
+        "text": "也"
+      },
+      {
+        "offsetMs": 10306,
+        "durationMs": 213,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10545,
+        "durationMs": 239,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 10798,
+        "durationMs": 426,
+        "text": "掌舵"
+      },
+      {
+        "offsetMs": 11250,
+        "durationMs": 146,
+        "text": "去"
+      },
+      {
+        "offsetMs": 11410,
+        "durationMs": 346,
+        "text": "芦苇"
+      },
+      {
+        "offsetMs": 11755,
+        "durationMs": 399,
+        "text": "丛"
+      },
+      {
+        "offsetMs": 12394,
+        "durationMs": 319,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 12713,
+        "durationMs": 146,
+        "text": "都"
+      },
+      {
+        "offsetMs": 12872,
+        "durationMs": 412,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 13311,
+        "durationMs": 160,
+        "text": "在"
+      },
+      {
+        "offsetMs": 13471,
+        "durationMs": 386,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 13883,
+        "durationMs": 426,
+        "text": "空手"
+      },
+      {
+        "offsetMs": 14322,
+        "durationMs": 372,
+        "text": "干等"
+      },
+      {
+        "offsetMs": 14707,
+        "durationMs": 253,
+        "text": "太"
+      },
+      {
+        "offsetMs": 14960,
+        "durationMs": 346,
+        "text": "久"
+      },
+      {
+        "offsetMs": 15904,
+        "durationMs": 239,
+        "text": "请"
+      },
+      {
+        "offsetMs": 16157,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 16383,
+        "durationMs": 319,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 16729,
+        "durationMs": 399,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 17141,
+        "durationMs": 532,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 17926,
+        "durationMs": 372,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 18324,
+        "durationMs": 306,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 18644,
+        "durationMs": 572,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 19308,
+        "durationMs": 186,
+        "text": "或"
+      },
+      {
+        "offsetMs": 19508,
+        "durationMs": 412,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 19934,
+        "durationMs": 439,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 20771,
+        "durationMs": 399,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 21184,
+        "durationMs": 332,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 21529,
+        "durationMs": 399,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 21955,
+        "durationMs": 386,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 22367,
+        "durationMs": 359,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 22739,
+        "durationMs": 399,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 23138,
+        "durationMs": 253,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "gentle-guide:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-5c7f0e12ff40cbe4.mp3",
+    "durationMs": 23070,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 457,
+        "text": "池塘"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 148,
+        "text": "边"
+      },
+      {
+        "offsetMs": 709,
+        "durationMs": 161,
+        "text": "的"
+      },
+      {
+        "offsetMs": 897,
+        "durationMs": 390,
+        "text": "唯一"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 202,
+        "text": "红"
+      },
+      {
+        "offsetMs": 1502,
+        "durationMs": 564,
+        "text": "帆船"
+      },
+      {
+        "offsetMs": 2675,
+        "durationMs": 376,
+        "text": "晴朗"
+      },
+      {
+        "offsetMs": 3064,
+        "durationMs": 430,
+        "text": "水塘"
+      },
+      {
+        "offsetMs": 3495,
+        "durationMs": 269,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3884,
+        "durationMs": 296,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 4194,
+        "durationMs": 376,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 4597,
+        "durationMs": 403,
+        "text": "红帆"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5202,
+        "durationMs": 538,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 6344,
+        "durationMs": 376,
+        "text": "小兔"
+      },
+      {
+        "offsetMs": 6734,
+        "durationMs": 282,
+        "text": "提莫"
+      },
+      {
+        "offsetMs": 7016,
+        "durationMs": 376,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7513,
+        "durationMs": 336,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7849,
+        "durationMs": 161,
+        "text": "当"
+      },
+      {
+        "offsetMs": 8024,
+        "durationMs": 403,
+        "text": "船长"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 470,
+        "text": "冲浪"
+      },
+      {
+        "offsetMs": 9288,
+        "durationMs": 282,
+        "text": "小"
+      },
+      {
+        "offsetMs": 9570,
+        "durationMs": 161,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 9731,
+        "durationMs": 470,
+        "text": "波波"
+      },
+      {
+        "offsetMs": 10228,
+        "durationMs": 148,
+        "text": "也"
+      },
+      {
+        "offsetMs": 10376,
+        "durationMs": 175,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10578,
+        "durationMs": 215,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 10806,
+        "durationMs": 309,
+        "text": "掌舵"
+      },
+      {
+        "offsetMs": 11142,
+        "durationMs": 134,
+        "text": "去"
+      },
+      {
+        "offsetMs": 11290,
+        "durationMs": 255,
+        "text": "芦苇"
+      },
+      {
+        "offsetMs": 11546,
+        "durationMs": 390,
+        "text": "丛"
+      },
+      {
+        "offsetMs": 12366,
+        "durationMs": 323,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 12688,
+        "durationMs": 81,
+        "text": "都"
+      },
+      {
+        "offsetMs": 12782,
+        "durationMs": 282,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 13091,
+        "durationMs": 81,
+        "text": "在"
+      },
+      {
+        "offsetMs": 13172,
+        "durationMs": 376,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 13575,
+        "durationMs": 403,
+        "text": "空手"
+      },
+      {
+        "offsetMs": 13992,
+        "durationMs": 309,
+        "text": "干等"
+      },
+      {
+        "offsetMs": 14314,
+        "durationMs": 255,
+        "text": "太"
+      },
+      {
+        "offsetMs": 14570,
+        "durationMs": 242,
+        "text": "久"
+      },
+      {
+        "offsetMs": 15417,
+        "durationMs": 228,
+        "text": "请"
+      },
+      {
+        "offsetMs": 15659,
+        "durationMs": 175,
+        "text": "先"
+      },
+      {
+        "offsetMs": 15847,
+        "durationMs": 323,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 16196,
+        "durationMs": 376,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 16586,
+        "durationMs": 524,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 17473,
+        "durationMs": 470,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 17970,
+        "durationMs": 323,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 18306,
+        "durationMs": 564,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 18978,
+        "durationMs": 269,
+        "text": "或"
+      },
+      {
+        "offsetMs": 19261,
+        "durationMs": 349,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 19624,
+        "durationMs": 403,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 20390,
+        "durationMs": 376,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 20780,
+        "durationMs": 296,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 21089,
+        "durationMs": 403,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 21519,
+        "durationMs": 403,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 21949,
+        "durationMs": 363,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 22325,
+        "durationMs": 296,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 22621,
+        "durationMs": 269,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "starlight-companion:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-4f071102e864f4e1.mp3",
+    "durationMs": 24049,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 487,
+        "text": "池塘"
+      },
+      {
+        "offsetMs": 589,
+        "durationMs": 171,
+        "text": "边"
+      },
+      {
+        "offsetMs": 761,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 879,
+        "durationMs": 355,
+        "text": "唯一"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 224,
+        "text": "红"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 592,
+        "text": "帆船"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 447,
+        "text": "晴朗"
+      },
+      {
+        "offsetMs": 3118,
+        "durationMs": 539,
+        "text": "水塘"
+      },
+      {
+        "offsetMs": 3658,
+        "durationMs": 263,
+        "text": "里"
+      },
+      {
+        "offsetMs": 4026,
+        "durationMs": 316,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 4355,
+        "durationMs": 368,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 4737,
+        "durationMs": 408,
+        "text": "红帆"
+      },
+      {
+        "offsetMs": 5158,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5382,
+        "durationMs": 539,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 6513,
+        "durationMs": 474,
+        "text": "小兔"
+      },
+      {
+        "offsetMs": 7000,
+        "durationMs": 434,
+        "text": "提莫"
+      },
+      {
+        "offsetMs": 7434,
+        "durationMs": 368,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7908,
+        "durationMs": 276,
+        "text": "先"
+      },
+      {
+        "offsetMs": 8184,
+        "durationMs": 171,
+        "text": "当"
+      },
+      {
+        "offsetMs": 8368,
+        "durationMs": 421,
+        "text": "船长"
+      },
+      {
+        "offsetMs": 8803,
+        "durationMs": 500,
+        "text": "冲浪"
+      },
+      {
+        "offsetMs": 9605,
+        "durationMs": 303,
+        "text": "小"
+      },
+      {
+        "offsetMs": 9908,
+        "durationMs": 237,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 10145,
+        "durationMs": 421,
+        "text": "波波"
+      },
+      {
+        "offsetMs": 10579,
+        "durationMs": 237,
+        "text": "也"
+      },
+      {
+        "offsetMs": 10816,
+        "durationMs": 197,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11026,
+        "durationMs": 329,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 11368,
+        "durationMs": 408,
+        "text": "掌舵"
+      },
+      {
+        "offsetMs": 11789,
+        "durationMs": 171,
+        "text": "去"
+      },
+      {
+        "offsetMs": 11974,
+        "durationMs": 355,
+        "text": "芦苇"
+      },
+      {
+        "offsetMs": 12329,
+        "durationMs": 382,
+        "text": "丛"
+      },
+      {
+        "offsetMs": 12974,
+        "durationMs": 329,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 13303,
+        "durationMs": 158,
+        "text": "都"
+      },
+      {
+        "offsetMs": 13474,
+        "durationMs": 355,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 13842,
+        "durationMs": 171,
+        "text": "在"
+      },
+      {
+        "offsetMs": 14013,
+        "durationMs": 382,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 14408,
+        "durationMs": 421,
+        "text": "空手"
+      },
+      {
+        "offsetMs": 14842,
+        "durationMs": 355,
+        "text": "干等"
+      },
+      {
+        "offsetMs": 15211,
+        "durationMs": 263,
+        "text": "太"
+      },
+      {
+        "offsetMs": 15474,
+        "durationMs": 276,
+        "text": "久"
+      },
+      {
+        "offsetMs": 16342,
+        "durationMs": 237,
+        "text": "请"
+      },
+      {
+        "offsetMs": 16592,
+        "durationMs": 197,
+        "text": "先"
+      },
+      {
+        "offsetMs": 16803,
+        "durationMs": 355,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 17171,
+        "durationMs": 434,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 17618,
+        "durationMs": 487,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 18395,
+        "durationMs": 408,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 18816,
+        "durationMs": 368,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 19197,
+        "durationMs": 526,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 19829,
+        "durationMs": 224,
+        "text": "或"
+      },
+      {
+        "offsetMs": 20066,
+        "durationMs": 408,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 20487,
+        "durationMs": 461,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 21237,
+        "durationMs": 408,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 21658,
+        "durationMs": 368,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 22039,
+        "durationMs": 395,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 22447,
+        "durationMs": 395,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 22855,
+        "durationMs": 382,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 23250,
+        "durationMs": 382,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 23632,
+        "durationMs": 237,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "playful-buddy:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-bdaf8d909deda788.mp3",
+    "durationMs": 23608,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 322,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 926,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1029,
+        "durationMs": 400,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 1442,
+        "durationMs": 348,
+        "text": "渡船"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 464,
+        "text": "挑战"
+      },
+      {
+        "offsetMs": 2848,
+        "durationMs": 503,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 477,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 296,
+        "text": "需要"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 116,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4381,
+        "durationMs": 322,
+        "text": "岸上"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 477,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 5374,
+        "durationMs": 155,
+        "text": "运"
+      },
+      {
+        "offsetMs": 5528,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5657,
+        "durationMs": 271,
+        "text": "对岸"
+      },
+      {
+        "offsetMs": 5941,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6147,
+        "durationMs": 258,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 6740,
+        "durationMs": 168,
+        "text": "但"
+      },
+      {
+        "offsetMs": 6920,
+        "durationMs": 477,
+        "text": "现场"
+      },
+      {
+        "offsetMs": 7410,
+        "durationMs": 232,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 7655,
+        "durationMs": 322,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 7990,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8183,
+        "durationMs": 515,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 155,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9085,
+        "durationMs": 129,
+        "text": "支"
+      },
+      {
+        "offsetMs": 9227,
+        "durationMs": 309,
+        "text": "船"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 271,
+        "text": "桨"
+      },
+      {
+        "offsetMs": 9923,
+        "durationMs": 168,
+        "text": "和"
+      },
+      {
+        "offsetMs": 10103,
+        "durationMs": 361,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 10464,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10554,
+        "durationMs": 657,
+        "text": "挖掘机"
+      },
+      {
+        "offsetMs": 11791,
+        "durationMs": 361,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 12165,
+        "durationMs": 206,
+        "text": "两"
+      },
+      {
+        "offsetMs": 12371,
+        "durationMs": 103,
+        "text": "个"
+      },
+      {
+        "offsetMs": 12474,
+        "durationMs": 180,
+        "text": "人"
+      },
+      {
+        "offsetMs": 12668,
+        "durationMs": 219,
+        "text": "抢"
+      },
+      {
+        "offsetMs": 12887,
+        "durationMs": 90,
+        "text": "着"
+      },
+      {
+        "offsetMs": 12990,
+        "durationMs": 451,
+        "text": "单干"
+      },
+      {
+        "offsetMs": 13660,
+        "durationMs": 309,
+        "text": "船"
+      },
+      {
+        "offsetMs": 13982,
+        "durationMs": 296,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 14291,
+        "durationMs": 206,
+        "text": "卡"
+      },
+      {
+        "offsetMs": 14497,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 14652,
+        "durationMs": 425,
+        "text": "浅滩"
+      },
+      {
+        "offsetMs": 15090,
+        "durationMs": 309,
+        "text": "石头"
+      },
+      {
+        "offsetMs": 15400,
+        "durationMs": 296,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 16276,
+        "durationMs": 245,
+        "text": "请"
+      },
+      {
+        "offsetMs": 16534,
+        "durationMs": 258,
+        "text": "先"
+      },
+      {
+        "offsetMs": 16804,
+        "durationMs": 284,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 17100,
+        "durationMs": 374,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 17487,
+        "durationMs": 503,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 18273,
+        "durationMs": 387,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 18673,
+        "durationMs": 335,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 19021,
+        "durationMs": 490,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 19626,
+        "durationMs": 168,
+        "text": "或"
+      },
+      {
+        "offsetMs": 19807,
+        "durationMs": 374,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 20193,
+        "durationMs": 425,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 20941,
+        "durationMs": 412,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 21366,
+        "durationMs": 348,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 21727,
+        "durationMs": 374,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 22113,
+        "durationMs": 374,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 22500,
+        "durationMs": 322,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 22835,
+        "durationMs": 361,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 23196,
+        "durationMs": 232,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "warm-sister:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-0242cb27282c168e.mp3",
+    "durationMs": 25061,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 492,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 608,
+        "durationMs": 386,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 994,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1114,
+        "durationMs": 439,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 1566,
+        "durationMs": 386,
+        "text": "渡船"
+      },
+      {
+        "offsetMs": 1965,
+        "durationMs": 558,
+        "text": "挑战"
+      },
+      {
+        "offsetMs": 3138,
+        "durationMs": 439,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 3590,
+        "durationMs": 532,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 4215,
+        "durationMs": 293,
+        "text": "需要"
+      },
+      {
+        "offsetMs": 4521,
+        "durationMs": 133,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4681,
+        "durationMs": 346,
+        "text": "岸上"
+      },
+      {
+        "offsetMs": 5027,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5120,
+        "durationMs": 572,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 5785,
+        "durationMs": 160,
+        "text": "运"
+      },
+      {
+        "offsetMs": 5944,
+        "durationMs": 146,
+        "text": "到"
+      },
+      {
+        "offsetMs": 6117,
+        "durationMs": 293,
+        "text": "对岸"
+      },
+      {
+        "offsetMs": 6423,
+        "durationMs": 239,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6662,
+        "durationMs": 293,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 7354,
+        "durationMs": 160,
+        "text": "但"
+      },
+      {
+        "offsetMs": 7527,
+        "durationMs": 585,
+        "text": "现场"
+      },
+      {
+        "offsetMs": 8138,
+        "durationMs": 226,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8378,
+        "durationMs": 306,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 8710,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8936,
+        "durationMs": 545,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 9721,
+        "durationMs": 186,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9907,
+        "durationMs": 146,
+        "text": "支"
+      },
+      {
+        "offsetMs": 10066,
+        "durationMs": 332,
+        "text": "船"
+      },
+      {
+        "offsetMs": 10399,
+        "durationMs": 332,
+        "text": "桨"
+      },
+      {
+        "offsetMs": 10838,
+        "durationMs": 173,
+        "text": "和"
+      },
+      {
+        "offsetMs": 11024,
+        "durationMs": 372,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 11396,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 11503,
+        "durationMs": 731,
+        "text": "挖掘机"
+      },
+      {
+        "offsetMs": 12846,
+        "durationMs": 293,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 13165,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 13351,
+        "durationMs": 93,
+        "text": "个"
+      },
+      {
+        "offsetMs": 13444,
+        "durationMs": 160,
+        "text": "人"
+      },
+      {
+        "offsetMs": 13630,
+        "durationMs": 226,
+        "text": "抢"
+      },
+      {
+        "offsetMs": 13856,
+        "durationMs": 106,
+        "text": "着"
+      },
+      {
+        "offsetMs": 13976,
+        "durationMs": 492,
+        "text": "单干"
+      },
+      {
+        "offsetMs": 14734,
+        "durationMs": 239,
+        "text": "船"
+      },
+      {
+        "offsetMs": 14987,
+        "durationMs": 253,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 15253,
+        "durationMs": 199,
+        "text": "卡"
+      },
+      {
+        "offsetMs": 15452,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 15652,
+        "durationMs": 452,
+        "text": "浅滩"
+      },
+      {
+        "offsetMs": 16117,
+        "durationMs": 332,
+        "text": "石头"
+      },
+      {
+        "offsetMs": 16449,
+        "durationMs": 346,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 17394,
+        "durationMs": 239,
+        "text": "请"
+      },
+      {
+        "offsetMs": 17646,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 17872,
+        "durationMs": 319,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 18218,
+        "durationMs": 399,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 18630,
+        "durationMs": 532,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 19415,
+        "durationMs": 372,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 19814,
+        "durationMs": 306,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 20133,
+        "durationMs": 572,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 20798,
+        "durationMs": 186,
+        "text": "或"
+      },
+      {
+        "offsetMs": 20997,
+        "durationMs": 412,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 21423,
+        "durationMs": 439,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 22261,
+        "durationMs": 399,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 22673,
+        "durationMs": 332,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 23019,
+        "durationMs": 399,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 23444,
+        "durationMs": 386,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 23856,
+        "durationMs": 359,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 24229,
+        "durationMs": 399,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 24628,
+        "durationMs": 253,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "gentle-guide:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-9986016fa8f89d85.mp3",
+    "durationMs": 24481,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 497,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 323,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 937,
+        "durationMs": 121,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1085,
+        "durationMs": 417,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 1515,
+        "durationMs": 349,
+        "text": "渡船"
+      },
+      {
+        "offsetMs": 1878,
+        "durationMs": 538,
+        "text": "挑战"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 457,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 3508,
+        "durationMs": 497,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 4113,
+        "durationMs": 296,
+        "text": "需要"
+      },
+      {
+        "offsetMs": 4422,
+        "durationMs": 94,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4543,
+        "durationMs": 349,
+        "text": "岸上"
+      },
+      {
+        "offsetMs": 4892,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 591,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 5672,
+        "durationMs": 175,
+        "text": "运"
+      },
+      {
+        "offsetMs": 5847,
+        "durationMs": 121,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5995,
+        "durationMs": 242,
+        "text": "对岸"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 242,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6492,
+        "durationMs": 269,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 7137,
+        "durationMs": 175,
+        "text": "但"
+      },
+      {
+        "offsetMs": 7325,
+        "durationMs": 538,
+        "text": "现场"
+      },
+      {
+        "offsetMs": 7890,
+        "durationMs": 228,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8132,
+        "durationMs": 309,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 8468,
+        "durationMs": 175,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8642,
+        "durationMs": 524,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 9462,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9610,
+        "durationMs": 94,
+        "text": "支"
+      },
+      {
+        "offsetMs": 9718,
+        "durationMs": 323,
+        "text": "船"
+      },
+      {
+        "offsetMs": 10040,
+        "durationMs": 282,
+        "text": "桨"
+      },
+      {
+        "offsetMs": 10430,
+        "durationMs": 161,
+        "text": "和"
+      },
+      {
+        "offsetMs": 10605,
+        "durationMs": 363,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 10968,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 11062,
+        "durationMs": 645,
+        "text": "挖掘机"
+      },
+      {
+        "offsetMs": 12325,
+        "durationMs": 282,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 12634,
+        "durationMs": 188,
+        "text": "两"
+      },
+      {
+        "offsetMs": 12823,
+        "durationMs": 81,
+        "text": "个"
+      },
+      {
+        "offsetMs": 12903,
+        "durationMs": 134,
+        "text": "人"
+      },
+      {
+        "offsetMs": 13064,
+        "durationMs": 228,
+        "text": "抢"
+      },
+      {
+        "offsetMs": 13293,
+        "durationMs": 81,
+        "text": "着"
+      },
+      {
+        "offsetMs": 13387,
+        "durationMs": 511,
+        "text": "单干"
+      },
+      {
+        "offsetMs": 14261,
+        "durationMs": 255,
+        "text": "船"
+      },
+      {
+        "offsetMs": 14530,
+        "durationMs": 202,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 14745,
+        "durationMs": 188,
+        "text": "卡"
+      },
+      {
+        "offsetMs": 14933,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 15067,
+        "durationMs": 457,
+        "text": "浅滩"
+      },
+      {
+        "offsetMs": 15538,
+        "durationMs": 417,
+        "text": "石头"
+      },
+      {
+        "offsetMs": 15954,
+        "durationMs": 269,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 16828,
+        "durationMs": 228,
+        "text": "请"
+      },
+      {
+        "offsetMs": 17070,
+        "durationMs": 175,
+        "text": "先"
+      },
+      {
+        "offsetMs": 17258,
+        "durationMs": 323,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 17608,
+        "durationMs": 376,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 17997,
+        "durationMs": 524,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 18884,
+        "durationMs": 470,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 19382,
+        "durationMs": 323,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 19718,
+        "durationMs": 564,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 20390,
+        "durationMs": 269,
+        "text": "或"
+      },
+      {
+        "offsetMs": 20672,
+        "durationMs": 349,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 21035,
+        "durationMs": 403,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 21801,
+        "durationMs": 376,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 22191,
+        "durationMs": 296,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 22500,
+        "durationMs": 403,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 22930,
+        "durationMs": 403,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 23360,
+        "durationMs": 363,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 23737,
+        "durationMs": 296,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 24032,
+        "durationMs": 269,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "starlight-companion:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-e62a10fddb6a61aa.mp3",
+    "durationMs": 25246,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 487,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 603,
+        "durationMs": 382,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 984,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1103,
+        "durationMs": 395,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 1511,
+        "durationMs": 382,
+        "text": "渡船"
+      },
+      {
+        "offsetMs": 1905,
+        "durationMs": 526,
+        "text": "挑战"
+      },
+      {
+        "offsetMs": 3026,
+        "durationMs": 500,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 3539,
+        "durationMs": 553,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 4184,
+        "durationMs": 408,
+        "text": "需要"
+      },
+      {
+        "offsetMs": 4605,
+        "durationMs": 145,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4763,
+        "durationMs": 342,
+        "text": "岸上"
+      },
+      {
+        "offsetMs": 5105,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5224,
+        "durationMs": 539,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 5868,
+        "durationMs": 184,
+        "text": "运"
+      },
+      {
+        "offsetMs": 6053,
+        "durationMs": 171,
+        "text": "到"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 289,
+        "text": "对岸"
+      },
+      {
+        "offsetMs": 6539,
+        "durationMs": 263,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6803,
+        "durationMs": 237,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 7316,
+        "durationMs": 197,
+        "text": "但"
+      },
+      {
+        "offsetMs": 7526,
+        "durationMs": 487,
+        "text": "现场"
+      },
+      {
+        "offsetMs": 8026,
+        "durationMs": 316,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8355,
+        "durationMs": 342,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8947,
+        "durationMs": 539,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 9684,
+        "durationMs": 211,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9895,
+        "durationMs": 158,
+        "text": "支"
+      },
+      {
+        "offsetMs": 10066,
+        "durationMs": 303,
+        "text": "船"
+      },
+      {
+        "offsetMs": 10368,
+        "durationMs": 289,
+        "text": "桨"
+      },
+      {
+        "offsetMs": 10750,
+        "durationMs": 211,
+        "text": "和"
+      },
+      {
+        "offsetMs": 10974,
+        "durationMs": 382,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 11355,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 11474,
+        "durationMs": 684,
+        "text": "挖掘机"
+      },
+      {
+        "offsetMs": 12750,
+        "durationMs": 355,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 13118,
+        "durationMs": 224,
+        "text": "两"
+      },
+      {
+        "offsetMs": 13342,
+        "durationMs": 105,
+        "text": "个"
+      },
+      {
+        "offsetMs": 13447,
+        "durationMs": 171,
+        "text": "人"
+      },
+      {
+        "offsetMs": 13632,
+        "durationMs": 250,
+        "text": "抢"
+      },
+      {
+        "offsetMs": 13882,
+        "durationMs": 92,
+        "text": "着"
+      },
+      {
+        "offsetMs": 13987,
+        "durationMs": 513,
+        "text": "单干"
+      },
+      {
+        "offsetMs": 14750,
+        "durationMs": 289,
+        "text": "船"
+      },
+      {
+        "offsetMs": 15053,
+        "durationMs": 303,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 15368,
+        "durationMs": 224,
+        "text": "卡"
+      },
+      {
+        "offsetMs": 15592,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 15763,
+        "durationMs": 500,
+        "text": "浅滩"
+      },
+      {
+        "offsetMs": 16276,
+        "durationMs": 355,
+        "text": "石头"
+      },
+      {
+        "offsetMs": 16632,
+        "durationMs": 316,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 17539,
+        "durationMs": 237,
+        "text": "请"
+      },
+      {
+        "offsetMs": 17789,
+        "durationMs": 197,
+        "text": "先"
+      },
+      {
+        "offsetMs": 18000,
+        "durationMs": 355,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 18368,
+        "durationMs": 434,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 18816,
+        "durationMs": 487,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 19592,
+        "durationMs": 408,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 20013,
+        "durationMs": 368,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 20395,
+        "durationMs": 526,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 21026,
+        "durationMs": 224,
+        "text": "或"
+      },
+      {
+        "offsetMs": 21263,
+        "durationMs": 408,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 21684,
+        "durationMs": 461,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 22434,
+        "durationMs": 408,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 22855,
+        "durationMs": 368,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 23237,
+        "durationMs": 395,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 23645,
+        "durationMs": 395,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 24053,
+        "durationMs": 382,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 24447,
+        "durationMs": 382,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 24829,
+        "durationMs": 237,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案": {
+    "id": "playful-buddy:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "normKey": "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-432b58c238228edf.mp3",
+    "durationMs": 6778,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 334,
+        "durationMs": 232,
+        "text": "停"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 284,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 374,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 1248,
+        "durationMs": 387,
+        "text": "商量"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2384,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2719,
+        "durationMs": 399,
+        "text": "调整"
+      },
+      {
+        "offsetMs": 3119,
+        "durationMs": 193,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 3325,
+        "durationMs": 206,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3531,
+        "durationMs": 284,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 180,
+        "text": "每"
+      },
+      {
+        "offsetMs": 4227,
+        "durationMs": 180,
+        "text": "轮"
+      },
+      {
+        "offsetMs": 4420,
+        "durationMs": 180,
+        "text": "几"
+      },
+      {
+        "offsetMs": 4600,
+        "durationMs": 296,
+        "text": "秒"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 361,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5387,
+        "durationMs": 400,
+        "text": "换成"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 361,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 425,
+        "text": "方案"
+      }
+    ]
+  },
+  "warm-sister:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案": {
+    "id": "warm-sister:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "normKey": "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-0638b0ca1704b028.mp3",
+    "durationMs": 7055,
     "boundaries": [
       {
         "offsetMs": 103,
@@ -4903,402 +19798,4172 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       },
       {
         "offsetMs": 329,
-        "durationMs": 319,
+        "durationMs": 199,
+        "text": "停"
+      },
+      {
+        "offsetMs": 529,
+        "durationMs": 293,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 848,
+        "durationMs": 439,
         "text": "重新"
       },
       {
-        "offsetMs": 662,
-        "durationMs": 173,
-        "text": "想"
+        "offsetMs": 1300,
+        "durationMs": 505,
+        "text": "商量"
       },
       {
-        "offsetMs": 835,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 928,
-        "durationMs": 319,
-        "text": "想"
-      },
-      {
-        "offsetMs": 1659,
-        "durationMs": 253,
-        "text": "换"
-      },
-      {
-        "offsetMs": 1912,
-        "durationMs": 199,
-        "text": "一种"
-      },
-      {
-        "offsetMs": 2138,
-        "durationMs": 80,
+        "offsetMs": 2420,
+        "durationMs": 120,
         "text": "你"
       },
       {
-        "offsetMs": 2218,
-        "durationMs": 213,
-        "text": "觉得"
+        "offsetMs": 2553,
+        "durationMs": 239,
+        "text": "可以"
       },
       {
-        "offsetMs": 2457,
-        "durationMs": 213,
-        "text": "最"
+        "offsetMs": 2806,
+        "durationMs": 386,
+        "text": "调整"
       },
       {
-        "offsetMs": 2670,
-        "durationMs": 253,
-        "text": "舒服"
+        "offsetMs": 3192,
+        "durationMs": 186,
+        "text": "谁"
       },
       {
-        "offsetMs": 2922,
-        "durationMs": 66,
-        "text": "的"
+        "offsetMs": 3391,
+        "durationMs": 266,
+        "text": "先"
       },
       {
-        "offsetMs": 3002,
-        "durationMs": 279,
-        "text": "方式"
+        "offsetMs": 3657,
+        "durationMs": 332,
+        "text": "玩"
       },
       {
-        "offsetMs": 3295,
-        "durationMs": 505,
-        "text": "回答"
+        "offsetMs": 4215,
+        "durationMs": 160,
+        "text": "每"
+      },
+      {
+        "offsetMs": 4375,
+        "durationMs": 173,
+        "text": "轮"
+      },
+      {
+        "offsetMs": 4561,
+        "durationMs": 173,
+        "text": "几"
+      },
+      {
+        "offsetMs": 4734,
+        "durationMs": 346,
+        "text": "秒"
+      },
+      {
+        "offsetMs": 5186,
+        "durationMs": 372,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5572,
+        "durationMs": 412,
+        "text": "换成"
+      },
+      {
+        "offsetMs": 6011,
+        "durationMs": 399,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 6423,
+        "durationMs": 452,
+        "text": "方案"
       }
     ]
   },
-  "warm-sister:池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！": {
-    "id": "warm-sister:池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！",
-    "normKey": "池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ee03be942097b03e.mp3",
-    "durationMs": 10433,
+  "gentle-guide:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案": {
+    "id": "gentle-guide:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "normKey": "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-8d2e12e3df65aefe.mp3",
+    "durationMs": 6834,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 332,
+        "durationMs": 188,
+        "text": "停"
+      },
+      {
+        "offsetMs": 520,
+        "durationMs": 188,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 736,
+        "durationMs": 363,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 1112,
+        "durationMs": 444,
+        "text": "商量"
+      },
+      {
+        "offsetMs": 2177,
+        "durationMs": 228,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2419,
+        "durationMs": 161,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2594,
+        "durationMs": 323,
+        "text": "调整"
+      },
+      {
+        "offsetMs": 2917,
+        "durationMs": 202,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 3132,
+        "durationMs": 188,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3320,
+        "durationMs": 349,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4167,
+        "durationMs": 282,
+        "text": "每"
+      },
+      {
+        "offsetMs": 4449,
+        "durationMs": 161,
+        "text": "轮"
+      },
+      {
+        "offsetMs": 4624,
+        "durationMs": 161,
+        "text": "几"
+      },
+      {
+        "offsetMs": 4785,
+        "durationMs": 296,
+        "text": "秒"
+      },
+      {
+        "offsetMs": 5188,
+        "durationMs": 282,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5484,
+        "durationMs": 403,
+        "text": "换成"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 309,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 417,
+        "text": "方案"
+      }
+    ]
+  },
+  "starlight-companion:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案": {
+    "id": "starlight-companion:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "normKey": "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-77d1a0c6737f3a8d.mp3",
+    "durationMs": 7403,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 492,
-        "text": "池塘"
+        "durationMs": 303,
+        "text": "我们"
       },
       {
-        "offsetMs": 608,
-        "durationMs": 186,
-        "text": "边"
+        "offsetMs": 418,
+        "durationMs": 237,
+        "text": "停"
       },
       {
-        "offsetMs": 795,
-        "durationMs": 120,
-        "text": "有"
+        "offsetMs": 655,
+        "durationMs": 276,
+        "text": "下来"
       },
       {
-        "offsetMs": 928,
-        "durationMs": 133,
-        "text": "一"
+        "offsetMs": 945,
+        "durationMs": 461,
+        "text": "重新"
       },
       {
-        "offsetMs": 1061,
-        "durationMs": 146,
-        "text": "只"
+        "offsetMs": 1418,
+        "durationMs": 474,
+        "text": "商量"
       },
       {
-        "offsetMs": 1234,
-        "durationMs": 386,
-        "text": "漂亮"
+        "offsetMs": 2487,
+        "durationMs": 158,
+        "text": "你"
       },
       {
-        "offsetMs": 1619,
-        "durationMs": 80,
+        "offsetMs": 2658,
+        "durationMs": 316,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2987,
+        "durationMs": 395,
+        "text": "调整"
+      },
+      {
+        "offsetMs": 3382,
+        "durationMs": 211,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 3605,
+        "durationMs": 263,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3868,
+        "durationMs": 342,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4421,
+        "durationMs": 263,
+        "text": "每"
+      },
+      {
+        "offsetMs": 4684,
+        "durationMs": 171,
+        "text": "轮"
+      },
+      {
+        "offsetMs": 4868,
+        "durationMs": 184,
+        "text": "几"
+      },
+      {
+        "offsetMs": 5053,
+        "durationMs": 316,
+        "text": "秒"
+      },
+      {
+        "offsetMs": 5474,
+        "durationMs": 408,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5895,
+        "durationMs": 461,
+        "text": "换成"
+      },
+      {
+        "offsetMs": 6368,
+        "durationMs": 408,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 6789,
+        "durationMs": 434,
+        "text": "方案"
+      }
+    ]
+  },
+  "playful-buddy:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么": {
+    "id": "playful-buddy:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "normKey": "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a77124c17461b59d.mp3",
+    "durationMs": 7782,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 554,
+        "text": "点击"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 180,
+        "text": "或"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 490,
+        "text": "移动桌"
+      },
+      {
+        "offsetMs": 1352,
+        "durationMs": 168,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1519,
+        "durationMs": 77,
         "text": "的"
       },
       {
-        "offsetMs": 1712,
-        "durationMs": 213,
+        "offsetMs": 1609,
+        "durationMs": 644,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 2589,
+        "durationMs": 193,
+        "text": "让"
+      },
+      {
+        "offsetMs": 2782,
+        "durationMs": 142,
+        "text": "它"
+      },
+      {
+        "offsetMs": 2937,
+        "durationMs": 412,
+        "text": "先后"
+      },
+      {
+        "offsetMs": 3362,
+        "durationMs": 155,
+        "text": "挨"
+      },
+      {
+        "offsetMs": 3516,
+        "durationMs": 129,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3658,
+        "durationMs": 374,
+        "text": "左边"
+      },
+      {
+        "offsetMs": 4032,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4135,
+        "durationMs": 180,
         "text": "小"
       },
       {
-        "offsetMs": 1925,
-        "durationMs": 532,
-        "text": "木船"
+        "offsetMs": 4315,
+        "durationMs": 425,
+        "text": "积木"
       },
       {
-        "offsetMs": 2723,
-        "durationMs": 452,
-        "text": "小兔"
-      },
-      {
-        "offsetMs": 3202,
-        "durationMs": 120,
+        "offsetMs": 4882,
+        "durationMs": 116,
         "text": "和"
       },
       {
-        "offsetMs": 3335,
+        "offsetMs": 5011,
+        "durationMs": 348,
+        "text": "右边"
+      },
+      {
+        "offsetMs": 5359,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5462,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 5617,
+        "durationMs": 477,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 6364,
+        "durationMs": 361,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6738,
+        "durationMs": 129,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6880,
+        "durationMs": 309,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 7202,
+        "durationMs": 400,
+        "text": "什么"
+      }
+    ]
+  },
+  "warm-sister:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么": {
+    "id": "warm-sister:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "normKey": "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-2d5ec67de0947276.mp3",
+    "durationMs": 8798,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 612,
+        "text": "点击"
+      },
+      {
+        "offsetMs": 742,
+        "durationMs": 213,
+        "text": "或"
+      },
+      {
+        "offsetMs": 968,
+        "durationMs": 572,
+        "text": "移动桌"
+      },
+      {
+        "offsetMs": 1539,
+        "durationMs": 186,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1726,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1832,
+        "durationMs": 731,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 2922,
+        "durationMs": 173,
+        "text": "让"
+      },
+      {
+        "offsetMs": 3095,
+        "durationMs": 133,
+        "text": "它"
+      },
+      {
+        "offsetMs": 3242,
+        "durationMs": 492,
+        "text": "先后"
+      },
+      {
+        "offsetMs": 3747,
+        "durationMs": 173,
+        "text": "挨"
+      },
+      {
+        "offsetMs": 3920,
+        "durationMs": 133,
+        "text": "着"
+      },
+      {
+        "offsetMs": 4079,
+        "durationMs": 386,
+        "text": "左边"
+      },
+      {
+        "offsetMs": 4465,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4571,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4797,
+        "durationMs": 545,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 5449,
+        "durationMs": 173,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5635,
+        "durationMs": 426,
+        "text": "右边"
+      },
+      {
+        "offsetMs": 6061,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6167,
+        "durationMs": 186,
+        "text": "大"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 585,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 7181,
+        "durationMs": 426,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7633,
+        "durationMs": 160,
+        "text": "会"
+      },
+      {
+        "offsetMs": 7806,
+        "durationMs": 372,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 8192,
+        "durationMs": 426,
+        "text": "什么"
+      }
+    ]
+  },
+  "gentle-guide:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么": {
+    "id": "gentle-guide:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "normKey": "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-50af67fb2b64edb0.mp3",
+    "durationMs": 8066,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 564,
+        "text": "点击"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 175,
+        "text": "或"
+      },
+      {
+        "offsetMs": 883,
+        "durationMs": 511,
+        "text": "移动桌"
+      },
+      {
+        "offsetMs": 1394,
+        "durationMs": 148,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1542,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1623,
+        "durationMs": 659,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 2711,
+        "durationMs": 161,
+        "text": "让"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 94,
+        "text": "它"
+      },
+      {
+        "offsetMs": 2980,
+        "durationMs": 484,
+        "text": "先后"
+      },
+      {
+        "offsetMs": 3477,
+        "durationMs": 242,
+        "text": "挨"
+      },
+      {
+        "offsetMs": 3719,
+        "durationMs": 94,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 323,
+        "text": "左边"
+      },
+      {
+        "offsetMs": 4163,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4244,
+        "durationMs": 228,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4472,
+        "durationMs": 444,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 5023,
+        "durationMs": 202,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5238,
+        "durationMs": 336,
+        "text": "右边"
+      },
+      {
+        "offsetMs": 5574,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5655,
+        "durationMs": 175,
+        "text": "大"
+      },
+      {
+        "offsetMs": 5830,
+        "durationMs": 457,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 6596,
+        "durationMs": 430,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7053,
+        "durationMs": 108,
+        "text": "会"
+      },
+      {
+        "offsetMs": 7174,
+        "durationMs": 363,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 7550,
+        "durationMs": 336,
+        "text": "什么"
+      }
+    ]
+  },
+  "starlight-companion:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么": {
+    "id": "starlight-companion:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "normKey": "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-0231569bec425503.mp3",
+    "durationMs": 8493,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 553,
+        "text": "点击"
+      },
+      {
+        "offsetMs": 668,
+        "durationMs": 197,
+        "text": "或"
+      },
+      {
+        "offsetMs": 879,
+        "durationMs": 566,
+        "text": "移动桌"
+      },
+      {
+        "offsetMs": 1445,
+        "durationMs": 145,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1589,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1695,
+        "durationMs": 711,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 2668,
+        "durationMs": 250,
+        "text": "让"
+      },
+      {
+        "offsetMs": 2918,
+        "durationMs": 132,
+        "text": "它"
+      },
+      {
+        "offsetMs": 3063,
+        "durationMs": 474,
+        "text": "先后"
+      },
+      {
+        "offsetMs": 3550,
+        "durationMs": 197,
+        "text": "挨"
+      },
+      {
+        "offsetMs": 3747,
+        "durationMs": 118,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3879,
+        "durationMs": 408,
+        "text": "左边"
+      },
+      {
+        "offsetMs": 4287,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4405,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4642,
+        "durationMs": 474,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 5221,
+        "durationMs": 224,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5458,
+        "durationMs": 382,
+        "text": "右边"
+      },
+      {
+        "offsetMs": 5839,
+        "durationMs": 79,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5932,
+        "durationMs": 197,
+        "text": "大"
+      },
+      {
+        "offsetMs": 6129,
+        "durationMs": 553,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 6932,
+        "durationMs": 355,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7300,
+        "durationMs": 158,
+        "text": "会"
+      },
+      {
+        "offsetMs": 7471,
+        "durationMs": 395,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 7879,
+        "durationMs": 434,
+        "text": "什么"
+      }
+    ]
+  },
+  "playful-buddy:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧": {
+    "id": "playful-buddy:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "normKey": "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-791b016a1d85516f.mp3",
+    "durationMs": 7885,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "把"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 619,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 129,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1029,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1352,
+        "durationMs": 309,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1674,
+        "durationMs": 515,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 464,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3091,
+        "durationMs": 142,
+        "text": "比"
+      },
+      {
+        "offsetMs": 3246,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3426,
+        "durationMs": 335,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 3774,
+        "durationMs": 155,
+        "text": "高"
+      },
+      {
+        "offsetMs": 3929,
+        "durationMs": 515,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 4728,
+        "durationMs": 400,
+        "text": "跳跳"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 387,
+        "text": "开心"
+      },
+      {
+        "offsetMs": 5527,
+        "durationMs": 103,
+        "text": "得"
+      },
+      {
+        "offsetMs": 5643,
+        "durationMs": 180,
+        "text": "蹦"
+      },
+      {
+        "offsetMs": 5823,
+        "durationMs": 245,
+        "text": "起来"
+      },
+      {
+        "offsetMs": 6081,
+        "durationMs": 193,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6287,
+        "durationMs": 271,
+        "text": "看"
+      },
+      {
+        "offsetMs": 6764,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 6919,
+        "durationMs": 541,
+        "text": "大杯子"
+      },
+      {
+        "offsetMs": 7460,
+        "durationMs": 245,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧": {
+    "id": "warm-sister:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "normKey": "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-13ea9df14d04b510.mp3",
+    "durationMs": 8262,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 276,
+        "durationMs": 665,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 968,
+        "durationMs": 120,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1087,
+        "durationMs": 160,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1273,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1473,
+        "durationMs": 293,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 545,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2696,
+        "durationMs": 558,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3361,
+        "durationMs": 146,
+        "text": "比"
+      },
+      {
+        "offsetMs": 3521,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3747,
+        "durationMs": 319,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 4093,
+        "durationMs": 146,
+        "text": "高"
+      },
+      {
+        "offsetMs": 4239,
+        "durationMs": 519,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 5103,
+        "durationMs": 359,
+        "text": "跳跳"
+      },
+      {
+        "offsetMs": 5476,
+        "durationMs": 372,
+        "text": "开心"
+      },
+      {
+        "offsetMs": 5848,
+        "durationMs": 93,
+        "text": "得"
+      },
+      {
+        "offsetMs": 5968,
+        "durationMs": 186,
+        "text": "蹦"
+      },
+      {
+        "offsetMs": 6154,
+        "durationMs": 253,
+        "text": "起来"
+      },
+      {
+        "offsetMs": 6420,
+        "durationMs": 173,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6619,
+        "durationMs": 266,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7124,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 7271,
+        "durationMs": 558,
+        "text": "大杯子"
+      },
+      {
+        "offsetMs": 7829,
+        "durationMs": 253,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧": {
+    "id": "gentle-guide:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "normKey": "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-5a6011e2fe5caccc.mp3",
+    "durationMs": 7689,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "把"
+      },
+      {
+        "offsetMs": 292,
+        "durationMs": 591,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 910,
+        "durationMs": 94,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 121,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1152,
+        "durationMs": 202,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1354,
+        "durationMs": 242,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 457,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2429,
+        "durationMs": 564,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3114,
+        "durationMs": 121,
+        "text": "比"
+      },
+      {
+        "offsetMs": 3249,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3437,
+        "durationMs": 269,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 3733,
+        "durationMs": 161,
+        "text": "高"
+      },
+      {
+        "offsetMs": 3894,
+        "durationMs": 417,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 4647,
+        "durationMs": 349,
+        "text": "跳跳"
+      },
+      {
+        "offsetMs": 5010,
+        "durationMs": 363,
+        "text": "开心"
+      },
+      {
+        "offsetMs": 5373,
+        "durationMs": 81,
+        "text": "得"
+      },
+      {
+        "offsetMs": 5480,
+        "durationMs": 161,
+        "text": "蹦"
+      },
+      {
+        "offsetMs": 5641,
+        "durationMs": 202,
+        "text": "起来"
+      },
+      {
+        "offsetMs": 5856,
+        "durationMs": 175,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6058,
+        "durationMs": 282,
+        "text": "看"
+      },
+      {
+        "offsetMs": 6663,
+        "durationMs": 161,
+        "text": "是"
+      },
+      {
+        "offsetMs": 6838,
+        "durationMs": 444,
+        "text": "大杯子"
+      },
+      {
+        "offsetMs": 7281,
+        "durationMs": 228,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧": {
+    "id": "starlight-companion:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "normKey": "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-f8e72a7da65aeef3.mp3",
+    "durationMs": 8441,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "把"
+      },
+      {
+        "offsetMs": 287,
+        "durationMs": 566,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 866,
+        "durationMs": 171,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1037,
+        "durationMs": 145,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1195,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1432,
+        "durationMs": 329,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1774,
+        "durationMs": 539,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2603,
+        "durationMs": 513,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3221,
+        "durationMs": 158,
+        "text": "比"
+      },
+      {
+        "offsetMs": 3392,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3616,
+        "durationMs": 342,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 3971,
+        "durationMs": 211,
+        "text": "高"
+      },
+      {
+        "offsetMs": 4182,
+        "durationMs": 566,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 4997,
+        "durationMs": 461,
+        "text": "跳跳"
+      },
+      {
+        "offsetMs": 5471,
+        "durationMs": 421,
+        "text": "开心"
+      },
+      {
+        "offsetMs": 5892,
+        "durationMs": 105,
+        "text": "得"
+      },
+      {
+        "offsetMs": 6011,
+        "durationMs": 197,
+        "text": "蹦"
+      },
+      {
+        "offsetMs": 6208,
+        "durationMs": 276,
+        "text": "起来"
+      },
+      {
+        "offsetMs": 6497,
+        "durationMs": 184,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6695,
+        "durationMs": 289,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7208,
+        "durationMs": 211,
+        "text": "是"
+      },
+      {
+        "offsetMs": 7432,
+        "durationMs": 579,
+        "text": "大杯子"
+      },
+      {
+        "offsetMs": 8011,
+        "durationMs": 250,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小": {
+    "id": "playful-buddy:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "normKey": "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b0a5e8494a1d89c1.mp3",
+    "durationMs": 8670,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 256,
+        "durationMs": 593,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 129,
+        "text": "移"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 129,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1132,
+        "durationMs": 180,
+        "text": "大"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 335,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 1661,
+        "durationMs": 490,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 335,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 2808,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2962,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3117,
+        "durationMs": 374,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 3504,
+        "durationMs": 464,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 3980,
+        "durationMs": 309,
+        "text": "显得"
+      },
+      {
+        "offsetMs": 4303,
+        "durationMs": 554,
+        "text": "好小"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 335,
+        "text": "噗噗"
+      },
+      {
+        "offsetMs": 5475,
+        "durationMs": 193,
+        "text": "笑"
+      },
+      {
+        "offsetMs": 5669,
+        "durationMs": 309,
+        "text": "着晃"
+      },
+      {
+        "offsetMs": 5991,
+        "durationMs": 271,
+        "text": "鼻子"
+      },
+      {
+        "offsetMs": 6261,
+        "durationMs": 180,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6455,
+        "durationMs": 258,
+        "text": "看"
+      },
+      {
+        "offsetMs": 6919,
+        "durationMs": 155,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7086,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 7215,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7318,
+        "durationMs": 387,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 7718,
+        "durationMs": 116,
+        "text": "比"
+      },
+      {
+        "offsetMs": 7834,
+        "durationMs": 129,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7975,
+        "durationMs": 206,
+        "text": "真"
+      },
+      {
+        "offsetMs": 8181,
+        "durationMs": 309,
+        "text": "小"
+      }
+    ]
+  },
+  "warm-sister:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小": {
+    "id": "warm-sister:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "normKey": "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-196d28430c29c67b.mp3",
+    "durationMs": 9968,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 276,
+        "durationMs": 745,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 133,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1180,
+        "durationMs": 173,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1380,
+        "durationMs": 186,
+        "text": "大"
+      },
+      {
+        "offsetMs": 1566,
+        "durationMs": 372,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 1952,
+        "durationMs": 558,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2909,
+        "durationMs": 479,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3401,
+        "durationMs": 199,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3627,
+        "durationMs": 160,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 372,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 4172,
+        "durationMs": 505,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 293,
+        "text": "显得"
+      },
+      {
+        "offsetMs": 5010,
+        "durationMs": 598,
+        "text": "好小"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 332,
+        "text": "噗噗"
+      },
+      {
+        "offsetMs": 6287,
+        "durationMs": 226,
+        "text": "笑"
+      },
+      {
+        "offsetMs": 6513,
+        "durationMs": 332,
+        "text": "着晃"
+      },
+      {
+        "offsetMs": 6858,
+        "durationMs": 319,
+        "text": "鼻子"
+      },
+      {
+        "offsetMs": 7178,
+        "durationMs": 213,
+        "text": "说"
+      },
+      {
+        "offsetMs": 7417,
+        "durationMs": 319,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7992,
+        "durationMs": 173,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 8178,
+        "durationMs": 133,
+        "text": "我"
+      },
+      {
+        "offsetMs": 8311,
+        "durationMs": 106,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8431,
+        "durationMs": 439,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 8896,
+        "durationMs": 106,
+        "text": "比"
+      },
+      {
+        "offsetMs": 9003,
+        "durationMs": 120,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9136,
+        "durationMs": 266,
+        "text": "真"
+      },
+      {
+        "offsetMs": 9402,
+        "durationMs": 386,
+        "text": "小"
+      }
+    ]
+  },
+  "gentle-guide:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小": {
+    "id": "gentle-guide:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "normKey": "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-360ca8a89504abb7.mp3",
+    "durationMs": 8658,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "把"
+      },
+      {
+        "offsetMs": 292,
+        "durationMs": 551,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 870,
+        "durationMs": 94,
+        "text": "移"
+      },
+      {
+        "offsetMs": 964,
+        "durationMs": 134,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 175,
+        "text": "大"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 296,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 457,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 349,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 2859,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2994,
+        "durationMs": 161,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3155,
+        "durationMs": 296,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 3464,
+        "durationMs": 336,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 3827,
+        "durationMs": 188,
+        "text": "显得"
+      },
+      {
+        "offsetMs": 4028,
+        "durationMs": 538,
+        "text": "好小"
+      },
+      {
+        "offsetMs": 4969,
+        "durationMs": 376,
+        "text": "噗噗"
+      },
+      {
+        "offsetMs": 5346,
+        "durationMs": 202,
+        "text": "笑"
+      },
+      {
+        "offsetMs": 5547,
+        "durationMs": 282,
+        "text": "着晃"
+      },
+      {
+        "offsetMs": 5843,
+        "durationMs": 202,
+        "text": "鼻子"
+      },
+      {
+        "offsetMs": 6045,
+        "durationMs": 161,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6233,
+        "durationMs": 282,
+        "text": "看"
+      },
+      {
+        "offsetMs": 6932,
+        "durationMs": 134,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7080,
+        "durationMs": 94,
+        "text": "我"
+      },
+      {
+        "offsetMs": 7174,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7268,
+        "durationMs": 444,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 7738,
+        "durationMs": 108,
+        "text": "比"
+      },
+      {
+        "offsetMs": 7846,
+        "durationMs": 108,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7967,
+        "durationMs": 215,
+        "text": "真"
+      },
+      {
+        "offsetMs": 8182,
+        "durationMs": 296,
+        "text": "小"
+      }
+    ]
+  },
+  "starlight-companion:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小": {
+    "id": "starlight-companion:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "normKey": "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-f92cce315bed114a.mp3",
+    "durationMs": 9309,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 171,
+        "text": "把"
+      },
+      {
+        "offsetMs": 287,
+        "durationMs": 579,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 879,
+        "durationMs": 158,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1037,
+        "durationMs": 145,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1195,
+        "durationMs": 197,
+        "text": "大"
+      },
+      {
+        "offsetMs": 1392,
+        "durationMs": 368,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 1774,
+        "durationMs": 526,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2563,
+        "durationMs": 342,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 2918,
+        "durationMs": 145,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3076,
+        "durationMs": 197,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3274,
+        "durationMs": 382,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 3668,
+        "durationMs": 421,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 4103,
+        "durationMs": 303,
+        "text": "显得"
+      },
+      {
+        "offsetMs": 4418,
+        "durationMs": 618,
+        "text": "好小"
+      },
+      {
+        "offsetMs": 5261,
+        "durationMs": 421,
+        "text": "噗噗"
+      },
+      {
+        "offsetMs": 5682,
+        "durationMs": 250,
+        "text": "笑"
+      },
+      {
+        "offsetMs": 5932,
+        "durationMs": 355,
+        "text": "着晃"
+      },
+      {
+        "offsetMs": 6300,
+        "durationMs": 303,
+        "text": "鼻子"
+      },
+      {
+        "offsetMs": 6603,
+        "durationMs": 184,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6800,
+        "durationMs": 289,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7339,
+        "durationMs": 171,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7524,
+        "durationMs": 118,
+        "text": "我"
+      },
+      {
+        "offsetMs": 7642,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7761,
+        "durationMs": 474,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 8247,
+        "durationMs": 132,
+        "text": "比"
+      },
+      {
+        "offsetMs": 8379,
+        "durationMs": 132,
+        "text": "它"
+      },
+      {
+        "offsetMs": 8524,
+        "durationMs": 276,
+        "text": "真"
+      },
+      {
+        "offsetMs": 8800,
+        "durationMs": 329,
+        "text": "小"
+      }
+    ]
+  },
+  "playful-buddy:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变": {
+    "id": "playful-buddy:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "normKey": "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-32cc7034bd113982.mp3",
+    "durationMs": 7008,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 631,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 746,
+        "durationMs": 309,
+        "text": "回到"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 309,
+        "text": "桌子"
+      },
+      {
+        "offsetMs": 1390,
+        "durationMs": 451,
+        "text": "中间"
+      },
+      {
+        "offsetMs": 2163,
+        "durationMs": 168,
+        "text": "杯"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 348,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2692,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2795,
+        "durationMs": 348,
+        "text": "两格"
+      },
+      {
+        "offsetMs": 3156,
+        "durationMs": 644,
+        "text": "水位线"
+      },
+      {
+        "offsetMs": 3916,
+        "durationMs": 284,
+        "text": "一点儿"
+      },
+      {
+        "offsetMs": 4212,
+        "durationMs": 180,
+        "text": "没"
+      },
+      {
+        "offsetMs": 4393,
+        "durationMs": 258,
+        "text": "变"
+      },
+      {
+        "offsetMs": 4986,
+        "durationMs": 335,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5334,
+        "durationMs": 271,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 5604,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5707,
+        "durationMs": 425,
+        "text": "大小"
+      },
+      {
+        "offsetMs": 6145,
+        "durationMs": 232,
+        "text": "没有"
+      },
+      {
+        "offsetMs": 6390,
+        "durationMs": 438,
+        "text": "改变"
+      }
+    ]
+  },
+  "warm-sister:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变": {
+    "id": "warm-sister:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "normKey": "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-9e95615bdaf2cf9e.mp3",
+    "durationMs": 8022,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 718,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 848,
+        "durationMs": 346,
+        "text": "回到"
+      },
+      {
+        "offsetMs": 1207,
+        "durationMs": 306,
+        "text": "桌子"
+      },
+      {
+        "offsetMs": 1526,
+        "durationMs": 545,
+        "text": "中间"
+      },
+      {
+        "offsetMs": 2457,
+        "durationMs": 199,
+        "text": "杯"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 426,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 3095,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3215,
+        "durationMs": 372,
+        "text": "两格"
+      },
+      {
+        "offsetMs": 3601,
+        "durationMs": 798,
+        "text": "水位线"
+      },
+      {
+        "offsetMs": 4505,
+        "durationMs": 319,
+        "text": "一点儿"
+      },
+      {
+        "offsetMs": 4837,
+        "durationMs": 226,
+        "text": "没"
+      },
+      {
+        "offsetMs": 5063,
+        "durationMs": 266,
+        "text": "变"
+      },
+      {
+        "offsetMs": 5742,
+        "durationMs": 359,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 6127,
+        "durationMs": 279,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6406,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6513,
+        "durationMs": 479,
+        "text": "大小"
+      },
+      {
+        "offsetMs": 7018,
+        "durationMs": 253,
+        "text": "没有"
+      },
+      {
+        "offsetMs": 7284,
+        "durationMs": 558,
+        "text": "改变"
+      }
+    ]
+  },
+  "gentle-guide:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变": {
+    "id": "gentle-guide:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "normKey": "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-b915976ced62ca42.mp3",
+    "durationMs": 7018,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 645,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 255,
+        "text": "回到"
+      },
+      {
+        "offsetMs": 1045,
+        "durationMs": 255,
+        "text": "桌子"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 484,
+        "text": "中间"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 215,
+        "text": "杯"
+      },
+      {
+        "offsetMs": 2375,
+        "durationMs": 323,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2698,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2805,
+        "durationMs": 269,
+        "text": "两格"
+      },
+      {
+        "offsetMs": 3088,
+        "durationMs": 686,
+        "text": "水位线"
+      },
+      {
+        "offsetMs": 3881,
+        "durationMs": 376,
+        "text": "一点儿"
+      },
+      {
+        "offsetMs": 4270,
+        "durationMs": 161,
+        "text": "没"
+      },
+      {
+        "offsetMs": 4432,
+        "durationMs": 215,
+        "text": "变"
+      },
+      {
+        "offsetMs": 5063,
+        "durationMs": 349,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5440,
+        "durationMs": 215,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 5655,
+        "durationMs": 94,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5762,
+        "durationMs": 417,
+        "text": "大小"
+      },
+      {
+        "offsetMs": 6206,
+        "durationMs": 228,
+        "text": "没有"
+      },
+      {
+        "offsetMs": 6448,
+        "durationMs": 390,
+        "text": "改变"
+      }
+    ]
+  },
+  "starlight-companion:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变": {
+    "id": "starlight-companion:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "normKey": "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-659248c3d3c29940.mp3",
+    "durationMs": 7573,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 658,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 774,
+        "durationMs": 368,
+        "text": "回到"
+      },
+      {
+        "offsetMs": 1155,
+        "durationMs": 303,
+        "text": "桌子"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 513,
+        "text": "中间"
+      },
+      {
+        "offsetMs": 2261,
+        "durationMs": 211,
+        "text": "杯"
+      },
+      {
+        "offsetMs": 2484,
+        "durationMs": 355,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2839,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2945,
+        "durationMs": 382,
+        "text": "两格"
+      },
+      {
+        "offsetMs": 3339,
+        "durationMs": 711,
+        "text": "水位线"
+      },
+      {
+        "offsetMs": 4155,
+        "durationMs": 408,
+        "text": "一点儿"
+      },
+      {
+        "offsetMs": 4576,
+        "durationMs": 237,
+        "text": "没"
+      },
+      {
+        "offsetMs": 4813,
+        "durationMs": 263,
+        "text": "变"
+      },
+      {
+        "offsetMs": 5379,
+        "durationMs": 355,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5747,
+        "durationMs": 329,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6076,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6195,
+        "durationMs": 434,
+        "text": "大小"
+      },
+      {
+        "offsetMs": 6642,
+        "durationMs": 276,
+        "text": "没有"
+      },
+      {
+        "offsetMs": 6932,
+        "durationMs": 461,
+        "text": "改变"
+      }
+    ]
+  },
+  "playful-buddy:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧": {
+    "id": "playful-buddy:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "normKey": "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-87c32ef55073df06.mp3",
+    "durationMs": 9316,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "森林木"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 348,
+        "text": "地板"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 284,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1326,
+        "durationMs": 245,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 1584,
+        "durationMs": 168,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1751,
+        "durationMs": 168,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 335,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 2279,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 631,
+        "text": "火车头"
+      },
+      {
+        "offsetMs": 3400,
+        "durationMs": 219,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3620,
+        "durationMs": 232,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 3864,
+        "durationMs": 129,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4006,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4187,
+        "durationMs": 515,
+        "text": "浣熊"
+      },
+      {
+        "offsetMs": 4805,
+        "durationMs": 168,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 155,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 348,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 5488,
+        "durationMs": 284,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 335,
+        "text": "先"
+      },
+      {
+        "offsetMs": 6688,
+        "durationMs": 168,
+        "text": "点"
+      },
+      {
+        "offsetMs": 6869,
+        "durationMs": 168,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7049,
+        "durationMs": 284,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7436,
+        "durationMs": 335,
+        "text": "物件"
+      },
+      {
+        "offsetMs": 7784,
+        "durationMs": 464,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 8518,
+        "durationMs": 142,
+        "text": "有"
+      },
+      {
+        "offsetMs": 8673,
+        "durationMs": 258,
+        "text": "什么"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 206,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧": {
+    "id": "warm-sister:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "normKey": "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-9bd6bfef5f8d64a7.mp3",
+    "durationMs": 10087,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 572,
+        "text": "森林木"
+      },
+      {
+        "offsetMs": 688,
+        "durationMs": 386,
+        "text": "地板"
+      },
+      {
+        "offsetMs": 1074,
+        "durationMs": 319,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1499,
+        "durationMs": 266,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1925,
+        "durationMs": 213,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 2164,
+        "durationMs": 399,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 2577,
         "durationMs": 213,
         "text": "小"
       },
       {
-        "offsetMs": 3547,
-        "durationMs": 239,
+        "offsetMs": 2789,
+        "durationMs": 705,
+        "text": "火车头"
+      },
+      {
+        "offsetMs": 3827,
+        "durationMs": 186,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4013,
+        "durationMs": 199,
         "text": "熊"
       },
       {
-        "offsetMs": 3813,
-        "durationMs": 146,
+        "offsetMs": 4239,
+        "durationMs": 106,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4358,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4558,
+        "durationMs": 598,
+        "text": "浣熊"
+      },
+      {
+        "offsetMs": 5263,
+        "durationMs": 173,
         "text": "都"
       },
       {
-        "offsetMs": 3960,
-        "durationMs": 239,
+        "offsetMs": 5436,
+        "durationMs": 213,
         "text": "想"
       },
       {
-        "offsetMs": 4199,
+        "offsetMs": 5675,
+        "durationMs": 372,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 6047,
         "durationMs": 293,
         "text": "玩"
       },
       {
-        "offsetMs": 5093,
-        "durationMs": 266,
-        "text": "我们"
+        "offsetMs": 6942,
+        "durationMs": 279,
+        "text": "先"
       },
       {
-        "offsetMs": 5372,
-        "durationMs": 572,
-        "text": "试试"
+        "offsetMs": 7221,
+        "durationMs": 173,
+        "text": "点"
       },
       {
-        "offsetMs": 6051,
-        "durationMs": 146,
-        "text": "把"
+        "offsetMs": 7407,
+        "durationMs": 199,
+        "text": "点"
       },
       {
-        "offsetMs": 6210,
-        "durationMs": 399,
-        "text": "不同"
+        "offsetMs": 7633,
+        "durationMs": 332,
+        "text": "地上"
       },
       {
-        "offsetMs": 6609,
-        "durationMs": 106,
+        "offsetMs": 7965,
+        "durationMs": 80,
         "text": "的"
       },
       {
-        "offsetMs": 6729,
-        "durationMs": 386,
-        "text": "道具"
+        "offsetMs": 8058,
+        "durationMs": 346,
+        "text": "物件"
       },
       {
-        "offsetMs": 7141,
-        "durationMs": 332,
-        "text": "放进"
-      },
-      {
-        "offsetMs": 7487,
-        "durationMs": 532,
-        "text": "池塘"
-      },
-      {
-        "offsetMs": 8364,
-        "durationMs": 319,
+        "offsetMs": 8418,
+        "durationMs": 572,
         "text": "看看"
       },
       {
-        "offsetMs": 8697,
+        "offsetMs": 9096,
+        "durationMs": 160,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9255,
         "durationMs": 133,
-        "text": "能"
+        "text": "有"
       },
       {
-        "offsetMs": 8843,
-        "durationMs": 332,
-        "text": "商量"
-      },
-      {
-        "offsetMs": 9189,
-        "durationMs": 146,
-        "text": "出"
-      },
-      {
-        "offsetMs": 9335,
-        "durationMs": 213,
+        "offsetMs": 9402,
+        "durationMs": 253,
         "text": "什么"
       },
       {
-        "offsetMs": 9561,
-        "durationMs": 213,
-        "text": "好"
-      },
-      {
-        "offsetMs": 9774,
-        "durationMs": 479,
-        "text": "办法"
+        "offsetMs": 9654,
+        "durationMs": 253,
+        "text": "吧"
       }
     ]
   },
-  "warm-sister:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。": {
-    "id": "warm-sister:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "normKey": "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-549211b704478b93.mp3",
-    "durationMs": 4990,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 319,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 422,
-        "durationMs": 266,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1047,
-        "durationMs": 465,
-        "text": "今天"
-      },
-      {
-        "offsetMs": 1526,
-        "durationMs": 199,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 1739,
-        "durationMs": 346,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 2098,
-        "durationMs": 146,
-        "text": "做"
-      },
-      {
-        "offsetMs": 2244,
-        "durationMs": 692,
-        "text": "深呼吸"
-      },
-      {
-        "offsetMs": 3228,
-        "durationMs": 319,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 3574,
-        "durationMs": 399,
-        "text": "退后"
-      },
-      {
-        "offsetMs": 3986,
-        "durationMs": 106,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4093,
-        "durationMs": 106,
-        "text": "步"
-      },
-      {
-        "offsetMs": 4226,
-        "durationMs": 213,
-        "text": "看"
-      },
-      {
-        "offsetMs": 4438,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4531,
-        "durationMs": 279,
-        "text": "看"
-      }
-    ]
-  },
-  "gentle-guide:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。": {
-    "id": "gentle-guide:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "normKey": "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
+  "gentle-guide:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧": {
+    "id": "gentle-guide:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "normKey": "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-3683222fc3da509c.mp3",
-    "durationMs": 4592,
+    "audioUrl": "/audio/tts/gentle-guide-67794ad5177dd224.mp3",
+    "durationMs": 10005,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 551,
+        "text": "森林木"
+      },
+      {
+        "offsetMs": 668,
+        "durationMs": 323,
+        "text": "地板"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 363,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1461,
+        "durationMs": 296,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 1770,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1918,
+        "durationMs": 161,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 2106,
+        "durationMs": 363,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 2483,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2671,
+        "durationMs": 686,
+        "text": "火车头"
+      },
+      {
+        "offsetMs": 3773,
+        "durationMs": 349,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4123,
+        "durationMs": 242,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 4391,
+        "durationMs": 94,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4499,
+        "durationMs": 175,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4674,
+        "durationMs": 551,
+        "text": "浣熊"
+      },
+      {
+        "offsetMs": 5332,
+        "durationMs": 215,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5547,
+        "durationMs": 148,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5722,
+        "durationMs": 269,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 5991,
+        "durationMs": 296,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 309,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7204,
+        "durationMs": 134,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7352,
+        "durationMs": 148,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7527,
+        "durationMs": 323,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 7849,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7944,
+        "durationMs": 269,
+        "text": "物件"
+      },
+      {
+        "offsetMs": 8226,
+        "durationMs": 632,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8978,
+        "durationMs": 134,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9113,
+        "durationMs": 108,
+        "text": "有"
+      },
+      {
+        "offsetMs": 9234,
+        "durationMs": 215,
+        "text": "什么"
+      },
+      {
+        "offsetMs": 9449,
+        "durationMs": 376,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧": {
+    "id": "starlight-companion:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "normKey": "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-af69d9f636043bd7.mp3",
+    "durationMs": 10325,
     "boundaries": [
       {
         "offsetMs": 103,
+        "durationMs": 579,
+        "text": "森林木"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 368,
+        "text": "地板"
+      },
+      {
+        "offsetMs": 1063,
+        "durationMs": 289,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 316,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 1800,
+        "durationMs": 184,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1984,
+        "durationMs": 197,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 2195,
+        "durationMs": 368,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 2576,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2800,
+        "durationMs": 737,
+        "text": "火车头"
+      },
+      {
+        "offsetMs": 3800,
+        "durationMs": 303,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4103,
+        "durationMs": 211,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 4326,
+        "durationMs": 132,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4471,
+        "durationMs": 211,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4682,
+        "durationMs": 592,
+        "text": "浣熊"
+      },
+      {
+        "offsetMs": 5392,
+        "durationMs": 197,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5589,
+        "durationMs": 184,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5787,
+        "durationMs": 408,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 6195,
+        "durationMs": 303,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 7092,
+        "durationMs": 303,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7395,
+        "durationMs": 171,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7579,
+        "durationMs": 184,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7776,
+        "durationMs": 355,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8132,
+        "durationMs": 79,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8224,
+        "durationMs": 355,
+        "text": "物件"
+      },
+      {
+        "offsetMs": 8592,
+        "durationMs": 500,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9197,
+        "durationMs": 210,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9408,
+        "durationMs": 171,
+        "text": "有"
+      },
+      {
+        "offsetMs": 9592,
+        "durationMs": 250,
+        "text": "什么"
+      },
+      {
+        "offsetMs": 9842,
+        "durationMs": 303,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧": {
+    "id": "playful-buddy:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "normKey": "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-8b4c8979adf33d01.mp3",
+    "durationMs": 13041,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 400,
+        "text": "夜晚"
+      },
+      {
+        "offsetMs": 501,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 335,
+        "text": "树屋"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 374,
+        "text": "帐篷"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 271,
+        "text": "外"
+      },
+      {
+        "offsetMs": 1725,
+        "durationMs": 387,
+        "text": "晃动"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 90,
+        "text": "着"
+      },
+      {
+        "offsetMs": 2215,
+        "durationMs": 180,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 309,
+        "text": "神秘"
+      },
+      {
+        "offsetMs": 2730,
+        "durationMs": 438,
+        "text": "黑影"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 503,
+        "text": "身旁"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4356,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4549,
+        "durationMs": 451,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 5103,
+        "durationMs": 400,
+        "text": "紧张"
+      },
+      {
+        "offsetMs": 5503,
+        "durationMs": 90,
+        "text": "地"
+      },
+      {
+        "offsetMs": 5606,
+        "durationMs": 335,
+        "text": "追问"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 374,
+        "text": "隐私"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 425,
+        "text": "秘密"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 193,
+        "text": "而"
+      },
+      {
+        "offsetMs": 7552,
+        "durationMs": 464,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 245,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8286,
+        "durationMs": 155,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 180,
+        "text": "件"
+      },
+      {
+        "offsetMs": 8634,
+        "durationMs": 296,
+        "text": "照明"
+      },
+      {
+        "offsetMs": 8943,
+        "durationMs": 438,
+        "text": "工具"
+      },
+      {
+        "offsetMs": 9626,
+        "durationMs": 322,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 9961,
+        "durationMs": 180,
+        "text": "都"
+      },
+      {
+        "offsetMs": 10142,
+        "durationMs": 206,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10348,
+        "durationMs": 271,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 11198,
+        "durationMs": 309,
+        "text": "先"
+      },
+      {
+        "offsetMs": 11508,
+        "durationMs": 335,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 11856,
+        "durationMs": 309,
+        "text": "光束"
+      },
+      {
+        "offsetMs": 12165,
+        "durationMs": 155,
+        "text": "照"
+      },
+      {
+        "offsetMs": 12332,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 12436,
+        "durationMs": 206,
+        "text": "照"
+      },
+      {
+        "offsetMs": 12642,
+        "durationMs": 219,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧": {
+    "id": "warm-sister:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "normKey": "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ffde84c72f512c4d.mp3",
+    "durationMs": 14276,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 386,
+        "text": "夜晚"
+      },
+      {
+        "offsetMs": 489,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 608,
         "durationMs": 332,
-        "text": "你好"
+        "text": "树屋"
       },
       {
-        "offsetMs": 436,
-        "durationMs": 479,
-        "text": "呀"
+        "offsetMs": 954,
+        "durationMs": 386,
+        "text": "帐篷"
       },
       {
-        "offsetMs": 1366,
-        "durationMs": 253,
-        "text": "今天"
+        "offsetMs": 1340,
+        "durationMs": 306,
+        "text": "外"
       },
       {
-        "offsetMs": 1632,
-        "durationMs": 173,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 1819,
-        "durationMs": 239,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 2071,
-        "durationMs": 120,
-        "text": "做"
+        "offsetMs": 1752,
+        "durationMs": 439,
+        "text": "晃动"
       },
       {
         "offsetMs": 2191,
-        "durationMs": 638,
-        "text": "深呼吸"
+        "durationMs": 93,
+        "text": "着"
       },
       {
-        "offsetMs": 3148,
-        "durationMs": 279,
-        "text": "慢慢"
+        "offsetMs": 2297,
+        "durationMs": 213,
+        "text": "一个"
       },
       {
-        "offsetMs": 3454,
-        "durationMs": 279,
-        "text": "退后"
+        "offsetMs": 2537,
+        "durationMs": 439,
+        "text": "神秘"
       },
       {
-        "offsetMs": 3747,
+        "offsetMs": 2989,
+        "durationMs": 519,
+        "text": "黑影"
+      },
+      {
+        "offsetMs": 4122,
+        "durationMs": 492,
+        "text": "身旁"
+      },
+      {
+        "offsetMs": 4614,
         "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4707,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4920,
+        "durationMs": 558,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 5585,
+        "durationMs": 465,
+        "text": "紧张"
+      },
+      {
+        "offsetMs": 6051,
+        "durationMs": 106,
+        "text": "地"
+      },
+      {
+        "offsetMs": 6184,
+        "durationMs": 319,
+        "text": "追问"
+      },
+      {
+        "offsetMs": 6516,
+        "durationMs": 106,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6622,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6742,
+        "durationMs": 412,
+        "text": "隐私"
+      },
+      {
+        "offsetMs": 7168,
+        "durationMs": 519,
+        "text": "秘密"
+      },
+      {
+        "offsetMs": 8072,
+        "durationMs": 199,
+        "text": "而"
+      },
+      {
+        "offsetMs": 8285,
+        "durationMs": 479,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8790,
+        "durationMs": 213,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 9016,
+        "durationMs": 160,
         "text": "一"
       },
       {
-        "offsetMs": 3827,
-        "durationMs": 120,
-        "text": "步"
+        "offsetMs": 9176,
+        "durationMs": 199,
+        "text": "件"
       },
       {
-        "offsetMs": 3973,
-        "durationMs": 133,
-        "text": "看"
+        "offsetMs": 9402,
+        "durationMs": 359,
+        "text": "照明"
       },
       {
-        "offsetMs": 4106,
-        "durationMs": 80,
-        "text": "一"
+        "offsetMs": 9774,
+        "durationMs": 532,
+        "text": "工具"
       },
       {
-        "offsetMs": 4186,
+        "offsetMs": 10532,
+        "durationMs": 332,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 10878,
+        "durationMs": 160,
+        "text": "都"
+      },
+      {
+        "offsetMs": 11037,
+        "durationMs": 266,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11303,
+        "durationMs": 319,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 12221,
+        "durationMs": 306,
+        "text": "先"
+      },
+      {
+        "offsetMs": 12527,
+        "durationMs": 372,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 12912,
+        "durationMs": 346,
+        "text": "光束"
+      },
+      {
+        "offsetMs": 13258,
         "durationMs": 226,
-        "text": "看"
+        "text": "照"
+      },
+      {
+        "offsetMs": 13497,
+        "durationMs": 106,
+        "text": "一"
+      },
+      {
+        "offsetMs": 13604,
+        "durationMs": 226,
+        "text": "照"
+      },
+      {
+        "offsetMs": 13830,
+        "durationMs": 266,
+        "text": "吧"
       }
     ]
   },
-  "playful-buddy:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。": {
-    "id": "playful-buddy:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "normKey": "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
+  "gentle-guide:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧": {
+    "id": "gentle-guide:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "normKey": "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-a741a7679f310392.mp3",
+    "durationMs": 13782,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 403,
+        "text": "夜晚"
+      },
+      {
+        "offsetMs": 507,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 336,
+        "text": "树屋"
+      },
+      {
+        "offsetMs": 964,
+        "durationMs": 376,
+        "text": "帐篷"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 417,
+        "text": "外"
+      },
+      {
+        "offsetMs": 1878,
+        "durationMs": 497,
+        "text": "晃动"
+      },
+      {
+        "offsetMs": 2375,
+        "durationMs": 94,
+        "text": "着"
+      },
+      {
+        "offsetMs": 2483,
+        "durationMs": 148,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 363,
+        "text": "神秘"
+      },
+      {
+        "offsetMs": 3034,
+        "durationMs": 470,
+        "text": "黑影"
+      },
+      {
+        "offsetMs": 4113,
+        "durationMs": 457,
+        "text": "身旁"
+      },
+      {
+        "offsetMs": 4570,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4664,
+        "durationMs": 215,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4879,
+        "durationMs": 564,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 5551,
+        "durationMs": 444,
+        "text": "紧张"
+      },
+      {
+        "offsetMs": 5995,
+        "durationMs": 81,
+        "text": "地"
+      },
+      {
+        "offsetMs": 6102,
+        "durationMs": 255,
+        "text": "追问"
+      },
+      {
+        "offsetMs": 6371,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6465,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6573,
+        "durationMs": 309,
+        "text": "隐私"
+      },
+      {
+        "offsetMs": 6895,
+        "durationMs": 349,
+        "text": "秘密"
+      },
+      {
+        "offsetMs": 7675,
+        "durationMs": 228,
+        "text": "而"
+      },
+      {
+        "offsetMs": 7917,
+        "durationMs": 524,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8468,
+        "durationMs": 282,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8763,
+        "durationMs": 202,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8965,
+        "durationMs": 148,
+        "text": "件"
+      },
+      {
+        "offsetMs": 9140,
+        "durationMs": 296,
+        "text": "照明"
+      },
+      {
+        "offsetMs": 9449,
+        "durationMs": 444,
+        "text": "工具"
+      },
+      {
+        "offsetMs": 10175,
+        "durationMs": 255,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 10444,
+        "durationMs": 161,
+        "text": "都"
+      },
+      {
+        "offsetMs": 10605,
+        "durationMs": 188,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10793,
+        "durationMs": 269,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 11667,
+        "durationMs": 403,
+        "text": "先"
+      },
+      {
+        "offsetMs": 12070,
+        "durationMs": 309,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 12392,
+        "durationMs": 376,
+        "text": "光束"
+      },
+      {
+        "offsetMs": 12769,
+        "durationMs": 161,
+        "text": "照"
+      },
+      {
+        "offsetMs": 12944,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 13038,
+        "durationMs": 161,
+        "text": "照"
+      },
+      {
+        "offsetMs": 13199,
+        "durationMs": 403,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧": {
+    "id": "starlight-companion:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "normKey": "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-762f4e232817e11b.mp3",
+    "durationMs": 14456,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 447,
+        "text": "夜晚"
+      },
+      {
+        "offsetMs": 550,
+        "durationMs": 118,
+        "text": "的"
+      },
+      {
+        "offsetMs": 682,
+        "durationMs": 382,
+        "text": "树屋"
+      },
+      {
+        "offsetMs": 1076,
+        "durationMs": 395,
+        "text": "帐篷"
+      },
+      {
+        "offsetMs": 1471,
+        "durationMs": 303,
+        "text": "外"
+      },
+      {
+        "offsetMs": 1879,
+        "durationMs": 487,
+        "text": "晃动"
+      },
+      {
+        "offsetMs": 2366,
+        "durationMs": 79,
+        "text": "着"
+      },
+      {
+        "offsetMs": 2458,
+        "durationMs": 237,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 2708,
+        "durationMs": 421,
+        "text": "神秘"
+      },
+      {
+        "offsetMs": 3142,
+        "durationMs": 592,
+        "text": "黑影"
+      },
+      {
+        "offsetMs": 4329,
+        "durationMs": 447,
+        "text": "身旁"
+      },
+      {
+        "offsetMs": 4776,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4895,
+        "durationMs": 237,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5132,
+        "durationMs": 487,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 5737,
+        "durationMs": 487,
+        "text": "紧张"
+      },
+      {
+        "offsetMs": 6224,
+        "durationMs": 118,
+        "text": "地"
+      },
+      {
+        "offsetMs": 6355,
+        "durationMs": 342,
+        "text": "追问"
+      },
+      {
+        "offsetMs": 6711,
+        "durationMs": 132,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6842,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6961,
+        "durationMs": 447,
+        "text": "隐私"
+      },
+      {
+        "offsetMs": 7421,
+        "durationMs": 434,
+        "text": "秘密"
+      },
+      {
+        "offsetMs": 8158,
+        "durationMs": 237,
+        "text": "而"
+      },
+      {
+        "offsetMs": 8408,
+        "durationMs": 421,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8842,
+        "durationMs": 316,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 9171,
+        "durationMs": 184,
+        "text": "一"
+      },
+      {
+        "offsetMs": 9355,
+        "durationMs": 211,
+        "text": "件"
+      },
+      {
+        "offsetMs": 9579,
+        "durationMs": 368,
+        "text": "照明"
+      },
+      {
+        "offsetMs": 9961,
+        "durationMs": 487,
+        "text": "工具"
+      },
+      {
+        "offsetMs": 10684,
+        "durationMs": 355,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 11053,
+        "durationMs": 224,
+        "text": "都"
+      },
+      {
+        "offsetMs": 11276,
+        "durationMs": 224,
+        "text": "想"
+      },
+      {
+        "offsetMs": 11500,
+        "durationMs": 303,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 12395,
+        "durationMs": 316,
+        "text": "先"
+      },
+      {
+        "offsetMs": 12711,
+        "durationMs": 368,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 13092,
+        "durationMs": 368,
+        "text": "光束"
+      },
+      {
+        "offsetMs": 13461,
+        "durationMs": 197,
+        "text": "照"
+      },
+      {
+        "offsetMs": 13671,
+        "durationMs": 105,
+        "text": "一"
+      },
+      {
+        "offsetMs": 13776,
+        "durationMs": 263,
+        "text": "照"
+      },
+      {
+        "offsetMs": 14039,
+        "durationMs": 237,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛": {
+    "id": "playful-buddy:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "normKey": "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-6d6fad5b24c472a4.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-4de9599e53edf01c.mp3",
+    "durationMs": 6842,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 116,
+        "text": "不"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 361,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 606,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 2397,
+        "durationMs": 180,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2925,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3157,
+        "durationMs": 322,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 515,
+        "text": "手电筒"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 322,
+        "text": "照一"
+      },
+      {
+        "offsetMs": 4343,
+        "durationMs": 232,
+        "text": "照"
+      },
+      {
+        "offsetMs": 4832,
+        "durationMs": 400,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5245,
+        "durationMs": 206,
+        "text": "先"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 309,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 258,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 6057,
+        "durationMs": 155,
+        "text": "回"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 451,
+        "text": "小岛"
+      }
+    ]
+  },
+  "warm-sister:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛": {
+    "id": "warm-sister:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "normKey": "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-1d3963ea997c1900.mp3",
+    "durationMs": 7480,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 399,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 515,
+        "durationMs": 133,
+        "text": "不"
+      },
+      {
+        "offsetMs": 648,
+        "durationMs": 492,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 160,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1406,
+        "durationMs": 731,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 2753,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2886,
+        "durationMs": 253,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3165,
+        "durationMs": 226,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3391,
+        "durationMs": 386,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 3790,
+        "durationMs": 598,
+        "text": "手电筒"
+      },
+      {
+        "offsetMs": 4415,
+        "durationMs": 332,
+        "text": "照一"
+      },
+      {
+        "offsetMs": 4747,
+        "durationMs": 279,
+        "text": "照"
+      },
+      {
+        "offsetMs": 5332,
+        "durationMs": 399,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5745,
+        "durationMs": 213,
+        "text": "先"
+      },
+      {
+        "offsetMs": 5971,
+        "durationMs": 372,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 6356,
+        "durationMs": 266,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 6649,
+        "durationMs": 146,
+        "text": "回"
+      },
+      {
+        "offsetMs": 6795,
+        "durationMs": 505,
+        "text": "小岛"
+      }
+    ]
+  },
+  "gentle-guide:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛": {
+    "id": "gentle-guide:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "normKey": "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-0f9e02aa849fb340.mp3",
+    "durationMs": 6914,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 108,
+        "text": "不"
+      },
+      {
+        "offsetMs": 601,
+        "durationMs": 511,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 1219,
+        "durationMs": 161,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1381,
+        "durationMs": 551,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 2554,
+        "durationMs": 255,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2823,
+        "durationMs": 188,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 255,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3293,
+        "durationMs": 336,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 3642,
+        "durationMs": 524,
+        "text": "手电筒"
+      },
+      {
+        "offsetMs": 4194,
+        "durationMs": 282,
+        "text": "照一"
+      },
+      {
+        "offsetMs": 4476,
+        "durationMs": 296,
+        "text": "照"
+      },
+      {
+        "offsetMs": 5161,
+        "durationMs": 255,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5430,
+        "durationMs": 161,
+        "text": "先"
+      },
+      {
+        "offsetMs": 5605,
+        "durationMs": 336,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 228,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 6210,
+        "durationMs": 148,
+        "text": "回"
+      },
+      {
+        "offsetMs": 6358,
+        "durationMs": 376,
+        "text": "小岛"
+      }
+    ]
+  },
+  "starlight-companion:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛": {
+    "id": "starlight-companion:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "normKey": "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-27511fced0a0b5dc.mp3",
+    "durationMs": 7390,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 421,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 171,
+        "text": "不"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 434,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 1221,
+        "durationMs": 197,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1418,
+        "durationMs": 789,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 2803,
+        "durationMs": 158,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2974,
+        "durationMs": 329,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3316,
+        "durationMs": 250,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3566,
+        "durationMs": 342,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 3921,
+        "durationMs": 566,
+        "text": "手电筒"
+      },
+      {
+        "offsetMs": 4500,
+        "durationMs": 329,
+        "text": "照一"
+      },
+      {
+        "offsetMs": 4829,
+        "durationMs": 263,
+        "text": "照"
+      },
+      {
+        "offsetMs": 5303,
+        "durationMs": 316,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5632,
+        "durationMs": 211,
+        "text": "先"
+      },
+      {
+        "offsetMs": 5855,
+        "durationMs": 382,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 303,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 6566,
+        "durationMs": 197,
+        "text": "回"
+      },
+      {
+        "offsetMs": 6763,
+        "durationMs": 447,
+        "text": "小岛"
+      }
+    ]
+  },
+  "playful-buddy:你好呀今天我们一起做深呼吸慢慢退后一步看一看": {
+    "id": "playful-buddy:你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "normKey": "你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-83bf48b80f8b6073.mp3",
     "durationMs": 4689,
     "boundaries": [
       {
@@ -5373,92 +24038,357 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "starlight-companion:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。": {
-    "id": "starlight-companion:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "normKey": "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-6e044f87ec226d35.mp3",
-    "durationMs": 5204,
+  "warm-sister:你好呀今天我们一起做深呼吸慢慢退后一步看一看": {
+    "id": "warm-sister:你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "normKey": "你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-743ea4c5b45460d5.mp3",
+    "durationMs": 4990,
     "boundaries": [
       {
-        "offsetMs": 102,
-        "durationMs": 430,
+        "offsetMs": 103,
+        "durationMs": 319,
         "text": "你好"
       },
       {
-        "offsetMs": 532,
-        "durationMs": 339,
+        "offsetMs": 422,
+        "durationMs": 266,
         "text": "呀"
       },
       {
-        "offsetMs": 1183,
-        "durationMs": 391,
+        "offsetMs": 1047,
+        "durationMs": 465,
         "text": "今天"
       },
       {
-        "offsetMs": 1586,
-        "durationMs": 221,
+        "offsetMs": 1526,
+        "durationMs": 199,
         "text": "我们"
       },
       {
-        "offsetMs": 1821,
-        "durationMs": 365,
+        "offsetMs": 1739,
+        "durationMs": 346,
         "text": "一起"
       },
       {
-        "offsetMs": 2198,
-        "durationMs": 182,
+        "offsetMs": 2098,
+        "durationMs": 146,
         "text": "做"
       },
       {
-        "offsetMs": 2381,
-        "durationMs": 742,
+        "offsetMs": 2244,
+        "durationMs": 692,
         "text": "深呼吸"
       },
       {
-        "offsetMs": 3370,
-        "durationMs": 365,
+        "offsetMs": 3228,
+        "durationMs": 319,
         "text": "慢慢"
       },
       {
-        "offsetMs": 3748,
-        "durationMs": 417,
+        "offsetMs": 3574,
+        "durationMs": 399,
         "text": "退后"
       },
       {
-        "offsetMs": 4178,
-        "durationMs": 117,
+        "offsetMs": 3986,
+        "durationMs": 106,
         "text": "一"
       },
       {
-        "offsetMs": 4295,
-        "durationMs": 117,
+        "offsetMs": 4093,
+        "durationMs": 106,
         "text": "步"
       },
       {
-        "offsetMs": 4425,
-        "durationMs": 234,
+        "offsetMs": 4226,
+        "durationMs": 213,
         "text": "看"
       },
       {
-        "offsetMs": 4659,
-        "durationMs": 117,
+        "offsetMs": 4438,
+        "durationMs": 93,
         "text": "一"
       },
       {
-        "offsetMs": 4777,
-        "durationMs": 247,
+        "offsetMs": 4531,
+        "durationMs": 279,
         "text": "看"
       }
     ]
   },
-  "warm-sister:我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。": {
-    "id": "warm-sister:我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。",
-    "normKey": "我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。",
+  "gentle-guide:你好呀今天我们一起做深呼吸慢慢退后一步看一看": {
+    "id": "gentle-guide:你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "normKey": "你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-654d558346b39fce.mp3",
+    "durationMs": 4638,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 336,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 440,
+        "durationMs": 484,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1381,
+        "durationMs": 255,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 1649,
+        "durationMs": 175,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 1838,
+        "durationMs": 242,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 2093,
+        "durationMs": 121,
+        "text": "做"
+      },
+      {
+        "offsetMs": 2214,
+        "durationMs": 645,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 3182,
+        "durationMs": 282,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3491,
+        "durationMs": 282,
+        "text": "退后"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3867,
+        "durationMs": 121,
+        "text": "步"
+      },
+      {
+        "offsetMs": 4015,
+        "durationMs": 134,
+        "text": "看"
+      },
+      {
+        "offsetMs": 4149,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4230,
+        "durationMs": 228,
+        "text": "看"
+      }
+    ]
+  },
+  "starlight-companion:你好呀今天我们一起做深呼吸慢慢退后一步看一看": {
+    "id": "starlight-companion:你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "normKey": "你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-8aed9722318d20d3.mp3",
+    "durationMs": 5256,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 434,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 537,
+        "durationMs": 342,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1195,
+        "durationMs": 395,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 1603,
+        "durationMs": 224,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 1839,
+        "durationMs": 368,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 2221,
+        "durationMs": 184,
+        "text": "做"
+      },
+      {
+        "offsetMs": 2405,
+        "durationMs": 750,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 3405,
+        "durationMs": 368,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 421,
+        "text": "退后"
+      },
+      {
+        "offsetMs": 4221,
+        "durationMs": 118,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4339,
+        "durationMs": 118,
+        "text": "步"
+      },
+      {
+        "offsetMs": 4471,
+        "durationMs": 237,
+        "text": "看"
+      },
+      {
+        "offsetMs": 4708,
+        "durationMs": 118,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4826,
+        "durationMs": 250,
+        "text": "看"
+      }
+    ]
+  },
+  "playful-buddy:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样": {
+    "id": "playful-buddy:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "normKey": "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-574289f3f4abd5ae.mp3",
+    "durationMs": 6160,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 168,
+        "text": "我"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 361,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 103,
+        "text": "你"
+      },
+      {
+        "offsetMs": 746,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 296,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 219,
+        "text": "倒"
+      },
+      {
+        "offsetMs": 1377,
+        "durationMs": 245,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1906,
+        "durationMs": 387,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2305,
+        "durationMs": 245,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 2563,
+        "durationMs": 322,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 2898,
+        "durationMs": 180,
+        "text": "对"
+      },
+      {
+        "offsetMs": 3078,
+        "durationMs": 219,
+        "text": "吗"
+      },
+      {
+        "offsetMs": 3879,
+        "durationMs": 155,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 206,
+        "text": "很"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 451,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 4936,
+        "durationMs": 361,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 5451,
+        "durationMs": 142,
+        "text": "会"
+      },
+      {
+        "offsetMs": 5606,
+        "durationMs": 374,
+        "text": "这样"
+      }
+    ]
+  },
+  "warm-sister:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样": {
+    "id": "warm-sister:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "normKey": "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-9c00e975f0fc4347.mp3",
+    "audioUrl": "/audio/tts/warm-sister-0a20a67a256cf6aa.mp3",
     "durationMs": 6404,
     "boundaries": [
       {
@@ -5558,107 +24488,682 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "gentle-guide:大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。": {
-    "id": "gentle-guide:大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。",
-    "normKey": "大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。",
+  "gentle-guide:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样": {
+    "id": "gentle-guide:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "normKey": "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-0f94593cc3bf09f0.mp3",
-    "durationMs": 5965,
+    "audioUrl": "/audio/tts/gentle-guide-21e65bbf8f1c1b27.mp3",
+    "durationMs": 6256,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 319,
-        "text": "大人"
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "我"
       },
       {
-        "offsetMs": 449,
-        "durationMs": 279,
-        "text": "不住"
+        "offsetMs": 278,
+        "durationMs": 228,
+        "text": "看到"
       },
       {
-        "offsetMs": 728,
-        "durationMs": 93,
-        "text": "在"
+        "offsetMs": 520,
+        "durationMs": 81,
+        "text": "你"
       },
       {
-        "offsetMs": 835,
-        "durationMs": 146,
-        "text": "一个"
-      },
-      {
-        "offsetMs": 994,
-        "durationMs": 346,
-        "text": "房子"
-      },
-      {
-        "offsetMs": 1340,
-        "durationMs": 306,
-        "text": "里"
-      },
-      {
-        "offsetMs": 2045,
-        "durationMs": 199,
-        "text": "是"
-      },
-      {
-        "offsetMs": 2257,
-        "durationMs": 239,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 2497,
-        "durationMs": 80,
+        "offsetMs": 601,
+        "durationMs": 81,
         "text": "的"
       },
       {
-        "offsetMs": 2590,
-        "durationMs": 399,
-        "text": "决定"
+        "offsetMs": 695,
+        "durationMs": 242,
+        "text": "积木"
       },
       {
-        "offsetMs": 3604,
-        "durationMs": 226,
+        "offsetMs": 951,
+        "durationMs": 202,
+        "text": "倒"
+      },
+      {
+        "offsetMs": 1152,
+        "durationMs": 282,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1918,
+        "durationMs": 349,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2295,
+        "durationMs": 175,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 2483,
+        "durationMs": 255,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 2752,
+        "durationMs": 121,
+        "text": "对"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 323,
+        "text": "吗"
+      },
+      {
+        "offsetMs": 3804,
+        "durationMs": 175,
         "text": "这"
       },
       {
-        "offsetMs": 3830,
-        "durationMs": 160,
+        "offsetMs": 3992,
+        "durationMs": 188,
+        "text": "很"
+      },
+      {
+        "offsetMs": 4180,
+        "durationMs": 591,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 5242,
+        "durationMs": 255,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 5524,
+        "durationMs": 94,
+        "text": "也"
+      },
+      {
+        "offsetMs": 5618,
+        "durationMs": 121,
+        "text": "会"
+      },
+      {
+        "offsetMs": 5753,
+        "durationMs": 323,
+        "text": "这样"
+      }
+    ]
+  },
+  "starlight-companion:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样": {
+    "id": "starlight-companion:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "normKey": "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-de19efbab05490a4.mp3",
+    "durationMs": 6812,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 211,
+        "text": "我"
+      },
+      {
+        "offsetMs": 313,
+        "durationMs": 382,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 708,
+        "durationMs": 105,
+        "text": "你"
+      },
+      {
+        "offsetMs": 813,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 932,
+        "durationMs": 368,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 224,
+        "text": "倒"
+      },
+      {
+        "offsetMs": 1537,
+        "durationMs": 237,
+        "text": "了"
+      },
+      {
+        "offsetMs": 2116,
+        "durationMs": 382,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 289,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 2813,
+        "durationMs": 395,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3221,
+        "durationMs": 224,
+        "text": "对"
+      },
+      {
+        "offsetMs": 3445,
+        "durationMs": 276,
+        "text": "吗"
+      },
+      {
+        "offsetMs": 4316,
+        "durationMs": 184,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4513,
+        "durationMs": 224,
+        "text": "很"
+      },
+      {
+        "offsetMs": 4737,
+        "durationMs": 553,
+        "text": "正常"
+      },
+      {
+        "offsetMs": 5526,
+        "durationMs": 303,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 5842,
+        "durationMs": 184,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6026,
+        "durationMs": 184,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6224,
+        "durationMs": 408,
+        "text": "这样"
+      }
+    ]
+  },
+  "playful-buddy:大人不住在一个房子里是大人的决定这件事百分之百不是因为你": {
+    "id": "playful-buddy:大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c3abedc5bf155dab.mp3",
+    "durationMs": 6160,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 361,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 309,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 785,
+        "durationMs": 129,
+        "text": "在"
+      },
+      {
+        "offsetMs": 926,
+        "durationMs": 193,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1132,
+        "durationMs": 400,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1532,
+        "durationMs": 180,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2086,
+        "durationMs": 322,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 412,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 3505,
+        "durationMs": 193,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3698,
+        "durationMs": 206,
         "text": "件"
       },
       {
-        "offsetMs": 3989,
-        "durationMs": 306,
+        "offsetMs": 3905,
+        "durationMs": 374,
         "text": "事"
       },
       {
-        "offsetMs": 4402,
-        "durationMs": 638,
+        "offsetMs": 4394,
+        "durationMs": 709,
         "text": "百分之百"
       },
       {
-        "offsetMs": 5066,
-        "durationMs": 213,
+        "offsetMs": 5116,
+        "durationMs": 258,
         "text": "不是"
       },
       {
-        "offsetMs": 5293,
-        "durationMs": 186,
+        "offsetMs": 5387,
+        "durationMs": 309,
         "text": "因为"
       },
       {
-        "offsetMs": 5479,
-        "durationMs": 306,
+        "offsetMs": 5696,
+        "durationMs": 284,
         "text": "你"
       }
     ]
   },
-  "warm-sister:身边有老师或者家人时，可以直接走到他们面前拉拉衣角。": {
-    "id": "warm-sister:身边有老师或者家人时，可以直接走到他们面前拉拉衣角。",
-    "normKey": "身边有老师或者家人时，可以直接走到他们面前拉拉衣角。",
+  "warm-sister:大人不住在一个房子里是大人的决定这件事百分之百不是因为你": {
+    "id": "warm-sister:大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-b097d503ad6a326e.mp3",
+    "audioUrl": "/audio/tts/warm-sister-1d7b7233ba6c9941.mp3",
+    "durationMs": 6603,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 399,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 529,
+        "durationMs": 319,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 848,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1034,
+        "durationMs": 199,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 479,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1726,
+        "durationMs": 253,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2178,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2351,
+        "durationMs": 346,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2696,
+        "durationMs": 106,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2816,
+        "durationMs": 465,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 3896,
+        "durationMs": 213,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4109,
+        "durationMs": 213,
+        "text": "件"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 359,
+        "text": "事"
+      },
+      {
+        "offsetMs": 4787,
+        "durationMs": 692,
+        "text": "百分之百"
+      },
+      {
+        "offsetMs": 5505,
+        "durationMs": 253,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 5771,
+        "durationMs": 359,
+        "text": "因为"
+      },
+      {
+        "offsetMs": 6130,
+        "durationMs": 293,
+        "text": "你"
+      }
+    ]
+  },
+  "gentle-guide:大人不住在一个房子里是大人的决定这件事百分之百不是因为你": {
+    "id": "gentle-guide:大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-7e35d33f67dce674.mp3",
+    "durationMs": 6027,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 323,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 453,
+        "durationMs": 282,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 736,
+        "durationMs": 94,
+        "text": "在"
+      },
+      {
+        "offsetMs": 843,
+        "durationMs": 148,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 349,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1354,
+        "durationMs": 309,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2066,
+        "durationMs": 202,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 242,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2523,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2617,
+        "durationMs": 403,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 3642,
+        "durationMs": 228,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3871,
+        "durationMs": 161,
+        "text": "件"
+      },
+      {
+        "offsetMs": 4032,
+        "durationMs": 309,
+        "text": "事"
+      },
+      {
+        "offsetMs": 4449,
+        "durationMs": 645,
+        "text": "百分之百"
+      },
+      {
+        "offsetMs": 5121,
+        "durationMs": 215,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 5349,
+        "durationMs": 188,
+        "text": "因为"
+      },
+      {
+        "offsetMs": 5538,
+        "durationMs": 309,
+        "text": "你"
+      }
+    ]
+  },
+  "starlight-companion:大人不住在一个房子里是大人的决定这件事百分之百不是因为你": {
+    "id": "starlight-companion:大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-a07bc8f8ef3349b1.mp3",
+    "durationMs": 6680,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 368,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 484,
+        "durationMs": 368,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 853,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1024,
+        "durationMs": 211,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1247,
+        "durationMs": 395,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1642,
+        "durationMs": 224,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2050,
+        "durationMs": 237,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2300,
+        "durationMs": 342,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2642,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2761,
+        "durationMs": 474,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 3829,
+        "durationMs": 224,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4053,
+        "durationMs": 211,
+        "text": "件"
+      },
+      {
+        "offsetMs": 4263,
+        "durationMs": 355,
+        "text": "事"
+      },
+      {
+        "offsetMs": 4724,
+        "durationMs": 829,
+        "text": "百分之百"
+      },
+      {
+        "offsetMs": 5566,
+        "durationMs": 276,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 5855,
+        "durationMs": 355,
+        "text": "因为"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 289,
+        "text": "你"
+      }
+    ]
+  },
+  "playful-buddy:身边有老师或者家人时可以直接走到他们面前拉拉衣角": {
+    "id": "playful-buddy:身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "normKey": "身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-7e40708424c6d409.mp3",
+    "durationMs": 5488,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 696,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 116,
+        "text": "有"
+      },
+      {
+        "offsetMs": 1029,
+        "durationMs": 438,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 1480,
+        "durationMs": 322,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 1815,
+        "durationMs": 412,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 335,
+        "text": "时"
+      },
+      {
+        "offsetMs": 2846,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3169,
+        "durationMs": 322,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 3504,
+        "durationMs": 142,
+        "text": "走"
+      },
+      {
+        "offsetMs": 3645,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3774,
+        "durationMs": 296,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 4084,
+        "durationMs": 400,
+        "text": "面前"
+      },
+      {
+        "offsetMs": 4496,
+        "durationMs": 296,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 4805,
+        "durationMs": 503,
+        "text": "衣角"
+      }
+    ]
+  },
+  "warm-sister:身边有老师或者家人时可以直接走到他们面前拉拉衣角": {
+    "id": "warm-sister:身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "normKey": "身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-91391d5b26f93f23.mp3",
     "durationMs": 5682,
     "boundaries": [
       {
@@ -5732,16 +25237,4996 @@ export const PREBAKED_TTS_BY_PROFILE_KEY: Record<string, PrebakedTtsEntry> = {
         "text": "衣角"
       }
     ]
+  },
+  "gentle-guide:身边有老师或者家人时可以直接走到他们面前拉拉衣角": {
+    "id": "gentle-guide:身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "normKey": "身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-0db5888f30380a01.mp3",
+    "durationMs": 5270,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 659,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 883,
+        "durationMs": 215,
+        "text": "有"
+      },
+      {
+        "offsetMs": 1112,
+        "durationMs": 470,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 215,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 1838,
+        "durationMs": 390,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 2227,
+        "durationMs": 376,
+        "text": "时"
+      },
+      {
+        "offsetMs": 2846,
+        "durationMs": 255,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3114,
+        "durationMs": 349,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 3477,
+        "durationMs": 148,
+        "text": "走"
+      },
+      {
+        "offsetMs": 3625,
+        "durationMs": 81,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3733,
+        "durationMs": 202,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 3948,
+        "durationMs": 376,
+        "text": "面前"
+      },
+      {
+        "offsetMs": 4351,
+        "durationMs": 269,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 4633,
+        "durationMs": 457,
+        "text": "衣角"
+      }
+    ]
+  },
+  "starlight-companion:身边有老师或者家人时可以直接走到他们面前拉拉衣角": {
+    "id": "starlight-companion:身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "normKey": "身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-3ed07971c2a4882c.mp3",
+    "durationMs": 5770,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 645,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 853,
+        "durationMs": 224,
+        "text": "有"
+      },
+      {
+        "offsetMs": 1089,
+        "durationMs": 421,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 1524,
+        "durationMs": 342,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 1879,
+        "durationMs": 460,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 2339,
+        "durationMs": 329,
+        "text": "时"
+      },
+      {
+        "offsetMs": 2945,
+        "durationMs": 355,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3313,
+        "durationMs": 408,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 3734,
+        "durationMs": 171,
+        "text": "走"
+      },
+      {
+        "offsetMs": 3905,
+        "durationMs": 158,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4076,
+        "durationMs": 276,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 4366,
+        "durationMs": 408,
+        "text": "面前"
+      },
+      {
+        "offsetMs": 4787,
+        "durationMs": 303,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 5103,
+        "durationMs": 487,
+        "text": "衣角"
+      }
+    ]
+  },
+  "playful-buddy:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧": {
+    "id": "playful-buddy:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "normKey": "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d30fdb30c0ce0cdc.mp3",
+    "durationMs": 8956,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 193,
+        "text": "已"
+      },
+      {
+        "offsetMs": 308,
+        "durationMs": 180,
+        "text": "记"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 232,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 412,
+        "text": "平板"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 335,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 1751,
+        "durationMs": 387,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 142,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2279,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 3067,
+        "durationMs": 155,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 361,
+        "text": "不会"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 155,
+        "text": "发"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 129,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3892,
+        "durationMs": 374,
+        "text": "远方"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 387,
+        "text": "手机"
+      },
+      {
+        "offsetMs": 4665,
+        "durationMs": 245,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5180,
+        "durationMs": 180,
+        "text": "如"
+      },
+      {
+        "offsetMs": 5374,
+        "durationMs": 619,
+        "text": "果大人"
+      },
+      {
+        "offsetMs": 6005,
+        "durationMs": 142,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6147,
+        "durationMs": 129,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6289,
+        "durationMs": 477,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 7049,
+        "durationMs": 400,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7590,
+        "durationMs": 271,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 155,
+        "text": "他"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 387,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 8518,
+        "durationMs": 258,
+        "text": "吧"
+      }
+    ]
+  },
+  "warm-sister:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧": {
+    "id": "warm-sister:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "normKey": "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-db8d831a057825fb.mp3",
+    "durationMs": 9741,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 199,
+        "text": "已"
+      },
+      {
+        "offsetMs": 316,
+        "durationMs": 199,
+        "text": "记"
+      },
+      {
+        "offsetMs": 515,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 715,
+        "durationMs": 279,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1021,
+        "durationMs": 426,
+        "text": "平板"
+      },
+      {
+        "offsetMs": 1446,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1566,
+        "durationMs": 332,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 1912,
+        "durationMs": 519,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 2430,
+        "durationMs": 160,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 266,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 3457,
+        "durationMs": 160,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3630,
+        "durationMs": 372,
+        "text": "不会"
+      },
+      {
+        "offsetMs": 4003,
+        "durationMs": 160,
+        "text": "发"
+      },
+      {
+        "offsetMs": 4162,
+        "durationMs": 146,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4335,
+        "durationMs": 386,
+        "text": "远方"
+      },
+      {
+        "offsetMs": 4734,
+        "durationMs": 412,
+        "text": "手机"
+      },
+      {
+        "offsetMs": 5146,
+        "durationMs": 306,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5798,
+        "durationMs": 173,
+        "text": "如"
+      },
+      {
+        "offsetMs": 5984,
+        "durationMs": 585,
+        "text": "果大人"
+      },
+      {
+        "offsetMs": 6596,
+        "durationMs": 120,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6715,
+        "durationMs": 133,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6862,
+        "durationMs": 532,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 7673,
+        "durationMs": 399,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 8085,
+        "durationMs": 173,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8258,
+        "durationMs": 306,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 8577,
+        "durationMs": 133,
+        "text": "他"
+      },
+      {
+        "offsetMs": 8710,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8816,
+        "durationMs": 479,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 9295,
+        "durationMs": 266,
+        "text": "吧"
+      }
+    ]
+  },
+  "gentle-guide:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧": {
+    "id": "gentle-guide:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "normKey": "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-0d817b6ae7f0e9fc.mp3",
+    "durationMs": 8795,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 175,
+        "text": "已"
+      },
+      {
+        "offsetMs": 292,
+        "durationMs": 148,
+        "text": "记"
+      },
+      {
+        "offsetMs": 440,
+        "durationMs": 121,
+        "text": "在"
+      },
+      {
+        "offsetMs": 588,
+        "durationMs": 175,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 789,
+        "durationMs": 363,
+        "text": "平板"
+      },
+      {
+        "offsetMs": 1152,
+        "durationMs": 121,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 296,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 390,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 1999,
+        "durationMs": 121,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2120,
+        "durationMs": 309,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 3038,
+        "durationMs": 202,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3253,
+        "durationMs": 255,
+        "text": "不会"
+      },
+      {
+        "offsetMs": 3508,
+        "durationMs": 148,
+        "text": "发"
+      },
+      {
+        "offsetMs": 3656,
+        "durationMs": 94,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3777,
+        "durationMs": 323,
+        "text": "远方"
+      },
+      {
+        "offsetMs": 4113,
+        "durationMs": 349,
+        "text": "手机"
+      },
+      {
+        "offsetMs": 4462,
+        "durationMs": 336,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5228,
+        "durationMs": 161,
+        "text": "如"
+      },
+      {
+        "offsetMs": 5403,
+        "durationMs": 444,
+        "text": "果大人"
+      },
+      {
+        "offsetMs": 5874,
+        "durationMs": 94,
+        "text": "就"
+      },
+      {
+        "offsetMs": 5968,
+        "durationMs": 94,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6075,
+        "durationMs": 551,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 6976,
+        "durationMs": 417,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 7406,
+        "durationMs": 148,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7554,
+        "durationMs": 228,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 7796,
+        "durationMs": 108,
+        "text": "他"
+      },
+      {
+        "offsetMs": 7903,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7997,
+        "durationMs": 363,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 8360,
+        "durationMs": 255,
+        "text": "吧"
+      }
+    ]
+  },
+  "starlight-companion:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧": {
+    "id": "starlight-companion:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "normKey": "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-8f704248aac26b5b.mp3",
+    "durationMs": 9917,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 211,
+        "text": "已"
+      },
+      {
+        "offsetMs": 326,
+        "durationMs": 237,
+        "text": "记"
+      },
+      {
+        "offsetMs": 563,
+        "durationMs": 171,
+        "text": "在"
+      },
+      {
+        "offsetMs": 747,
+        "durationMs": 263,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 1024,
+        "durationMs": 421,
+        "text": "平板"
+      },
+      {
+        "offsetMs": 1445,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1563,
+        "durationMs": 342,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 1918,
+        "durationMs": 447,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 2366,
+        "durationMs": 145,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 211,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 3316,
+        "durationMs": 184,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3513,
+        "durationMs": 368,
+        "text": "不会"
+      },
+      {
+        "offsetMs": 3882,
+        "durationMs": 197,
+        "text": "发"
+      },
+      {
+        "offsetMs": 4079,
+        "durationMs": 171,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4263,
+        "durationMs": 408,
+        "text": "远方"
+      },
+      {
+        "offsetMs": 4684,
+        "durationMs": 447,
+        "text": "手机"
+      },
+      {
+        "offsetMs": 5132,
+        "durationMs": 303,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 276,
+        "text": "如"
+      },
+      {
+        "offsetMs": 5934,
+        "durationMs": 592,
+        "text": "果大人"
+      },
+      {
+        "offsetMs": 6539,
+        "durationMs": 158,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6697,
+        "durationMs": 158,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6868,
+        "durationMs": 553,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 7697,
+        "durationMs": 487,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 8197,
+        "durationMs": 171,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8368,
+        "durationMs": 329,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 158,
+        "text": "他"
+      },
+      {
+        "offsetMs": 8868,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8974,
+        "durationMs": 487,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 9461,
+        "durationMs": 276,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索": {
+    "id": "playful-buddy:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "normKey": "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-1e7619f28dc50063.mp3",
+    "durationMs": 4739,
+    "boundaries": [
+      {
+        "offsetMs": 100,
+        "durationMs": 593,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 706,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 860,
+        "durationMs": 361,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1221,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1324,
+        "durationMs": 232,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 1569,
+        "durationMs": 451,
+        "text": "伙伴"
+      },
+      {
+        "offsetMs": 2329,
+        "durationMs": 258,
+        "text": "它们"
+      },
+      {
+        "offsetMs": 2600,
+        "durationMs": 155,
+        "text": "会"
+      },
+      {
+        "offsetMs": 2755,
+        "durationMs": 206,
+        "text": "陪"
+      },
+      {
+        "offsetMs": 2961,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3115,
+        "durationMs": 284,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3399,
+        "durationMs": 129,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3541,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3721,
+        "durationMs": 168,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 3889,
+        "durationMs": 168,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4069,
+        "durationMs": 490,
+        "text": "探索"
+      }
+    ]
+  },
+  "warm-sister:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索": {
+    "id": "warm-sister:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "normKey": "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-26fefe66689caf46.mp3",
+    "durationMs": 5070,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 492,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 608,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 768,
+        "durationMs": 346,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1114,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1234,
+        "durationMs": 279,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 1526,
+        "durationMs": 492,
+        "text": "伙伴"
+      },
+      {
+        "offsetMs": 2364,
+        "durationMs": 253,
+        "text": "它们"
+      },
+      {
+        "offsetMs": 2630,
+        "durationMs": 186,
+        "text": "会"
+      },
+      {
+        "offsetMs": 2816,
+        "durationMs": 213,
+        "text": "陪"
+      },
+      {
+        "offsetMs": 3029,
+        "durationMs": 146,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3188,
+        "durationMs": 399,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3587,
+        "durationMs": 146,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3747,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3946,
+        "durationMs": 173,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4119,
+        "durationMs": 173,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4305,
+        "durationMs": 585,
+        "text": "探索"
+      }
+    ]
+  },
+  "gentle-guide:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索": {
+    "id": "gentle-guide:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "normKey": "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-0131264d4445cbc2.mp3",
+    "durationMs": 4517,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 376,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 494,
+        "durationMs": 108,
+        "text": "你"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 282,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 897,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 188,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 1206,
+        "durationMs": 551,
+        "text": "伙伴"
+      },
+      {
+        "offsetMs": 2227,
+        "durationMs": 242,
+        "text": "它们"
+      },
+      {
+        "offsetMs": 2483,
+        "durationMs": 121,
+        "text": "会"
+      },
+      {
+        "offsetMs": 2604,
+        "durationMs": 161,
+        "text": "陪"
+      },
+      {
+        "offsetMs": 2765,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 296,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3168,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3289,
+        "durationMs": 242,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3531,
+        "durationMs": 121,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 3652,
+        "durationMs": 148,
+        "text": "上"
+      },
+      {
+        "offsetMs": 3813,
+        "durationMs": 524,
+        "text": "探索"
+      }
+    ]
+  },
+  "starlight-companion:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索": {
+    "id": "starlight-companion:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "normKey": "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-9d2ca06f943102e9.mp3",
+    "durationMs": 4967,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 487,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 603,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 787,
+        "durationMs": 382,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1168,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 289,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 1589,
+        "durationMs": 487,
+        "text": "伙伴"
+      },
+      {
+        "offsetMs": 2313,
+        "durationMs": 316,
+        "text": "它们"
+      },
+      {
+        "offsetMs": 2642,
+        "durationMs": 210,
+        "text": "会"
+      },
+      {
+        "offsetMs": 2853,
+        "durationMs": 197,
+        "text": "陪"
+      },
+      {
+        "offsetMs": 3050,
+        "durationMs": 118,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3182,
+        "durationMs": 342,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3524,
+        "durationMs": 145,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3682,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3905,
+        "durationMs": 171,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4076,
+        "durationMs": 171,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4261,
+        "durationMs": 526,
+        "text": "探索"
+      }
+    ]
+  },
+  "playful-buddy:选择你喜欢的活动例如画画足球小动物或者拼图": {
+    "id": "playful-buddy:选择你喜欢的活动例如画画足球小动物或者拼图",
+    "normKey": "选择你喜欢的活动例如画画足球小动物或者拼图",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-dcde5dae95d84f8e.mp3",
+    "durationMs": 5707,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 528,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 129,
+        "text": "你"
+      },
+      {
+        "offsetMs": 785,
+        "durationMs": 374,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1261,
+        "durationMs": 412,
+        "text": "活动"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 400,
+        "text": "例如"
+      },
+      {
+        "offsetMs": 2447,
+        "durationMs": 490,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 3169,
+        "durationMs": 554,
+        "text": "足球"
+      },
+      {
+        "offsetMs": 3993,
+        "durationMs": 232,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4225,
+        "durationMs": 361,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 4689,
+        "durationMs": 271,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 245,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 5218,
+        "durationMs": 309,
+        "text": "图"
+      }
+    ]
+  },
+  "warm-sister:选择你喜欢的活动例如画画足球小动物或者拼图": {
+    "id": "warm-sister:选择你喜欢的活动例如画画足球小动物或者拼图",
+    "normKey": "选择你喜欢的活动例如画画足球小动物或者拼图",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-eacacfd89a4045fc.mp3",
+    "durationMs": 6001,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 452,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 702,
+        "durationMs": 346,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1154,
+        "durationMs": 426,
+        "text": "活动"
+      },
+      {
+        "offsetMs": 1912,
+        "durationMs": 439,
+        "text": "例如"
+      },
+      {
+        "offsetMs": 2444,
+        "durationMs": 545,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 3202,
+        "durationMs": 625,
+        "text": "足球"
+      },
+      {
+        "offsetMs": 4039,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4265,
+        "durationMs": 492,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 4851,
+        "durationMs": 306,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5170,
+        "durationMs": 293,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 5462,
+        "durationMs": 359,
+        "text": "图"
+      }
+    ]
+  },
+  "gentle-guide:选择你喜欢的活动例如画画足球小动物或者拼图": {
+    "id": "gentle-guide:选择你喜欢的活动例如画画足球小动物或者拼图",
+    "normKey": "选择你喜欢的活动例如画画足球小动物或者拼图",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-9eb6f471a7e1bd26.mp3",
+    "durationMs": 6722,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 363,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 480,
+        "durationMs": 121,
+        "text": "你"
+      },
+      {
+        "offsetMs": 614,
+        "durationMs": 309,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 924,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 484,
+        "text": "活动"
+      },
+      {
+        "offsetMs": 1757,
+        "durationMs": 591,
+        "text": "例如"
+      },
+      {
+        "offsetMs": 2469,
+        "durationMs": 753,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 3639,
+        "durationMs": 726,
+        "text": "足球"
+      },
+      {
+        "offsetMs": 4620,
+        "durationMs": 390,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5010,
+        "durationMs": 605,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 5736,
+        "durationMs": 282,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 6031,
+        "durationMs": 228,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 6260,
+        "durationMs": 282,
+        "text": "图"
+      }
+    ]
+  },
+  "starlight-companion:选择你喜欢的活动例如画画足球小动物或者拼图": {
+    "id": "starlight-companion:选择你喜欢的活动例如画画足球小动物或者拼图",
+    "normKey": "选择你喜欢的活动例如画画足球小动物或者拼图",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-bbea15a227a58b79.mp3",
+    "durationMs": 6203,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 589,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 747,
+        "durationMs": 368,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1116,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1234,
+        "durationMs": 474,
+        "text": "活动"
+      },
+      {
+        "offsetMs": 1958,
+        "durationMs": 474,
+        "text": "例如"
+      },
+      {
+        "offsetMs": 2537,
+        "durationMs": 566,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 3353,
+        "durationMs": 592,
+        "text": "足球"
+      },
+      {
+        "offsetMs": 4142,
+        "durationMs": 303,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4445,
+        "durationMs": 474,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 5024,
+        "durationMs": 355,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5392,
+        "durationMs": 276,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 5668,
+        "durationMs": 355,
+        "text": "图"
+      }
+    ]
+  },
+  "playful-buddy:语音提示已开启": {
+    "id": "playful-buddy:语音提示已开启",
+    "normKey": "语音提示已开启",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-5c735b62158bb56e.mp3",
+    "durationMs": 1776,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 361,
+        "text": "语音"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 412,
+        "text": "提示"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 129,
+        "text": "已"
+      },
+      {
+        "offsetMs": 1042,
+        "durationMs": 554,
+        "text": "开启"
+      }
+    ]
+  },
+  "warm-sister:语音提示已开启": {
+    "id": "warm-sister:语音提示已开启",
+    "normKey": "语音提示已开启",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-d864083978dfc556.mp3",
+    "durationMs": 1879,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 359,
+        "text": "语音"
+      },
+      {
+        "offsetMs": 476,
+        "durationMs": 439,
+        "text": "提示"
+      },
+      {
+        "offsetMs": 941,
+        "durationMs": 133,
+        "text": "已"
+      },
+      {
+        "offsetMs": 1087,
+        "durationMs": 612,
+        "text": "开启"
+      }
+    ]
+  },
+  "gentle-guide:语音提示已开启": {
+    "id": "gentle-guide:语音提示已开启",
+    "normKey": "语音提示已开启",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-14369c5289fb75fc.mp3",
+    "durationMs": 1896,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 444,
+        "text": "语音"
+      },
+      {
+        "offsetMs": 561,
+        "durationMs": 417,
+        "text": "提示"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 108,
+        "text": "已"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 591,
+        "text": "开启"
+      }
+    ]
+  },
+  "starlight-companion:语音提示已开启": {
+    "id": "starlight-companion:语音提示已开启",
+    "normKey": "语音提示已开启",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-5e7846fd0d4a6001.mp3",
+    "durationMs": 1862,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 382,
+        "text": "语音"
+      },
+      {
+        "offsetMs": 497,
+        "durationMs": 434,
+        "text": "提示"
+      },
+      {
+        "offsetMs": 945,
+        "durationMs": 145,
+        "text": "已"
+      },
+      {
+        "offsetMs": 1103,
+        "durationMs": 579,
+        "text": "开启"
+      }
+    ]
+  },
+  "warm-sister:吸气一二三四感觉像闻一朵香香的小花": {
+    "id": "warm-sister:吸气一二三四感觉像闻一朵香香的小花",
+    "normKey": "吸气一二三四感觉像闻一朵香香的小花",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-1305cb00c25aff2b.mp3",
+    "durationMs": 5951,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 625,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 266,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1486,
+        "durationMs": 266,
+        "text": "二"
+      },
+      {
+        "offsetMs": 2058,
+        "durationMs": 319,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 319,
+        "text": "四"
+      },
+      {
+        "offsetMs": 3590,
+        "durationMs": 399,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 4016,
+        "durationMs": 226,
+        "text": "像"
+      },
+      {
+        "offsetMs": 4242,
+        "durationMs": 133,
+        "text": "闻"
+      },
+      {
+        "offsetMs": 4388,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4535,
+        "durationMs": 146,
+        "text": "朵"
+      },
+      {
+        "offsetMs": 4707,
+        "durationMs": 412,
+        "text": "香香"
+      },
+      {
+        "offsetMs": 5120,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5213,
+        "durationMs": 558,
+        "text": "小花"
+      }
+    ]
+  },
+  "warm-sister:轻轻屏住呼吸一二": {
+    "id": "warm-sister:轻轻屏住呼吸一二",
+    "normKey": "轻轻屏住呼吸一二",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-cc934da57ddb0ab7.mp3",
+    "durationMs": 2744,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 465,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 239,
+        "text": "屏"
+      },
+      {
+        "offsetMs": 821,
+        "durationMs": 146,
+        "text": "住"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 545,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 266,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2271,
+        "durationMs": 293,
+        "text": "二"
+      }
+    ]
+  },
+  "warm-sister:呼气一二三四像把蒲公英的绒毛轻轻吹向天空": {
+    "id": "warm-sister:呼气一二三四像把蒲公英的绒毛轻轻吹向天空",
+    "normKey": "呼气一二三四像把蒲公英的绒毛轻轻吹向天空",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-7a0ef5a2e2a44f9e.mp3",
+    "durationMs": 6842,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 585,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 279,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1473,
+        "durationMs": 266,
+        "text": "二"
+      },
+      {
+        "offsetMs": 2045,
+        "durationMs": 319,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 332,
+        "text": "四"
+      },
+      {
+        "offsetMs": 3604,
+        "durationMs": 253,
+        "text": "像"
+      },
+      {
+        "offsetMs": 3856,
+        "durationMs": 120,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4003,
+        "durationMs": 505,
+        "text": "蒲公英"
+      },
+      {
+        "offsetMs": 4508,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4614,
+        "durationMs": 532,
+        "text": "绒毛"
+      },
+      {
+        "offsetMs": 5253,
+        "durationMs": 452,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 5718,
+        "durationMs": 199,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 5918,
+        "durationMs": 199,
+        "text": "向"
+      },
+      {
+        "offsetMs": 6130,
+        "durationMs": 532,
+        "text": "天空"
+      }
+    ]
+  },
+  "warm-sister:全身松松软软的你做得很棒什么时候想停下来都可以": {
+    "id": "warm-sister:全身松松软软的你做得很棒什么时候想停下来都可以",
+    "normKey": "全身松松软软的你做得很棒什么时候想停下来都可以",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-6f0ad00f5eb88723.mp3",
+    "durationMs": 5283,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 465,
+        "text": "全身"
+      },
+      {
+        "offsetMs": 595,
+        "durationMs": 386,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 479,
+        "text": "软软"
+      },
+      {
+        "offsetMs": 1460,
+        "durationMs": 213,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2018,
+        "durationMs": 93,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 146,
+        "text": "做"
+      },
+      {
+        "offsetMs": 2284,
+        "durationMs": 93,
+        "text": "得"
+      },
+      {
+        "offsetMs": 2390,
+        "durationMs": 226,
+        "text": "很"
+      },
+      {
+        "offsetMs": 2616,
+        "durationMs": 266,
+        "text": "棒"
+      },
+      {
+        "offsetMs": 3162,
+        "durationMs": 612,
+        "text": "什么时候"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 199,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3986,
+        "durationMs": 213,
+        "text": "停"
+      },
+      {
+        "offsetMs": 4199,
+        "durationMs": 306,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 4518,
+        "durationMs": 146,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4664,
+        "durationMs": 439,
+        "text": "可以"
+      }
+    ]
+  },
+  "playful-buddy:情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳": {
+    "id": "playful-buddy:情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳",
+    "normKey": "情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a5461f5c7104ea97.mp3",
+    "durationMs": 7230,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 438,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 553,
+        "durationMs": 348,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 245,
+        "text": "站"
+      },
+      {
+        "offsetMs": 1727,
+        "durationMs": 387,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 2126,
+        "durationMs": 374,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 2513,
+        "durationMs": 309,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2835,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2977,
+        "durationMs": 528,
+        "text": "晴天"
+      },
+      {
+        "offsetMs": 3776,
+        "durationMs": 528,
+        "text": "阴天"
+      },
+      {
+        "offsetMs": 4407,
+        "durationMs": 271,
+        "text": "还是"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 155,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4858,
+        "durationMs": 528,
+        "text": "小雨"
+      },
+      {
+        "offsetMs": 5631,
+        "durationMs": 155,
+        "text": "每"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 180,
+        "text": "种"
+      },
+      {
+        "offsetMs": 5979,
+        "durationMs": 400,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 6392,
+        "durationMs": 116,
+        "text": "都"
+      },
+      {
+        "offsetMs": 6508,
+        "durationMs": 129,
+        "text": "被"
+      },
+      {
+        "offsetMs": 6650,
+        "durationMs": 400,
+        "text": "接纳"
+      }
+    ]
+  },
+  "warm-sister:故事林打开三扇思考小门听听森林里发生的故事": {
+    "id": "warm-sister:故事林打开三扇思考小门听听森林里发生的故事",
+    "normKey": "故事林打开三扇思考小门听听森林里发生的故事",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-c8f0f0c69e034ec1.mp3",
+    "durationMs": 5898,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 515,
+        "durationMs": 386,
+        "text": "林"
+      },
+      {
+        "offsetMs": 1489,
+        "durationMs": 426,
+        "text": "打开"
+      },
+      {
+        "offsetMs": 1928,
+        "durationMs": 253,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2181,
+        "durationMs": 239,
+        "text": "扇"
+      },
+      {
+        "offsetMs": 2447,
+        "durationMs": 332,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 2793,
+        "durationMs": 572,
+        "text": "小门"
+      },
+      {
+        "offsetMs": 3644,
+        "durationMs": 359,
+        "text": "听听"
+      },
+      {
+        "offsetMs": 4029,
+        "durationMs": 412,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 4442,
+        "durationMs": 226,
+        "text": "里"
+      },
+      {
+        "offsetMs": 4694,
+        "durationMs": 186,
+        "text": "发"
+      },
+      {
+        "offsetMs": 4880,
+        "durationMs": 838,
+        "text": "生的故事"
+      }
+    ]
+  },
+  "playful-buddy:想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想": {
+    "id": "playful-buddy:想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想",
+    "normKey": "想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f3e1cc915ac20adc.mp3",
+    "durationMs": 7538,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 438,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1042,
+        "durationMs": 284,
+        "text": "社"
+      },
+      {
+        "offsetMs": 1907,
+        "durationMs": 361,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 631,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 3183,
+        "durationMs": 193,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3376,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3505,
+        "durationMs": 245,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 387,
+        "text": "哪些"
+      },
+      {
+        "offsetMs": 4240,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4381,
+        "durationMs": 322,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 4716,
+        "durationMs": 309,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 503,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 5902,
+        "durationMs": 361,
+        "text": "哪些"
+      },
+      {
+        "offsetMs": 6263,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 6392,
+        "durationMs": 322,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6714,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6804,
+        "durationMs": 554,
+        "text": "猜想"
+      }
+    ]
+  },
+  "gentle-guide:勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来": {
+    "id": "gentle-guide:勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来",
+    "normKey": "勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-b633a0a54e0df661.mp3",
+    "durationMs": 6887,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 457,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 417,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 336,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1936,
+        "durationMs": 282,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2245,
+        "durationMs": 148,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2392,
+        "durationMs": 564,
+        "text": "舒服"
+      },
+      {
+        "offsetMs": 3078,
+        "durationMs": 269,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3360,
+        "durationMs": 215,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3575,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3669,
+        "durationMs": 349,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 4019,
+        "durationMs": 108,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4126,
+        "durationMs": 349,
+        "text": "事"
+      },
+      {
+        "offsetMs": 4731,
+        "durationMs": 403,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 5148,
+        "durationMs": 403,
+        "text": "温和"
+      },
+      {
+        "offsetMs": 5578,
+        "durationMs": 134,
+        "text": "又"
+      },
+      {
+        "offsetMs": 5726,
+        "durationMs": 376,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 6102,
+        "durationMs": 67,
+        "text": "地"
+      },
+      {
+        "offsetMs": 6183,
+        "durationMs": 161,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6344,
+        "durationMs": 363,
+        "text": "出来"
+      }
+    ]
+  },
+  "warm-sister:照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起": {
+    "id": "warm-sister:照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起",
+    "normKey": "照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-b04e126697ee2ddb.mp3",
+    "durationMs": 6616,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 346,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 625,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 1702,
+        "durationMs": 332,
+        "text": "不管"
+      },
+      {
+        "offsetMs": 2048,
+        "durationMs": 359,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 2434,
+        "durationMs": 133,
+        "text": "住"
+      },
+      {
+        "offsetMs": 2566,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2753,
+        "durationMs": 213,
+        "text": "哪"
+      },
+      {
+        "offsetMs": 2965,
+        "durationMs": 439,
+        "text": "一边"
+      },
+      {
+        "offsetMs": 3723,
+        "durationMs": 226,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 3949,
+        "durationMs": 372,
+        "text": "两头"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 120,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4455,
+        "durationMs": 306,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 4880,
+        "durationMs": 173,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5053,
+        "durationMs": 372,
+        "text": "稳稳"
+      },
+      {
+        "offsetMs": 5426,
+        "durationMs": 93,
+        "text": "地"
+      },
+      {
+        "offsetMs": 5545,
+        "durationMs": 199,
+        "text": "连"
+      },
+      {
+        "offsetMs": 5745,
+        "durationMs": 146,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5904,
+        "durationMs": 532,
+        "text": "一起"
+      }
+    ]
+  },
+  "starlight-companion:星光小屋收集你身上的闪光点你是独一无二的自己": {
+    "id": "starlight-companion:星光小屋收集你身上的闪光点你是独一无二的自己",
+    "normKey": "星光小屋收集你身上的闪光点你是独一无二的自己",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-03b1ae02f58171c9.mp3",
+    "durationMs": 5746,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 589,
+        "durationMs": 513,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1697,
+        "durationMs": 487,
+        "text": "收集"
+      },
+      {
+        "offsetMs": 2197,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2355,
+        "durationMs": 395,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2750,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2855,
+        "durationMs": 776,
+        "text": "闪光点"
+      },
+      {
+        "offsetMs": 3855,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 4039,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4211,
+        "durationMs": 750,
+        "text": "独一无二"
+      },
+      {
+        "offsetMs": 4961,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5079,
+        "durationMs": 487,
+        "text": "自己"
+      }
+    ]
+  },
+  "gentle-guide:我的小脚印看看你在小岛上走过的每一步成长足迹": {
+    "id": "gentle-guide:我的小脚印看看你在小岛上走过的每一步成长足迹",
+    "normKey": "我的小脚印看看你在小岛上走过的每一步成长足迹",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-bb6a311ae54885e6.mp3",
+    "durationMs": 5046,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 269,
+        "text": "我"
+      },
+      {
+        "offsetMs": 373,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 453,
+        "durationMs": 686,
+        "text": "小脚印"
+      },
+      {
+        "offsetMs": 1761,
+        "durationMs": 457,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 2245,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2339,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 242,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2702,
+        "durationMs": 175,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 2876,
+        "durationMs": 282,
+        "text": "上"
+      },
+      {
+        "offsetMs": 3186,
+        "durationMs": 282,
+        "text": "走过"
+      },
+      {
+        "offsetMs": 3468,
+        "durationMs": 121,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3616,
+        "durationMs": 175,
+        "text": "每"
+      },
+      {
+        "offsetMs": 3790,
+        "durationMs": 108,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3898,
+        "durationMs": 134,
+        "text": "步"
+      },
+      {
+        "offsetMs": 4059,
+        "durationMs": 363,
+        "text": "成长"
+      },
+      {
+        "offsetMs": 4436,
+        "durationMs": 430,
+        "text": "足迹"
+      }
+    ]
+  },
+  "playful-buddy:桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧": {
+    "id": "playful-buddy:桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧",
+    "normKey": "桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-918833a9bc4ee6d4.mp3",
+    "durationMs": 9922,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 206,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 308,
+        "durationMs": 155,
+        "text": "上"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 245,
+        "text": "水"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 374,
+        "text": "彩笔"
+      },
+      {
+        "offsetMs": 1571,
+        "durationMs": 361,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 206,
+        "text": "了"
+      },
+      {
+        "offsetMs": 2719,
+        "durationMs": 284,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3003,
+        "durationMs": 219,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 425,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3763,
+        "durationMs": 296,
+        "text": "一定"
+      },
+      {
+        "offsetMs": 4059,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4188,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4369,
+        "durationMs": 309,
+        "text": "狐狸"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 374,
+        "text": "拿走"
+      },
+      {
+        "offsetMs": 5064,
+        "durationMs": 206,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5850,
+        "durationMs": 258,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 6366,
+        "durationMs": 206,
+        "text": "别"
+      },
+      {
+        "offsetMs": 6572,
+        "durationMs": 168,
+        "text": "急"
+      },
+      {
+        "offsetMs": 6740,
+        "durationMs": 116,
+        "text": "着"
+      },
+      {
+        "offsetMs": 6869,
+        "durationMs": 580,
+        "text": "下结论"
+      },
+      {
+        "offsetMs": 7706,
+        "durationMs": 193,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7912,
+        "durationMs": 296,
+        "text": "一点"
+      },
+      {
+        "offsetMs": 8222,
+        "durationMs": 387,
+        "text": "房间"
+      },
+      {
+        "offsetMs": 8608,
+        "durationMs": 103,
+        "text": "里"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8814,
+        "durationMs": 348,
+        "text": "线索"
+      },
+      {
+        "offsetMs": 9175,
+        "durationMs": 361,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 206,
+        "text": "吧"
+      }
+    ]
+  },
+  "playful-buddy:地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索": {
+    "id": "playful-buddy:地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索",
+    "normKey": "地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-6df2ceab7a45648d.mp3",
+    "durationMs": 6920,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 142,
+        "text": "有"
+      },
+      {
+        "offsetMs": 630,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 759,
+        "durationMs": 309,
+        "text": "串"
+      },
+      {
+        "offsetMs": 1081,
+        "durationMs": 193,
+        "text": "沾"
+      },
+      {
+        "offsetMs": 1274,
+        "durationMs": 116,
+        "text": "着"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 361,
+        "text": "蓝色"
+      },
+      {
+        "offsetMs": 1777,
+        "durationMs": 348,
+        "text": "颜料"
+      },
+      {
+        "offsetMs": 2125,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 631,
+        "text": "小脚印"
+      },
+      {
+        "offsetMs": 3053,
+        "durationMs": 400,
+        "text": "通向"
+      },
+      {
+        "offsetMs": 3465,
+        "durationMs": 567,
+        "text": "阳台"
+      },
+      {
+        "offsetMs": 4613,
+        "durationMs": 180,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4923,
+        "durationMs": 451,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 5503,
+        "durationMs": 322,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 5825,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5941,
+        "durationMs": 296,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 490,
+        "text": "线索"
+      }
+    ]
+  },
+  "playful-buddy:画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索": {
+    "id": "playful-buddy:画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索",
+    "normKey": "画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-bbedef2baec2cee9.mp3",
+    "durationMs": 7217,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 451,
+        "text": "画架"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 400,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 309,
+        "text": "笔筒"
+      },
+      {
+        "offsetMs": 1390,
+        "durationMs": 219,
+        "text": "倒"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 219,
+        "text": "了"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 155,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 116,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 116,
+        "text": "支"
+      },
+      {
+        "offsetMs": 2473,
+        "durationMs": 528,
+        "text": "红笔"
+      },
+      {
+        "offsetMs": 3104,
+        "durationMs": 193,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 3297,
+        "durationMs": 155,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3452,
+        "durationMs": 77,
+        "text": "了"
+      },
+      {
+        "offsetMs": 3542,
+        "durationMs": 322,
+        "text": "沙发"
+      },
+      {
+        "offsetMs": 3877,
+        "durationMs": 451,
+        "text": "底下"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 180,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5090,
+        "durationMs": 258,
+        "text": "也是"
+      },
+      {
+        "offsetMs": 5361,
+        "durationMs": 735,
+        "text": "真凭实据"
+      },
+      {
+        "offsetMs": 6095,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 309,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 6534,
+        "durationMs": 503,
+        "text": "线索"
+      }
+    ]
+  },
+  "playful-buddy:小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦": {
+    "id": "playful-buddy:小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦",
+    "normKey": "小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-0be51c6ee4697b83.mp3",
+    "durationMs": 8222,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
+        "text": "小"
+      },
+      {
+        "offsetMs": 372,
+        "durationMs": 193,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "脑海"
+      },
+      {
+        "offsetMs": 926,
+        "durationMs": 155,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1081,
+        "durationMs": 271,
+        "text": "想"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 168,
+        "text": "他"
+      },
+      {
+        "offsetMs": 1777,
+        "durationMs": 438,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 284,
+        "text": "借过"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 116,
+        "text": "我"
+      },
+      {
+        "offsetMs": 2627,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2730,
+        "durationMs": 503,
+        "text": "尺子"
+      },
+      {
+        "offsetMs": 3439,
+        "durationMs": 425,
+        "text": "肯定"
+      },
+      {
+        "offsetMs": 3864,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3980,
+        "durationMs": 168,
+        "text": "他"
+      },
+      {
+        "offsetMs": 4148,
+        "durationMs": 245,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 4393,
+        "durationMs": 219,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5193,
+        "durationMs": 193,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5387,
+        "durationMs": 284,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 5683,
+        "durationMs": 361,
+        "text": "脑子"
+      },
+      {
+        "offsetMs": 6044,
+        "durationMs": 129,
+        "text": "里"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 593,
+        "text": "猜测"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 180,
+        "text": "还"
+      },
+      {
+        "offsetMs": 7268,
+        "durationMs": 245,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 7526,
+        "durationMs": 348,
+        "text": "证据"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 168,
+        "text": "哦"
+      }
+    ]
+  },
+  "playful-buddy:太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔": {
+    "id": "playful-buddy:太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔",
+    "normKey": "太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d4e3971983c2c10b.mp3",
+    "durationMs": 8775,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
+        "text": "太"
+      },
+      {
+        "offsetMs": 372,
+        "durationMs": 168,
+        "text": "棒"
+      },
+      {
+        "offsetMs": 540,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 1482,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1637,
+        "durationMs": 387,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 2036,
+        "durationMs": 335,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 2371,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 322,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 2822,
+        "durationMs": 503,
+        "text": "线索"
+      },
+      {
+        "offsetMs": 3441,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 322,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 3918,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 541,
+        "text": "猜测"
+      },
+      {
+        "offsetMs": 4678,
+        "durationMs": 180,
+        "text": "分"
+      },
+      {
+        "offsetMs": 4858,
+        "durationMs": 90,
+        "text": "得"
+      },
+      {
+        "offsetMs": 4961,
+        "durationMs": 812,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 6082,
+        "durationMs": 193,
+        "text": "帮"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 554,
+        "text": "小熊"
+      },
+      {
+        "offsetMs": 6946,
+        "durationMs": 309,
+        "text": "找到"
+      },
+      {
+        "offsetMs": 7255,
+        "durationMs": 77,
+        "text": "了"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 335,
+        "text": "沙发"
+      },
+      {
+        "offsetMs": 7693,
+        "durationMs": 335,
+        "text": "底下"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 464,
+        "text": "红笔"
+      }
+    ]
+  },
+  "warm-sister:小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢": {
+    "id": "warm-sister:小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢",
+    "normKey": "小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-b7f8b24804a815f5.mp3",
+    "durationMs": 9369,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 239,
+        "text": "小"
+      },
+      {
+        "offsetMs": 343,
+        "durationMs": 585,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 346,
+        "text": "看中"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 93,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1420,
+        "durationMs": 359,
+        "text": "圆圆"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1872,
+        "durationMs": 745,
+        "text": "蓝杯子"
+      },
+      {
+        "offsetMs": 3015,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3215,
+        "durationMs": 319,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 3547,
+        "durationMs": 532,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 4186,
+        "durationMs": 386,
+        "text": "高高"
+      },
+      {
+        "offsetMs": 4571,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4678,
+        "durationMs": 239,
+        "text": "黄"
+      },
+      {
+        "offsetMs": 4917,
+        "durationMs": 532,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5555,
+        "durationMs": 199,
+        "text": "才"
+      },
+      {
+        "offsetMs": 5768,
+        "durationMs": 226,
+        "text": "装"
+      },
+      {
+        "offsetMs": 5994,
+        "durationMs": 120,
+        "text": "得"
+      },
+      {
+        "offsetMs": 6114,
+        "durationMs": 332,
+        "text": "多"
+      },
+      {
+        "offsetMs": 7048,
+        "durationMs": 346,
+        "text": "到底"
+      },
+      {
+        "offsetMs": 7420,
+        "durationMs": 306,
+        "text": "哪个"
+      },
+      {
+        "offsetMs": 7739,
+        "durationMs": 319,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 8085,
+        "durationMs": 386,
+        "text": "装水"
+      },
+      {
+        "offsetMs": 8484,
+        "durationMs": 439,
+        "text": "更多"
+      },
+      {
+        "offsetMs": 8923,
+        "durationMs": 266,
+        "text": "呢"
+      }
+    ]
+  },
+  "warm-sister:如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢": {
+    "id": "warm-sister:如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢",
+    "normKey": "如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ade72422a685b53f.mp3",
+    "durationMs": 8757,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 332,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 133,
+        "text": "只"
+      },
+      {
+        "offsetMs": 595,
+        "durationMs": 160,
+        "text": "用"
+      },
+      {
+        "offsetMs": 768,
+        "durationMs": 412,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 1207,
+        "durationMs": 226,
+        "text": "看"
+      },
+      {
+        "offsetMs": 1433,
+        "durationMs": 346,
+        "text": "高矮"
+      },
+      {
+        "offsetMs": 1805,
+        "durationMs": 120,
+        "text": "和"
+      },
+      {
+        "offsetMs": 1938,
+        "durationMs": 253,
+        "text": "胖"
+      },
+      {
+        "offsetMs": 2191,
+        "durationMs": 346,
+        "text": "瘦"
+      },
+      {
+        "offsetMs": 2843,
+        "durationMs": 226,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3082,
+        "durationMs": 213,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3295,
+        "durationMs": 386,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 3707,
+        "durationMs": 173,
+        "text": "被"
+      },
+      {
+        "offsetMs": 3893,
+        "durationMs": 346,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 4239,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4345,
+        "durationMs": 412,
+        "text": "形状"
+      },
+      {
+        "offsetMs": 4771,
+        "durationMs": 545,
+        "text": "骗到"
+      },
+      {
+        "offsetMs": 5931,
+        "durationMs": 426,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 6370,
+        "durationMs": 293,
+        "text": "才能"
+      },
+      {
+        "offsetMs": 6676,
+        "durationMs": 359,
+        "text": "找到"
+      },
+      {
+        "offsetMs": 7061,
+        "durationMs": 372,
+        "text": "真正"
+      },
+      {
+        "offsetMs": 7434,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7540,
+        "durationMs": 372,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 7926,
+        "durationMs": 412,
+        "text": "证据"
+      },
+      {
+        "offsetMs": 8338,
+        "durationMs": 239,
+        "text": "呢"
+      }
+    ]
+  },
+  "warm-sister:把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确": {
+    "id": "warm-sister:把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确",
+    "normKey": "把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-a94e374ed60debec.mp3",
+    "durationMs": 8318,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 173,
+        "text": "把"
+      },
+      {
+        "offsetMs": 289,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 476,
+        "durationMs": 80,
+        "text": "个"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 359,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 928,
+        "durationMs": 120,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 133,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1180,
+        "durationMs": 372,
+        "text": "水"
+      },
+      {
+        "offsetMs": 1659,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 1805,
+        "durationMs": 359,
+        "text": "倒进"
+      },
+      {
+        "offsetMs": 2164,
+        "durationMs": 186,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2364,
+        "durationMs": 332,
+        "text": "刻度"
+      },
+      {
+        "offsetMs": 2696,
+        "durationMs": 186,
+        "text": "线"
+      },
+      {
+        "offsetMs": 2882,
+        "durationMs": 66,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2962,
+        "durationMs": 479,
+        "text": "量杯"
+      },
+      {
+        "offsetMs": 3441,
+        "durationMs": 293,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 226,
+        "text": "比"
+      },
+      {
+        "offsetMs": 4093,
+        "durationMs": 213,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4305,
+        "durationMs": 293,
+        "text": "比"
+      },
+      {
+        "offsetMs": 5199,
+        "durationMs": 452,
+        "text": "亲手"
+      },
+      {
+        "offsetMs": 5665,
+        "durationMs": 386,
+        "text": "验证"
+      },
+      {
+        "offsetMs": 6051,
+        "durationMs": 545,
+        "text": "比凭"
+      },
+      {
+        "offsetMs": 6702,
+        "durationMs": 386,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 7101,
+        "durationMs": 226,
+        "text": "猜"
+      },
+      {
+        "offsetMs": 7354,
+        "durationMs": 199,
+        "text": "更"
+      },
+      {
+        "offsetMs": 7553,
+        "durationMs": 585,
+        "text": "准确"
+      }
+    ]
+  },
+  "warm-sister:小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手": {
+    "id": "warm-sister:小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手",
+    "normKey": "小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-4d71c9f16b1e61e1.mp3",
+    "durationMs": 6918,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 572,
+        "text": "小兔子"
+      },
+      {
+        "offsetMs": 702,
+        "durationMs": 106,
+        "text": "和"
+      },
+      {
+        "offsetMs": 821,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 519,
+        "text": "乌龟"
+      },
+      {
+        "offsetMs": 1672,
+        "durationMs": 160,
+        "text": "都"
+      },
+      {
+        "offsetMs": 1832,
+        "durationMs": 186,
+        "text": "想"
+      },
+      {
+        "offsetMs": 2045,
+        "durationMs": 186,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 2231,
+        "durationMs": 186,
+        "text": "同"
+      },
+      {
+        "offsetMs": 2430,
+        "durationMs": 120,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 173,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 2749,
+        "durationMs": 372,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 3135,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3348,
+        "durationMs": 532,
+        "text": "火车"
+      },
+      {
+        "offsetMs": 4226,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 4412,
+        "durationMs": 93,
+        "text": "个"
+      },
+      {
+        "offsetMs": 4505,
+        "durationMs": 173,
+        "text": "人"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4837,
+        "durationMs": 173,
+        "text": "拉"
+      },
+      {
+        "offsetMs": 5010,
+        "durationMs": 106,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5130,
+        "durationMs": 572,
+        "text": "绳子"
+      },
+      {
+        "offsetMs": 5808,
+        "durationMs": 359,
+        "text": "不肯"
+      },
+      {
+        "offsetMs": 6180,
+        "durationMs": 558,
+        "text": "放手"
+      }
+    ]
+  },
+  "warm-sister:如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过": {
+    "id": "warm-sister:如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过",
+    "normKey": "如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-c5de7e196db09175.mp3",
+    "durationMs": 7703,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 279,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 409,
+        "durationMs": 359,
+        "text": "一直"
+      },
+      {
+        "offsetMs": 781,
+        "durationMs": 359,
+        "text": "使劲"
+      },
+      {
+        "offsetMs": 1154,
+        "durationMs": 532,
+        "text": "拉扯"
+      },
+      {
+        "offsetMs": 1952,
+        "durationMs": 346,
+        "text": "不仅"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 253,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 2563,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 2710,
+        "durationMs": 199,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 2909,
+        "durationMs": 439,
+        "text": "不成"
+      },
+      {
+        "offsetMs": 3654,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3880,
+        "durationMs": 558,
+        "text": "火车"
+      },
+      {
+        "offsetMs": 4465,
+        "durationMs": 173,
+        "text": "还"
+      },
+      {
+        "offsetMs": 4638,
+        "durationMs": 279,
+        "text": "可能"
+      },
+      {
+        "offsetMs": 4930,
+        "durationMs": 146,
+        "text": "被"
+      },
+      {
+        "offsetMs": 5077,
+        "durationMs": 505,
+        "text": "拉坏"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 319,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 6247,
+        "durationMs": 386,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6659,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6805,
+        "durationMs": 146,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6965,
+        "durationMs": 558,
+        "text": "难过"
+      }
+    ]
+  },
+  "warm-sister:可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心": {
+    "id": "warm-sister:可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心",
+    "normKey": "可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-f8ed1a111d9b8ba4.mp3",
+    "durationMs": 8305,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 293,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 409,
+        "durationMs": 173,
+        "text": "定"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 80,
+        "text": "个"
+      },
+      {
+        "offsetMs": 688,
+        "durationMs": 452,
+        "text": "小沙"
+      },
+      {
+        "offsetMs": 1154,
+        "durationMs": 332,
+        "text": "漏轮"
+      },
+      {
+        "offsetMs": 1486,
+        "durationMs": 346,
+        "text": "流当"
+      },
+      {
+        "offsetMs": 1845,
+        "durationMs": 505,
+        "text": "司机"
+      },
+      {
+        "offsetMs": 2736,
+        "durationMs": 612,
+        "text": "另一个人"
+      },
+      {
+        "offsetMs": 3374,
+        "durationMs": 186,
+        "text": "当"
+      },
+      {
+        "offsetMs": 3561,
+        "durationMs": 346,
+        "text": "站长"
+      },
+      {
+        "offsetMs": 3933,
+        "durationMs": 213,
+        "text": "摇"
+      },
+      {
+        "offsetMs": 4146,
+        "durationMs": 465,
+        "text": "铃铛"
+      },
+      {
+        "offsetMs": 5213,
+        "durationMs": 372,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 5598,
+        "durationMs": 239,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5838,
+        "durationMs": 479,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 6582,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 6769,
+        "durationMs": 106,
+        "text": "个"
+      },
+      {
+        "offsetMs": 6875,
+        "durationMs": 173,
+        "text": "人"
+      },
+      {
+        "offsetMs": 7074,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 7207,
+        "durationMs": 120,
+        "text": "能"
+      },
+      {
+        "offsetMs": 7340,
+        "durationMs": 186,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 7527,
+        "durationMs": 66,
+        "text": "得"
+      },
+      {
+        "offsetMs": 7606,
+        "durationMs": 519,
+        "text": "开心"
+      }
+    ]
+  },
+  "gentle-guide:桌上的拼图洒了一地足足有二十块看着好乱呀": {
+    "id": "gentle-guide:桌上的拼图洒了一地足足有二十块看着好乱呀",
+    "normKey": "桌上的拼图洒了一地足足有二十块看着好乱呀",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-5f8b3bc4c953f3d5.mp3",
+    "durationMs": 4988,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 228,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 332,
+        "durationMs": 148,
+        "text": "上"
+      },
+      {
+        "offsetMs": 480,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 255,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 830,
+        "durationMs": 188,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 242,
+        "text": "洒"
+      },
+      {
+        "offsetMs": 1260,
+        "durationMs": 81,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1354,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1502,
+        "durationMs": 242,
+        "text": "地"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 336,
+        "text": "足足"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 134,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 349,
+        "text": "二十"
+      },
+      {
+        "offsetMs": 3007,
+        "durationMs": 309,
+        "text": "块"
+      },
+      {
+        "offsetMs": 3666,
+        "durationMs": 282,
+        "text": "看"
+      },
+      {
+        "offsetMs": 3948,
+        "durationMs": 81,
+        "text": "着"
+      },
+      {
+        "offsetMs": 4028,
+        "durationMs": 202,
+        "text": "好"
+      },
+      {
+        "offsetMs": 4244,
+        "durationMs": 228,
+        "text": "乱"
+      },
+      {
+        "offsetMs": 4472,
+        "durationMs": 336,
+        "text": "呀"
+      }
+    ]
+  },
+  "gentle-guide:第一小步先深呼吸一下只把四个角的拼图找出来": {
+    "id": "gentle-guide:第一小步先深呼吸一下只把四个角的拼图找出来",
+    "normKey": "第一小步先深呼吸一下只把四个角的拼图找出来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-6f4a894cc7db2e30.mp3",
+    "durationMs": 5230,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "第一"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 457,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 282,
+        "text": "先"
+      },
+      {
+        "offsetMs": 1421,
+        "durationMs": 524,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 1959,
+        "durationMs": 484,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 2671,
+        "durationMs": 202,
+        "text": "只"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 134,
+        "text": "把"
+      },
+      {
+        "offsetMs": 3034,
+        "durationMs": 309,
+        "text": "四个"
+      },
+      {
+        "offsetMs": 3343,
+        "durationMs": 215,
+        "text": "角"
+      },
+      {
+        "offsetMs": 3558,
+        "durationMs": 282,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3961,
+        "durationMs": 309,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 4270,
+        "durationMs": 188,
+        "text": "图"
+      },
+      {
+        "offsetMs": 4486,
+        "durationMs": 188,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4674,
+        "durationMs": 376,
+        "text": "出来"
+      }
+    ]
+  },
+  "gentle-guide:第二小步把带直边的拼图排成一排搭好外框": {
+    "id": "gentle-guide:第二小步把带直边的拼图排成一排搭好外框",
+    "normKey": "第二小步把带直边的拼图排成一排搭好外框",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-9a5cc4ead4228096.mp3",
+    "durationMs": 4827,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "第二"
+      },
+      {
+        "offsetMs": 346,
+        "durationMs": 470,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 161,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1461,
+        "durationMs": 188,
+        "text": "带"
+      },
+      {
+        "offsetMs": 1649,
+        "durationMs": 255,
+        "text": "直边"
+      },
+      {
+        "offsetMs": 1905,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1999,
+        "durationMs": 605,
+        "text": "拼图"
+      },
+      {
+        "offsetMs": 2725,
+        "durationMs": 228,
+        "text": "排"
+      },
+      {
+        "offsetMs": 2953,
+        "durationMs": 134,
+        "text": "成"
+      },
+      {
+        "offsetMs": 3101,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3195,
+        "durationMs": 363,
+        "text": "排"
+      },
+      {
+        "offsetMs": 3867,
+        "durationMs": 188,
+        "text": "搭"
+      },
+      {
+        "offsetMs": 4055,
+        "durationMs": 148,
+        "text": "好"
+      },
+      {
+        "offsetMs": 4217,
+        "durationMs": 430,
+        "text": "外框"
+      }
+    ]
+  },
+  "gentle-guide:第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦": {
+    "id": "gentle-guide:第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦",
+    "normKey": "第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-170c0b7e5ce3d574.mp3",
+    "durationMs": 6009,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 349,
+        "text": "第三"
+      },
+      {
+        "offsetMs": 467,
+        "durationMs": 484,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 175,
+        "text": "按"
+      },
+      {
+        "offsetMs": 1528,
+        "durationMs": 309,
+        "text": "颜色"
+      },
+      {
+        "offsetMs": 1864,
+        "durationMs": 269,
+        "text": "一块"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 202,
+        "text": "一块"
+      },
+      {
+        "offsetMs": 2362,
+        "durationMs": 188,
+        "text": "放"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 457,
+        "text": "进去"
+      },
+      {
+        "offsetMs": 3424,
+        "durationMs": 255,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3679,
+        "durationMs": 511,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 4217,
+        "durationMs": 148,
+        "text": "就"
+      },
+      {
+        "offsetMs": 4364,
+        "durationMs": 282,
+        "text": "变成"
+      },
+      {
+        "offsetMs": 4674,
+        "durationMs": 323,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 4996,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5090,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5278,
+        "durationMs": 336,
+        "text": "游戏"
+      },
+      {
+        "offsetMs": 5614,
+        "durationMs": 215,
+        "text": "啦"
+      }
+    ]
+  },
+  "warm-sister:大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你": {
+    "id": "warm-sister:大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-9f4100278cb52c26.mp3",
+    "durationMs": 7627,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 439,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 319,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1074,
+        "durationMs": 199,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 452,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1739,
+        "durationMs": 253,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2231,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2377,
+        "durationMs": 359,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2749,
+        "durationMs": 465,
+        "text": "之间"
+      },
+      {
+        "offsetMs": 3242,
+        "durationMs": 146,
+        "text": "做"
+      },
+      {
+        "offsetMs": 3388,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3507,
+        "durationMs": 346,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 3866,
+        "durationMs": 439,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 4920,
+        "durationMs": 213,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5133,
+        "durationMs": 213,
+        "text": "件"
+      },
+      {
+        "offsetMs": 5346,
+        "durationMs": 359,
+        "text": "事"
+      },
+      {
+        "offsetMs": 5811,
+        "durationMs": 692,
+        "text": "百分之百"
+      },
+      {
+        "offsetMs": 6529,
+        "durationMs": 253,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 6795,
+        "durationMs": 359,
+        "text": "因为"
+      },
+      {
+        "offsetMs": 7154,
+        "durationMs": 293,
+        "text": "你"
+      }
+    ]
+  },
+  "warm-sister:想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来": {
+    "id": "warm-sister:想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来",
+    "normKey": "想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-5eaf951590d38c0d.mp3",
+    "durationMs": 7720,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 452,
+        "text": "想念"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 146,
+        "text": "另"
+      },
+      {
+        "offsetMs": 728,
+        "durationMs": 226,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 332,
+        "text": "家"
+      },
+      {
+        "offsetMs": 1380,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1553,
+        "durationMs": 412,
+        "text": "非常"
+      },
+      {
+        "offsetMs": 1978,
+        "durationMs": 332,
+        "text": "自然"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2404,
+        "durationMs": 319,
+        "text": "事"
+      },
+      {
+        "offsetMs": 3324,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3457,
+        "durationMs": 213,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3684,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 3870,
+        "durationMs": 811,
+        "text": "想说的话"
+      },
+      {
+        "offsetMs": 4681,
+        "durationMs": 465,
+        "text": "写进"
+      },
+      {
+        "offsetMs": 5173,
+        "durationMs": 346,
+        "text": "思念"
+      },
+      {
+        "offsetMs": 5532,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5731,
+        "durationMs": 545,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 6543,
+        "durationMs": 279,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 6835,
+        "durationMs": 253,
+        "text": "画"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 452,
+        "text": "下来"
+      }
+    ]
+  },
+  "gentle-guide:不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的": {
+    "id": "gentle-guide:不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的",
+    "normKey": "不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-e501dcf6f73ad2a8.mp3",
+    "durationMs": 7017,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 323,
+        "text": "不管"
+      },
+      {
+        "offsetMs": 440,
+        "durationMs": 215,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 668,
+        "durationMs": 108,
+        "text": "住"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 910,
+        "durationMs": 296,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 1206,
+        "durationMs": 403,
+        "text": "家"
+      },
+      {
+        "offsetMs": 1730,
+        "durationMs": 323,
+        "text": "还是"
+      },
+      {
+        "offsetMs": 2066,
+        "durationMs": 255,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 2322,
+        "durationMs": 323,
+        "text": "家"
+      },
+      {
+        "offsetMs": 3061,
+        "durationMs": 309,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3370,
+        "durationMs": 94,
+        "text": "都"
+      },
+      {
+        "offsetMs": 3477,
+        "durationMs": 188,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3692,
+        "durationMs": 309,
+        "text": "提前"
+      },
+      {
+        "offsetMs": 4015,
+        "durationMs": 296,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4338,
+        "durationMs": 175,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4512,
+        "durationMs": 242,
+        "text": "书包"
+      },
+      {
+        "offsetMs": 4768,
+        "durationMs": 403,
+        "text": "清单"
+      },
+      {
+        "offsetMs": 5561,
+        "durationMs": 363,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 5951,
+        "durationMs": 726,
+        "text": "稳稳当当"
+      },
+      {
+        "offsetMs": 6676,
+        "durationMs": 161,
+        "text": "的"
+      }
+    ]
+  },
+  "starlight-companion:家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光": {
+    "id": "starlight-companion:家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光",
+    "normKey": "家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-0401434f0bd880b5.mp3",
+    "durationMs": 9930,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 526,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 642,
+        "durationMs": 303,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 958,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 1142,
+        "durationMs": 421,
+        "text": "生活"
+      },
+      {
+        "offsetMs": 1576,
+        "durationMs": 263,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1839,
+        "durationMs": 211,
+        "text": "图"
+      },
+      {
+        "offsetMs": 2050,
+        "durationMs": 132,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2182,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2287,
+        "durationMs": 158,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2445,
+        "durationMs": 197,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2642,
+        "durationMs": 316,
+        "text": "块"
+      },
+      {
+        "offsetMs": 3553,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 355,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 4118,
+        "durationMs": 526,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 4855,
+        "durationMs": 211,
+        "text": "会"
+      },
+      {
+        "offsetMs": 5079,
+        "durationMs": 329,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 5421,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 461,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 6303,
+        "durationMs": 211,
+        "text": "还"
+      },
+      {
+        "offsetMs": 6513,
+        "durationMs": 171,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6697,
+        "durationMs": 355,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 7066,
+        "durationMs": 224,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7289,
+        "durationMs": 447,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 8013,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 8197,
+        "durationMs": 461,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 8671,
+        "durationMs": 132,
+        "text": "就"
+      },
+      {
+        "offsetMs": 8816,
+        "durationMs": 408,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 9237,
+        "durationMs": 513,
+        "text": "发光"
+      }
+    ]
+  },
+  "warm-sister:想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱": {
+    "id": "warm-sister:想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱",
+    "normKey": "想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-83cabf1b189fdf9a.mp3",
+    "durationMs": 7893,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 426,
+        "text": "想要"
+      },
+      {
+        "offsetMs": 542,
+        "durationMs": 226,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 795,
+        "durationMs": 372,
+        "text": "真人"
+      },
+      {
+        "offsetMs": 1167,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1273,
+        "durationMs": 372,
+        "text": "大拥"
+      },
+      {
+        "offsetMs": 1646,
+        "durationMs": 199,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 1858,
+        "durationMs": 199,
+        "text": "对"
+      },
+      {
+        "offsetMs": 2058,
+        "durationMs": 279,
+        "text": "吗"
+      },
+      {
+        "offsetMs": 2939,
+        "durationMs": 213,
+        "text": "快"
+      },
+      {
+        "offsetMs": 3152,
+        "durationMs": 173,
+        "text": "走"
+      },
+      {
+        "offsetMs": 3324,
+        "durationMs": 160,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3511,
+        "durationMs": 386,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 3896,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4016,
+        "durationMs": 293,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 598,
+        "text": "面前"
+      },
+      {
+        "offsetMs": 5213,
+        "durationMs": 279,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 5492,
+        "durationMs": 133,
+        "text": "他"
+      },
+      {
+        "offsetMs": 5625,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5731,
+        "durationMs": 412,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 6144,
+        "durationMs": 346,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6702,
+        "durationMs": 120,
+        "text": "我"
+      },
+      {
+        "offsetMs": 6822,
+        "durationMs": 239,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 226,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 7314,
+        "durationMs": 133,
+        "text": "一"
+      },
+      {
+        "offsetMs": 7447,
+        "durationMs": 266,
+        "text": "抱"
+      }
+    ]
+  },
+  "gentle-guide:如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择": {
+    "id": "gentle-guide:如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择",
+    "normKey": "如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-a2db86c0bd914b73.mp3",
+    "durationMs": 5808,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 282,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 655,
+        "durationMs": 202,
+        "text": "想"
+      },
+      {
+        "offsetMs": 856,
+        "durationMs": 255,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 215,
+        "text": "静"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1488,
+        "durationMs": 336,
+        "text": "静"
+      },
+      {
+        "offsetMs": 2093,
+        "durationMs": 255,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 2362,
+        "durationMs": 134,
+        "text": "去"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 121,
+        "text": "找"
+      },
+      {
+        "offsetMs": 2644,
+        "durationMs": 349,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 2994,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3088,
+        "durationMs": 336,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 3451,
+        "durationMs": 81,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3545,
+        "durationMs": 564,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 4364,
+        "durationMs": 148,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4512,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4620,
+        "durationMs": 336,
+        "text": "非常"
+      },
+      {
+        "offsetMs": 4969,
+        "durationMs": 134,
+        "text": "好"
+      },
+      {
+        "offsetMs": 5104,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5184,
+        "durationMs": 444,
+        "text": "选择"
+      }
+    ]
   }
 };
 
 export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
-  "你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "你好呀！我是果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
+  "你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索": {
+    "id": "playful-buddy:你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
+    "normKey": "你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-18784a652712f68a.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-baf74c7a798320c8.mp3",
     "durationMs": 8028,
     "boundaries": [
       {
@@ -5861,162 +30346,12 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "你好呀！我是你的小岛伙伴果果。我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
+  "我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索": {
+    "id": "playful-buddy:我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
+    "normKey": "我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-63856b0261d6ed09.mp3",
-    "durationMs": 9343,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 284,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 385,
-        "durationMs": 180,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1147,
-        "durationMs": 129,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1276,
-        "durationMs": 142,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1430,
-        "durationMs": 142,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1572,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 1675,
-        "durationMs": 219,
-        "text": "小"
-      },
-      {
-        "offsetMs": 1894,
-        "durationMs": 309,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2307,
-        "durationMs": 438,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 2758,
-        "durationMs": 503,
-        "text": "果果"
-      },
-      {
-        "offsetMs": 3840,
-        "durationMs": 142,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3982,
-        "durationMs": 129,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4124,
-        "durationMs": 180,
-        "text": "小"
-      },
-      {
-        "offsetMs": 4304,
-        "durationMs": 400,
-        "text": "松鼠"
-      },
-      {
-        "offsetMs": 4716,
-        "durationMs": 541,
-        "text": "果果"
-      },
-      {
-        "offsetMs": 5554,
-        "durationMs": 103,
-        "text": "我"
-      },
-      {
-        "offsetMs": 5670,
-        "durationMs": 348,
-        "text": "喜欢"
-      },
-      {
-        "offsetMs": 6031,
-        "durationMs": 374,
-        "text": "收捡"
-      },
-      {
-        "offsetMs": 6418,
-        "durationMs": 348,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 6765,
-        "durationMs": 116,
-        "text": "里"
-      },
-      {
-        "offsetMs": 6881,
-        "durationMs": 116,
-        "text": "的"
-      },
-      {
-        "offsetMs": 7010,
-        "durationMs": 168,
-        "text": "每"
-      },
-      {
-        "offsetMs": 7178,
-        "durationMs": 284,
-        "text": "一片"
-      },
-      {
-        "offsetMs": 7474,
-        "durationMs": 168,
-        "text": "小"
-      },
-      {
-        "offsetMs": 7642,
-        "durationMs": 438,
-        "text": "树叶"
-      },
-      {
-        "offsetMs": 8196,
-        "durationMs": 168,
-        "text": "和"
-      },
-      {
-        "offsetMs": 8376,
-        "durationMs": 271,
-        "text": "秘密"
-      },
-      {
-        "offsetMs": 8660,
-        "durationMs": 503,
-        "text": "线索"
-      }
-    ]
-  },
-  "我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！": {
-    "id": "playful-buddy:我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "normKey": "我是小松鼠果果，我喜欢收捡森林里的每一片小树叶和秘密线索！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-f53bd0b6515fb006.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-e53486c80584ee79.mp3",
     "durationMs": 5604,
     "boundaries": [
       {
@@ -6111,12 +30446,12 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "你好呀！我是贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
+  "你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸": {
+    "id": "warm-sister:你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
+    "normKey": "你好呀我是贝贝我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-2890bd6d52df42e6.mp3",
+    "audioUrl": "/audio/tts/warm-sister-3f8b18c96d7ca94d.mp3",
     "durationMs": 9076,
     "boundaries": [
       {
@@ -6231,157 +30566,12 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "你好呀！我是你的小岛伙伴贝贝。我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
+  "我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸": {
+    "id": "warm-sister:我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
+    "normKey": "我是小海獭贝贝如果觉得累了我们可以一起躺在水面上慢慢呼吸",
     "profileId": "warm-sister",
     "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-69ca84132243ae77.mp3",
-    "durationMs": 10167,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 359,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 462,
-        "durationMs": 306,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1356,
-        "durationMs": 173,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1529,
-        "durationMs": 173,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1715,
-        "durationMs": 120,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1835,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 1942,
-        "durationMs": 199,
-        "text": "小"
-      },
-      {
-        "offsetMs": 2141,
-        "durationMs": 186,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2327,
-        "durationMs": 465,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 2886,
-        "durationMs": 479,
-        "text": "贝贝"
-      },
-      {
-        "offsetMs": 3976,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4136,
-        "durationMs": 146,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4295,
-        "durationMs": 359,
-        "text": "小海"
-      },
-      {
-        "offsetMs": 4654,
-        "durationMs": 625,
-        "text": "獭贝贝"
-      },
-      {
-        "offsetMs": 5638,
-        "durationMs": 266,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 5918,
-        "durationMs": 266,
-        "text": "觉得"
-      },
-      {
-        "offsetMs": 6197,
-        "durationMs": 293,
-        "text": "累"
-      },
-      {
-        "offsetMs": 6489,
-        "durationMs": 226,
-        "text": "了"
-      },
-      {
-        "offsetMs": 7035,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 7261,
-        "durationMs": 266,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 7553,
-        "durationMs": 452,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 8019,
-        "durationMs": 226,
-        "text": "躺"
-      },
-      {
-        "offsetMs": 8245,
-        "durationMs": 133,
-        "text": "在"
-      },
-      {
-        "offsetMs": 8391,
-        "durationMs": 465,
-        "text": "水面"
-      },
-      {
-        "offsetMs": 8856,
-        "durationMs": 199,
-        "text": "上"
-      },
-      {
-        "offsetMs": 9082,
-        "durationMs": 346,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 9442,
-        "durationMs": 545,
-        "text": "呼吸"
-      }
-    ]
-  },
-  "我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。": {
-    "id": "warm-sister:我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "normKey": "我是小海獭贝贝，如果觉得累了，我们可以一起躺在水面上慢慢呼吸。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-30b4dabdee6de744.mp3",
+    "audioUrl": "/audio/tts/warm-sister-bd4abd3dfde99548.mp3",
     "durationMs": 6294,
     "boundaries": [
       {
@@ -6471,1697 +30661,952 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "你好呀！我是天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
+  "你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看": {
+    "id": "gentle-guide:你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "normKey": "你好呀我是天天我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-8cd5f59a0fca0dfd.mp3",
-    "durationMs": 8478,
+    "audioUrl": "/audio/tts/gentle-guide-87eccc780cd48a04.mp3",
+    "durationMs": 8568,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 426,
+        "offsetMs": 104,
+        "durationMs": 430,
         "text": "你好"
       },
       {
-        "offsetMs": 529,
-        "durationMs": 479,
+        "offsetMs": 534,
+        "durationMs": 484,
         "text": "呀"
       },
       {
-        "offsetMs": 1609,
-        "durationMs": 306,
+        "offsetMs": 1626,
+        "durationMs": 309,
         "text": "我"
       },
       {
-        "offsetMs": 1915,
-        "durationMs": 120,
+        "offsetMs": 1936,
+        "durationMs": 121,
         "text": "是"
       },
       {
-        "offsetMs": 2048,
-        "durationMs": 598,
+        "offsetMs": 2070,
+        "durationMs": 605,
         "text": "天天"
       },
       {
-        "offsetMs": 3258,
-        "durationMs": 160,
+        "offsetMs": 3293,
+        "durationMs": 161,
         "text": "我"
       },
       {
-        "offsetMs": 3418,
-        "durationMs": 106,
+        "offsetMs": 3454,
+        "durationMs": 108,
         "text": "是"
       },
       {
-        "offsetMs": 3537,
-        "durationMs": 306,
+        "offsetMs": 3575,
+        "durationMs": 309,
         "text": "小浣"
       },
       {
-        "offsetMs": 3843,
-        "durationMs": 160,
+        "offsetMs": 3884,
+        "durationMs": 161,
         "text": "熊"
       },
       {
-        "offsetMs": 4016,
-        "durationMs": 545,
+        "offsetMs": 4059,
+        "durationMs": 551,
         "text": "天天"
       },
       {
-        "offsetMs": 4934,
-        "durationMs": 266,
+        "offsetMs": 4987,
+        "durationMs": 269,
         "text": "遇到"
       },
       {
-        "offsetMs": 5226,
-        "durationMs": 133,
+        "offsetMs": 5282,
+        "durationMs": 134,
         "text": "解"
       },
       {
-        "offsetMs": 5359,
-        "durationMs": 93,
+        "offsetMs": 5417,
+        "durationMs": 94,
         "text": "不"
       },
       {
-        "offsetMs": 5452,
-        "durationMs": 120,
+        "offsetMs": 5511,
+        "durationMs": 121,
         "text": "开"
       },
       {
-        "offsetMs": 5572,
-        "durationMs": 80,
+        "offsetMs": 5632,
+        "durationMs": 81,
         "text": "的"
       },
       {
-        "offsetMs": 5665,
-        "durationMs": 519,
+        "offsetMs": 5726,
+        "durationMs": 524,
         "text": "谜题"
       },
       {
-        "offsetMs": 6503,
-        "durationMs": 213,
+        "offsetMs": 6573,
+        "durationMs": 215,
         "text": "我们"
       },
       {
-        "offsetMs": 6729,
-        "durationMs": 186,
+        "offsetMs": 6801,
+        "durationMs": 188,
         "text": "拆"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 93,
+        "offsetMs": 6989,
+        "durationMs": 94,
         "text": "成"
       },
       {
-        "offsetMs": 7035,
-        "durationMs": 93,
+        "offsetMs": 7110,
+        "durationMs": 94,
         "text": "一"
       },
       {
-        "offsetMs": 7128,
-        "durationMs": 266,
+        "offsetMs": 7204,
+        "durationMs": 269,
         "text": "小步"
       },
       {
-        "offsetMs": 7420,
-        "durationMs": 80,
+        "offsetMs": 7500,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 7581,
+        "durationMs": 242,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 7836,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 7944,
+        "durationMs": 444,
+        "text": "看看"
+      }
+    ]
+  },
+  "我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看": {
+    "id": "gentle-guide:我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "normKey": "我是小浣熊天天遇到解不开的谜题我们拆成一小步一小步来看看",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-8e18da5a31eaefbe.mp3",
+    "durationMs": 5378,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 265,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 386,
+        "durationMs": 309,
+        "text": "小浣"
+      },
+      {
+        "offsetMs": 695,
+        "durationMs": 161,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 870,
+        "durationMs": 551,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 1797,
+        "durationMs": 269,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2093,
+        "durationMs": 134,
+        "text": "解"
+      },
+      {
+        "offsetMs": 2227,
+        "durationMs": 94,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2322,
+        "durationMs": 121,
+        "text": "开"
+      },
+      {
+        "offsetMs": 2442,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2537,
+        "durationMs": 524,
+        "text": "谜题"
+      },
+      {
+        "offsetMs": 3383,
+        "durationMs": 215,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3612,
+        "durationMs": 188,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 3800,
+        "durationMs": 94,
+        "text": "成"
+      },
+      {
+        "offsetMs": 3921,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4015,
+        "durationMs": 269,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 4311,
+        "durationMs": 81,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4391,
+        "durationMs": 242,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 4647,
+        "durationMs": 108,
+        "text": "来"
+      },
+      {
+        "offsetMs": 4754,
+        "durationMs": 444,
+        "text": "看看"
+      }
+    ]
+  },
+  "你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚": {
+    "id": "gentle-guide:你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "normKey": "你好呀我是天天我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-98283360012ff314.mp3",
+    "durationMs": 8823,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 430,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 534,
+        "durationMs": 484,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1626,
+        "durationMs": 309,
+        "text": "我"
+      },
+      {
+        "offsetMs": 1936,
+        "durationMs": 121,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2070,
+        "durationMs": 605,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 3293,
+        "durationMs": 161,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3454,
+        "durationMs": 108,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3575,
+        "durationMs": 336,
+        "text": "小浣"
+      },
+      {
+        "offsetMs": 3911,
+        "durationMs": 148,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 4073,
+        "durationMs": 524,
+        "text": "天天"
+      },
+      {
+        "offsetMs": 4933,
+        "durationMs": 188,
+        "text": "再"
+      },
+      {
+        "offsetMs": 5121,
+        "durationMs": 121,
+        "text": "乱"
+      },
+      {
+        "offsetMs": 5242,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5323,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5511,
+        "durationMs": 282,
+        "text": "书包"
+      },
+      {
+        "offsetMs": 5820,
+        "durationMs": 81,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 578,
+        "text": "难题"
+      },
+      {
+        "offsetMs": 6909,
+        "durationMs": 403,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 7325,
+        "durationMs": 175,
         "text": "一"
       },
       {
         "offsetMs": 7500,
-        "durationMs": 239,
-        "text": "小步"
+        "durationMs": 134,
+        "text": "步"
       },
       {
-        "offsetMs": 7753,
-        "durationMs": 106,
-        "text": "来"
+        "offsetMs": 7648,
+        "durationMs": 108,
+        "text": "一"
       },
       {
-        "offsetMs": 7859,
-        "durationMs": 439,
-        "text": "看看"
+        "offsetMs": 7755,
+        "durationMs": 121,
+        "text": "步"
+      },
+      {
+        "offsetMs": 7903,
+        "durationMs": 81,
+        "text": "就"
+      },
+      {
+        "offsetMs": 7984,
+        "durationMs": 108,
+        "text": "能"
+      },
+      {
+        "offsetMs": 8105,
+        "durationMs": 121,
+        "text": "理"
+      },
+      {
+        "offsetMs": 8226,
+        "durationMs": 417,
+        "text": "清楚"
       }
     ]
   },
-  "你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "你好呀！我是你的小岛伙伴天天。我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
+  "我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚": {
+    "id": "gentle-guide:我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
+    "normKey": "我是小浣熊天天再乱的小书包和难题我们一步一步就能理清楚",
     "profileId": "gentle-guide",
     "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-a1ed106293d7a07d.mp3",
-    "durationMs": 9728,
+    "audioUrl": "/audio/tts/gentle-guide-4e1de9ca6c855f9b.mp3",
+    "durationMs": 5634,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 426,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 529,
-        "durationMs": 479,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1609,
-        "durationMs": 266,
+        "offsetMs": 104,
+        "durationMs": 161,
         "text": "我"
       },
       {
-        "offsetMs": 1875,
-        "durationMs": 120,
+        "offsetMs": 265,
+        "durationMs": 108,
         "text": "是"
       },
       {
-        "offsetMs": 2008,
-        "durationMs": 93,
-        "text": "你"
-      },
-      {
-        "offsetMs": 2101,
-        "durationMs": 66,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2181,
-        "durationMs": 226,
-        "text": "小"
-      },
-      {
-        "offsetMs": 2407,
-        "durationMs": 319,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 2859,
-        "durationMs": 479,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 3351,
-        "durationMs": 545,
-        "text": "天天"
-      },
-      {
-        "offsetMs": 4508,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4668,
-        "durationMs": 106,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4787,
-        "durationMs": 306,
+        "offsetMs": 386,
+        "durationMs": 336,
         "text": "小浣"
       },
       {
-        "offsetMs": 5093,
-        "durationMs": 160,
+        "offsetMs": 722,
+        "durationMs": 148,
         "text": "熊"
       },
       {
-        "offsetMs": 5266,
-        "durationMs": 545,
+        "offsetMs": 883,
+        "durationMs": 524,
         "text": "天天"
       },
       {
-        "offsetMs": 6184,
-        "durationMs": 266,
-        "text": "遇到"
+        "offsetMs": 1744,
+        "durationMs": 188,
+        "text": "再"
       },
       {
-        "offsetMs": 6476,
-        "durationMs": 133,
-        "text": "解"
+        "offsetMs": 1932,
+        "durationMs": 121,
+        "text": "乱"
       },
       {
-        "offsetMs": 6609,
-        "durationMs": 93,
-        "text": "不"
-      },
-      {
-        "offsetMs": 6702,
-        "durationMs": 120,
-        "text": "开"
-      },
-      {
-        "offsetMs": 6822,
-        "durationMs": 80,
+        "offsetMs": 2053,
+        "durationMs": 67,
         "text": "的"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 519,
-        "text": "谜题"
-      },
-      {
-        "offsetMs": 7753,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 7979,
-        "durationMs": 186,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 8165,
-        "durationMs": 93,
-        "text": "成"
-      },
-      {
-        "offsetMs": 8285,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 8378,
-        "durationMs": 266,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 8670,
-        "durationMs": 80,
-        "text": "一"
-      },
-      {
-        "offsetMs": 8750,
-        "durationMs": 239,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 9003,
-        "durationMs": 106,
-        "text": "来"
-      },
-      {
-        "offsetMs": 9109,
-        "durationMs": 439,
-        "text": "看看"
-      }
-    ]
-  },
-  "我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！": {
-    "id": "gentle-guide:我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "normKey": "我是小浣熊天天，遇到解不开的谜题，我们拆成一小步一小步来看看！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-f6e9ceb0c88e9dd5.mp3",
-    "durationMs": 5323,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 160,
-        "text": "我"
-      },
-      {
-        "offsetMs": 263,
-        "durationMs": 106,
-        "text": "是"
-      },
-      {
-        "offsetMs": 382,
-        "durationMs": 306,
-        "text": "小浣"
-      },
-      {
-        "offsetMs": 688,
-        "durationMs": 160,
-        "text": "熊"
-      },
-      {
-        "offsetMs": 861,
-        "durationMs": 545,
-        "text": "天天"
-      },
-      {
-        "offsetMs": 1779,
-        "durationMs": 266,
-        "text": "遇到"
-      },
-      {
-        "offsetMs": 2071,
-        "durationMs": 133,
-        "text": "解"
-      },
-      {
-        "offsetMs": 2204,
-        "durationMs": 93,
-        "text": "不"
-      },
-      {
-        "offsetMs": 2297,
-        "durationMs": 120,
-        "text": "开"
-      },
-      {
-        "offsetMs": 2417,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2510,
-        "durationMs": 519,
-        "text": "谜题"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 3574,
-        "durationMs": 186,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 3760,
-        "durationMs": 93,
-        "text": "成"
-      },
-      {
-        "offsetMs": 3880,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 3973,
-        "durationMs": 266,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 4265,
-        "durationMs": 80,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4345,
-        "durationMs": 239,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 4598,
-        "durationMs": 106,
-        "text": "来"
-      },
-      {
-        "offsetMs": 4704,
-        "durationMs": 439,
-        "text": "看看"
-      }
-    ]
-  },
-  "你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "你好呀！我是奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-56d1873822060fff.mp3",
-    "durationMs": 9229,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 571,
-        "durationMs": 300,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1458,
-        "durationMs": 208,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1667,
-        "durationMs": 156,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1836,
-        "durationMs": 612,
-        "text": "奇奇"
-      },
-      {
-        "offsetMs": 3034,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3190,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 3346,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 4570,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 5013,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 5143,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 5638,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 6211,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 6393,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 6589,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 6836,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 7370,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 7617,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 7734,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 7930,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 8203,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8307,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "你好呀！我是你的小岛伙伴奇奇。我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-23629aa9481794de.mp3",
-    "durationMs": 10505,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "你好"
-      },
-      {
-        "offsetMs": 571,
-        "durationMs": 300,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 1458,
-        "durationMs": 195,
-        "text": "我"
-      },
-      {
-        "offsetMs": 1654,
-        "durationMs": 169,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1836,
-        "durationMs": 130,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1966,
-        "durationMs": 104,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2083,
-        "durationMs": 221,
+        "offsetMs": 2133,
+        "durationMs": 188,
         "text": "小"
       },
       {
-        "offsetMs": 2305,
-        "durationMs": 195,
-        "text": "岛"
+        "offsetMs": 2322,
+        "durationMs": 282,
+        "text": "书包"
       },
       {
-        "offsetMs": 2500,
-        "durationMs": 482,
-        "text": "伙伴"
-      },
-      {
-        "offsetMs": 3086,
-        "durationMs": 638,
-        "text": "奇奇"
-      },
-      {
-        "offsetMs": 4310,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4466,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 4622,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 5846,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 6289,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 6419,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 6914,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 7487,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 7669,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 7865,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 8112,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 8646,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 8893,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 9010,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 9206,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 9479,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 9583,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。": {
-    "id": "starlight-companion:我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "normKey": "我是小鹿奇奇，森林里起风时，我会停下来听一听自己的心跳声。",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-463262e7f400548e.mp3",
-    "durationMs": 6298,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 156,
-        "text": "我"
-      },
-      {
-        "offsetMs": 258,
-        "durationMs": 143,
-        "text": "是"
-      },
-      {
-        "offsetMs": 415,
-        "durationMs": 977,
-        "text": "小鹿奇奇"
-      },
-      {
-        "offsetMs": 1639,
-        "durationMs": 443,
-        "text": "森林"
-      },
-      {
-        "offsetMs": 2081,
-        "durationMs": 117,
-        "text": "里"
-      },
-      {
-        "offsetMs": 2211,
-        "durationMs": 495,
-        "text": "起风"
-      },
-      {
-        "offsetMs": 2706,
-        "durationMs": 326,
-        "text": "时"
-      },
-      {
-        "offsetMs": 3279,
-        "durationMs": 182,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3461,
-        "durationMs": 182,
-        "text": "会"
-      },
-      {
-        "offsetMs": 3657,
-        "durationMs": 247,
-        "text": "停"
-      },
-      {
-        "offsetMs": 3904,
-        "durationMs": 430,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 4438,
-        "durationMs": 247,
-        "text": "听"
-      },
-      {
-        "offsetMs": 4685,
-        "durationMs": 117,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4803,
-        "durationMs": 182,
-        "text": "听"
-      },
-      {
-        "offsetMs": 4998,
-        "durationMs": 273,
-        "text": "自己"
-      },
-      {
-        "offsetMs": 5271,
-        "durationMs": 91,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5376,
-        "durationMs": 742,
-        "text": "心跳声"
-      }
-    ]
-  },
-  "绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。": {
-    "id": "warm-sister:绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。",
-    "normKey": "绿草呼吸平静角。跟着圆圈慢慢吸气和呼气，放松身体；如果遇到大困难，也可以去拆解台把它拆成三小步。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-57ac6312a811a869.mp3",
-    "durationMs": 11098,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "绿"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 226,
-        "text": "草"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 399,
-        "text": "呼吸"
-      },
-      {
-        "offsetMs": 981,
-        "durationMs": 771,
-        "text": "平静角"
-      },
-      {
-        "offsetMs": 2367,
-        "durationMs": 279,
-        "text": "跟着"
-      },
-      {
-        "offsetMs": 2660,
-        "durationMs": 479,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 3165,
-        "durationMs": 399,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 3577,
-        "durationMs": 426,
-        "text": "吸气"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 133,
+        "offsetMs": 2631,
+        "durationMs": 81,
         "text": "和"
       },
       {
-        "offsetMs": 4176,
-        "durationMs": 572,
-        "text": "呼气"
+        "offsetMs": 2725,
+        "durationMs": 578,
+        "text": "难题"
       },
       {
-        "offsetMs": 4973,
-        "durationMs": 386,
-        "text": "放松"
+        "offsetMs": 3719,
+        "durationMs": 403,
+        "text": "我们"
       },
       {
-        "offsetMs": 5372,
-        "durationMs": 572,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 6383,
-        "durationMs": 266,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 6662,
-        "durationMs": 306,
-        "text": "遇到"
-      },
-      {
-        "offsetMs": 6995,
-        "durationMs": 186,
-        "text": "大"
-      },
-      {
-        "offsetMs": 7181,
-        "durationMs": 532,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 7965,
-        "durationMs": 133,
-        "text": "也"
-      },
-      {
-        "offsetMs": 8112,
-        "durationMs": 253,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 8378,
-        "durationMs": 173,
-        "text": "去"
-      },
-      {
-        "offsetMs": 8551,
-        "durationMs": 785,
-        "text": "拆解台"
-      },
-      {
-        "offsetMs": 9442,
-        "durationMs": 160,
-        "text": "把"
-      },
-      {
-        "offsetMs": 9601,
-        "durationMs": 133,
-        "text": "它"
-      },
-      {
-        "offsetMs": 9747,
-        "durationMs": 213,
-        "text": "拆"
-      },
-      {
-        "offsetMs": 9960,
-        "durationMs": 186,
-        "text": "成"
-      },
-      {
-        "offsetMs": 10173,
-        "durationMs": 213,
-        "text": "三"
-      },
-      {
-        "offsetMs": 10386,
-        "durationMs": 532,
-        "text": "小步"
-      }
-    ]
-  },
-  "身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。": {
-    "id": "warm-sister:身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。",
-    "normKey": "身边有大人在，你可以随时停下来去找大人抱一抱。点一点可以打开本机抱抱求助卡。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-45633cb73886cf46.mp3",
-    "durationMs": 8332,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 439,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 160,
-        "text": "有"
-      },
-      {
-        "offsetMs": 728,
-        "durationMs": 386,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 1114,
-        "durationMs": 253,
-        "text": "在"
-      },
-      {
-        "offsetMs": 1726,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1819,
-        "durationMs": 239,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2085,
-        "durationMs": 386,
-        "text": "随时"
-      },
-      {
-        "offsetMs": 2484,
-        "durationMs": 226,
-        "text": "停"
-      },
-      {
-        "offsetMs": 2710,
-        "durationMs": 519,
-        "text": "下来"
-      },
-      {
-        "offsetMs": 3335,
-        "durationMs": 160,
-        "text": "去"
-      },
-      {
-        "offsetMs": 3494,
-        "durationMs": 173,
-        "text": "找"
-      },
-      {
-        "offsetMs": 3680,
-        "durationMs": 319,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 4026,
-        "durationMs": 213,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 4239,
-        "durationMs": 120,
+        "offsetMs": 4136,
+        "durationMs": 175,
         "text": "一"
       },
       {
-        "offsetMs": 4358,
-        "durationMs": 266,
-        "text": "抱"
+        "offsetMs": 4311,
+        "durationMs": 134,
+        "text": "步"
       },
       {
-        "offsetMs": 5226,
-        "durationMs": 199,
-        "text": "点"
+        "offsetMs": 4459,
+        "durationMs": 108,
+        "text": "一"
       },
       {
-        "offsetMs": 5426,
-        "durationMs": 505,
-        "text": "一点"
+        "offsetMs": 4566,
+        "durationMs": 121,
+        "text": "步"
       },
       {
-        "offsetMs": 6037,
-        "durationMs": 253,
-        "text": "可以"
+        "offsetMs": 4714,
+        "durationMs": 81,
+        "text": "就"
       },
       {
-        "offsetMs": 6303,
-        "durationMs": 386,
-        "text": "打开"
+        "offsetMs": 4795,
+        "durationMs": 108,
+        "text": "能"
       },
       {
-        "offsetMs": 6715,
-        "durationMs": 359,
-        "text": "本机"
+        "offsetMs": 4916,
+        "durationMs": 121,
+        "text": "理"
       },
       {
-        "offsetMs": 7088,
-        "durationMs": 346,
-        "text": "抱抱"
-      },
-      {
-        "offsetMs": 7434,
-        "durationMs": 718,
-        "text": "求助卡"
+        "offsetMs": 5037,
+        "durationMs": 417,
+        "text": "清楚"
       }
     ]
   },
-  "已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。": {
-    "id": "warm-sister:已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。",
-    "normKey": "已为你记在本机抱抱提醒里。这不会自动发到远端手机。现在请直接去找身边的大人抱一抱，或者把这张卡片拿给身边的大人看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-de065c52b9229f6e.mp3",
-    "durationMs": 12760,
+  "你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声": {
+    "id": "starlight-companion:你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "normKey": "你好呀我是奇奇我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-fbd0fee64949a515.mp3",
+    "durationMs": 9325,
     "boundaries": [
       {
         "offsetMs": 103,
-        "durationMs": 160,
-        "text": "已"
+        "durationMs": 474,
+        "text": "你好"
       },
       {
-        "offsetMs": 263,
-        "durationMs": 226,
-        "text": "为"
+        "offsetMs": 576,
+        "durationMs": 303,
+        "text": "呀"
       },
       {
-        "offsetMs": 489,
-        "durationMs": 319,
-        "text": "你"
+        "offsetMs": 1474,
+        "durationMs": 211,
+        "text": "我"
       },
       {
-        "offsetMs": 914,
-        "durationMs": 199,
-        "text": "记"
+        "offsetMs": 1684,
+        "durationMs": 158,
+        "text": "是"
       },
       {
-        "offsetMs": 1114,
-        "durationMs": 160,
-        "text": "在"
+        "offsetMs": 1855,
+        "durationMs": 618,
+        "text": "奇奇"
       },
       {
-        "offsetMs": 1300,
-        "durationMs": 346,
-        "text": "本机"
+        "offsetMs": 3066,
+        "durationMs": 158,
+        "text": "我"
       },
       {
-        "offsetMs": 1646,
-        "durationMs": 346,
-        "text": "抱抱"
+        "offsetMs": 3224,
+        "durationMs": 145,
+        "text": "是"
       },
       {
-        "offsetMs": 2005,
-        "durationMs": 492,
-        "text": "提醒"
+        "offsetMs": 3382,
+        "durationMs": 987,
+        "text": "小鹿奇奇"
       },
       {
-        "offsetMs": 2497,
-        "durationMs": 226,
+        "offsetMs": 4618,
+        "durationMs": 447,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 5066,
+        "durationMs": 118,
         "text": "里"
       },
       {
-        "offsetMs": 3324,
-        "durationMs": 160,
-        "text": "这"
+        "offsetMs": 5197,
+        "durationMs": 500,
+        "text": "起风"
       },
       {
-        "offsetMs": 3497,
-        "durationMs": 346,
-        "text": "不会"
+        "offsetMs": 5697,
+        "durationMs": 329,
+        "text": "时"
       },
       {
-        "offsetMs": 3856,
-        "durationMs": 386,
-        "text": "自动"
+        "offsetMs": 6276,
+        "durationMs": 184,
+        "text": "我"
       },
       {
-        "offsetMs": 4255,
-        "durationMs": 160,
-        "text": "发"
+        "offsetMs": 6461,
+        "durationMs": 184,
+        "text": "会"
       },
       {
-        "offsetMs": 4415,
-        "durationMs": 146,
-        "text": "到"
+        "offsetMs": 6658,
+        "durationMs": 250,
+        "text": "停"
       },
       {
-        "offsetMs": 4588,
-        "durationMs": 426,
-        "text": "远端"
+        "offsetMs": 6908,
+        "durationMs": 434,
+        "text": "下来"
       },
       {
-        "offsetMs": 5027,
-        "durationMs": 545,
-        "text": "手机"
+        "offsetMs": 7447,
+        "durationMs": 250,
+        "text": "听"
       },
       {
-        "offsetMs": 6184,
-        "durationMs": 558,
-        "text": "现在"
-      },
-      {
-        "offsetMs": 6769,
-        "durationMs": 199,
-        "text": "请"
-      },
-      {
-        "offsetMs": 6981,
-        "durationMs": 359,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 7354,
-        "durationMs": 173,
-        "text": "去"
-      },
-      {
-        "offsetMs": 7527,
-        "durationMs": 213,
-        "text": "找"
-      },
-      {
-        "offsetMs": 7766,
-        "durationMs": 386,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 8152,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8258,
-        "durationMs": 346,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 8630,
-        "durationMs": 199,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 8830,
-        "durationMs": 133,
+        "offsetMs": 7697,
+        "durationMs": 118,
         "text": "一"
       },
       {
-        "offsetMs": 8963,
-        "durationMs": 266,
-        "text": "抱"
+        "offsetMs": 7816,
+        "durationMs": 184,
+        "text": "听"
       },
       {
-        "offsetMs": 9588,
-        "durationMs": 306,
-        "text": "或者"
-      },
-      {
-        "offsetMs": 9907,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 10066,
-        "durationMs": 160,
-        "text": "这"
-      },
-      {
-        "offsetMs": 10226,
-        "durationMs": 186,
-        "text": "张"
-      },
-      {
-        "offsetMs": 10426,
-        "durationMs": 598,
-        "text": "卡片"
-      },
-      {
-        "offsetMs": 11130,
-        "durationMs": 293,
-        "text": "拿给"
-      },
-      {
-        "offsetMs": 11436,
-        "durationMs": 399,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 11835,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 11942,
-        "durationMs": 346,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 12287,
-        "durationMs": 293,
-        "text": "看"
-      }
-    ]
-  },
-  "这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。": {
-    "id": "warm-sister:这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。",
-    "normKey": "这里不会向手机发送远程消息。请直接走到身边你信任的大人那里，或者把求助卡拿给身边的大人看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ac1878cae136f1f1.mp3",
-    "durationMs": 9622,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 412,
-        "text": "这里"
-      },
-      {
-        "offsetMs": 542,
-        "durationMs": 319,
-        "text": "不会"
-      },
-      {
-        "offsetMs": 861,
-        "durationMs": 186,
-        "text": "向"
-      },
-      {
-        "offsetMs": 1061,
-        "durationMs": 452,
-        "text": "手机"
-      },
-      {
-        "offsetMs": 1526,
-        "durationMs": 359,
-        "text": "发送"
-      },
-      {
-        "offsetMs": 1912,
-        "durationMs": 372,
-        "text": "远程"
-      },
-      {
-        "offsetMs": 2297,
-        "durationMs": 545,
-        "text": "消息"
-      },
-      {
-        "offsetMs": 3457,
-        "durationMs": 226,
-        "text": "请"
-      },
-      {
-        "offsetMs": 3697,
-        "durationMs": 359,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 4069,
-        "durationMs": 186,
-        "text": "走"
-      },
-      {
-        "offsetMs": 4255,
-        "durationMs": 173,
-        "text": "到"
-      },
-      {
-        "offsetMs": 4455,
-        "durationMs": 426,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 4907,
-        "durationMs": 133,
-        "text": "你"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 372,
-        "text": "信任"
-      },
-      {
-        "offsetMs": 5426,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5532,
-        "durationMs": 359,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 5904,
-        "durationMs": 439,
-        "text": "那里"
-      },
-      {
-        "offsetMs": 6662,
-        "durationMs": 279,
-        "text": "或者"
-      },
-      {
-        "offsetMs": 6955,
-        "durationMs": 160,
-        "text": "把"
-      },
-      {
-        "offsetMs": 7128,
-        "durationMs": 612,
-        "text": "求助"
-      },
-      {
-        "offsetMs": 7753,
-        "durationMs": 372,
-        "text": "卡拿"
-      },
-      {
-        "offsetMs": 8125,
-        "durationMs": 160,
-        "text": "给"
-      },
-      {
-        "offsetMs": 8298,
-        "durationMs": 399,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 8697,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 8803,
-        "durationMs": 332,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 9136,
-        "durationMs": 306,
-        "text": "看"
-      }
-    ]
-  },
-  "小提醒已关闭。有大人在身边，慢慢来。": {
-    "id": "warm-sister:小提醒已关闭。有大人在身边，慢慢来。",
-    "normKey": "小提醒已关闭。有大人在身边，慢慢来。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-3cde524aecb4cdd3.mp3",
-    "durationMs": 4502,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 253,
-        "text": "小"
-      },
-      {
-        "offsetMs": 356,
-        "durationMs": 426,
-        "text": "提醒"
-      },
-      {
-        "offsetMs": 808,
-        "durationMs": 146,
-        "text": "已"
-      },
-      {
-        "offsetMs": 954,
-        "durationMs": 532,
-        "text": "关闭"
-      },
-      {
-        "offsetMs": 2074,
-        "durationMs": 173,
-        "text": "有"
-      },
-      {
-        "offsetMs": 2261,
-        "durationMs": 372,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 2646,
-        "durationMs": 160,
-        "text": "在"
-      },
-      {
-        "offsetMs": 2806,
-        "durationMs": 532,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 3630,
-        "durationMs": 399,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 293,
-        "text": "来"
-      }
-    ]
-  },
-  "走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。": {
-    "id": "warm-sister:走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。",
-    "normKey": "走到大人身边拉拉衣角，告诉大人我需要你陪我一会儿。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-062422275165d6f0.mp3",
-    "durationMs": 4751,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 186,
-        "text": "走"
-      },
-      {
-        "offsetMs": 289,
-        "durationMs": 133,
-        "text": "到"
-      },
-      {
-        "offsetMs": 449,
-        "durationMs": 332,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 795,
-        "durationMs": 386,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 1207,
-        "durationMs": 293,
-        "text": "拉拉"
-      },
-      {
-        "offsetMs": 1513,
-        "durationMs": 545,
-        "text": "衣角"
-      },
-      {
-        "offsetMs": 2390,
-        "durationMs": 293,
-        "text": "告诉"
-      },
-      {
-        "offsetMs": 2696,
-        "durationMs": 519,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 3242,
-        "durationMs": 106,
-        "text": "我"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 319,
-        "text": "需要"
-      },
-      {
-        "offsetMs": 3680,
-        "durationMs": 120,
-        "text": "你"
-      },
-      {
-        "offsetMs": 3800,
-        "durationMs": 199,
-        "text": "陪"
-      },
-      {
-        "offsetMs": 3999,
-        "durationMs": 120,
-        "text": "我"
-      },
-      {
-        "offsetMs": 4132,
-        "durationMs": 439,
-        "text": "一会儿"
-      }
-    ]
-  },
-  "如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。": {
-    "id": "warm-sister:如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。",
-    "normKey": "如果熟悉的大人暂时不在，可以直接找老师、护士或其他信任的大人。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-4f70ef4f5198ef75.mp3",
-    "durationMs": 6667,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 293,
-        "text": "如果"
-      },
-      {
-        "offsetMs": 422,
-        "durationMs": 372,
-        "text": "熟悉"
-      },
-      {
-        "offsetMs": 795,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 901,
-        "durationMs": 505,
-        "text": "大人"
-      },
-      {
-        "offsetMs": 1433,
-        "durationMs": 359,
-        "text": "暂时"
-      },
-      {
-        "offsetMs": 1805,
-        "durationMs": 465,
-        "text": "不在"
-      },
-      {
-        "offsetMs": 2563,
-        "durationMs": 266,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2843,
-        "durationMs": 346,
-        "text": "直接"
-      },
-      {
-        "offsetMs": 3202,
-        "durationMs": 199,
-        "text": "找"
-      },
-      {
-        "offsetMs": 3428,
-        "durationMs": 545,
-        "text": "老师"
-      },
-      {
-        "offsetMs": 4252,
-        "durationMs": 612,
-        "text": "护士"
-      },
-      {
-        "offsetMs": 4970,
-        "durationMs": 173,
-        "text": "或"
-      },
-      {
-        "offsetMs": 5156,
-        "durationMs": 399,
-        "text": "其他"
-      },
-      {
-        "offsetMs": 5569,
-        "durationMs": 386,
-        "text": "信任"
-      },
-      {
-        "offsetMs": 5954,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6061,
-        "durationMs": 426,
-        "text": "大人"
-      }
-    ]
-  },
-  "不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。": {
-    "id": "warm-sister:不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。",
-    "normKey": "不想说也没关系。把心里的小门轻轻关好，自己待一会儿也是完全可以的。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-d4ba5d4e9b473d15.mp3",
-    "durationMs": 6882,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 386,
-        "text": "不想"
-      },
-      {
-        "offsetMs": 489,
-        "durationMs": 160,
-        "text": "说"
-      },
-      {
-        "offsetMs": 675,
-        "durationMs": 133,
-        "text": "也"
-      },
-      {
-        "offsetMs": 808,
-        "durationMs": 745,
-        "text": "没关系"
-      },
-      {
-        "offsetMs": 2154,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 2314,
-        "durationMs": 319,
-        "text": "心里"
-      },
-      {
-        "offsetMs": 2633,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2739,
-        "durationMs": 386,
-        "text": "小门"
-      },
-      {
-        "offsetMs": 3152,
-        "durationMs": 332,
-        "text": "轻轻"
-      },
-      {
-        "offsetMs": 3497,
-        "durationMs": 545,
-        "text": "关好"
-      },
-      {
-        "offsetMs": 4348,
-        "durationMs": 293,
+        "offsetMs": 8013,
+        "durationMs": 276,
         "text": "自己"
       },
       {
-        "offsetMs": 4654,
-        "durationMs": 213,
-        "text": "待"
-      },
-      {
-        "offsetMs": 4867,
-        "durationMs": 439,
-        "text": "一会儿"
-      },
-      {
-        "offsetMs": 5412,
-        "durationMs": 279,
-        "text": "也是"
-      },
-      {
-        "offsetMs": 5705,
-        "durationMs": 439,
-        "text": "完全"
-      },
-      {
-        "offsetMs": 6157,
-        "durationMs": 346,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 6503,
-        "durationMs": 199,
+        "offsetMs": 8289,
+        "durationMs": 92,
         "text": "的"
+      },
+      {
+        "offsetMs": 8395,
+        "durationMs": 750,
+        "text": "心跳声"
       }
     ]
   },
-  "欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？": {
-    "id": "playful-buddy:欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？",
-    "normKey": "欢迎来到晴雨小岛！海面上飘着小木船，山巅有情绪天气站，树林深处是故事森林，小桥两边是温暖的家，还有放大镜木屋与星光树屋。你想先去哪里探险呢？",
+  "我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声": {
+    "id": "starlight-companion:我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "normKey": "我是小鹿奇奇森林里起风时我会停下来听一听自己的心跳声",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-4f29eda128a4f91e.mp3",
+    "durationMs": 6362,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 261,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 418,
+        "durationMs": 987,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 1655,
+        "durationMs": 447,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 2103,
+        "durationMs": 118,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2234,
+        "durationMs": 500,
+        "text": "起风"
+      },
+      {
+        "offsetMs": 2734,
+        "durationMs": 329,
+        "text": "时"
+      },
+      {
+        "offsetMs": 3313,
+        "durationMs": 184,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3497,
+        "durationMs": 184,
+        "text": "会"
+      },
+      {
+        "offsetMs": 3695,
+        "durationMs": 250,
+        "text": "停"
+      },
+      {
+        "offsetMs": 3945,
+        "durationMs": 434,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 4484,
+        "durationMs": 250,
+        "text": "听"
+      },
+      {
+        "offsetMs": 4734,
+        "durationMs": 118,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4853,
+        "durationMs": 184,
+        "text": "听"
+      },
+      {
+        "offsetMs": 5050,
+        "durationMs": 276,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 5326,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5432,
+        "durationMs": 750,
+        "text": "心跳声"
+      }
+    ]
+  },
+  "你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧": {
+    "id": "starlight-companion:你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "normKey": "你好呀我是奇奇我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-d738cec4e3391a06.mp3",
+    "durationMs": 9930,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 576,
+        "durationMs": 303,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 1474,
+        "durationMs": 211,
+        "text": "我"
+      },
+      {
+        "offsetMs": 1684,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1855,
+        "durationMs": 618,
+        "text": "奇奇"
+      },
+      {
+        "offsetMs": 3066,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 3224,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3382,
+        "durationMs": 974,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 4579,
+        "durationMs": 566,
+        "text": "每个人"
+      },
+      {
+        "offsetMs": 5158,
+        "durationMs": 474,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 5750,
+        "durationMs": 171,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5921,
+        "durationMs": 145,
+        "text": "有"
+      },
+      {
+        "offsetMs": 6079,
+        "durationMs": 474,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 6553,
+        "durationMs": 184,
+        "text": "颗"
+      },
+      {
+        "offsetMs": 6750,
+        "durationMs": 382,
+        "text": "闪亮"
+      },
+      {
+        "offsetMs": 7132,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7250,
+        "durationMs": 211,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 539,
+        "text": "星星"
+      },
+      {
+        "offsetMs": 8316,
+        "durationMs": 263,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 8592,
+        "durationMs": 395,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 9000,
+        "durationMs": 145,
+        "text": "去"
+      },
+      {
+        "offsetMs": 9145,
+        "durationMs": 382,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9526,
+        "durationMs": 224,
+        "text": "吧"
+      }
+    ]
+  },
+  "我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧": {
+    "id": "starlight-companion:我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "normKey": "我是小鹿奇奇每个人心里都有好多颗闪亮的小星星我们一起去看看吧",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-35ae2a47897ce6a0.mp3",
+    "durationMs": 6967,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 158,
+        "text": "我"
+      },
+      {
+        "offsetMs": 261,
+        "durationMs": 145,
+        "text": "是"
+      },
+      {
+        "offsetMs": 418,
+        "durationMs": 974,
+        "text": "小鹿奇奇"
+      },
+      {
+        "offsetMs": 1616,
+        "durationMs": 566,
+        "text": "每个人"
+      },
+      {
+        "offsetMs": 2195,
+        "durationMs": 474,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2787,
+        "durationMs": 171,
+        "text": "都"
+      },
+      {
+        "offsetMs": 2958,
+        "durationMs": 145,
+        "text": "有"
+      },
+      {
+        "offsetMs": 3116,
+        "durationMs": 474,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 3589,
+        "durationMs": 184,
+        "text": "颗"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 382,
+        "text": "闪亮"
+      },
+      {
+        "offsetMs": 4168,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4287,
+        "durationMs": 211,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4497,
+        "durationMs": 539,
+        "text": "星星"
+      },
+      {
+        "offsetMs": 5353,
+        "durationMs": 263,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5629,
+        "durationMs": 395,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6037,
+        "durationMs": 145,
+        "text": "去"
+      },
+      {
+        "offsetMs": 6182,
+        "durationMs": 382,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6563,
+        "durationMs": 224,
+        "text": "吧"
+      }
+    ]
+  },
+  "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢": {
+    "id": "playful-buddy:欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
+    "normKey": "欢迎来到晴雨小岛海面上飘着小木船山巅有情绪天气站树林深处是故事森林小桥两边是温暖的家还有放大镜木屋与星光树屋你想先去哪里探险呢",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-312604ffda9eaff9.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-2db2b4be2624f226.mp3",
     "durationMs": 15077,
     "boundaries": [
       {
@@ -8366,1777 +31811,3027 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "情绪天气站。看今天头顶的天气与身体感觉": {
-    "id": "playful-buddy:情绪天气站。看今天头顶的天气与身体感觉",
-    "normKey": "情绪天气站。看今天头顶的天气与身体感觉",
+  "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉": {
+    "id": "playful-buddy:这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
+    "normKey": "这里是情绪天气站站在山顶吹着微风看看头顶的天空也抱抱自己身体里正在流动的感觉",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-71d041b69befec6e.mp3",
-    "durationMs": 4717,
+    "audioUrl": "/audio/tts/playful-buddy-b46935934656ce5e.mp3",
+    "durationMs": 8428,
     "boundaries": [
       {
         "offsetMs": 102,
-        "durationMs": 438,
+        "durationMs": 361,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 348,
         "text": "情绪"
       },
       {
-        "offsetMs": 553,
+        "offsetMs": 965,
         "durationMs": 348,
         "text": "天气"
       },
       {
-        "offsetMs": 900,
+        "offsetMs": 1313,
         "durationMs": 245,
         "text": "站"
       },
       {
-        "offsetMs": 1727,
-        "durationMs": 258,
-        "text": "看"
+        "offsetMs": 2139,
+        "durationMs": 219,
+        "text": "站"
       },
       {
-        "offsetMs": 1985,
-        "durationMs": 387,
-        "text": "今天"
+        "offsetMs": 2358,
+        "durationMs": 103,
+        "text": "在"
       },
       {
-        "offsetMs": 2384,
-        "durationMs": 361,
-        "text": "头顶"
-      },
-      {
-        "offsetMs": 2745,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2848,
-        "durationMs": 554,
-        "text": "天气"
-      },
-      {
-        "offsetMs": 3518,
-        "durationMs": 129,
-        "text": "与"
-      },
-      {
-        "offsetMs": 3660,
-        "durationMs": 361,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 4034,
-        "durationMs": 503,
-        "text": "感觉"
-      }
-    ]
-  },
-  "故事林。走一圈、想一想，探索生活小故事": {
-    "id": "warm-sister:故事林。走一圈、想一想，探索生活小故事",
-    "normKey": "故事林。走一圈、想一想，探索生活小故事",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-e429129462250554.mp3",
-    "durationMs": 5007,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 412,
-        "text": "故事"
-      },
-      {
-        "offsetMs": 515,
-        "durationMs": 386,
-        "text": "林"
-      },
-      {
-        "offsetMs": 1489,
-        "durationMs": 213,
-        "text": "走"
-      },
-      {
-        "offsetMs": 1702,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1835,
-        "durationMs": 346,
-        "text": "圈"
-      },
-      {
-        "offsetMs": 2407,
-        "durationMs": 253,
-        "text": "想"
-      },
-      {
-        "offsetMs": 2660,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 2793,
-        "durationMs": 319,
-        "text": "想"
-      },
-      {
-        "offsetMs": 3364,
-        "durationMs": 372,
-        "text": "探索"
-      },
-      {
-        "offsetMs": 3763,
-        "durationMs": 293,
-        "text": "生活"
-      },
-      {
-        "offsetMs": 4069,
-        "durationMs": 226,
-        "text": "小"
-      },
-      {
-        "offsetMs": 4295,
-        "durationMs": 532,
-        "text": "故事"
-      }
-    ]
-  },
-  "想法侦探社。用放大镜找线索，区分事实与猜测": {
-    "id": "playful-buddy:想法侦探社。用放大镜找线索，区分事实与猜测",
-    "normKey": "想法侦探社。用放大镜找线索，区分事实与猜测",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-ca4c2696195b2f5b.mp3",
-    "durationMs": 5399,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 490,
-        "text": "想法"
-      },
-      {
-        "offsetMs": 604,
-        "durationMs": 438,
-        "text": "侦探"
-      },
-      {
-        "offsetMs": 1042,
-        "durationMs": 284,
-        "text": "社"
-      },
-      {
-        "offsetMs": 1907,
-        "durationMs": 245,
-        "text": "用"
-      },
-      {
-        "offsetMs": 2165,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 2809,
-        "durationMs": 168,
-        "text": "找"
-      },
-      {
-        "offsetMs": 2990,
-        "durationMs": 515,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 3750,
+        "offsetMs": 2474,
         "durationMs": 425,
-        "text": "区分"
+        "text": "山顶"
       },
       {
-        "offsetMs": 4188,
-        "durationMs": 387,
-        "text": "事实"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 129,
-        "text": "与"
-      },
-      {
-        "offsetMs": 4729,
-        "durationMs": 490,
-        "text": "猜测"
-      }
-    ]
-  },
-  "勇气说话屋。学会把心里话好好告诉可信大人": {
-    "id": "gentle-guide:勇气说话屋。学会把心里话好好告诉可信大人",
-    "normKey": "勇气说话屋。学会把心里话好好告诉可信大人",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-970d604fe8148aa0.mp3",
-    "durationMs": 4954,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 452,
-        "text": "勇气"
-      },
-      {
-        "offsetMs": 569,
-        "durationMs": 412,
-        "text": "说话"
-      },
-      {
-        "offsetMs": 981,
-        "durationMs": 332,
-        "text": "屋"
-      },
-      {
-        "offsetMs": 1915,
-        "durationMs": 346,
-        "text": "学会"
-      },
-      {
-        "offsetMs": 2287,
-        "durationMs": 106,
-        "text": "把"
-      },
-      {
-        "offsetMs": 2407,
-        "durationMs": 864,
-        "text": "心里话"
-      },
-      {
-        "offsetMs": 3378,
-        "durationMs": 505,
-        "text": "好好"
-      },
-      {
-        "offsetMs": 3896,
-        "durationMs": 239,
-        "text": "告诉"
-      },
-      {
-        "offsetMs": 4162,
-        "durationMs": 266,
-        "text": "可信"
-      },
-      {
-        "offsetMs": 4442,
-        "durationMs": 332,
-        "text": "大人"
-      }
-    ]
-  },
-  "照顾小桥。看交接日历、收拾小书包与安心想念": {
-    "id": "gentle-guide:照顾小桥。看交接日历、收拾小书包与安心想念",
-    "normKey": "照顾小桥。看交接日历、收拾小书包与安心想念",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-7c885ccaa790aaf5.mp3",
-    "durationMs": 5446,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 439,
-        "text": "照顾"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 585,
-        "text": "小桥"
-      },
-      {
-        "offsetMs": 1755,
-        "durationMs": 293,
-        "text": "看"
-      },
-      {
-        "offsetMs": 2048,
-        "durationMs": 372,
-        "text": "交接"
-      },
-      {
-        "offsetMs": 2434,
-        "durationMs": 479,
-        "text": "日历"
-      },
-      {
-        "offsetMs": 3218,
-        "durationMs": 399,
-        "text": "收拾"
-      },
-      {
-        "offsetMs": 3630,
-        "durationMs": 186,
-        "text": "小"
-      },
-      {
-        "offsetMs": 3816,
-        "durationMs": 465,
-        "text": "书包"
-      },
-      {
-        "offsetMs": 4375,
-        "durationMs": 120,
-        "text": "与"
-      },
-      {
-        "offsetMs": 4508,
-        "durationMs": 319,
-        "text": "安心"
-      },
-      {
-        "offsetMs": 4840,
-        "durationMs": 426,
-        "text": "想念"
-      }
-    ]
-  },
-  "星光小屋。点亮你的独特爱好与强项拼图": {
-    "id": "starlight-companion:星光小屋。点亮你的独特爱好与强项拼图",
-    "normKey": "星光小屋。点亮你的独特爱好与强项拼图",
-    "profileId": "starlight-companion",
-    "voiceName": "zh-CN-YunxiaNeural",
-    "audioUrl": "/audio/tts/starlight-companion-8b3bdd34d37ab3a1.mp3",
-    "durationMs": 4686,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 469,
-        "text": "星光"
-      },
-      {
-        "offsetMs": 584,
-        "durationMs": 508,
-        "text": "小屋"
-      },
-      {
-        "offsetMs": 1680,
-        "durationMs": 430,
-        "text": "点亮"
-      },
-      {
-        "offsetMs": 2109,
-        "durationMs": 104,
-        "text": "你"
-      },
-      {
-        "offsetMs": 2214,
-        "durationMs": 117,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2344,
-        "durationMs": 365,
-        "text": "独特"
-      },
-      {
-        "offsetMs": 2721,
-        "durationMs": 482,
-        "text": "爱好"
-      },
-      {
-        "offsetMs": 3294,
-        "durationMs": 169,
-        "text": "与"
-      },
-      {
-        "offsetMs": 3477,
-        "durationMs": 469,
-        "text": "强项"
-      },
-      {
-        "offsetMs": 3958,
-        "durationMs": 221,
-        "text": "拼"
-      },
-      {
-        "offsetMs": 4180,
-        "durationMs": 326,
-        "text": "图"
-      }
-    ]
-  },
-  "绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪": {
-    "id": "warm-sister:绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪",
-    "normKey": "绿草呼吸平静角。跟随圆圈呼吸练习，放松身体平复情绪",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-3521c557c75f8159.mp3",
-    "durationMs": 6589,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "绿"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 226,
-        "text": "草"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 399,
-        "text": "呼吸"
-      },
-      {
-        "offsetMs": 981,
-        "durationMs": 771,
-        "text": "平静角"
-      },
-      {
-        "offsetMs": 2367,
-        "durationMs": 412,
-        "text": "跟随"
-      },
-      {
-        "offsetMs": 2793,
-        "durationMs": 492,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 3311,
-        "durationMs": 346,
-        "text": "呼吸"
-      },
-      {
-        "offsetMs": 3670,
-        "durationMs": 612,
-        "text": "练习"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 412,
-        "text": "放松"
-      },
-      {
-        "offsetMs": 5013,
-        "durationMs": 386,
-        "text": "身体"
-      },
-      {
-        "offsetMs": 5426,
-        "durationMs": 372,
-        "text": "平复"
-      },
-      {
-        "offsetMs": 5811,
-        "durationMs": 598,
-        "text": "情绪"
-      }
-    ]
-  },
-  "大石头变小魔法拆解台。把大困难拆成容易迈出的三小步": {
-    "id": "gentle-guide:大石头变小魔法拆解台。把大困难拆成容易迈出的三小步",
-    "normKey": "大石头变小魔法拆解台。把大困难拆成容易迈出的三小步",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-830b8fdabe511435.mp3",
-    "durationMs": 5938,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 226,
-        "text": "大"
-      },
-      {
-        "offsetMs": 329,
-        "durationMs": 572,
-        "text": "石头"
-      },
-      {
-        "offsetMs": 928,
-        "durationMs": 146,
-        "text": "变"
-      },
-      {
-        "offsetMs": 1087,
-        "durationMs": 199,
-        "text": "小"
-      },
-      {
-        "offsetMs": 1287,
-        "durationMs": 279,
-        "text": "魔法"
-      },
-      {
-        "offsetMs": 1579,
-        "durationMs": 771,
-        "text": "拆解台"
-      },
-      {
-        "offsetMs": 2965,
-        "durationMs": 199,
-        "text": "把"
-      },
-      {
-        "offsetMs": 3178,
-        "durationMs": 226,
-        "text": "大"
-      },
-      {
-        "offsetMs": 3404,
-        "durationMs": 519,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 4029,
-        "durationMs": 439,
-        "text": "拆成"
-      },
-      {
-        "offsetMs": 4495,
-        "durationMs": 226,
-        "text": "容易"
-      },
-      {
-        "offsetMs": 4734,
-        "durationMs": 306,
-        "text": "迈出"
-      },
-      {
-        "offsetMs": 5040,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5146,
-        "durationMs": 612,
-        "text": "三小步"
-      }
-    ]
-  },
-  "请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。": {
-    "id": "warm-sister:请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。",
-    "normKey": "请跟随圆圈，慢慢吸气，肚子像气球一样鼓起来。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-4128625183463576.mp3",
-    "durationMs": 4818,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 199,
-        "text": "请"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 359,
-        "text": "跟随"
-      },
-      {
-        "offsetMs": 688,
-        "durationMs": 572,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 1499,
-        "durationMs": 359,
-        "text": "慢慢"
-      },
-      {
-        "offsetMs": 1872,
-        "durationMs": 558,
-        "text": "吸气"
-      },
-      {
-        "offsetMs": 2749,
-        "durationMs": 293,
-        "text": "肚子"
-      },
-      {
-        "offsetMs": 3069,
-        "durationMs": 213,
-        "text": "像"
-      },
-      {
-        "offsetMs": 3295,
-        "durationMs": 426,
-        "text": "气球"
-      },
-      {
-        "offsetMs": 3734,
-        "durationMs": 293,
-        "text": "一样"
-      },
-      {
-        "offsetMs": 4053,
-        "durationMs": 173,
-        "text": "鼓"
-      },
-      {
-        "offsetMs": 4226,
-        "durationMs": 412,
-        "text": "起来"
-      }
-    ]
-  },
-  "请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。": {
-    "id": "warm-sister:请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。",
-    "normKey": "请跟随圆圈，缓缓呼气，把心里的烦恼轻轻吹出去。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ee3cc3cff8540195.mp3",
-    "durationMs": 5270,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "请"
-      },
-      {
-        "offsetMs": 329,
-        "durationMs": 359,
-        "text": "跟随"
-      },
-      {
-        "offsetMs": 702,
-        "durationMs": 572,
-        "text": "圆圈"
-      },
-      {
-        "offsetMs": 1486,
-        "durationMs": 412,
-        "text": "缓缓"
-      },
-      {
-        "offsetMs": 1912,
-        "durationMs": 505,
-        "text": "呼气"
-      },
-      {
-        "offsetMs": 2736,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 2896,
-        "durationMs": 332,
-        "text": "心里"
-      },
-      {
-        "offsetMs": 3228,
-        "durationMs": 106,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3348,
-        "durationMs": 519,
-        "text": "烦恼"
-      },
-      {
-        "offsetMs": 3973,
-        "durationMs": 412,
-        "text": "轻轻"
-      },
-      {
-        "offsetMs": 4398,
-        "durationMs": 239,
+        "offsetMs": 2912,
+        "durationMs": 180,
         "text": "吹"
       },
       {
-        "offsetMs": 4638,
-        "durationMs": 452,
-        "text": "出去"
-      }
-    ]
-  },
-  "没关系，不想选是完全可以的。你想在小岛上玩什么都可以。": {
-    "id": "warm-sister:没关系，不想选是完全可以的。你想在小岛上玩什么都可以。",
-    "normKey": "没关系，不想选是完全可以的。你想在小岛上玩什么都可以。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-c7cb70f2b5f1f77a.mp3",
-    "durationMs": 5912,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 758,
-        "text": "没关系"
-      },
-      {
-        "offsetMs": 1154,
-        "durationMs": 319,
-        "text": "不想"
-      },
-      {
-        "offsetMs": 1486,
-        "durationMs": 199,
-        "text": "选"
-      },
-      {
-        "offsetMs": 1686,
-        "durationMs": 120,
-        "text": "是"
-      },
-      {
-        "offsetMs": 1832,
-        "durationMs": 412,
-        "text": "完全"
-      },
-      {
-        "offsetMs": 2257,
-        "durationMs": 346,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2603,
-        "durationMs": 213,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3418,
-        "durationMs": 160,
-        "text": "你"
-      },
-      {
-        "offsetMs": 3577,
-        "durationMs": 213,
-        "text": "想"
-      },
-      {
-        "offsetMs": 3790,
-        "durationMs": 146,
-        "text": "在"
-      },
-      {
-        "offsetMs": 3949,
-        "durationMs": 213,
-        "text": "小"
-      },
-      {
-        "offsetMs": 4162,
-        "durationMs": 186,
-        "text": "岛"
-      },
-      {
-        "offsetMs": 4348,
-        "durationMs": 213,
-        "text": "上"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 160,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 4761,
-        "durationMs": 971,
-        "text": "什么都可以"
-      }
-    ]
-  },
-  "好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。": {
-    "id": "warm-sister:好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。",
-    "normKey": "好呀，不去平静角也可以。我们一起安安静静呆着，或者换个轻巧的故事玩。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-f19129439e78c898.mp3",
-    "durationMs": 7188,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 239,
-        "text": "好"
-      },
-      {
-        "offsetMs": 343,
-        "durationMs": 266,
-        "text": "呀"
-      },
-      {
-        "offsetMs": 888,
-        "durationMs": 133,
-        "text": "不"
-      },
-      {
-        "offsetMs": 1021,
-        "durationMs": 146,
-        "text": "去"
-      },
-      {
-        "offsetMs": 1180,
-        "durationMs": 558,
-        "text": "平静角"
-      },
-      {
-        "offsetMs": 1765,
-        "durationMs": 133,
-        "text": "也"
-      },
-      {
-        "offsetMs": 1898,
-        "durationMs": 465,
-        "text": "可以"
-      },
-      {
-        "offsetMs": 2952,
-        "durationMs": 239,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 3205,
-        "durationMs": 439,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 3670,
-        "durationMs": 678,
-        "text": "安安静静"
-      },
-      {
-        "offsetMs": 4362,
-        "durationMs": 253,
-        "text": "呆"
-      },
-      {
-        "offsetMs": 4614,
-        "durationMs": 239,
-        "text": "着"
-      },
-      {
-        "offsetMs": 5160,
-        "durationMs": 346,
-        "text": "或者"
-      },
-      {
-        "offsetMs": 5519,
-        "durationMs": 213,
-        "text": "换"
-      },
-      {
-        "offsetMs": 5731,
-        "durationMs": 80,
-        "text": "个"
-      },
-      {
-        "offsetMs": 5838,
-        "durationMs": 439,
-        "text": "轻巧"
-      },
-      {
-        "offsetMs": 6277,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6383,
-        "durationMs": 319,
-        "text": "故事"
-      },
-      {
-        "offsetMs": 6702,
-        "durationMs": 306,
-        "text": "玩"
-      }
-    ]
-  },
-  "你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。": {
-    "id": "warm-sister:你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。",
-    "normKey": "你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ba40ef53b3af4ecd.mp3",
-    "durationMs": 7162,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 160,
-        "text": "你"
-      },
-      {
-        "offsetMs": 263,
-        "durationMs": 213,
-        "text": "真"
-      },
-      {
-        "offsetMs": 489,
-        "durationMs": 492,
-        "text": "勇敢"
-      },
-      {
-        "offsetMs": 1300,
-        "durationMs": 253,
-        "text": "愿意"
-      },
-      {
-        "offsetMs": 1566,
-        "durationMs": 545,
-        "text": "和大人"
-      },
-      {
-        "offsetMs": 2124,
-        "durationMs": 173,
-        "text": "在"
-      },
-      {
-        "offsetMs": 2297,
-        "durationMs": 492,
-        "text": "一起"
-      },
-      {
-        "offsetMs": 3391,
-        "durationMs": 186,
-        "text": "去"
-      },
-      {
-        "offsetMs": 3577,
-        "durationMs": 186,
-        "text": "找"
-      },
-      {
-        "offsetMs": 3790,
-        "durationMs": 372,
-        "text": "身边"
-      },
-      {
-        "offsetMs": 4162,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 4255,
-        "durationMs": 519,
-        "text": "爸爸"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 519,
-        "text": "妈妈"
-      },
-      {
-        "offsetMs": 5678,
-        "durationMs": 146,
-        "text": "或"
-      },
-      {
-        "offsetMs": 5838,
-        "durationMs": 346,
-        "text": "老师"
-      },
-      {
-        "offsetMs": 6210,
-        "durationMs": 173,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 6383,
-        "durationMs": 106,
-        "text": "一"
-      },
-      {
-        "offsetMs": 6489,
-        "durationMs": 239,
-        "text": "抱"
-      },
-      {
-        "offsetMs": 6729,
-        "durationMs": 253,
-        "text": "吧"
-      }
-    ]
-  },
-  "欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！": {
-    "id": "warm-sister:欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！",
-    "normKey": "欢迎来到故事林。这里有很多有趣的故事叶，动手玩一玩，发现你的思考方法！",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-5a7e435ac8fffa9f.mp3",
-    "durationMs": 7215,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 439,
-        "text": "欢迎"
-      },
-      {
-        "offsetMs": 555,
-        "durationMs": 319,
-        "text": "来到"
-      },
-      {
-        "offsetMs": 901,
-        "durationMs": 332,
-        "text": "故事"
-      },
-      {
-        "offsetMs": 1234,
-        "durationMs": 332,
-        "text": "林"
-      },
-      {
-        "offsetMs": 2168,
-        "durationMs": 293,
-        "text": "这里"
-      },
-      {
-        "offsetMs": 2473,
-        "durationMs": 146,
-        "text": "有"
-      },
-      {
-        "offsetMs": 2620,
-        "durationMs": 386,
-        "text": "很多"
-      },
-      {
-        "offsetMs": 3032,
-        "durationMs": 372,
-        "text": "有趣"
-      },
-      {
-        "offsetMs": 3404,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3497,
-        "durationMs": 306,
-        "text": "故事"
-      },
-      {
-        "offsetMs": 3803,
-        "durationMs": 253,
-        "text": "叶"
-      },
-      {
-        "offsetMs": 4322,
-        "durationMs": 372,
-        "text": "动手"
-      },
-      {
-        "offsetMs": 4694,
-        "durationMs": 213,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 4920,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 279,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 5585,
-        "durationMs": 346,
-        "text": "发现"
-      },
-      {
-        "offsetMs": 5944,
-        "durationMs": 106,
-        "text": "你"
-      },
-      {
-        "offsetMs": 6051,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6157,
-        "durationMs": 372,
-        "text": "思考"
-      },
-      {
-        "offsetMs": 6543,
-        "durationMs": 492,
-        "text": "方法"
-      }
-    ]
-  },
-  "大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！": {
-    "id": "gentle-guide:大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！",
-    "normKey": "大石头被你完全拆解成小动作啦！走好脚下的这一小步，你已经拥有化解大困难的思考超能力了！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-02126f41775552cd.mp3",
-    "durationMs": 9289,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "大"
-      },
-      {
-        "offsetMs": 316,
-        "durationMs": 625,
-        "text": "石头"
-      },
-      {
-        "offsetMs": 1074,
-        "durationMs": 173,
-        "text": "被"
-      },
-      {
-        "offsetMs": 1247,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 1340,
-        "durationMs": 359,
-        "text": "完全"
-      },
-      {
-        "offsetMs": 1712,
-        "durationMs": 572,
-        "text": "拆解"
-      },
-      {
-        "offsetMs": 2390,
-        "durationMs": 426,
-        "text": "成小"
-      },
-      {
-        "offsetMs": 2829,
-        "durationMs": 319,
-        "text": "动作"
-      },
-      {
-        "offsetMs": 3148,
-        "durationMs": 346,
-        "text": "啦"
-      },
-      {
-        "offsetMs": 4096,
-        "durationMs": 465,
-        "text": "走好"
-      },
-      {
-        "offsetMs": 4588,
-        "durationMs": 279,
-        "text": "脚下"
-      },
-      {
-        "offsetMs": 4867,
-        "durationMs": 66,
-        "text": "的"
-      },
-      {
-        "offsetMs": 4960,
-        "durationMs": 93,
-        "text": "这"
-      },
-      {
-        "offsetMs": 5053,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 5160,
-        "durationMs": 479,
-        "text": "小步"
-      },
-      {
-        "offsetMs": 6037,
-        "durationMs": 213,
-        "text": "你"
-      },
-      {
-        "offsetMs": 6263,
-        "durationMs": 239,
-        "text": "已经"
-      },
-      {
-        "offsetMs": 6516,
-        "durationMs": 372,
-        "text": "拥有"
-      },
-      {
-        "offsetMs": 6915,
-        "durationMs": 386,
-        "text": "化解"
-      },
-      {
-        "offsetMs": 7327,
-        "durationMs": 186,
-        "text": "大"
-      },
-      {
-        "offsetMs": 7513,
-        "durationMs": 293,
-        "text": "困难"
-      },
-      {
-        "offsetMs": 7806,
-        "durationMs": 93,
-        "text": "的"
-      },
-      {
-        "offsetMs": 7926,
-        "durationMs": 386,
-        "text": "思考"
-      },
-      {
-        "offsetMs": 8338,
-        "durationMs": 253,
-        "text": "超"
-      },
-      {
-        "offsetMs": 8590,
-        "durationMs": 319,
-        "text": "能力"
-      },
-      {
-        "offsetMs": 8910,
-        "durationMs": 199,
-        "text": "了"
-      }
-    ]
-  },
-  "画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "画室桌角有一支断成两截的红色蜡笔，旁边有一幅画了一半的太阳。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-29a6158d0c37bd40.mp3",
-    "durationMs": 9987,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 412,
-        "text": "画室"
-      },
-      {
-        "offsetMs": 527,
-        "durationMs": 515,
-        "text": "桌角"
-      },
-      {
-        "offsetMs": 1145,
-        "durationMs": 168,
-        "text": "有"
-      },
-      {
-        "offsetMs": 1313,
-        "durationMs": 142,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1455,
-        "durationMs": 219,
-        "text": "支"
-      },
-      {
-        "offsetMs": 1687,
-        "durationMs": 193,
-        "text": "断"
-      },
-      {
-        "offsetMs": 1880,
-        "durationMs": 180,
-        "text": "成"
-      },
-      {
-        "offsetMs": 2073,
-        "durationMs": 219,
-        "text": "两"
-      },
-      {
-        "offsetMs": 2292,
-        "durationMs": 155,
-        "text": "截"
-      },
-      {
-        "offsetMs": 2447,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2550,
-        "durationMs": 335,
-        "text": "红色"
-      },
-      {
-        "offsetMs": 2898,
-        "durationMs": 438,
-        "text": "蜡笔"
-      },
-      {
-        "offsetMs": 3658,
-        "durationMs": 515,
-        "text": "旁边"
-      },
-      {
-        "offsetMs": 4187,
-        "durationMs": 155,
-        "text": "有"
-      },
-      {
-        "offsetMs": 4341,
-        "durationMs": 142,
-        "text": "一"
-      },
-      {
-        "offsetMs": 4483,
-        "durationMs": 193,
-        "text": "幅"
-      },
-      {
-        "offsetMs": 4689,
-        "durationMs": 193,
-        "text": "画"
-      },
-      {
-        "offsetMs": 4882,
-        "durationMs": 77,
-        "text": "了"
-      },
-      {
-        "offsetMs": 4973,
-        "durationMs": 348,
-        "text": "一半"
-      },
-      {
-        "offsetMs": 5321,
-        "durationMs": 77,
-        "text": "的"
-      },
-      {
-        "offsetMs": 5411,
-        "durationMs": 515,
-        "text": "太阳"
-      },
-      {
-        "offsetMs": 6508,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 6881,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 7616,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 7977,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 8428,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 8570,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 8905,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 9201,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 9575,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "绿茵场边有一只滚出白线的足球，草地上留着一道滑痕。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-6b980863da547660.mp3",
-    "durationMs": 9007,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 606,
-        "text": "绿茵场"
-      },
-      {
-        "offsetMs": 707,
-        "durationMs": 309,
-        "text": "边"
-      },
-      {
-        "offsetMs": 1120,
-        "durationMs": 142,
-        "text": "有"
-      },
-      {
-        "offsetMs": 1261,
-        "durationMs": 129,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1390,
-        "durationMs": 193,
-        "text": "只"
-      },
-      {
-        "offsetMs": 1596,
-        "durationMs": 387,
-        "text": "滚出"
-      },
-      {
-        "offsetMs": 1983,
-        "durationMs": 348,
-        "text": "白线"
-      },
-      {
-        "offsetMs": 2331,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 2434,
-        "durationMs": 554,
-        "text": "足球"
-      },
-      {
-        "offsetMs": 3246,
-        "durationMs": 425,
-        "text": "草地"
-      },
-      {
-        "offsetMs": 3671,
-        "durationMs": 193,
-        "text": "上"
-      },
-      {
-        "offsetMs": 3877,
-        "durationMs": 155,
-        "text": "留"
-      },
-      {
-        "offsetMs": 4032,
+        "offsetMs": 3093,
         "durationMs": 116,
         "text": "着"
       },
       {
-        "offsetMs": 4161,
-        "durationMs": 103,
-        "text": "一"
+        "offsetMs": 3222,
+        "durationMs": 490,
+        "text": "微风"
       },
       {
-        "offsetMs": 4264,
-        "durationMs": 129,
-        "text": "道"
-      },
-      {
-        "offsetMs": 4406,
-        "durationMs": 541,
-        "text": "滑痕"
-      },
-      {
-        "offsetMs": 5528,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 5902,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 6637,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 6997,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7448,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 7590,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7925,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 8222,
+        "offsetMs": 3995,
         "durationMs": 374,
-        "text": "线索"
+        "text": "看看"
       },
       {
-        "offsetMs": 8595,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "大橡树下掉了几颗饱满的橡果，树枝还在轻轻晃动。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-b2ae47891a0bb4bf.mp3",
-    "durationMs": 8672,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 606,
-        "text": "大橡树"
+        "offsetMs": 4381,
+        "durationMs": 361,
+        "text": "头顶"
       },
       {
-        "offsetMs": 707,
-        "durationMs": 322,
-        "text": "下"
-      },
-      {
-        "offsetMs": 1132,
-        "durationMs": 155,
-        "text": "掉"
-      },
-      {
-        "offsetMs": 1287,
-        "durationMs": 77,
-        "text": "了"
-      },
-      {
-        "offsetMs": 1377,
-        "durationMs": 155,
-        "text": "几"
-      },
-      {
-        "offsetMs": 1532,
-        "durationMs": 180,
-        "text": "颗"
-      },
-      {
-        "offsetMs": 1725,
-        "durationMs": 348,
-        "text": "饱满"
-      },
-      {
-        "offsetMs": 2073,
+        "offsetMs": 4742,
         "durationMs": 90,
         "text": "的"
       },
       {
-        "offsetMs": 2176,
-        "durationMs": 503,
-        "text": "橡果"
+        "offsetMs": 4845,
+        "durationMs": 528,
+        "text": "天空"
       },
       {
-        "offsetMs": 2937,
-        "durationMs": 503,
-        "text": "树枝"
+        "offsetMs": 5631,
+        "durationMs": 142,
+        "text": "也"
       },
       {
-        "offsetMs": 3452,
-        "durationMs": 206,
-        "text": "还"
+        "offsetMs": 5773,
+        "durationMs": 296,
+        "text": "抱抱"
       },
       {
-        "offsetMs": 3658,
+        "offsetMs": 6082,
+        "durationMs": 284,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 6379,
+        "durationMs": 412,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 180,
+        "text": "里"
+      },
+      {
+        "offsetMs": 6985,
+        "durationMs": 322,
+        "text": "正在"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 348,
+        "text": "流动"
+      },
+      {
+        "offsetMs": 7668,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7758,
+        "durationMs": 490,
+        "text": "感觉"
+      }
+    ]
+  },
+  "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的": {
+    "id": "playful-buddy:这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "normKey": "这里是故事森林也就是故事林古老的大树下有一本本好看的绘本跟小动物们一起看看他们是怎样想办法的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b6728d14a17b1917.mp3",
+    "durationMs": 9871,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 733,
+        "durationMs": 271,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 567,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1944,
         "durationMs": 129,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 90,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2176,
+        "durationMs": 335,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 335,
+        "text": "林"
+      },
+      {
+        "offsetMs": 3428,
+        "durationMs": 322,
+        "text": "古老"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 374,
+        "text": "大树"
+      },
+      {
+        "offsetMs": 4227,
+        "durationMs": 309,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4639,
+        "durationMs": 168,
+        "text": "有"
+      },
+      {
+        "offsetMs": 4807,
+        "durationMs": 296,
+        "text": "一本"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 193,
+        "text": "本"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 399,
+        "text": "好看"
+      },
+      {
+        "offsetMs": 5709,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5812,
+        "durationMs": 412,
+        "text": "绘本"
+      },
+      {
+        "offsetMs": 6495,
+        "durationMs": 180,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 6688,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6881,
+        "durationMs": 271,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 7152,
+        "durationMs": 168,
+        "text": "们"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 271,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 7616,
+        "durationMs": 451,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8196,
+        "durationMs": 245,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8557,
+        "durationMs": 348,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 8918,
+        "durationMs": 193,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9111,
+        "durationMs": 361,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 9472,
+        "durationMs": 219,
+        "text": "的"
+      }
+    ]
+  },
+  "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜": {
+    "id": "playful-buddy:这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "normKey": "这里是思考侦探所也就是想法侦探社在这里当个聪明的小侦探用放大镜看清楚眼前发生的事情不凭感觉瞎猜",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-3eaad999d2f968ad.mp3",
+    "durationMs": 10580,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 412,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 348,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 412,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1429,
+        "durationMs": 271,
+        "text": "所"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 142,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2215,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2331,
+        "durationMs": 374,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 2718,
+        "durationMs": 438,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 3156,
+        "durationMs": 284,
+        "text": "社"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 193,
         "text": "在"
       },
       {
-        "offsetMs": 3800,
+        "offsetMs": 4214,
+        "durationMs": 348,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4575,
+        "durationMs": 168,
+        "text": "当"
+      },
+      {
+        "offsetMs": 4742,
+        "durationMs": 90,
+        "text": "个"
+      },
+      {
+        "offsetMs": 4845,
+        "durationMs": 322,
+        "text": "聪明"
+      },
+      {
+        "offsetMs": 5168,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 168,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 503,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 6237,
+        "durationMs": 180,
+        "text": "用"
+      },
+      {
+        "offsetMs": 6430,
         "durationMs": 387,
+        "text": "放大"
+      },
+      {
+        "offsetMs": 6817,
+        "durationMs": 258,
+        "text": "镜"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 258,
+        "text": "看"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 348,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 7706,
+        "durationMs": 412,
+        "text": "眼前"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 309,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8544,
+        "durationMs": 387,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 9201,
+        "durationMs": 168,
+        "text": "不"
+      },
+      {
+        "offsetMs": 9369,
+        "durationMs": 219,
+        "text": "凭"
+      },
+      {
+        "offsetMs": 9600,
+        "durationMs": 284,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 9897,
+        "durationMs": 503,
+        "text": "瞎猜"
+      }
+    ]
+  },
+  "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听": {
+    "id": "playful-buddy:这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "normKey": "这里是勇气小屋也是勇气说话屋在这里练习大声说出不学会把心里的困惑和委屈讲给信任的大人听",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-caf73c8aa43c87d0.mp3",
+    "durationMs": 9613,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 387,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 168,
+        "text": "是"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 374,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 1055,
+        "durationMs": 438,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1738,
+        "durationMs": 168,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1906,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2047,
+        "durationMs": 348,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 387,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 2795,
+        "durationMs": 232,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 3608,
+        "durationMs": 180,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3802,
+        "durationMs": 322,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 4137,
+        "durationMs": 387,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 4536,
+        "durationMs": 361,
+        "text": "大声"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 361,
+        "text": "说出"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 245,
+        "text": "不"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 412,
+        "text": "学会"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6366,
+        "durationMs": 309,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6675,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 451,
+        "text": "困惑"
+      },
+      {
+        "offsetMs": 7255,
+        "durationMs": 155,
+        "text": "和"
+      },
+      {
+        "offsetMs": 7423,
+        "durationMs": 490,
+        "text": "委屈"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 219,
+        "text": "讲"
+      },
+      {
+        "offsetMs": 8247,
+        "durationMs": 129,
+        "text": "给"
+      },
+      {
+        "offsetMs": 8389,
+        "durationMs": 335,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 8724,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8827,
+        "durationMs": 348,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 9175,
+        "durationMs": 258,
+        "text": "听"
+      }
+    ]
+  },
+  "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你": {
+    "id": "playful-buddy:这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "normKey": "这里是双向桥小驿也就是照顾小桥桥的两边都是爱你的家日程清清楚楚两边的爸爸妈妈都深深爱着你",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b45ea80ef876680c.mp3",
+    "durationMs": 10206,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 387,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 501,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 630,
+        "durationMs": 567,
+        "text": "双向桥"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 309,
+        "text": "驿"
+      },
+      {
+        "offsetMs": 1919,
+        "durationMs": 168,
+        "text": "也"
+      },
+      {
+        "offsetMs": 2086,
+        "durationMs": 155,
+        "text": "就"
+      },
+      {
+        "offsetMs": 2241,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 284,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 2653,
+        "durationMs": 593,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 3827,
+        "durationMs": 271,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 4098,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4214,
+        "durationMs": 554,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 4871,
+        "durationMs": 142,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5142,
+        "durationMs": 168,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 5309,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5451,
+        "durationMs": 116,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 296,
+        "text": "家"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 348,
+        "text": "日程"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 902,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 7616,
+        "durationMs": 387,
+        "text": "两边"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8106,
+        "durationMs": 245,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 464,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 129,
+        "text": "都"
+      },
+      {
+        "offsetMs": 9072,
+        "durationMs": 954,
+        "text": "深深爱着你"
+      }
+    ]
+  },
+  "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光": {
+    "id": "playful-buddy:这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "normKey": "这里是星光树屋也是星光小屋在夜空树梢上点亮属于你的爱好特长与好朋友家庭只是大拼图里的一片你本身闪闪发光",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f42a80f1fda85b1c.mp3",
+    "durationMs": 11958,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 387,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 219,
+        "text": "树"
+      },
+      {
+        "offsetMs": 1223,
+        "durationMs": 219,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1687,
+        "durationMs": 155,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1841,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1970,
+        "durationMs": 374,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 425,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 219,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 348,
+        "text": "夜空"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 387,
+        "text": "树梢"
+      },
+      {
+        "offsetMs": 4343,
+        "durationMs": 322,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4768,
+        "durationMs": 361,
+        "text": "点亮"
+      },
+      {
+        "offsetMs": 5142,
+        "durationMs": 309,
+        "text": "属于"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5606,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5722,
+        "durationMs": 515,
+        "text": "爱好"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 387,
+        "text": "特长"
+      },
+      {
+        "offsetMs": 6959,
+        "durationMs": 90,
+        "text": "与"
+      },
+      {
+        "offsetMs": 7062,
+        "durationMs": 232,
+        "text": "好"
+      },
+      {
+        "offsetMs": 7294,
+        "durationMs": 451,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 554,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 8570,
+        "durationMs": 245,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 8827,
+        "durationMs": 541,
+        "text": "大拼图"
+      },
+      {
+        "offsetMs": 9369,
+        "durationMs": 116,
+        "text": "里"
+      },
+      {
+        "offsetMs": 9485,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9588,
+        "durationMs": 451,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 10296,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10412,
+        "durationMs": 477,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 10902,
+        "durationMs": 412,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 11327,
+        "durationMs": 451,
+        "text": "发光"
+      }
+    ]
+  },
+  "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息": {
+    "id": "playful-buddy:这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "normKey": "这里是绿草平静角如果觉得有点累或者心里噗通噗通跳就来这里跟着圆圈深呼吸随时可以停下来休息",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d2d52247688af218.mp3",
+    "durationMs": 9755,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 142,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 746,
+        "durationMs": 193,
+        "text": "草"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 735,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2255,
+        "durationMs": 361,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 2629,
+        "durationMs": 322,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 2964,
+        "durationMs": 335,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 232,
+        "text": "累"
+      },
+      {
+        "offsetMs": 3647,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 374,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 4330,
+        "durationMs": 670,
+        "text": "噗通噗通"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 258,
+        "text": "跳"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 180,
+        "text": "就"
+      },
+      {
+        "offsetMs": 5747,
+        "durationMs": 116,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5876,
+        "durationMs": 335,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 6224,
+        "durationMs": 245,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 348,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 6843,
+        "durationMs": 683,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 7809,
+        "durationMs": 477,
+        "text": "随时"
+      },
+      {
+        "offsetMs": 8299,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 8582,
+        "durationMs": 219,
+        "text": "停"
+      },
+      {
+        "offsetMs": 8802,
+        "durationMs": 271,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 9085,
+        "durationMs": 490,
+        "text": "休息"
+      }
+    ]
+  },
+  "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去": {
+    "id": "playful-buddy:这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "normKey": "这里是大困难拆解台遇到觉得很难的事情别着急动动手用小木槌把它敲成三小块一步一步迈过去",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-5893f3d01f74ba14.mp3",
+    "durationMs": 9162,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 412,
+        "text": "这里"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 168,
+        "text": "大"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 361,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 735,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 2526,
+        "durationMs": 296,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2835,
+        "durationMs": 271,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3119,
+        "durationMs": 193,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 180,
+        "text": "难"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 374,
+        "text": "事情"
+      },
+      {
+        "offsetMs": 3982,
+        "durationMs": 168,
+        "text": "别"
+      },
+      {
+        "offsetMs": 4150,
+        "durationMs": 503,
+        "text": "着急"
+      },
+      {
+        "offsetMs": 4936,
+        "durationMs": 335,
+        "text": "动动"
+      },
+      {
+        "offsetMs": 5271,
+        "durationMs": 309,
+        "text": "手用"
+      },
+      {
+        "offsetMs": 5593,
+        "durationMs": 644,
+        "text": "小木槌"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 129,
+        "text": "把"
+      },
+      {
+        "offsetMs": 6482,
+        "durationMs": 103,
+        "text": "它"
+      },
+      {
+        "offsetMs": 6598,
+        "durationMs": 361,
+        "text": "敲成"
+      },
+      {
+        "offsetMs": 6959,
+        "durationMs": 180,
+        "text": "三"
+      },
+      {
+        "offsetMs": 7152,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 258,
+        "text": "块"
+      },
+      {
+        "offsetMs": 7887,
+        "durationMs": 142,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 129,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8170,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8299,
+        "durationMs": 116,
+        "text": "步"
+      },
+      {
+        "offsetMs": 8428,
+        "durationMs": 180,
+        "text": "迈"
+      },
+      {
+        "offsetMs": 8608,
+        "durationMs": 374,
+        "text": "过去"
+      }
+    ]
+  },
+  "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步": {
+    "id": "playful-buddy:绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "normKey": "绿草呼吸平静角跟着圆圈慢慢吸气和呼气放松身体如果遇到大困难也可以去拆解台把它拆成三小步",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d8f98720d704100c.mp3",
+    "durationMs": 10257,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 180,
+        "text": "绿"
+      },
+      {
+        "offsetMs": 282,
+        "durationMs": 219,
+        "text": "草"
+      },
+      {
+        "offsetMs": 514,
+        "durationMs": 348,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 875,
+        "durationMs": 709,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 2165,
+        "durationMs": 296,
+        "text": "跟着"
+      },
+      {
+        "offsetMs": 2474,
+        "durationMs": 425,
+        "text": "圆圈"
+      },
+      {
+        "offsetMs": 2912,
+        "durationMs": 309,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 438,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 3686,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 528,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 4665,
+        "durationMs": 400,
+        "text": "放松"
+      },
+      {
+        "offsetMs": 5077,
+        "durationMs": 515,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 5915,
+        "durationMs": 348,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 258,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 6546,
+        "durationMs": 180,
+        "text": "大"
+      },
+      {
+        "offsetMs": 6727,
+        "durationMs": 464,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 116,
+        "text": "也"
+      },
+      {
+        "offsetMs": 7590,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 709,
+        "text": "拆解台"
+      },
+      {
+        "offsetMs": 8814,
+        "durationMs": 129,
+        "text": "把"
+      },
+      {
+        "offsetMs": 8943,
+        "durationMs": 103,
+        "text": "它"
+      },
+      {
+        "offsetMs": 9059,
+        "durationMs": 206,
+        "text": "拆"
+      },
+      {
+        "offsetMs": 9265,
+        "durationMs": 155,
+        "text": "成"
+      },
+      {
+        "offsetMs": 9433,
+        "durationMs": 193,
+        "text": "三"
+      },
+      {
+        "offsetMs": 9626,
+        "durationMs": 451,
+        "text": "小步"
+      }
+    ]
+  },
+  "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以": {
+    "id": "playful-buddy:挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "normKey": "挑选今天头顶的天气晴阴雨雷雾或者不想选都可以",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-55641d06baf225ee.mp3",
+    "durationMs": 7371,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 451,
+        "text": "挑选"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 374,
+        "text": "头顶"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1416,
+        "durationMs": 528,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2526,
+        "durationMs": 477,
+        "text": "晴"
+      },
+      {
+        "offsetMs": 3273,
+        "durationMs": 309,
+        "text": "阴"
+      },
+      {
+        "offsetMs": 3866,
+        "durationMs": 284,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 4369,
+        "durationMs": 309,
+        "text": "雷"
+      },
+      {
+        "offsetMs": 4936,
+        "durationMs": 271,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 5425,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5722,
+        "durationMs": 335,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 271,
+        "text": "选"
+      },
+      {
+        "offsetMs": 6546,
+        "durationMs": 180,
+        "text": "都"
+      },
+      {
+        "offsetMs": 6727,
+        "durationMs": 464,
+        "text": "可以"
+      }
+    ]
+  },
+  "我现在像暖洋洋的太阳亮堂堂的": {
+    "id": "playful-buddy:我现在像暖洋洋的太阳亮堂堂的",
+    "normKey": "我现在像暖洋洋的太阳亮堂堂的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-356c21a5279774de.mp3",
+    "durationMs": 3155,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 412,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 180,
+        "text": "像"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 490,
+        "text": "暖洋洋"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1429,
+        "durationMs": 477,
+        "text": "太阳"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 619,
+        "text": "亮堂堂"
+      },
+      {
+        "offsetMs": 2756,
+        "durationMs": 219,
+        "text": "的"
+      }
+    ]
+  },
+  "我现在像慢慢飘的厚云有一点点心事": {
+    "id": "playful-buddy:我现在像慢慢飘的厚云有一点点心事",
+    "normKey": "我现在像慢慢飘的厚云有一点点心事",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f011138d2177b1ac.mp3",
+    "durationMs": 3529,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "我"
+      },
+      {
+        "offsetMs": 243,
+        "durationMs": 438,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 694,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 322,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 1236,
+        "durationMs": 168,
+        "text": "飘"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1506,
+        "durationMs": 503,
+        "text": "厚云"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 116,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 438,
+        "text": "一点点"
+      },
+      {
+        "offsetMs": 2808,
+        "durationMs": 541,
+        "text": "心事"
+      }
+    ]
+  },
+  "我现在像下雨天眼眶或心里有点湿湿的": {
+    "id": "playful-buddy:我现在像下雨天眼眶或心里有点湿湿的",
+    "normKey": "我现在像下雨天眼眶或心里有点湿湿的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-efc003ab15238e09.mp3",
+    "durationMs": 3993,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 412,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 670,
+        "text": "下雨天"
+      },
+      {
+        "offsetMs": 1764,
+        "durationMs": 412,
+        "text": "眼眶"
+      },
+      {
+        "offsetMs": 2189,
+        "durationMs": 129,
+        "text": "或"
+      },
+      {
+        "offsetMs": 2331,
+        "durationMs": 438,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2885,
+        "durationMs": 284,
+        "text": "有点"
+      },
+      {
+        "offsetMs": 3181,
+        "durationMs": 438,
+        "text": "湿湿"
+      },
+      {
+        "offsetMs": 3620,
+        "durationMs": 193,
+        "text": "的"
+      }
+    ]
+  },
+  "我现在像打雷闪电肚子里有火或者好急好冲": {
+    "id": "playful-buddy:我现在像打雷闪电肚子里有火或者好急好冲",
+    "normKey": "我现在像打雷闪电肚子里有火或者好急好冲",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d3b8bbef5c3add88.mp3",
+    "durationMs": 4418,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "我"
+      },
+      {
+        "offsetMs": 256,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 309,
+        "text": "打雷"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 490,
+        "text": "闪电"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 309,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2266,
+        "durationMs": 129,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 490,
+        "text": "有火"
+      },
+      {
+        "offsetMs": 3014,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3310,
+        "durationMs": 245,
+        "text": "好"
+      },
+      {
+        "offsetMs": 3555,
+        "durationMs": 193,
+        "text": "急"
+      },
+      {
+        "offsetMs": 3761,
+        "durationMs": 477,
+        "text": "好冲"
+      }
+    ]
+  },
+  "我现在像在一团雾里懵懵的看不清": {
+    "id": "playful-buddy:我现在像在一团雾里懵懵的看不清",
+    "normKey": "我现在像在一团雾里懵懵的看不清",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-68444ed9c938eb2b.mp3",
+    "durationMs": 3129,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 451,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 694,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 103,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1004,
+        "durationMs": 90,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1094,
+        "durationMs": 193,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 193,
+        "text": "雾"
+      },
+      {
+        "offsetMs": 1493,
+        "durationMs": 206,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1944,
+        "durationMs": 309,
+        "text": "懵懵"
+      },
+      {
+        "offsetMs": 2254,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2357,
+        "durationMs": 193,
+        "text": "看"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2640,
+        "durationMs": 309,
+        "text": "清"
+      }
+    ]
+  },
+  "我今天先不挑天气先自己安安静静呆着": {
+    "id": "playful-buddy:我今天先不挑天气先自己安安静静呆着",
+    "normKey": "我今天先不挑天气先自己安安静静呆着",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-af777d261d84e4d1.mp3",
+    "durationMs": 3928,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 116,
+        "text": "我"
+      },
+      {
+        "offsetMs": 230,
+        "durationMs": 477,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 720,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 952,
+        "durationMs": 103,
+        "text": "不"
+      },
+      {
+        "offsetMs": 1055,
+        "durationMs": 193,
+        "text": "挑"
+      },
+      {
+        "offsetMs": 1261,
+        "durationMs": 528,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 219,
+        "text": "先"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 309,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 2666,
+        "durationMs": 644,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 3323,
+        "durationMs": 206,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 3529,
+        "durationMs": 219,
+        "text": "着"
+      }
+    ]
+  },
+  "没关系不想选是完全可以的你想在小岛上玩什么都可以": {
+    "id": "playful-buddy:没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "normKey": "没关系不想选是完全可以的你想在小岛上玩什么都可以",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-53b66ff3ec6f0d79.mp3",
+    "durationMs": 5669,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 670,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 1016,
+        "durationMs": 335,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 193,
+        "text": "选"
+      },
+      {
+        "offsetMs": 1558,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1674,
+        "durationMs": 374,
+        "text": "完全"
+      },
+      {
+        "offsetMs": 2060,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2370,
+        "durationMs": 245,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3196,
+        "durationMs": 168,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 206,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 155,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3737,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3918,
+        "durationMs": 168,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 4085,
+        "durationMs": 180,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 206,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4497,
+        "durationMs": 992,
+        "text": "什么都可以"
+      }
+    ]
+  },
+  "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来": {
+    "id": "playful-buddy:你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "normKey": "你现在像一团暴风雨可以生气可以大喊我在这儿我们一起等雷声停下来",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-e2f6d42d22f61844.mp3",
+    "durationMs": 7525,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 656,
+        "durationMs": 168,
+        "text": "像"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 206,
+        "text": "团"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 683,
+        "text": "暴风雨"
+      },
+      {
+        "offsetMs": 2423,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2758,
+        "durationMs": 515,
+        "text": "生气"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 284,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3789,
+        "durationMs": 168,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 361,
+        "text": "喊"
+      },
+      {
+        "offsetMs": 4897,
+        "durationMs": 142,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5039,
+        "durationMs": 168,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5206,
+        "durationMs": 296,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 5760,
+        "durationMs": 206,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5979,
+        "durationMs": 322,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6302,
+        "durationMs": 129,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6443,
+        "durationMs": 335,
+        "text": "雷声"
+      },
+      {
+        "offsetMs": 6791,
+        "durationMs": 219,
+        "text": "停"
+      },
+      {
+        "offsetMs": 7010,
+        "durationMs": 335,
+        "text": "下来"
+      }
+    ]
+  },
+  "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点": {
+    "id": "playful-buddy:你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "normKey": "你现在像一场大雨可以难过可以哭一哭我在这儿我们一起等雨小一点",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c7e70d5f22759451.mp3",
+    "durationMs": 7461,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 243,
+        "durationMs": 387,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 193,
+        "text": "像"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 850,
+        "text": "一场大雨"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2603,
+        "durationMs": 541,
+        "text": "难过"
+      },
+      {
+        "offsetMs": 3376,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3711,
+        "durationMs": 232,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 142,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4085,
+        "durationMs": 309,
+        "text": "哭"
+      },
+      {
+        "offsetMs": 4974,
+        "durationMs": 155,
+        "text": "我"
+      },
+      {
+        "offsetMs": 5129,
+        "durationMs": 168,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5296,
+        "durationMs": 296,
+        "text": "这儿"
+      },
+      {
+        "offsetMs": 5876,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6108,
+        "durationMs": 284,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 6405,
+        "durationMs": 155,
+        "text": "等"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 103,
+        "text": "雨"
+      },
+      {
+        "offsetMs": 6675,
+        "durationMs": 232,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6907,
+        "durationMs": 374,
+        "text": "一点"
+      }
+    ]
+  },
+  "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩": {
+    "id": "playful-buddy:好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "normKey": "好呀不去平静角也可以我们一起安安静静呆着或者换个轻巧的故事玩",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c29391724a0161f9.mp3",
+    "durationMs": 7087,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 258,
+        "text": "好"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 219,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 849,
+        "durationMs": 129,
+        "text": "不"
+      },
+      {
+        "offsetMs": 978,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 1120,
+        "durationMs": 528,
+        "text": "平静角"
+      },
+      {
+        "offsetMs": 1661,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 464,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2848,
+        "durationMs": 296,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3157,
+        "durationMs": 400,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 696,
+        "text": "安安静静"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 232,
+        "text": "呆"
+      },
+      {
+        "offsetMs": 4510,
+        "durationMs": 219,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5000,
+        "durationMs": 425,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 219,
+        "text": "换"
+      },
+      {
+        "offsetMs": 5657,
+        "durationMs": 90,
+        "text": "个"
+      },
+      {
+        "offsetMs": 5760,
+        "durationMs": 425,
+        "text": "轻巧"
+      },
+      {
+        "offsetMs": 6186,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6302,
+        "durationMs": 284,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 6585,
+        "durationMs": 322,
+        "text": "玩"
+      }
+    ]
+  },
+  "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧": {
+    "id": "playful-buddy:你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "normKey": "你真勇敢愿意和大人在一起去找身边的爸爸妈妈或老师抱一抱吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-9c80a6bc5dba2b98.mp3",
+    "durationMs": 6740,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 168,
+        "text": "你"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 180,
+        "text": "真"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 438,
+        "text": "勇敢"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 219,
+        "text": "愿意"
+      },
+      {
+        "offsetMs": 1416,
+        "durationMs": 528,
+        "text": "和大人"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 155,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 400,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3093,
+        "durationMs": 219,
+        "text": "去"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 142,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3466,
+        "durationMs": 387,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3956,
+        "durationMs": 451,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 490,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 5296,
+        "durationMs": 155,
+        "text": "或"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 322,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 168,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 5966,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 219,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 6289,
+        "durationMs": 271,
+        "text": "吧"
+      }
+    ]
+  },
+  "深深吸气肚子鼓起来": {
+    "id": "playful-buddy:深深吸气肚子鼓起来",
+    "normKey": "深深吸气肚子鼓起来",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-518ee17064a4bf59.mp3",
+    "durationMs": 2705,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "深深"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 515,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 1701,
+        "durationMs": 296,
+        "text": "肚子"
+      },
+      {
+        "offsetMs": 2010,
+        "durationMs": 206,
+        "text": "鼓"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 309,
+        "text": "起来"
+      }
+    ]
+  },
+  "轻轻停一停感觉好安静": {
+    "id": "playful-buddy:轻轻停一停感觉好安静",
+    "normKey": "轻轻停一停感觉好安静",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-886033b8cf5c2b11.mp3",
+    "durationMs": 3015,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 477,
         "text": "轻轻"
       },
       {
-        "offsetMs": 4200,
-        "durationMs": 412,
-        "text": "晃动"
+        "offsetMs": 591,
+        "durationMs": 193,
+        "text": "停"
       },
       {
-        "offsetMs": 5193,
+        "offsetMs": 785,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 913,
+        "durationMs": 335,
+        "text": "停"
+      },
+      {
+        "offsetMs": 1830,
+        "durationMs": 335,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 2178,
+        "durationMs": 206,
+        "text": "好"
+      },
+      {
+        "offsetMs": 2384,
+        "durationMs": 451,
+        "text": "安静"
+      }
+    ]
+  },
+  "缓缓呼气把烦恼吹出去": {
+    "id": "playful-buddy:缓缓呼气把烦恼吹出去",
+    "normKey": "缓缓呼气把烦恼吹出去",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-1f1922b3e4738228.mp3",
+    "durationMs": 3028,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "缓缓"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 477,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 1675,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1830,
+        "durationMs": 400,
+        "text": "烦恼"
+      },
+      {
+        "offsetMs": 2242,
+        "durationMs": 219,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 2461,
+        "durationMs": 387,
+        "text": "出去"
+      }
+    ]
+  },
+  "轻松休息身体松松的": {
+    "id": "playful-buddy:轻松休息身体松松的",
+    "normKey": "轻松休息身体松松的",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-714e6f1dde9ffabf.mp3",
+    "durationMs": 2950,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 400,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 514,
+        "durationMs": 464,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 1559,
+        "durationMs": 528,
+        "text": "身体"
+      },
+      {
+        "offsetMs": 2100,
+        "durationMs": 464,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 2564,
+        "durationMs": 206,
+        "text": "的"
+      }
+    ]
+  },
+  "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么": {
+    "id": "playful-buddy:欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "normKey": "欢迎来到美术角桌上的绿色小蜡笔不见了我们拿起小放大镜看看地上和桌边有些什么",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-737cbd99a0bc81d8.mp3",
+    "durationMs": 8235,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 477,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 591,
+        "durationMs": 258,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 593,
+        "text": "美术角"
+      },
+      {
+        "offsetMs": 2036,
+        "durationMs": 219,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2255,
+        "durationMs": 180,
+        "text": "上"
+      },
+      {
+        "offsetMs": 2436,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2552,
+        "durationMs": 322,
+        "text": "绿色"
+      },
+      {
+        "offsetMs": 2887,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3067,
+        "durationMs": 335,
+        "text": "蜡笔"
+      },
+      {
+        "offsetMs": 3415,
+        "durationMs": 399,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 3814,
+        "durationMs": 193,
+        "text": "了"
+      },
+      {
+        "offsetMs": 4356,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 4588,
+        "durationMs": 168,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 142,
+        "text": "起"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 786,
+        "text": "小放大镜"
+      },
+      {
+        "offsetMs": 5966,
+        "durationMs": 374,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 348,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 6714,
+        "durationMs": 129,
+        "text": "和"
+      },
+      {
+        "offsetMs": 6856,
+        "durationMs": 451,
+        "text": "桌边"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 335,
+        "text": "有些"
+      },
+      {
+        "offsetMs": 7668,
+        "durationMs": 387,
+        "text": "什么"
+      }
+    ]
+  },
+  "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘": {
+    "id": "playful-buddy:欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "normKey": "欢迎来到绿茵场训练用的小足球不知道滚去哪里了我们拿起放大镜仔细看看草坪边缘",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-798f6521033afe89.mp3",
+    "durationMs": 8440,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 258,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 619,
+        "text": "绿茵场"
+      },
+      {
+        "offsetMs": 2088,
+        "durationMs": 490,
+        "text": "训练"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 142,
+        "text": "用"
+      },
+      {
+        "offsetMs": 2732,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2835,
+        "durationMs": 722,
+        "text": "小足球"
+      },
+      {
+        "offsetMs": 3660,
+        "durationMs": 142,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3802,
+        "durationMs": 232,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 193,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 4240,
+        "durationMs": 155,
+        "text": "去"
+      },
+      {
+        "offsetMs": 4407,
+        "durationMs": 348,
+        "text": "哪里"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 168,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5232,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 155,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 5619,
+        "durationMs": 142,
+        "text": "起"
+      },
+      {
+        "offsetMs": 5773,
+        "durationMs": 593,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6662,
+        "durationMs": 412,
+        "text": "仔细"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 322,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 7423,
         "durationMs": 361,
+        "text": "草坪"
+      },
+      {
+        "offsetMs": 7796,
+        "durationMs": 464,
+        "text": "边缘"
+      }
+    ]
+  },
+  "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧": {
+    "id": "playful-buddy:欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "normKey": "欢迎来到大橡树下小松鼠放在树洞旁的大橡果找不到了我们拿起放大镜去拨开落叶看看树洞和地面痕迹吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-56cd4b6674038e87.mp3",
+    "durationMs": 10180,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 245,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 836,
+        "durationMs": 528,
+        "text": "大橡树"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 271,
+        "text": "下"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 271,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 490,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 2990,
+        "durationMs": 193,
+        "text": "放"
+      },
+      {
+        "offsetMs": 3183,
+        "durationMs": 116,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3312,
+        "durationMs": 335,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 3647,
+        "durationMs": 193,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 3840,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 4098,
+        "durationMs": 412,
+        "text": "橡果"
+      },
+      {
+        "offsetMs": 4523,
+        "durationMs": 180,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 232,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 193,
+        "text": "了"
+      },
+      {
+        "offsetMs": 5567,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 309,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 593,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 6972,
+        "durationMs": 180,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7165,
+        "durationMs": 155,
+        "text": "拨"
+      },
+      {
+        "offsetMs": 7320,
+        "durationMs": 168,
+        "text": "开"
+      },
+      {
+        "offsetMs": 7500,
+        "durationMs": 425,
+        "text": "落叶"
+      },
+      {
+        "offsetMs": 8183,
+        "durationMs": 335,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8531,
+        "durationMs": 348,
+        "text": "树洞"
+      },
+      {
+        "offsetMs": 8892,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 9046,
+        "durationMs": 296,
+        "text": "地面"
+      },
+      {
+        "offsetMs": 9356,
+        "durationMs": 425,
+        "text": "痕迹"
+      },
+      {
+        "offsetMs": 9781,
+        "durationMs": 219,
+        "text": "吧"
+      }
+    ]
+  },
+  "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找": {
+    "id": "playful-buddy:欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "normKey": "欢迎来到拼图小桌彩虹拼图的最后一片找不到啦我们拿起放大镜在桌角和地毯上找一找",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-48ee5381ec1f56a8.mp3",
+    "durationMs": 8518,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 464,
+        "text": "欢迎"
+      },
+      {
+        "offsetMs": 578,
+        "durationMs": 284,
+        "text": "来到"
+      },
+      {
+        "offsetMs": 875,
+        "durationMs": 219,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1094,
+        "durationMs": 142,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1248,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1455,
+        "durationMs": 296,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 2332,
+        "durationMs": 515,
+        "text": "彩虹"
+      },
+      {
+        "offsetMs": 2861,
+        "durationMs": 219,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 3080,
+        "durationMs": 168,
+        "text": "图"
+      },
+      {
+        "offsetMs": 3247,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 335,
+        "text": "最后"
+      },
+      {
+        "offsetMs": 3711,
+        "durationMs": 296,
+        "text": "一片"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 142,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4162,
+        "durationMs": 90,
+        "text": "不"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 232,
+        "text": "到"
+      },
+      {
+        "offsetMs": 4485,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 5245,
+        "durationMs": 309,
         "text": "拿起"
       },
       {
         "offsetMs": 5567,
-        "durationMs": 631,
+        "durationMs": 606,
         "text": "放大镜"
       },
       {
-        "offsetMs": 6302,
-        "durationMs": 348,
-        "text": "找找"
+        "offsetMs": 6405,
+        "durationMs": 168,
+        "text": "在"
       },
       {
-        "offsetMs": 6662,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7113,
-        "durationMs": 129,
-        "text": "有"
-      },
-      {
-        "offsetMs": 7255,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7590,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 7887,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 8260,
-        "durationMs": 232,
-        "text": "吧"
-      }
-    ]
-  },
-  "拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！": {
-    "id": "playful-buddy:拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！",
-    "normKey": "拼图桌角少了一块蓝天碎片，地毯边露出了一个小角。拿起放大镜找找现场有哪些真实线索吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-e41bde2a0e6643b4.mp3",
-    "durationMs": 8737,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 245,
-        "text": "拼"
-      },
-      {
-        "offsetMs": 346,
-        "durationMs": 155,
-        "text": "图"
-      },
-      {
-        "offsetMs": 514,
-        "durationMs": 515,
+        "offsetMs": 6585,
+        "durationMs": 412,
         "text": "桌角"
       },
       {
-        "offsetMs": 1132,
-        "durationMs": 219,
-        "text": "少"
+        "offsetMs": 7010,
+        "durationMs": 142,
+        "text": "和"
       },
       {
-        "offsetMs": 1352,
-        "durationMs": 77,
-        "text": "了"
-      },
-      {
-        "offsetMs": 1442,
-        "durationMs": 309,
-        "text": "一块"
-      },
-      {
-        "offsetMs": 1764,
-        "durationMs": 361,
-        "text": "蓝天"
-      },
-      {
-        "offsetMs": 2138,
-        "durationMs": 451,
-        "text": "碎片"
-      },
-      {
-        "offsetMs": 2898,
+        "offsetMs": 7165,
         "durationMs": 399,
         "text": "地毯"
       },
       {
-        "offsetMs": 3297,
-        "durationMs": 258,
-        "text": "边"
+        "offsetMs": 7564,
+        "durationMs": 193,
+        "text": "上"
       },
       {
-        "offsetMs": 3568,
-        "durationMs": 296,
-        "text": "露出"
+        "offsetMs": 7771,
+        "durationMs": 193,
+        "text": "找"
       },
       {
-        "offsetMs": 3864,
-        "durationMs": 64,
-        "text": "了"
-      },
-      {
-        "offsetMs": 3942,
-        "durationMs": 155,
-        "text": "一个"
-      },
-      {
-        "offsetMs": 4109,
-        "durationMs": 567,
-        "text": "小角"
-      },
-      {
-        "offsetMs": 5258,
-        "durationMs": 361,
-        "text": "拿起"
-      },
-      {
-        "offsetMs": 5631,
-        "durationMs": 631,
-        "text": "放大镜"
-      },
-      {
-        "offsetMs": 6366,
-        "durationMs": 348,
-        "text": "找找"
-      },
-      {
-        "offsetMs": 6727,
-        "durationMs": 438,
-        "text": "现场"
-      },
-      {
-        "offsetMs": 7178,
+        "offsetMs": 7964,
         "durationMs": 129,
-        "text": "有"
+        "text": "一"
       },
       {
-        "offsetMs": 7320,
-        "durationMs": 322,
-        "text": "哪些"
-      },
-      {
-        "offsetMs": 7655,
-        "durationMs": 284,
-        "text": "真实"
-      },
-      {
-        "offsetMs": 7951,
-        "durationMs": 374,
-        "text": "线索"
-      },
-      {
-        "offsetMs": 8325,
-        "durationMs": 232,
-        "text": "吧"
+        "offsetMs": 8093,
+        "durationMs": 245,
+        "text": "找"
       }
     ]
   },
-  "有些事情我们暂时还不知道，这是很正常的！不用急着猜。": {
-    "id": "playful-buddy:有些事情我们暂时还不知道，这是很正常的！不用急着猜。",
-    "normKey": "有些事情我们暂时还不知道，这是很正常的！不用急着猜。",
+  "有些事情我们暂时还不知道这是很正常的不用急着猜": {
+    "id": "playful-buddy:有些事情我们暂时还不知道这是很正常的不用急着猜",
+    "normKey": "有些事情我们暂时还不知道这是很正常的不用急着猜",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-33aa36053b6b3b3a.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-980477526bb00c98.mp3",
     "durationMs": 5231,
     "boundaries": [
       {
@@ -10221,102 +34916,12 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。": {
-    "id": "playful-buddy:太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。",
-    "normKey": "太棒了小侦探！我们把拍到的照片和心里的猜想分得清清楚楚。",
+  "已重新整理场景拿起放大镜重新找找吧": {
+    "id": "playful-buddy:已重新整理场景拿起放大镜重新找找吧",
+    "normKey": "已重新整理场景拿起放大镜重新找找吧",
     "profileId": "playful-buddy",
     "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-c82bc59b241a00a1.mp3",
-    "durationMs": 6379,
-    "boundaries": [
-      {
-        "offsetMs": 102,
-        "durationMs": 284,
-        "text": "太"
-      },
-      {
-        "offsetMs": 385,
-        "durationMs": 180,
-        "text": "棒"
-      },
-      {
-        "offsetMs": 565,
-        "durationMs": 155,
-        "text": "了"
-      },
-      {
-        "offsetMs": 836,
-        "durationMs": 670,
-        "text": "小侦探"
-      },
-      {
-        "offsetMs": 2088,
-        "durationMs": 296,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 2397,
-        "durationMs": 142,
-        "text": "把"
-      },
-      {
-        "offsetMs": 2539,
-        "durationMs": 374,
-        "text": "拍到"
-      },
-      {
-        "offsetMs": 2912,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 3015,
-        "durationMs": 567,
-        "text": "照片"
-      },
-      {
-        "offsetMs": 3698,
-        "durationMs": 142,
-        "text": "和"
-      },
-      {
-        "offsetMs": 3853,
-        "durationMs": 322,
-        "text": "心里"
-      },
-      {
-        "offsetMs": 4175,
-        "durationMs": 90,
-        "text": "的"
-      },
-      {
-        "offsetMs": 4278,
-        "durationMs": 580,
-        "text": "猜想"
-      },
-      {
-        "offsetMs": 4961,
-        "durationMs": 193,
-        "text": "分"
-      },
-      {
-        "offsetMs": 5155,
-        "durationMs": 90,
-        "text": "得"
-      },
-      {
-        "offsetMs": 5258,
-        "durationMs": 941,
-        "text": "清清楚楚"
-      }
-    ]
-  },
-  "已重新整理场景，拿起放大镜重新找找吧！": {
-    "id": "playful-buddy:已重新整理场景，拿起放大镜重新找找吧！",
-    "normKey": "已重新整理场景，拿起放大镜重新找找吧！",
-    "profileId": "playful-buddy",
-    "voiceName": "zh-CN-XiaoyiNeural",
-    "audioUrl": "/audio/tts/playful-buddy-7a24128c015a11c0.mp3",
+    "audioUrl": "/audio/tts/playful-buddy-6485c27573fe5040.mp3",
     "durationMs": 4006,
     "boundaries": [
       {
@@ -10366,848 +34971,6403 @@ export const PREBAKED_TTS_BY_DEFAULT_KEY: Record<string, PrebakedTtsEntry> = {
       }
     ]
   },
-  "校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。": {
-    "id": "gentle-guide:校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。",
-    "normKey": "校门口放学时，同学好奇地问：为什么你爸爸妈妈不一起接你呀？别着急，怎么说、跟谁说，完全由你决定。",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-76b55809c97ee84a.mp3",
-    "durationMs": 10126,
+  "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "playful-buddy:放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦昨天是你爸爸来接你今天怎么只有你妈妈呀他们为什么不一起接你呢你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a907873494e79989.mp3",
+    "durationMs": 17139,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 572,
-        "text": "校门口"
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "放"
       },
       {
-        "offsetMs": 688,
-        "durationMs": 359,
-        "text": "放学"
+        "offsetMs": 334,
+        "durationMs": 374,
+        "text": "学校"
       },
       {
-        "offsetMs": 1047,
-        "durationMs": 386,
-        "text": "时"
+        "offsetMs": 720,
+        "durationMs": 348,
+        "text": "门口"
       },
       {
-        "offsetMs": 1752,
-        "durationMs": 293,
-        "text": "同学"
+        "offsetMs": 1068,
+        "durationMs": 103,
+        "text": "的"
       },
       {
-        "offsetMs": 2071,
-        "durationMs": 319,
+        "offsetMs": 1184,
+        "durationMs": 361,
         "text": "好奇"
       },
       {
-        "offsetMs": 2390,
-        "durationMs": 80,
-        "text": "地"
+        "offsetMs": 1558,
+        "durationMs": 438,
+        "text": "提问"
       },
       {
-        "offsetMs": 2484,
-        "durationMs": 279,
-        "text": "问"
+        "offsetMs": 2577,
+        "durationMs": 296,
+        "text": "好"
       },
       {
-        "offsetMs": 3188,
+        "offsetMs": 2874,
+        "durationMs": 322,
+        "text": "朋友"
+      },
+      {
+        "offsetMs": 3209,
+        "durationMs": 361,
+        "text": "小明"
+      },
+      {
+        "offsetMs": 3570,
+        "durationMs": 322,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4162,
+        "durationMs": 361,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 4755,
+        "durationMs": 515,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 5284,
+        "durationMs": 155,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5438,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5593,
+        "durationMs": 284,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 5889,
+        "durationMs": 142,
+        "text": "来"
+      },
+      {
+        "offsetMs": 6044,
+        "durationMs": 219,
+        "text": "接"
+      },
+      {
+        "offsetMs": 6263,
+        "durationMs": 232,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6765,
+        "durationMs": 528,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 7307,
+        "durationMs": 232,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 7552,
+        "durationMs": 271,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 7822,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 7951,
+        "durationMs": 335,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 8286,
+        "durationMs": 232,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 284,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 9394,
         "durationMs": 412,
         "text": "为什么"
       },
       {
-        "offsetMs": 3614,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 3694,
-        "durationMs": 199,
-        "text": "爸爸"
-      },
-      {
-        "offsetMs": 3906,
-        "durationMs": 332,
-        "text": "妈妈"
-      },
-      {
-        "offsetMs": 4265,
-        "durationMs": 133,
+        "offsetMs": 9820,
+        "durationMs": 103,
         "text": "不"
       },
       {
-        "offsetMs": 4398,
-        "durationMs": 239,
+        "offsetMs": 9923,
+        "durationMs": 284,
         "text": "一起"
       },
       {
-        "offsetMs": 4651,
-        "durationMs": 173,
+        "offsetMs": 10219,
+        "durationMs": 180,
         "text": "接"
       },
       {
-        "offsetMs": 4824,
-        "durationMs": 106,
+        "offsetMs": 10400,
+        "durationMs": 168,
         "text": "你"
       },
       {
-        "offsetMs": 4930,
-        "durationMs": 279,
-        "text": "呀"
+        "offsetMs": 10567,
+        "durationMs": 232,
+        "text": "呢"
       },
       {
-        "offsetMs": 5811,
-        "durationMs": 213,
-        "text": "别"
+        "offsetMs": 11379,
+        "durationMs": 142,
+        "text": "你"
       },
       {
-        "offsetMs": 6024,
-        "durationMs": 532,
-        "text": "着急"
+        "offsetMs": 11521,
+        "durationMs": 168,
+        "text": "想"
       },
       {
-        "offsetMs": 6915,
-        "durationMs": 239,
+        "offsetMs": 11701,
+        "durationMs": 193,
         "text": "怎么"
       },
       {
-        "offsetMs": 7154,
-        "durationMs": 372,
+        "offsetMs": 11907,
+        "durationMs": 374,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 12281,
+        "durationMs": 232,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 13093,
+        "durationMs": 258,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 13350,
+        "durationMs": 348,
         "text": "说"
       },
       {
-        "offsetMs": 7926,
-        "durationMs": 199,
-        "text": "跟"
-      },
-      {
-        "offsetMs": 8125,
-        "durationMs": 213,
-        "text": "谁"
-      },
-      {
-        "offsetMs": 8338,
-        "durationMs": 332,
+        "offsetMs": 13956,
+        "durationMs": 180,
         "text": "说"
       },
       {
-        "offsetMs": 9016,
-        "durationMs": 332,
-        "text": "完全"
+        "offsetMs": 14137,
+        "durationMs": 477,
+        "text": "多少"
       },
       {
-        "offsetMs": 9362,
-        "durationMs": 106,
+        "offsetMs": 14704,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 15000,
+        "durationMs": 374,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 15387,
+        "durationMs": 477,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 16095,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 16250,
+        "durationMs": 155,
         "text": "由"
       },
       {
-        "offsetMs": 9468,
-        "durationMs": 93,
+        "offsetMs": 16405,
+        "durationMs": 142,
         "text": "你"
       },
       {
-        "offsetMs": 9574,
-        "durationMs": 372,
+        "offsetMs": 16559,
+        "durationMs": 400,
         "text": "决定"
       }
     ]
   },
-  "注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！": {
-    "id": "gentle-guide:注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！",
-    "normKey": "注意：遇到起哄和嘲笑时，我们绝对不需要忍受。请立刻使用安全保护行动！",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-1b127153746420b9.mp3",
-    "durationMs": 7613,
+  "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定": {
+    "id": "playful-buddy:放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "normKey": "放学校门口的好奇提问好朋友小明说咦今天是谁来接你放学呀你们家平时是怎么安排接送的呀你想怎么回应呢怎么说说多少或者停下对话都由你决定",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-53973cb54b679fd7.mp3",
+    "durationMs": 15773,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 572,
-        "text": "注意"
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "放"
       },
       {
-        "offsetMs": 1114,
-        "durationMs": 266,
-        "text": "遇到"
+        "offsetMs": 334,
+        "durationMs": 374,
+        "text": "学校"
       },
       {
-        "offsetMs": 1393,
-        "durationMs": 439,
-        "text": "起哄"
+        "offsetMs": 720,
+        "durationMs": 348,
+        "text": "门口"
       },
       {
-        "offsetMs": 1858,
-        "durationMs": 80,
-        "text": "和"
-      },
-      {
-        "offsetMs": 1952,
-        "durationMs": 479,
-        "text": "嘲笑"
-      },
-      {
-        "offsetMs": 2430,
-        "durationMs": 439,
-        "text": "时"
-      },
-      {
-        "offsetMs": 3188,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 3414,
-        "durationMs": 372,
-        "text": "绝对"
-      },
-      {
-        "offsetMs": 3800,
-        "durationMs": 133,
-        "text": "不"
-      },
-      {
-        "offsetMs": 3933,
-        "durationMs": 239,
-        "text": "需要"
-      },
-      {
-        "offsetMs": 4186,
-        "durationMs": 439,
-        "text": "忍受"
-      },
-      {
-        "offsetMs": 5239,
-        "durationMs": 319,
-        "text": "请"
-      },
-      {
-        "offsetMs": 5572,
-        "durationMs": 279,
-        "text": "立刻"
-      },
-      {
-        "offsetMs": 5864,
-        "durationMs": 319,
-        "text": "使用"
-      },
-      {
-        "offsetMs": 6210,
-        "durationMs": 412,
-        "text": "安全"
-      },
-      {
-        "offsetMs": 6636,
-        "durationMs": 279,
-        "text": "保护"
-      },
-      {
-        "offsetMs": 6928,
-        "durationMs": 505,
-        "text": "行动"
-      }
-    ]
-  },
-  "我们重新想一想，换一种你觉得最舒服的方式回答。": {
-    "id": "gentle-guide:我们重新想一想，换一种你觉得最舒服的方式回答。",
-    "normKey": "我们重新想一想，换一种你觉得最舒服的方式回答。",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-6eb9417c8fac6173.mp3",
-    "durationMs": 3980,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 213,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 329,
-        "durationMs": 319,
-        "text": "重新"
-      },
-      {
-        "offsetMs": 662,
-        "durationMs": 173,
-        "text": "想"
-      },
-      {
-        "offsetMs": 835,
-        "durationMs": 93,
-        "text": "一"
-      },
-      {
-        "offsetMs": 928,
-        "durationMs": 319,
-        "text": "想"
-      },
-      {
-        "offsetMs": 1659,
-        "durationMs": 253,
-        "text": "换"
-      },
-      {
-        "offsetMs": 1912,
-        "durationMs": 199,
-        "text": "一种"
-      },
-      {
-        "offsetMs": 2138,
-        "durationMs": 80,
-        "text": "你"
-      },
-      {
-        "offsetMs": 2218,
-        "durationMs": 213,
-        "text": "觉得"
-      },
-      {
-        "offsetMs": 2457,
-        "durationMs": 213,
-        "text": "最"
-      },
-      {
-        "offsetMs": 2670,
-        "durationMs": 253,
-        "text": "舒服"
-      },
-      {
-        "offsetMs": 2922,
-        "durationMs": 66,
+        "offsetMs": 1068,
+        "durationMs": 103,
         "text": "的"
       },
       {
-        "offsetMs": 3002,
-        "durationMs": 279,
-        "text": "方式"
+        "offsetMs": 1184,
+        "durationMs": 361,
+        "text": "好奇"
       },
       {
-        "offsetMs": 3295,
-        "durationMs": 505,
-        "text": "回答"
-      }
-    ]
-  },
-  "池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！": {
-    "id": "warm-sister:池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！",
-    "normKey": "池塘边有一只漂亮的小木船，小兔和小熊都想玩。我们试试把不同的道具放进池塘，看看能商量出什么好办法！",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-ee03be942097b03e.mp3",
-    "durationMs": 10433,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 492,
-        "text": "池塘"
+        "offsetMs": 1558,
+        "durationMs": 438,
+        "text": "提问"
       },
       {
-        "offsetMs": 608,
-        "durationMs": 186,
-        "text": "边"
-      },
-      {
-        "offsetMs": 795,
-        "durationMs": 120,
-        "text": "有"
-      },
-      {
-        "offsetMs": 928,
-        "durationMs": 133,
-        "text": "一"
-      },
-      {
-        "offsetMs": 1061,
-        "durationMs": 146,
-        "text": "只"
-      },
-      {
-        "offsetMs": 1234,
-        "durationMs": 386,
-        "text": "漂亮"
-      },
-      {
-        "offsetMs": 1619,
-        "durationMs": 80,
-        "text": "的"
-      },
-      {
-        "offsetMs": 1712,
-        "durationMs": 213,
-        "text": "小"
-      },
-      {
-        "offsetMs": 1925,
-        "durationMs": 532,
-        "text": "木船"
-      },
-      {
-        "offsetMs": 2723,
-        "durationMs": 452,
-        "text": "小兔"
-      },
-      {
-        "offsetMs": 3202,
-        "durationMs": 120,
-        "text": "和"
-      },
-      {
-        "offsetMs": 3335,
-        "durationMs": 213,
-        "text": "小"
-      },
-      {
-        "offsetMs": 3547,
-        "durationMs": 239,
-        "text": "熊"
-      },
-      {
-        "offsetMs": 3813,
-        "durationMs": 146,
-        "text": "都"
-      },
-      {
-        "offsetMs": 3960,
-        "durationMs": 239,
-        "text": "想"
-      },
-      {
-        "offsetMs": 4199,
-        "durationMs": 293,
-        "text": "玩"
-      },
-      {
-        "offsetMs": 5093,
-        "durationMs": 266,
-        "text": "我们"
-      },
-      {
-        "offsetMs": 5372,
-        "durationMs": 572,
-        "text": "试试"
-      },
-      {
-        "offsetMs": 6051,
-        "durationMs": 146,
-        "text": "把"
-      },
-      {
-        "offsetMs": 6210,
-        "durationMs": 399,
-        "text": "不同"
-      },
-      {
-        "offsetMs": 6609,
-        "durationMs": 106,
-        "text": "的"
-      },
-      {
-        "offsetMs": 6729,
-        "durationMs": 386,
-        "text": "道具"
-      },
-      {
-        "offsetMs": 7141,
-        "durationMs": 332,
-        "text": "放进"
-      },
-      {
-        "offsetMs": 7487,
-        "durationMs": 532,
-        "text": "池塘"
-      },
-      {
-        "offsetMs": 8364,
-        "durationMs": 319,
-        "text": "看看"
-      },
-      {
-        "offsetMs": 8697,
-        "durationMs": 133,
-        "text": "能"
-      },
-      {
-        "offsetMs": 8843,
-        "durationMs": 332,
-        "text": "商量"
-      },
-      {
-        "offsetMs": 9189,
-        "durationMs": 146,
-        "text": "出"
-      },
-      {
-        "offsetMs": 9335,
-        "durationMs": 213,
-        "text": "什么"
-      },
-      {
-        "offsetMs": 9561,
-        "durationMs": 213,
+        "offsetMs": 2577,
+        "durationMs": 284,
         "text": "好"
       },
       {
-        "offsetMs": 9774,
-        "durationMs": 479,
-        "text": "办法"
-      }
-    ]
-  },
-  "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。": {
-    "id": "warm-sister:你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "normKey": "你好呀，今天我们一起做深呼吸，慢慢退后一步看一看。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-549211b704478b93.mp3",
-    "durationMs": 4990,
-    "boundaries": [
-      {
-        "offsetMs": 103,
-        "durationMs": 319,
-        "text": "你好"
+        "offsetMs": 2861,
+        "durationMs": 284,
+        "text": "朋友"
       },
       {
-        "offsetMs": 422,
-        "durationMs": 266,
-        "text": "呀"
+        "offsetMs": 3157,
+        "durationMs": 348,
+        "text": "小明"
       },
       {
-        "offsetMs": 1047,
-        "durationMs": 465,
+        "offsetMs": 3505,
+        "durationMs": 296,
+        "text": "说"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 296,
+        "text": "咦"
+      },
+      {
+        "offsetMs": 4562,
+        "durationMs": 400,
         "text": "今天"
       },
       {
-        "offsetMs": 1526,
-        "durationMs": 199,
+        "offsetMs": 4974,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 232,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 5361,
+        "durationMs": 142,
+        "text": "来"
+      },
+      {
+        "offsetMs": 5515,
+        "durationMs": 155,
+        "text": "接"
+      },
+      {
+        "offsetMs": 5670,
+        "durationMs": 103,
+        "text": "你"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 374,
+        "text": "放学"
+      },
+      {
+        "offsetMs": 6160,
+        "durationMs": 245,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 6985,
+        "durationMs": 284,
+        "text": "你们"
+      },
+      {
+        "offsetMs": 7268,
+        "durationMs": 193,
+        "text": "家"
+      },
+      {
+        "offsetMs": 7474,
+        "durationMs": 515,
+        "text": "平时"
+      },
+      {
+        "offsetMs": 8003,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 8144,
+        "durationMs": 206,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 335,
+        "text": "安排"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 387,
+        "text": "接送"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 9201,
+        "durationMs": 232,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 10013,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 10155,
+        "durationMs": 168,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10335,
+        "durationMs": 193,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 10541,
+        "durationMs": 374,
+        "text": "回应"
+      },
+      {
+        "offsetMs": 10915,
+        "durationMs": 232,
+        "text": "呢"
+      },
+      {
+        "offsetMs": 11727,
+        "durationMs": 258,
+        "text": "怎么"
+      },
+      {
+        "offsetMs": 11985,
+        "durationMs": 348,
+        "text": "说"
+      },
+      {
+        "offsetMs": 12590,
+        "durationMs": 180,
+        "text": "说"
+      },
+      {
+        "offsetMs": 12771,
+        "durationMs": 477,
+        "text": "多少"
+      },
+      {
+        "offsetMs": 13338,
+        "durationMs": 284,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 13634,
+        "durationMs": 374,
+        "text": "停下"
+      },
+      {
+        "offsetMs": 14021,
+        "durationMs": 477,
+        "text": "对话"
+      },
+      {
+        "offsetMs": 14729,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 14884,
+        "durationMs": 155,
+        "text": "由"
+      },
+      {
+        "offsetMs": 15039,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 15193,
+        "durationMs": 400,
+        "text": "决定"
+      }
+    ]
+  },
+  "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界": {
+    "id": "playful-buddy:我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "normKey": "我们重新开始这个情境你可以尝试不同的回答转移话题或者直接划定边界",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c691104d5375bdb5.mp3",
+    "durationMs": 6815,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
         "text": "我们"
       },
       {
-        "offsetMs": 1739,
-        "durationMs": 346,
-        "text": "一起"
+        "offsetMs": 385,
+        "durationMs": 464,
+        "text": "重新"
       },
       {
-        "offsetMs": 2098,
-        "durationMs": 146,
-        "text": "做"
+        "offsetMs": 862,
+        "durationMs": 309,
+        "text": "开始"
       },
       {
-        "offsetMs": 2244,
-        "durationMs": 692,
-        "text": "深呼吸"
+        "offsetMs": 1184,
+        "durationMs": 232,
+        "text": "这个"
       },
       {
-        "offsetMs": 3228,
-        "durationMs": 319,
-        "text": "慢慢"
+        "offsetMs": 1429,
+        "durationMs": 490,
+        "text": "情境"
       },
       {
-        "offsetMs": 3574,
-        "durationMs": 399,
-        "text": "退后"
+        "offsetMs": 2189,
+        "durationMs": 103,
+        "text": "你"
       },
       {
-        "offsetMs": 3986,
-        "durationMs": 106,
+        "offsetMs": 2305,
+        "durationMs": 271,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2589,
+        "durationMs": 400,
+        "text": "尝试"
+      },
+      {
+        "offsetMs": 3001,
+        "durationMs": 322,
+        "text": "不同"
+      },
+      {
+        "offsetMs": 3323,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3426,
+        "durationMs": 451,
+        "text": "回答"
+      },
+      {
+        "offsetMs": 4109,
+        "durationMs": 296,
+        "text": "转移"
+      },
+      {
+        "offsetMs": 4419,
+        "durationMs": 554,
+        "text": "话题"
+      },
+      {
+        "offsetMs": 5089,
+        "durationMs": 322,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5424,
+        "durationMs": 335,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 5772,
+        "durationMs": 361,
+        "text": "划定"
+      },
+      {
+        "offsetMs": 6145,
+        "durationMs": 490,
+        "text": "边界"
+      }
+    ]
+  },
+  "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "playful-buddy:池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "池塘边的唯一红帆船晴朗水塘里只有一条红帆小木船小兔提莫想先当船长冲浪小熊波波也想自己掌舵去芦苇丛谁都不想在岸边空手干等太久请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-69609765da209e02.mp3",
+    "durationMs": 22177,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 425,
+        "text": "池塘"
+      },
+      {
+        "offsetMs": 527,
+        "durationMs": 180,
+        "text": "边"
+      },
+      {
+        "offsetMs": 707,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 823,
+        "durationMs": 309,
+        "text": "唯一"
+      },
+      {
+        "offsetMs": 1145,
+        "durationMs": 219,
+        "text": "红"
+      },
+      {
+        "offsetMs": 1364,
+        "durationMs": 567,
+        "text": "帆船"
+      },
+      {
+        "offsetMs": 2513,
+        "durationMs": 400,
+        "text": "晴朗"
+      },
+      {
+        "offsetMs": 2925,
+        "durationMs": 425,
+        "text": "水塘"
+      },
+      {
+        "offsetMs": 3350,
+        "durationMs": 206,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3673,
+        "durationMs": 258,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 361,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 4317,
+        "durationMs": 374,
+        "text": "红帆"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4884,
+        "durationMs": 490,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 438,
+        "text": "小兔"
+      },
+      {
+        "offsetMs": 6405,
+        "durationMs": 361,
+        "text": "提莫"
+      },
+      {
+        "offsetMs": 6765,
+        "durationMs": 322,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7191,
+        "durationMs": 219,
+        "text": "先"
+      },
+      {
+        "offsetMs": 7410,
+        "durationMs": 155,
+        "text": "当"
+      },
+      {
+        "offsetMs": 7577,
+        "durationMs": 387,
+        "text": "船长"
+      },
+      {
+        "offsetMs": 7977,
+        "durationMs": 425,
+        "text": "冲浪"
+      },
+      {
+        "offsetMs": 8686,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8892,
+        "durationMs": 206,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 9098,
+        "durationMs": 425,
+        "text": "波波"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 180,
+        "text": "也"
+      },
+      {
+        "offsetMs": 9716,
+        "durationMs": 180,
+        "text": "想"
+      },
+      {
+        "offsetMs": 9910,
+        "durationMs": 258,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 10180,
+        "durationMs": 374,
+        "text": "掌舵"
+      },
+      {
+        "offsetMs": 10567,
+        "durationMs": 155,
+        "text": "去"
+      },
+      {
+        "offsetMs": 10735,
+        "durationMs": 322,
+        "text": "芦苇"
+      },
+      {
+        "offsetMs": 11057,
+        "durationMs": 361,
+        "text": "丛"
+      },
+      {
+        "offsetMs": 11688,
+        "durationMs": 219,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 11907,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 12075,
+        "durationMs": 361,
+        "text": "不想"
+      },
+      {
+        "offsetMs": 12448,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 12590,
+        "durationMs": 335,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 12938,
+        "durationMs": 425,
+        "text": "空手"
+      },
+      {
+        "offsetMs": 13376,
+        "durationMs": 348,
+        "text": "干等"
+      },
+      {
+        "offsetMs": 13737,
+        "durationMs": 245,
+        "text": "太"
+      },
+      {
+        "offsetMs": 13982,
+        "durationMs": 284,
+        "text": "久"
+      },
+      {
+        "offsetMs": 14845,
+        "durationMs": 245,
+        "text": "请"
+      },
+      {
+        "offsetMs": 15103,
+        "durationMs": 258,
+        "text": "先"
+      },
+      {
+        "offsetMs": 15374,
+        "durationMs": 284,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 15670,
+        "durationMs": 374,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 16057,
+        "durationMs": 503,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 16843,
+        "durationMs": 387,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 17242,
+        "durationMs": 335,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 17590,
+        "durationMs": 490,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 18196,
+        "durationMs": 168,
+        "text": "或"
+      },
+      {
+        "offsetMs": 18376,
+        "durationMs": 374,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 18763,
+        "durationMs": 425,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 19510,
+        "durationMs": 412,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 19936,
+        "durationMs": 348,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 20296,
+        "durationMs": 374,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 20683,
+        "durationMs": 374,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 21070,
+        "durationMs": 322,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 21405,
+        "durationMs": 361,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 21765,
+        "durationMs": 232,
+        "text": "吧"
+      }
+    ]
+  },
+  "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧": {
+    "id": "playful-buddy:浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "normKey": "浅水溪湾的松果渡船挑战浅水溪湾需要把岸上的松果运到对岸小岛但现场只有一条小木船一支船桨和岸边的挖掘机如果两个人抢着单干船容易卡在浅滩石头旁请先移动小船位置设置轮流秒数或合作方案再点开始执行观察实验结果吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-bdaf8d909deda788.mp3",
+    "durationMs": 23608,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 322,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 926,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1029,
+        "durationMs": 400,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 1442,
+        "durationMs": 348,
+        "text": "渡船"
+      },
+      {
+        "offsetMs": 1803,
+        "durationMs": 464,
+        "text": "挑战"
+      },
+      {
+        "offsetMs": 2848,
+        "durationMs": 503,
+        "text": "浅水"
+      },
+      {
+        "offsetMs": 3363,
+        "durationMs": 477,
+        "text": "溪湾"
+      },
+      {
+        "offsetMs": 3943,
+        "durationMs": 296,
+        "text": "需要"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 116,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4381,
+        "durationMs": 322,
+        "text": "岸上"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 477,
+        "text": "松果"
+      },
+      {
+        "offsetMs": 5374,
+        "durationMs": 155,
+        "text": "运"
+      },
+      {
+        "offsetMs": 5528,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 5657,
+        "durationMs": 271,
+        "text": "对岸"
+      },
+      {
+        "offsetMs": 5941,
+        "durationMs": 206,
+        "text": "小"
+      },
+      {
+        "offsetMs": 6147,
+        "durationMs": 258,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 6740,
+        "durationMs": 168,
+        "text": "但"
+      },
+      {
+        "offsetMs": 6920,
+        "durationMs": 477,
+        "text": "现场"
+      },
+      {
+        "offsetMs": 7410,
+        "durationMs": 232,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 7655,
+        "durationMs": 322,
+        "text": "一条"
+      },
+      {
+        "offsetMs": 7990,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 8183,
+        "durationMs": 515,
+        "text": "木船"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 155,
         "text": "一"
       },
       {
-        "offsetMs": 4093,
-        "durationMs": 106,
-        "text": "步"
+        "offsetMs": 9085,
+        "durationMs": 129,
+        "text": "支"
       },
       {
-        "offsetMs": 4226,
-        "durationMs": 213,
+        "offsetMs": 9227,
+        "durationMs": 309,
+        "text": "船"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 271,
+        "text": "桨"
+      },
+      {
+        "offsetMs": 9923,
+        "durationMs": 168,
+        "text": "和"
+      },
+      {
+        "offsetMs": 10103,
+        "durationMs": 361,
+        "text": "岸边"
+      },
+      {
+        "offsetMs": 10464,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 10554,
+        "durationMs": 657,
+        "text": "挖掘机"
+      },
+      {
+        "offsetMs": 11791,
+        "durationMs": 361,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 12165,
+        "durationMs": 206,
+        "text": "两"
+      },
+      {
+        "offsetMs": 12371,
+        "durationMs": 103,
+        "text": "个"
+      },
+      {
+        "offsetMs": 12474,
+        "durationMs": 180,
+        "text": "人"
+      },
+      {
+        "offsetMs": 12668,
+        "durationMs": 219,
+        "text": "抢"
+      },
+      {
+        "offsetMs": 12887,
+        "durationMs": 90,
+        "text": "着"
+      },
+      {
+        "offsetMs": 12990,
+        "durationMs": 451,
+        "text": "单干"
+      },
+      {
+        "offsetMs": 13660,
+        "durationMs": 309,
+        "text": "船"
+      },
+      {
+        "offsetMs": 13982,
+        "durationMs": 296,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 14291,
+        "durationMs": 206,
+        "text": "卡"
+      },
+      {
+        "offsetMs": 14497,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 14652,
+        "durationMs": 425,
+        "text": "浅滩"
+      },
+      {
+        "offsetMs": 15090,
+        "durationMs": 309,
+        "text": "石头"
+      },
+      {
+        "offsetMs": 15400,
+        "durationMs": 296,
+        "text": "旁"
+      },
+      {
+        "offsetMs": 16276,
+        "durationMs": 245,
+        "text": "请"
+      },
+      {
+        "offsetMs": 16534,
+        "durationMs": 258,
+        "text": "先"
+      },
+      {
+        "offsetMs": 16804,
+        "durationMs": 284,
+        "text": "移动"
+      },
+      {
+        "offsetMs": 17100,
+        "durationMs": 374,
+        "text": "小船"
+      },
+      {
+        "offsetMs": 17487,
+        "durationMs": 503,
+        "text": "位置"
+      },
+      {
+        "offsetMs": 18273,
+        "durationMs": 387,
+        "text": "设置"
+      },
+      {
+        "offsetMs": 18673,
+        "durationMs": 335,
+        "text": "轮流"
+      },
+      {
+        "offsetMs": 19021,
+        "durationMs": 490,
+        "text": "秒数"
+      },
+      {
+        "offsetMs": 19626,
+        "durationMs": 168,
+        "text": "或"
+      },
+      {
+        "offsetMs": 19807,
+        "durationMs": 374,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 20193,
+        "durationMs": 425,
+        "text": "方案"
+      },
+      {
+        "offsetMs": 20941,
+        "durationMs": 412,
+        "text": "再点"
+      },
+      {
+        "offsetMs": 21366,
+        "durationMs": 348,
+        "text": "开始"
+      },
+      {
+        "offsetMs": 21727,
+        "durationMs": 374,
+        "text": "执行"
+      },
+      {
+        "offsetMs": 22113,
+        "durationMs": 374,
+        "text": "观察"
+      },
+      {
+        "offsetMs": 22500,
+        "durationMs": 322,
+        "text": "实验"
+      },
+      {
+        "offsetMs": 22835,
+        "durationMs": 361,
+        "text": "结果"
+      },
+      {
+        "offsetMs": 23196,
+        "durationMs": 232,
+        "text": "吧"
+      }
+    ]
+  },
+  "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案": {
+    "id": "playful-buddy:我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "normKey": "我们停下来重新商量你可以调整谁先玩每轮几秒或者换成合作方案",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-432b58c238228edf.mp3",
+    "durationMs": 6778,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 219,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 334,
+        "durationMs": 232,
+        "text": "停"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 284,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 374,
+        "text": "重新"
+      },
+      {
+        "offsetMs": 1248,
+        "durationMs": 387,
+        "text": "商量"
+      },
+      {
+        "offsetMs": 2216,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2384,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2719,
+        "durationMs": 399,
+        "text": "调整"
+      },
+      {
+        "offsetMs": 3119,
+        "durationMs": 193,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 3325,
+        "durationMs": 206,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3531,
+        "durationMs": 284,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 4046,
+        "durationMs": 180,
+        "text": "每"
+      },
+      {
+        "offsetMs": 4227,
+        "durationMs": 180,
+        "text": "轮"
+      },
+      {
+        "offsetMs": 4420,
+        "durationMs": 180,
+        "text": "几"
+      },
+      {
+        "offsetMs": 4600,
+        "durationMs": 296,
+        "text": "秒"
+      },
+      {
+        "offsetMs": 5013,
+        "durationMs": 361,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5387,
+        "durationMs": 400,
+        "text": "换成"
+      },
+      {
+        "offsetMs": 5799,
+        "durationMs": 361,
+        "text": "合作"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 425,
+        "text": "方案"
+      }
+    ]
+  },
+  "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么": {
+    "id": "playful-buddy:点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "normKey": "点击或移动桌上的蓝水杯让它先后挨着左边的小积木和右边的大水桶看看会发生什么",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a77124c17461b59d.mp3",
+    "durationMs": 7782,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 554,
+        "text": "点击"
+      },
+      {
+        "offsetMs": 669,
+        "durationMs": 180,
+        "text": "或"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 490,
+        "text": "移动桌"
+      },
+      {
+        "offsetMs": 1352,
+        "durationMs": 168,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1519,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 644,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 2589,
+        "durationMs": 193,
+        "text": "让"
+      },
+      {
+        "offsetMs": 2782,
+        "durationMs": 142,
+        "text": "它"
+      },
+      {
+        "offsetMs": 2937,
+        "durationMs": 412,
+        "text": "先后"
+      },
+      {
+        "offsetMs": 3362,
+        "durationMs": 155,
+        "text": "挨"
+      },
+      {
+        "offsetMs": 3516,
+        "durationMs": 129,
+        "text": "着"
+      },
+      {
+        "offsetMs": 3658,
+        "durationMs": 374,
+        "text": "左边"
+      },
+      {
+        "offsetMs": 4032,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4135,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4315,
+        "durationMs": 425,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 4882,
+        "durationMs": 116,
+        "text": "和"
+      },
+      {
+        "offsetMs": 5011,
+        "durationMs": 348,
+        "text": "右边"
+      },
+      {
+        "offsetMs": 5359,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5462,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 5617,
+        "durationMs": 477,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 6364,
+        "durationMs": 361,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 6738,
+        "durationMs": 129,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6880,
+        "durationMs": 309,
+        "text": "发生"
+      },
+      {
+        "offsetMs": 7202,
+        "durationMs": 400,
+        "text": "什么"
+      }
+    ]
+  },
+  "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧": {
+    "id": "playful-buddy:把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "normKey": "把蓝水杯移到小积木旁边杯子比小积木高好多跳跳开心得蹦起来说看是大杯子吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-791b016a1d85516f.mp3",
+    "durationMs": 7885,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 155,
+        "text": "把"
+      },
+      {
+        "offsetMs": 269,
+        "durationMs": 619,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 129,
+        "text": "移"
+      },
+      {
+        "offsetMs": 1029,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1352,
+        "durationMs": 309,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 1674,
+        "durationMs": 515,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 464,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 3091,
+        "durationMs": 142,
+        "text": "比"
+      },
+      {
+        "offsetMs": 3246,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3426,
+        "durationMs": 335,
+        "text": "积木"
+      },
+      {
+        "offsetMs": 3774,
+        "durationMs": 155,
+        "text": "高"
+      },
+      {
+        "offsetMs": 3929,
+        "durationMs": 515,
+        "text": "好多"
+      },
+      {
+        "offsetMs": 4728,
+        "durationMs": 400,
+        "text": "跳跳"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 387,
+        "text": "开心"
+      },
+      {
+        "offsetMs": 5527,
+        "durationMs": 103,
+        "text": "得"
+      },
+      {
+        "offsetMs": 5643,
+        "durationMs": 180,
+        "text": "蹦"
+      },
+      {
+        "offsetMs": 5823,
+        "durationMs": 245,
+        "text": "起来"
+      },
+      {
+        "offsetMs": 6081,
+        "durationMs": 193,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6287,
+        "durationMs": 271,
         "text": "看"
       },
       {
-        "offsetMs": 4438,
-        "durationMs": 93,
+        "offsetMs": 6764,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 6919,
+        "durationMs": 541,
+        "text": "大杯子"
+      },
+      {
+        "offsetMs": 7460,
+        "durationMs": 245,
+        "text": "吧"
+      }
+    ]
+  },
+  "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小": {
+    "id": "playful-buddy:把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "normKey": "把蓝水杯移到大水桶旁边杯子在大水桶旁边显得好小噗噗笑着晃鼻子说看跟我的水桶比它真小",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-b0a5e8494a1d89c1.mp3",
+    "durationMs": 8670,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 256,
+        "durationMs": 593,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 862,
+        "durationMs": 129,
+        "text": "移"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 129,
+        "text": "到"
+      },
+      {
+        "offsetMs": 1132,
+        "durationMs": 180,
+        "text": "大"
+      },
+      {
+        "offsetMs": 1313,
+        "durationMs": 335,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 1661,
+        "durationMs": 490,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 335,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 2808,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2962,
+        "durationMs": 155,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3117,
+        "durationMs": 374,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 3504,
+        "durationMs": 464,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 3980,
+        "durationMs": 309,
+        "text": "显得"
+      },
+      {
+        "offsetMs": 4303,
+        "durationMs": 554,
+        "text": "好小"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 335,
+        "text": "噗噗"
+      },
+      {
+        "offsetMs": 5475,
+        "durationMs": 193,
+        "text": "笑"
+      },
+      {
+        "offsetMs": 5669,
+        "durationMs": 309,
+        "text": "着晃"
+      },
+      {
+        "offsetMs": 5991,
+        "durationMs": 271,
+        "text": "鼻子"
+      },
+      {
+        "offsetMs": 6261,
+        "durationMs": 180,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6455,
+        "durationMs": 258,
+        "text": "看"
+      },
+      {
+        "offsetMs": 6919,
+        "durationMs": 155,
+        "text": "跟"
+      },
+      {
+        "offsetMs": 7086,
+        "durationMs": 129,
+        "text": "我"
+      },
+      {
+        "offsetMs": 7215,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7318,
+        "durationMs": 387,
+        "text": "水桶"
+      },
+      {
+        "offsetMs": 7718,
+        "durationMs": 116,
+        "text": "比"
+      },
+      {
+        "offsetMs": 7834,
+        "durationMs": 129,
+        "text": "它"
+      },
+      {
+        "offsetMs": 7975,
+        "durationMs": 206,
+        "text": "真"
+      },
+      {
+        "offsetMs": 8181,
+        "durationMs": 309,
+        "text": "小"
+      }
+    ]
+  },
+  "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变": {
+    "id": "playful-buddy:蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "normKey": "蓝水杯回到桌子中间杯身上的两格水位线一点儿没变杯子自己的大小没有改变",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-32cc7034bd113982.mp3",
+    "durationMs": 7008,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 631,
+        "text": "蓝水杯"
+      },
+      {
+        "offsetMs": 746,
+        "durationMs": 309,
+        "text": "回到"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 309,
+        "text": "桌子"
+      },
+      {
+        "offsetMs": 1390,
+        "durationMs": 451,
+        "text": "中间"
+      },
+      {
+        "offsetMs": 2163,
+        "durationMs": 168,
+        "text": "杯"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 348,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2692,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2795,
+        "durationMs": 348,
+        "text": "两格"
+      },
+      {
+        "offsetMs": 3156,
+        "durationMs": 644,
+        "text": "水位线"
+      },
+      {
+        "offsetMs": 3916,
+        "durationMs": 284,
+        "text": "一点儿"
+      },
+      {
+        "offsetMs": 4212,
+        "durationMs": 180,
+        "text": "没"
+      },
+      {
+        "offsetMs": 4393,
+        "durationMs": 258,
+        "text": "变"
+      },
+      {
+        "offsetMs": 4986,
+        "durationMs": 335,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5334,
+        "durationMs": 271,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 5604,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5707,
+        "durationMs": 425,
+        "text": "大小"
+      },
+      {
+        "offsetMs": 6145,
+        "durationMs": 232,
+        "text": "没有"
+      },
+      {
+        "offsetMs": 6390,
+        "durationMs": 438,
+        "text": "改变"
+      }
+    ]
+  },
+  "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧": {
+    "id": "playful-buddy:森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "normKey": "森林木地板上只有一辆红色小火车头小熊和小浣熊都想现在玩先点点地上的物件看看都有什么吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-87c32ef55073df06.mp3",
+    "durationMs": 9316,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 503,
+        "text": "森林木"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 348,
+        "text": "地板"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 284,
+        "text": "上"
+      },
+      {
+        "offsetMs": 1326,
+        "durationMs": 245,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 1584,
+        "durationMs": 168,
         "text": "一"
       },
       {
-        "offsetMs": 4531,
-        "durationMs": 279,
+        "offsetMs": 1751,
+        "durationMs": 168,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 335,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 2279,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 631,
+        "text": "火车头"
+      },
+      {
+        "offsetMs": 3400,
+        "durationMs": 219,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3620,
+        "durationMs": 232,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 3864,
+        "durationMs": 129,
+        "text": "和"
+      },
+      {
+        "offsetMs": 4006,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4187,
+        "durationMs": 515,
+        "text": "浣熊"
+      },
+      {
+        "offsetMs": 4805,
+        "durationMs": 168,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 155,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5140,
+        "durationMs": 348,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 5488,
+        "durationMs": 284,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 6353,
+        "durationMs": 335,
+        "text": "先"
+      },
+      {
+        "offsetMs": 6688,
+        "durationMs": 168,
+        "text": "点"
+      },
+      {
+        "offsetMs": 6869,
+        "durationMs": 168,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7049,
+        "durationMs": 284,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 7332,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7436,
+        "durationMs": 335,
+        "text": "物件"
+      },
+      {
+        "offsetMs": 7784,
+        "durationMs": 464,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 8363,
+        "durationMs": 155,
+        "text": "都"
+      },
+      {
+        "offsetMs": 8518,
+        "durationMs": 142,
+        "text": "有"
+      },
+      {
+        "offsetMs": 8673,
+        "durationMs": 258,
+        "text": "什么"
+      },
+      {
+        "offsetMs": 8930,
+        "durationMs": 206,
+        "text": "吧"
+      }
+    ]
+  },
+  "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧": {
+    "id": "playful-buddy:夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "normKey": "夜晚的树屋帐篷外晃动着一个神秘黑影身旁的小刺猬紧张地追问你的隐私秘密而地上只有一件照明工具大家都想拿先转动光束照一照吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-8b4c8979adf33d01.mp3",
+    "durationMs": 13041,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 400,
+        "text": "夜晚"
+      },
+      {
+        "offsetMs": 501,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 617,
+        "durationMs": 335,
+        "text": "树屋"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 374,
+        "text": "帐篷"
+      },
+      {
+        "offsetMs": 1339,
+        "durationMs": 271,
+        "text": "外"
+      },
+      {
+        "offsetMs": 1725,
+        "durationMs": 387,
+        "text": "晃动"
+      },
+      {
+        "offsetMs": 2112,
+        "durationMs": 90,
+        "text": "着"
+      },
+      {
+        "offsetMs": 2215,
+        "durationMs": 180,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 2408,
+        "durationMs": 309,
+        "text": "神秘"
+      },
+      {
+        "offsetMs": 2730,
+        "durationMs": 438,
+        "text": "黑影"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 503,
+        "text": "身旁"
+      },
+      {
+        "offsetMs": 4253,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4356,
+        "durationMs": 193,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4549,
+        "durationMs": 451,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 5103,
+        "durationMs": 400,
+        "text": "紧张"
+      },
+      {
+        "offsetMs": 5503,
+        "durationMs": 90,
+        "text": "地"
+      },
+      {
+        "offsetMs": 5606,
+        "durationMs": 335,
+        "text": "追问"
+      },
+      {
+        "offsetMs": 5954,
+        "durationMs": 116,
+        "text": "你"
+      },
+      {
+        "offsetMs": 6070,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 374,
+        "text": "隐私"
+      },
+      {
+        "offsetMs": 6559,
+        "durationMs": 425,
+        "text": "秘密"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 193,
+        "text": "而"
+      },
+      {
+        "offsetMs": 7552,
+        "durationMs": 464,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 245,
+        "text": "只有"
+      },
+      {
+        "offsetMs": 8286,
+        "durationMs": 155,
+        "text": "一"
+      },
+      {
+        "offsetMs": 8441,
+        "durationMs": 180,
+        "text": "件"
+      },
+      {
+        "offsetMs": 8634,
+        "durationMs": 296,
+        "text": "照明"
+      },
+      {
+        "offsetMs": 8943,
+        "durationMs": 438,
+        "text": "工具"
+      },
+      {
+        "offsetMs": 9626,
+        "durationMs": 322,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 9961,
+        "durationMs": 180,
+        "text": "都"
+      },
+      {
+        "offsetMs": 10142,
+        "durationMs": 206,
+        "text": "想"
+      },
+      {
+        "offsetMs": 10348,
+        "durationMs": 271,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 11198,
+        "durationMs": 309,
+        "text": "先"
+      },
+      {
+        "offsetMs": 11508,
+        "durationMs": 335,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 11856,
+        "durationMs": 309,
+        "text": "光束"
+      },
+      {
+        "offsetMs": 12165,
+        "durationMs": 155,
+        "text": "照"
+      },
+      {
+        "offsetMs": 12332,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 12436,
+        "durationMs": 206,
+        "text": "照"
+      },
+      {
+        "offsetMs": 12642,
+        "durationMs": 219,
+        "text": "吧"
+      }
+    ]
+  },
+  "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛": {
+    "id": "playful-buddy:暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "normKey": "暂时不知道也没关系你可以先转动手电筒照一照或者先休息一下回小岛",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-4de9599e53edf01c.mp3",
+    "durationMs": 6842,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "暂时"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 116,
+        "text": "不"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 361,
+        "text": "知道"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 142,
+        "text": "也"
+      },
+      {
+        "offsetMs": 1210,
+        "durationMs": 606,
+        "text": "没关系"
+      },
+      {
+        "offsetMs": 2397,
+        "durationMs": 180,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2590,
+        "durationMs": 322,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 2925,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 3157,
+        "durationMs": 322,
+        "text": "转动"
+      },
+      {
+        "offsetMs": 3492,
+        "durationMs": 515,
+        "text": "手电筒"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 322,
+        "text": "照一"
+      },
+      {
+        "offsetMs": 4343,
+        "durationMs": 232,
+        "text": "照"
+      },
+      {
+        "offsetMs": 4832,
+        "durationMs": 400,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 5245,
+        "durationMs": 206,
+        "text": "先"
+      },
+      {
+        "offsetMs": 5464,
+        "durationMs": 309,
+        "text": "休息"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 258,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 6057,
+        "durationMs": 155,
+        "text": "回"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 451,
+        "text": "小岛"
+      }
+    ]
+  },
+  "你好呀今天我们一起做深呼吸慢慢退后一步看一看": {
+    "id": "playful-buddy:你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "normKey": "你好呀今天我们一起做深呼吸慢慢退后一步看一看",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-83bf48b80f8b6073.mp3",
+    "durationMs": 4689,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 335,
+        "text": "你好"
+      },
+      {
+        "offsetMs": 437,
+        "durationMs": 232,
+        "text": "呀"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 490,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 1493,
+        "durationMs": 193,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 1700,
+        "durationMs": 284,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 1996,
+        "durationMs": 142,
+        "text": "做"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 696,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 3091,
+        "durationMs": 309,
+        "text": "慢慢"
+      },
+      {
+        "offsetMs": 3413,
+        "durationMs": 322,
+        "text": "退后"
+      },
+      {
+        "offsetMs": 3748,
+        "durationMs": 103,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3852,
+        "durationMs": 103,
+        "text": "步"
+      },
+      {
+        "offsetMs": 3968,
+        "durationMs": 219,
+        "text": "看"
+      },
+      {
+        "offsetMs": 4187,
+        "durationMs": 77,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4264,
+        "durationMs": 245,
         "text": "看"
       }
     ]
   },
-  "我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。": {
-    "id": "warm-sister:我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。",
-    "normKey": "我看到你的积木倒了，心里有点难过对吗？这很正常，大人也会这样。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-9c00e975f0fc4347.mp3",
-    "durationMs": 6404,
+  "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样": {
+    "id": "playful-buddy:我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "normKey": "我看到你的积木倒了心里有点难过对吗这很正常大人也会这样",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-574289f3f4abd5ae.mp3",
+    "durationMs": 6160,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 146,
+        "offsetMs": 102,
+        "durationMs": 168,
         "text": "我"
       },
       {
-        "offsetMs": 249,
-        "durationMs": 332,
+        "offsetMs": 269,
+        "durationMs": 361,
         "text": "看到"
       },
       {
-        "offsetMs": 595,
-        "durationMs": 93,
+        "offsetMs": 643,
+        "durationMs": 103,
         "text": "你"
       },
       {
-        "offsetMs": 688,
-        "durationMs": 106,
+        "offsetMs": 746,
+        "durationMs": 90,
         "text": "的"
       },
       {
-        "offsetMs": 808,
-        "durationMs": 319,
+        "offsetMs": 849,
+        "durationMs": 296,
         "text": "积木"
       },
       {
-        "offsetMs": 1140,
-        "durationMs": 253,
+        "offsetMs": 1158,
+        "durationMs": 219,
         "text": "倒"
       },
       {
-        "offsetMs": 1393,
-        "durationMs": 239,
+        "offsetMs": 1377,
+        "durationMs": 245,
         "text": "了"
       },
       {
-        "offsetMs": 1965,
-        "durationMs": 253,
+        "offsetMs": 1906,
+        "durationMs": 387,
         "text": "心里"
       },
       {
-        "offsetMs": 2244,
-        "durationMs": 266,
+        "offsetMs": 2305,
+        "durationMs": 245,
         "text": "有点"
       },
       {
-        "offsetMs": 2523,
-        "durationMs": 372,
+        "offsetMs": 2563,
+        "durationMs": 322,
         "text": "难过"
       },
       {
-        "offsetMs": 2909,
-        "durationMs": 186,
+        "offsetMs": 2898,
+        "durationMs": 180,
         "text": "对"
       },
       {
-        "offsetMs": 3095,
-        "durationMs": 279,
+        "offsetMs": 3078,
+        "durationMs": 219,
         "text": "吗"
       },
       {
-        "offsetMs": 3976,
-        "durationMs": 146,
+        "offsetMs": 3879,
+        "durationMs": 155,
         "text": "这"
       },
       {
-        "offsetMs": 4136,
-        "durationMs": 226,
+        "offsetMs": 4046,
+        "durationMs": 206,
         "text": "很"
       },
       {
-        "offsetMs": 4362,
-        "durationMs": 545,
+        "offsetMs": 4253,
+        "durationMs": 451,
         "text": "正常"
       },
       {
-        "offsetMs": 5133,
-        "durationMs": 332,
+        "offsetMs": 4936,
+        "durationMs": 361,
         "text": "大人"
       },
       {
-        "offsetMs": 5492,
-        "durationMs": 146,
+        "offsetMs": 5309,
+        "durationMs": 142,
         "text": "也"
       },
       {
-        "offsetMs": 5638,
-        "durationMs": 146,
+        "offsetMs": 5451,
+        "durationMs": 142,
         "text": "会"
       },
       {
-        "offsetMs": 5798,
-        "durationMs": 426,
+        "offsetMs": 5606,
+        "durationMs": 374,
         "text": "这样"
       }
     ]
   },
-  "大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。": {
-    "id": "gentle-guide:大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。",
-    "normKey": "大人不住在一个房子里，是大人的决定。这件事百分之百不是因为你。",
-    "profileId": "gentle-guide",
-    "voiceName": "zh-CN-YunxiNeural",
-    "audioUrl": "/audio/tts/gentle-guide-0f94593cc3bf09f0.mp3",
-    "durationMs": 5965,
+  "大人不住在一个房子里是大人的决定这件事百分之百不是因为你": {
+    "id": "playful-buddy:大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人的决定这件事百分之百不是因为你",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-c3abedc5bf155dab.mp3",
+    "durationMs": 6160,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 319,
+        "offsetMs": 102,
+        "durationMs": 361,
         "text": "大人"
       },
       {
-        "offsetMs": 449,
-        "durationMs": 279,
+        "offsetMs": 475,
+        "durationMs": 309,
         "text": "不住"
       },
       {
-        "offsetMs": 728,
-        "durationMs": 93,
+        "offsetMs": 785,
+        "durationMs": 129,
         "text": "在"
       },
       {
-        "offsetMs": 835,
-        "durationMs": 146,
+        "offsetMs": 926,
+        "durationMs": 193,
         "text": "一个"
       },
       {
-        "offsetMs": 994,
-        "durationMs": 346,
+        "offsetMs": 1132,
+        "durationMs": 400,
         "text": "房子"
       },
       {
-        "offsetMs": 1340,
-        "durationMs": 306,
+        "offsetMs": 1532,
+        "durationMs": 180,
         "text": "里"
       },
       {
-        "offsetMs": 2045,
-        "durationMs": 199,
+        "offsetMs": 1931,
+        "durationMs": 142,
         "text": "是"
       },
       {
-        "offsetMs": 2257,
-        "durationMs": 239,
+        "offsetMs": 2086,
+        "durationMs": 322,
         "text": "大人"
       },
       {
-        "offsetMs": 2497,
-        "durationMs": 80,
+        "offsetMs": 2408,
+        "durationMs": 90,
         "text": "的"
       },
       {
-        "offsetMs": 2590,
-        "durationMs": 399,
+        "offsetMs": 2511,
+        "durationMs": 412,
         "text": "决定"
       },
       {
-        "offsetMs": 3604,
-        "durationMs": 226,
+        "offsetMs": 3505,
+        "durationMs": 193,
         "text": "这"
       },
       {
-        "offsetMs": 3830,
-        "durationMs": 160,
+        "offsetMs": 3698,
+        "durationMs": 206,
         "text": "件"
       },
       {
-        "offsetMs": 3989,
-        "durationMs": 306,
+        "offsetMs": 3905,
+        "durationMs": 374,
         "text": "事"
       },
       {
-        "offsetMs": 4402,
-        "durationMs": 638,
+        "offsetMs": 4394,
+        "durationMs": 709,
         "text": "百分之百"
       },
       {
-        "offsetMs": 5066,
-        "durationMs": 213,
+        "offsetMs": 5116,
+        "durationMs": 258,
         "text": "不是"
       },
       {
-        "offsetMs": 5293,
-        "durationMs": 186,
+        "offsetMs": 5387,
+        "durationMs": 309,
         "text": "因为"
       },
       {
-        "offsetMs": 5479,
-        "durationMs": 306,
+        "offsetMs": 5696,
+        "durationMs": 284,
         "text": "你"
       }
     ]
   },
-  "身边有老师或者家人时，可以直接走到他们面前拉拉衣角。": {
-    "id": "warm-sister:身边有老师或者家人时，可以直接走到他们面前拉拉衣角。",
-    "normKey": "身边有老师或者家人时，可以直接走到他们面前拉拉衣角。",
-    "profileId": "warm-sister",
-    "voiceName": "zh-CN-XiaoxiaoNeural",
-    "audioUrl": "/audio/tts/warm-sister-b097d503ad6a326e.mp3",
-    "durationMs": 5682,
+  "身边有老师或者家人时可以直接走到他们面前拉拉衣角": {
+    "id": "playful-buddy:身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "normKey": "身边有老师或者家人时可以直接走到他们面前拉拉衣角",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-7e40708424c6d409.mp3",
+    "durationMs": 5488,
     "boundaries": [
       {
-        "offsetMs": 103,
-        "durationMs": 665,
+        "offsetMs": 102,
+        "durationMs": 696,
         "text": "身边"
       },
       {
-        "offsetMs": 861,
-        "durationMs": 146,
+        "offsetMs": 900,
+        "durationMs": 116,
         "text": "有"
       },
       {
-        "offsetMs": 1021,
-        "durationMs": 465,
+        "offsetMs": 1029,
+        "durationMs": 438,
         "text": "老师"
       },
       {
-        "offsetMs": 1513,
+        "offsetMs": 1480,
+        "durationMs": 322,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 1815,
+        "durationMs": 412,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 335,
+        "text": "时"
+      },
+      {
+        "offsetMs": 2846,
+        "durationMs": 309,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3169,
+        "durationMs": 322,
+        "text": "直接"
+      },
+      {
+        "offsetMs": 3504,
+        "durationMs": 142,
+        "text": "走"
+      },
+      {
+        "offsetMs": 3645,
+        "durationMs": 116,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3774,
+        "durationMs": 296,
+        "text": "他们"
+      },
+      {
+        "offsetMs": 4084,
+        "durationMs": 400,
+        "text": "面前"
+      },
+      {
+        "offsetMs": 4496,
+        "durationMs": 296,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 4805,
+        "durationMs": 503,
+        "text": "衣角"
+      }
+    ]
+  },
+  "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧": {
+    "id": "playful-buddy:已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "normKey": "已记在这个平板的抱抱信箱里啦这不会发到远方手机上如果大人就在身边现在去拉拉他的衣角吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d30fdb30c0ce0cdc.mp3",
+    "durationMs": 8956,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 193,
+        "text": "已"
+      },
+      {
+        "offsetMs": 308,
+        "durationMs": 180,
+        "text": "记"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 142,
+        "text": "在"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 232,
+        "text": "这个"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 412,
+        "text": "平板"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 335,
+        "text": "抱抱"
+      },
+      {
+        "offsetMs": 1751,
+        "durationMs": 387,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 142,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2279,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 3067,
+        "durationMs": 155,
+        "text": "这"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 361,
+        "text": "不会"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 155,
+        "text": "发"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 129,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3892,
+        "durationMs": 374,
+        "text": "远方"
+      },
+      {
+        "offsetMs": 4278,
+        "durationMs": 387,
+        "text": "手机"
+      },
+      {
+        "offsetMs": 4665,
+        "durationMs": 245,
+        "text": "上"
+      },
+      {
+        "offsetMs": 5180,
+        "durationMs": 180,
+        "text": "如"
+      },
+      {
+        "offsetMs": 5374,
+        "durationMs": 619,
+        "text": "果大人"
+      },
+      {
+        "offsetMs": 6005,
+        "durationMs": 142,
+        "text": "就"
+      },
+      {
+        "offsetMs": 6147,
+        "durationMs": 129,
+        "text": "在"
+      },
+      {
+        "offsetMs": 6289,
+        "durationMs": 477,
+        "text": "身边"
+      },
+      {
+        "offsetMs": 7049,
+        "durationMs": 400,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 7461,
+        "durationMs": 129,
+        "text": "去"
+      },
+      {
+        "offsetMs": 7590,
+        "durationMs": 271,
+        "text": "拉拉"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 155,
+        "text": "他"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 387,
+        "text": "衣角"
+      },
+      {
+        "offsetMs": 8518,
+        "durationMs": 258,
+        "text": "吧"
+      }
+    ]
+  },
+  "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索": {
+    "id": "playful-buddy:选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "normKey": "选择你喜欢的动物伙伴它们会陪你一起在小岛上探索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-1e7619f28dc50063.mp3",
+    "durationMs": 4739,
+    "boundaries": [
+      {
+        "offsetMs": 100,
+        "durationMs": 593,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 706,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 860,
+        "durationMs": 361,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1221,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1324,
+        "durationMs": 232,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 1569,
+        "durationMs": 451,
+        "text": "伙伴"
+      },
+      {
+        "offsetMs": 2329,
+        "durationMs": 258,
+        "text": "它们"
+      },
+      {
+        "offsetMs": 2600,
+        "durationMs": 155,
+        "text": "会"
+      },
+      {
+        "offsetMs": 2755,
+        "durationMs": 206,
+        "text": "陪"
+      },
+      {
+        "offsetMs": 2961,
+        "durationMs": 142,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3115,
+        "durationMs": 284,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 3399,
+        "durationMs": 129,
+        "text": "在"
+      },
+      {
+        "offsetMs": 3541,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3721,
+        "durationMs": 168,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 3889,
+        "durationMs": 168,
+        "text": "上"
+      },
+      {
+        "offsetMs": 4069,
+        "durationMs": 490,
+        "text": "探索"
+      }
+    ]
+  },
+  "选择你喜欢的活动例如画画足球小动物或者拼图": {
+    "id": "playful-buddy:选择你喜欢的活动例如画画足球小动物或者拼图",
+    "normKey": "选择你喜欢的活动例如画画足球小动物或者拼图",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-dcde5dae95d84f8e.mp3",
+    "durationMs": 5707,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 528,
+        "text": "选择"
+      },
+      {
+        "offsetMs": 643,
+        "durationMs": 129,
+        "text": "你"
+      },
+      {
+        "offsetMs": 785,
+        "durationMs": 374,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 1158,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1261,
+        "durationMs": 412,
+        "text": "活动"
+      },
+      {
+        "offsetMs": 1957,
+        "durationMs": 400,
+        "text": "例如"
+      },
+      {
+        "offsetMs": 2447,
+        "durationMs": 490,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 3169,
+        "durationMs": 554,
+        "text": "足球"
+      },
+      {
+        "offsetMs": 3993,
+        "durationMs": 232,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4225,
+        "durationMs": 361,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 4689,
+        "durationMs": 271,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 4973,
+        "durationMs": 245,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 5218,
+        "durationMs": 309,
+        "text": "图"
+      }
+    ]
+  },
+  "语音提示已开启": {
+    "id": "playful-buddy:语音提示已开启",
+    "normKey": "语音提示已开启",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-5c735b62158bb56e.mp3",
+    "durationMs": 1776,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 361,
+        "text": "语音"
+      },
+      {
+        "offsetMs": 475,
+        "durationMs": 412,
+        "text": "提示"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 129,
+        "text": "已"
+      },
+      {
+        "offsetMs": 1042,
+        "durationMs": 554,
+        "text": "开启"
+      }
+    ]
+  },
+  "吸气一二三四感觉像闻一朵香香的小花": {
+    "id": "warm-sister:吸气一二三四感觉像闻一朵香香的小花",
+    "normKey": "吸气一二三四感觉像闻一朵香香的小花",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-1305cb00c25aff2b.mp3",
+    "durationMs": 5951,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 625,
+        "text": "吸气"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 266,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1486,
+        "durationMs": 266,
+        "text": "二"
+      },
+      {
+        "offsetMs": 2058,
+        "durationMs": 319,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 319,
+        "text": "四"
+      },
+      {
+        "offsetMs": 3590,
+        "durationMs": 399,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 4016,
+        "durationMs": 226,
+        "text": "像"
+      },
+      {
+        "offsetMs": 4242,
+        "durationMs": 133,
+        "text": "闻"
+      },
+      {
+        "offsetMs": 4388,
+        "durationMs": 146,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4535,
+        "durationMs": 146,
+        "text": "朵"
+      },
+      {
+        "offsetMs": 4707,
+        "durationMs": 412,
+        "text": "香香"
+      },
+      {
+        "offsetMs": 5120,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5213,
+        "durationMs": 558,
+        "text": "小花"
+      }
+    ]
+  },
+  "轻轻屏住呼吸一二": {
+    "id": "warm-sister:轻轻屏住呼吸一二",
+    "normKey": "轻轻屏住呼吸一二",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-cc934da57ddb0ab7.mp3",
+    "durationMs": 2744,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 465,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 239,
+        "text": "屏"
+      },
+      {
+        "offsetMs": 821,
+        "durationMs": 146,
+        "text": "住"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 545,
+        "text": "呼吸"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 266,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2271,
+        "durationMs": 293,
+        "text": "二"
+      }
+    ]
+  },
+  "呼气一二三四像把蒲公英的绒毛轻轻吹向天空": {
+    "id": "warm-sister:呼气一二三四像把蒲公英的绒毛轻轻吹向天空",
+    "normKey": "呼气一二三四像把蒲公英的绒毛轻轻吹向天空",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-7a0ef5a2e2a44f9e.mp3",
+    "durationMs": 6842,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 585,
+        "text": "呼气"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 279,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1473,
+        "durationMs": 266,
+        "text": "二"
+      },
+      {
+        "offsetMs": 2045,
+        "durationMs": 319,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2670,
+        "durationMs": 332,
+        "text": "四"
+      },
+      {
+        "offsetMs": 3604,
+        "durationMs": 253,
+        "text": "像"
+      },
+      {
+        "offsetMs": 3856,
+        "durationMs": 120,
+        "text": "把"
+      },
+      {
+        "offsetMs": 4003,
+        "durationMs": 505,
+        "text": "蒲公英"
+      },
+      {
+        "offsetMs": 4508,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4614,
+        "durationMs": 532,
+        "text": "绒毛"
+      },
+      {
+        "offsetMs": 5253,
+        "durationMs": 452,
+        "text": "轻轻"
+      },
+      {
+        "offsetMs": 5718,
+        "durationMs": 199,
+        "text": "吹"
+      },
+      {
+        "offsetMs": 5918,
+        "durationMs": 199,
+        "text": "向"
+      },
+      {
+        "offsetMs": 6130,
+        "durationMs": 532,
+        "text": "天空"
+      }
+    ]
+  },
+  "全身松松软软的你做得很棒什么时候想停下来都可以": {
+    "id": "warm-sister:全身松松软软的你做得很棒什么时候想停下来都可以",
+    "normKey": "全身松松软软的你做得很棒什么时候想停下来都可以",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-6f0ad00f5eb88723.mp3",
+    "durationMs": 5283,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 465,
+        "text": "全身"
+      },
+      {
+        "offsetMs": 595,
+        "durationMs": 386,
+        "text": "松松"
+      },
+      {
+        "offsetMs": 981,
+        "durationMs": 479,
+        "text": "软软"
+      },
+      {
+        "offsetMs": 1460,
+        "durationMs": 213,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2018,
+        "durationMs": 93,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2138,
+        "durationMs": 146,
+        "text": "做"
+      },
+      {
+        "offsetMs": 2284,
+        "durationMs": 93,
+        "text": "得"
+      },
+      {
+        "offsetMs": 2390,
+        "durationMs": 226,
+        "text": "很"
+      },
+      {
+        "offsetMs": 2616,
+        "durationMs": 266,
+        "text": "棒"
+      },
+      {
+        "offsetMs": 3162,
+        "durationMs": 612,
+        "text": "什么时候"
+      },
+      {
+        "offsetMs": 3787,
+        "durationMs": 199,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3986,
+        "durationMs": 213,
+        "text": "停"
+      },
+      {
+        "offsetMs": 4199,
+        "durationMs": 306,
+        "text": "下来"
+      },
+      {
+        "offsetMs": 4518,
+        "durationMs": 146,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4664,
+        "durationMs": 439,
+        "text": "可以"
+      }
+    ]
+  },
+  "情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳": {
+    "id": "playful-buddy:情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳",
+    "normKey": "情绪天气站看看今天心里是晴天阴天还是下小雨每种天气都被接纳",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-a5461f5c7104ea97.mp3",
+    "durationMs": 7230,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 438,
+        "text": "情绪"
+      },
+      {
+        "offsetMs": 553,
+        "durationMs": 348,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 900,
+        "durationMs": 245,
+        "text": "站"
+      },
+      {
+        "offsetMs": 1727,
+        "durationMs": 387,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 2126,
+        "durationMs": 374,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 2513,
+        "durationMs": 309,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 2835,
+        "durationMs": 142,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2977,
+        "durationMs": 528,
+        "text": "晴天"
+      },
+      {
+        "offsetMs": 3776,
+        "durationMs": 528,
+        "text": "阴天"
+      },
+      {
+        "offsetMs": 4407,
+        "durationMs": 271,
+        "text": "还是"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 155,
+        "text": "下"
+      },
+      {
+        "offsetMs": 4858,
+        "durationMs": 528,
+        "text": "小雨"
+      },
+      {
+        "offsetMs": 5631,
+        "durationMs": 155,
+        "text": "每"
+      },
+      {
+        "offsetMs": 5786,
+        "durationMs": 180,
+        "text": "种"
+      },
+      {
+        "offsetMs": 5979,
+        "durationMs": 400,
+        "text": "天气"
+      },
+      {
+        "offsetMs": 6392,
+        "durationMs": 116,
+        "text": "都"
+      },
+      {
+        "offsetMs": 6508,
+        "durationMs": 129,
+        "text": "被"
+      },
+      {
+        "offsetMs": 6650,
+        "durationMs": 400,
+        "text": "接纳"
+      }
+    ]
+  },
+  "故事林打开三扇思考小门听听森林里发生的故事": {
+    "id": "warm-sister:故事林打开三扇思考小门听听森林里发生的故事",
+    "normKey": "故事林打开三扇思考小门听听森林里发生的故事",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-c8f0f0c69e034ec1.mp3",
+    "durationMs": 5898,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 412,
+        "text": "故事"
+      },
+      {
+        "offsetMs": 515,
+        "durationMs": 386,
+        "text": "林"
+      },
+      {
+        "offsetMs": 1489,
+        "durationMs": 426,
+        "text": "打开"
+      },
+      {
+        "offsetMs": 1928,
+        "durationMs": 253,
+        "text": "三"
+      },
+      {
+        "offsetMs": 2181,
+        "durationMs": 239,
+        "text": "扇"
+      },
+      {
+        "offsetMs": 2447,
+        "durationMs": 332,
+        "text": "思考"
+      },
+      {
+        "offsetMs": 2793,
+        "durationMs": 572,
+        "text": "小门"
+      },
+      {
+        "offsetMs": 3644,
+        "durationMs": 359,
+        "text": "听听"
+      },
+      {
+        "offsetMs": 4029,
+        "durationMs": 412,
+        "text": "森林"
+      },
+      {
+        "offsetMs": 4442,
+        "durationMs": 226,
+        "text": "里"
+      },
+      {
+        "offsetMs": 4694,
+        "durationMs": 186,
+        "text": "发"
+      },
+      {
+        "offsetMs": 4880,
+        "durationMs": 838,
+        "text": "生的故事"
+      }
+    ]
+  },
+  "想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想": {
+    "id": "playful-buddy:想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想",
+    "normKey": "想法侦探社拿起放大镜找一找哪些是眼睛看到的事实哪些是心里的猜想",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-f3e1cc915ac20adc.mp3",
+    "durationMs": 7538,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 490,
+        "text": "想法"
+      },
+      {
+        "offsetMs": 604,
+        "durationMs": 438,
+        "text": "侦探"
+      },
+      {
+        "offsetMs": 1042,
+        "durationMs": 284,
+        "text": "社"
+      },
+      {
+        "offsetMs": 1907,
+        "durationMs": 361,
+        "text": "拿起"
+      },
+      {
+        "offsetMs": 2281,
+        "durationMs": 631,
+        "text": "放大镜"
+      },
+      {
+        "offsetMs": 3183,
+        "durationMs": 193,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3376,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3505,
+        "durationMs": 245,
+        "text": "找"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 387,
+        "text": "哪些"
+      },
+      {
+        "offsetMs": 4240,
+        "durationMs": 129,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4381,
+        "durationMs": 322,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 4716,
+        "durationMs": 309,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 5026,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5116,
+        "durationMs": 503,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 5902,
+        "durationMs": 361,
+        "text": "哪些"
+      },
+      {
+        "offsetMs": 6263,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 6392,
+        "durationMs": 322,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6714,
+        "durationMs": 77,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6804,
+        "durationMs": 554,
+        "text": "猜想"
+      }
+    ]
+  },
+  "勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来": {
+    "id": "gentle-guide:勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来",
+    "normKey": "勇气说话屋遇到不舒服或者想不清楚的事练习温和又清楚地说出来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-b633a0a54e0df661.mp3",
+    "durationMs": 6887,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 457,
+        "text": "勇气"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 417,
+        "text": "说话"
+      },
+      {
+        "offsetMs": 991,
+        "durationMs": 336,
+        "text": "屋"
+      },
+      {
+        "offsetMs": 1936,
+        "durationMs": 282,
+        "text": "遇到"
+      },
+      {
+        "offsetMs": 2245,
+        "durationMs": 148,
+        "text": "不"
+      },
+      {
+        "offsetMs": 2392,
+        "durationMs": 564,
+        "text": "舒服"
+      },
+      {
+        "offsetMs": 3078,
+        "durationMs": 269,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 3360,
+        "durationMs": 215,
+        "text": "想"
+      },
+      {
+        "offsetMs": 3575,
+        "durationMs": 81,
+        "text": "不"
+      },
+      {
+        "offsetMs": 3669,
+        "durationMs": 349,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 4019,
+        "durationMs": 108,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4126,
+        "durationMs": 349,
+        "text": "事"
+      },
+      {
+        "offsetMs": 4731,
+        "durationMs": 403,
+        "text": "练习"
+      },
+      {
+        "offsetMs": 5148,
+        "durationMs": 403,
+        "text": "温和"
+      },
+      {
+        "offsetMs": 5578,
+        "durationMs": 134,
+        "text": "又"
+      },
+      {
+        "offsetMs": 5726,
+        "durationMs": 376,
+        "text": "清楚"
+      },
+      {
+        "offsetMs": 6102,
+        "durationMs": 67,
+        "text": "地"
+      },
+      {
+        "offsetMs": 6183,
+        "durationMs": 161,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6344,
+        "durationMs": 363,
+        "text": "出来"
+      }
+    ]
+  },
+  "照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起": {
+    "id": "warm-sister:照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起",
+    "normKey": "照顾小桥不管今天住在哪一边桥两头的爱都稳稳地连在一起",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-b04e126697ee2ddb.mp3",
+    "durationMs": 6616,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 346,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 625,
+        "text": "小桥"
+      },
+      {
+        "offsetMs": 1702,
+        "durationMs": 332,
+        "text": "不管"
+      },
+      {
+        "offsetMs": 2048,
+        "durationMs": 359,
+        "text": "今天"
+      },
+      {
+        "offsetMs": 2434,
+        "durationMs": 133,
+        "text": "住"
+      },
+      {
+        "offsetMs": 2566,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2753,
+        "durationMs": 213,
+        "text": "哪"
+      },
+      {
+        "offsetMs": 2965,
+        "durationMs": 439,
+        "text": "一边"
+      },
+      {
+        "offsetMs": 3723,
+        "durationMs": 226,
+        "text": "桥"
+      },
+      {
+        "offsetMs": 3949,
+        "durationMs": 372,
+        "text": "两头"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 120,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4455,
+        "durationMs": 306,
+        "text": "爱"
+      },
+      {
+        "offsetMs": 4880,
+        "durationMs": 173,
+        "text": "都"
+      },
+      {
+        "offsetMs": 5053,
+        "durationMs": 372,
+        "text": "稳稳"
+      },
+      {
+        "offsetMs": 5426,
+        "durationMs": 93,
+        "text": "地"
+      },
+      {
+        "offsetMs": 5545,
+        "durationMs": 199,
+        "text": "连"
+      },
+      {
+        "offsetMs": 5745,
+        "durationMs": 146,
+        "text": "在"
+      },
+      {
+        "offsetMs": 5904,
+        "durationMs": 532,
+        "text": "一起"
+      }
+    ]
+  },
+  "星光小屋收集你身上的闪光点你是独一无二的自己": {
+    "id": "starlight-companion:星光小屋收集你身上的闪光点你是独一无二的自己",
+    "normKey": "星光小屋收集你身上的闪光点你是独一无二的自己",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-03b1ae02f58171c9.mp3",
+    "durationMs": 5746,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 474,
+        "text": "星光"
+      },
+      {
+        "offsetMs": 589,
+        "durationMs": 513,
+        "text": "小屋"
+      },
+      {
+        "offsetMs": 1697,
+        "durationMs": 487,
+        "text": "收集"
+      },
+      {
+        "offsetMs": 2197,
+        "durationMs": 145,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2355,
+        "durationMs": 395,
+        "text": "身上"
+      },
+      {
+        "offsetMs": 2750,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2855,
+        "durationMs": 776,
+        "text": "闪光点"
+      },
+      {
+        "offsetMs": 3855,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 4039,
+        "durationMs": 158,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4211,
+        "durationMs": 750,
+        "text": "独一无二"
+      },
+      {
+        "offsetMs": 4961,
+        "durationMs": 105,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5079,
+        "durationMs": 487,
+        "text": "自己"
+      }
+    ]
+  },
+  "我的小脚印看看你在小岛上走过的每一步成长足迹": {
+    "id": "gentle-guide:我的小脚印看看你在小岛上走过的每一步成长足迹",
+    "normKey": "我的小脚印看看你在小岛上走过的每一步成长足迹",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-bb6a311ae54885e6.mp3",
+    "durationMs": 5046,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 269,
+        "text": "我"
+      },
+      {
+        "offsetMs": 373,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 453,
+        "durationMs": 686,
+        "text": "小脚印"
+      },
+      {
+        "offsetMs": 1761,
+        "durationMs": 457,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 2245,
+        "durationMs": 94,
+        "text": "你"
+      },
+      {
+        "offsetMs": 2339,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 2460,
+        "durationMs": 242,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2702,
+        "durationMs": 175,
+        "text": "岛"
+      },
+      {
+        "offsetMs": 2876,
+        "durationMs": 282,
+        "text": "上"
+      },
+      {
+        "offsetMs": 3186,
+        "durationMs": 282,
+        "text": "走过"
+      },
+      {
+        "offsetMs": 3468,
+        "durationMs": 121,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3616,
+        "durationMs": 175,
+        "text": "每"
+      },
+      {
+        "offsetMs": 3790,
+        "durationMs": 108,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3898,
+        "durationMs": 134,
+        "text": "步"
+      },
+      {
+        "offsetMs": 4059,
+        "durationMs": 363,
+        "text": "成长"
+      },
+      {
+        "offsetMs": 4436,
+        "durationMs": 430,
+        "text": "足迹"
+      }
+    ]
+  },
+  "桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧": {
+    "id": "playful-buddy:桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧",
+    "normKey": "桌上的红色水彩笔不见了小熊觉得一定是小狐狸拿走的我们先别急着下结论点一点房间里的线索看看吧",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-918833a9bc4ee6d4.mp3",
+    "durationMs": 9922,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 206,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 308,
+        "durationMs": 155,
+        "text": "上"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 939,
+        "durationMs": 245,
+        "text": "水"
+      },
+      {
+        "offsetMs": 1184,
+        "durationMs": 374,
+        "text": "彩笔"
+      },
+      {
+        "offsetMs": 1571,
+        "durationMs": 361,
+        "text": "不见"
+      },
+      {
+        "offsetMs": 1931,
+        "durationMs": 206,
+        "text": "了"
+      },
+      {
+        "offsetMs": 2719,
+        "durationMs": 284,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3003,
+        "durationMs": 219,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 3235,
+        "durationMs": 425,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 3763,
+        "durationMs": 296,
+        "text": "一定"
+      },
+      {
+        "offsetMs": 4059,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4188,
+        "durationMs": 180,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4369,
+        "durationMs": 309,
+        "text": "狐狸"
+      },
+      {
+        "offsetMs": 4691,
+        "durationMs": 374,
+        "text": "拿走"
+      },
+      {
+        "offsetMs": 5064,
+        "durationMs": 206,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5850,
+        "durationMs": 258,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 6121,
+        "durationMs": 232,
+        "text": "先"
+      },
+      {
+        "offsetMs": 6366,
+        "durationMs": 206,
+        "text": "别"
+      },
+      {
+        "offsetMs": 6572,
+        "durationMs": 168,
+        "text": "急"
+      },
+      {
+        "offsetMs": 6740,
+        "durationMs": 116,
+        "text": "着"
+      },
+      {
+        "offsetMs": 6869,
+        "durationMs": 580,
+        "text": "下结论"
+      },
+      {
+        "offsetMs": 7706,
+        "durationMs": 193,
+        "text": "点"
+      },
+      {
+        "offsetMs": 7912,
+        "durationMs": 296,
+        "text": "一点"
+      },
+      {
+        "offsetMs": 8222,
+        "durationMs": 387,
+        "text": "房间"
+      },
+      {
+        "offsetMs": 8608,
+        "durationMs": 103,
+        "text": "里"
+      },
+      {
+        "offsetMs": 8711,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8814,
+        "durationMs": 348,
+        "text": "线索"
+      },
+      {
+        "offsetMs": 9175,
+        "durationMs": 361,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 9536,
+        "durationMs": 206,
+        "text": "吧"
+      }
+    ]
+  },
+  "地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索": {
+    "id": "playful-buddy:地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索",
+    "normKey": "地上有一串沾着蓝色颜料的小脚印通向阳台这是眼睛看到的事实线索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-6df2ceab7a45648d.mp3",
+    "durationMs": 6920,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 374,
+        "text": "地上"
+      },
+      {
+        "offsetMs": 488,
+        "durationMs": 142,
+        "text": "有"
+      },
+      {
+        "offsetMs": 630,
+        "durationMs": 129,
+        "text": "一"
+      },
+      {
+        "offsetMs": 759,
+        "durationMs": 309,
+        "text": "串"
+      },
+      {
+        "offsetMs": 1081,
+        "durationMs": 193,
+        "text": "沾"
+      },
+      {
+        "offsetMs": 1274,
+        "durationMs": 116,
+        "text": "着"
+      },
+      {
+        "offsetMs": 1403,
+        "durationMs": 361,
+        "text": "蓝色"
+      },
+      {
+        "offsetMs": 1777,
+        "durationMs": 348,
+        "text": "颜料"
+      },
+      {
+        "offsetMs": 2125,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 631,
+        "text": "小脚印"
+      },
+      {
+        "offsetMs": 3053,
+        "durationMs": 400,
+        "text": "通向"
+      },
+      {
+        "offsetMs": 3465,
+        "durationMs": 567,
+        "text": "阳台"
+      },
+      {
+        "offsetMs": 4613,
+        "durationMs": 180,
+        "text": "这"
+      },
+      {
+        "offsetMs": 4794,
+        "durationMs": 116,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4923,
+        "durationMs": 451,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 5503,
+        "durationMs": 322,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 5825,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5941,
+        "durationMs": 296,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 6250,
+        "durationMs": 490,
+        "text": "线索"
+      }
+    ]
+  },
+  "画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索": {
+    "id": "playful-buddy:画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索",
+    "normKey": "画架旁边的笔筒倒了有一支红笔滚到了沙发底下这也是真凭实据的事实线索",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-bbedef2baec2cee9.mp3",
+    "durationMs": 7217,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 451,
+        "text": "画架"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 400,
+        "text": "旁边"
+      },
+      {
+        "offsetMs": 965,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1068,
+        "durationMs": 309,
+        "text": "笔筒"
+      },
+      {
+        "offsetMs": 1390,
+        "durationMs": 219,
+        "text": "倒"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 219,
+        "text": "了"
+      },
+      {
+        "offsetMs": 2073,
+        "durationMs": 155,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 116,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2344,
+        "durationMs": 116,
+        "text": "支"
+      },
+      {
+        "offsetMs": 2473,
+        "durationMs": 528,
+        "text": "红笔"
+      },
+      {
+        "offsetMs": 3104,
+        "durationMs": 193,
+        "text": "滚"
+      },
+      {
+        "offsetMs": 3297,
+        "durationMs": 155,
+        "text": "到"
+      },
+      {
+        "offsetMs": 3452,
+        "durationMs": 77,
+        "text": "了"
+      },
+      {
+        "offsetMs": 3542,
+        "durationMs": 322,
+        "text": "沙发"
+      },
+      {
+        "offsetMs": 3877,
+        "durationMs": 451,
+        "text": "底下"
+      },
+      {
+        "offsetMs": 4910,
+        "durationMs": 180,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5090,
+        "durationMs": 258,
+        "text": "也是"
+      },
+      {
+        "offsetMs": 5361,
+        "durationMs": 735,
+        "text": "真凭实据"
+      },
+      {
+        "offsetMs": 6095,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6211,
+        "durationMs": 309,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 6534,
+        "durationMs": 503,
+        "text": "线索"
+      }
+    ]
+  },
+  "小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦": {
+    "id": "playful-buddy:小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦",
+    "normKey": "小熊脑海里想他昨天借过我的尺子肯定是他拿的这只是脑子里的猜测还不是证据哦",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-0be51c6ee4697b83.mp3",
+    "durationMs": 8222,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
+        "text": "小"
+      },
+      {
+        "offsetMs": 372,
+        "durationMs": 193,
+        "text": "熊"
+      },
+      {
+        "offsetMs": 565,
+        "durationMs": 361,
+        "text": "脑海"
+      },
+      {
+        "offsetMs": 926,
+        "durationMs": 155,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1081,
+        "durationMs": 271,
+        "text": "想"
+      },
+      {
+        "offsetMs": 1609,
+        "durationMs": 168,
+        "text": "他"
+      },
+      {
+        "offsetMs": 1777,
+        "durationMs": 438,
+        "text": "昨天"
+      },
+      {
+        "offsetMs": 2228,
+        "durationMs": 284,
+        "text": "借过"
+      },
+      {
+        "offsetMs": 2511,
+        "durationMs": 116,
+        "text": "我"
+      },
+      {
+        "offsetMs": 2627,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2730,
+        "durationMs": 503,
+        "text": "尺子"
+      },
+      {
+        "offsetMs": 3439,
+        "durationMs": 425,
+        "text": "肯定"
+      },
+      {
+        "offsetMs": 3864,
+        "durationMs": 103,
+        "text": "是"
+      },
+      {
+        "offsetMs": 3980,
+        "durationMs": 168,
+        "text": "他"
+      },
+      {
+        "offsetMs": 4148,
+        "durationMs": 245,
+        "text": "拿"
+      },
+      {
+        "offsetMs": 4393,
+        "durationMs": 219,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5193,
+        "durationMs": 193,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5387,
+        "durationMs": 284,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 5683,
+        "durationMs": 361,
+        "text": "脑子"
+      },
+      {
+        "offsetMs": 6044,
+        "durationMs": 129,
+        "text": "里"
+      },
+      {
+        "offsetMs": 6173,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 593,
+        "text": "猜测"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 180,
+        "text": "还"
+      },
+      {
+        "offsetMs": 7268,
+        "durationMs": 245,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 7526,
+        "durationMs": 348,
+        "text": "证据"
+      },
+      {
+        "offsetMs": 7874,
+        "durationMs": 168,
+        "text": "哦"
+      }
+    ]
+  },
+  "太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔": {
+    "id": "playful-buddy:太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔",
+    "normKey": "太棒啦你把眼睛看到的事实线索和心里的猜测分得清清楚楚帮小熊找到了沙发底下的红笔",
+    "profileId": "playful-buddy",
+    "voiceName": "zh-CN-XiaoyiNeural",
+    "audioUrl": "/audio/tts/playful-buddy-d4e3971983c2c10b.mp3",
+    "durationMs": 8775,
+    "boundaries": [
+      {
+        "offsetMs": 102,
+        "durationMs": 271,
+        "text": "太"
+      },
+      {
+        "offsetMs": 372,
+        "durationMs": 168,
+        "text": "棒"
+      },
+      {
+        "offsetMs": 540,
+        "durationMs": 206,
+        "text": "啦"
+      },
+      {
+        "offsetMs": 1327,
+        "durationMs": 155,
+        "text": "你"
+      },
+      {
+        "offsetMs": 1482,
+        "durationMs": 142,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1637,
+        "durationMs": 387,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 2036,
+        "durationMs": 335,
+        "text": "看到"
+      },
+      {
+        "offsetMs": 2371,
+        "durationMs": 103,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2487,
+        "durationMs": 322,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 2822,
+        "durationMs": 503,
+        "text": "线索"
+      },
+      {
+        "offsetMs": 3441,
+        "durationMs": 142,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3595,
+        "durationMs": 322,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 3918,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4021,
+        "durationMs": 541,
+        "text": "猜测"
+      },
+      {
+        "offsetMs": 4678,
+        "durationMs": 180,
+        "text": "分"
+      },
+      {
+        "offsetMs": 4858,
+        "durationMs": 90,
+        "text": "得"
+      },
+      {
+        "offsetMs": 4961,
+        "durationMs": 812,
+        "text": "清清楚楚"
+      },
+      {
+        "offsetMs": 6082,
+        "durationMs": 193,
+        "text": "帮"
+      },
+      {
+        "offsetMs": 6276,
+        "durationMs": 554,
+        "text": "小熊"
+      },
+      {
+        "offsetMs": 6946,
+        "durationMs": 309,
+        "text": "找到"
+      },
+      {
+        "offsetMs": 7255,
+        "durationMs": 77,
+        "text": "了"
+      },
+      {
+        "offsetMs": 7345,
+        "durationMs": 335,
+        "text": "沙发"
+      },
+      {
+        "offsetMs": 7693,
+        "durationMs": 335,
+        "text": "底下"
+      },
+      {
+        "offsetMs": 8028,
+        "durationMs": 90,
+        "text": "的"
+      },
+      {
+        "offsetMs": 8131,
+        "durationMs": 464,
+        "text": "红笔"
+      }
+    ]
+  },
+  "小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢": {
+    "id": "warm-sister:小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢",
+    "normKey": "小松鼠看中了圆圆的蓝杯子小刺猬觉得高高的黄杯子才装得多到底哪个杯子装水更多呢",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-b7f8b24804a815f5.mp3",
+    "durationMs": 9369,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 239,
+        "text": "小"
+      },
+      {
+        "offsetMs": 343,
+        "durationMs": 585,
+        "text": "松鼠"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 346,
+        "text": "看中"
+      },
+      {
+        "offsetMs": 1300,
+        "durationMs": 93,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1420,
+        "durationMs": 359,
+        "text": "圆圆"
+      },
+      {
+        "offsetMs": 1779,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1872,
+        "durationMs": 745,
+        "text": "蓝杯子"
+      },
+      {
+        "offsetMs": 3015,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3215,
+        "durationMs": 319,
+        "text": "刺猬"
+      },
+      {
+        "offsetMs": 3547,
+        "durationMs": 532,
+        "text": "觉得"
+      },
+      {
+        "offsetMs": 4186,
+        "durationMs": 386,
+        "text": "高高"
+      },
+      {
+        "offsetMs": 4571,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4678,
+        "durationMs": 239,
+        "text": "黄"
+      },
+      {
+        "offsetMs": 4917,
+        "durationMs": 532,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 5555,
+        "durationMs": 199,
+        "text": "才"
+      },
+      {
+        "offsetMs": 5768,
+        "durationMs": 226,
+        "text": "装"
+      },
+      {
+        "offsetMs": 5994,
+        "durationMs": 120,
+        "text": "得"
+      },
+      {
+        "offsetMs": 6114,
+        "durationMs": 332,
+        "text": "多"
+      },
+      {
+        "offsetMs": 7048,
+        "durationMs": 346,
+        "text": "到底"
+      },
+      {
+        "offsetMs": 7420,
+        "durationMs": 306,
+        "text": "哪个"
+      },
+      {
+        "offsetMs": 7739,
+        "durationMs": 319,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 8085,
+        "durationMs": 386,
+        "text": "装水"
+      },
+      {
+        "offsetMs": 8484,
+        "durationMs": 439,
+        "text": "更多"
+      },
+      {
+        "offsetMs": 8923,
+        "durationMs": 266,
+        "text": "呢"
+      }
+    ]
+  },
+  "如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢": {
+    "id": "warm-sister:如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢",
+    "normKey": "如果只用眼睛看高矮和胖瘦我们很容易被杯子的形状骗到怎样才能找到真正的事实证据呢",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-ade72422a685b53f.mp3",
+    "durationMs": 8757,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 332,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 462,
+        "durationMs": 133,
+        "text": "只"
+      },
+      {
+        "offsetMs": 595,
+        "durationMs": 160,
+        "text": "用"
+      },
+      {
+        "offsetMs": 768,
+        "durationMs": 412,
+        "text": "眼睛"
+      },
+      {
+        "offsetMs": 1207,
+        "durationMs": 226,
+        "text": "看"
+      },
+      {
+        "offsetMs": 1433,
+        "durationMs": 346,
+        "text": "高矮"
+      },
+      {
+        "offsetMs": 1805,
+        "durationMs": 120,
+        "text": "和"
+      },
+      {
+        "offsetMs": 1938,
+        "durationMs": 253,
+        "text": "胖"
+      },
+      {
+        "offsetMs": 2191,
+        "durationMs": 346,
+        "text": "瘦"
+      },
+      {
+        "offsetMs": 2843,
+        "durationMs": 226,
+        "text": "我们"
+      },
+      {
+        "offsetMs": 3082,
+        "durationMs": 213,
+        "text": "很"
+      },
+      {
+        "offsetMs": 3295,
+        "durationMs": 386,
+        "text": "容易"
+      },
+      {
+        "offsetMs": 3707,
+        "durationMs": 173,
+        "text": "被"
+      },
+      {
+        "offsetMs": 3893,
+        "durationMs": 346,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 4239,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4345,
+        "durationMs": 412,
+        "text": "形状"
+      },
+      {
+        "offsetMs": 4771,
+        "durationMs": 545,
+        "text": "骗到"
+      },
+      {
+        "offsetMs": 5931,
+        "durationMs": 426,
+        "text": "怎样"
+      },
+      {
+        "offsetMs": 6370,
+        "durationMs": 293,
+        "text": "才能"
+      },
+      {
+        "offsetMs": 6676,
+        "durationMs": 359,
+        "text": "找到"
+      },
+      {
+        "offsetMs": 7061,
+        "durationMs": 372,
+        "text": "真正"
+      },
+      {
+        "offsetMs": 7434,
+        "durationMs": 80,
+        "text": "的"
+      },
+      {
+        "offsetMs": 7540,
+        "durationMs": 372,
+        "text": "事实"
+      },
+      {
+        "offsetMs": 7926,
+        "durationMs": 412,
+        "text": "证据"
+      },
+      {
+        "offsetMs": 8338,
+        "durationMs": 239,
+        "text": "呢"
+      }
+    ]
+  },
+  "把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确": {
+    "id": "warm-sister:把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确",
+    "normKey": "把两个杯子里的水都倒进有刻度线的量杯里比一比亲手验证比凭感觉猜更准确",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-a94e374ed60debec.mp3",
+    "durationMs": 8318,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 173,
+        "text": "把"
+      },
+      {
+        "offsetMs": 289,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 476,
+        "durationMs": 80,
+        "text": "个"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 359,
+        "text": "杯子"
+      },
+      {
+        "offsetMs": 928,
+        "durationMs": 120,
+        "text": "里"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 133,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1180,
+        "durationMs": 372,
+        "text": "水"
+      },
+      {
+        "offsetMs": 1659,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 1805,
+        "durationMs": 359,
+        "text": "倒进"
+      },
+      {
+        "offsetMs": 2164,
+        "durationMs": 186,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2364,
+        "durationMs": 332,
+        "text": "刻度"
+      },
+      {
+        "offsetMs": 2696,
+        "durationMs": 186,
+        "text": "线"
+      },
+      {
+        "offsetMs": 2882,
+        "durationMs": 66,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2962,
+        "durationMs": 479,
+        "text": "量杯"
+      },
+      {
+        "offsetMs": 3441,
+        "durationMs": 293,
+        "text": "里"
+      },
+      {
+        "offsetMs": 3853,
+        "durationMs": 226,
+        "text": "比"
+      },
+      {
+        "offsetMs": 4093,
+        "durationMs": 213,
+        "text": "一"
+      },
+      {
+        "offsetMs": 4305,
+        "durationMs": 293,
+        "text": "比"
+      },
+      {
+        "offsetMs": 5199,
+        "durationMs": 452,
+        "text": "亲手"
+      },
+      {
+        "offsetMs": 5665,
+        "durationMs": 386,
+        "text": "验证"
+      },
+      {
+        "offsetMs": 6051,
+        "durationMs": 545,
+        "text": "比凭"
+      },
+      {
+        "offsetMs": 6702,
+        "durationMs": 386,
+        "text": "感觉"
+      },
+      {
+        "offsetMs": 7101,
+        "durationMs": 226,
+        "text": "猜"
+      },
+      {
+        "offsetMs": 7354,
+        "durationMs": 199,
+        "text": "更"
+      },
+      {
+        "offsetMs": 7553,
+        "durationMs": 585,
+        "text": "准确"
+      }
+    ]
+  },
+  "小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手": {
+    "id": "warm-sister:小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手",
+    "normKey": "小兔子和小乌龟都想玩同一辆红色小火车两个人都拉着绳子不肯放手",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-4d71c9f16b1e61e1.mp3",
+    "durationMs": 6918,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 572,
+        "text": "小兔子"
+      },
+      {
+        "offsetMs": 702,
+        "durationMs": 106,
+        "text": "和"
+      },
+      {
+        "offsetMs": 821,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 1047,
+        "durationMs": 519,
+        "text": "乌龟"
+      },
+      {
+        "offsetMs": 1672,
+        "durationMs": 160,
+        "text": "都"
+      },
+      {
+        "offsetMs": 1832,
+        "durationMs": 186,
+        "text": "想"
+      },
+      {
+        "offsetMs": 2045,
+        "durationMs": 186,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 2231,
+        "durationMs": 186,
+        "text": "同"
+      },
+      {
+        "offsetMs": 2430,
+        "durationMs": 120,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 173,
+        "text": "辆"
+      },
+      {
+        "offsetMs": 2749,
+        "durationMs": 372,
+        "text": "红色"
+      },
+      {
+        "offsetMs": 3135,
+        "durationMs": 213,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3348,
+        "durationMs": 532,
+        "text": "火车"
+      },
+      {
+        "offsetMs": 4226,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 4412,
+        "durationMs": 93,
+        "text": "个"
+      },
+      {
+        "offsetMs": 4505,
+        "durationMs": 173,
+        "text": "人"
+      },
+      {
+        "offsetMs": 4704,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4837,
+        "durationMs": 173,
+        "text": "拉"
+      },
+      {
+        "offsetMs": 5010,
+        "durationMs": 106,
+        "text": "着"
+      },
+      {
+        "offsetMs": 5130,
+        "durationMs": 572,
+        "text": "绳子"
+      },
+      {
+        "offsetMs": 5808,
+        "durationMs": 359,
+        "text": "不肯"
+      },
+      {
+        "offsetMs": 6180,
+        "durationMs": 558,
+        "text": "放手"
+      }
+    ]
+  },
+  "如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过": {
+    "id": "warm-sister:如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过",
+    "normKey": "如果一直使劲拉扯不仅谁都玩不成小火车还可能被拉坏大家心里也会难过",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-c5de7e196db09175.mp3",
+    "durationMs": 7703,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 279,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 409,
+        "durationMs": 359,
+        "text": "一直"
+      },
+      {
+        "offsetMs": 781,
+        "durationMs": 359,
+        "text": "使劲"
+      },
+      {
+        "offsetMs": 1154,
+        "durationMs": 532,
+        "text": "拉扯"
+      },
+      {
+        "offsetMs": 1952,
+        "durationMs": 346,
+        "text": "不仅"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 253,
+        "text": "谁"
+      },
+      {
+        "offsetMs": 2563,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 2710,
+        "durationMs": 199,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 2909,
+        "durationMs": 439,
+        "text": "不成"
+      },
+      {
+        "offsetMs": 3654,
+        "durationMs": 226,
+        "text": "小"
+      },
+      {
+        "offsetMs": 3880,
+        "durationMs": 558,
+        "text": "火车"
+      },
+      {
+        "offsetMs": 4465,
+        "durationMs": 173,
+        "text": "还"
+      },
+      {
+        "offsetMs": 4638,
+        "durationMs": 279,
+        "text": "可能"
+      },
+      {
+        "offsetMs": 4930,
+        "durationMs": 146,
+        "text": "被"
+      },
+      {
+        "offsetMs": 5077,
+        "durationMs": 505,
+        "text": "拉坏"
+      },
+      {
+        "offsetMs": 5914,
+        "durationMs": 319,
+        "text": "大家"
+      },
+      {
+        "offsetMs": 6247,
+        "durationMs": 386,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 6659,
+        "durationMs": 146,
+        "text": "也"
+      },
+      {
+        "offsetMs": 6805,
+        "durationMs": 146,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6965,
+        "durationMs": 558,
+        "text": "难过"
+      }
+    ]
+  },
+  "可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心": {
+    "id": "warm-sister:可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心",
+    "normKey": "可以定个小沙漏轮流当司机另一个人当站长摇铃铛一起想办法两个人都能玩得开心",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-f8ed1a111d9b8ba4.mp3",
+    "durationMs": 8305,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 293,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 409,
+        "durationMs": 173,
+        "text": "定"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 80,
+        "text": "个"
+      },
+      {
+        "offsetMs": 688,
+        "durationMs": 452,
+        "text": "小沙"
+      },
+      {
+        "offsetMs": 1154,
+        "durationMs": 332,
+        "text": "漏轮"
+      },
+      {
+        "offsetMs": 1486,
+        "durationMs": 346,
+        "text": "流当"
+      },
+      {
+        "offsetMs": 1845,
+        "durationMs": 505,
+        "text": "司机"
+      },
+      {
+        "offsetMs": 2736,
+        "durationMs": 612,
+        "text": "另一个人"
+      },
+      {
+        "offsetMs": 3374,
+        "durationMs": 186,
+        "text": "当"
+      },
+      {
+        "offsetMs": 3561,
+        "durationMs": 346,
+        "text": "站长"
+      },
+      {
+        "offsetMs": 3933,
+        "durationMs": 213,
+        "text": "摇"
+      },
+      {
+        "offsetMs": 4146,
+        "durationMs": 465,
+        "text": "铃铛"
+      },
+      {
+        "offsetMs": 5213,
+        "durationMs": 372,
+        "text": "一起"
+      },
+      {
+        "offsetMs": 5598,
+        "durationMs": 239,
+        "text": "想"
+      },
+      {
+        "offsetMs": 5838,
+        "durationMs": 479,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 6582,
+        "durationMs": 186,
+        "text": "两"
+      },
+      {
+        "offsetMs": 6769,
+        "durationMs": 106,
+        "text": "个"
+      },
+      {
+        "offsetMs": 6875,
+        "durationMs": 173,
+        "text": "人"
+      },
+      {
+        "offsetMs": 7074,
+        "durationMs": 133,
+        "text": "都"
+      },
+      {
+        "offsetMs": 7207,
+        "durationMs": 120,
+        "text": "能"
+      },
+      {
+        "offsetMs": 7340,
+        "durationMs": 186,
+        "text": "玩"
+      },
+      {
+        "offsetMs": 7527,
+        "durationMs": 66,
+        "text": "得"
+      },
+      {
+        "offsetMs": 7606,
+        "durationMs": 519,
+        "text": "开心"
+      }
+    ]
+  },
+  "桌上的拼图洒了一地足足有二十块看着好乱呀": {
+    "id": "gentle-guide:桌上的拼图洒了一地足足有二十块看着好乱呀",
+    "normKey": "桌上的拼图洒了一地足足有二十块看着好乱呀",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-5f8b3bc4c953f3d5.mp3",
+    "durationMs": 4988,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 228,
+        "text": "桌"
+      },
+      {
+        "offsetMs": 332,
+        "durationMs": 148,
+        "text": "上"
+      },
+      {
+        "offsetMs": 480,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 574,
+        "durationMs": 255,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 830,
+        "durationMs": 188,
+        "text": "图"
+      },
+      {
+        "offsetMs": 1018,
+        "durationMs": 242,
+        "text": "洒"
+      },
+      {
+        "offsetMs": 1260,
+        "durationMs": 81,
+        "text": "了"
+      },
+      {
+        "offsetMs": 1354,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1502,
+        "durationMs": 242,
+        "text": "地"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 336,
+        "text": "足足"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 134,
+        "text": "有"
+      },
+      {
+        "offsetMs": 2658,
+        "durationMs": 349,
+        "text": "二十"
+      },
+      {
+        "offsetMs": 3007,
+        "durationMs": 309,
+        "text": "块"
+      },
+      {
+        "offsetMs": 3666,
+        "durationMs": 282,
+        "text": "看"
+      },
+      {
+        "offsetMs": 3948,
+        "durationMs": 81,
+        "text": "着"
+      },
+      {
+        "offsetMs": 4028,
+        "durationMs": 202,
+        "text": "好"
+      },
+      {
+        "offsetMs": 4244,
+        "durationMs": 228,
+        "text": "乱"
+      },
+      {
+        "offsetMs": 4472,
+        "durationMs": 336,
+        "text": "呀"
+      }
+    ]
+  },
+  "第一小步先深呼吸一下只把四个角的拼图找出来": {
+    "id": "gentle-guide:第一小步先深呼吸一下只把四个角的拼图找出来",
+    "normKey": "第一小步先深呼吸一下只把四个角的拼图找出来",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-6f4a894cc7db2e30.mp3",
+    "durationMs": 5230,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "第一"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 457,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 282,
+        "text": "先"
+      },
+      {
+        "offsetMs": 1421,
+        "durationMs": 524,
+        "text": "深呼吸"
+      },
+      {
+        "offsetMs": 1959,
+        "durationMs": 484,
+        "text": "一下"
+      },
+      {
+        "offsetMs": 2671,
+        "durationMs": 202,
+        "text": "只"
+      },
+      {
+        "offsetMs": 2873,
+        "durationMs": 134,
+        "text": "把"
+      },
+      {
+        "offsetMs": 3034,
+        "durationMs": 309,
+        "text": "四个"
+      },
+      {
+        "offsetMs": 3343,
+        "durationMs": 215,
+        "text": "角"
+      },
+      {
+        "offsetMs": 3558,
+        "durationMs": 282,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3961,
+        "durationMs": 309,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 4270,
+        "durationMs": 188,
+        "text": "图"
+      },
+      {
+        "offsetMs": 4486,
+        "durationMs": 188,
+        "text": "找"
+      },
+      {
+        "offsetMs": 4674,
+        "durationMs": 376,
+        "text": "出来"
+      }
+    ]
+  },
+  "第二小步把带直边的拼图排成一排搭好外框": {
+    "id": "gentle-guide:第二小步把带直边的拼图排成一排搭好外框",
+    "normKey": "第二小步把带直边的拼图排成一排搭好外框",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-9a5cc4ead4228096.mp3",
+    "durationMs": 4827,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "第二"
+      },
+      {
+        "offsetMs": 346,
+        "durationMs": 470,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 161,
+        "text": "把"
+      },
+      {
+        "offsetMs": 1461,
+        "durationMs": 188,
+        "text": "带"
+      },
+      {
+        "offsetMs": 1649,
+        "durationMs": 255,
+        "text": "直边"
+      },
+      {
+        "offsetMs": 1905,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1999,
+        "durationMs": 605,
+        "text": "拼图"
+      },
+      {
+        "offsetMs": 2725,
+        "durationMs": 228,
+        "text": "排"
+      },
+      {
+        "offsetMs": 2953,
+        "durationMs": 134,
+        "text": "成"
+      },
+      {
+        "offsetMs": 3101,
+        "durationMs": 94,
+        "text": "一"
+      },
+      {
+        "offsetMs": 3195,
+        "durationMs": 363,
+        "text": "排"
+      },
+      {
+        "offsetMs": 3867,
+        "durationMs": 188,
+        "text": "搭"
+      },
+      {
+        "offsetMs": 4055,
+        "durationMs": 148,
+        "text": "好"
+      },
+      {
+        "offsetMs": 4217,
+        "durationMs": 430,
+        "text": "外框"
+      }
+    ]
+  },
+  "第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦": {
+    "id": "gentle-guide:第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦",
+    "normKey": "第三小步按颜色一块一块放进去大困难就变成轻松的小游戏啦",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-170c0b7e5ce3d574.mp3",
+    "durationMs": 6009,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 349,
+        "text": "第三"
+      },
+      {
+        "offsetMs": 467,
+        "durationMs": 484,
+        "text": "小步"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 175,
+        "text": "按"
+      },
+      {
+        "offsetMs": 1528,
+        "durationMs": 309,
+        "text": "颜色"
+      },
+      {
+        "offsetMs": 1864,
+        "durationMs": 269,
+        "text": "一块"
+      },
+      {
+        "offsetMs": 2147,
+        "durationMs": 202,
+        "text": "一块"
+      },
+      {
+        "offsetMs": 2362,
+        "durationMs": 188,
+        "text": "放"
+      },
+      {
+        "offsetMs": 2550,
+        "durationMs": 457,
+        "text": "进去"
+      },
+      {
+        "offsetMs": 3424,
+        "durationMs": 255,
+        "text": "大"
+      },
+      {
+        "offsetMs": 3679,
+        "durationMs": 511,
+        "text": "困难"
+      },
+      {
+        "offsetMs": 4217,
+        "durationMs": 148,
+        "text": "就"
+      },
+      {
+        "offsetMs": 4364,
+        "durationMs": 282,
+        "text": "变成"
+      },
+      {
+        "offsetMs": 4674,
+        "durationMs": 323,
+        "text": "轻松"
+      },
+      {
+        "offsetMs": 4996,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5090,
+        "durationMs": 188,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5278,
+        "durationMs": 336,
+        "text": "游戏"
+      },
+      {
+        "offsetMs": 5614,
+        "durationMs": 215,
+        "text": "啦"
+      }
+    ]
+  },
+  "大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你": {
+    "id": "warm-sister:大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你",
+    "normKey": "大人不住在一个房子里是大人之间做的大人决定这件事百分之百不是因为你",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-9f4100278cb52c26.mp3",
+    "durationMs": 7627,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 439,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 569,
+        "durationMs": 319,
+        "text": "不住"
+      },
+      {
+        "offsetMs": 888,
+        "durationMs": 173,
+        "text": "在"
+      },
+      {
+        "offsetMs": 1074,
+        "durationMs": 199,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 1287,
+        "durationMs": 452,
+        "text": "房子"
+      },
+      {
+        "offsetMs": 1739,
+        "durationMs": 253,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2231,
+        "durationMs": 133,
+        "text": "是"
+      },
+      {
+        "offsetMs": 2377,
+        "durationMs": 359,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 2749,
+        "durationMs": 465,
+        "text": "之间"
+      },
+      {
+        "offsetMs": 3242,
+        "durationMs": 146,
+        "text": "做"
+      },
+      {
+        "offsetMs": 3388,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3507,
+        "durationMs": 346,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 3866,
+        "durationMs": 439,
+        "text": "决定"
+      },
+      {
+        "offsetMs": 4920,
+        "durationMs": 213,
+        "text": "这"
+      },
+      {
+        "offsetMs": 5133,
+        "durationMs": 213,
+        "text": "件"
+      },
+      {
+        "offsetMs": 5346,
+        "durationMs": 359,
+        "text": "事"
+      },
+      {
+        "offsetMs": 5811,
+        "durationMs": 692,
+        "text": "百分之百"
+      },
+      {
+        "offsetMs": 6529,
+        "durationMs": 253,
+        "text": "不是"
+      },
+      {
+        "offsetMs": 6795,
+        "durationMs": 359,
+        "text": "因为"
+      },
+      {
+        "offsetMs": 7154,
+        "durationMs": 293,
+        "text": "你"
+      }
+    ]
+  },
+  "想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来": {
+    "id": "warm-sister:想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来",
+    "normKey": "想念另一个家是非常自然的事你可以把想说的话写进思念小信箱或者画下来",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-5eaf951590d38c0d.mp3",
+    "durationMs": 7720,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 452,
+        "text": "想念"
+      },
+      {
+        "offsetMs": 582,
+        "durationMs": 146,
+        "text": "另"
+      },
+      {
+        "offsetMs": 728,
+        "durationMs": 226,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 954,
+        "durationMs": 332,
+        "text": "家"
+      },
+      {
+        "offsetMs": 1380,
+        "durationMs": 160,
+        "text": "是"
+      },
+      {
+        "offsetMs": 1553,
+        "durationMs": 412,
+        "text": "非常"
+      },
+      {
+        "offsetMs": 1978,
+        "durationMs": 332,
+        "text": "自然"
+      },
+      {
+        "offsetMs": 2311,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2404,
+        "durationMs": 319,
+        "text": "事"
+      },
+      {
+        "offsetMs": 3324,
+        "durationMs": 120,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3457,
+        "durationMs": 213,
+        "text": "可以"
+      },
+      {
+        "offsetMs": 3684,
+        "durationMs": 160,
+        "text": "把"
+      },
+      {
+        "offsetMs": 3870,
+        "durationMs": 811,
+        "text": "想说的话"
+      },
+      {
+        "offsetMs": 4681,
+        "durationMs": 465,
+        "text": "写进"
+      },
+      {
+        "offsetMs": 5173,
+        "durationMs": 346,
+        "text": "思念"
+      },
+      {
+        "offsetMs": 5532,
+        "durationMs": 199,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5731,
+        "durationMs": 545,
+        "text": "信箱"
+      },
+      {
+        "offsetMs": 6543,
         "durationMs": 279,
         "text": "或者"
       },
       {
-        "offsetMs": 1805,
+        "offsetMs": 6835,
+        "durationMs": 253,
+        "text": "画"
+      },
+      {
+        "offsetMs": 7088,
         "durationMs": 452,
-        "text": "家人"
+        "text": "下来"
+      }
+    ]
+  },
+  "不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的": {
+    "id": "gentle-guide:不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的",
+    "normKey": "不管今天住在妈妈家还是爸爸家你都可以提前看看小书包清单心里稳稳当当的",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-e501dcf6f73ad2a8.mp3",
+    "durationMs": 7017,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 323,
+        "text": "不管"
       },
       {
-        "offsetMs": 2257,
-        "durationMs": 359,
-        "text": "时"
+        "offsetMs": 440,
+        "durationMs": 215,
+        "text": "今天"
       },
       {
-        "offsetMs": 2869,
-        "durationMs": 266,
+        "offsetMs": 668,
+        "durationMs": 108,
+        "text": "住"
+      },
+      {
+        "offsetMs": 776,
+        "durationMs": 108,
+        "text": "在"
+      },
+      {
+        "offsetMs": 910,
+        "durationMs": 296,
+        "text": "妈妈"
+      },
+      {
+        "offsetMs": 1206,
+        "durationMs": 403,
+        "text": "家"
+      },
+      {
+        "offsetMs": 1730,
+        "durationMs": 323,
+        "text": "还是"
+      },
+      {
+        "offsetMs": 2066,
+        "durationMs": 255,
+        "text": "爸爸"
+      },
+      {
+        "offsetMs": 2322,
+        "durationMs": 323,
+        "text": "家"
+      },
+      {
+        "offsetMs": 3061,
+        "durationMs": 309,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3370,
+        "durationMs": 94,
+        "text": "都"
+      },
+      {
+        "offsetMs": 3477,
+        "durationMs": 188,
         "text": "可以"
       },
       {
-        "offsetMs": 3148,
-        "durationMs": 372,
-        "text": "直接"
+        "offsetMs": 3692,
+        "durationMs": 309,
+        "text": "提前"
       },
       {
-        "offsetMs": 3534,
+        "offsetMs": 4015,
+        "durationMs": 296,
+        "text": "看看"
+      },
+      {
+        "offsetMs": 4338,
+        "durationMs": 175,
+        "text": "小"
+      },
+      {
+        "offsetMs": 4512,
+        "durationMs": 242,
+        "text": "书包"
+      },
+      {
+        "offsetMs": 4768,
+        "durationMs": 403,
+        "text": "清单"
+      },
+      {
+        "offsetMs": 5561,
+        "durationMs": 363,
+        "text": "心里"
+      },
+      {
+        "offsetMs": 5951,
+        "durationMs": 726,
+        "text": "稳稳当当"
+      },
+      {
+        "offsetMs": 6676,
+        "durationMs": 161,
+        "text": "的"
+      }
+    ]
+  },
+  "家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光": {
+    "id": "starlight-companion:家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光",
+    "normKey": "家庭只是你生活拼图里的一小块你喜欢画画会照顾小动物还会自己想办法你本身就闪闪发光",
+    "profileId": "starlight-companion",
+    "voiceName": "zh-CN-YunxiaNeural",
+    "audioUrl": "/audio/tts/starlight-companion-0401434f0bd880b5.mp3",
+    "durationMs": 9930,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 526,
+        "text": "家庭"
+      },
+      {
+        "offsetMs": 642,
+        "durationMs": 303,
+        "text": "只是"
+      },
+      {
+        "offsetMs": 958,
+        "durationMs": 171,
+        "text": "你"
+      },
+      {
+        "offsetMs": 1142,
+        "durationMs": 421,
+        "text": "生活"
+      },
+      {
+        "offsetMs": 1576,
+        "durationMs": 263,
+        "text": "拼"
+      },
+      {
+        "offsetMs": 1839,
+        "durationMs": 211,
+        "text": "图"
+      },
+      {
+        "offsetMs": 2050,
+        "durationMs": 132,
+        "text": "里"
+      },
+      {
+        "offsetMs": 2182,
+        "durationMs": 92,
+        "text": "的"
+      },
+      {
+        "offsetMs": 2287,
+        "durationMs": 158,
+        "text": "一"
+      },
+      {
+        "offsetMs": 2445,
+        "durationMs": 197,
+        "text": "小"
+      },
+      {
+        "offsetMs": 2642,
+        "durationMs": 316,
+        "text": "块"
+      },
+      {
+        "offsetMs": 3553,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 3750,
+        "durationMs": 355,
+        "text": "喜欢"
+      },
+      {
+        "offsetMs": 4118,
+        "durationMs": 526,
+        "text": "画画"
+      },
+      {
+        "offsetMs": 4855,
+        "durationMs": 211,
+        "text": "会"
+      },
+      {
+        "offsetMs": 5079,
+        "durationMs": 329,
+        "text": "照顾"
+      },
+      {
+        "offsetMs": 5421,
+        "durationMs": 224,
+        "text": "小"
+      },
+      {
+        "offsetMs": 5645,
+        "durationMs": 461,
+        "text": "动物"
+      },
+      {
+        "offsetMs": 6303,
+        "durationMs": 211,
+        "text": "还"
+      },
+      {
+        "offsetMs": 6513,
+        "durationMs": 171,
+        "text": "会"
+      },
+      {
+        "offsetMs": 6697,
+        "durationMs": 355,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 7066,
+        "durationMs": 224,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7289,
+        "durationMs": 447,
+        "text": "办法"
+      },
+      {
+        "offsetMs": 8013,
+        "durationMs": 184,
+        "text": "你"
+      },
+      {
+        "offsetMs": 8197,
+        "durationMs": 461,
+        "text": "本身"
+      },
+      {
+        "offsetMs": 8671,
+        "durationMs": 132,
+        "text": "就"
+      },
+      {
+        "offsetMs": 8816,
+        "durationMs": 408,
+        "text": "闪闪"
+      },
+      {
+        "offsetMs": 9237,
+        "durationMs": 513,
+        "text": "发光"
+      }
+    ]
+  },
+  "想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱": {
+    "id": "warm-sister:想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱",
+    "normKey": "想要一个真人的大拥抱对吗快走到身边的大人面前拉拉他的衣角说我想抱一抱",
+    "profileId": "warm-sister",
+    "voiceName": "zh-CN-XiaoxiaoNeural",
+    "audioUrl": "/audio/tts/warm-sister-83cabf1b189fdf9a.mp3",
+    "durationMs": 7893,
+    "boundaries": [
+      {
+        "offsetMs": 103,
+        "durationMs": 426,
+        "text": "想要"
+      },
+      {
+        "offsetMs": 542,
+        "durationMs": 226,
+        "text": "一个"
+      },
+      {
+        "offsetMs": 795,
+        "durationMs": 372,
+        "text": "真人"
+      },
+      {
+        "offsetMs": 1167,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 1273,
+        "durationMs": 372,
+        "text": "大拥"
+      },
+      {
+        "offsetMs": 1646,
         "durationMs": 199,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 1858,
+        "durationMs": 199,
+        "text": "对"
+      },
+      {
+        "offsetMs": 2058,
+        "durationMs": 279,
+        "text": "吗"
+      },
+      {
+        "offsetMs": 2939,
+        "durationMs": 213,
+        "text": "快"
+      },
+      {
+        "offsetMs": 3152,
+        "durationMs": 173,
         "text": "走"
       },
       {
-        "offsetMs": 3734,
-        "durationMs": 146,
+        "offsetMs": 3324,
+        "durationMs": 160,
         "text": "到"
       },
       {
-        "offsetMs": 3906,
-        "durationMs": 239,
-        "text": "他们"
+        "offsetMs": 3511,
+        "durationMs": 386,
+        "text": "身边"
       },
       {
-        "offsetMs": 4159,
-        "durationMs": 426,
+        "offsetMs": 3896,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 4016,
+        "durationMs": 293,
+        "text": "大人"
+      },
+      {
+        "offsetMs": 4322,
+        "durationMs": 598,
         "text": "面前"
       },
       {
-        "offsetMs": 4611,
-        "durationMs": 293,
+        "offsetMs": 5213,
+        "durationMs": 279,
         "text": "拉拉"
       },
       {
-        "offsetMs": 4917,
-        "durationMs": 585,
+        "offsetMs": 5492,
+        "durationMs": 133,
+        "text": "他"
+      },
+      {
+        "offsetMs": 5625,
+        "durationMs": 93,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5731,
+        "durationMs": 412,
         "text": "衣角"
+      },
+      {
+        "offsetMs": 6144,
+        "durationMs": 346,
+        "text": "说"
+      },
+      {
+        "offsetMs": 6702,
+        "durationMs": 120,
+        "text": "我"
+      },
+      {
+        "offsetMs": 6822,
+        "durationMs": 239,
+        "text": "想"
+      },
+      {
+        "offsetMs": 7088,
+        "durationMs": 226,
+        "text": "抱"
+      },
+      {
+        "offsetMs": 7314,
+        "durationMs": 133,
+        "text": "一"
+      },
+      {
+        "offsetMs": 7447,
+        "durationMs": 266,
+        "text": "抱"
+      }
+    ]
+  },
+  "如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择": {
+    "id": "gentle-guide:如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择",
+    "normKey": "如果现在想自己静一静或者去找信任的老师和家人都是非常好的选择",
+    "profileId": "gentle-guide",
+    "voiceName": "zh-CN-YunxiNeural",
+    "audioUrl": "/audio/tts/gentle-guide-a2db86c0bd914b73.mp3",
+    "durationMs": 5808,
+    "boundaries": [
+      {
+        "offsetMs": 104,
+        "durationMs": 242,
+        "text": "如果"
+      },
+      {
+        "offsetMs": 359,
+        "durationMs": 282,
+        "text": "现在"
+      },
+      {
+        "offsetMs": 655,
+        "durationMs": 202,
+        "text": "想"
+      },
+      {
+        "offsetMs": 856,
+        "durationMs": 255,
+        "text": "自己"
+      },
+      {
+        "offsetMs": 1125,
+        "durationMs": 215,
+        "text": "静"
+      },
+      {
+        "offsetMs": 1340,
+        "durationMs": 148,
+        "text": "一"
+      },
+      {
+        "offsetMs": 1488,
+        "durationMs": 336,
+        "text": "静"
+      },
+      {
+        "offsetMs": 2093,
+        "durationMs": 255,
+        "text": "或者"
+      },
+      {
+        "offsetMs": 2362,
+        "durationMs": 134,
+        "text": "去"
+      },
+      {
+        "offsetMs": 2496,
+        "durationMs": 121,
+        "text": "找"
+      },
+      {
+        "offsetMs": 2644,
+        "durationMs": 349,
+        "text": "信任"
+      },
+      {
+        "offsetMs": 2994,
+        "durationMs": 81,
+        "text": "的"
+      },
+      {
+        "offsetMs": 3088,
+        "durationMs": 336,
+        "text": "老师"
+      },
+      {
+        "offsetMs": 3451,
+        "durationMs": 81,
+        "text": "和"
+      },
+      {
+        "offsetMs": 3545,
+        "durationMs": 564,
+        "text": "家人"
+      },
+      {
+        "offsetMs": 4364,
+        "durationMs": 148,
+        "text": "都"
+      },
+      {
+        "offsetMs": 4512,
+        "durationMs": 94,
+        "text": "是"
+      },
+      {
+        "offsetMs": 4620,
+        "durationMs": 336,
+        "text": "非常"
+      },
+      {
+        "offsetMs": 4969,
+        "durationMs": 134,
+        "text": "好"
+      },
+      {
+        "offsetMs": 5104,
+        "durationMs": 67,
+        "text": "的"
+      },
+      {
+        "offsetMs": 5184,
+        "durationMs": 444,
+        "text": "选择"
       }
     ]
   }

@@ -269,7 +269,8 @@ export interface DSPNodeChain {
 class SoundPlayer {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
-  private activeTemplate: AudioTemplateId = 'warm-sister';
+  private isMasterMuted: boolean = false;
+  private activeTemplate: AudioTemplateId = 'playful-buddy';
   private stepCounter: number = 0;
   private activeVoiceCount: number = 0;
   private masterCompressor: DynamicsCompressorNode | null = null;
@@ -277,10 +278,27 @@ class SoundPlayer {
   private sharedConvolver: ConvolverNode | null = null;
   private sharedReverbSend: GainNode | null = null;
   private isSpeechDucking: boolean = false;
+  private listeners: Array<() => void> = [];
 
   constructor() {
     if (typeof window !== 'undefined') {
       try {
+        const savedPers =
+          localStorage.getItem('aland_child_personalization_v1') ||
+          localStorage.getItem('child_personalization');
+        if (savedPers) {
+          const parsed = JSON.parse(savedPers);
+          const compMap: Record<string, AudioTemplateId> = {
+            guoguo_squirrel: 'playful-buddy',
+            beibei_otter: 'warm-sister',
+            tiantian_raccoon: 'gentle-guide',
+            qiqi_deer: 'starlight-companion',
+          };
+          if (parsed?.companionId && compMap[parsed.companionId]) {
+            this.activeTemplate = compMap[parsed.companionId];
+            return;
+          }
+        }
         const saved = localStorage.getItem('child_voice_profile');
         if (
           saved === 'warm-sister' ||
@@ -294,8 +312,19 @@ class SoundPlayer {
     }
   }
 
+  public subscribe(listener: () => void): () => void {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter((l) => l !== listener);
+    };
+  }
+
+  private notifyListeners() {
+    this.listeners.forEach((l) => l());
+  }
+
   private getContext(): AudioContext | null {
-    if (this.isMuted) return null;
+    if (this.isMuted || this.isMasterMuted) return null;
     if (!this.ctx && typeof window !== 'undefined') {
       const AudioCtx =
         window.AudioContext ||
@@ -367,21 +396,49 @@ class SoundPlayer {
     return this.activeVoiceCount;
   }
 
-  public setMuted(muted: boolean) {
+  /**
+   * Controls Sound Effects (SFX / Ambient) mute state ONLY.
+   * Does NOT mute partner speech (speechEnabled is independent).
+   */
+  public setSfxMuted(muted: boolean) {
     this.isMuted = muted;
     if (muted && this.ctx && this.ctx.state === 'running') {
       try {
         this.ctx.suspend().catch(() => {});
       } catch {}
     }
+    this.notifyListeners();
+  }
+
+  public getSfxMuted(): boolean {
+    return this.isMuted;
+  }
+
+  public setMuted(muted: boolean) {
+    this.setSfxMuted(muted);
+  }
+
+  public setMasterMuted(muted: boolean) {
+    this.isMasterMuted = muted;
+    if (muted && this.ctx && this.ctx.state === 'running') {
+      try {
+        this.ctx.suspend().catch(() => {});
+      } catch {}
+    }
+    this.notifyListeners();
+  }
+
+  public getMasterMuted(): boolean {
+    return this.isMasterMuted;
   }
 
   public stopAll() {
-    this.setMuted(true);
+    this.setSfxMuted(true);
   }
 
   public resume() {
-    this.setMuted(false);
+    this.setSfxMuted(false);
+    this.setMasterMuted(false);
     if (this.ctx && this.ctx.state === 'suspended') {
       try {
         this.ctx.resume().catch(() => {});
@@ -390,7 +447,7 @@ class SoundPlayer {
   }
 
   public getMuted(): boolean {
-    return this.isMuted;
+    return this.isMuted || this.isMasterMuted;
   }
 
   public setSpeechDucking(ducking: boolean) {

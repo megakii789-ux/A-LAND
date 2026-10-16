@@ -14,6 +14,7 @@ import {
 import { sounds } from '../../../utils/sound';
 import { speechNarrator } from '../../../utils/speech';
 import { CompanionAvatarSvg, InterestBadgeSvg } from '../CompanionIcons';
+import { VoiceSystemAuditionModal } from '../../Audio/VoiceSystemAuditionModal';
 
 interface Props {
   isOpen: boolean;
@@ -32,6 +33,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
   const [activeTab, setActiveTab] = useState<'preferences' | 'accessibility' | 'privacy'>('preferences');
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [feedbackNotice, setFeedbackNotice] = useState<string | null>(null);
+  const [isAuditionOpen, setIsAuditionOpen] = useState(false);
 
   if (!isOpen) return null;
 
@@ -39,9 +41,8 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
 
   const handleCompanionSelect = (id: AnimalCompanionId) => {
     const companion = ANIMAL_COMPANIONS[id];
-    speechNarrator.syncWithCompanion(id);
     updatePersonalization({ companionId: id });
-    speechNarrator.speak(`你好呀！我是你的小岛伙伴${companion.name}。${companion.greetingText}`);
+    speechNarrator.speak(`你好呀！我是${companion.name}。${companion.greetingText}`);
     showFeedback(`已选择伙伴：${companion.name}`);
   };
 
@@ -283,21 +284,36 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                 </div>
 
                 {/* 当前伙伴招呼 */}
-                <div className="mt-3 p-3 bg-amber-50 rounded-2xl border border-amber-200 flex items-center justify-between gap-2">
+                <div className="mt-3 p-3 bg-amber-50 rounded-2xl border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
                     <CompanionAvatarSvg companionId={currentCompanion.id} className="w-9 h-9 shrink-0" />
                     <p className="text-sm text-amber-900 font-bold">
                       {currentCompanion.name}：“{currentCompanion.greetingText}”
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => speechNarrator.speak(currentCompanion.greetingText)}
-                    className="p-2 text-amber-700 hover:text-amber-900 min-w-[44px] min-h-[44px] flex items-center justify-center"
-                    aria-label={`听${currentCompanion.name}说话`}
-                  >
-                    <Volume2 className="w-5 h-5" />
-                  </button>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      data-testid="open-voice-audition-modal-btn"
+                      onClick={() => {
+                        sounds.playClick();
+                        setIsAuditionOpen(true);
+                      }}
+                      className="px-3 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                      aria-label="打开角色配音试听与声线信息面板"
+                    >
+                      <Sparkles className="w-4 h-4 text-amber-600" />
+                      <span>试听四位伙伴声线</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => speechNarrator.speak(currentCompanion.greetingText)}
+                      className="p-2 text-amber-700 hover:text-amber-900 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                      aria-label={`听${currentCompanion.name}说话`}
+                    >
+                      <Volume2 className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </section>
 
@@ -611,6 +627,15 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
           </button>
         </div>
       </div>
+
+      <VoiceSystemAuditionModal
+        isOpen={isAuditionOpen}
+        onClose={() => setIsAuditionOpen(false)}
+        onConfirmCompanionChange={(cid) => {
+          updatePersonalization({ companionId: cid });
+          showFeedback(`已切换全域伙伴与专属声线：${ANIMAL_COMPANIONS[cid].name}`);
+        }}
+      />
     </div>
   );
 };

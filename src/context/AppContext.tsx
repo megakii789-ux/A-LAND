@@ -161,10 +161,37 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [familyContent, setFamilyContentState] = useState<boolean>(false);
   const [isDemoMode, setIsDemoModeState] = useState<boolean>(false);
 
-  // Controlled Child Personalization (AG-04B)
-  const [personalization, setPersonalization] = useState<PersonalizationProfile>(() =>
-    loadPersonalizationProfile()
-  );
+  // Controlled Child Personalization (AG-04B) — Single Source of Truth for Companion & Voice
+  const [personalization, setPersonalization] = useState<PersonalizationProfile>(() => {
+    let loaded = loadPersonalizationProfile();
+    if (typeof window !== 'undefined') {
+      try {
+        const hasSavedPersonalization = Boolean(localStorage.getItem(PERSONALIZATION_STORAGE_KEY));
+        if (!hasSavedPersonalization && loaded.companionId === 'guoguo_squirrel') {
+          const legacyVoice = localStorage.getItem('child_voice_profile');
+          const legacyMap: Record<string, PersonalizationProfile['companionId']> = {
+            'playful-buddy': 'guoguo_squirrel',
+            'warm-sister': 'beibei_otter',
+            'gentle-guide': 'tiantian_raccoon',
+            'starlight-companion': 'qiqi_deer',
+          };
+          if (legacyVoice && legacyMap[legacyVoice]) {
+            loaded = { ...loaded, companionId: legacyMap[legacyVoice] };
+            localStorage.removeItem('child_voice_profile');
+          }
+        }
+      } catch {}
+    }
+    speechNarrator.syncWithCompanion(loaded.companionId);
+    speechNarrator.setVoiceEnabled(loaded.accessibility.voiceEnabled);
+    return loaded;
+  });
+
+  // Authoritative global companion -> voice engine synchronization (independent of CompanionBanner mount)
+  useEffect(() => {
+    speechNarrator.syncWithCompanion(personalization.companionId);
+    speechNarrator.setVoiceEnabled(personalization.accessibility.voiceEnabled);
+  }, [personalization.companionId, personalization.accessibility.voiceEnabled]);
 
   // Hydrate ONLY if explicit consent was previously granted
   useEffect(() => {
@@ -412,7 +439,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    sounds.setMuted(next);
+    sounds.setMasterMuted(next);
     if (next) {
       speechNarrator.stop();
     }
@@ -501,21 +528,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updatePersonalization = (partial: Partial<PersonalizationProfile>) => {
     const updated = savePersonalizationProfile(partial);
+    speechNarrator.syncWithCompanion(updated.companionId);
+    speechNarrator.setVoiceEnabled(updated.accessibility.voiceEnabled);
     setPersonalization(updated);
   };
 
   const resetPersonalization = () => {
     const reset = resetPersonalizationProfile();
+    speechNarrator.syncWithCompanion(reset.companionId);
+    speechNarrator.setVoiceEnabled(reset.accessibility.voiceEnabled);
     setPersonalization(reset);
   };
 
   const clearAllPersonalization = () => {
     clearAllPersonalizationData();
-    setPersonalization(resetPersonalizationProfile());
+    const reset = resetPersonalizationProfile();
+    speechNarrator.syncWithCompanion(reset.companionId);
+    speechNarrator.setVoiceEnabled(reset.accessibility.voiceEnabled);
+    setPersonalization(reset);
   };
 
   const revokePersonalizationConsent = () => {
     const revoked = revokeConsentAndWipeStorage();
+    speechNarrator.syncWithCompanion(revoked.companionId);
+    speechNarrator.setVoiceEnabled(revoked.accessibility.voiceEnabled);
     setPersonalization(revoked);
     setSaveLocal(false);
   };
@@ -541,7 +577,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // Ignore
     }
     clearAllPersonalizationData();
-    setPersonalization(resetPersonalizationProfile());
+    const reset = resetPersonalizationProfile();
+    speechNarrator.syncWithCompanion(reset.companionId);
+    speechNarrator.setVoiceEnabled(reset.accessibility.voiceEnabled);
+    setPersonalization(reset);
     setTodayWeather(null);
     setWeatherHistory([]);
     setHugEvents([]);
