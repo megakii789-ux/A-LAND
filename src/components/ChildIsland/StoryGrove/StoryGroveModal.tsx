@@ -58,6 +58,7 @@ import {
   StoryCupSceneArtV2,
   StoryCupLayerControlBarV2,
   STORY_CUP_PROPS,
+  useStoryCupStageMatrix,
   type SceneLayerId,
 } from '../../../visual-v2/story-cup-pilot/StoryCupSceneArtV2';
 
@@ -87,6 +88,7 @@ export const StoryGroveModal: React.FC<Props> = ({
 }) => {
   const { completedLeaves, markLeafComplete, childQuotes, todayWeather } = useApp();
   const isV2CupPilot = visualV2Pilot ?? detectVisualV2PilotDefault();
+  const v2StageMatrix = useStoryCupStageMatrix();
   const [v2EnabledLayers, setV2EnabledLayers] = useState<Record<SceneLayerId, boolean>>({
     L1: true,
     L2: true,
@@ -419,17 +421,18 @@ export const StoryGroveModal: React.FC<Props> = ({
     }
   };
 
-  // Sprint 4.1 FIX-04: Convert client (x, y) to SVG (0..420, 0..220) coordinates for cup-size
+  // Sprint 4.1 FIX-04: Convert client (x, y) to SVG (0..420, 0..220 or 0..747) coordinates for cup-size
   const clientPointToCupSvg = (clientX: number, clientY: number): { svgX: number; svgY: number } => {
     const svgEl = svgCupRef.current;
     const rect = svgEl?.getBoundingClientRect();
+    const targetSvgHeight = isV2CupPilot ? v2StageMatrix.svgHeight : 220;
     const width = rect && rect.width > 0 ? rect.width : 420;
-    const height = rect && rect.height > 0 ? rect.height : 220;
+    const height = rect && rect.height > 0 ? rect.height : targetSvgHeight;
     const left = rect && rect.width > 0 ? rect.left : 0;
     const top = rect && rect.height > 0 ? rect.top : 0;
     return {
       svgX: ((clientX - left) / width) * 420,
-      svgY: ((clientY - top) / height) * 220,
+      svgY: ((clientY - top) / height) * targetSvgHeight,
     };
   };
 
@@ -468,6 +471,7 @@ export const StoryGroveModal: React.FC<Props> = ({
     const { svgX, svgY } = clientPointToCupSvg(e.clientX, e.clientY);
     const deltaX = dragStartClientX !== null ? Math.abs(e.clientX - dragStartClientX) : 0;
     const targetZone = mapSvgXToCupDropZone(svgX);
+    const targetSvgHeight = isV2CupPilot ? v2StageMatrix.svgHeight : 220;
 
     setIsDraggingCup(false);
     setDragCupSvgX(null);
@@ -475,7 +479,7 @@ export const StoryGroveModal: React.FC<Props> = ({
     setHoveredCupDropZone(null);
 
     // Accidental touch / out-of-bounds recovery: bounce back cleanly without corrupting state
-    if (svgY < -20 || svgY > 240 || (deltaX < 6 && targetZone === cupPosition)) {
+    if (svgY < -20 || svgY > targetSvgHeight + 20 || (deltaX < 6 && targetZone === cupPosition)) {
       setCupDragRecoveryNote(
         '蓝水杯稳稳留在原位啦！按住蓝水杯往左拖到小积木旁，或往右拖到大水桶旁就能吸附比大小哦。'
       );
@@ -1051,7 +1055,9 @@ export const StoryGroveModal: React.FC<Props> = ({
                   type="button"
                   data-testid="open-camp-transfer-challenge"
                   onClick={handleStartTransferChallenge}
-                  className="min-h-[56px] px-4 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shadow-sm"
+                  className={`${
+                    isV2CupPilot ? 'min-h-[56px]' : 'min-h-[48px]'
+                  } px-4 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shadow-sm`}
                 >
                   <span>进入树屋露营夜</span>
                   <ArrowRight className="w-4 h-4" />
@@ -1122,7 +1128,9 @@ export const StoryGroveModal: React.FC<Props> = ({
             <div className="flex items-center justify-between pr-12">
               <button
                 onClick={handleReturnToCatalog}
-                className="min-h-[56px] px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
+                className={`${
+                  isV2CupPilot ? 'min-h-[56px]' : 'min-h-[48px]'
+                } px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer`}
               >
                 <ArrowLeft className="w-4 h-4" /> 返回叶子目录
               </button>
@@ -1173,7 +1181,9 @@ export const StoryGroveModal: React.FC<Props> = ({
                   type="button"
                   data-testid="story-request-adult-review-btn"
                   onClick={handleRequestAdultReview}
-                  className="min-h-[56px] px-4 py-2.5 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
+                  className={`${
+                    isV2CupPilot ? 'min-h-[56px]' : 'min-h-[48px]'
+                  } px-4 py-2.5 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors`}
                 >
                   🔒 家长 / 审阅人验证后预览（需输入家长 PIN）
                 </button>
@@ -1225,18 +1235,6 @@ export const StoryGroveModal: React.FC<Props> = ({
                 </div>
               )}
 
-              {isV2CupPilot && interactiveLeafDef.id === 'cup-size' && (
-                <StoryCupLayerControlBarV2
-                  enabledLayers={v2EnabledLayers}
-                  onToggleLayer={(id) =>
-                    setV2EnabledLayers((prev) => ({ ...prev, [id]: !prev[id] }))
-                  }
-                  onResetLayers={() =>
-                    setV2EnabledLayers({ L1: true, L2: true, L3: true, L4: true, L5: true })
-                  }
-                />
-              )}
-
               <div className="bg-white/95 p-3 sm:p-4 rounded-3xl border border-amber-200 shadow-sm space-y-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <div>
@@ -1249,7 +1247,10 @@ export const StoryGroveModal: React.FC<Props> = ({
                   </div>
                   <button
                     type="button"
-                    onClick={() => handleSpeak(interactiveLeafDef.sceneSettingPrompt)}
+                    onClick={() => {
+                      setActiveHotspotId(null);
+                      handleSpeak(interactiveLeafDef.sceneSettingPrompt);
+                    }}
                     className={`${
                       isV2CupPilot ? 'min-w-[56px] min-h-[56px]' : 'min-w-[44px] min-h-[44px]'
                     } p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 flex items-center justify-center cursor-pointer shrink-0`}
@@ -1278,9 +1279,14 @@ export const StoryGroveModal: React.FC<Props> = ({
                   data-v2-pilot={
                     isV2CupPilot && interactiveLeafDef.id === 'cup-size' ? 'true' : undefined
                   }
+                  data-stage-layout-mode={
+                    isV2CupPilot && interactiveLeafDef.id === 'cup-size'
+                      ? v2StageMatrix.mode
+                      : undefined
+                  }
                   className={
                     isV2CupPilot && interactiveLeafDef.id === 'cup-size'
-                      ? 'relative rounded-2xl overflow-hidden border-2 border-amber-300 bg-[#bdeef7] h-64 sm:h-80 select-none touch-none'
+                      ? `relative rounded-2xl overflow-hidden border-2 border-amber-300 bg-[#bdeef7] ${v2StageMatrix.stageAspectClass} select-none touch-none`
                       : 'relative rounded-2xl overflow-hidden border-2 border-amber-200 bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-100 h-56 sm:h-64 select-none touch-none'
                   }
                 >
@@ -1296,15 +1302,16 @@ export const StoryGroveModal: React.FC<Props> = ({
                       )}
                       isGoalCompleted={Boolean(effectiveLeafOutcome?.isGoalCompleted)}
                       enabledLayers={v2EnabledLayers}
+                      stageMatrix={v2StageMatrix}
                     />
                   )}
                   {interactiveLeafDef.id === 'cup-size' ? (
                     <svg
                       ref={svgCupRef}
                       data-testid="story-interactive-svg-cup-size"
-                      viewBox="0 0 420 220"
+                      viewBox={isV2CupPilot ? v2StageMatrix.svgViewBox : '0 0 420 220'}
                       className="w-full h-full touch-none relative z-10"
-                      role="img"
+                      role={isV2CupPilot ? 'group' : 'img'}
                       aria-label="一只杯子是大还是小童话木桌场景（可按住水杯左右拖动对比）"
                       onPointerMove={handleCupSvgPointerMove}
                       onPointerUp={handleCupSvgPointerUp}
@@ -1320,13 +1327,16 @@ export const StoryGroveModal: React.FC<Props> = ({
                         </>
                       )}
 
-                      {/* Sprint 4.1 FIX-04: Three visual drop zones on table for direct drag & snap */}
+                      {/* Sprint 4.1 FIX-04 + V2.2 Gate 3R: Three visual drop zones on table for direct drag & snap */}
                       <rect
                         data-testid="cup-dropzone-NEXT_TO_BLOCK"
-                        x="94"
-                        y="86"
-                        width="62"
-                        height="56"
+                        role={isV2CupPilot ? 'button' : undefined}
+                        tabIndex={isV2CupPilot ? 0 : undefined}
+                        aria-label={isV2CupPilot ? '把蓝水杯移到小积木旁对比' : undefined}
+                        x={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BLOCK.x : 94}
+                        y={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BLOCK.y : 86}
+                        width={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BLOCK.width : 62}
+                        height={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BLOCK.height : 56}
                         rx="10"
                         fill={hoveredCupDropZone === 'NEXT_TO_BLOCK' ? '#A7F3D0' : '#FEF3C7'}
                         fillOpacity={
@@ -1340,14 +1350,27 @@ export const StoryGroveModal: React.FC<Props> = ({
                         strokeWidth={hoveredCupDropZone === 'NEXT_TO_BLOCK' ? '2.5' : '1.5'}
                         strokeDasharray="4 3"
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BLOCK')}
-                        style={{ cursor: 'pointer' }}
+                        onKeyDown={
+                          isV2CupPilot
+                            ? (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('NEXT_TO_BLOCK');
+                                }
+                              }
+                            : undefined
+                        }
+                        style={{ cursor: 'pointer', outline: 'none' }}
                       />
                       <rect
                         data-testid="cup-dropzone-CENTER_TABLE"
-                        x="174"
-                        y="86"
-                        width="62"
-                        height="56"
+                        role={isV2CupPilot ? 'button' : undefined}
+                        tabIndex={isV2CupPilot ? 0 : undefined}
+                        aria-label={isV2CupPilot ? '把蓝水杯放回木桌中间' : undefined}
+                        x={isV2CupPilot ? v2StageMatrix.dropZones.CENTER_TABLE.x : 174}
+                        y={isV2CupPilot ? v2StageMatrix.dropZones.CENTER_TABLE.y : 86}
+                        width={isV2CupPilot ? v2StageMatrix.dropZones.CENTER_TABLE.width : 62}
+                        height={isV2CupPilot ? v2StageMatrix.dropZones.CENTER_TABLE.height : 56}
                         rx="10"
                         fill={hoveredCupDropZone === 'CENTER_TABLE' ? '#BAE6FD' : '#FEF3C7'}
                         fillOpacity={
@@ -1361,14 +1384,27 @@ export const StoryGroveModal: React.FC<Props> = ({
                         strokeWidth={hoveredCupDropZone === 'CENTER_TABLE' ? '2.5' : '1.5'}
                         strokeDasharray="4 3"
                         onClick={() => handleMoveCupToPosition('CENTER_TABLE')}
-                        style={{ cursor: 'pointer' }}
+                        onKeyDown={
+                          isV2CupPilot
+                            ? (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('CENTER_TABLE');
+                                }
+                              }
+                            : undefined
+                        }
+                        style={{ cursor: 'pointer', outline: 'none' }}
                       />
                       <rect
                         data-testid="cup-dropzone-NEXT_TO_BUCKET"
-                        x="236"
-                        y="86"
-                        width="62"
-                        height="56"
+                        role={isV2CupPilot ? 'button' : undefined}
+                        tabIndex={isV2CupPilot ? 0 : undefined}
+                        aria-label={isV2CupPilot ? '把蓝水杯移到大水桶旁对比' : undefined}
+                        x={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BUCKET.x : 236}
+                        y={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BUCKET.y : 86}
+                        width={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BUCKET.width : 62}
+                        height={isV2CupPilot ? v2StageMatrix.dropZones.NEXT_TO_BUCKET.height : 56}
                         rx="10"
                         fill={hoveredCupDropZone === 'NEXT_TO_BUCKET' ? '#A7F3D0' : '#FEF3C7'}
                         fillOpacity={
@@ -1382,7 +1418,17 @@ export const StoryGroveModal: React.FC<Props> = ({
                         strokeWidth={hoveredCupDropZone === 'NEXT_TO_BUCKET' ? '2.5' : '1.5'}
                         strokeDasharray="4 3"
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BUCKET')}
-                        style={{ cursor: 'pointer' }}
+                        onKeyDown={
+                          isV2CupPilot
+                            ? (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('NEXT_TO_BUCKET');
+                                }
+                              }
+                            : undefined
+                        }
+                        style={{ cursor: 'pointer', outline: 'none' }}
                       />
 
                       {isDraggingCup && hoveredCupDropZone && (
@@ -1390,13 +1436,19 @@ export const StoryGroveModal: React.FC<Props> = ({
                           data-testid="cup-snap-highlight"
                           data-snap-zone={hoveredCupDropZone}
                           cx={
-                            hoveredCupDropZone === 'NEXT_TO_BLOCK'
-                              ? '125'
-                              : hoveredCupDropZone === 'NEXT_TO_BUCKET'
-                                ? '267'
-                                : '205'
+                            isV2CupPilot
+                              ? v2StageMatrix.dropZones[hoveredCupDropZone].cx
+                              : hoveredCupDropZone === 'NEXT_TO_BLOCK'
+                                ? '125'
+                                : hoveredCupDropZone === 'NEXT_TO_BUCKET'
+                                  ? '267'
+                                  : '205'
                           }
-                          cy="114"
+                          cy={
+                            isV2CupPilot
+                              ? v2StageMatrix.dropZones[hoveredCupDropZone].cy
+                              : '114'
+                          }
                           r="30"
                           fill="none"
                           stroke="#10B981"
@@ -1407,27 +1459,31 @@ export const StoryGroveModal: React.FC<Props> = ({
 
                       {/* Left: Squirrel Tiaotiao + Small Wooden Block */}
                       <g
-                        transform="translate(46, 80)"
+                        transform={
+                          isV2CupPilot
+                            ? v2StageMatrix.props.woodenBlock.groupTransform
+                            : 'translate(46, 80)'
+                        }
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BLOCK')}
                         style={{ cursor: 'pointer' }}
                       >
                         {isV2CupPilot ? (
                           <>
                             <rect
-                              x="-6"
-                              y="-6"
-                              width="78"
-                              height="78"
+                              x={v2StageMatrix.props.woodenBlock.hitRect.x}
+                              y={v2StageMatrix.props.woodenBlock.hitRect.y}
+                              width={v2StageMatrix.props.woodenBlock.hitRect.width}
+                              height={v2StageMatrix.props.woodenBlock.hitRect.height}
                               fill="transparent"
                             />
                             <image
                               data-testid="v2-prop-image-obj_wooden_block"
                               href={STORY_CUP_PROPS.obj_wooden_block.svg}
                               data-webp-src={STORY_CUP_PROPS.obj_wooden_block.webp}
-                              x="16"
-                              y="18"
-                              width="48"
-                              height="48"
+                              x={v2StageMatrix.props.woodenBlock.img.x}
+                              y={v2StageMatrix.props.woodenBlock.img.y}
+                              width={v2StageMatrix.props.woodenBlock.img.width}
+                              height={v2StageMatrix.props.woodenBlock.img.height}
                               style={{ pointerEvents: 'none' }}
                             />
                           </>
@@ -1477,8 +1533,8 @@ export const StoryGroveModal: React.FC<Props> = ({
                           </>
                         )}
                         <text
-                          x="41"
-                          y={isV2CupPilot ? '70' : '55'}
+                          x={isV2CupPilot ? v2StageMatrix.props.woodenBlock.labelX : 41}
+                          y={isV2CupPilot ? v2StageMatrix.props.woodenBlock.labelY : 55}
                           fontSize="9.5"
                           textAnchor="middle"
                           fill="#451A03"
@@ -1490,27 +1546,31 @@ export const StoryGroveModal: React.FC<Props> = ({
 
                       {/* Right: Elephant Pupu + Large Bucket */}
                       <g
-                        transform="translate(290, 52)"
+                        transform={
+                          isV2CupPilot
+                            ? v2StageMatrix.props.elephantBucket.groupTransform
+                            : 'translate(290, 52)'
+                        }
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BUCKET')}
                         style={{ cursor: 'pointer' }}
                       >
                         {isV2CupPilot ? (
                           <>
                             <rect
-                              x="-10"
-                              y="14"
-                              width="82"
-                              height="84"
+                              x={v2StageMatrix.props.elephantBucket.hitRect.x}
+                              y={v2StageMatrix.props.elephantBucket.hitRect.y}
+                              width={v2StageMatrix.props.elephantBucket.hitRect.width}
+                              height={v2StageMatrix.props.elephantBucket.hitRect.height}
                               fill="transparent"
                             />
                             <image
                               data-testid="v2-prop-image-obj_elephant_bucket"
                               href={STORY_CUP_PROPS.obj_elephant_bucket.svg}
                               data-webp-src={STORY_CUP_PROPS.obj_elephant_bucket.webp}
-                              x="-6"
-                              y="24"
-                              width="64"
-                              height="68"
+                              x={v2StageMatrix.props.elephantBucket.img.x}
+                              y={v2StageMatrix.props.elephantBucket.img.y}
+                              width={v2StageMatrix.props.elephantBucket.img.width}
+                              height={v2StageMatrix.props.elephantBucket.img.height}
                               style={{ pointerEvents: 'none' }}
                             />
                           </>
@@ -1545,8 +1605,8 @@ export const StoryGroveModal: React.FC<Props> = ({
                           </>
                         )}
                         <text
-                          x="24"
-                          y={isV2CupPilot ? '98' : '65'}
+                          x={isV2CupPilot ? v2StageMatrix.props.elephantBucket.labelX : 24}
+                          y={isV2CupPilot ? v2StageMatrix.props.elephantBucket.labelY : 65}
                           fontSize="10"
                           textAnchor="middle"
                           fill="#431407"
@@ -1585,22 +1645,26 @@ export const StoryGroveModal: React.FC<Props> = ({
                             : undefined
                         }
                         onPointerDown={handleCupPointerDown}
-                        style={{ cursor: isDraggingCup ? 'grabbing' : 'grab' }}
+                        style={{ cursor: isDraggingCup ? 'grabbing' : 'grab', outline: 'none' }}
                         transform={
-                          isDraggingCup && dragCupSvgX !== null
-                            ? `translate(${Math.round(Math.max(58, Math.min(308, dragCupSvgX - 19)))}, 84)`
-                            : cupPosition === 'NEXT_TO_BLOCK'
-                              ? 'translate(106, 90)'
-                              : cupPosition === 'NEXT_TO_BUCKET'
-                                ? 'translate(242, 90)'
-                                : 'translate(186, 90)'
+                          isV2CupPilot
+                            ? isDraggingCup && dragCupSvgX !== null
+                              ? `translate(${Math.round(Math.max(58, Math.min(308, dragCupSvgX - 19)))}, ${v2StageMatrix.props.blueCup.dragY})`
+                              : `translate(${v2StageMatrix.props.blueCup.xByPosition[cupPosition]}, ${v2StageMatrix.props.blueCup.y})`
+                            : isDraggingCup && dragCupSvgX !== null
+                              ? `translate(${Math.round(Math.max(58, Math.min(308, dragCupSvgX - 19)))}, 84)`
+                              : cupPosition === 'NEXT_TO_BLOCK'
+                                ? 'translate(106, 90)'
+                                : cupPosition === 'NEXT_TO_BUCKET'
+                                  ? 'translate(242, 90)'
+                                  : 'translate(186, 90)'
                         }
                       >
                         <rect
-                          x={isV2CupPilot ? '-22' : '-6'}
-                          y={isV2CupPilot ? '-16' : '0'}
-                          width={isV2CupPilot ? '84' : '54'}
-                          height={isV2CupPilot ? '84' : '56'}
+                          x={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.x : -6}
+                          y={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.y : 0}
+                          width={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.width : 54}
+                          height={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.height : 56}
                           fill="transparent"
                         />
                         {isV2CupPilot ? (
@@ -1608,10 +1672,10 @@ export const StoryGroveModal: React.FC<Props> = ({
                             data-testid="v2-prop-image-obj_blue_cup"
                             href={STORY_CUP_PROPS.obj_blue_cup.svg}
                             data-webp-src={STORY_CUP_PROPS.obj_blue_cup.webp}
-                            x="-8"
-                            y="4"
-                            width="54"
-                            height="54"
+                            x={v2StageMatrix.props.blueCup.img.x}
+                            y={v2StageMatrix.props.blueCup.img.y}
+                            width={v2StageMatrix.props.blueCup.img.width}
+                            height={v2StageMatrix.props.blueCup.img.height}
                             style={{ pointerEvents: 'none' }}
                           />
                         ) : (
@@ -1655,7 +1719,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                         <text
                           data-testid="cup-constant-size-gauge"
                           x="19"
-                          y={isV2CupPilot ? '2' : '6'}
+                          y={isV2CupPilot ? v2StageMatrix.props.blueCup.gaugeY : 6}
                           fontSize="8.5"
                           textAnchor="middle"
                           fill="#0369A1"
@@ -1669,17 +1733,17 @@ export const StoryGroveModal: React.FC<Props> = ({
                       {cupPosition === 'NEXT_TO_BLOCK' && (
                         <g data-testid="cup-vs-block-visual-badge">
                           <line
-                            x1="78"
-                            y1="120"
-                            x2="106"
-                            y2="100"
+                            x1={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 60 : 70) : 78}
+                            y1={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 575 : 162) : 120}
+                            x2={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 102 : 108) : 106}
+                            y2={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 545 : 142) : 100}
                             stroke="#059669"
                             strokeWidth="2.5"
                             strokeDasharray="4 2"
                           />
                           <rect
                             x="32"
-                            y="14"
+                            y={isV2CupPilot ? 14 + v2StageMatrix.overlayOffsetY : 14}
                             width="172"
                             height="26"
                             rx="13"
@@ -1689,7 +1753,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                           />
                           <text
                             x="118"
-                            y="31"
+                            y={isV2CupPilot ? 31 + v2StageMatrix.overlayOffsetY : 31}
                             fontSize="10.5"
                             textAnchor="middle"
                             fill="#065F46"
@@ -1703,17 +1767,17 @@ export const StoryGroveModal: React.FC<Props> = ({
                       {cupPosition === 'NEXT_TO_BUCKET' && (
                         <g data-testid="cup-vs-bucket-visual-badge">
                           <line
-                            x1="280"
-                            y1="100"
-                            x2="294"
-                            y2="86"
+                            x1={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 274 : 280) : 280}
+                            y1={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 545 : 142) : 100}
+                            x2={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 306 : 310) : 294}
+                            y2={isV2CupPilot ? (v2StageMatrix.mode === 'mobile' ? 520 : 124) : 86}
                             stroke="#0284C7"
                             strokeWidth="2.5"
                             strokeDasharray="4 2"
                           />
                           <rect
                             x="208"
-                            y="14"
+                            y={isV2CupPilot ? 14 + v2StageMatrix.overlayOffsetY : 14}
                             width="182"
                             height="26"
                             rx="13"
@@ -1723,7 +1787,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                           />
                           <text
                             x="299"
-                            y="31"
+                            y={isV2CupPilot ? 31 + v2StageMatrix.overlayOffsetY : 31}
                             fontSize="10.5"
                             textAnchor="middle"
                             fill="#1E40AF"
@@ -1736,27 +1800,31 @@ export const StoryGroveModal: React.FC<Props> = ({
 
                       {/* Bottom Twig Ruler */}
                       <g
-                        transform="translate(115, 172)"
+                        transform={
+                          isV2CupPilot
+                            ? v2StageMatrix.props.twigRuler.groupTransform
+                            : 'translate(115, 172)'
+                        }
                         onClick={() => handleInspectStoryHotspot('obj_twig_ruler')}
                         style={{ cursor: 'pointer' }}
                       >
                         {isV2CupPilot ? (
                           <>
                             <rect
-                              x="0"
-                              y="-18"
-                              width="190"
-                              height="44"
+                              x={v2StageMatrix.props.twigRuler.hitRect.x}
+                              y={v2StageMatrix.props.twigRuler.hitRect.y}
+                              width={v2StageMatrix.props.twigRuler.hitRect.width}
+                              height={v2StageMatrix.props.twigRuler.hitRect.height}
                               fill="transparent"
                             />
                             <image
                               data-testid="v2-prop-image-obj_twig_ruler"
                               href={STORY_CUP_PROPS.obj_twig_ruler.svg}
                               data-webp-src={STORY_CUP_PROPS.obj_twig_ruler.webp}
-                              x="20"
-                              y="-22"
-                              width="150"
-                              height="52"
+                              x={v2StageMatrix.props.twigRuler.img.x}
+                              y={v2StageMatrix.props.twigRuler.img.y}
+                              width={v2StageMatrix.props.twigRuler.img.width}
+                              height={v2StageMatrix.props.twigRuler.img.height}
                               preserveAspectRatio="xMidYMid meet"
                               style={{ pointerEvents: 'none' }}
                             />
@@ -1793,14 +1861,26 @@ export const StoryGroveModal: React.FC<Props> = ({
                         effectiveLeafOutcome?.hasAllRequiredEvidence && (
                           <g data-testid="svg-effect-compare-both">
                             <path
-                              d="M96 105 Q145 65 186 98"
+                              d={
+                                isV2CupPilot
+                                  ? v2StageMatrix.mode === 'mobile'
+                                    ? 'M80 565 Q140 505 186 550'
+                                    : 'M84 155 Q140 115 186 146'
+                                  : 'M96 105 Q145 65 186 98'
+                              }
                               fill="none"
                               stroke="#059669"
                               strokeWidth="3"
                               strokeDasharray="5 3"
                             />
                             <path
-                              d="M232 98 Q265 60 292 88"
+                              d={
+                                isV2CupPilot
+                                  ? v2StageMatrix.mode === 'mobile'
+                                    ? 'M232 550 Q270 500 310 535'
+                                    : 'M232 146 Q270 110 312 136'
+                                  : 'M232 98 Q265 60 292 88'
+                              }
                               fill="none"
                               stroke="#0284C7"
                               strokeWidth="3"
@@ -1808,7 +1888,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             />
                             <rect
                               x="96"
-                              y="44"
+                              y={isV2CupPilot ? 44 + v2StageMatrix.overlayOffsetY : 44}
                               width="228"
                               height="24"
                               rx="12"
@@ -1818,7 +1898,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             />
                             <text
                               x="210"
-                              y="60"
+                              y={isV2CupPilot ? 60 + v2StageMatrix.overlayOffsetY : 60}
                               fontSize="10.5"
                               textAnchor="middle"
                               fill="#065F46"
@@ -1834,7 +1914,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                           <g data-testid="svg-effect-pending-evidence">
                             <rect
                               x="78"
-                              y="44"
+                              y={isV2CupPilot ? 44 + v2StageMatrix.overlayOffsetY : 44}
                               width="264"
                               height="24"
                               rx="12"
@@ -1844,7 +1924,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             />
                             <text
                               x="210"
-                              y="60"
+                              y={isV2CupPilot ? 60 + v2StageMatrix.overlayOffsetY : 60}
                               fontSize="10"
                               textAnchor="middle"
                               fill="#0369A1"
@@ -1859,16 +1939,16 @@ export const StoryGroveModal: React.FC<Props> = ({
                         <g data-testid="svg-effect-single-side">
                           <rect
                             x="240"
-                            y="10"
+                            y={isV2CupPilot && v2StageMatrix.mode === 'mobile' ? 250 : 10}
                             width="170"
-                            height="150"
+                            height={isV2CupPilot && v2StageMatrix.mode === 'mobile' ? 360 : 150}
                             rx="12"
                             fill="#1E293B"
                             opacity="0.45"
                           />
                           <text
                             x="325"
-                            y="42"
+                            y={isV2CupPilot && v2StageMatrix.mode === 'mobile' ? 286 : 42}
                             fontSize="11"
                             textAnchor="middle"
                             fill="#FEF3C7"
@@ -1884,7 +1964,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                           <g data-testid="svg-effect-ask-need">
                             <rect
                               x="26"
-                              y="44"
+                              y={isV2CupPilot ? 44 + v2StageMatrix.overlayOffsetY : 44}
                               width="132"
                               height="26"
                               rx="12"
@@ -1894,7 +1974,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             />
                             <text
                               x="92"
-                              y="61"
+                              y={isV2CupPilot ? 61 + v2StageMatrix.overlayOffsetY : 61}
                               fontSize="10"
                               textAnchor="middle"
                               fill="#92400E"
@@ -1904,7 +1984,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             </text>
                             <rect
                               x="252"
-                              y="44"
+                              y={isV2CupPilot ? 44 + v2StageMatrix.overlayOffsetY : 44}
                               width="142"
                               height="26"
                               rx="12"
@@ -1914,7 +1994,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             />
                             <text
                               x="323"
-                              y="61"
+                              y={isV2CupPilot ? 61 + v2StageMatrix.overlayOffsetY : 61}
                               fontSize="10"
                               textAnchor="middle"
                               fill="#1E40AF"
@@ -2419,6 +2499,20 @@ export const StoryGroveModal: React.FC<Props> = ({
                     );
                   })()}
               </div>
+
+              {isV2CupPilot && interactiveLeafDef.id === 'cup-size' && (
+                <StoryCupLayerControlBarV2
+                  enabledLayers={v2EnabledLayers}
+                  onToggleLayer={(id) =>
+                    setV2EnabledLayers((prev) => ({ ...prev, [id]: !prev[id] }))
+                  }
+                  onResetLayers={() =>
+                    setV2EnabledLayers({ L1: true, L2: true, L3: true, L4: true, L5: true })
+                  }
+                  activeHotspotId={activeHotspotId}
+                  selectedSceneActionId={selectedSceneActionId}
+                />
+              )}
             </div>
           )}
 

@@ -99,78 +99,82 @@ export const SceneBackdropV2: React.FC<SceneBackdropV2Props> = ({
         )}
       </div>
 
-      {/* 3. 顶部场景资产与 ART_DIRECTOR_QA_HOLD 状态铭牌 (z-[55] pointer-events-none, 位于模糊层之上且绝不拦截弹窗操作) */}
-      <div
-        aria-hidden="true"
-        className="fixed inset-x-0 top-1.5 px-2 sm:px-4 flex items-center justify-between gap-2 z-[55] pointer-events-none select-none"
-      >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF9EC]/95 border-2 border-[#B68C64]/50 shadow-md">
-          <img
-            data-testid="v2-scene-landmark-cutout"
-            src={landmarkSpriteSrc}
-            alt=""
-            className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
-          />
-          <span className="text-xs sm:text-sm font-black text-[#123C5C] whitespace-nowrap">
-            V2 场景层 · {label}
-          </span>
-          <span
-            data-testid="v2-scene-qa-hold-badge"
-            className="text-[10px] sm:text-xs font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-950 border border-amber-400"
-          >
-            ART_DIRECTOR_QA_HOLD
-          </span>
-        </div>
-
-        {/* 情绪天气站专属 5 枚透明天气道具展示 */}
-        {landmarkId === 'weather_station' && (
+      {/* 3. 顶部场景资产与 ART_DIRECTOR_QA_HOLD 状态铭牌 (故事林 V2.2 样板内已由底部折叠审阅抽屉承接，儿童阅读流默认不悬浮工程铭牌) */}
+      {sceneKey !== 'story' && (
+        <>
           <div
-            data-testid="v2-weather-props-strip"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-sky-200 shadow-sm"
+            aria-hidden="true"
+            className="fixed inset-x-0 top-1.5 px-2 sm:px-4 flex items-center justify-between gap-2 z-[55] pointer-events-none select-none"
           >
-            {WEATHER_PROP_IDS.map((propId) => (
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF9EC]/95 border-2 border-[#B68C64]/50 shadow-md">
               <img
-                key={propId}
-                data-testid={`v2-weather-prop-${propId}`}
-                src={weatherPropUrl(propId)}
+                data-testid="v2-scene-landmark-cutout"
+                src={landmarkSpriteSrc}
                 alt=""
-                className="w-6 h-6 object-contain"
+                className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
               />
-            ))}
-          </div>
-        )}
+              <span className="text-xs sm:text-sm font-black text-[#123C5C] whitespace-nowrap">
+                V2 场景层 · {label}
+              </span>
+              <span
+                data-testid="v2-scene-qa-hold-badge"
+                className="text-[10px] sm:text-xs font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-950 border border-amber-400"
+              >
+                ART_DIRECTOR_QA_HOLD
+              </span>
+            </div>
 
-        {/* 想法侦探社 (工具屋) 专属 4 枚透明工具道具展示 */}
-        {landmarkId === 'tools_room' && (
+            {/* 情绪天气站专属 5 枚透明天气道具展示 */}
+            {landmarkId === 'weather_station' && (
+              <div
+                data-testid="v2-weather-props-strip"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-sky-200 shadow-sm"
+              >
+                {WEATHER_PROP_IDS.map((propId) => (
+                  <img
+                    key={propId}
+                    data-testid={`v2-weather-prop-${propId}`}
+                    src={weatherPropUrl(propId)}
+                    alt=""
+                    className="w-6 h-6 object-contain"
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* 想法侦探社 (工具屋) 专属 4 枚透明工具道具展示 */}
+            {landmarkId === 'tools_room' && (
+              <div
+                data-testid="v2-tool-props-strip"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-amber-200 shadow-sm"
+              >
+                {TOOL_PROP_IDS.map((toolId) => (
+                  <img
+                    key={toolId}
+                    data-testid={`v2-tool-prop-${toolId}`}
+                    src={toolPropUrl(toolId)}
+                    alt=""
+                    className="w-6 h-6 object-contain"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* 4. 底部技术预览说明条 (z-[55] pointer-events-none) */}
           <div
-            data-testid="v2-tool-props-strip"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-amber-200 shadow-sm"
+            aria-hidden="true"
+            className="fixed bottom-1 left-2 right-2 flex justify-center z-[55] pointer-events-none select-none"
           >
-            {TOOL_PROP_IDS.map((toolId) => (
-              <img
-                key={toolId}
-                data-testid={`v2-tool-prop-${toolId}`}
-                src={toolPropUrl(toolId)}
-                alt=""
-                className="w-6 h-6 object-contain"
-              />
-            ))}
+            <div
+              data-testid="v2-scene-hold-note"
+              className="px-3 py-0.5 rounded-full bg-[#123C5C]/90 text-[#FFF7EB] text-[10px] sm:text-xs font-bold shadow-sm truncate max-w-full"
+            >
+              {holdNote}
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* 4. 底部技术预览说明条 (z-[55] pointer-events-none) */}
-      <div
-        aria-hidden="true"
-        className="fixed bottom-1 left-2 right-2 flex justify-center z-[55] pointer-events-none select-none"
-      >
-        <div
-          data-testid="v2-scene-hold-note"
-          className="px-3 py-0.5 rounded-full bg-[#123C5C]/90 text-[#FFF7EB] text-[10px] sm:text-xs font-bold shadow-sm truncate max-w-full"
-        >
-          {holdNote}
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

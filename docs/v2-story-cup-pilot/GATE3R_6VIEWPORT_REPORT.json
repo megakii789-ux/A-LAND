@@ -1,0 +1,1681 @@
+{
+  "gate": "GATE3R_PASS",
+  "artDirectorGate": "ART_DIRECTOR_QA_HOLD",
+  "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
+  "contentQaFlag": "CONTENT_QA_REVIEW",
+  "verifiedAt": "2026-10-16T17:09:53.573Z",
+  "viewportsTested": [
+    "360x800",
+    "390x844",
+    "430x932",
+    "768x1024",
+    "1024x1366",
+    "1440x900"
+  ],
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "http404Count": 0,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "http404s": [],
+  "viewportResults": [
+    {
+      "viewport": "360x800",
+      "width": 360,
+      "height": 800,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "mobile",
+        "svgViewBox": "0 0 420 747",
+        "svgRole": "group",
+        "stageCssWidth": 280,
+        "stageCssHeight": 500.9,
+        "ctmScaleX": 0.6667,
+        "ctmScaleY": 0.6667,
+        "ctmTranslateX": 0,
+        "ctmTranslateY": 1.44,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          555,
+          618
+        ],
+        "cupBottomSvgY": 602.2,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 56,
+          "height": 57.3,
+          "left": 89.3,
+          "right": 145.3,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 56,
+          "height": 57.3,
+          "left": 152,
+          "right": 208,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 56,
+          "height": 57.3,
+          "left": 214.7,
+          "right": 270.7,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 58.7,
+          "height": 59.3,
+          "left": 150.7,
+          "right": 209.3,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 96,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 139,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 139,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 139,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 139,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 89,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 89,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 89,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 284,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 284,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 284,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    },
+    {
+      "viewport": "390x844",
+      "width": 390,
+      "height": 844,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "mobile",
+        "svgViewBox": "0 0 420 747",
+        "svgRole": "group",
+        "stageCssWidth": 310,
+        "stageCssHeight": 554.2,
+        "ctmScaleX": 0.7381,
+        "ctmScaleY": 0.7381,
+        "ctmTranslateX": 0,
+        "ctmTranslateY": 1.43,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          555,
+          618
+        ],
+        "cupBottomSvgY": 601.9,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 62,
+          "height": 63.5,
+          "left": 94.6,
+          "right": 156.6,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 62,
+          "height": 63.5,
+          "left": 164,
+          "right": 226,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 62,
+          "height": 63.5,
+          "left": 233.4,
+          "right": 295.4,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 65,
+          "height": 66,
+          "left": 162.5,
+          "right": 227.5,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 96,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 154,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 154,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 154,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 154,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 99,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 99,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 99,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 314,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 314,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 314,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    },
+    {
+      "viewport": "430x932",
+      "width": 430,
+      "height": 932,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 430,
+      "innerWidth": 430,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "mobile",
+        "svgViewBox": "0 0 420 747",
+        "svgRole": "group",
+        "stageCssWidth": 350,
+        "stageCssHeight": 625.3,
+        "ctmScaleX": 0.8333,
+        "ctmScaleY": 0.8333,
+        "ctmTranslateX": 0,
+        "ctmTranslateY": 1.41,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          555,
+          618
+        ],
+        "cupBottomSvgY": 601.7,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 900,
+          "naturalHeight": 1600,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 70,
+          "height": 71.7,
+          "left": 101.7,
+          "right": 171.7,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 70,
+          "height": 71.7,
+          "left": 180,
+          "right": 250,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 70,
+          "height": 71.7,
+          "left": 258.3,
+          "right": 328.3,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 73.3,
+          "height": 73.7,
+          "left": 178.3,
+          "right": 251.7,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 96,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 174,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 174,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 174,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 174,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 113,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 113,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 113,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 354,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 354,
+          "height": 74,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 354,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    },
+    {
+      "viewport": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 768,
+      "innerWidth": 768,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "desktop",
+        "svgViewBox": "0 0 420 220",
+        "svgRole": "group",
+        "stageCssWidth": 576,
+        "stageCssHeight": 299.8,
+        "ctmScaleX": 1.3627,
+        "ctmScaleY": 1.3627,
+        "ctmTranslateX": 1.83,
+        "ctmTranslateY": 0,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          164,
+          187
+        ],
+        "cupBottomSvgY": 190,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 212.3,
+          "right": 310.4,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 334.9,
+          "right": 433.1,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 441.2,
+          "right": 539.3,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 114.5,
+          "height": 114.5,
+          "left": 321.3,
+          "right": 435.8,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 104,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    },
+    {
+      "viewport": "1024x1366",
+      "width": 1024,
+      "height": 1366,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "desktop",
+        "svgViewBox": "0 0 420 220",
+        "svgRole": "group",
+        "stageCssWidth": 576,
+        "stageCssHeight": 299.8,
+        "ctmScaleX": 1.3627,
+        "ctmScaleY": 1.3627,
+        "ctmTranslateX": 1.83,
+        "ctmTranslateY": 0,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          164,
+          187
+        ],
+        "cupBottomSvgY": 190,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 340.3,
+          "right": 438.4,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 462.9,
+          "right": 561.1,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 569.2,
+          "right": 667.3,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 114.5,
+          "height": 114.5,
+          "left": 449.3,
+          "right": 563.8,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 104,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    },
+    {
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "childGateBlockedOnV2": true,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "horizontalOverflow": false,
+      "childUiDenoising": {
+        "debugDrawerToggleExists": true,
+        "debugDrawerDefaultExpanded": false,
+        "debugInspectorVisibleInDefaultChildFlow": false
+      },
+      "coordinateAlignment": {
+        "stageLayoutMode": "desktop",
+        "svgViewBox": "0 0 420 220",
+        "svgRole": "group",
+        "stageCssWidth": 576,
+        "stageCssHeight": 299.8,
+        "ctmScaleX": 1.3627,
+        "ctmScaleY": 1.3627,
+        "ctmTranslateX": 1.83,
+        "ctmTranslateY": 0,
+        "isotropicScaleDelta": 0,
+        "zeroObjectCoverClipping": true,
+        "expectedTabletopSvgYRange": [
+          164,
+          187
+        ],
+        "cupBottomSvgY": 190,
+        "cupAlignedOnTabletop": true
+      },
+      "layers": [
+        {
+          "id": "L1",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L2",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L3",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L4",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        },
+        {
+          "id": "L5",
+          "exists": true,
+          "visible": true,
+          "loaded": true,
+          "naturalWidth": 1600,
+          "naturalHeight": 900,
+          "objectFitClass": "w-full h-full object-fill pointer-events-none"
+        }
+      ],
+      "propsList": [
+        {
+          "key": "obj_wooden_block",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_blue_cup",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_elephant_bucket",
+          "exists": true,
+          "pointerEvents": "none"
+        },
+        {
+          "key": "obj_twig_ruler",
+          "exists": true,
+          "pointerEvents": "none"
+        }
+      ],
+      "tiaotiaoPartsLoaded": true,
+      "pupuPartsLoaded": true,
+      "svgSceneHitTargets": [
+        {
+          "testId": "cup-dropzone-NEXT_TO_BLOCK",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到小积木旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 548.3,
+          "right": 646.4,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-CENTER_TABLE",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯放回木桌中间",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 670.9,
+          "right": 769.1,
+          "meets56px": true
+        },
+        {
+          "testId": "cup-dropzone-NEXT_TO_BUCKET",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "把蓝水杯移到大水桶旁对比",
+          "width": 98.1,
+          "height": 84.5,
+          "left": 777.2,
+          "right": 875.3,
+          "meets56px": true
+        },
+        {
+          "testId": "movable-blue-cup-prop",
+          "role": "button",
+          "tabIndex": "0",
+          "ariaLabel": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+          "width": 114.5,
+          "height": 114.5,
+          "left": 657.3,
+          "right": 771.8,
+          "meets56px": true
+        }
+      ],
+      "dropzonesNonOverlapping": true,
+      "allSvgHitTargetsMeet56px": true,
+      "domControlTouchTargets": [
+        {
+          "testId": "返回目录",
+          "width": 104,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "三扇门卡片",
+          "width": 80,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "朗读场景提示",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_wooden_block",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_blue_cup",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_elephant_bucket",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-hotspot-obj_twig_ruler",
+          "width": 141,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-block",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-center",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "move-cup-to-bucket",
+          "width": 188,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_compare_both_sides",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_only_look_squirrel",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "story-action-act_ask_usage_need",
+          "width": 580,
+          "height": 56,
+          "meets56px": true
+        },
+        {
+          "testId": "离开故事林",
+          "width": 56,
+          "height": 56,
+          "meets56px": true
+        }
+      ],
+      "allDomTouchTargetsMeet56px": true
+    }
+  ],
+  "mobilePointerDragVerification": {
+    "viewport": "390x844",
+    "mobilePosAfterDragToBlock": "NEXT_TO_BLOCK",
+    "mobilePosAfterDragToBucket": "NEXT_TO_BUCKET"
+  },
+  "speakerSeparationVerification": {
+    "narratorPromptState": {
+      "activeStorySpeaker": "narrator_or_multi",
+      "tiaotiaoState": "idle",
+      "pupuState": "idle",
+      "bothTalkingSimultaneously": false
+    },
+    "tiaotiaoSpeakerState": {
+      "activeStorySpeaker": "tiaotiao_story_squirrel",
+      "tiaotiaoState": "talk",
+      "pupuState": "think",
+      "bothTalkingSimultaneously": false
+    },
+    "pupuSpeakerState": {
+      "activeStorySpeaker": "pupu_story_elephant",
+      "tiaotiaoState": "think",
+      "pupuState": "talk",
+      "bothTalkingSimultaneously": false
+    },
+    "fourCompanionChecks": [
+      {
+        "companionId": "guoguo_squirrel",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "beibei_otter",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "tiantian_raccoon",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "qiqi_deer",
+        "bannerMatches": true
+      }
+    ],
+    "neverSimultaneousTalk": true
+  },
+  "accessibilityVerification": {
+    "svgContainerRole": "group",
+    "exposedInteractiveNodes": [
+      {
+        "role": "group",
+        "name": "一只杯子是大还是小童话木桌场景（可按住水杯左右拖动对比）",
+        "ignored": false
+      },
+      {
+        "role": "button",
+        "name": "把蓝水杯移到小积木旁对比",
+        "ignored": false
+      },
+      {
+        "role": "button",
+        "name": "把蓝水杯放回木桌中间",
+        "ignored": false
+      },
+      {
+        "role": "button",
+        "name": "把蓝水杯移到大水桶旁对比",
+        "ignored": false
+      },
+      {
+        "role": "button",
+        "name": "拖动蓝水杯，或使用键盘左右方向键移动位置对比",
+        "ignored": false
+      }
+    ],
+    "movableBlueCupExposedInAxTree": true,
+    "allThreeDropzonesExposedInAxTree": true
+  },
+  "deepFunctionalVerification": {
+    "initialPos": "CENTER_TABLE",
+    "posAfterDragToBlock": "NEXT_TO_BLOCK",
+    "posAfterKeyEnter": "CENTER_TABLE",
+    "posAfterKeyRight": "NEXT_TO_BUCKET",
+    "posAfterBtnCenter": "CENTER_TABLE",
+    "posAfterBtnBlock": "NEXT_TO_BLOCK",
+    "posAfterBtnBucket": "NEXT_TO_BUCKET",
+    "drawerDefaultExpanded": "false",
+    "drawerExpandedAfterClick": "true",
+    "l1VisibleAfterToggle": "false",
+    "l5VisibleAfterToggle": "false",
+    "singleSideReviseVisible": true,
+    "bothSidesCompletedBannerVisible": true,
+    "activeCompanionOnBanner": "qiqi_deer",
+    "restoredCounterText": "已观察物件 4/4",
+    "restoredComparedCount": "2",
+    "voiceCompanionInStoryPill": "qiqi_deer",
+    "reducedMotionAttr": "true"
+  },
+  "screenshots": [
+    {
+      "viewport": "360x800",
+      "mode": "original",
+      "file": "v2_2_gate3_360x800_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_360x800_original_cup_size.png"
+    },
+    {
+      "viewport": "360x800",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_360x800_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_360x800_v2_cup_size.png"
+    },
+    {
+      "viewport": "390x844",
+      "mode": "original",
+      "file": "v2_2_gate3_390x844_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_390x844_original_cup_size.png"
+    },
+    {
+      "viewport": "390x844",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_390x844_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_390x844_v2_cup_size.png"
+    },
+    {
+      "viewport": "430x932",
+      "mode": "original",
+      "file": "v2_2_gate3_430x932_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_430x932_original_cup_size.png"
+    },
+    {
+      "viewport": "430x932",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_430x932_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_430x932_v2_cup_size.png"
+    },
+    {
+      "viewport": "768x1024",
+      "mode": "original",
+      "file": "v2_2_gate3_768x1024_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_768x1024_original_cup_size.png"
+    },
+    {
+      "viewport": "768x1024",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_768x1024_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_768x1024_v2_cup_size.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "mode": "original",
+      "file": "v2_2_gate3_1024x1366_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_1024x1366_original_cup_size.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_1024x1366_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_1024x1366_v2_cup_size.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "original",
+      "file": "v2_2_gate3_1440x900_original_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_1440x900_original_cup_size.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "v2_pilot",
+      "file": "v2_2_gate3_1440x900_v2_cup_size.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_1440x900_v2_cup_size.png"
+    },
+    {
+      "viewport": "390x844",
+      "mode": "mobile_position_NEXT_TO_BLOCK",
+      "file": "v2_2_gate3_390x844_position_NEXT_TO_BLOCK.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_390x844_position_NEXT_TO_BLOCK.png"
+    },
+    {
+      "viewport": "390x844",
+      "mode": "mobile_position_NEXT_TO_BUCKET",
+      "file": "v2_2_gate3_390x844_position_NEXT_TO_BUCKET.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_390x844_position_NEXT_TO_BUCKET.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "position_CENTER_TABLE",
+      "file": "v2_2_gate3_position_CENTER_TABLE.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_position_CENTER_TABLE.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "position_NEXT_TO_BLOCK",
+      "file": "v2_2_gate3_position_NEXT_TO_BLOCK.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_position_NEXT_TO_BLOCK.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "position_NEXT_TO_BUCKET",
+      "file": "v2_2_gate3_position_NEXT_TO_BUCKET.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_position_NEXT_TO_BUCKET.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "layer_toggle_L1_L5_off",
+      "file": "v2_2_gate3_layer_toggle_L1_L5_off.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_layer_toggle_L1_L5_off.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "single_side_incomplete",
+      "file": "v2_2_gate3_single_side_incomplete.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_single_side_incomplete.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "both_sides_completed",
+      "file": "v2_2_gate3_both_sides_completed.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_both_sides_completed.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "prefers_reduced_motion",
+      "file": "v2_2_gate3_prefers_reduced_motion.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_prefers_reduced_motion.png"
+    }
+  ]
+}

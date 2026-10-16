@@ -1,0 +1,52 @@
+
+> react-example@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.4 /home/voga/A-LAND-visual-v2-story-pilot
+
+ ✓ tests/domain/firestoreRules.test.ts (10 tests) 3ms
+ ✓ tests/domain/hug.test.ts (10 tests) 10ms
+ ✓ tests/domain/pwaOffline.test.ts (14 tests) 5ms
+ ✓ tests/domain/weeklyReportService.test.ts (4 tests) 15ms
+ ✓ tests/domain/caregiver.test.ts (9 tests) 6ms
+ ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 7ms
+ ✓ tests/domain/safety.test.ts (12 tests) 8ms
+ ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 9ms
+ ✓ tests/domain/transfer.test.ts (17 tests) 8ms
+ ✓ tests/domain/personalizationEngine.test.ts (17 tests) 13ms
+ ✓ tests/domain/cognitiveKernel.test.ts (18 tests) 14ms
+ ✓ tests/domain/hugContract.test.ts (4 tests) 4ms
+ ✓ tests/domain/research.test.ts (9 tests) 8ms
+ ✓ src/tests/parentingPocketTips.test.ts (6 tests) 6ms
+ ✓ tests/domain/interactiveGamesE2E.test.ts (4 tests) 6ms
+ ✓ src/tests/speechSystem.test.ts (31 tests) 17ms
+ ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 365ms
+ ✓ src/tests/interactive3D.test.ts (5 tests) 6ms
+ ✓ src/tests/parentMedals.test.ts (5 tests) 4ms
+ ✓ tests/domain/scaffolding.test.ts (4 tests) 5ms
+ ✓ tests/domain/weather.test.ts (6 tests) 5ms
+ ✓ src/tests/weather.test.ts (4 tests) 5ms
+ ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 220ms
+ ✓ src/tests/calmSpace.test.ts (7 tests) 12ms
+ ✓ tests/domain/backendAuthData.test.ts (12 tests) 238ms
+ ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests) 3ms
+ ✓ src/tests/growthObservationLog.test.ts (2 tests) 3ms
+ ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 113ms
+ ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 133ms
+ ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 112ms
+ ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 113ms
+ ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 130ms
+ ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 199ms
+ ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 179ms
+ ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 181ms
+ ✓ src/tests/sprint4AuthenticityAndImmersion.test.tsx (9 tests) 253ms
+ ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 241ms
+ ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 176ms
+ ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 283ms
+
+ Test Files  39 passed (39)
+      Tests  388 passed (388)
+   Start at  01:06:18
+   Duration  950ms (transform 50%, import 29%, tests 20%, worker 1%)
+

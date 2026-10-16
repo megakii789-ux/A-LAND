@@ -152,9 +152,9 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
             <span>入口：`/visual-v2-review` · V2.2 故事林样板 (`StoryGrove::cup-size`)</span>
             <span
               data-testid="v2-pilot-gate-badge"
-              className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-black"
+              className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-black"
             >
-              ENGINEERING_PILOT_PASS
+              ENGINEERING_AUDIT_HOLD
             </span>
           </div>
           <div className="flex items-center gap-2 flex-wrap">

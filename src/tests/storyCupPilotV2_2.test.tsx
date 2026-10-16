@@ -3,9 +3,13 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { AppProvider } from '../context/AppContext';
 import { StoryGroveModal } from '../components/ChildIsland/StoryGrove/StoryGroveModal';
 import {
+  resolveActiveStorySpeaker,
   resolveStoryCharacterVisualState,
   STORY_CUP_SCENE_LAYERS,
   STORY_CUP_PROPS,
+  STORY_CUP_STAGE_MATRIX_DESKTOP,
+  STORY_CUP_STAGE_MATRIX_MOBILE,
+  resolveStoryCupStageMatrixForWidth,
 } from '../visual-v2/story-cup-pilot/StoryCupSceneArtV2';
 import {
   grantParentAccess,
@@ -275,11 +279,13 @@ function createStatefulTestRenderer(initialElement: React.ReactElement) {
   };
 }
 
-describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 2)', () => {
+describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1–Gate 3R)', () => {
   beforeEach(() => {
     const localStore = new Map<string, string>();
     const sessionStore = new Map<string, string>();
     (globalThis as any).window = {
+      innerWidth: 1440,
+      innerHeight: 900,
       location: { pathname: '/visual-v2-review/story-cup-pilot', search: '' },
       localStorage: {
         getItem: (k: string) => localStore.get(k) ?? null,
@@ -339,7 +345,7 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
     expect(renderer.findByTestId('interactive-leaf-view-cup-size')).toBeNull();
   });
 
-  it('renders 5 independent layers (L1..L5), 4 SVG props, 2 9-part character rigs, and supports layer toggling', () => {
+  it('renders 5 independent layers (L1..L5), 4 SVG props, 2 9-part character rigs, and hides debug inspector inside a default-closed drawer until expanded', () => {
     grantParentAccess();
     enableInternalPlaytestMode();
     const renderer = createStatefulTestRenderer(
@@ -351,6 +357,18 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
     renderer.click(renderer.findByTestId('story-catalog-leaf-cup-size'));
 
     expect(renderer.findByTestId('interactive-leaf-view-cup-size')).toBeTruthy();
+
+    // P1-03: Debug drawer is closed by default in the child interface
+    const drawerToggle = renderer.findByTestId('v2-story-cup-debug-drawer-toggle');
+    expect(drawerToggle).toBeTruthy();
+    expect(drawerToggle.props['aria-expanded']).toBe(false);
+    expect(renderer.findByTestId('v2-story-cup-pilot-inspector')).toBeNull();
+
+    // Expanding the reviewer debug drawer reveals QA badges and L1..L5 toggles
+    renderer.click(drawerToggle);
+    expect(renderer.findByTestId('v2-story-cup-debug-drawer-toggle').props['aria-expanded']).toBe(
+      true
+    );
     expect(renderer.findByTestId('v2-story-cup-pilot-inspector')).toBeTruthy();
     expect(renderer.findByTestId('v2-story-cup-qa-badge')?.text).toContain('ART_DIRECTOR_QA_HOLD');
     expect(renderer.findByTestId('v2-story-cup-content-qa-flag')?.text).toContain(
@@ -465,10 +483,18 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
     ).toBe('celebrate');
   });
 
-  it('resolves character visual states strictly from speech session, partial vs full evidence, and blink ticks', () => {
-    // 1. Speech playing -> talk
+  it('prevents Tiaotiao and Pupu from talking simultaneously and keeps both listening when global narrator speaks (P1-02)', () => {
+    // 1. Global narrator reading general scene prompt (activeHotspotId === null): neither character talks
+    expect(
+      resolveActiveStorySpeaker({
+        playbackStatus: 'playing',
+        activeHotspotId: null,
+        selectedSceneActionId: null,
+      })
+    ).toBe('narrator_or_multi');
     expect(
       resolveStoryCharacterVisualState({
+        characterId: 'tiaotiao_story_squirrel',
         playbackStatus: 'playing',
         selectedSceneActionId: null,
         hasAllRequiredEvidence: false,
@@ -478,29 +504,49 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
         isBlinkTick: false,
         prefersReducedMotion: false,
       })
-    ).toBe('talk');
-
-    // 2. Speech paused -> idle (no fake talking loop while paused)
+    ).toBe('idle');
     expect(
       resolveStoryCharacterVisualState({
-        playbackStatus: 'paused',
-        selectedSceneActionId: 'act_compare_both_sides',
-        hasAllRequiredEvidence: true,
-        isGoalCompleted: true,
+        characterId: 'pupu_story_elephant',
+        playbackStatus: 'playing',
+        selectedSceneActionId: null,
+        hasAllRequiredEvidence: false,
+        isGoalCompleted: false,
         activeHotspotId: null,
-        cupPosition: 'NEXT_TO_BUCKET',
+        cupPosition: 'CENTER_TABLE',
         isBlinkTick: false,
         prefersReducedMotion: false,
       })
     ).toBe('idle');
 
-    // 3. Partial action act_only_look_squirrel -> think (never celebrate)
+    // 2. Tiaotiao speaking (activeHotspotId === 'obj_wooden_block'): ONLY Tiaotiao talks, Pupu listens
+    expect(
+      resolveActiveStorySpeaker({
+        playbackStatus: 'playing',
+        activeHotspotId: 'obj_wooden_block',
+        selectedSceneActionId: null,
+      })
+    ).toBe('tiaotiao_story_squirrel');
     expect(
       resolveStoryCharacterVisualState({
-        playbackStatus: 'idle',
-        selectedSceneActionId: 'act_only_look_squirrel',
-        hasAllRequiredEvidence: true,
-        isGoalCompleted: true,
+        characterId: 'tiaotiao_story_squirrel',
+        playbackStatus: 'playing',
+        selectedSceneActionId: null,
+        hasAllRequiredEvidence: false,
+        isGoalCompleted: false,
+        activeHotspotId: 'obj_wooden_block',
+        cupPosition: 'NEXT_TO_BLOCK',
+        isBlinkTick: false,
+        prefersReducedMotion: false,
+      })
+    ).toBe('talk');
+    expect(
+      resolveStoryCharacterVisualState({
+        characterId: 'pupu_story_elephant',
+        playbackStatus: 'playing',
+        selectedSceneActionId: null,
+        hasAllRequiredEvidence: false,
+        isGoalCompleted: false,
         activeHotspotId: 'obj_wooden_block',
         cupPosition: 'NEXT_TO_BLOCK',
         isBlinkTick: false,
@@ -508,10 +554,53 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
       })
     ).toBe('think');
 
-    // 4. Goal completed on act_compare_both_sides -> celebrate
+    // 3. Pupu speaking (activeHotspotId === 'obj_elephant_bucket'): ONLY Pupu talks, Tiaotiao listens
+    expect(
+      resolveActiveStorySpeaker({
+        playbackStatus: 'playing',
+        activeHotspotId: 'obj_elephant_bucket',
+        selectedSceneActionId: null,
+      })
+    ).toBe('pupu_story_elephant');
     expect(
       resolveStoryCharacterVisualState({
-        playbackStatus: 'idle',
+        characterId: 'pupu_story_elephant',
+        playbackStatus: 'playing',
+        selectedSceneActionId: null,
+        hasAllRequiredEvidence: false,
+        isGoalCompleted: false,
+        activeHotspotId: 'obj_elephant_bucket',
+        cupPosition: 'NEXT_TO_BUCKET',
+        isBlinkTick: false,
+        prefersReducedMotion: false,
+      })
+    ).toBe('talk');
+    expect(
+      resolveStoryCharacterVisualState({
+        characterId: 'tiaotiao_story_squirrel',
+        playbackStatus: 'playing',
+        selectedSceneActionId: null,
+        hasAllRequiredEvidence: false,
+        isGoalCompleted: false,
+        activeHotspotId: 'obj_elephant_bucket',
+        cupPosition: 'NEXT_TO_BUCKET',
+        isBlinkTick: false,
+        prefersReducedMotion: false,
+      })
+    ).toBe('think');
+
+    // 4. Multi-speaker action summary (selectedSceneActionId !== null): narrator/multi-speaker, neither enters simultaneous talk
+    expect(
+      resolveActiveStorySpeaker({
+        playbackStatus: 'playing',
+        activeHotspotId: 'obj_elephant_bucket',
+        selectedSceneActionId: 'act_compare_both_sides',
+      })
+    ).toBe('narrator_or_multi');
+    expect(
+      resolveStoryCharacterVisualState({
+        characterId: 'tiaotiao_story_squirrel',
+        playbackStatus: 'playing',
         selectedSceneActionId: 'act_compare_both_sides',
         hasAllRequiredEvidence: true,
         isGoalCompleted: true,
@@ -520,20 +609,35 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1 & Gate 
         isBlinkTick: false,
         prefersReducedMotion: false,
       })
-    ).toBe('celebrate');
+    ).toBe('think');
 
-    // 5. Blinking when idle and reduced-motion is off -> blink
+    // 5. Speech paused -> idle (no fake talking loop while paused)
     expect(
       resolveStoryCharacterVisualState({
-        playbackStatus: 'idle',
+        characterId: 'tiaotiao_story_squirrel',
+        playbackStatus: 'paused',
         selectedSceneActionId: null,
         hasAllRequiredEvidence: false,
         isGoalCompleted: false,
-        activeHotspotId: null,
-        cupPosition: 'CENTER_TABLE',
-        isBlinkTick: true,
+        activeHotspotId: 'obj_wooden_block',
+        cupPosition: 'NEXT_TO_BLOCK',
+        isBlinkTick: false,
         prefersReducedMotion: false,
       })
-    ).toBe('blink');
+    ).toBe('idle');
+  });
+
+  it('resolves unified desktop vs mobile stage matrices with >=56px touch hitboxes (P1-01 & P1-04)', () => {
+    expect(resolveStoryCupStageMatrixForWidth(390)).toBe(STORY_CUP_STAGE_MATRIX_MOBILE);
+    expect(resolveStoryCupStageMatrixForWidth(768)).toBe(STORY_CUP_STAGE_MATRIX_DESKTOP);
+
+    expect(STORY_CUP_STAGE_MATRIX_MOBILE.svgViewBox).toBe('0 0 420 747');
+    expect(STORY_CUP_STAGE_MATRIX_DESKTOP.svgViewBox).toBe('0 0 420 220');
+
+    // On mobile 360px (container ~302px wide), scale is 302/420 = 0.719; width 84 * 0.719 = 60.4px >= 56px
+    expect(STORY_CUP_STAGE_MATRIX_MOBILE.dropZones.NEXT_TO_BLOCK.width).toBeGreaterThanOrEqual(84);
+    expect(STORY_CUP_STAGE_MATRIX_MOBILE.dropZones.NEXT_TO_BLOCK.height).toBeGreaterThanOrEqual(86);
+    expect(STORY_CUP_STAGE_MATRIX_MOBILE.dropZones.NEXT_TO_BLOCK.y).toBeGreaterThanOrEqual(480);
   });
 });
+

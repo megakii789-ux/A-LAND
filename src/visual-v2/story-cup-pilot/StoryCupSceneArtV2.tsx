@@ -149,7 +149,41 @@ const RIG_BASE_PARTS = [
   '06_head',
 ] as const;
 
+export type ActiveStorySpeaker =
+  | 'tiaotiao_story_squirrel'
+  | 'pupu_story_elephant'
+  | 'narrator_or_multi'
+  | 'none';
+
+/**
+ * Resolves whether current active speech belongs uniquely to Tiaotiao (squirrel),
+ * uniquely to Pupu (elephant), or to the global companion narrator / multi-character summary.
+ * Guarantees Tiaotiao and Pupu NEVER enter `talk` simultaneously.
+ */
+export function resolveActiveStorySpeaker(params: {
+  playbackStatus: NarrationSession['playbackStatus'];
+  activeHotspotId: string | null;
+  selectedSceneActionId: string | null;
+}): ActiveStorySpeaker {
+  if (params.playbackStatus !== 'playing') {
+    return 'none';
+  }
+  // When an action outcome (which includes narrator summary + multiple characters) or general scene setting is spoken,
+  // speech belongs to the global companion narrator rather than a single story character.
+  if (params.selectedSceneActionId !== null || params.activeHotspotId === null) {
+    return 'narrator_or_multi';
+  }
+  if (params.activeHotspotId === 'obj_wooden_block') {
+    return 'tiaotiao_story_squirrel';
+  }
+  if (params.activeHotspotId === 'obj_elephant_bucket') {
+    return 'pupu_story_elephant';
+  }
+  return 'narrator_or_multi';
+}
+
 export function resolveStoryCharacterVisualState(params: {
+  characterId?: 'tiaotiao_story_squirrel' | 'pupu_story_elephant';
   playbackStatus: NarrationSession['playbackStatus'];
   selectedSceneActionId: string | null;
   hasAllRequiredEvidence: boolean;
@@ -160,6 +194,7 @@ export function resolveStoryCharacterVisualState(params: {
   prefersReducedMotion: boolean;
 }): StoryCupCharacterState {
   const {
+    characterId,
     playbackStatus,
     selectedSceneActionId,
     hasAllRequiredEvidence,
@@ -170,13 +205,34 @@ export function resolveStoryCharacterVisualState(params: {
     prefersReducedMotion,
   } = params;
 
-  // 1. Real speechNarrator playing session takes top priority for approximate mouth movement
-  if (playbackStatus === 'playing') {
-    return 'talk';
+  // 1. Paused speech immediately stops performance and holds calm idle
+  if (playbackStatus === 'paused') {
+    return 'idle';
   }
 
-  // 2. Paused speech immediately stops performance and holds calm idle
-  if (playbackStatus === 'paused') {
+  // 2. Real speechNarrator playing session:
+  //    - If characterId is specified, ONLY the uniquely matched story speaker enters approximate 'talk';
+  //      the other character (or both characters when global companion narrator speaks) remains in calm listening ('think' or 'idle').
+  if (playbackStatus === 'playing') {
+    if (!characterId) {
+      return 'talk';
+    }
+    const activeSpeaker = resolveActiveStorySpeaker({
+      playbackStatus,
+      activeHotspotId,
+      selectedSceneActionId,
+    });
+    if (activeSpeaker === characterId) {
+      return 'talk';
+    }
+    // Non-speaking character listens attentively without moving mouth
+    if (
+      activeHotspotId !== null ||
+      selectedSceneActionId !== null ||
+      cupPosition !== 'CENTER_TABLE'
+    ) {
+      return 'think';
+    }
     return 'idle';
   }
 
@@ -207,6 +263,229 @@ export function resolveStoryCharacterVisualState(params: {
   }
 
   return 'idle';
+}
+
+export interface StoryCupStageMatrix {
+  mode: 'mobile' | 'desktop';
+  svgViewBox: '0 0 420 747' | '0 0 420 220';
+  svgWidth: 420;
+  svgHeight: 747 | 220;
+  sourceAssetWidth: 900 | 1600;
+  sourceAssetHeight: 1600 | 900;
+  stageAspectClass: string;
+  tabletopSurfaceYRange: [number, number];
+  tabletopOvalCenterY: number;
+  tabletopOvalCentersX: {
+    NEXT_TO_BLOCK: number;
+    CENTER_TABLE: number;
+    NEXT_TO_BUCKET: number;
+  };
+  dropZones: {
+    NEXT_TO_BLOCK: { x: number; y: number; width: number; height: number; cx: number; cy: number };
+    CENTER_TABLE: { x: number; y: number; width: number; height: number; cx: number; cy: number };
+    NEXT_TO_BUCKET: { x: number; y: number; width: number; height: number; cx: number; cy: number };
+  };
+  props: {
+    woodenBlock: {
+      groupTransform: string;
+      hitRect: { x: number; y: number; width: number; height: number };
+      img: { x: number; y: number; width: number; height: number };
+      labelX: number;
+      labelY: number;
+    };
+    elephantBucket: {
+      groupTransform: string;
+      hitRect: { x: number; y: number; width: number; height: number };
+      img: { x: number; y: number; width: number; height: number };
+      labelX: number;
+      labelY: number;
+    };
+    blueCup: {
+      y: number;
+      dragY: number;
+      xByPosition: Record<CupTablePosition, number>;
+      hitRect: { x: number; y: number; width: number; height: number };
+      img: { x: number; y: number; width: number; height: number };
+      gaugeY: number;
+    };
+    twigRuler: {
+      groupTransform: string;
+      hitRect: { x: number; y: number; width: number; height: number };
+      img: { x: number; y: number; width: number; height: number };
+    };
+  };
+  overlayOffsetY: number;
+}
+
+/**
+ * Desktop Unified Stage Matrix (1600x900 layers <-> 420x220 logical stage).
+ * In desktop/L4_tabletop.svg (1600x900), tabletop top surface is y=671..766 (164..187 in 420x220),
+ * and the 3 placement ovals are at cy=708 (173.1 in 420x220), cx=356, 800, 1230 (93.5, 210.0, 322.9).
+ */
+export const STORY_CUP_STAGE_MATRIX_DESKTOP: StoryCupStageMatrix = {
+  mode: 'desktop',
+  svgViewBox: '0 0 420 220',
+  svgWidth: 420,
+  svgHeight: 220,
+  sourceAssetWidth: 1600,
+  sourceAssetHeight: 900,
+  stageAspectClass: 'aspect-[420/220] w-full',
+  tabletopSurfaceYRange: [164, 187],
+  tabletopOvalCenterY: 173,
+  tabletopOvalCentersX: {
+    NEXT_TO_BLOCK: 94,
+    CENTER_TABLE: 210,
+    NEXT_TO_BUCKET: 323,
+  },
+  dropZones: {
+    NEXT_TO_BLOCK: { x: 84, y: 116, width: 72, height: 62, cx: 120, cy: 147 },
+    CENTER_TABLE: { x: 174, y: 116, width: 72, height: 62, cx: 210, cy: 147 },
+    NEXT_TO_BUCKET: { x: 252, y: 116, width: 72, height: 62, cx: 288, cy: 147 },
+  },
+  props: {
+    woodenBlock: {
+      groupTransform: 'translate(46, 114)',
+      hitRect: { x: -6, y: -4, width: 78, height: 74 },
+      img: { x: 16, y: 16, width: 48, height: 48 },
+      labelX: 40,
+      labelY: 70,
+    },
+    elephantBucket: {
+      groupTransform: 'translate(292, 86)',
+      hitRect: { x: -10, y: 14, width: 82, height: 84 },
+      img: { x: -6, y: 24, width: 64, height: 68 },
+      labelX: 26,
+      labelY: 98,
+    },
+    blueCup: {
+      y: 122,
+      dragY: 116,
+      xByPosition: {
+        NEXT_TO_BLOCK: 102,
+        CENTER_TABLE: 186,
+        NEXT_TO_BUCKET: 248,
+      },
+      hitRect: { x: -22, y: -16, width: 84, height: 84 },
+      img: { x: -8, y: 4, width: 54, height: 54 },
+      gaugeY: 0,
+    },
+    twigRuler: {
+      groupTransform: 'translate(115, 184)',
+      hitRect: { x: 0, y: -14, width: 190, height: 44 },
+      img: { x: 25, y: -16, width: 140, height: 46 },
+    },
+  },
+  overlayOffsetY: 28,
+};
+
+/**
+ * Mobile Unified Stage Matrix (900x1600 layers <-> 420x747 9:16 logical stage).
+ * Exact isotropic scale k = 420 / 900 = 746.67 / 1600 = 0.46667 (zero object-cover clipping!).
+ * In mobile/L4_tabletop.svg (900x1600), tabletop top surface is y=1190..1325 (555..618 in 420x747),
+ * and the 3 placement ovals are at cy=1250 (583.3 in 420x747), cx=190, 452, 713 (88.7, 210.9, 332.7).
+ * On 360x800 (stage width ~302px, 1 SVG unit = 0.719px), 84x86 SVG dropzones render at >= 60.4x61.8 CSS px (>= 56px).
+ */
+export const STORY_CUP_STAGE_MATRIX_MOBILE: StoryCupStageMatrix = {
+  mode: 'mobile',
+  svgViewBox: '0 0 420 747',
+  svgWidth: 420,
+  svgHeight: 747,
+  sourceAssetWidth: 900,
+  sourceAssetHeight: 1600,
+  stageAspectClass: 'aspect-[9/16] w-full',
+  tabletopSurfaceYRange: [555, 618],
+  tabletopOvalCenterY: 583,
+  tabletopOvalCentersX: {
+    NEXT_TO_BLOCK: 89,
+    CENTER_TABLE: 211,
+    NEXT_TO_BUCKET: 333,
+  },
+  dropZones: {
+    NEXT_TO_BLOCK: { x: 74, y: 514, width: 84, height: 86, cx: 116, cy: 557 },
+    CENTER_TABLE: { x: 168, y: 514, width: 84, height: 86, cx: 210, cy: 557 },
+    NEXT_TO_BUCKET: { x: 262, y: 514, width: 84, height: 86, cx: 304, cy: 557 },
+  },
+  props: {
+    woodenBlock: {
+      groupTransform: 'translate(18, 520)',
+      hitRect: { x: -4, y: -4, width: 84, height: 86 },
+      img: { x: 8, y: 8, width: 62, height: 62 },
+      labelX: 39,
+      labelY: 82,
+    },
+    elephantBucket: {
+      groupTransform: 'translate(316, 496)',
+      hitRect: { x: -8, y: 6, width: 84, height: 92 },
+      img: { x: 0, y: 14, width: 74, height: 78 },
+      labelX: 37,
+      labelY: 106,
+    },
+    blueCup: {
+      y: 526,
+      dragY: 518,
+      xByPosition: {
+        NEXT_TO_BLOCK: 92,
+        CENTER_TABLE: 186,
+        NEXT_TO_BUCKET: 266,
+      },
+      hitRect: { x: -20, y: -14, width: 88, height: 88 },
+      img: { x: -12, y: 0, width: 68, height: 68 },
+      gaugeY: -6,
+    },
+    twigRuler: {
+      groupTransform: 'translate(115, 636)',
+      hitRect: { x: 0, y: -22, width: 190, height: 82 },
+      img: { x: 15, y: -18, width: 160, height: 56 },
+    },
+  },
+  overlayOffsetY: 420,
+};
+
+export function resolveStoryCupStageMatrixForWidth(width: number): StoryCupStageMatrix {
+  return width <= 640 ? STORY_CUP_STAGE_MATRIX_MOBILE : STORY_CUP_STAGE_MATRIX_DESKTOP;
+}
+
+export function useStoryCupStageMatrix(): StoryCupStageMatrix {
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    if (typeof window.innerWidth === 'number' && window.innerWidth > 0) {
+      return window.innerWidth <= 640;
+    }
+    if (typeof window.matchMedia === 'function') {
+      return Boolean(window.matchMedia('(max-width: 640px)').matches);
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const updateViewport = () => {
+      if (typeof window.innerWidth === 'number' && window.innerWidth > 0) {
+        setIsMobileViewport(window.innerWidth <= 640);
+      } else if (typeof window.matchMedia === 'function') {
+        setIsMobileViewport(Boolean(window.matchMedia('(max-width: 640px)').matches));
+      }
+    };
+    updateViewport();
+    const mql =
+      typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 640px)') : null;
+    if (mql && typeof mql.addEventListener === 'function') {
+      mql.addEventListener('change', updateViewport);
+    }
+    if (typeof window.addEventListener === 'function') {
+      window.addEventListener('resize', updateViewport);
+    }
+    return () => {
+      if (mql && typeof mql.removeEventListener === 'function') {
+        mql.removeEventListener('change', updateViewport);
+      }
+      if (typeof window.removeEventListener === 'function') {
+        window.removeEventListener('resize', updateViewport);
+      }
+    };
+  }, []);
+
+  return isMobileViewport ? STORY_CUP_STAGE_MATRIX_MOBILE : STORY_CUP_STAGE_MATRIX_DESKTOP;
 }
 
 interface StoryCharacterRigProps {
@@ -316,10 +595,14 @@ export interface StoryCupSceneArtV2Props {
   hasAllRequiredEvidence: boolean;
   isGoalCompleted: boolean;
   enabledLayers: Record<SceneLayerId, boolean>;
+  stageMatrix?: StoryCupStageMatrix;
 }
 
 /**
  * Pure visual backdrop + 5-layer treehouse + 2 story character rigs + visual-only effects.
+ * Shares a single unified logical coordinate matrix (`StoryCupStageMatrix`) with the interactive SVG stage:
+ * - Desktop (`>640px`): 1600x900 layers mapped 1:1 to `viewBox="0 0 420 220"` (`aspect-[420/220]`).
+ * - Mobile (`<=640px`): 900x1600 layers mapped 1:1 to `viewBox="0 0 420 747"` (`aspect-[9/16]`), zero `object-cover` clipping.
  * All layers have pointer-events: none and never intercept or mutate domain state.
  */
 export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
@@ -330,7 +613,12 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
   hasAllRequiredEvidence,
   isGoalCompleted,
   enabledLayers,
+  stageMatrix: externalMatrix,
 }) => {
+  const internalMatrix = useStoryCupStageMatrix();
+  const stageMatrix = externalMatrix ?? internalMatrix;
+  const isMobileStage = stageMatrix.mode === 'mobile';
+
   const prefersReducedMotion = useReducedMotionPreference();
   const [narrationSession, setNarrationSession] = useState<NarrationSession>(() =>
     speechNarrator.getNarrationSession()
@@ -355,7 +643,26 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
     return () => window.clearInterval(interval);
   }, [prefersReducedMotion]);
 
-  const actorState = resolveStoryCharacterVisualState({
+  const activeSpeaker = resolveActiveStorySpeaker({
+    playbackStatus: narrationSession.playbackStatus,
+    activeHotspotId,
+    selectedSceneActionId,
+  });
+
+  const tiaotiaoState = resolveStoryCharacterVisualState({
+    characterId: 'tiaotiao_story_squirrel',
+    playbackStatus: narrationSession.playbackStatus,
+    selectedSceneActionId,
+    hasAllRequiredEvidence,
+    isGoalCompleted,
+    activeHotspotId,
+    cupPosition,
+    isBlinkTick,
+    prefersReducedMotion,
+  });
+
+  const pupuState = resolveStoryCharacterVisualState({
+    characterId: 'pupu_story_elephant',
     playbackStatus: narrationSession.playbackStatus,
     selectedSceneActionId,
     hasAllRequiredEvidence,
@@ -375,12 +682,29 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
     hasAllRequiredEvidence &&
     selectedSceneActionId !== 'act_only_look_squirrel';
 
+  const fxPositionClass = isMobileStage
+    ? 'absolute left-0 right-0 top-[28%] h-[58%] w-full pointer-events-none'
+    : 'absolute inset-0 w-full h-full pointer-events-none';
+
   return (
     <div
       data-testid="v2-story-cup-art-backdrop"
       data-art-director-gate="ART_DIRECTOR_QA_HOLD"
-      data-engineering-status="ENGINEERING_ASSET_READY"
-      data-actor-state={actorState}
+      data-engineering-status="ENGINEERING_AUDIT_HOLD"
+      data-stage-mode={stageMatrix.mode}
+      data-stage-viewbox={stageMatrix.svgViewBox}
+      data-tabletop-y-range={`${stageMatrix.tabletopSurfaceYRange[0]}..${stageMatrix.tabletopSurfaceYRange[1]}`}
+      data-tabletop-oval-cy={String(stageMatrix.tabletopOvalCenterY)}
+      data-active-story-speaker={activeSpeaker}
+      data-tiaotiao-state={tiaotiaoState}
+      data-pupu-state={pupuState}
+      data-actor-state={
+        tiaotiaoState === 'talk'
+          ? 'tiaotiao_talk'
+          : pupuState === 'talk'
+            ? 'pupu_talk'
+            : tiaotiaoState
+      }
       data-speech-status={narrationSession.playbackStatus}
       data-speech-companion={narrationSession.companionId}
       data-reduced-motion={prefersReducedMotion ? 'true' : 'false'}
@@ -404,7 +728,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
         }
       `}</style>
 
-      {/* 5 Independent Responsive Layers (Desktop 1600x900 / Mobile 900x1600, WebP -> PNG -> SVG) */}
+      {/* 5 Independent Responsive Layers mapped 1:1 into the unified stage coordinate frame (zero object-cover clipping) */}
       {STORY_CUP_SCENE_LAYERS.map((layer, index) => {
         const isVisible = enabledLayers[layer.id] !== false;
         return (
@@ -415,6 +739,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
             data-layer-visible={isVisible ? 'true' : 'false'}
             data-desktop-svg={layer.desktopSvg}
             data-mobile-svg={layer.mobileSvg}
+            data-active-source-mode={stageMatrix.mode}
             className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-200 ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
@@ -424,10 +749,10 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
             <source media="(max-width: 640px)" srcSet={layer.mobilePng} type="image/png" />
             <source media="(min-width: 641px)" srcSet={layer.desktopWebp} type="image/webp" />
             <img
-              src={layer.desktopPng}
+              src={isMobileStage ? layer.mobilePng : layer.desktopPng}
               alt=""
               draggable={false}
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full h-full object-fill pointer-events-none"
             />
           </picture>
         );
@@ -437,7 +762,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
       {showSpotlight && (
         <picture
           data-testid="v2-story-cup-fx-spotlight"
-          className="absolute inset-0 w-full h-full pointer-events-none opacity-80"
+          className={`${fxPositionClass} opacity-80`}
           style={{ zIndex: 6 }}
         >
           <source srcSet={STORY_CUP_EFFECTS.inspectionSpotlight.webp} type="image/webp" />
@@ -445,7 +770,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
             src={STORY_CUP_EFFECTS.inspectionSpotlight.svg}
             alt=""
             draggable={false}
-            className="w-full h-full object-cover pointer-events-none"
+            className="w-full h-full object-contain pointer-events-none"
           />
         </picture>
       )}
@@ -453,7 +778,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
       {showComparisonRibbon && (
         <picture
           data-testid="v2-story-cup-fx-ribbon"
-          className="absolute inset-0 w-full h-full pointer-events-none opacity-90"
+          className={`${fxPositionClass} opacity-90`}
           style={{ zIndex: 7 }}
         >
           <source srcSet={STORY_CUP_EFFECTS.comparisonRibbon.webp} type="image/webp" />
@@ -461,7 +786,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
             src={STORY_CUP_EFFECTS.comparisonRibbon.svg}
             alt=""
             draggable={false}
-            className="w-full h-full object-cover pointer-events-none"
+            className="w-full h-full object-contain pointer-events-none"
           />
         </picture>
       )}
@@ -469,7 +794,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
       {showSparkles && !prefersReducedMotion && (
         <picture
           data-testid="v2-story-cup-fx-sparkles"
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className={fxPositionClass}
           style={{ zIndex: 8, animation: 'al-cup-shimmer 1.2s ease-in-out infinite' }}
         >
           <source srcSet={STORY_CUP_EFFECTS.observationSparkles.webp} type="image/webp" />
@@ -477,7 +802,7 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
             src={STORY_CUP_EFFECTS.observationSparkles.svg}
             alt=""
             draggable={false}
-            className="w-full h-full object-cover pointer-events-none"
+            className="w-full h-full object-contain pointer-events-none"
           />
         </picture>
       )}
@@ -491,18 +816,26 @@ export const StoryCupSceneArtV2: React.FC<StoryCupSceneArtV2Props> = ({
         <StoryCharacterRigV2
           characterId="tiaotiao_story_squirrel"
           displayName="小松鼠跳跳（故事角色）"
-          state={actorState}
+          state={tiaotiaoState}
           prefersReducedMotion={prefersReducedMotion}
           isVoicePaused={isVoicePaused}
-          className="absolute left-[1%] sm:left-[2%] bottom-[22%] sm:bottom-[20%] w-[22%] sm:w-[20%] max-w-[126px]"
+          className={
+            isMobileStage
+              ? 'absolute left-[4%] bottom-[31%] w-[30%] max-w-[132px]'
+              : 'absolute left-[3%] bottom-[14%] w-[19%] max-w-[120px]'
+          }
         />
         <StoryCharacterRigV2
           characterId="pupu_story_elephant"
           displayName="小象噗噗（故事角色）"
-          state={actorState}
+          state={pupuState}
           prefersReducedMotion={prefersReducedMotion}
           isVoicePaused={isVoicePaused}
-          className="absolute right-[1%] sm:right-[2%] bottom-[22%] sm:bottom-[20%] w-[24%] sm:w-[22%] max-w-[136px]"
+          className={
+            isMobileStage
+              ? 'absolute right-[4%] bottom-[31%] w-[32%] max-w-[140px]'
+              : 'absolute right-[3%] bottom-[14%] w-[21%] max-w-[130px]'
+          }
         />
       </div>
     </div>
@@ -513,13 +846,25 @@ export interface StoryCupLayerControlBarV2Props {
   enabledLayers: Record<SceneLayerId, boolean>;
   onToggleLayer: (id: SceneLayerId) => void;
   onResetLayers: () => void;
+  activeHotspotId?: string | null;
+  selectedSceneActionId?: string | null;
+  defaultOpen?: boolean;
 }
 
+/**
+ * Reviewer / Engineering Debug Drawer (`StoryCupLayerControlBarV2`).
+ * Default-closed (`defaultOpen = false`) so the 6-year-old child's primary play flow is clean and unobstructed.
+ * Reviewers and automated Playwright checks can expand it via `data-testid="v2-story-cup-debug-drawer-toggle"`.
+ */
 export const StoryCupLayerControlBarV2: React.FC<StoryCupLayerControlBarV2Props> = ({
   enabledLayers,
   onToggleLayer,
   onResetLayers,
+  activeHotspotId = null,
+  selectedSceneActionId = null,
+  defaultOpen = false,
 }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(defaultOpen);
   const [narrationSession, setNarrationSession] = useState<NarrationSession>(() =>
     speechNarrator.getNarrationSession()
   );
@@ -530,74 +875,112 @@ export const StoryCupLayerControlBarV2: React.FC<StoryCupLayerControlBarV2Props>
     });
   }, []);
 
+  const activeSpeaker = resolveActiveStorySpeaker({
+    playbackStatus: narrationSession.playbackStatus,
+    activeHotspotId,
+    selectedSceneActionId,
+  });
+
+  const visibleCount = STORY_CUP_SCENE_LAYERS.filter(
+    (l) => enabledLayers[l.id] !== false
+  ).length;
+
   return (
     <div
-      data-testid="v2-story-cup-pilot-inspector"
-      className="rounded-2xl bg-amber-950/90 text-amber-50 px-3 py-2.5 border border-amber-400/40 space-y-2"
+      data-testid="v2-story-cup-debug-drawer-container"
+      data-drawer-open={isDrawerOpen ? 'true' : 'false'}
+      className="pt-1"
     >
-      <div className="flex flex-wrap items-center justify-between gap-1.5 text-[11px]">
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span
-            data-testid="v2-story-cup-qa-badge"
-            className="px-2 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black"
-          >
-            ART_DIRECTOR_QA_HOLD · V2.2 故事林杯子样板
-          </span>
-          <span
-            data-testid="v2-story-cup-content-qa-flag"
-            className="px-2 py-0.5 rounded-full bg-rose-900/90 text-rose-100 border border-rose-400/40 font-bold"
-            title="源码部分台词写为“小狐狸果果”，与全局松鼠果果物种不一致；按契约不暗改业务文案，单列 CONTENT_QA_REVIEW"
-          >
-            CONTENT_QA_REVIEW：台词含“小狐狸果果”待产品另案校订
-          </span>
-        </div>
-        <span
-          data-testid="v2-story-cup-voice-session-pill"
-          data-playback-status={narrationSession.playbackStatus}
-          data-companion-id={narrationSession.companionId}
-          className="px-2 py-0.5 rounded-full bg-stone-800 text-amber-200 font-bold"
-        >
-          旁白：{narrationSession.companionId} · {narrationSession.playbackStatus}（近似嘴型非音素同步）
-        </span>
-      </div>
-
-      {/* 5-Layer Toggle Controls for Gate 1 Verification */}
-      <div
-        data-testid="v2-story-cup-layer-toggles"
-        className="grid grid-cols-3 sm:grid-cols-6 gap-1.5"
-        role="group"
-        aria-label="V2.2 树屋场景 5 图层独立开关"
-      >
-        {STORY_CUP_SCENE_LAYERS.map((layer) => {
-          const active = enabledLayers[layer.id] !== false;
-          return (
-            <button
-              key={layer.id}
-              type="button"
-              data-testid={`v2-layer-toggle-${layer.id}`}
-              aria-pressed={active}
-              onClick={() => onToggleLayer(layer.id)}
-              className={`min-h-[56px] min-w-[56px] px-2 py-1.5 rounded-xl text-[11px] font-black border transition-all cursor-pointer flex flex-col items-center justify-center ${
-                active
-                  ? 'bg-emerald-600 text-white border-emerald-300 shadow-sm'
-                  : 'bg-stone-800/90 text-stone-300 border-stone-600'
-              }`}
-            >
-              <span>{layer.label}</span>
-              <span className="text-[10px] opacity-85">{active ? '显示中' : '已隐藏'}</span>
-            </button>
-          );
-        })}
+      <div className="flex items-center justify-end">
         <button
           type="button"
-          data-testid="v2-layer-toggle-reset"
-          onClick={onResetLayers}
-          className="min-h-[56px] min-w-[56px] px-2 py-1.5 rounded-xl text-[11px] font-black border bg-amber-600 hover:bg-amber-500 text-white border-amber-300 transition-all cursor-pointer flex flex-col items-center justify-center"
+          data-testid="v2-story-cup-debug-drawer-toggle"
+          aria-expanded={isDrawerOpen}
+          aria-controls="v2-story-cup-pilot-inspector-panel"
+          onClick={() => setIsDrawerOpen((prev) => !prev)}
+          className="min-h-[56px] min-w-[56px] px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-amber-100 text-stone-700 border border-stone-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-colors"
         >
-          <span>重置 5 层</span>
-          <span className="text-[10px] opacity-90">全部开启</span>
+          <span>
+            {isDrawerOpen
+              ? '收起审阅调试抽屉 (QA Hold)'
+              : `审阅/工程调试抽屉 (图层 ${visibleCount}/5 · QA Hold)`}
+          </span>
         </button>
       </div>
+
+      {isDrawerOpen && (
+        <div
+          id="v2-story-cup-pilot-inspector-panel"
+          data-testid="v2-story-cup-pilot-inspector"
+          className="mt-2 rounded-2xl bg-amber-950/90 text-amber-50 px-3 py-2.5 border border-amber-400/40 space-y-2"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-1.5 text-[11px]">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span
+                data-testid="v2-story-cup-qa-badge"
+                className="px-2 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black"
+              >
+                ART_DIRECTOR_QA_HOLD · V2.2 故事林杯子样板
+              </span>
+              <span
+                data-testid="v2-story-cup-content-qa-flag"
+                className="px-2 py-0.5 rounded-full bg-rose-900/90 text-rose-100 border border-rose-400/40 font-bold"
+                title="源码部分台词写为“小狐狸果果”，与全局松鼠果果物种不一致；按契约不暗改业务文案，单列 CONTENT_QA_REVIEW"
+              >
+                CONTENT_QA_REVIEW：台词含“小狐狸果果”待产品另案校订
+              </span>
+            </div>
+            <span
+              data-testid="v2-story-cup-voice-session-pill"
+              data-playback-status={narrationSession.playbackStatus}
+              data-companion-id={narrationSession.companionId}
+              data-active-story-speaker={activeSpeaker}
+              className="px-2 py-0.5 rounded-full bg-stone-800 text-amber-200 font-bold"
+            >
+              旁白：{narrationSession.companionId} · {narrationSession.playbackStatus} · 角色说话者：{activeSpeaker}（单人近似口型/其余倾听，非音素同步）
+            </span>
+          </div>
+
+          {/* 5-Layer Toggle Controls for Gate 1 / Gate 3R Verification */}
+          <div
+            data-testid="v2-story-cup-layer-toggles"
+            className="grid grid-cols-3 sm:grid-cols-6 gap-1.5"
+            role="group"
+            aria-label="V2.2 树屋场景 5 图层独立开关"
+          >
+            {STORY_CUP_SCENE_LAYERS.map((layer) => {
+              const active = enabledLayers[layer.id] !== false;
+              return (
+                <button
+                  key={layer.id}
+                  type="button"
+                  data-testid={`v2-layer-toggle-${layer.id}`}
+                  aria-pressed={active}
+                  onClick={() => onToggleLayer(layer.id)}
+                  className={`min-h-[56px] min-w-[56px] px-2 py-1.5 rounded-xl text-[11px] font-black border transition-all cursor-pointer flex flex-col items-center justify-center ${
+                    active
+                      ? 'bg-emerald-600 text-white border-emerald-300 shadow-sm'
+                      : 'bg-stone-800/90 text-stone-300 border-stone-600'
+                  }`}
+                >
+                  <span>{layer.label}</span>
+                  <span className="text-[10px] opacity-85">{active ? '显示中' : '已隐藏'}</span>
+                </button>
+              );
+            })}
+            <button
+              type="button"
+              data-testid="v2-layer-toggle-reset"
+              onClick={onResetLayers}
+              className="min-h-[56px] min-w-[56px] px-2 py-1.5 rounded-xl text-[11px] font-black border bg-amber-600 hover:bg-amber-500 text-white border-amber-300 transition-all cursor-pointer flex flex-col items-center justify-center"
+            >
+              <span>重置 5 层</span>
+              <span className="text-[10px] opacity-90">全部开启</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+

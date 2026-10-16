@@ -1,0 +1,92 @@
+Starting Vite preview server on port 4182
+Testing viewport 360x800...
+Testing viewport 390x844...
+Testing viewport 430x932...
+Testing viewport 768x1024...
+Testing viewport 1024x1366...
+Testing viewport 1440x900...
+Running mobile 390x844 pointer drag & speaker separation check...
+Running deep E2E functional checks for Gate 3R...
+Gate 3R Verification Summary:
+{
+  "gate": "GATE3R_PASS",
+  "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "http404Count": 0,
+  "allViewportsNoOverflow": true,
+  "allViewportsChildUiDenoised": true,
+  "allViewportsTabletopAligned": true,
+  "allViewportsSvgHitTargets56px": true,
+  "allViewportsDomTouchTargets56px": true,
+  "allViewportsAssetsLoaded": true,
+  "mobilePointerDragVerification": {
+    "viewport": "390x844",
+    "mobilePosAfterDragToBlock": "NEXT_TO_BLOCK",
+    "mobilePosAfterDragToBucket": "NEXT_TO_BUCKET"
+  },
+  "speakerSeparationVerification": {
+    "narratorPromptState": {
+      "activeStorySpeaker": "narrator_or_multi",
+      "tiaotiaoState": "idle",
+      "pupuState": "idle",
+      "bothTalkingSimultaneously": false
+    },
+    "tiaotiaoSpeakerState": {
+      "activeStorySpeaker": "tiaotiao_story_squirrel",
+      "tiaotiaoState": "talk",
+      "pupuState": "think",
+      "bothTalkingSimultaneously": false
+    },
+    "pupuSpeakerState": {
+      "activeStorySpeaker": "pupu_story_elephant",
+      "tiaotiaoState": "think",
+      "pupuState": "talk",
+      "bothTalkingSimultaneously": false
+    },
+    "fourCompanionChecks": [
+      {
+        "companionId": "guoguo_squirrel",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "beibei_otter",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "tiantian_raccoon",
+        "bannerMatches": true
+      },
+      {
+        "companionId": "qiqi_deer",
+        "bannerMatches": true
+      }
+    ],
+    "neverSimultaneousTalk": true
+  },
+  "accessibilityVerification": {
+    "movableBlueCupExposedInAxTree": true,
+    "allThreeDropzonesExposedInAxTree": true
+  },
+  "deepFunctionalVerification": {
+    "initialPos": "CENTER_TABLE",
+    "posAfterDragToBlock": "NEXT_TO_BLOCK",
+    "posAfterKeyEnter": "CENTER_TABLE",
+    "posAfterKeyRight": "NEXT_TO_BUCKET",
+    "posAfterBtnCenter": "CENTER_TABLE",
+    "posAfterBtnBlock": "NEXT_TO_BLOCK",
+    "posAfterBtnBucket": "NEXT_TO_BUCKET",
+    "drawerDefaultExpanded": "false",
+    "drawerExpandedAfterClick": "true",
+    "l1VisibleAfterToggle": "false",
+    "l5VisibleAfterToggle": "false",
+    "singleSideReviseVisible": true,
+    "bothSidesCompletedBannerVisible": true,
+    "activeCompanionOnBanner": "qiqi_deer",
+    "restoredCounterText": "已观察物件 4/4",
+    "restoredComparedCount": "2",
+    "voiceCompanionInStoryPill": "qiqi_deer",
+    "reducedMotionAttr": "true"
+  },
+  "totalScreenshots": 21
+}

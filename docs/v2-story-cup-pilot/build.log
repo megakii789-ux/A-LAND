@@ -1,0 +1,68 @@
+
+> react-example@0.0.0 build
+> tsc --noEmit && vitest run && vite build && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json
+
+
+ RUN  v5.0.4 /home/voga/A-LAND-visual-v2-story-pilot
+
+ ✓ tests/domain/weeklyReportService.test.ts (4 tests) 11ms
+ ✓ src/tests/interactive3D.test.ts (5 tests) 3ms
+ ✓ tests/domain/hug.test.ts (10 tests) 10ms
+ ✓ tests/domain/pwaOffline.test.ts (14 tests) 5ms
+ ✓ tests/domain/safety.test.ts (12 tests) 6ms
+ ✓ tests/domain/interactiveGamesE2E.test.ts (4 tests) 6ms
+ ✓ tests/domain/caregiver.test.ts (9 tests) 6ms
+ ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 9ms
+ ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 11ms
+ ✓ src/tests/weather.test.ts (4 tests) 4ms
+ ✓ tests/domain/weather.test.ts (6 tests) 5ms
+ ✓ tests/domain/scaffolding.test.ts (4 tests) 5ms
+ ✓ tests/domain/research.test.ts (9 tests) 10ms
+ ✓ tests/domain/transfer.test.ts (17 tests) 11ms
+ ✓ tests/domain/personalizationEngine.test.ts (17 tests) 13ms
+ ✓ tests/domain/cognitiveKernel.test.ts (18 tests) 15ms
+ ✓ tests/domain/hugContract.test.ts (4 tests) 5ms
+ ✓ src/tests/parentingPocketTips.test.ts (6 tests) 4ms
+ ✓ src/tests/speechSystem.test.ts (31 tests) 26ms
+ ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 361ms
+ ✓ tests/domain/firestoreRules.test.ts (10 tests) 6ms
+ ✓ src/tests/calmSpace.test.ts (7 tests) 21ms
+ ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests) 3ms
+ ✓ src/tests/parentMedals.test.ts (5 tests) 6ms
+ ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 207ms
+ ✓ tests/domain/backendAuthData.test.ts (12 tests) 204ms
+ ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 92ms
+ ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 124ms
+ ✓ src/tests/growthObservationLog.test.ts (2 tests) 2ms
+ ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 125ms
+ ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 107ms
+ ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 120ms
+ ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 150ms
+ ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 174ms
+ ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 208ms
+ ✓ src/tests/sprint4AuthenticityAndImmersion.test.tsx (9 tests) 264ms
+ ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 167ms
+ ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 274ms
+ ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 257ms
+
+ Test Files  39 passed (39)
+      Tests  388 passed (388)
+   Start at  01:06:20
+   Duration  889ms (transform 47%, import 30%, tests 21%, worker 1%)
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 1743 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.81 kB │ gzip:   0.83 kB
+dist/assets/index-BX58dNN4.css    177.25 kB │ gzip:  22.61 kB
+dist/assets/index-5F0bPq97.js   2,316.69 kB │ gzip: 538.90 kB
+
+✓ built in 338ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[generate-version-json] Wrote RUNTIME_DEPLOYMENT_METADATA -> dist/version.json commitSha=e3f8b1e614f5e52ff6577439083dce0b01a72ff7 (source=GIT_HEAD) audit=FAIL_CLOSED_PENDING_AUDIT (16/16 PENDING, renderable=0)
