@@ -110,6 +110,55 @@ const SLICE_TABS: Array<{
   },
 ];
 
+function hasPriorSavedBridgeProgress(): boolean {
+  const m = getProductExperienceMetrics();
+  const hasSavedStates =
+    m.transitionSliceStatesById && Object.keys(m.transitionSliceStatesById).length > 0;
+  return Boolean(
+    m.activeTransitionSliceId ||
+      hasSavedStates ||
+      (m.exploredTransitionSliceIds && m.exploredTransitionSliceIds.length > 0)
+  );
+}
+
+const NEUTRAL_ENTRY_CHOICES = [
+  {
+    id: 'ordinary_happy' as const,
+    testId: 'bridge-entry-ordinary-happy',
+    title: '今天轻松开心',
+    subtitle: '平平常常去另一边，带日常小物品出发',
+    badge: '轻松日常',
+  },
+  {
+    id: 'dual_attachment' as const,
+    testId: 'bridge-entry-dual-attachment',
+    title: '有点舍不得',
+    subtitle: '舍不得这边，或者同时想念两边',
+    badge: '双向不舍',
+  },
+  {
+    id: 'loyalty_conflict' as const,
+    testId: 'bridge-entry-loyalty-conflict',
+    title: '担心别人的感受',
+    subtitle: '在这边开心，但担心另一边大人难过',
+    badge: '关系边界',
+  },
+  {
+    id: 'specific_concern' as const,
+    testId: 'bridge-entry-specific-concern',
+    title: '有些害怕或说不清',
+    subtitle: '看看具体原因，也可以先安静坐一会儿',
+    badge: '具体担忧',
+  },
+  {
+    id: 'story_mode' as const,
+    testId: 'bridge-entry-story-mode',
+    title: '想先体验一个小朋友的故事',
+    subtitle: '不先说自己的事，看看小动物乐乐怎么过桥',
+    badge: '故事模式',
+  },
+];
+
 export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const {
     tonightAt,
@@ -122,15 +171,24 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
     updatePersonalization,
   } = useApp();
 
-  // 按 Slice 独立保存状态快照，支持返回、重试与跨情境切换不丢状态（验收反例 #9）
+  const [showNeutralEntryGate, setShowNeutralEntryGate] = useState<boolean>(
+    () => !hasPriorSavedBridgeProgress()
+  );
+
+  // 按 Slice 独立保存状态快照，支持返回、重试与跨情境切换不丢状态（验收反例 #9 & Section IV 中性首次入口）
   const [sliceStatesById, setSliceStatesById] = useState<
     Record<TransitionSliceId, TransitionExperienceState>
   >(() => {
+    const hasSaved = hasPriorSavedBridgeProgress();
     const saved = getProductExperienceMetrics().transitionSliceStatesById || {};
     return {
       SLICE_A_BIDIRECTIONAL_ATTACHMENT:
         (saved.SLICE_A_BIDIRECTIONAL_ATTACHMENT as TransitionExperienceState) ||
-        createInitialTransitionExperienceState('SLICE_A_BIDIRECTIONAL_ATTACHMENT'),
+        createInitialTransitionExperienceState(
+          'SLICE_A_BIDIRECTIONAL_ATTACHMENT',
+          'own_life_practice',
+          !hasSaved
+        ),
       SLICE_B_LOYALTY_CONFLICT:
         (saved.SLICE_B_LOYALTY_CONFLICT as TransitionExperienceState) ||
         createInitialTransitionExperienceState('SLICE_B_LOYALTY_CONFLICT'),
@@ -177,14 +235,39 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
     return unsubscribe;
   }, []);
 
-  // 打开弹窗时自动播报当前情境引导语
+  // 打开弹窗时：若有既有进度则恢复之前记录（不覆盖孩子此前选择）；若首次打开则播报中性引导语
   useEffect(() => {
     if (!isOpen) return;
+    const metrics = getProductExperienceMetrics();
+    const hasSaved = hasPriorSavedBridgeProgress();
+    let targetSlice = activeSliceId;
+    let targetState = currentState;
+
+    if (hasSaved && metrics.transitionSliceStatesById) {
+      const savedStates = metrics.transitionSliceStatesById as Partial<
+        Record<TransitionSliceId, TransitionExperienceState>
+      >;
+      const restoredSliceId = metrics.activeTransitionSliceId || activeSliceId;
+      const restoredState = savedStates[restoredSliceId];
+      if (restoredState) {
+        targetSlice = restoredSliceId;
+        targetState = restoredState;
+        setActiveSliceId(restoredSliceId);
+        setSliceStatesById((prev) => ({
+          ...prev,
+          ...(savedStates as Record<TransitionSliceId, TransitionExperienceState>),
+        }));
+      }
+      setShowNeutralEntryGate(false);
+    } else if (!hasSaved) {
+      setShowNeutralEntryGate(true);
+    }
+
     speechNarrator.syncWithCompanion(activeCompanion.id);
-    speechNarrator.speak(currentState.currentCompanionSpeech, undefined, undefined, {
+    speechNarrator.speak(targetState.currentCompanionSpeech, undefined, undefined, {
       speakerId: activeCompanion.id,
-      sceneId: `transition_${activeSliceId}`,
-      emotionTone: currentState.emotionProsodyTone,
+      sceneId: `transition_${targetSlice}`,
+      emotionTone: targetState.emotionProsodyTone,
     });
   }, [isOpen]);
 
@@ -206,6 +289,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const commitSliceState = (nextState: TransitionExperienceState, speakText?: string) => {
     const targetSlice = nextState.activeSliceId;
+    setShowNeutralEntryGate(false);
     setSliceStatesById((prev) => ({
       ...prev,
       [targetSlice]: nextState,
@@ -233,31 +317,120 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
   };
 
-  // 切换伙伴：立即中断旧角色语音，更新头像、名称、字幕并播报当前场景状态（满足 Section 6 与反例 #8）
+  const handlePickNeutralEntryChoice = (
+    choiceId: (typeof NEUTRAL_ENTRY_CHOICES)[number]['id']
+  ) => {
+    sounds.playClick();
+    setShowNeutralEntryGate(false);
+
+    if (choiceId === 'ordinary_happy') {
+      const base =
+        sliceStatesById.ORDINARY_HAPPY_TRANSITION ||
+        createInitialTransitionExperienceState('ORDINARY_HAPPY_TRANSITION');
+      const nextState: TransitionExperienceState = {
+        ...base,
+        context: 'own_life_practice',
+        activeSliceId: 'ORDINARY_HAPPY_TRANSITION',
+        feelingSet: ['happy_relaxed_to_go'],
+        isAnxietySoothingTriggered: false,
+        emotionProsodyTone: 'light-everyday',
+        currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.ORDINARY_ENTRY,
+      };
+      commitSliceState(nextState, TRANSITION_FIXED_VOICE_LINES.ORDINARY_ENTRY);
+      return;
+    }
+
+    if (choiceId === 'dual_attachment') {
+      const base =
+        sliceStatesById.SLICE_A_BIDIRECTIONAL_ATTACHMENT ||
+        createInitialTransitionExperienceState('SLICE_A_BIDIRECTIONAL_ATTACHMENT');
+      const nextState: TransitionExperienceState = {
+        ...base,
+        context: 'own_life_practice',
+        activeSliceId: 'SLICE_A_BIDIRECTIONAL_ATTACHMENT',
+        feelingSet:
+          base.feelingSet.length > 0
+            ? base.feelingSet
+            : ['miss_current_place', 'look_forward_other_place'],
+        relationshipConcern: 'bidirectional_attachment',
+        emotionProsodyTone: 'warm-dual-empathy',
+        currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.SLICE_A_ENTRY,
+      };
+      commitSliceState(nextState, TRANSITION_FIXED_VOICE_LINES.SLICE_A_ENTRY);
+      return;
+    }
+
+    if (choiceId === 'loyalty_conflict') {
+      const base =
+        sliceStatesById.SLICE_B_LOYALTY_CONFLICT ||
+        createInitialTransitionExperienceState('SLICE_B_LOYALTY_CONFLICT');
+      const nextState: TransitionExperienceState = {
+        ...base,
+        context: 'own_life_practice',
+        activeSliceId: 'SLICE_B_LOYALTY_CONFLICT',
+        feelingSet: ['happy_here_worry_other_adult'],
+        relationshipConcern: 'worry_other_adult_sad',
+        emotionProsodyTone: 'calm-fact-clarity',
+        currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.SLICE_B_ENTRY,
+      };
+      commitSliceState(nextState, TRANSITION_FIXED_VOICE_LINES.SLICE_B_ENTRY);
+      return;
+    }
+
+    if (choiceId === 'specific_concern') {
+      const base =
+        sliceStatesById.SLICE_C_SPECIFIC_FEAR_OR_CONCERN ||
+        createInitialTransitionExperienceState('SLICE_C_SPECIFIC_FEAR_OR_CONCERN');
+      const nextState: TransitionExperienceState = {
+        ...base,
+        context: 'own_life_practice',
+        activeSliceId: 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN',
+        feelingSet: ['scared_or_uneasy'],
+        practicalConcern: 'schedule_uncertainty',
+        emotionProsodyTone: 'gentle-inquiry',
+        currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.SLICE_C_ENTRY,
+      };
+      commitSliceState(nextState, TRANSITION_FIXED_VOICE_LINES.SLICE_C_ENTRY);
+      return;
+    }
+
+    if (choiceId === 'story_mode') {
+      const nextState: TransitionExperienceState = {
+        ...currentState,
+        context: 'story_experience',
+        emotionProsodyTone: 'light-everyday',
+        currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.STORY_MODE_ENTRY,
+      };
+      commitSliceState(nextState, TRANSITION_FIXED_VOICE_LINES.STORY_MODE_ENTRY);
+    }
+  };
+
+  // 切换伙伴：遵循 V1.1 NarrationSession 规则（朗读中从句首重读，暂停/空闲时不无故自动播报）
   const handleSwitchCompanionInline = (nextCompanionId: CompanionVoiceId) => {
     updatePersonalization({ companionId: nextCompanionId });
-    speechNarrator.syncWithCompanion(nextCompanionId);
-    const lineToSpeak = currentState.currentCompanionSpeech || getSliceEntrySpeech(activeSliceId);
-    speechNarrator.speak(lineToSpeak, undefined, undefined, {
-      speakerId: nextCompanionId,
-      sceneId: `transition_${activeSliceId}`,
-      emotionTone: currentState.emotionProsodyTone,
-    });
+    speechNarrator.switchCompanion(nextCompanionId);
   };
 
   // 切换情境标签（保留各情境独立进度，不串状态 — 满足反例 #9）
   const handleSelectSliceTab = (nextSliceId: TransitionSliceId) => {
     sounds.playClick();
+    setShowNeutralEntryGate(false);
     setActiveSliceId(nextSliceId);
     const targetState =
       sliceStatesById[nextSliceId] || createInitialTransitionExperienceState(nextSliceId);
     const speechToPlay =
       targetState.observedOutcome?.companionFeedbackSpeech ||
-      targetState.currentCompanionSpeech ||
+      (targetState.currentCompanionSpeech === TRANSITION_FIXED_VOICE_LINES.NEUTRAL_FIRST_ENTRY
+        ? getSliceEntrySpeech(nextSliceId)
+        : targetState.currentCompanionSpeech) ||
       getSliceEntrySpeech(nextSliceId);
     const updatedTarget: TransitionExperienceState = {
       ...targetState,
       currentCompanionSpeech: speechToPlay,
+      emotionProsodyTone:
+        nextSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT'
+          ? 'warm-dual-empathy'
+          : targetState.emotionProsodyTone,
     };
     setSliceStatesById((prev) => ({
       ...prev,
@@ -446,6 +619,70 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
             </button>
           </div>
         </div>
+
+        {/* V1.1 Section IV: 双向小桥中性首次入口（进入时不直接默认“同时舍不得这边并期待那边”） */}
+        {showNeutralEntryGate ? (
+          <div
+            data-testid="bridge-neutral-entry-gate"
+            className="bg-linear-to-r from-teal-50/95 via-white to-amber-50/95 p-3 sm:p-4 rounded-2xl border-2 border-teal-300 shadow-xs space-y-2.5"
+          >
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <div>
+                <span className="text-xs sm:text-sm font-black text-teal-950">
+                  🌈 今天来到双向小桥，你想从哪里开始？（不预设任何感受）
+                </span>
+                <p className="text-[11px] sm:text-xs text-stone-600 font-medium mt-0.5">
+                  你可以轻松过桥、聊聊不舍、分清大人感受、看看具体担心，或者先听一个小朋友的故事。
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+              {NEUTRAL_ENTRY_CHOICES.map((choice) => (
+                <button
+                  key={choice.id}
+                  type="button"
+                  data-testid={choice.testId}
+                  onClick={() => handlePickNeutralEntryChoice(choice.id)}
+                  className="min-h-[56px] p-2.5 rounded-xl border-2 border-teal-200 bg-white hover:bg-teal-50 hover:border-teal-500 text-left transition-all cursor-pointer flex flex-col justify-between shadow-2xs"
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs sm:text-sm font-black text-stone-900">
+                      {choice.title}
+                    </span>
+                    <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-teal-100 text-teal-900 shrink-0">
+                      {choice.badge}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-stone-600 font-medium leading-tight mt-1">
+                    {choice.subtitle}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div
+            data-testid="bridge-restored-progress-banner"
+            className="px-3 py-2 rounded-xl bg-teal-50/80 border border-teal-200 flex items-center justify-between gap-2 flex-wrap text-xs"
+          >
+            <span className="font-bold text-teal-950">
+              ✨ 已为你保留当前探索状态：{SLICE_TABS.find((t) => t.id === activeSliceId)?.shortTitle}
+              {currentState.context === 'story_experience' ? '（故事体验模式）' : ''}
+            </span>
+            <button
+              type="button"
+              data-testid="bridge-reopen-neutral-entry-btn"
+              onClick={() => {
+                sounds.playClick();
+                setShowNeutralEntryGate(true);
+              }}
+              className="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-teal-900 border border-teal-300 font-black text-[11px] cursor-pointer min-h-[32px]"
+            >
+              切换首次入口选项
+            </button>
+          </div>
+        )}
 
         {/* Step 1: 多维感受共存选择条（支持同时选多个，绝不强制单选 — 反例 #1 & #2） */}
         <div

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, RotateCcw, Pause, Play, Square, AlertCircle, Sparkles } from 'lucide-react';
-import { speechNarrator, KaraokeSyncState } from '../../utils/speech';
+import { speechNarrator, KaraokeSyncState, NarrationSession } from '../../utils/speech';
 import { sounds } from '../../utils/sound';
+import { CompanionAvatarSvg } from './CompanionIcons';
 
 export interface ChildAudioBarProps {
   className?: string;
@@ -28,6 +29,9 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
   );
   const [lastText, setLastText] = useState<string>(speechNarrator.getLastText());
   const [karaoke, setKaraoke] = useState<KaraokeSyncState>(speechNarrator.getKaraokeState());
+  const [narrationSession, setNarrationSession] = useState<NarrationSession>(() =>
+    speechNarrator.getNarrationSession()
+  );
 
   useEffect(() => {
     const unsubscribeSpeech = speechNarrator.subscribe(() => {
@@ -38,6 +42,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
       setActiveProfileConfig(speechNarrator.getProfileConfig());
       setLastText(speechNarrator.getLastText());
       setKaraoke(speechNarrator.getKaraokeState());
+      setNarrationSession(speechNarrator.getNarrationSession());
     });
     const unsubscribeSound = sounds.subscribe(() => {
       setIsSfxMuted(sounds.getSfxMuted());
@@ -76,7 +81,12 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
   };
 
   return (
-    <div className={`w-full space-y-2 ${className}`}>
+    <div
+      data-testid="child-audio-bar"
+      data-companion-id={narrationSession.companionId}
+      data-playback-status={narrationSession.playbackStatus}
+      className={`w-full space-y-2 ${className}`}
+    >
       {/* 1. 缺少中文语音资源时的明确提示栏 (绝不静默假装成功) */}
       {voiceWarning && (
         <div
@@ -120,14 +130,16 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
         {/* 状态与声文同步实时高亮字幕预览 */}
         <div className="flex items-center gap-2.5 min-w-0 flex-1">
           <div
-            className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-lg transition-colors ${
+            data-testid="audio-bar-companion-avatar"
+            data-companion-id={narrationSession.companionId}
+            className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-lg transition-colors p-1 ${
               isSpeaking
                 ? 'bg-amber-400 text-stone-950 animate-pulse motion-reduce:animate-none shadow-xs'
                 : 'bg-stone-100 text-stone-600'
             }`}
             aria-hidden="true"
           >
-            <Volume2 className="w-5 h-5" />
+            <CompanionAvatarSvg companionId={narrationSession.companionId} className="w-8 h-8" />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -143,7 +155,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
                     ? `${activeProfileConfig.companionName} · ${activeProfileConfig.name}`
                     : `${activeProfileConfig.companionName} · 字幕伴读（语音已关）`}
               </span>
-              {lastText && (
+              {(lastText || narrationSession.voiceSourceLabel) && (
                 <span
                   data-testid="audio-bar-voice-source-label"
                   className={`inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
@@ -153,7 +165,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
                   }`}
                 >
                   <Sparkles className="w-2.5 h-2.5 text-amber-600" />
-                  <span>{karaoke.voiceSourceLabel}</span>
+                  <span>{karaoke.voiceSourceLabel || narrationSession.voiceSourceLabel}</span>
                 </span>
               )}
             </div>
@@ -181,7 +193,10 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
                 ))}
               </p>
             ) : (
-              <p className="text-xs text-stone-500 font-medium truncate max-w-[200px] sm:max-w-[380px]">
+              <p
+                data-testid="karaoke-caption-line"
+                className="text-xs text-stone-500 font-medium truncate max-w-[200px] sm:max-w-[380px]"
+              >
                 {lastText || '点击任意地点或听问候按钮，体验声文同步伴读'}
               </p>
             )}
@@ -193,9 +208,9 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           {/* 重听按钮 */}
           <button
             type="button"
+            data-testid="audio-bar-replay-btn"
             onClick={handleReplay}
-            disabled={!lastText}
-            className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
+            className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:outline-none"
             aria-label="重新朗读上一段话"
             title="重新朗读"
           >
@@ -207,6 +222,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           {isSpeaking && (
             <button
               type="button"
+              data-testid="audio-bar-pause-btn"
               onClick={handleTogglePause}
               className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-sky-500 focus-visible:outline-none"
               aria-label={isPaused ? '继续朗读' : '暂停朗读'}
@@ -221,6 +237,7 @@ export const ChildAudioBar: React.FC<ChildAudioBarProps> = ({ className = '' }) 
           {isSpeaking && (
             <button
               type="button"
+              data-testid="audio-bar-stop-btn"
               onClick={handleStop}
               className="min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:ring-4 focus-visible:ring-rose-500 focus-visible:outline-none"
               aria-label="停止当前语音朗读"

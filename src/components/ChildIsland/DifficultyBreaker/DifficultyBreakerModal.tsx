@@ -521,13 +521,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
   const handleSwitchCompanionInline = (nextCompanionId: CompanionVoiceId) => {
     updatePersonalization({ companionId: nextCompanionId });
-    speechNarrator.syncWithCompanion(nextCompanionId);
-    const lineToSpeak = lastSpokenText || activeContent.entrySpeech;
-    speechNarrator.speak(lineToSpeak, undefined, undefined, {
-      speakerId: nextCompanionId,
-      sceneId: 'difficulty_breaker',
-      emotionTone: 'warm-dual-empathy',
-    });
+    speechNarrator.switchCompanion(nextCompanionId);
   };
 
   const handlePickPreset = (presetId: string, subBranchOverride?: BreakerTransitionSubBranchId) => {

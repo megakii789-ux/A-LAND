@@ -42,7 +42,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
   const handleCompanionSelect = (id: AnimalCompanionId) => {
     const companion = ANIMAL_COMPANIONS[id];
     updatePersonalization({ companionId: id });
-    speechNarrator.speak(`你好呀！我是${companion.name}。${companion.greetingText}`);
+    speechNarrator.switchCompanion(id);
     showFeedback(`已选择伙伴：${companion.name}`);
   };
 
@@ -260,6 +260,7 @@ export const PersonalizationSettingsModal: React.FC<Props> = ({ isOpen, onClose 
                       <button
                         key={cId}
                         type="button"
+                        data-testid={`personalization-companion-${cId}`}
                         onClick={() => handleCompanionSelect(cId)}
                         className={`min-h-[100px] p-3 rounded-2xl border-2 flex flex-col items-center justify-center text-center transition-all cursor-pointer relative ${
                           isSelected

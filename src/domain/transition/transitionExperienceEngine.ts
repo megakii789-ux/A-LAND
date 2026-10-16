@@ -166,6 +166,10 @@ export interface TransitionExperienceState {
 export const TRANSITION_FIXED_VOICE_LINES = {
   ENTRY_GREETING:
     '这里是双向桥小驿。去另一边住的时候，每个人心里可能会有不一样的感受，也可能平平常常。先点点看你现在有什么感觉吧！',
+  NEUTRAL_FIRST_ENTRY:
+    '这里是双向桥小驿。今天去另一边住，你是觉得轻松开心、有点舍不得、担心别人的感受、有些害怕或说不清，还是想先听一个小朋友的故事呢？',
+  STORY_MODE_ENTRY:
+    '我们来看看小朋友乐乐过桥的故事吧！你可以帮乐乐点点看他遇到了什么情况。',
 
   // Ordinary / Happy Path (Counterexample #2)
   ORDINARY_ENTRY:
@@ -713,10 +717,12 @@ export function getSliceProsodyTone(
 
 export function createInitialTransitionExperienceState(
   initialSliceId: TransitionSliceId = 'SLICE_A_BIDIRECTIONAL_ATTACHMENT',
-  context: TransitionContextMode = 'own_life_practice'
+  context: TransitionContextMode = 'own_life_practice',
+  startNeutral: boolean = false
 ): TransitionExperienceState {
-  const initialFeelings: TransitionFeelingId[] =
-    initialSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT'
+  const initialFeelings: TransitionFeelingId[] = startNeutral
+    ? []
+    : initialSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT'
       ? ['miss_current_place', 'look_forward_other_place']
       : initialSliceId === 'SLICE_B_LOYALTY_CONFLICT'
         ? ['happy_here_worry_other_adult']
@@ -729,13 +735,17 @@ export function createInitialTransitionExperienceState(
     activeSliceId: initialSliceId,
     feelingSet: initialFeelings,
     thoughtSet: createDefaultThoughtsForSlice(initialSliceId),
-    relationshipConcern:
-      initialSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT'
+    relationshipConcern: startNeutral
+      ? 'none'
+      : initialSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT'
         ? 'bidirectional_attachment'
         : initialSliceId === 'SLICE_B_LOYALTY_CONFLICT'
           ? 'worry_other_adult_sad'
           : 'none',
-    practicalConcern: initialSliceId === 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN' ? 'schedule_uncertainty' : 'none',
+    practicalConcern:
+      !startNeutral && initialSliceId === 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN'
+        ? 'schedule_uncertainty'
+        : 'none',
     safetyConcern: 'none',
     wishGoal: null,
     chosenAction: null,
@@ -748,8 +758,10 @@ export function createInitialTransitionExperienceState(
     pausedVoluntarily: false,
     isAnxietySoothingTriggered: false,
     ordinaryRitualsBlockedBySafety: false,
-    emotionProsodyTone: getSliceProsodyTone(initialSliceId, 'none'),
-    currentCompanionSpeech: getSliceEntrySpeech(initialSliceId),
+    emotionProsodyTone: startNeutral ? 'light-everyday' : getSliceProsodyTone(initialSliceId, 'none'),
+    currentCompanionSpeech: startNeutral
+      ? TRANSITION_FIXED_VOICE_LINES.NEUTRAL_FIRST_ENTRY
+      : getSliceEntrySpeech(initialSliceId),
   };
 }
 
@@ -761,11 +773,15 @@ export function toggleTransitionFeeling(
   feelingId: TransitionFeelingId
 ): TransitionExperienceState {
   const exists = state.feelingSet.includes(feelingId);
-  const nextFeelingSet = exists
+  let nextFeelingSet = exists
     ? state.feelingSet.filter((f) => f !== feelingId)
     : [...state.feelingSet, feelingId];
 
-  // 反例 #2: 若孩子只选了“今天开开心心去另一边”，绝不触发焦虑安抚，自动切换到轻松日常过桥分支
+  // 反例 #2: 若孩子只选了或主动点选了“今天开开心心去另一边”，绝不触发焦虑安抚，自动切换到轻松日常过桥分支
+  const isSelectingHappyRelaxed = !exists && feelingId === 'happy_relaxed_to_go';
+  if (isSelectingHappyRelaxed) {
+    nextFeelingSet = ['happy_relaxed_to_go'];
+  }
   const isOnlyHappyRelaxed =
     nextFeelingSet.length === 1 && nextFeelingSet[0] === 'happy_relaxed_to_go';
 

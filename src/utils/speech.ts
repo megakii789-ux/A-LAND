@@ -18,6 +18,12 @@ import {
   PrebakedTtsEntry,
   WordBoundaryTiming
 } from '../data/ttsManifest';
+import {
+  VoiceSceneId,
+  VoiceCallCategory,
+  adaptCompanionSelfIntroText,
+  resolveVoiceLineMetadata,
+} from '../domain/voice/voiceLineRegistry';
 
 export type VoiceProfileType =
   | 'warm-sister'
@@ -80,12 +86,42 @@ export type EmotionProsodyTone =
   | 'protective-safety'
   | 'light-everyday';
 
+export type ProsodyCadencePattern =
+  | 'brisk-light'
+  | 'warm-breathing'
+  | 'steady-measured'
+  | 'soft-unhurried'
+  | 'firm-grounded'
+  | 'natural-default';
+
+export interface ProsodyClauseStep {
+  clauseIndex: number;
+  text: string;
+  boundaryType: 'clause' | 'sentence';
+  playbackRate: number;
+  pitch: number;
+  pauseAfterMs: number;
+  checkpointOffsetMs: number;
+}
+
+export interface ProsodyCadencePlan {
+  tone: EmotionProsodyTone | 'neutral-default';
+  cadencePattern: ProsodyCadencePattern;
+  basePlaybackRate: number;
+  pitchDelta: number;
+  clausePauseMs: number;
+  sentencePauseMs: number;
+  totalInjectedPauseMs: number;
+  clauses: ProsodyClauseStep[];
+}
+
 export interface SpeakOptions {
   speakerId?: string;
   lineId?: string;
-  sceneId?: string;
+  sceneId?: VoiceSceneId | string;
   profileOverride?: VoiceProfileType;
   emotionTone?: EmotionProsodyTone;
+  prosodyPauseMs?: number;
 }
 
 export type VoiceSourceType =
@@ -94,6 +130,35 @@ export type VoiceSourceType =
   | 'system-voice-shared-fallback'
   | 'caption-only'
   | 'muted-speech-off';
+
+export type NarrationPlaybackStatus =
+  | 'idle'
+  | 'playing'
+  | 'paused'
+  | 'completed'
+  | 'cancelled';
+
+/**
+ * V1.1 Section I: 统一的 `NarrationSession` 语义状态
+ * 至少记录：`lineId`、`sceneId`、`companionId`、`text`、`playbackSessionId`、`playbackStatus`
+ */
+export interface NarrationSession {
+  lineId: string;
+  sceneId: VoiceSceneId;
+  companionId: CompanionVoiceId;
+  text: string;
+  playbackSessionId: number;
+  playbackStatus: NarrationPlaybackStatus;
+  category: VoiceCallCategory;
+  isCompanionSelfIntro: boolean;
+  sourceType: VoiceSourceType;
+  voiceSourceLabel: string;
+  distinctSystemVoiceCount: number;
+  systemVoiceLimitationNote: string | null;
+  emotionTone?: EmotionProsodyTone;
+  prosodyPauseMs: number;
+  prosodyCadencePlan?: ProsodyCadencePlan;
+}
 
 export interface PlaybackDiagnostics {
   playbackSessionId: number;
@@ -105,14 +170,17 @@ export interface PlaybackDiagnostics {
   neuralVoiceName: string | null;
   systemVoiceName: string | null;
   distinctSystemVoiceCount: number;
+  systemVoiceLimitationNote?: string | null;
   voiceSourceLabel: string;
   text: string;
   normKey: string;
   speakerId?: string;
-  lineId?: string;
-  sceneId?: string;
+  lineId: string;
+  sceneId: VoiceSceneId;
+  category: VoiceCallCategory;
   emotionTone?: EmotionProsodyTone;
-  prosodyPauseMs?: number;
+  prosodyPauseMs: number;
+  prosodyCadencePlan?: ProsodyCadencePlan;
   timestampMs: number;
 }
 
@@ -545,6 +613,170 @@ export function scoreAndCategorizeVoice(voice: { name: string; lang: string }): 
   };
 }
 
+export interface EmotionToneProsodySpec {
+  tone: EmotionProsodyTone;
+  cadencePattern: ProsodyCadencePattern;
+  baseRateMultiplier: number;
+  pitchDelta: number;
+  clausePauseMs: number;
+  sentencePauseMs: number;
+  contourRates: [number, number, number];
+}
+
+export const EMOTION_TONE_PROSODY_SPECS: Record<EmotionProsodyTone, EmotionToneProsodySpec> = {
+  'light-everyday': {
+    tone: 'light-everyday',
+    cadencePattern: 'brisk-light',
+    baseRateMultiplier: 1.04,
+    pitchDelta: 0.04,
+    clausePauseMs: 120,
+    sentencePauseMs: 190,
+    contourRates: [1.05, 1.04, 1.02],
+  },
+  'warm-dual-empathy': {
+    tone: 'warm-dual-empathy',
+    cadencePattern: 'warm-breathing',
+    baseRateMultiplier: 0.91,
+    pitchDelta: 0.02,
+    clausePauseMs: 260,
+    sentencePauseMs: 380,
+    contourRates: [0.93, 0.90, 0.88],
+  },
+  'calm-fact-clarity': {
+    tone: 'calm-fact-clarity',
+    cadencePattern: 'steady-measured',
+    baseRateMultiplier: 0.95,
+    pitchDelta: -0.01,
+    clausePauseMs: 220,
+    sentencePauseMs: 320,
+    contourRates: [0.96, 0.95, 0.93],
+  },
+  'gentle-inquiry': {
+    tone: 'gentle-inquiry',
+    cadencePattern: 'soft-unhurried',
+    baseRateMultiplier: 0.89,
+    pitchDelta: 0.03,
+    clausePauseMs: 300,
+    sentencePauseMs: 420,
+    contourRates: [0.91, 0.89, 0.87],
+  },
+  'protective-safety': {
+    tone: 'protective-safety',
+    cadencePattern: 'firm-grounded',
+    baseRateMultiplier: 0.93,
+    pitchDelta: -0.03,
+    clausePauseMs: 250,
+    sentencePauseMs: 360,
+    contourRates: [0.95, 0.93, 0.91],
+  },
+};
+
+/**
+ * Builds a multi-clause prosody cadence plan that produces audible differences in
+ * clause pauses, sentence pauses, and per-clause playbackRate/pitch contours across
+ * all 5 transition emotion tones (`emotionTone` & `prosodyPauseMs`).
+ */
+export function buildProsodyCadencePlan(
+  text: string,
+  profileId: VoiceProfileType,
+  emotionTone?: EmotionProsodyTone,
+  explicitPauseMs?: number,
+  boundaries?: WordBoundaryTiming[],
+  totalDurationMs: number = 3200
+): ProsodyCadencePlan {
+  const profileCfg = VOICE_PROFILES[profileId] || VOICE_PROFILES['playful-buddy'];
+  const spec = emotionTone ? EMOTION_TONE_PROSODY_SPECS[emotionTone] : null;
+
+  const baseClausePause = spec
+    ? Math.max(spec.clausePauseMs, Math.round((explicitPauseMs || spec.clausePauseMs) * 0.85))
+    : explicitPauseMs || profileCfg.breathPauseMs;
+  const baseSentencePause = spec
+    ? Math.max(spec.sentencePauseMs, explicitPauseMs || spec.sentencePauseMs)
+    : Math.round((explicitPauseMs || profileCfg.breathPauseMs) * 1.35);
+
+  const cleaned = text
+    .replace(/（[^）]*）/g, '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/【[^】]*】/g, '')
+    .replace(/\[[^\]]*\]/g, '')
+    .trim();
+
+  const rawTokens = cleaned.match(/[^，,、：:；;。！？!?…\n]+[，,、：:；;。！？!?…]?/g) || [cleaned];
+  const filteredRaw = rawTokens.map(t => t.trim()).filter(Boolean);
+  const totalClauses = Math.max(1, filteredRaw.length);
+  const totalChars = Math.max(1, filteredRaw.reduce((acc, c) => acc + c.length, 0));
+
+  let runningChars = 0;
+  let totalInjectedPauseMs = 0;
+
+  const clauses: ProsodyClauseStep[] = filteredRaw.map((clauseStr, idx) => {
+    const isSentenceEnd = /[。！？!?…]$/.test(clauseStr);
+    const boundaryType: 'clause' | 'sentence' = isSentenceEnd ? 'sentence' : 'clause';
+
+    const contourRatio =
+      idx === 0
+        ? spec
+          ? spec.contourRates[0]
+          : 1.0
+        : idx === totalClauses - 1
+          ? spec
+            ? spec.contourRates[2]
+            : 0.98
+          : spec
+            ? spec.contourRates[1]
+            : 1.0;
+
+    const playbackRate = Number(Math.max(0.84, Math.min(1.08, contourRatio)).toFixed(3));
+    const isQuestion = /[？?吗呢呀]/.test(clauseStr);
+    const pitch = Number(
+      Math.max(
+        0.9,
+        Math.min(1.14, profileCfg.pitch + (spec ? spec.pitchDelta : 0) + (isQuestion ? 0.015 : 0))
+      ).toFixed(3)
+    );
+
+    const pauseAfterMs =
+      idx === totalClauses - 1
+        ? Math.round(baseSentencePause * 0.5)
+        : boundaryType === 'sentence'
+          ? baseSentencePause
+          : baseClausePause;
+
+    totalInjectedPauseMs += pauseAfterMs;
+
+    let checkpointOffsetMs = Math.round((runningChars / totalChars) * totalDurationMs);
+    if (boundaries && boundaries.length > 0 && idx > 0) {
+      const approxBoundaryIdx = Math.min(
+        boundaries.length - 1,
+        Math.floor((runningChars / totalChars) * boundaries.length)
+      );
+      checkpointOffsetMs = boundaries[approxBoundaryIdx]?.offsetMs ?? checkpointOffsetMs;
+    }
+    runningChars += clauseStr.length;
+
+    return {
+      clauseIndex: idx,
+      text: clauseStr,
+      boundaryType,
+      playbackRate,
+      pitch,
+      pauseAfterMs,
+      checkpointOffsetMs,
+    };
+  });
+
+  return {
+    tone: emotionTone || 'neutral-default',
+    cadencePattern: spec ? spec.cadencePattern : 'natural-default',
+    basePlaybackRate: spec ? spec.baseRateMultiplier : 1.0,
+    pitchDelta: spec ? spec.pitchDelta : 0,
+    clausePauseMs: baseClausePause,
+    sentencePauseMs: baseSentencePause,
+    totalInjectedPauseMs,
+    clauses,
+  };
+}
+
 class SpeechNarrator {
   private isSpeaking: boolean = false;
   private isPaused: boolean = false;
@@ -559,6 +791,7 @@ class SpeechNarrator {
   private segmentQueue: string[] = [];
   private currentSegmentIndex: number = 0;
   private segmentTimer: number | null = null;
+  private prosodyTimers: Set<number> = new Set();
   private activeUtterance: SpeechSynthesisUtterance | null = null;
   private activeAudioElement: HTMLAudioElement | null = null;
   private karaokeTimer: number | null = null;
@@ -570,9 +803,25 @@ class SpeechNarrator {
     isPrebakedNeural: false,
     voiceSourceLabel: '真实神经语音引擎'
   };
+  private narrationSession: NarrationSession = {
+    lineId: 'session.init',
+    sceneId: 'island_home_companion',
+    companionId: 'guoguo_squirrel',
+    text: '',
+    playbackSessionId: 0,
+    playbackStatus: 'idle',
+    category: 'FIXED_LINE',
+    isCompanionSelfIntro: false,
+    sourceType: 'prebaked-mp3',
+    voiceSourceLabel: '真实神经音源 · 果果 (元气伙伴 · zh-CN-XiaoyiNeural)',
+    distinctSystemVoiceCount: 0,
+    systemVoiceLimitationNote: null,
+    prosodyPauseMs: 140,
+  };
   private listeners: Set<() => void> = new Set();
   private lastSpokenText: string = '';
   private lastSpokenProfile: VoiceProfileType = 'playful-buddy';
+  private lastSpokenOptions: SpeakOptions | undefined = undefined;
   private voiceWarning: string | null = null;
   private lastPlaybackDiagnostics: PlaybackDiagnostics | null = null;
   private playbackHistory: PlaybackDiagnostics[] = [];
@@ -590,6 +839,7 @@ class SpeechNarrator {
           if (compId && COMPANION_TO_VOICE_PROFILE[compId]) {
             this.committedCompanionId = compId;
             this.currentProfile = COMPANION_TO_VOICE_PROFILE[compId];
+            this.narrationSession.companionId = compId;
             sounds.setTemplate(this.currentProfile);
             resolvedFromPersonalization = true;
           }
@@ -609,6 +859,7 @@ class SpeechNarrator {
           ) {
             this.currentProfile = saved as VoiceProfileType;
             this.committedCompanionId = VOICE_PROFILE_TO_COMPANION[this.currentProfile];
+            this.narrationSession.companionId = this.committedCompanionId;
             sounds.setTemplate(this.currentProfile);
           }
         }
@@ -616,6 +867,17 @@ class SpeechNarrator {
 
       this.initVoices();
     }
+  }
+
+  private clearProsodyTimers() {
+    if (typeof window !== 'undefined') {
+      for (const timerId of Array.from(this.prosodyTimers)) {
+        try {
+          window.clearTimeout(timerId);
+        } catch {}
+      }
+    }
+    this.prosodyTimers.clear();
   }
 
   private initVoices() {
@@ -706,12 +968,75 @@ class SpeechNarrator {
     this.selectedVoice = this.selectSystemVoiceForProfile(this.currentProfile);
   }
 
+  private resolveIdleVoiceSourceDescriptor(
+    text: string,
+    targetProfile: VoiceProfileType
+  ): {
+    sourceType: VoiceSourceType;
+    voiceLabel: string;
+    prebaked: PrebakedTtsEntry | null;
+    distinctSystemVoiceCount: number;
+    systemVoiceLimitationNote: string | null;
+  } {
+    const prebaked = text ? this.findPrebakedEntry(text, targetProfile) : null;
+    const profileCfg = this.getProfileConfig(targetProfile);
+    const distinctSystemVoiceCount = this.getDistinctSystemVoiceCount();
+    const matchesSystemVoiceSpecifically =
+      this.doesSelectedVoiceSpecificallyMatchProfile(targetProfile);
+
+    let sourceType: VoiceSourceType;
+    let voiceLabel: string;
+
+    if (!this.voiceEnabled || sounds.getMasterMuted()) {
+      sourceType = 'muted-speech-off';
+      voiceLabel = `静音伴读字幕 · ${profileCfg.companionName} (${profileCfg.name})`;
+    } else if (prebaked && this.shouldUseHtmlAudio(prebaked)) {
+      sourceType = 'prebaked-mp3';
+      voiceLabel = `真实神经音源 · ${profileCfg.companionName} (${profileCfg.name} · ${prebaked.voiceName})`;
+    } else if (!text) {
+      sourceType = 'prebaked-mp3';
+      voiceLabel = `真实神经音源 · ${profileCfg.companionName} (${profileCfg.name} · ${profileCfg.neuralVoiceId})`;
+    } else if (this.selectedVoice && distinctSystemVoiceCount > 1 && matchesSystemVoiceSpecifically) {
+      sourceType = 'system-voice-matched';
+      voiceLabel = `系统匹配语音 · ${profileCfg.companionName} (${this.selectedVoice.name})`;
+    } else if (this.selectedVoice) {
+      sourceType = 'system-voice-shared-fallback';
+      voiceLabel = `系统通用语音替代 (${this.selectedVoice.name}) · 仅预制语音具角色专属声线`;
+    } else {
+      sourceType = 'caption-only';
+      voiceLabel = `声文伴读字幕 · ${profileCfg.companionName}（当前环境无可用中文系统语音）`;
+    }
+
+    const systemVoiceLimitationNote =
+      distinctSystemVoiceCount <= 1 && sourceType === 'system-voice-shared-fallback'
+        ? `当前设备仅检测到 ${distinctSystemVoiceCount} 个中文系统语音 (${this.selectedVoice?.name || '通用系统声线'})，动态文本共用该系统音色，不冒充四角色独立系统声线。`
+        : null;
+
+    return {
+      sourceType,
+      voiceLabel,
+      prebaked,
+      distinctSystemVoiceCount,
+      systemVoiceLimitationNote,
+    };
+  }
+
   /**
-   * Authoritative synchronization from `personalization.companionId` (Guoguo, Beibei, Tiantian, Qiqi).
-   * Immediately stops any active speech from the previous character, clears temporary overrides,
-   * updates the voice profile and Web Audio DSP template, and notifies all subscribers.
+   * V1.1 Section I: Authoritative synchronization from `personalization.companionId`
+   * (Guoguo, Beibei, Tiantian, Qiqi).
+   * Enforces all 7 rules:
+   * 1. Immediately cancels old audio and delayed callbacks from the previous session.
+   * 2. Old companion's exclusive self-introduction is never kept as the new companion's replay content.
+   * 3. Old subtitles and old voice source labels are synchronously invalidated/updated.
+   * 4. When switching companion mid-speech (`playbackStatus === 'playing'`), re-speaks from the beginning of the current sentence using the new companion (with zero audio overlap).
+   * 5. Switching while paused (`playbackStatus === 'paused'`) does NOT resume or continue playback.
+   * 6. Switching when not speaking (`playbackStatus !== 'playing'`) does NOT auto-play a story/scene.
+   * 7. Clears any temporary audition preview state.
    */
-  public syncWithCompanion(companionId: string) {
+  public syncWithCompanion(
+    companionId: string,
+    options?: { restartActiveSpeech?: boolean }
+  ) {
     const mapped = COMPANION_TO_VOICE_PROFILE[companionId as CompanionVoiceId];
     if (!mapped) return;
 
@@ -721,19 +1046,171 @@ class SpeechNarrator {
       this.currentProfile !== mapped ||
       this.auditionPreviewProfile !== null;
 
-    this.auditionPreviewProfile = null;
-    this.manualVoiceOverride = null;
-
-    if (isCompanionOrProfileChanged && (this.isSpeaking || this.activeAudioElement || this.activeUtterance)) {
-      this.stop();
+    if (!isCompanionOrProfileChanged) {
+      sounds.setTemplate(mapped);
+      return;
     }
 
+    const wasActivelyPlaying =
+      this.isSpeaking &&
+      !this.isPaused &&
+      this.narrationSession.playbackStatus === 'playing';
+    const wasPaused =
+      this.isPaused || this.narrationSession.playbackStatus === 'paused';
+    const prevText = this.narrationSession.text || this.lastSpokenText;
+    const prevOptions = this.lastSpokenOptions;
+
+    // Rule 1: Immediately cancel old audio & delayed callbacks and increment session ID
+    this.stop('cancelled');
+    const switchedSessionId = ++this.playbackSessionId;
+
+    this.auditionPreviewProfile = null;
+    this.manualVoiceOverride = null;
     this.committedCompanionId = compId;
     this.currentProfile = mapped;
     sounds.setTemplate(mapped);
     this.syncVoiceForCurrentProfile();
+
+    // Rule 2: Adapt any companion-specific self-intro so old companion's intro never leaks into replay
+    const adapted = adaptCompanionSelfIntroText(prevText, compId);
+    const nextText = adapted.adaptedText;
+    this.lastSpokenText = nextText;
+    this.lastSpokenProfile = mapped;
+    this.lastSpokenNormalizedKey = normalizeTextForTtsKey(nextText);
+
+    // Rule 3: Immediately invalidate old subtitles and old voice source labels
+    const lineMeta = resolveVoiceLineMetadata(
+      nextText,
+      compId,
+      adapted.lineId || prevOptions?.lineId,
+      (prevOptions?.sceneId as VoiceSceneId | undefined) || this.narrationSession.sceneId
+    );
+    const idleDesc = this.resolveIdleVoiceSourceDescriptor(nextText, mapped);
+
+    this.initKaraokeTokens(
+      nextText,
+      idleDesc.prebaked?.boundaries,
+      idleDesc.sourceType === 'prebaked-mp3',
+      idleDesc.voiceLabel
+    );
+    this.karaokeState = {
+      ...this.karaokeState,
+      activeWordIndex: -1,
+      progressRatio: 0,
+      tokens: this.karaokeState.tokens.map(t => ({ ...t, isActive: false, isPast: false })),
+    };
+
+    const profileCfg = this.getProfileConfig(mapped);
+    const nextCadencePlan = nextText
+      ? buildProsodyCadencePlan(
+          nextText,
+          mapped,
+          prevOptions?.emotionTone,
+          prevOptions?.prosodyPauseMs,
+          idleDesc.prebaked?.boundaries,
+          idleDesc.prebaked?.durationMs || 3200
+        )
+      : undefined;
+
+    this.narrationSession = {
+      lineId: lineMeta.lineId,
+      sceneId: lineMeta.sceneId,
+      companionId: compId,
+      text: nextText,
+      playbackSessionId: switchedSessionId,
+      playbackStatus: 'idle',
+      category: lineMeta.category,
+      isCompanionSelfIntro: lineMeta.isCompanionSelfIntro,
+      sourceType: idleDesc.sourceType,
+      voiceSourceLabel: idleDesc.voiceLabel,
+      distinctSystemVoiceCount: idleDesc.distinctSystemVoiceCount,
+      systemVoiceLimitationNote: idleDesc.systemVoiceLimitationNote,
+      emotionTone: prevOptions?.emotionTone,
+      prosodyPauseMs:
+        prevOptions?.prosodyPauseMs ??
+        nextCadencePlan?.clausePauseMs ??
+        profileCfg.breathPauseMs,
+      prosodyCadencePlan: nextCadencePlan,
+    };
+
+    if (this.lastPlaybackDiagnostics) {
+      this.lastPlaybackDiagnostics = {
+        ...this.lastPlaybackDiagnostics,
+        playbackSessionId: switchedSessionId,
+        companionId: compId,
+        requestedVoiceProfile: mapped,
+        actualSourceProfile:
+          idleDesc.sourceType === 'prebaked-mp3' && idleDesc.prebaked
+            ? (idleDesc.prebaked.profileId as VoiceProfileType)
+            : null,
+        sourceType: idleDesc.sourceType,
+        audioUrl:
+          idleDesc.sourceType === 'prebaked-mp3' && idleDesc.prebaked
+            ? idleDesc.prebaked.audioUrl
+            : null,
+        neuralVoiceName:
+          idleDesc.sourceType === 'prebaked-mp3' && idleDesc.prebaked
+            ? idleDesc.prebaked.voiceName
+            : null,
+        systemVoiceName:
+          idleDesc.sourceType === 'system-voice-matched' ||
+          idleDesc.sourceType === 'system-voice-shared-fallback'
+            ? this.selectedVoice?.name || null
+            : null,
+        distinctSystemVoiceCount: idleDesc.distinctSystemVoiceCount,
+        systemVoiceLimitationNote: idleDesc.systemVoiceLimitationNote,
+        voiceSourceLabel: idleDesc.voiceLabel,
+        text: nextText,
+        normKey: normalizeTextForTtsKey(nextText),
+        speakerId: compId,
+        lineId: lineMeta.lineId,
+        sceneId: lineMeta.sceneId,
+        category: lineMeta.category,
+      };
+    }
+
+    // Rule 5: Paused state switch must NOT resume or continue playback
+    if (wasPaused) {
+      this.isPaused = false;
+      this.isSpeaking = false;
+      this.notifyListeners();
+      return;
+    }
+
+    // Rule 4: Mid-speech switch immediately re-speaks from the start of the current sentence in the new companion's voice
+    const shouldRestartIfPlaying = options?.restartActiveSpeech !== false;
+    if (wasActivelyPlaying && shouldRestartIfPlaying && nextText.trim().length > 0) {
+      this.lastSpeakTimestampMs = 0;
+      this.speak(nextText, undefined, undefined, {
+        ...prevOptions,
+        speakerId: compId,
+        lineId: lineMeta.lineId,
+        sceneId: lineMeta.sceneId,
+        profileOverride: undefined,
+      });
+      return;
+    }
+
+    // Rule 6: Not speaking -> stay silent and notify listeners of updated companion session
     this.notifyListeners();
   }
+
+  /**
+   * Explicit helper for UI companion switchers; aliases `syncWithCompanion(companionId, { restartActiveSpeech: true })`.
+   */
+  public switchCompanion(companionId: CompanionVoiceId) {
+    this.syncWithCompanion(companionId, { restartActiveSpeech: true });
+  }
+
+  public getNarrationSession(): NarrationSession {
+    return { ...this.narrationSession };
+  }
+
+  private preAuditionSnapshot: {
+    text: string;
+    options?: SpeakOptions;
+    session: NarrationSession;
+  } | null = null;
 
   /**
    * Starts a temporary audition preview of a voice profile without overwriting the committed companion.
@@ -741,8 +1218,15 @@ class SpeechNarrator {
    */
   public startAuditionPreview(profile: VoiceProfileType) {
     if (!VOICE_PROFILES[profile]) return;
+    if (this.auditionPreviewProfile === null) {
+      this.preAuditionSnapshot = {
+        text: this.lastSpokenText,
+        options: this.lastSpokenOptions,
+        session: { ...this.narrationSession },
+      };
+    }
     if (this.isSpeaking || this.activeAudioElement || this.activeUtterance) {
-      this.stop();
+      this.stop('cancelled');
     }
     this.auditionPreviewProfile = profile;
     this.manualVoiceOverride = null;
@@ -757,14 +1241,40 @@ class SpeechNarrator {
    */
   public endAuditionPreview() {
     if (this.isSpeaking || this.activeAudioElement || this.activeUtterance) {
-      this.stop();
+      this.stop('cancelled');
     }
+    const snapshot = this.preAuditionSnapshot;
+    this.preAuditionSnapshot = null;
     this.auditionPreviewProfile = null;
     this.manualVoiceOverride = null;
     const restoredProfile = COMPANION_TO_VOICE_PROFILE[this.committedCompanionId] || 'playful-buddy';
     this.currentProfile = restoredProfile;
     sounds.setTemplate(restoredProfile);
     this.syncVoiceForCurrentProfile();
+
+    // Restore narrationSession and lastSpokenText to committed companion so temporary preview never lingers
+    const baseText = snapshot?.text ?? this.lastSpokenText;
+    const adapted = adaptCompanionSelfIntroText(baseText, this.committedCompanionId);
+    this.lastSpokenText = adapted.adaptedText;
+    this.lastSpokenProfile = restoredProfile;
+    this.lastSpokenOptions = snapshot?.options ?? this.lastSpokenOptions;
+    this.lastSpokenNormalizedKey = normalizeTextForTtsKey(adapted.adaptedText);
+    const idleDesc = this.resolveIdleVoiceSourceDescriptor(adapted.adaptedText, restoredProfile);
+    this.initKaraokeTokens(
+      adapted.adaptedText,
+      idleDesc.prebaked?.boundaries,
+      idleDesc.sourceType === 'prebaked-mp3',
+      idleDesc.voiceLabel
+    );
+    this.narrationSession = {
+      ...(snapshot?.session ?? this.narrationSession),
+      companionId: this.committedCompanionId,
+      text: adapted.adaptedText,
+      playbackSessionId: this.playbackSessionId,
+      playbackStatus: 'idle',
+      sourceType: idleDesc.sourceType,
+      voiceSourceLabel: idleDesc.voiceLabel,
+    };
     this.notifyListeners();
   }
 
@@ -784,7 +1294,7 @@ class SpeechNarrator {
     const changed = this.voiceEnabled !== enabled;
     this.voiceEnabled = enabled;
     if (!enabled) {
-      this.stop();
+      this.stop('cancelled');
     } else if (changed) {
       this.notifyListeners();
     }
@@ -825,16 +1335,41 @@ class SpeechNarrator {
   /**
    * Strictly looks up a pre-baked neural voice entry for the exact target profile and normalized text.
    * NEVER falls back across characters (`PREBAKED_TTS_BY_DEFAULT_KEY` is forbidden for cross-character substitution).
+   * Supports composite session-memory greetings (`你好呀！我是<伙伴名>。<已预录的场景句子>`) for the matching companion.
    */
   public findPrebakedEntry(text: string, profileId?: VoiceProfileType): PrebakedTtsEntry | null {
     const normKey = normalizeTextForTtsKey(text);
     if (!normKey) return null;
     const pid = profileId || this.currentProfile;
-    const entry = PREBAKED_TTS_BY_PROFILE_KEY[`${pid}:${normKey}`] || null;
-    if (!entry || entry.profileId !== pid) {
-      return null;
+    const exactEntry = PREBAKED_TTS_BY_PROFILE_KEY[`${pid}:${normKey}`] || null;
+    if (exactEntry && exactEntry.profileId === pid) {
+      return exactEntry;
     }
-    return entry;
+
+    // Check composite CompanionBanner session-memory greeting: "你好呀！我是<Companion>。<PrebakedSceneLine>"
+    const expectedCompName = VOICE_PROFILES[pid]?.companionName;
+    const prefixMatch = text
+      .trim()
+      .match(/^你好呀[！!]?\s*我是(果果|贝贝|天天|奇奇)[。，,！!]?\s*(.+)$/);
+    if (prefixMatch && prefixMatch[1] === expectedCompName) {
+      const remainder = prefixMatch[2];
+      const remNorm = normalizeTextForTtsKey(remainder);
+      const remEntry = PREBAKED_TTS_BY_PROFILE_KEY[`${pid}:${remNorm}`] || null;
+      if (remEntry && remEntry.profileId === pid) {
+        const prefixToken: WordBoundaryTiming = {
+          offsetMs: 0,
+          durationMs: 120,
+          text: `你好呀！我是${expectedCompName}。`,
+        };
+        return {
+          ...remEntry,
+          normKey,
+          boundaries: [prefixToken, ...(remEntry.boundaries || [])],
+        };
+      }
+    }
+
+    return null;
   }
 
   public getKaraokeState(): KaraokeSyncState {
@@ -876,20 +1411,11 @@ class SpeechNarrator {
 
   public setProfile(profile: VoiceProfileType) {
     if (!VOICE_PROFILES[profile]) return;
-    const isChanged = this.currentProfile !== profile || this.auditionPreviewProfile !== null;
-    this.auditionPreviewProfile = null;
-    this.manualVoiceOverride = null;
-    if (isChanged && (this.isSpeaking || this.activeAudioElement || this.activeUtterance)) {
-      this.stop();
-    }
-    this.currentProfile = profile;
-    this.committedCompanionId = VOICE_PROFILE_TO_COMPANION[profile];
-    sounds.setTemplate(profile);
-    this.syncVoiceForCurrentProfile();
+    const targetCompanionId = VOICE_PROFILE_TO_COMPANION[profile];
     try {
       localStorage.setItem('child_voice_profile', profile);
     } catch {}
-    this.notifyListeners();
+    this.syncWithCompanion(targetCompanionId);
   }
 
   public getDetectedVoices(): DetectedVoice[] {
@@ -961,7 +1487,7 @@ class SpeechNarrator {
         isActive: idx === 0,
         isPast: false
       }));
-    } else {
+    } else if (cleanedDisplay) {
       const clauses = cleanAndSegmentText(rawText);
       let cursorMs = 0;
       tokens = clauses.map((clause, idx) => {
@@ -1043,16 +1569,19 @@ class SpeechNarrator {
 
   /**
    * Computes companion-specific acoustic persona modulation.
-   * When `sourceProfile === targetProfile` (strict pre-baked match), plays at 1.0x pitch-preserved original studio neural voice.
+   * When `sourceProfile === targetProfile` (strict pre-baked match), plays at 1.0x pitch-preserved original studio neural voice
+   * (modulated by `emotionTone` cadence contour when specified).
    */
   public getCompanionAudioModulation(
     targetProfile: VoiceProfileType = this.currentProfile,
-    sourceProfile?: VoiceProfileType
+    sourceProfile?: VoiceProfileType,
+    emotionTone?: EmotionProsodyTone
   ): { playbackRate: number; preservesPitch: boolean; personaLabel: string } {
     const cfg = this.getProfileConfig(targetProfile);
+    const toneSpec = emotionTone ? EMOTION_TONE_PROSODY_SPECS[emotionTone] : null;
     if (sourceProfile && sourceProfile === targetProfile) {
       return {
-        playbackRate: 1.0,
+        playbackRate: toneSpec ? toneSpec.baseRateMultiplier : 1.0,
         preservesPitch: true,
         personaLabel: `${cfg.companionName}原声 (${cfg.name})`,
       };
@@ -1103,6 +1632,7 @@ class SpeechNarrator {
    * 1. Prioritizes same-character pre-baked studio Neural TTS audio (`/audio/tts/*.mp3`) with millisecond WordBoundary sync.
    * 2. Seamlessly falls back to Web Speech API synthesis if dynamic text or offline, with truthful system voice attribution.
    * 3. Never silences partner voice when only SFX (`sounds.getSfxMuted()`) is muted.
+   * 4. Records full `NarrationSession` semantic state and applies multi-clause `ProsodyCadencePlan` for `emotionTone` & `prosodyPauseMs`.
    */
   public speak(
     text: string,
@@ -1110,10 +1640,18 @@ class SpeechNarrator {
     onError?: (reason: string) => void,
     options?: SpeakOptions
   ) {
-    const normKey = normalizeTextForTtsKey(text);
-    const nowMs = Date.now();
     const targetProfile = options?.profileOverride || this.currentProfile;
     const targetCompanionId = VOICE_PROFILE_TO_COMPANION[targetProfile] || this.committedCompanionId;
+
+    // Ensure self-intro text matches the active companion if not in audition override mode
+    const adaptedCheck =
+      !options?.profileOverride && !this.isAuditionPreviewActive()
+        ? adaptCompanionSelfIntroText(text, targetCompanionId)
+        : { adaptedText: text, wasAdapted: false, lineId: null, isCompanionSelfIntro: false };
+    const effectiveText = adaptedCheck.adaptedText;
+
+    const normKey = normalizeTextForTtsKey(effectiveText);
+    const nowMs = Date.now();
 
     // Anti-overlap debounce: ignore accidental double-clicks of the exact same phrase AND same profile within 140ms while already speaking
     if (
@@ -1128,14 +1666,15 @@ class SpeechNarrator {
 
     this.lastSpeakTimestampMs = nowMs;
     this.lastSpokenNormalizedKey = normKey;
-    this.lastSpokenText = text;
+    this.lastSpokenText = effectiveText;
     this.lastSpokenProfile = targetProfile;
+    this.lastSpokenOptions = options;
 
     // Stop any in-flight playback and clear timers
-    this.stop();
+    this.stop('cancelled');
     const sessionId = ++this.playbackSessionId;
 
-    const naturalSentences = cleanAndSegmentNaturalSentences(text);
+    const naturalSentences = cleanAndSegmentNaturalSentences(effectiveText);
     if (naturalSentences.length === 0) {
       if (onEnd) onEnd();
       return;
@@ -1148,7 +1687,7 @@ class SpeechNarrator {
     sounds.setTemplate(targetProfile);
     this.syncVoiceForCurrentProfile();
 
-    const prebaked = this.findPrebakedEntry(text, targetProfile);
+    const prebaked = this.findPrebakedEntry(effectiveText, targetProfile);
     const profileCfg = this.getProfileConfig(targetProfile);
     const distinctSystemVoiceCount = this.getDistinctSystemVoiceCount();
     const matchesSystemVoiceSpecifically = this.doesSelectedVoiceSpecificallyMatchProfile(targetProfile);
@@ -1173,24 +1712,57 @@ class SpeechNarrator {
       resolvedVoiceLabel = `声文伴读字幕 · ${profileCfg.companionName}（当前环境无可用中文系统语音）`;
     }
 
+    const systemVoiceLimitationNote =
+      distinctSystemVoiceCount <= 1 && resolvedSourceType === 'system-voice-shared-fallback'
+        ? `当前设备仅检测到 ${distinctSystemVoiceCount} 个中文系统语音 (${this.selectedVoice?.name || '通用系统声线'})，动态文本共用该系统音色，不冒充四角色独立系统声线。`
+        : null;
+
     // Initialize Karaoke tokens immediately so UI displays synchronized caption bar right away
     this.initKaraokeTokens(
-      text,
+      effectiveText,
       prebaked?.boundaries,
       resolvedSourceType === 'prebaked-mp3',
       resolvedVoiceLabel
     );
 
-    const tonePauseBonus =
-      options?.emotionTone === 'warm-dual-empathy'
-        ? 45
-        : options?.emotionTone === 'gentle-inquiry'
-          ? 60
-          : options?.emotionTone === 'protective-safety'
-            ? 35
-            : options?.emotionTone === 'calm-fact-clarity'
-              ? 30
-              : 0;
+    const lineMeta = resolveVoiceLineMetadata(
+      effectiveText,
+      targetCompanionId,
+      options?.lineId || adaptedCheck.lineId || undefined,
+      options?.sceneId as VoiceSceneId | undefined
+    );
+
+    const cadencePlan = buildProsodyCadencePlan(
+      effectiveText,
+      targetProfile,
+      options?.emotionTone,
+      options?.prosodyPauseMs,
+      prebaked?.boundaries,
+      prebaked?.durationMs || 3200
+    );
+
+    const effectivePauseMs =
+      options?.prosodyPauseMs ?? cadencePlan.clausePauseMs ?? profileCfg.breathPauseMs;
+
+    const isMutedOrOff = !this.voiceEnabled || sounds.getMasterMuted();
+
+    this.narrationSession = {
+      lineId: lineMeta.lineId,
+      sceneId: lineMeta.sceneId,
+      companionId: targetCompanionId,
+      text: effectiveText,
+      playbackSessionId: sessionId,
+      playbackStatus: isMutedOrOff ? 'completed' : 'playing',
+      category: lineMeta.category,
+      isCompanionSelfIntro: lineMeta.isCompanionSelfIntro,
+      sourceType: resolvedSourceType,
+      voiceSourceLabel: resolvedVoiceLabel,
+      distinctSystemVoiceCount,
+      systemVoiceLimitationNote,
+      emotionTone: options?.emotionTone,
+      prosodyPauseMs: effectivePauseMs,
+      prosodyCadencePlan: cadencePlan,
+    };
 
     this.recordDiagnostics({
       playbackSessionId: sessionId,
@@ -1210,37 +1782,57 @@ class SpeechNarrator {
           ? this.selectedVoice?.name || null
           : null,
       distinctSystemVoiceCount,
+      systemVoiceLimitationNote,
       voiceSourceLabel: resolvedVoiceLabel,
-      text,
+      text: effectiveText,
       normKey,
       speakerId: options?.speakerId || targetCompanionId,
-      lineId: options?.lineId,
-      sceneId: options?.sceneId,
+      lineId: lineMeta.lineId,
+      sceneId: lineMeta.sceneId,
+      category: lineMeta.category,
       emotionTone: options?.emotionTone,
-      prosodyPauseMs: profileCfg.breathPauseMs + tonePauseBonus,
+      prosodyPauseMs: effectivePauseMs,
+      prosodyCadencePlan: cadencePlan,
       timestampMs: nowMs
     });
 
     // IMPORTANT: Partner speech ONLY checks `!this.voiceEnabled || sounds.getMasterMuted()`.
     // Muting SFX (`sounds.getSfxMuted()`) NEVER silences partner speech!
-    if (!this.voiceEnabled || sounds.getMasterMuted()) {
+    if (isMutedOrOff) {
       this.notifyListeners();
       if (onEnd) onEnd();
       return;
     }
 
     if (resolvedSourceType === 'prebaked-mp3' && prebaked) {
-      this.playWithPrebakedNeuralAudio(prebaked, text, sessionId, targetProfile, onEnd, onError);
+      this.playWithPrebakedNeuralAudio(
+        prebaked,
+        effectiveText,
+        sessionId,
+        targetProfile,
+        cadencePlan,
+        onEnd,
+        onError
+      );
       return;
     }
 
-    this.playWithWebSpeechApi(naturalSentences, text, sessionId, targetProfile, onEnd, onError);
+    this.playWithWebSpeechApi(
+      naturalSentences,
+      effectiveText,
+      sessionId,
+      targetProfile,
+      cadencePlan,
+      onEnd,
+      onError
+    );
   }
 
   private fallbackFromPrebakedToWebSpeech(
     originalText: string,
     sessionId: number,
     targetProfile: VoiceProfileType,
+    cadencePlan: ProsodyCadencePlan,
     onEnd?: () => void,
     onError?: (reason: string) => void
   ) {
@@ -1249,6 +1841,7 @@ class SpeechNarrator {
       clearInterval(this.karaokeTimer);
       this.karaokeTimer = null;
     }
+    this.clearProsodyTimers();
     this.activeAudioElement = null;
     sounds.setSpeechDucking(false);
 
@@ -1267,12 +1860,26 @@ class SpeechNarrator {
         : fallbackSourceType === 'system-voice-shared-fallback'
           ? `系统通用语音替代 (${this.selectedVoice?.name}) · 仅预制语音具角色专属声线`
           : `声文伴读字幕 · ${profileCfg.companionName}（当前环境无可用中文系统语音）`;
+    const limitationNote =
+      distinctSystemVoiceCount <= 1 && fallbackSourceType === 'system-voice-shared-fallback'
+        ? `当前设备仅检测到 ${distinctSystemVoiceCount} 个中文系统语音 (${this.selectedVoice?.name || '通用系统声线'})，动态文本共用该系统音色，不冒充四角色独立系统声线。`
+        : null;
 
     this.karaokeState = {
       ...this.karaokeState,
       isPrebakedNeural: false,
       voiceSourceLabel: fallbackLabel
     };
+
+    if (this.narrationSession.playbackSessionId === sessionId) {
+      this.narrationSession = {
+        ...this.narrationSession,
+        sourceType: fallbackSourceType,
+        voiceSourceLabel: fallbackLabel,
+        distinctSystemVoiceCount,
+        systemVoiceLimitationNote: limitationNote,
+      };
+    }
 
     if (this.lastPlaybackDiagnostics && this.lastPlaybackDiagnostics.playbackSessionId === sessionId) {
       this.lastPlaybackDiagnostics = {
@@ -1282,12 +1889,22 @@ class SpeechNarrator {
         audioUrl: null,
         neuralVoiceName: null,
         systemVoiceName: this.selectedVoice?.name || null,
+        distinctSystemVoiceCount,
+        systemVoiceLimitationNote: limitationNote,
         voiceSourceLabel: fallbackLabel
       };
     }
 
     const sentences = cleanAndSegmentNaturalSentences(originalText);
-    this.playWithWebSpeechApi(sentences, originalText, sessionId, targetProfile, onEnd, onError);
+    this.playWithWebSpeechApi(
+      sentences,
+      originalText,
+      sessionId,
+      targetProfile,
+      cadencePlan,
+      onEnd,
+      onError
+    );
   }
 
   private playWithPrebakedNeuralAudio(
@@ -1295,12 +1912,14 @@ class SpeechNarrator {
     originalText: string,
     sessionId: number,
     targetProfile: VoiceProfileType,
+    cadencePlan: ProsodyCadencePlan,
     onEnd?: () => void,
     onError?: (reason: string) => void
   ) {
     if (typeof window === 'undefined' || typeof window.Audio !== 'function') {
       this.isSpeaking = true;
       this.isPaused = false;
+      this.narrationSession.playbackStatus = 'playing';
       this.voiceWarning = null;
       sounds.setSpeechDucking(true);
       this.notifyListeners();
@@ -1310,10 +1929,17 @@ class SpeechNarrator {
       const audio = new window.Audio(entry.audioUrl);
       audio.preload = 'auto';
 
+      const emotionTone =
+        cadencePlan.tone !== 'neutral-default' ? cadencePlan.tone : undefined;
       const modulation = this.getCompanionAudioModulation(
         targetProfile,
-        entry.profileId as VoiceProfileType
+        entry.profileId as VoiceProfileType,
+        emotionTone
       );
+      const initialRate =
+        cadencePlan.clauses.length > 0 && emotionTone
+          ? cadencePlan.clauses[0].playbackRate
+          : modulation.playbackRate;
       try {
         if ('preservesPitch' in audio) {
           (audio as HTMLAudioElement & { preservesPitch?: boolean }).preservesPitch =
@@ -1323,15 +1949,39 @@ class SpeechNarrator {
           (audio as HTMLAudioElement & { webkitPreservesPitch?: boolean }).webkitPreservesPitch =
             modulation.preservesPitch;
         }
-        audio.playbackRate = modulation.playbackRate;
+        audio.playbackRate = initialRate;
       } catch {}
 
       this.activeAudioElement = audio;
       this.isSpeaking = true;
       this.isPaused = false;
+      this.narrationSession.playbackStatus = 'playing';
       this.voiceWarning = null;
       sounds.setSpeechDucking(true);
       this.notifyListeners();
+
+      // Schedule clause-boundary prosody cadence modulation timers (cancelled automatically on session change)
+      if (cadencePlan.clauses.length > 1) {
+        for (let i = 1; i < cadencePlan.clauses.length; i++) {
+          const step = cadencePlan.clauses[i];
+          const delayMs = Math.max(60, step.checkpointOffsetMs);
+          const tid = setTimeout(() => {
+            this.prosodyTimers.delete(tid as unknown as number);
+            if (
+              sessionId !== this.playbackSessionId ||
+              this.activeAudioElement !== audio ||
+              !this.isSpeaking ||
+              this.isPaused
+            ) {
+              return;
+            }
+            try {
+              audio.playbackRate = step.playbackRate;
+            } catch {}
+          }, delayMs) as unknown as number;
+          this.prosodyTimers.add(tid);
+        }
+      }
 
       const totalMs = Math.max(500, entry.durationMs || 3000);
 
@@ -1365,9 +2015,13 @@ class SpeechNarrator {
           clearInterval(this.karaokeTimer);
           this.karaokeTimer = null;
         }
+        this.clearProsodyTimers();
         this.activeAudioElement = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        if (this.narrationSession.playbackSessionId === sessionId) {
+          this.narrationSession.playbackStatus = 'completed';
+        }
         sounds.setSpeechDucking(false);
         this.karaokeState = {
           ...this.karaokeState,
@@ -1385,6 +2039,7 @@ class SpeechNarrator {
           originalText,
           sessionId,
           targetProfile,
+          cadencePlan,
           onEnd,
           onError
         );
@@ -1396,8 +2051,6 @@ class SpeechNarrator {
           playPromise.catch((err: unknown) => {
             if (sessionId !== this.playbackSessionId || this.activeAudioElement !== audio) return;
             const errMsg = String(err || '');
-            // In jsdom / HappyDOM headless test environments, HTMLMediaElement.prototype.play is unimplemented by default;
-            // keep the prebaked session active unless explicitly testing error fallback.
             if (errMsg.includes('Not implemented')) {
               return;
             }
@@ -1405,6 +2058,7 @@ class SpeechNarrator {
               originalText,
               sessionId,
               targetProfile,
+              cadencePlan,
               onEnd,
               onError
             );
@@ -1420,6 +2074,7 @@ class SpeechNarrator {
           originalText,
           sessionId,
           targetProfile,
+          cadencePlan,
           onEnd,
           onError
         );
@@ -1430,6 +2085,7 @@ class SpeechNarrator {
         originalText,
         sessionId,
         targetProfile,
+        cadencePlan,
         onEnd,
         onError
       );
@@ -1441,6 +2097,7 @@ class SpeechNarrator {
     _originalText: string,
     sessionId: number,
     targetProfile: VoiceProfileType,
+    cadencePlan: ProsodyCadencePlan,
     onEnd?: () => void,
     onError?: (reason: string) => void
   ) {
@@ -1450,6 +2107,9 @@ class SpeechNarrator {
       this.voiceWarning = '当前环境不支持语音播报功能，伴伴已为你开启声文伴读字幕。';
       this.isSpeaking = false;
       this.isPaused = false;
+      if (this.narrationSession.playbackSessionId === sessionId) {
+        this.narrationSession.playbackStatus = 'completed';
+      }
       sounds.setSpeechDucking(false);
       this.notifyListeners();
       if (onError) onError('SPEECH_SYNTHESIS_UNSUPPORTED');
@@ -1457,10 +2117,15 @@ class SpeechNarrator {
       return;
     }
 
-    this.segmentQueue = sentences;
+    const useProsodicClauses =
+      cadencePlan.tone !== 'neutral-default' && cadencePlan.clauses.length > 0;
+    this.segmentQueue = useProsodicClauses
+      ? cadencePlan.clauses.map(c => c.text)
+      : sentences;
     this.currentSegmentIndex = 0;
     this.isSpeaking = true;
     this.isPaused = false;
+    this.narrationSession.playbackStatus = 'playing';
     sounds.setSpeechDucking(true);
 
     if (this.cachedVoices.length > 0 && !this.hasChineseVoice()) {
@@ -1495,9 +2160,13 @@ class SpeechNarrator {
           clearInterval(this.karaokeTimer);
           this.karaokeTimer = null;
         }
+        this.clearProsodyTimers();
         this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        if (this.narrationSession.playbackSessionId === sessionId) {
+          this.narrationSession.playbackStatus = 'completed';
+        }
         sounds.setSpeechDucking(false);
         this.karaokeState = {
           ...this.karaokeState,
@@ -1514,14 +2183,17 @@ class SpeechNarrator {
       const segmentText = this.segmentQueue[segmentIdx];
       this.currentSegmentIndex++;
 
-      const prosody = computeSegmentProsody(
+      const baseProsody = computeSegmentProsody(
         targetProfile,
         segmentIdx,
         totalSegments,
         segmentText
       );
+      const clauseStep = useProsodicClauses ? cadencePlan.clauses[segmentIdx] : undefined;
+      const effectiveRate = clauseStep ? clauseStep.playbackRate : baseProsody.rate;
+      const effectivePitch = clauseStep ? clauseStep.pitch : baseProsody.pitch;
+      const effectivePauseAfterMs = clauseStep ? clauseStep.pauseAfterMs : baseProsody.pauseAfterMs;
 
-      // Only trigger subtle opening breath resonance on segmentIdx === 0
       if (segmentIdx === 0) {
         sounds.playSpeechProsodyCue(targetProfile, 0);
       }
@@ -1530,9 +2202,9 @@ class SpeechNarrator {
         const utterance = new SpeechSynthesisUtterance(segmentText);
         this.activeUtterance = utterance;
         utterance.lang = 'zh-CN';
-        utterance.rate = prosody.rate;
-        utterance.pitch = prosody.pitch;
-        utterance.volume = prosody.volume;
+        utterance.rate = effectiveRate;
+        utterance.pitch = effectivePitch;
+        utterance.volume = baseProsody.volume;
 
         if (this.selectedVoice) {
           utterance.voice = this.selectedVoice;
@@ -1552,19 +2224,25 @@ class SpeechNarrator {
           if (this.currentSegmentIndex >= totalSegments) {
             playNextSegment();
           } else {
-            this.segmentTimer = window.setTimeout(() => {
+            const tid = window.setTimeout(() => {
+              this.prosodyTimers.delete(tid);
               if (sessionId !== this.playbackSessionId) return;
               playNextSegment();
-            }, prosody.pauseAfterMs);
+            }, effectivePauseAfterMs);
+            this.segmentTimer = tid;
+            this.prosodyTimers.add(tid);
           }
         };
 
         utterance.onerror = () => {
           if (sessionId !== this.playbackSessionId || !this.isSpeaking || this.isPaused) return;
-          this.segmentTimer = window.setTimeout(() => {
+          const tid = window.setTimeout(() => {
+            this.prosodyTimers.delete(tid);
             if (sessionId !== this.playbackSessionId) return;
             playNextSegment();
           }, 80);
+          this.segmentTimer = tid;
+          this.prosodyTimers.add(tid);
         };
 
         window.speechSynthesis.speak(utterance);
@@ -1574,9 +2252,13 @@ class SpeechNarrator {
           clearInterval(this.karaokeTimer);
           this.karaokeTimer = null;
         }
+        this.clearProsodyTimers();
         this.activeUtterance = null;
         this.isSpeaking = false;
         this.isPaused = false;
+        if (this.narrationSession.playbackSessionId === sessionId) {
+          this.narrationSession.playbackStatus = 'cancelled';
+        }
         sounds.setSpeechDucking(false);
         this.notifyListeners();
         if (onError) onError('SYNTHESIS_ERROR');
@@ -1594,11 +2276,13 @@ class SpeechNarrator {
       clearTimeout(this.segmentTimer);
       this.segmentTimer = null;
     }
+    this.clearProsodyTimers();
 
     if (this.activeAudioElement) {
       try {
         this.activeAudioElement.pause();
         this.isPaused = true;
+        this.narrationSession.playbackStatus = 'paused';
         sounds.setSpeechDucking(false);
         this.notifyListeners();
         return;
@@ -1609,6 +2293,7 @@ class SpeechNarrator {
       try {
         window.speechSynthesis.pause();
         this.isPaused = true;
+        this.narrationSession.playbackStatus = 'paused';
         sounds.setSpeechDucking(false);
         this.notifyListeners();
       } catch {}
@@ -1621,6 +2306,7 @@ class SpeechNarrator {
     if (this.activeAudioElement) {
       try {
         this.isPaused = false;
+        this.narrationSession.playbackStatus = 'playing';
         sounds.setSpeechDucking(true);
         const playPromise = this.activeAudioElement.play();
         if (playPromise && typeof playPromise.catch === 'function') {
@@ -1634,6 +2320,7 @@ class SpeechNarrator {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         this.isPaused = false;
+        this.narrationSession.playbackStatus = 'playing';
         sounds.setSpeechDucking(true);
         window.speechSynthesis.resume();
         this.notifyListeners();
@@ -1642,13 +2329,29 @@ class SpeechNarrator {
   }
 
   public replay() {
-    if (this.lastSpokenText) {
-      this.lastSpeakTimestampMs = 0;
-      this.speak(this.lastSpokenText);
-    }
+    const activeCompanion = this.committedCompanionId;
+    const activeProfile = COMPANION_TO_VOICE_PROFILE[activeCompanion] || 'playful-buddy';
+    const baseText =
+      this.narrationSession.text ||
+      this.lastSpokenText ||
+      `我是${VOICE_PROFILES[activeProfile].companionName}。`;
+    const adapted = adaptCompanionSelfIntroText(baseText, activeCompanion);
+    const textToReplay = adapted.adaptedText;
+    this.lastSpokenText = textToReplay;
+    this.lastSpeakTimestampMs = 0;
+    this.speak(textToReplay, undefined, undefined, {
+      ...this.lastSpokenOptions,
+      speakerId: activeCompanion,
+      lineId: adapted.lineId || this.lastSpokenOptions?.lineId,
+      profileOverride: undefined,
+    });
   }
 
-  public stop() {
+  public replayLast() {
+    this.replay();
+  }
+
+  public stop(nextStatus: 'idle' | 'cancelled' = 'idle') {
     this.playbackSessionId++;
 
     if (this.segmentTimer !== null) {
@@ -1659,6 +2362,7 @@ class SpeechNarrator {
       clearInterval(this.karaokeTimer);
       this.karaokeTimer = null;
     }
+    this.clearProsodyTimers();
 
     this.segmentQueue = [];
     this.currentSegmentIndex = 0;
@@ -1690,6 +2394,11 @@ class SpeechNarrator {
 
     this.isSpeaking = false;
     this.isPaused = false;
+    this.narrationSession = {
+      ...this.narrationSession,
+      playbackSessionId: this.playbackSessionId,
+      playbackStatus: nextStatus,
+    };
     sounds.setSpeechDucking(false);
     if (this.karaokeState.tokens.length > 0) {
       this.karaokeState = {

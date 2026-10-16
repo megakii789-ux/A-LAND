@@ -580,17 +580,14 @@ describe('Sprint 4.2: Four-Character Global Voice Synchronization & Audio Archit
     // Switch to Tiantian mid-speech
     speechNarrator.syncWithCompanion('tiantian_raccoon');
 
-    // Old speech must be stopped immediately and session incremented
-    expect(speechNarrator.getSpeaking()).toBe(false);
-    expect(speechNarrator.getActiveAudioElement()).toBeNull();
+    // Old Guoguo audio must be cancelled immediately (paused === true) and new Tiantian session started from sentence start (V1.1 Rule 4)
+    expect(audioGuoguo?.paused).toBe(true);
+    expect(speechNarrator.getActiveAudioElement()).not.toBe(audioGuoguo);
     expect(speechNarrator.getPlaybackSessionId()).toBeGreaterThan(sessionGuoguo);
     expect(speechNarrator.getProfile()).toBe('gentle-guide');
     expect(sounds.getTemplate()).toBe('gentle-guide');
+    expect(speechNarrator.getSpeaking()).toBe(true);
 
-    // Speak next line -> must use Tiantian gentle-guide (zh-CN-YunxiNeural)
-    speechNarrator.speak(
-      '你好呀！我是天天。我是小浣熊天天，再乱的小书包和难题，我们一步一步就能理清楚。'
-    );
     const diagTiantian = speechNarrator.getLastPlaybackDiagnostics();
     expect(diagTiantian?.companionId).toBe('tiantian_raccoon');
     expect(diagTiantian?.requestedVoiceProfile).toBe('gentle-guide');

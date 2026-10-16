@@ -62,7 +62,10 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
   }, []);
 
   const handleSpeak = () => {
-    speechNarrator.speak(greetingText);
+    speechNarrator.speak(greetingText, undefined, undefined, {
+      speakerId: companion.id,
+      sceneId: 'island_home_companion',
+    });
   };
 
   const isSpeakingThisGreeting =
@@ -72,11 +75,15 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
 
   return (
     <div
+      data-testid="companion-banner"
+      data-companion-id={companion.id}
       className={`p-2 sm:p-5 rounded-2xl sm:rounded-3xl border-2 shadow-sm sm:shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 bg-white/95 backdrop-blur-md ${companion.themeColorBorder}`}
     >
       <div className="flex items-center gap-2 sm:gap-3.5 min-w-0 flex-1">
         <button
           type="button"
+          data-testid="companion-banner-avatar-btn"
+          data-companion-id={companion.id}
           onClick={handleSpeak}
           className={`relative w-14 h-14 sm:w-18 sm:h-18 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center shadow-xs border-2 cursor-pointer hover:scale-105 active:scale-95 motion-reduce:hover:scale-100 transition-transform shrink-0 p-1 ${companion.themeColorBg} ${companion.themeColorBorder}`}
           title={`点我听${companion.name}说话`}
@@ -99,7 +106,10 @@ export const CompanionBanner: React.FC<Props> = ({ onOpenSettings }) => {
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-            <h2 className="text-base sm:text-2xl font-black text-stone-800 tracking-wide whitespace-nowrap">
+            <h2
+              data-testid="companion-banner-name"
+              className="text-base sm:text-2xl font-black text-stone-800 tracking-wide whitespace-nowrap"
+            >
               {companion.name}在身边
             </h2>
             <span className={`text-[11px] sm:text-xs font-bold px-2 sm:px-2.5 py-0.5 rounded-full shrink-0 ${companion.themeColorBg} ${companion.themeColorText}`}>
