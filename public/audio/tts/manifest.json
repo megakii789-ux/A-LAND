@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-10-16T07:30:00Z",
   "engine": "Microsoft Edge Neural TTS (Xiaoxiao / Xiaoyi / Yunxi / Yunxia)",
-  "totalClips": 400,
+  "totalClips": 428,
   "items": {
     "playful-buddy:你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索": {
       "id": "playful-buddy:你好呀我是果果我是小松鼠果果我喜欢收捡森林里的每一片小树叶和秘密线索",
@@ -44843,6 +44843,4406 @@
         }
       ]
     },
+    "playful-buddy:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石": {
+      "id": "playful-buddy:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "normKey": "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-04062b7b5bf06ba6.mp3",
+      "durationMs": 12087,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 503,
+          "text": "欢迎"
+        },
+        {
+          "offsetMs": 617,
+          "durationMs": 322,
+          "text": "来到"
+        },
+        {
+          "offsetMs": 952,
+          "durationMs": 180,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1132,
+          "durationMs": 348,
+          "text": "困难"
+        },
+        {
+          "offsetMs": 1493,
+          "durationMs": 709,
+          "text": "拆解台"
+        },
+        {
+          "offsetMs": 2784,
+          "durationMs": 296,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 3093,
+          "durationMs": 348,
+          "text": "手头"
+        },
+        {
+          "offsetMs": 3441,
+          "durationMs": 193,
+          "text": "事"
+        },
+        {
+          "offsetMs": 3634,
+          "durationMs": 258,
+          "text": "多"
+        },
+        {
+          "offsetMs": 4008,
+          "durationMs": 155,
+          "text": "或"
+        },
+        {
+          "offsetMs": 4175,
+          "durationMs": 322,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 4510,
+          "durationMs": 348,
+          "text": "打结"
+        },
+        {
+          "offsetMs": 4858,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4961,
+          "durationMs": 425,
+          "text": "时候"
+        },
+        {
+          "offsetMs": 5773,
+          "durationMs": 219,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 6005,
+          "durationMs": 296,
+          "text": "可以"
+        },
+        {
+          "offsetMs": 6314,
+          "durationMs": 206,
+          "text": "先"
+        },
+        {
+          "offsetMs": 6534,
+          "durationMs": 400,
+          "text": "看清"
+        },
+        {
+          "offsetMs": 6946,
+          "durationMs": 387,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 7345,
+          "durationMs": 155,
+          "text": "和"
+        },
+        {
+          "offsetMs": 7513,
+          "durationMs": 477,
+          "text": "感受"
+        },
+        {
+          "offsetMs": 8260,
+          "durationMs": 193,
+          "text": "换"
+        },
+        {
+          "offsetMs": 8454,
+          "durationMs": 90,
+          "text": "个"
+        },
+        {
+          "offsetMs": 8557,
+          "durationMs": 322,
+          "text": "镜头"
+        },
+        {
+          "offsetMs": 8892,
+          "durationMs": 206,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9098,
+          "durationMs": 90,
+          "text": "一"
+        },
+        {
+          "offsetMs": 9188,
+          "durationMs": 258,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 168,
+          "text": "再"
+        },
+        {
+          "offsetMs": 9884,
+          "durationMs": 180,
+          "text": "挑"
+        },
+        {
+          "offsetMs": 10077,
+          "durationMs": 129,
+          "text": "一"
+        },
+        {
+          "offsetMs": 10206,
+          "durationMs": 193,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10400,
+          "durationMs": 168,
+          "text": "块"
+        },
+        {
+          "offsetMs": 10580,
+          "durationMs": 296,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 10876,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 10979,
+          "durationMs": 928,
+          "text": "小踏脚石"
+        }
+      ]
+    },
+    "warm-sister:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石": {
+      "id": "warm-sister:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "normKey": "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-b5c01e3e90d9f85a.mp3",
+      "durationMs": 12867,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 452,
+          "text": "欢迎"
+        },
+        {
+          "offsetMs": 569,
+          "durationMs": 386,
+          "text": "来到"
+        },
+        {
+          "offsetMs": 981,
+          "durationMs": 173,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1154,
+          "durationMs": 359,
+          "text": "困难"
+        },
+        {
+          "offsetMs": 1526,
+          "durationMs": 785,
+          "text": "拆解台"
+        },
+        {
+          "offsetMs": 2926,
+          "durationMs": 293,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 3245,
+          "durationMs": 386,
+          "text": "手头"
+        },
+        {
+          "offsetMs": 3630,
+          "durationMs": 213,
+          "text": "事"
+        },
+        {
+          "offsetMs": 3843,
+          "durationMs": 332,
+          "text": "多"
+        },
+        {
+          "offsetMs": 4282,
+          "durationMs": 173,
+          "text": "或"
+        },
+        {
+          "offsetMs": 4468,
+          "durationMs": 319,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 4801,
+          "durationMs": 412,
+          "text": "打结"
+        },
+        {
+          "offsetMs": 5213,
+          "durationMs": 106,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5332,
+          "durationMs": 492,
+          "text": "时候"
+        },
+        {
+          "offsetMs": 6104,
+          "durationMs": 213,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 6330,
+          "durationMs": 253,
+          "text": "可以"
+        },
+        {
+          "offsetMs": 6609,
+          "durationMs": 186,
+          "text": "先"
+        },
+        {
+          "offsetMs": 6808,
+          "durationMs": 426,
+          "text": "看清"
+        },
+        {
+          "offsetMs": 7261,
+          "durationMs": 399,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 7686,
+          "durationMs": 133,
+          "text": "和"
+        },
+        {
+          "offsetMs": 7832,
+          "durationMs": 558,
+          "text": "感受"
+        },
+        {
+          "offsetMs": 8710,
+          "durationMs": 199,
+          "text": "换"
+        },
+        {
+          "offsetMs": 8910,
+          "durationMs": 80,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9003,
+          "durationMs": 386,
+          "text": "镜头"
+        },
+        {
+          "offsetMs": 9415,
+          "durationMs": 213,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9628,
+          "durationMs": 93,
+          "text": "一"
+        },
+        {
+          "offsetMs": 9721,
+          "durationMs": 253,
+          "text": "看"
+        },
+        {
+          "offsetMs": 10199,
+          "durationMs": 226,
+          "text": "再"
+        },
+        {
+          "offsetMs": 10426,
+          "durationMs": 213,
+          "text": "挑"
+        },
+        {
+          "offsetMs": 10652,
+          "durationMs": 106,
+          "text": "一"
+        },
+        {
+          "offsetMs": 10758,
+          "durationMs": 213,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10971,
+          "durationMs": 213,
+          "text": "块"
+        },
+        {
+          "offsetMs": 11210,
+          "durationMs": 346,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 11556,
+          "durationMs": 93,
+          "text": "的"
+        },
+        {
+          "offsetMs": 11676,
+          "durationMs": 1011,
+          "text": "小踏脚石"
+        }
+      ]
+    },
+    "gentle-guide:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石": {
+      "id": "gentle-guide:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "normKey": "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-1d32f6d7c9ce37c7.mp3",
+      "durationMs": 12088,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 403,
+          "text": "欢迎"
+        },
+        {
+          "offsetMs": 520,
+          "durationMs": 242,
+          "text": "来到"
+        },
+        {
+          "offsetMs": 789,
+          "durationMs": 175,
+          "text": "大"
+        },
+        {
+          "offsetMs": 964,
+          "durationMs": 323,
+          "text": "困难"
+        },
+        {
+          "offsetMs": 1300,
+          "durationMs": 820,
+          "text": "拆解台"
+        },
+        {
+          "offsetMs": 2742,
+          "durationMs": 296,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 3064,
+          "durationMs": 336,
+          "text": "手头"
+        },
+        {
+          "offsetMs": 3401,
+          "durationMs": 175,
+          "text": "事"
+        },
+        {
+          "offsetMs": 3575,
+          "durationMs": 309,
+          "text": "多"
+        },
+        {
+          "offsetMs": 4005,
+          "durationMs": 188,
+          "text": "或"
+        },
+        {
+          "offsetMs": 4207,
+          "durationMs": 255,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 4476,
+          "durationMs": 323,
+          "text": "打结"
+        },
+        {
+          "offsetMs": 4798,
+          "durationMs": 67,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4879,
+          "durationMs": 444,
+          "text": "时候"
+        },
+        {
+          "offsetMs": 5712,
+          "durationMs": 215,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 5941,
+          "durationMs": 188,
+          "text": "可以"
+        },
+        {
+          "offsetMs": 6156,
+          "durationMs": 148,
+          "text": "先"
+        },
+        {
+          "offsetMs": 6317,
+          "durationMs": 390,
+          "text": "看清"
+        },
+        {
+          "offsetMs": 6734,
+          "durationMs": 524,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 7285,
+          "durationMs": 108,
+          "text": "和"
+        },
+        {
+          "offsetMs": 7406,
+          "durationMs": 484,
+          "text": "感受"
+        },
+        {
+          "offsetMs": 8226,
+          "durationMs": 255,
+          "text": "换"
+        },
+        {
+          "offsetMs": 8481,
+          "durationMs": 81,
+          "text": "个"
+        },
+        {
+          "offsetMs": 8575,
+          "durationMs": 282,
+          "text": "镜头"
+        },
+        {
+          "offsetMs": 8884,
+          "durationMs": 148,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9032,
+          "durationMs": 81,
+          "text": "一"
+        },
+        {
+          "offsetMs": 9113,
+          "durationMs": 296,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9704,
+          "durationMs": 202,
+          "text": "再"
+        },
+        {
+          "offsetMs": 9906,
+          "durationMs": 161,
+          "text": "挑"
+        },
+        {
+          "offsetMs": 10081,
+          "durationMs": 94,
+          "text": "一"
+        },
+        {
+          "offsetMs": 10175,
+          "durationMs": 148,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10323,
+          "durationMs": 188,
+          "text": "块"
+        },
+        {
+          "offsetMs": 10538,
+          "durationMs": 296,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 10833,
+          "durationMs": 121,
+          "text": "的"
+        },
+        {
+          "offsetMs": 10981,
+          "durationMs": 927,
+          "text": "小踏脚石"
+        }
+      ]
+    },
+    "starlight-companion:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石": {
+      "id": "starlight-companion:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "normKey": "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-9c48459494b38c01.mp3",
+      "durationMs": 13048,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 434,
+          "text": "欢迎"
+        },
+        {
+          "offsetMs": 550,
+          "durationMs": 329,
+          "text": "来到"
+        },
+        {
+          "offsetMs": 892,
+          "durationMs": 210,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1103,
+          "durationMs": 342,
+          "text": "困难"
+        },
+        {
+          "offsetMs": 1458,
+          "durationMs": 724,
+          "text": "拆解台"
+        },
+        {
+          "offsetMs": 2776,
+          "durationMs": 329,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 3118,
+          "durationMs": 447,
+          "text": "手头"
+        },
+        {
+          "offsetMs": 3566,
+          "durationMs": 211,
+          "text": "事"
+        },
+        {
+          "offsetMs": 3776,
+          "durationMs": 355,
+          "text": "多"
+        },
+        {
+          "offsetMs": 4224,
+          "durationMs": 211,
+          "text": "或"
+        },
+        {
+          "offsetMs": 4447,
+          "durationMs": 329,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 4789,
+          "durationMs": 395,
+          "text": "打结"
+        },
+        {
+          "offsetMs": 5184,
+          "durationMs": 118,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5316,
+          "durationMs": 500,
+          "text": "时候"
+        },
+        {
+          "offsetMs": 6145,
+          "durationMs": 289,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 6447,
+          "durationMs": 316,
+          "text": "可以"
+        },
+        {
+          "offsetMs": 6776,
+          "durationMs": 211,
+          "text": "先"
+        },
+        {
+          "offsetMs": 7000,
+          "durationMs": 434,
+          "text": "看清"
+        },
+        {
+          "offsetMs": 7447,
+          "durationMs": 408,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 7868,
+          "durationMs": 145,
+          "text": "和"
+        },
+        {
+          "offsetMs": 8026,
+          "durationMs": 539,
+          "text": "感受"
+        },
+        {
+          "offsetMs": 8855,
+          "durationMs": 237,
+          "text": "换"
+        },
+        {
+          "offsetMs": 9092,
+          "durationMs": 105,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9211,
+          "durationMs": 382,
+          "text": "镜头"
+        },
+        {
+          "offsetMs": 9605,
+          "durationMs": 250,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9855,
+          "durationMs": 118,
+          "text": "一"
+        },
+        {
+          "offsetMs": 9974,
+          "durationMs": 289,
+          "text": "看"
+        },
+        {
+          "offsetMs": 10474,
+          "durationMs": 224,
+          "text": "再"
+        },
+        {
+          "offsetMs": 10697,
+          "durationMs": 211,
+          "text": "挑"
+        },
+        {
+          "offsetMs": 10921,
+          "durationMs": 132,
+          "text": "一"
+        },
+        {
+          "offsetMs": 11053,
+          "durationMs": 211,
+          "text": "两"
+        },
+        {
+          "offsetMs": 11263,
+          "durationMs": 197,
+          "text": "块"
+        },
+        {
+          "offsetMs": 11474,
+          "durationMs": 329,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 11803,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 11921,
+          "durationMs": 947,
+          "text": "小踏脚石"
+        }
+      ]
+    },
+    "playful-buddy:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信": {
+      "id": "playful-buddy:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "normKey": "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-dc75ed7ab0f7a5bc.mp3",
+      "durationMs": 8389,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 206,
+          "text": "去"
+        },
+        {
+          "offsetMs": 321,
+          "durationMs": 168,
+          "text": "另"
+        },
+        {
+          "offsetMs": 488,
+          "durationMs": 296,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "住"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 374,
+          "text": "时"
+        },
+        {
+          "offsetMs": 1622,
+          "durationMs": 438,
+          "text": "同时"
+        },
+        {
+          "offsetMs": 2073,
+          "durationMs": 374,
+          "text": "想念"
+        },
+        {
+          "offsetMs": 2460,
+          "durationMs": 258,
+          "text": "两个"
+        },
+        {
+          "offsetMs": 2730,
+          "durationMs": 387,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 3207,
+          "durationMs": 168,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3388,
+          "durationMs": 193,
+          "text": "很"
+        },
+        {
+          "offsetMs": 3581,
+          "durationMs": 322,
+          "text": "自然"
+        },
+        {
+          "offsetMs": 3903,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4006,
+          "durationMs": 322,
+          "text": "事"
+        },
+        {
+          "offsetMs": 4910,
+          "durationMs": 155,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5064,
+          "durationMs": 271,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5348,
+          "durationMs": 670,
+          "text": "二选一"
+        },
+        {
+          "offsetMs": 6224,
+          "durationMs": 155,
+          "text": "也"
+        },
+        {
+          "offsetMs": 6392,
+          "durationMs": 696,
+          "text": "不必勉强"
+        },
+        {
+          "offsetMs": 7100,
+          "durationMs": 400,
+          "text": "拥抱"
+        },
+        {
+          "offsetMs": 7513,
+          "durationMs": 180,
+          "text": "或"
+        },
+        {
+          "offsetMs": 7706,
+          "durationMs": 503,
+          "text": "写信"
+        }
+      ]
+    },
+    "warm-sister:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信": {
+      "id": "warm-sister:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "normKey": "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-aa92f9c0d6b785b2.mp3",
+      "durationMs": 8757,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 186,
+          "text": "去"
+        },
+        {
+          "offsetMs": 303,
+          "durationMs": 160,
+          "text": "另"
+        },
+        {
+          "offsetMs": 462,
+          "durationMs": 293,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 768,
+          "durationMs": 199,
+          "text": "住"
+        },
+        {
+          "offsetMs": 968,
+          "durationMs": 346,
+          "text": "时"
+        },
+        {
+          "offsetMs": 1566,
+          "durationMs": 386,
+          "text": "同时"
+        },
+        {
+          "offsetMs": 1965,
+          "durationMs": 386,
+          "text": "想念"
+        },
+        {
+          "offsetMs": 2377,
+          "durationMs": 239,
+          "text": "两个"
+        },
+        {
+          "offsetMs": 2630,
+          "durationMs": 519,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 3255,
+          "durationMs": 146,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3414,
+          "durationMs": 239,
+          "text": "很"
+        },
+        {
+          "offsetMs": 3654,
+          "durationMs": 399,
+          "text": "自然"
+        },
+        {
+          "offsetMs": 4053,
+          "durationMs": 106,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4159,
+          "durationMs": 319,
+          "text": "事"
+        },
+        {
+          "offsetMs": 5080,
+          "durationMs": 160,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5239,
+          "durationMs": 293,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5558,
+          "durationMs": 678,
+          "text": "二选一"
+        },
+        {
+          "offsetMs": 6489,
+          "durationMs": 133,
+          "text": "也"
+        },
+        {
+          "offsetMs": 6636,
+          "durationMs": 771,
+          "text": "不必勉强"
+        },
+        {
+          "offsetMs": 7420,
+          "durationMs": 412,
+          "text": "拥抱"
+        },
+        {
+          "offsetMs": 7859,
+          "durationMs": 133,
+          "text": "或"
+        },
+        {
+          "offsetMs": 8005,
+          "durationMs": 572,
+          "text": "写信"
+        }
+      ]
+    },
+    "gentle-guide:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信": {
+      "id": "gentle-guide:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "normKey": "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-0803bd439f9d4b9d.mp3",
+      "durationMs": 8487,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 202,
+          "text": "去"
+        },
+        {
+          "offsetMs": 319,
+          "durationMs": 134,
+          "text": "另"
+        },
+        {
+          "offsetMs": 453,
+          "durationMs": 255,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 722,
+          "durationMs": 188,
+          "text": "住"
+        },
+        {
+          "offsetMs": 910,
+          "durationMs": 430,
+          "text": "时"
+        },
+        {
+          "offsetMs": 1596,
+          "durationMs": 376,
+          "text": "同时"
+        },
+        {
+          "offsetMs": 1986,
+          "durationMs": 390,
+          "text": "想念"
+        },
+        {
+          "offsetMs": 2402,
+          "durationMs": 242,
+          "text": "两个"
+        },
+        {
+          "offsetMs": 2658,
+          "durationMs": 511,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 3262,
+          "durationMs": 188,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3464,
+          "durationMs": 175,
+          "text": "很"
+        },
+        {
+          "offsetMs": 3639,
+          "durationMs": 390,
+          "text": "自然"
+        },
+        {
+          "offsetMs": 4028,
+          "durationMs": 94,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4123,
+          "durationMs": 255,
+          "text": "事"
+        },
+        {
+          "offsetMs": 4987,
+          "durationMs": 188,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5175,
+          "durationMs": 282,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5484,
+          "durationMs": 618,
+          "text": "二选一"
+        },
+        {
+          "offsetMs": 6290,
+          "durationMs": 175,
+          "text": "也"
+        },
+        {
+          "offsetMs": 6478,
+          "durationMs": 712,
+          "text": "不必勉强"
+        },
+        {
+          "offsetMs": 7204,
+          "durationMs": 444,
+          "text": "拥抱"
+        },
+        {
+          "offsetMs": 7675,
+          "durationMs": 175,
+          "text": "或"
+        },
+        {
+          "offsetMs": 7863,
+          "durationMs": 444,
+          "text": "写信"
+        }
+      ]
+    },
+    "starlight-companion:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信": {
+      "id": "starlight-companion:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "normKey": "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-e830efab936bd843.mp3",
+      "durationMs": 9114,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 250,
+          "text": "去"
+        },
+        {
+          "offsetMs": 366,
+          "durationMs": 197,
+          "text": "另"
+        },
+        {
+          "offsetMs": 563,
+          "durationMs": 303,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 879,
+          "durationMs": 210,
+          "text": "住"
+        },
+        {
+          "offsetMs": 1089,
+          "durationMs": 342,
+          "text": "时"
+        },
+        {
+          "offsetMs": 1642,
+          "durationMs": 434,
+          "text": "同时"
+        },
+        {
+          "offsetMs": 2089,
+          "durationMs": 408,
+          "text": "想念"
+        },
+        {
+          "offsetMs": 2511,
+          "durationMs": 329,
+          "text": "两个"
+        },
+        {
+          "offsetMs": 2853,
+          "durationMs": 500,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 3418,
+          "durationMs": 211,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3642,
+          "durationMs": 250,
+          "text": "很"
+        },
+        {
+          "offsetMs": 3892,
+          "durationMs": 408,
+          "text": "自然"
+        },
+        {
+          "offsetMs": 4300,
+          "durationMs": 118,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4418,
+          "durationMs": 303,
+          "text": "事"
+        },
+        {
+          "offsetMs": 5316,
+          "durationMs": 197,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5513,
+          "durationMs": 289,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5816,
+          "durationMs": 711,
+          "text": "二选一"
+        },
+        {
+          "offsetMs": 6763,
+          "durationMs": 197,
+          "text": "也"
+        },
+        {
+          "offsetMs": 6974,
+          "durationMs": 776,
+          "text": "不必勉强"
+        },
+        {
+          "offsetMs": 7763,
+          "durationMs": 447,
+          "text": "拥抱"
+        },
+        {
+          "offsetMs": 8224,
+          "durationMs": 171,
+          "text": "或"
+        },
+        {
+          "offsetMs": 8408,
+          "durationMs": 526,
+          "text": "写信"
+        }
+      ]
+    },
+    "playful-buddy:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好": {
+      "id": "playful-buddy:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "normKey": "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-0571014772639d53.mp3",
+      "durationMs": 11998,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 193,
+          "text": "你"
+        },
+        {
+          "offsetMs": 295,
+          "durationMs": 142,
+          "text": "在"
+        },
+        {
+          "offsetMs": 450,
+          "durationMs": 335,
+          "text": "这边"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "玩"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 77,
+          "text": "得"
+        },
+        {
+          "offsetMs": 1055,
+          "durationMs": 567,
+          "text": "开心"
+        },
+        {
+          "offsetMs": 1725,
+          "durationMs": 168,
+          "text": "是"
+        },
+        {
+          "offsetMs": 1906,
+          "durationMs": 348,
+          "text": "真实"
+        },
+        {
+          "offsetMs": 2266,
+          "durationMs": 322,
+          "text": "发生"
+        },
+        {
+          "offsetMs": 2589,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 2692,
+          "durationMs": 580,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 3594,
+          "durationMs": 374,
+          "text": "担心"
+        },
+        {
+          "offsetMs": 3980,
+          "durationMs": 155,
+          "text": "另"
+        },
+        {
+          "offsetMs": 4135,
+          "durationMs": 284,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 4431,
+          "durationMs": 296,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 4741,
+          "durationMs": 464,
+          "text": "难过"
+        },
+        {
+          "offsetMs": 5321,
+          "durationMs": 258,
+          "text": "只是"
+        },
+        {
+          "offsetMs": 5591,
+          "durationMs": 322,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 5913,
+          "durationMs": 77,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6004,
+          "durationMs": 554,
+          "text": "猜测"
+        },
+        {
+          "offsetMs": 7139,
+          "durationMs": 309,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 7448,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 7564,
+          "durationMs": 464,
+          "text": "情绪"
+        },
+        {
+          "offsetMs": 8041,
+          "durationMs": 116,
+          "text": "由"
+        },
+        {
+          "offsetMs": 8170,
+          "durationMs": 309,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 8492,
+          "durationMs": 464,
+          "text": "负责"
+        },
+        {
+          "offsetMs": 9214,
+          "durationMs": 116,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9330,
+          "durationMs": 90,
+          "text": "也"
+        },
+        {
+          "offsetMs": 9433,
+          "durationMs": 116,
+          "text": "不"
+        },
+        {
+          "offsetMs": 9549,
+          "durationMs": 271,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 9832,
+          "durationMs": 335,
+          "text": "违心"
+        },
+        {
+          "offsetMs": 10180,
+          "durationMs": 361,
+          "text": "说"
+        },
+        {
+          "offsetMs": 10657,
+          "durationMs": 206,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10863,
+          "durationMs": 90,
+          "text": "个"
+        },
+        {
+          "offsetMs": 10966,
+          "durationMs": 296,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 11276,
+          "durationMs": 258,
+          "text": "一样"
+        },
+        {
+          "offsetMs": 11534,
+          "durationMs": 284,
+          "text": "好"
+        }
+      ]
+    },
+    "warm-sister:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好": {
+      "id": "warm-sister:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "normKey": "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-4c33da404d5daf46.mp3",
+      "durationMs": 12906,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 146,
+          "text": "你"
+        },
+        {
+          "offsetMs": 249,
+          "durationMs": 146,
+          "text": "在"
+        },
+        {
+          "offsetMs": 409,
+          "durationMs": 346,
+          "text": "这边"
+        },
+        {
+          "offsetMs": 781,
+          "durationMs": 160,
+          "text": "玩"
+        },
+        {
+          "offsetMs": 941,
+          "durationMs": 66,
+          "text": "得"
+        },
+        {
+          "offsetMs": 1021,
+          "durationMs": 572,
+          "text": "开心"
+        },
+        {
+          "offsetMs": 1686,
+          "durationMs": 186,
+          "text": "是"
+        },
+        {
+          "offsetMs": 1885,
+          "durationMs": 439,
+          "text": "真实"
+        },
+        {
+          "offsetMs": 2337,
+          "durationMs": 346,
+          "text": "发生"
+        },
+        {
+          "offsetMs": 2683,
+          "durationMs": 80,
+          "text": "的"
+        },
+        {
+          "offsetMs": 2776,
+          "durationMs": 585,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 3680,
+          "durationMs": 399,
+          "text": "担心"
+        },
+        {
+          "offsetMs": 4106,
+          "durationMs": 160,
+          "text": "另"
+        },
+        {
+          "offsetMs": 4265,
+          "durationMs": 319,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 4598,
+          "durationMs": 319,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 4930,
+          "durationMs": 572,
+          "text": "难过"
+        },
+        {
+          "offsetMs": 5608,
+          "durationMs": 319,
+          "text": "只是"
+        },
+        {
+          "offsetMs": 5941,
+          "durationMs": 359,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 6300,
+          "durationMs": 93,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6406,
+          "durationMs": 585,
+          "text": "猜测"
+        },
+        {
+          "offsetMs": 7606,
+          "durationMs": 319,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 7926,
+          "durationMs": 106,
+          "text": "的"
+        },
+        {
+          "offsetMs": 8045,
+          "durationMs": 452,
+          "text": "情绪"
+        },
+        {
+          "offsetMs": 8524,
+          "durationMs": 133,
+          "text": "由"
+        },
+        {
+          "offsetMs": 8670,
+          "durationMs": 346,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 9029,
+          "durationMs": 532,
+          "text": "负责"
+        },
+        {
+          "offsetMs": 9920,
+          "durationMs": 106,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10027,
+          "durationMs": 93,
+          "text": "也"
+        },
+        {
+          "offsetMs": 10133,
+          "durationMs": 120,
+          "text": "不"
+        },
+        {
+          "offsetMs": 10253,
+          "durationMs": 279,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 10558,
+          "durationMs": 372,
+          "text": "违心"
+        },
+        {
+          "offsetMs": 10944,
+          "durationMs": 359,
+          "text": "说"
+        },
+        {
+          "offsetMs": 11410,
+          "durationMs": 186,
+          "text": "两"
+        },
+        {
+          "offsetMs": 11596,
+          "durationMs": 66,
+          "text": "个"
+        },
+        {
+          "offsetMs": 11676,
+          "durationMs": 372,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 12074,
+          "durationMs": 306,
+          "text": "一样"
+        },
+        {
+          "offsetMs": 12380,
+          "durationMs": 346,
+          "text": "好"
+        }
+      ]
+    },
+    "gentle-guide:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好": {
+      "id": "gentle-guide:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "normKey": "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-d346c69124e218ec.mp3",
+      "durationMs": 12371,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 202,
+          "text": "你"
+        },
+        {
+          "offsetMs": 305,
+          "durationMs": 108,
+          "text": "在"
+        },
+        {
+          "offsetMs": 426,
+          "durationMs": 242,
+          "text": "这边"
+        },
+        {
+          "offsetMs": 695,
+          "durationMs": 121,
+          "text": "玩"
+        },
+        {
+          "offsetMs": 816,
+          "durationMs": 67,
+          "text": "得"
+        },
+        {
+          "offsetMs": 897,
+          "durationMs": 659,
+          "text": "开心"
+        },
+        {
+          "offsetMs": 1676,
+          "durationMs": 215,
+          "text": "是"
+        },
+        {
+          "offsetMs": 1905,
+          "durationMs": 336,
+          "text": "真实"
+        },
+        {
+          "offsetMs": 2254,
+          "durationMs": 296,
+          "text": "发生"
+        },
+        {
+          "offsetMs": 2550,
+          "durationMs": 67,
+          "text": "的"
+        },
+        {
+          "offsetMs": 2631,
+          "durationMs": 564,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 3625,
+          "durationMs": 349,
+          "text": "担心"
+        },
+        {
+          "offsetMs": 4002,
+          "durationMs": 121,
+          "text": "另"
+        },
+        {
+          "offsetMs": 4123,
+          "durationMs": 255,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 4391,
+          "durationMs": 228,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 4633,
+          "durationMs": 551,
+          "text": "难过"
+        },
+        {
+          "offsetMs": 5292,
+          "durationMs": 296,
+          "text": "只是"
+        },
+        {
+          "offsetMs": 5601,
+          "durationMs": 282,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 5883,
+          "durationMs": 67,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5964,
+          "durationMs": 470,
+          "text": "猜测"
+        },
+        {
+          "offsetMs": 7056,
+          "durationMs": 296,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 7352,
+          "durationMs": 81,
+          "text": "的"
+        },
+        {
+          "offsetMs": 7446,
+          "durationMs": 376,
+          "text": "情绪"
+        },
+        {
+          "offsetMs": 7849,
+          "durationMs": 94,
+          "text": "由"
+        },
+        {
+          "offsetMs": 7957,
+          "durationMs": 282,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 8253,
+          "durationMs": 470,
+          "text": "负责"
+        },
+        {
+          "offsetMs": 9073,
+          "durationMs": 699,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9772,
+          "durationMs": 94,
+          "text": "也"
+        },
+        {
+          "offsetMs": 9879,
+          "durationMs": 134,
+          "text": "不"
+        },
+        {
+          "offsetMs": 10013,
+          "durationMs": 202,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 10242,
+          "durationMs": 323,
+          "text": "违心"
+        },
+        {
+          "offsetMs": 10578,
+          "durationMs": 349,
+          "text": "说"
+        },
+        {
+          "offsetMs": 11048,
+          "durationMs": 296,
+          "text": "两"
+        },
+        {
+          "offsetMs": 11344,
+          "durationMs": 81,
+          "text": "个"
+        },
+        {
+          "offsetMs": 11438,
+          "durationMs": 242,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 11707,
+          "durationMs": 202,
+          "text": "一样"
+        },
+        {
+          "offsetMs": 11909,
+          "durationMs": 282,
+          "text": "好"
+        }
+      ]
+    },
+    "starlight-companion:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好": {
+      "id": "starlight-companion:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "normKey": "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-95c09a1eae4fd163.mp3",
+      "durationMs": 13325,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 211,
+          "text": "你"
+        },
+        {
+          "offsetMs": 313,
+          "durationMs": 158,
+          "text": "在"
+        },
+        {
+          "offsetMs": 484,
+          "durationMs": 355,
+          "text": "这边"
+        },
+        {
+          "offsetMs": 853,
+          "durationMs": 171,
+          "text": "玩"
+        },
+        {
+          "offsetMs": 1024,
+          "durationMs": 105,
+          "text": "得"
+        },
+        {
+          "offsetMs": 1142,
+          "durationMs": 605,
+          "text": "开心"
+        },
+        {
+          "offsetMs": 1853,
+          "durationMs": 263,
+          "text": "是"
+        },
+        {
+          "offsetMs": 2129,
+          "durationMs": 434,
+          "text": "真实"
+        },
+        {
+          "offsetMs": 2576,
+          "durationMs": 355,
+          "text": "发生"
+        },
+        {
+          "offsetMs": 2932,
+          "durationMs": 92,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3037,
+          "durationMs": 605,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 3945,
+          "durationMs": 408,
+          "text": "担心"
+        },
+        {
+          "offsetMs": 4366,
+          "durationMs": 211,
+          "text": "另"
+        },
+        {
+          "offsetMs": 4576,
+          "durationMs": 303,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 4892,
+          "durationMs": 316,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 5221,
+          "durationMs": 553,
+          "text": "难过"
+        },
+        {
+          "offsetMs": 5879,
+          "durationMs": 329,
+          "text": "只是"
+        },
+        {
+          "offsetMs": 6221,
+          "durationMs": 395,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 6616,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6734,
+          "durationMs": 566,
+          "text": "猜测"
+        },
+        {
+          "offsetMs": 7895,
+          "durationMs": 329,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 8224,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 8342,
+          "durationMs": 408,
+          "text": "情绪"
+        },
+        {
+          "offsetMs": 8763,
+          "durationMs": 171,
+          "text": "由"
+        },
+        {
+          "offsetMs": 8947,
+          "durationMs": 316,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 9276,
+          "durationMs": 553,
+          "text": "负责"
+        },
+        {
+          "offsetMs": 10105,
+          "durationMs": 132,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10237,
+          "durationMs": 145,
+          "text": "也"
+        },
+        {
+          "offsetMs": 10395,
+          "durationMs": 184,
+          "text": "不"
+        },
+        {
+          "offsetMs": 10579,
+          "durationMs": 289,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 10882,
+          "durationMs": 434,
+          "text": "违心"
+        },
+        {
+          "offsetMs": 11329,
+          "durationMs": 342,
+          "text": "说"
+        },
+        {
+          "offsetMs": 11776,
+          "durationMs": 263,
+          "text": "两"
+        },
+        {
+          "offsetMs": 12039,
+          "durationMs": 105,
+          "text": "个"
+        },
+        {
+          "offsetMs": 12158,
+          "durationMs": 329,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 12500,
+          "durationMs": 329,
+          "text": "一样"
+        },
+        {
+          "offsetMs": 12829,
+          "durationMs": 316,
+          "text": "好"
+        }
+      ]
+    },
+    "playful-buddy:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人": {
+      "id": "playful-buddy:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "normKey": "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-037dd9ecfb82eced.mp3",
+      "durationMs": 13247,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 387,
+          "text": "如果"
+        },
+        {
+          "offsetMs": 501,
+          "durationMs": 155,
+          "text": "对"
+        },
+        {
+          "offsetMs": 656,
+          "durationMs": 129,
+          "text": "去"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "另"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 374,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1352,
+          "durationMs": 129,
+          "text": "有"
+        },
+        {
+          "offsetMs": 1493,
+          "durationMs": 335,
+          "text": "具体"
+        },
+        {
+          "offsetMs": 1841,
+          "durationMs": 464,
+          "text": "担忧"
+        },
+        {
+          "offsetMs": 2640,
+          "durationMs": 206,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 2859,
+          "durationMs": 206,
+          "text": "先"
+        },
+        {
+          "offsetMs": 3065,
+          "durationMs": 528,
+          "text": "查清"
+        },
+        {
+          "offsetMs": 3697,
+          "durationMs": 180,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3890,
+          "durationMs": 309,
+          "text": "日程"
+        },
+        {
+          "offsetMs": 4212,
+          "durationMs": 438,
+          "text": "不明"
+        },
+        {
+          "offsetMs": 4934,
+          "durationMs": 400,
+          "text": "环境"
+        },
+        {
+          "offsetMs": 5346,
+          "durationMs": 142,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5488,
+          "durationMs": 464,
+          "text": "习惯"
+        },
+        {
+          "offsetMs": 6184,
+          "durationMs": 258,
+          "text": "还是"
+        },
+        {
+          "offsetMs": 6455,
+          "durationMs": 400,
+          "text": "暂时"
+        },
+        {
+          "offsetMs": 6867,
+          "durationMs": 180,
+          "text": "说"
+        },
+        {
+          "offsetMs": 7047,
+          "durationMs": 90,
+          "text": "不"
+        },
+        {
+          "offsetMs": 7150,
+          "durationMs": 490,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 8222,
+          "durationMs": 309,
+          "text": "要是"
+        },
+        {
+          "offsetMs": 8544,
+          "durationMs": 335,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 8892,
+          "durationMs": 296,
+          "text": "有人"
+        },
+        {
+          "offsetMs": 9201,
+          "durationMs": 232,
+          "text": "凶"
+        },
+        {
+          "offsetMs": 9433,
+          "durationMs": 129,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9575,
+          "durationMs": 129,
+          "text": "或"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 412,
+          "text": "伤害"
+        },
+        {
+          "offsetMs": 10129,
+          "durationMs": 193,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10593,
+          "durationMs": 322,
+          "text": "立刻"
+        },
+        {
+          "offsetMs": 10928,
+          "durationMs": 322,
+          "text": "启动"
+        },
+        {
+          "offsetMs": 11263,
+          "durationMs": 361,
+          "text": "安全"
+        },
+        {
+          "offsetMs": 11624,
+          "durationMs": 374,
+          "text": "护盾"
+        },
+        {
+          "offsetMs": 12100,
+          "durationMs": 142,
+          "text": "找"
+        },
+        {
+          "offsetMs": 12255,
+          "durationMs": 348,
+          "text": "信任"
+        },
+        {
+          "offsetMs": 12603,
+          "durationMs": 77,
+          "text": "的"
+        },
+        {
+          "offsetMs": 12693,
+          "durationMs": 374,
+          "text": "大人"
+        }
+      ]
+    },
+    "warm-sister:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人": {
+      "id": "warm-sister:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "normKey": "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-a316bd997bd685b7.mp3",
+      "durationMs": 14303,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 293,
+          "text": "如果"
+        },
+        {
+          "offsetMs": 409,
+          "durationMs": 186,
+          "text": "对"
+        },
+        {
+          "offsetMs": 595,
+          "durationMs": 146,
+          "text": "去"
+        },
+        {
+          "offsetMs": 755,
+          "durationMs": 173,
+          "text": "另"
+        },
+        {
+          "offsetMs": 928,
+          "durationMs": 359,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1313,
+          "durationMs": 146,
+          "text": "有"
+        },
+        {
+          "offsetMs": 1473,
+          "durationMs": 332,
+          "text": "具体"
+        },
+        {
+          "offsetMs": 1819,
+          "durationMs": 492,
+          "text": "担忧"
+        },
+        {
+          "offsetMs": 2643,
+          "durationMs": 213,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 2869,
+          "durationMs": 213,
+          "text": "先"
+        },
+        {
+          "offsetMs": 3082,
+          "durationMs": 598,
+          "text": "查清"
+        },
+        {
+          "offsetMs": 3773,
+          "durationMs": 186,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3973,
+          "durationMs": 412,
+          "text": "日程"
+        },
+        {
+          "offsetMs": 4398,
+          "durationMs": 492,
+          "text": "不明"
+        },
+        {
+          "offsetMs": 5090,
+          "durationMs": 439,
+          "text": "环境"
+        },
+        {
+          "offsetMs": 5542,
+          "durationMs": 120,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5662,
+          "durationMs": 519,
+          "text": "习惯"
+        },
+        {
+          "offsetMs": 6513,
+          "durationMs": 279,
+          "text": "还是"
+        },
+        {
+          "offsetMs": 6805,
+          "durationMs": 372,
+          "text": "暂时"
+        },
+        {
+          "offsetMs": 7204,
+          "durationMs": 186,
+          "text": "说"
+        },
+        {
+          "offsetMs": 7390,
+          "durationMs": 93,
+          "text": "不"
+        },
+        {
+          "offsetMs": 7497,
+          "durationMs": 558,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 8657,
+          "durationMs": 332,
+          "text": "要是"
+        },
+        {
+          "offsetMs": 9003,
+          "durationMs": 332,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 9362,
+          "durationMs": 266,
+          "text": "有人"
+        },
+        {
+          "offsetMs": 9641,
+          "durationMs": 266,
+          "text": "凶"
+        },
+        {
+          "offsetMs": 9907,
+          "durationMs": 146,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10080,
+          "durationMs": 133,
+          "text": "或"
+        },
+        {
+          "offsetMs": 10226,
+          "durationMs": 492,
+          "text": "伤害"
+        },
+        {
+          "offsetMs": 10718,
+          "durationMs": 226,
+          "text": "你"
+        },
+        {
+          "offsetMs": 11330,
+          "durationMs": 359,
+          "text": "立刻"
+        },
+        {
+          "offsetMs": 11702,
+          "durationMs": 332,
+          "text": "启动"
+        },
+        {
+          "offsetMs": 12061,
+          "durationMs": 346,
+          "text": "安全"
+        },
+        {
+          "offsetMs": 12407,
+          "durationMs": 465,
+          "text": "护盾"
+        },
+        {
+          "offsetMs": 12965,
+          "durationMs": 213,
+          "text": "找"
+        },
+        {
+          "offsetMs": 13192,
+          "durationMs": 399,
+          "text": "信任"
+        },
+        {
+          "offsetMs": 13590,
+          "durationMs": 93,
+          "text": "的"
+        },
+        {
+          "offsetMs": 13697,
+          "durationMs": 426,
+          "text": "大人"
+        }
+      ]
+    },
+    "gentle-guide:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人": {
+      "id": "gentle-guide:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "normKey": "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-24070d6794173efc.mp3",
+      "durationMs": 13487,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 282,
+          "text": "如果"
+        },
+        {
+          "offsetMs": 399,
+          "durationMs": 134,
+          "text": "对"
+        },
+        {
+          "offsetMs": 534,
+          "durationMs": 121,
+          "text": "去"
+        },
+        {
+          "offsetMs": 668,
+          "durationMs": 134,
+          "text": "另"
+        },
+        {
+          "offsetMs": 803,
+          "durationMs": 296,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1125,
+          "durationMs": 134,
+          "text": "有"
+        },
+        {
+          "offsetMs": 1273,
+          "durationMs": 282,
+          "text": "具体"
+        },
+        {
+          "offsetMs": 1569,
+          "durationMs": 470,
+          "text": "担忧"
+        },
+        {
+          "offsetMs": 2375,
+          "durationMs": 228,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 2617,
+          "durationMs": 161,
+          "text": "先"
+        },
+        {
+          "offsetMs": 2778,
+          "durationMs": 578,
+          "text": "查清"
+        },
+        {
+          "offsetMs": 3477,
+          "durationMs": 242,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3733,
+          "durationMs": 309,
+          "text": "日程"
+        },
+        {
+          "offsetMs": 4055,
+          "durationMs": 457,
+          "text": "不明"
+        },
+        {
+          "offsetMs": 4929,
+          "durationMs": 390,
+          "text": "环境"
+        },
+        {
+          "offsetMs": 5332,
+          "durationMs": 108,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5440,
+          "durationMs": 497,
+          "text": "习惯"
+        },
+        {
+          "offsetMs": 6367,
+          "durationMs": 296,
+          "text": "还是"
+        },
+        {
+          "offsetMs": 6676,
+          "durationMs": 296,
+          "text": "暂时"
+        },
+        {
+          "offsetMs": 6999,
+          "durationMs": 134,
+          "text": "说"
+        },
+        {
+          "offsetMs": 7133,
+          "durationMs": 81,
+          "text": "不"
+        },
+        {
+          "offsetMs": 7227,
+          "durationMs": 390,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 8239,
+          "durationMs": 323,
+          "text": "要是"
+        },
+        {
+          "offsetMs": 8575,
+          "durationMs": 202,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 8804,
+          "durationMs": 228,
+          "text": "有人"
+        },
+        {
+          "offsetMs": 9046,
+          "durationMs": 269,
+          "text": "凶"
+        },
+        {
+          "offsetMs": 9314,
+          "durationMs": 175,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9516,
+          "durationMs": 121,
+          "text": "或"
+        },
+        {
+          "offsetMs": 9651,
+          "durationMs": 444,
+          "text": "伤害"
+        },
+        {
+          "offsetMs": 10094,
+          "durationMs": 269,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10726,
+          "durationMs": 336,
+          "text": "立刻"
+        },
+        {
+          "offsetMs": 11075,
+          "durationMs": 255,
+          "text": "启动"
+        },
+        {
+          "offsetMs": 11358,
+          "durationMs": 309,
+          "text": "安全"
+        },
+        {
+          "offsetMs": 11667,
+          "durationMs": 457,
+          "text": "护盾"
+        },
+        {
+          "offsetMs": 12245,
+          "durationMs": 269,
+          "text": "找"
+        },
+        {
+          "offsetMs": 12527,
+          "durationMs": 336,
+          "text": "信任"
+        },
+        {
+          "offsetMs": 12863,
+          "durationMs": 67,
+          "text": "的"
+        },
+        {
+          "offsetMs": 12944,
+          "durationMs": 363,
+          "text": "大人"
+        }
+      ]
+    },
+    "starlight-companion:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人": {
+      "id": "starlight-companion:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "normKey": "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-fad671bcd4941f1d.mp3",
+      "durationMs": 14680,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 382,
+          "text": "如果"
+        },
+        {
+          "offsetMs": 497,
+          "durationMs": 184,
+          "text": "对"
+        },
+        {
+          "offsetMs": 682,
+          "durationMs": 171,
+          "text": "去"
+        },
+        {
+          "offsetMs": 866,
+          "durationMs": 197,
+          "text": "另"
+        },
+        {
+          "offsetMs": 1063,
+          "durationMs": 303,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1379,
+          "durationMs": 184,
+          "text": "有"
+        },
+        {
+          "offsetMs": 1576,
+          "durationMs": 355,
+          "text": "具体"
+        },
+        {
+          "offsetMs": 1945,
+          "durationMs": 474,
+          "text": "担忧"
+        },
+        {
+          "offsetMs": 2734,
+          "durationMs": 276,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 3024,
+          "durationMs": 250,
+          "text": "先"
+        },
+        {
+          "offsetMs": 3274,
+          "durationMs": 566,
+          "text": "查清"
+        },
+        {
+          "offsetMs": 3932,
+          "durationMs": 237,
+          "text": "是"
+        },
+        {
+          "offsetMs": 4182,
+          "durationMs": 395,
+          "text": "日程"
+        },
+        {
+          "offsetMs": 4589,
+          "durationMs": 513,
+          "text": "不明"
+        },
+        {
+          "offsetMs": 5326,
+          "durationMs": 474,
+          "text": "环境"
+        },
+        {
+          "offsetMs": 5813,
+          "durationMs": 158,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5971,
+          "durationMs": 513,
+          "text": "习惯"
+        },
+        {
+          "offsetMs": 6695,
+          "durationMs": 368,
+          "text": "还是"
+        },
+        {
+          "offsetMs": 7076,
+          "durationMs": 421,
+          "text": "暂时"
+        },
+        {
+          "offsetMs": 7511,
+          "durationMs": 210,
+          "text": "说"
+        },
+        {
+          "offsetMs": 7721,
+          "durationMs": 132,
+          "text": "不"
+        },
+        {
+          "offsetMs": 7866,
+          "durationMs": 513,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 8974,
+          "durationMs": 355,
+          "text": "要是"
+        },
+        {
+          "offsetMs": 9342,
+          "durationMs": 342,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 9697,
+          "durationMs": 355,
+          "text": "有人"
+        },
+        {
+          "offsetMs": 10066,
+          "durationMs": 250,
+          "text": "凶"
+        },
+        {
+          "offsetMs": 10316,
+          "durationMs": 145,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10474,
+          "durationMs": 171,
+          "text": "或"
+        },
+        {
+          "offsetMs": 10658,
+          "durationMs": 487,
+          "text": "伤害"
+        },
+        {
+          "offsetMs": 11145,
+          "durationMs": 224,
+          "text": "你"
+        },
+        {
+          "offsetMs": 11566,
+          "durationMs": 382,
+          "text": "立刻"
+        },
+        {
+          "offsetMs": 11961,
+          "durationMs": 342,
+          "text": "启动"
+        },
+        {
+          "offsetMs": 12316,
+          "durationMs": 408,
+          "text": "安全"
+        },
+        {
+          "offsetMs": 12724,
+          "durationMs": 487,
+          "text": "护盾"
+        },
+        {
+          "offsetMs": 13329,
+          "durationMs": 211,
+          "text": "找"
+        },
+        {
+          "offsetMs": 13553,
+          "durationMs": 408,
+          "text": "信任"
+        },
+        {
+          "offsetMs": 13961,
+          "durationMs": 79,
+          "text": "的"
+        },
+        {
+          "offsetMs": 14053,
+          "durationMs": 447,
+          "text": "大人"
+        }
+      ]
+    },
+    "playful-buddy:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发": {
+      "id": "playful-buddy:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "normKey": "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-e4ac0eb912bfdb2a.mp3",
+      "durationMs": 11391,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 503,
+          "text": "今天"
+        },
+        {
+          "offsetMs": 617,
+          "durationMs": 129,
+          "text": "去"
+        },
+        {
+          "offsetMs": 759,
+          "durationMs": 180,
+          "text": "另"
+        },
+        {
+          "offsetMs": 939,
+          "durationMs": 412,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1455,
+          "durationMs": 438,
+          "text": "心情"
+        },
+        {
+          "offsetMs": 1893,
+          "durationMs": 206,
+          "text": "挺"
+        },
+        {
+          "offsetMs": 2112,
+          "durationMs": 503,
+          "text": "轻松"
+        },
+        {
+          "offsetMs": 2872,
+          "durationMs": 232,
+          "text": "没有"
+        },
+        {
+          "offsetMs": 3117,
+          "durationMs": 335,
+          "text": "任何"
+        },
+        {
+          "offsetMs": 3465,
+          "durationMs": 451,
+          "text": "害怕"
+        },
+        {
+          "offsetMs": 4497,
+          "durationMs": 245,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 4755,
+          "durationMs": 155,
+          "text": "不"
+        },
+        {
+          "offsetMs": 4910,
+          "durationMs": 309,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5232,
+          "durationMs": 271,
+          "text": "做"
+        },
+        {
+          "offsetMs": 5606,
+          "durationMs": 335,
+          "text": "心理"
+        },
+        {
+          "offsetMs": 5954,
+          "durationMs": 528,
+          "text": "安抚"
+        },
+        {
+          "offsetMs": 6804,
+          "durationMs": 284,
+          "text": "只要"
+        },
+        {
+          "offsetMs": 7088,
+          "durationMs": 129,
+          "text": "把"
+        },
+        {
+          "offsetMs": 7229,
+          "durationMs": 322,
+          "text": "收拾"
+        },
+        {
+          "offsetMs": 7564,
+          "durationMs": 348,
+          "text": "日常"
+        },
+        {
+          "offsetMs": 7925,
+          "durationMs": 438,
+          "text": "物品"
+        },
+        {
+          "offsetMs": 8479,
+          "durationMs": 193,
+          "text": "拆"
+        },
+        {
+          "offsetMs": 8673,
+          "durationMs": 155,
+          "text": "成"
+        },
+        {
+          "offsetMs": 8840,
+          "durationMs": 180,
+          "text": "两"
+        },
+        {
+          "offsetMs": 9021,
+          "durationMs": 206,
+          "text": "三"
+        },
+        {
+          "offsetMs": 9227,
+          "durationMs": 103,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9343,
+          "durationMs": 374,
+          "text": "轻快"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 9820,
+          "durationMs": 580,
+          "text": "小动作"
+        },
+        {
+          "offsetMs": 10503,
+          "durationMs": 168,
+          "text": "就"
+        },
+        {
+          "offsetMs": 10670,
+          "durationMs": 103,
+          "text": "能"
+        },
+        {
+          "offsetMs": 10786,
+          "durationMs": 425,
+          "text": "出发"
+        }
+      ]
+    },
+    "warm-sister:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发": {
+      "id": "warm-sister:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "normKey": "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-a3fc96de199604bb.mp3",
+      "durationMs": 11723,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 412,
+          "text": "今天"
+        },
+        {
+          "offsetMs": 542,
+          "durationMs": 120,
+          "text": "去"
+        },
+        {
+          "offsetMs": 675,
+          "durationMs": 186,
+          "text": "另"
+        },
+        {
+          "offsetMs": 861,
+          "durationMs": 452,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1406,
+          "durationMs": 372,
+          "text": "心情"
+        },
+        {
+          "offsetMs": 1779,
+          "durationMs": 186,
+          "text": "挺"
+        },
+        {
+          "offsetMs": 1978,
+          "durationMs": 479,
+          "text": "轻松"
+        },
+        {
+          "offsetMs": 2763,
+          "durationMs": 213,
+          "text": "没有"
+        },
+        {
+          "offsetMs": 2989,
+          "durationMs": 372,
+          "text": "任何"
+        },
+        {
+          "offsetMs": 3374,
+          "durationMs": 465,
+          "text": "害怕"
+        },
+        {
+          "offsetMs": 4455,
+          "durationMs": 226,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 4694,
+          "durationMs": 146,
+          "text": "不"
+        },
+        {
+          "offsetMs": 4840,
+          "durationMs": 332,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5186,
+          "durationMs": 306,
+          "text": "做"
+        },
+        {
+          "offsetMs": 5585,
+          "durationMs": 332,
+          "text": "心理"
+        },
+        {
+          "offsetMs": 5931,
+          "durationMs": 545,
+          "text": "安抚"
+        },
+        {
+          "offsetMs": 6795,
+          "durationMs": 266,
+          "text": "只要"
+        },
+        {
+          "offsetMs": 7061,
+          "durationMs": 146,
+          "text": "把"
+        },
+        {
+          "offsetMs": 7234,
+          "durationMs": 346,
+          "text": "收拾"
+        },
+        {
+          "offsetMs": 7593,
+          "durationMs": 346,
+          "text": "日常"
+        },
+        {
+          "offsetMs": 7952,
+          "durationMs": 505,
+          "text": "物品"
+        },
+        {
+          "offsetMs": 8551,
+          "durationMs": 226,
+          "text": "拆"
+        },
+        {
+          "offsetMs": 8777,
+          "durationMs": 173,
+          "text": "成"
+        },
+        {
+          "offsetMs": 8976,
+          "durationMs": 213,
+          "text": "两"
+        },
+        {
+          "offsetMs": 9189,
+          "durationMs": 213,
+          "text": "三"
+        },
+        {
+          "offsetMs": 9402,
+          "durationMs": 80,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9508,
+          "durationMs": 372,
+          "text": "轻快"
+        },
+        {
+          "offsetMs": 9880,
+          "durationMs": 80,
+          "text": "的"
+        },
+        {
+          "offsetMs": 9973,
+          "durationMs": 678,
+          "text": "小动作"
+        },
+        {
+          "offsetMs": 10758,
+          "durationMs": 160,
+          "text": "就"
+        },
+        {
+          "offsetMs": 10918,
+          "durationMs": 133,
+          "text": "能"
+        },
+        {
+          "offsetMs": 11064,
+          "durationMs": 479,
+          "text": "出发"
+        }
+      ]
+    },
+    "gentle-guide:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发": {
+      "id": "gentle-guide:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "normKey": "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-ebec65f02c6bed10.mp3",
+      "durationMs": 11659,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 349,
+          "text": "今天"
+        },
+        {
+          "offsetMs": 480,
+          "durationMs": 134,
+          "text": "去"
+        },
+        {
+          "offsetMs": 628,
+          "durationMs": 161,
+          "text": "另"
+        },
+        {
+          "offsetMs": 789,
+          "durationMs": 470,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1367,
+          "durationMs": 444,
+          "text": "心情"
+        },
+        {
+          "offsetMs": 1811,
+          "durationMs": 161,
+          "text": "挺"
+        },
+        {
+          "offsetMs": 1986,
+          "durationMs": 524,
+          "text": "轻松"
+        },
+        {
+          "offsetMs": 2913,
+          "durationMs": 255,
+          "text": "没有"
+        },
+        {
+          "offsetMs": 3182,
+          "durationMs": 296,
+          "text": "任何"
+        },
+        {
+          "offsetMs": 3491,
+          "durationMs": 444,
+          "text": "害怕"
+        },
+        {
+          "offsetMs": 4556,
+          "durationMs": 269,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 4839,
+          "durationMs": 148,
+          "text": "不"
+        },
+        {
+          "offsetMs": 4987,
+          "durationMs": 228,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5228,
+          "durationMs": 323,
+          "text": "做"
+        },
+        {
+          "offsetMs": 5659,
+          "durationMs": 390,
+          "text": "心理"
+        },
+        {
+          "offsetMs": 6062,
+          "durationMs": 484,
+          "text": "安抚"
+        },
+        {
+          "offsetMs": 7016,
+          "durationMs": 255,
+          "text": "只要"
+        },
+        {
+          "offsetMs": 7272,
+          "durationMs": 121,
+          "text": "把"
+        },
+        {
+          "offsetMs": 7419,
+          "durationMs": 323,
+          "text": "收拾"
+        },
+        {
+          "offsetMs": 7755,
+          "durationMs": 323,
+          "text": "日常"
+        },
+        {
+          "offsetMs": 8091,
+          "durationMs": 444,
+          "text": "物品"
+        },
+        {
+          "offsetMs": 8642,
+          "durationMs": 269,
+          "text": "拆"
+        },
+        {
+          "offsetMs": 8911,
+          "durationMs": 175,
+          "text": "成"
+        },
+        {
+          "offsetMs": 9113,
+          "durationMs": 188,
+          "text": "两"
+        },
+        {
+          "offsetMs": 9301,
+          "durationMs": 202,
+          "text": "三"
+        },
+        {
+          "offsetMs": 9503,
+          "durationMs": 81,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9610,
+          "durationMs": 282,
+          "text": "轻快"
+        },
+        {
+          "offsetMs": 9892,
+          "durationMs": 81,
+          "text": "的"
+        },
+        {
+          "offsetMs": 9987,
+          "durationMs": 618,
+          "text": "小动作"
+        },
+        {
+          "offsetMs": 10712,
+          "durationMs": 188,
+          "text": "就"
+        },
+        {
+          "offsetMs": 10901,
+          "durationMs": 121,
+          "text": "能"
+        },
+        {
+          "offsetMs": 11035,
+          "durationMs": 444,
+          "text": "出发"
+        }
+      ]
+    },
+    "starlight-companion:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发": {
+      "id": "starlight-companion:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "normKey": "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-8661e6434c64aae4.mp3",
+      "durationMs": 12522,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 474,
+          "text": "今天"
+        },
+        {
+          "offsetMs": 589,
+          "durationMs": 145,
+          "text": "去"
+        },
+        {
+          "offsetMs": 747,
+          "durationMs": 197,
+          "text": "另"
+        },
+        {
+          "offsetMs": 945,
+          "durationMs": 447,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1497,
+          "durationMs": 487,
+          "text": "心情"
+        },
+        {
+          "offsetMs": 1984,
+          "durationMs": 184,
+          "text": "挺"
+        },
+        {
+          "offsetMs": 2182,
+          "durationMs": 553,
+          "text": "轻松"
+        },
+        {
+          "offsetMs": 2971,
+          "durationMs": 289,
+          "text": "没有"
+        },
+        {
+          "offsetMs": 3274,
+          "durationMs": 421,
+          "text": "任何"
+        },
+        {
+          "offsetMs": 3708,
+          "durationMs": 500,
+          "text": "害怕"
+        },
+        {
+          "offsetMs": 4803,
+          "durationMs": 289,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 5105,
+          "durationMs": 224,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5329,
+          "durationMs": 329,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5671,
+          "durationMs": 316,
+          "text": "做"
+        },
+        {
+          "offsetMs": 6079,
+          "durationMs": 395,
+          "text": "心理"
+        },
+        {
+          "offsetMs": 6487,
+          "durationMs": 553,
+          "text": "安抚"
+        },
+        {
+          "offsetMs": 7316,
+          "durationMs": 355,
+          "text": "只要"
+        },
+        {
+          "offsetMs": 7671,
+          "durationMs": 158,
+          "text": "把"
+        },
+        {
+          "offsetMs": 7842,
+          "durationMs": 395,
+          "text": "收拾"
+        },
+        {
+          "offsetMs": 8250,
+          "durationMs": 395,
+          "text": "日常"
+        },
+        {
+          "offsetMs": 8658,
+          "durationMs": 513,
+          "text": "物品"
+        },
+        {
+          "offsetMs": 9276,
+          "durationMs": 237,
+          "text": "拆"
+        },
+        {
+          "offsetMs": 9513,
+          "durationMs": 171,
+          "text": "成"
+        },
+        {
+          "offsetMs": 9697,
+          "durationMs": 197,
+          "text": "两"
+        },
+        {
+          "offsetMs": 9895,
+          "durationMs": 224,
+          "text": "三"
+        },
+        {
+          "offsetMs": 10118,
+          "durationMs": 118,
+          "text": "个"
+        },
+        {
+          "offsetMs": 10250,
+          "durationMs": 408,
+          "text": "轻快"
+        },
+        {
+          "offsetMs": 10658,
+          "durationMs": 79,
+          "text": "的"
+        },
+        {
+          "offsetMs": 10750,
+          "durationMs": 671,
+          "text": "小动作"
+        },
+        {
+          "offsetMs": 11513,
+          "durationMs": 197,
+          "text": "就"
+        },
+        {
+          "offsetMs": 11711,
+          "durationMs": 132,
+          "text": "能"
+        },
+        {
+          "offsetMs": 11855,
+          "durationMs": 487,
+          "text": "出发"
+        }
+      ]
+    },
+    "playful-buddy:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦": {
+      "id": "playful-buddy:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "normKey": "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-c384a12e4149ec7c.mp3",
+      "durationMs": 8040,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 142,
+          "text": "你"
+        },
+        {
+          "offsetMs": 243,
+          "durationMs": 129,
+          "text": "把"
+        },
+        {
+          "offsetMs": 385,
+          "durationMs": 425,
+          "text": "原本"
+        },
+        {
+          "offsetMs": 823,
+          "durationMs": 528,
+          "text": "乱糟糟"
+        },
+        {
+          "offsetMs": 1352,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 1455,
+          "durationMs": 168,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1622,
+          "durationMs": 425,
+          "text": "石头"
+        },
+        {
+          "offsetMs": 2163,
+          "durationMs": 374,
+          "text": "拆成"
+        },
+        {
+          "offsetMs": 2537,
+          "durationMs": 77,
+          "text": "了"
+        },
+        {
+          "offsetMs": 2627,
+          "durationMs": 335,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 2962,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3065,
+          "durationMs": 928,
+          "text": "小踏脚石"
+        },
+        {
+          "offsetMs": 4573,
+          "durationMs": 258,
+          "text": "按"
+        },
+        {
+          "offsetMs": 4844,
+          "durationMs": 258,
+          "text": "自己"
+        },
+        {
+          "offsetMs": 5114,
+          "durationMs": 322,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 5437,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5553,
+          "durationMs": 387,
+          "text": "步子"
+        },
+        {
+          "offsetMs": 6055,
+          "durationMs": 284,
+          "text": "迈出"
+        },
+        {
+          "offsetMs": 6352,
+          "durationMs": 142,
+          "text": "这"
+        },
+        {
+          "offsetMs": 6493,
+          "durationMs": 103,
+          "text": "一"
+        },
+        {
+          "offsetMs": 6609,
+          "durationMs": 425,
+          "text": "小步"
+        },
+        {
+          "offsetMs": 7150,
+          "durationMs": 142,
+          "text": "就"
+        },
+        {
+          "offsetMs": 7292,
+          "durationMs": 180,
+          "text": "很"
+        },
+        {
+          "offsetMs": 7473,
+          "durationMs": 232,
+          "text": "棒"
+        },
+        {
+          "offsetMs": 7705,
+          "durationMs": 155,
+          "text": "啦"
+        }
+      ]
+    },
+    "warm-sister:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦": {
+      "id": "warm-sister:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "normKey": "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-bc95943fecdb9a46.mp3",
+      "durationMs": 9049,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 120,
+          "text": "你"
+        },
+        {
+          "offsetMs": 223,
+          "durationMs": 133,
+          "text": "把"
+        },
+        {
+          "offsetMs": 369,
+          "durationMs": 399,
+          "text": "原本"
+        },
+        {
+          "offsetMs": 795,
+          "durationMs": 598,
+          "text": "乱糟糟"
+        },
+        {
+          "offsetMs": 1393,
+          "durationMs": 93,
+          "text": "的"
+        },
+        {
+          "offsetMs": 1499,
+          "durationMs": 186,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1686,
+          "durationMs": 572,
+          "text": "石头"
+        },
+        {
+          "offsetMs": 2364,
+          "durationMs": 386,
+          "text": "拆成"
+        },
+        {
+          "offsetMs": 2749,
+          "durationMs": 93,
+          "text": "了"
+        },
+        {
+          "offsetMs": 2869,
+          "durationMs": 386,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 3255,
+          "durationMs": 93,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3374,
+          "durationMs": 1011,
+          "text": "小踏脚石"
+        },
+        {
+          "offsetMs": 5000,
+          "durationMs": 213,
+          "text": "按"
+        },
+        {
+          "offsetMs": 5226,
+          "durationMs": 293,
+          "text": "自己"
+        },
+        {
+          "offsetMs": 5545,
+          "durationMs": 372,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 5918,
+          "durationMs": 106,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6037,
+          "durationMs": 519,
+          "text": "步子"
+        },
+        {
+          "offsetMs": 6662,
+          "durationMs": 332,
+          "text": "迈出"
+        },
+        {
+          "offsetMs": 7008,
+          "durationMs": 146,
+          "text": "这"
+        },
+        {
+          "offsetMs": 7154,
+          "durationMs": 106,
+          "text": "一"
+        },
+        {
+          "offsetMs": 7274,
+          "durationMs": 585,
+          "text": "小步"
+        },
+        {
+          "offsetMs": 7965,
+          "durationMs": 160,
+          "text": "就"
+        },
+        {
+          "offsetMs": 8125,
+          "durationMs": 226,
+          "text": "很"
+        },
+        {
+          "offsetMs": 8351,
+          "durationMs": 279,
+          "text": "棒"
+        },
+        {
+          "offsetMs": 8630,
+          "durationMs": 239,
+          "text": "啦"
+        }
+      ]
+    },
+    "gentle-guide:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦": {
+      "id": "gentle-guide:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "normKey": "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-2a5b65263825b6ab.mp3",
+      "durationMs": 8782,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 202,
+          "text": "你"
+        },
+        {
+          "offsetMs": 305,
+          "durationMs": 108,
+          "text": "把"
+        },
+        {
+          "offsetMs": 426,
+          "durationMs": 376,
+          "text": "原本"
+        },
+        {
+          "offsetMs": 830,
+          "durationMs": 444,
+          "text": "乱糟糟"
+        },
+        {
+          "offsetMs": 1273,
+          "durationMs": 81,
+          "text": "的"
+        },
+        {
+          "offsetMs": 1367,
+          "durationMs": 202,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1569,
+          "durationMs": 645,
+          "text": "石头"
+        },
+        {
+          "offsetMs": 2348,
+          "durationMs": 430,
+          "text": "拆成"
+        },
+        {
+          "offsetMs": 2778,
+          "durationMs": 81,
+          "text": "了"
+        },
+        {
+          "offsetMs": 2886,
+          "durationMs": 349,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 3236,
+          "durationMs": 81,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3343,
+          "durationMs": 901,
+          "text": "小踏脚石"
+        },
+        {
+          "offsetMs": 4866,
+          "durationMs": 228,
+          "text": "按"
+        },
+        {
+          "offsetMs": 5108,
+          "durationMs": 255,
+          "text": "自己"
+        },
+        {
+          "offsetMs": 5390,
+          "durationMs": 296,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 5686,
+          "durationMs": 81,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5780,
+          "durationMs": 618,
+          "text": "步子"
+        },
+        {
+          "offsetMs": 6519,
+          "durationMs": 390,
+          "text": "迈出"
+        },
+        {
+          "offsetMs": 6922,
+          "durationMs": 108,
+          "text": "这"
+        },
+        {
+          "offsetMs": 7030,
+          "durationMs": 94,
+          "text": "一"
+        },
+        {
+          "offsetMs": 7137,
+          "durationMs": 538,
+          "text": "小步"
+        },
+        {
+          "offsetMs": 7796,
+          "durationMs": 175,
+          "text": "就"
+        },
+        {
+          "offsetMs": 7970,
+          "durationMs": 161,
+          "text": "很"
+        },
+        {
+          "offsetMs": 8132,
+          "durationMs": 242,
+          "text": "棒"
+        },
+        {
+          "offsetMs": 8374,
+          "durationMs": 228,
+          "text": "啦"
+        }
+      ]
+    },
+    "starlight-companion:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦": {
+      "id": "starlight-companion:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "normKey": "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-101b0c6766f664d7.mp3",
+      "durationMs": 9088,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 184,
+          "text": "你"
+        },
+        {
+          "offsetMs": 287,
+          "durationMs": 158,
+          "text": "把"
+        },
+        {
+          "offsetMs": 458,
+          "durationMs": 408,
+          "text": "原本"
+        },
+        {
+          "offsetMs": 879,
+          "durationMs": 579,
+          "text": "乱糟糟"
+        },
+        {
+          "offsetMs": 1458,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 1576,
+          "durationMs": 197,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1774,
+          "durationMs": 539,
+          "text": "石头"
+        },
+        {
+          "offsetMs": 2405,
+          "durationMs": 395,
+          "text": "拆成"
+        },
+        {
+          "offsetMs": 2800,
+          "durationMs": 118,
+          "text": "了"
+        },
+        {
+          "offsetMs": 2932,
+          "durationMs": 382,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 3313,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3432,
+          "durationMs": 947,
+          "text": "小踏脚石"
+        },
+        {
+          "offsetMs": 4974,
+          "durationMs": 184,
+          "text": "按"
+        },
+        {
+          "offsetMs": 5171,
+          "durationMs": 355,
+          "text": "自己"
+        },
+        {
+          "offsetMs": 5539,
+          "durationMs": 355,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 5895,
+          "durationMs": 105,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6013,
+          "durationMs": 487,
+          "text": "步子"
+        },
+        {
+          "offsetMs": 6605,
+          "durationMs": 368,
+          "text": "迈出"
+        },
+        {
+          "offsetMs": 6987,
+          "durationMs": 171,
+          "text": "这"
+        },
+        {
+          "offsetMs": 7158,
+          "durationMs": 105,
+          "text": "一"
+        },
+        {
+          "offsetMs": 7276,
+          "durationMs": 553,
+          "text": "小步"
+        },
+        {
+          "offsetMs": 7921,
+          "durationMs": 237,
+          "text": "就"
+        },
+        {
+          "offsetMs": 8158,
+          "durationMs": 250,
+          "text": "很"
+        },
+        {
+          "offsetMs": 8408,
+          "durationMs": 303,
+          "text": "棒"
+        },
+        {
+          "offsetMs": 8711,
+          "durationMs": 197,
+          "text": "啦"
+        }
+      ]
+    },
+    "playful-buddy:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以": {
+      "id": "playful-buddy:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "normKey": "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-fba68ee3dc77fd72.mp3",
+      "durationMs": 7113,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 129,
+          "text": "你"
+        },
+        {
+          "offsetMs": 243,
+          "durationMs": 619,
+          "text": "选择了"
+        },
+        {
+          "offsetMs": 978,
+          "durationMs": 232,
+          "text": "先"
+        },
+        {
+          "offsetMs": 1210,
+          "durationMs": 180,
+          "text": "停"
+        },
+        {
+          "offsetMs": 1390,
+          "durationMs": 258,
+          "text": "下来"
+        },
+        {
+          "offsetMs": 1661,
+          "durationMs": 296,
+          "text": "休息"
+        },
+        {
+          "offsetMs": 1970,
+          "durationMs": 361,
+          "text": "一会儿"
+        },
+        {
+          "offsetMs": 2912,
+          "durationMs": 309,
+          "text": "不用"
+        },
+        {
+          "offsetMs": 3235,
+          "durationMs": 335,
+          "text": "勉强"
+        },
+        {
+          "offsetMs": 3582,
+          "durationMs": 374,
+          "text": "马上"
+        },
+        {
+          "offsetMs": 3969,
+          "durationMs": 129,
+          "text": "做"
+        },
+        {
+          "offsetMs": 4111,
+          "durationMs": 425,
+          "text": "决定"
+        },
+        {
+          "offsetMs": 4858,
+          "durationMs": 747,
+          "text": "什么时候"
+        },
+        {
+          "offsetMs": 5709,
+          "durationMs": 206,
+          "text": "想"
+        },
+        {
+          "offsetMs": 5928,
+          "durationMs": 348,
+          "text": "继续"
+        },
+        {
+          "offsetMs": 6289,
+          "durationMs": 168,
+          "text": "都"
+        },
+        {
+          "offsetMs": 6456,
+          "durationMs": 477,
+          "text": "可以"
+        }
+      ]
+    },
+    "warm-sister:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以": {
+      "id": "warm-sister:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "normKey": "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "profileId": "warm-sister",
+      "voiceName": "zh-CN-XiaoxiaoNeural",
+      "audioUrl": "/audio/tts/warm-sister-3bfe8427759d5b34.mp3",
+      "durationMs": 7547,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 133,
+          "text": "你"
+        },
+        {
+          "offsetMs": 249,
+          "durationMs": 705,
+          "text": "选择了"
+        },
+        {
+          "offsetMs": 1047,
+          "durationMs": 213,
+          "text": "先"
+        },
+        {
+          "offsetMs": 1260,
+          "durationMs": 173,
+          "text": "停"
+        },
+        {
+          "offsetMs": 1433,
+          "durationMs": 279,
+          "text": "下来"
+        },
+        {
+          "offsetMs": 1739,
+          "durationMs": 372,
+          "text": "休息"
+        },
+        {
+          "offsetMs": 2124,
+          "durationMs": 386,
+          "text": "一会儿"
+        },
+        {
+          "offsetMs": 3125,
+          "durationMs": 293,
+          "text": "不用"
+        },
+        {
+          "offsetMs": 3431,
+          "durationMs": 399,
+          "text": "勉强"
+        },
+        {
+          "offsetMs": 3856,
+          "durationMs": 399,
+          "text": "马上"
+        },
+        {
+          "offsetMs": 4269,
+          "durationMs": 133,
+          "text": "做"
+        },
+        {
+          "offsetMs": 4415,
+          "durationMs": 465,
+          "text": "决定"
+        },
+        {
+          "offsetMs": 5226,
+          "durationMs": 785,
+          "text": "什么时候"
+        },
+        {
+          "offsetMs": 6117,
+          "durationMs": 239,
+          "text": "想"
+        },
+        {
+          "offsetMs": 6370,
+          "durationMs": 359,
+          "text": "继续"
+        },
+        {
+          "offsetMs": 6742,
+          "durationMs": 160,
+          "text": "都"
+        },
+        {
+          "offsetMs": 6902,
+          "durationMs": 465,
+          "text": "可以"
+        }
+      ]
+    },
+    "gentle-guide:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以": {
+      "id": "gentle-guide:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "normKey": "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "profileId": "gentle-guide",
+      "voiceName": "zh-CN-YunxiNeural",
+      "audioUrl": "/audio/tts/gentle-guide-78aa8e2487c9982c.mp3",
+      "durationMs": 7761,
+      "boundaries": [
+        {
+          "offsetMs": 104,
+          "durationMs": 269,
+          "text": "你"
+        },
+        {
+          "offsetMs": 386,
+          "durationMs": 659,
+          "text": "选择了"
+        },
+        {
+          "offsetMs": 1166,
+          "durationMs": 282,
+          "text": "先"
+        },
+        {
+          "offsetMs": 1448,
+          "durationMs": 134,
+          "text": "停"
+        },
+        {
+          "offsetMs": 1582,
+          "durationMs": 202,
+          "text": "下来"
+        },
+        {
+          "offsetMs": 1811,
+          "durationMs": 296,
+          "text": "休息"
+        },
+        {
+          "offsetMs": 2120,
+          "durationMs": 444,
+          "text": "一会儿"
+        },
+        {
+          "offsetMs": 3186,
+          "durationMs": 309,
+          "text": "不用"
+        },
+        {
+          "offsetMs": 3508,
+          "durationMs": 363,
+          "text": "勉强"
+        },
+        {
+          "offsetMs": 3898,
+          "durationMs": 349,
+          "text": "马上"
+        },
+        {
+          "offsetMs": 4261,
+          "durationMs": 121,
+          "text": "做"
+        },
+        {
+          "offsetMs": 4395,
+          "durationMs": 484,
+          "text": "决定"
+        },
+        {
+          "offsetMs": 5242,
+          "durationMs": 995,
+          "text": "什么时候"
+        },
+        {
+          "offsetMs": 6371,
+          "durationMs": 309,
+          "text": "想"
+        },
+        {
+          "offsetMs": 6694,
+          "durationMs": 323,
+          "text": "继续"
+        },
+        {
+          "offsetMs": 7030,
+          "durationMs": 134,
+          "text": "都"
+        },
+        {
+          "offsetMs": 7164,
+          "durationMs": 417,
+          "text": "可以"
+        }
+      ]
+    },
+    "starlight-companion:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以": {
+      "id": "starlight-companion:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "normKey": "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "profileId": "starlight-companion",
+      "voiceName": "zh-CN-YunxiaNeural",
+      "audioUrl": "/audio/tts/starlight-companion-ab723d60dfa126bc.mp3",
+      "durationMs": 8036,
+      "boundaries": [
+        {
+          "offsetMs": 103,
+          "durationMs": 197,
+          "text": "你"
+        },
+        {
+          "offsetMs": 313,
+          "durationMs": 618,
+          "text": "选择了"
+        },
+        {
+          "offsetMs": 1037,
+          "durationMs": 276,
+          "text": "先"
+        },
+        {
+          "offsetMs": 1313,
+          "durationMs": 210,
+          "text": "停"
+        },
+        {
+          "offsetMs": 1524,
+          "durationMs": 316,
+          "text": "下来"
+        },
+        {
+          "offsetMs": 1853,
+          "durationMs": 408,
+          "text": "休息"
+        },
+        {
+          "offsetMs": 2274,
+          "durationMs": 434,
+          "text": "一会儿"
+        },
+        {
+          "offsetMs": 3303,
+          "durationMs": 329,
+          "text": "不用"
+        },
+        {
+          "offsetMs": 3645,
+          "durationMs": 421,
+          "text": "勉强"
+        },
+        {
+          "offsetMs": 4079,
+          "durationMs": 421,
+          "text": "马上"
+        },
+        {
+          "offsetMs": 4513,
+          "durationMs": 158,
+          "text": "做"
+        },
+        {
+          "offsetMs": 4684,
+          "durationMs": 500,
+          "text": "决定"
+        },
+        {
+          "offsetMs": 5500,
+          "durationMs": 868,
+          "text": "什么时候"
+        },
+        {
+          "offsetMs": 6447,
+          "durationMs": 316,
+          "text": "想"
+        },
+        {
+          "offsetMs": 6776,
+          "durationMs": 447,
+          "text": "继续"
+        },
+        {
+          "offsetMs": 7237,
+          "durationMs": 158,
+          "text": "都"
+        },
+        {
+          "offsetMs": 7395,
+          "durationMs": 461,
+          "text": "可以"
+        }
+      ]
+    },
     "warm-sister:吸气一二三四感觉像闻一朵香香的小花": {
       "id": "warm-sister:吸气一二三四感觉像闻一朵香香的小花",
       "normKey": "吸气一二三四感觉像闻一朵香香的小花",
@@ -60507,6 +64907,1106 @@
           "offsetMs": 7486,
           "durationMs": 477,
           "text": "打卡"
+        }
+      ]
+    },
+    "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石": {
+      "id": "playful-buddy:欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "normKey": "欢迎来到大困难拆解台遇到手头事多或心里打结的时候我们可以先看清事实和感受换个镜头看一看再挑一两块舒服的小踏脚石",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-04062b7b5bf06ba6.mp3",
+      "durationMs": 12087,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 503,
+          "text": "欢迎"
+        },
+        {
+          "offsetMs": 617,
+          "durationMs": 322,
+          "text": "来到"
+        },
+        {
+          "offsetMs": 952,
+          "durationMs": 180,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1132,
+          "durationMs": 348,
+          "text": "困难"
+        },
+        {
+          "offsetMs": 1493,
+          "durationMs": 709,
+          "text": "拆解台"
+        },
+        {
+          "offsetMs": 2784,
+          "durationMs": 296,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 3093,
+          "durationMs": 348,
+          "text": "手头"
+        },
+        {
+          "offsetMs": 3441,
+          "durationMs": 193,
+          "text": "事"
+        },
+        {
+          "offsetMs": 3634,
+          "durationMs": 258,
+          "text": "多"
+        },
+        {
+          "offsetMs": 4008,
+          "durationMs": 155,
+          "text": "或"
+        },
+        {
+          "offsetMs": 4175,
+          "durationMs": 322,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 4510,
+          "durationMs": 348,
+          "text": "打结"
+        },
+        {
+          "offsetMs": 4858,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4961,
+          "durationMs": 425,
+          "text": "时候"
+        },
+        {
+          "offsetMs": 5773,
+          "durationMs": 219,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 6005,
+          "durationMs": 296,
+          "text": "可以"
+        },
+        {
+          "offsetMs": 6314,
+          "durationMs": 206,
+          "text": "先"
+        },
+        {
+          "offsetMs": 6534,
+          "durationMs": 400,
+          "text": "看清"
+        },
+        {
+          "offsetMs": 6946,
+          "durationMs": 387,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 7345,
+          "durationMs": 155,
+          "text": "和"
+        },
+        {
+          "offsetMs": 7513,
+          "durationMs": 477,
+          "text": "感受"
+        },
+        {
+          "offsetMs": 8260,
+          "durationMs": 193,
+          "text": "换"
+        },
+        {
+          "offsetMs": 8454,
+          "durationMs": 90,
+          "text": "个"
+        },
+        {
+          "offsetMs": 8557,
+          "durationMs": 322,
+          "text": "镜头"
+        },
+        {
+          "offsetMs": 8892,
+          "durationMs": 206,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9098,
+          "durationMs": 90,
+          "text": "一"
+        },
+        {
+          "offsetMs": 9188,
+          "durationMs": 258,
+          "text": "看"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 168,
+          "text": "再"
+        },
+        {
+          "offsetMs": 9884,
+          "durationMs": 180,
+          "text": "挑"
+        },
+        {
+          "offsetMs": 10077,
+          "durationMs": 129,
+          "text": "一"
+        },
+        {
+          "offsetMs": 10206,
+          "durationMs": 193,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10400,
+          "durationMs": 168,
+          "text": "块"
+        },
+        {
+          "offsetMs": 10580,
+          "durationMs": 296,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 10876,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 10979,
+          "durationMs": 928,
+          "text": "小踏脚石"
+        }
+      ]
+    },
+    "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信": {
+      "id": "playful-buddy:去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "normKey": "去另一边住时同时想念两个地方是很自然的事不需要二选一也不必勉强拥抱或写信",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-dc75ed7ab0f7a5bc.mp3",
+      "durationMs": 8389,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 206,
+          "text": "去"
+        },
+        {
+          "offsetMs": 321,
+          "durationMs": 168,
+          "text": "另"
+        },
+        {
+          "offsetMs": 488,
+          "durationMs": 296,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "住"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 374,
+          "text": "时"
+        },
+        {
+          "offsetMs": 1622,
+          "durationMs": 438,
+          "text": "同时"
+        },
+        {
+          "offsetMs": 2073,
+          "durationMs": 374,
+          "text": "想念"
+        },
+        {
+          "offsetMs": 2460,
+          "durationMs": 258,
+          "text": "两个"
+        },
+        {
+          "offsetMs": 2730,
+          "durationMs": 387,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 3207,
+          "durationMs": 168,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3388,
+          "durationMs": 193,
+          "text": "很"
+        },
+        {
+          "offsetMs": 3581,
+          "durationMs": 322,
+          "text": "自然"
+        },
+        {
+          "offsetMs": 3903,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 4006,
+          "durationMs": 322,
+          "text": "事"
+        },
+        {
+          "offsetMs": 4910,
+          "durationMs": 155,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5064,
+          "durationMs": 271,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5348,
+          "durationMs": 670,
+          "text": "二选一"
+        },
+        {
+          "offsetMs": 6224,
+          "durationMs": 155,
+          "text": "也"
+        },
+        {
+          "offsetMs": 6392,
+          "durationMs": 696,
+          "text": "不必勉强"
+        },
+        {
+          "offsetMs": 7100,
+          "durationMs": 400,
+          "text": "拥抱"
+        },
+        {
+          "offsetMs": 7513,
+          "durationMs": 180,
+          "text": "或"
+        },
+        {
+          "offsetMs": 7706,
+          "durationMs": 503,
+          "text": "写信"
+        }
+      ]
+    },
+    "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好": {
+      "id": "playful-buddy:你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "normKey": "你在这边玩得开心是真实发生的事实担心另一边大人难过只是心里的猜测大人的情绪由大人负责你也不需要违心说两个地方一样好",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-0571014772639d53.mp3",
+      "durationMs": 11998,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 193,
+          "text": "你"
+        },
+        {
+          "offsetMs": 295,
+          "durationMs": 142,
+          "text": "在"
+        },
+        {
+          "offsetMs": 450,
+          "durationMs": 335,
+          "text": "这边"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "玩"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 77,
+          "text": "得"
+        },
+        {
+          "offsetMs": 1055,
+          "durationMs": 567,
+          "text": "开心"
+        },
+        {
+          "offsetMs": 1725,
+          "durationMs": 168,
+          "text": "是"
+        },
+        {
+          "offsetMs": 1906,
+          "durationMs": 348,
+          "text": "真实"
+        },
+        {
+          "offsetMs": 2266,
+          "durationMs": 322,
+          "text": "发生"
+        },
+        {
+          "offsetMs": 2589,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 2692,
+          "durationMs": 580,
+          "text": "事实"
+        },
+        {
+          "offsetMs": 3594,
+          "durationMs": 374,
+          "text": "担心"
+        },
+        {
+          "offsetMs": 3980,
+          "durationMs": 155,
+          "text": "另"
+        },
+        {
+          "offsetMs": 4135,
+          "durationMs": 284,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 4431,
+          "durationMs": 296,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 4741,
+          "durationMs": 464,
+          "text": "难过"
+        },
+        {
+          "offsetMs": 5321,
+          "durationMs": 258,
+          "text": "只是"
+        },
+        {
+          "offsetMs": 5591,
+          "durationMs": 322,
+          "text": "心里"
+        },
+        {
+          "offsetMs": 5913,
+          "durationMs": 77,
+          "text": "的"
+        },
+        {
+          "offsetMs": 6004,
+          "durationMs": 554,
+          "text": "猜测"
+        },
+        {
+          "offsetMs": 7139,
+          "durationMs": 309,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 7448,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 7564,
+          "durationMs": 464,
+          "text": "情绪"
+        },
+        {
+          "offsetMs": 8041,
+          "durationMs": 116,
+          "text": "由"
+        },
+        {
+          "offsetMs": 8170,
+          "durationMs": 309,
+          "text": "大人"
+        },
+        {
+          "offsetMs": 8492,
+          "durationMs": 464,
+          "text": "负责"
+        },
+        {
+          "offsetMs": 9214,
+          "durationMs": 116,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9330,
+          "durationMs": 90,
+          "text": "也"
+        },
+        {
+          "offsetMs": 9433,
+          "durationMs": 116,
+          "text": "不"
+        },
+        {
+          "offsetMs": 9549,
+          "durationMs": 271,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 9832,
+          "durationMs": 335,
+          "text": "违心"
+        },
+        {
+          "offsetMs": 10180,
+          "durationMs": 361,
+          "text": "说"
+        },
+        {
+          "offsetMs": 10657,
+          "durationMs": 206,
+          "text": "两"
+        },
+        {
+          "offsetMs": 10863,
+          "durationMs": 90,
+          "text": "个"
+        },
+        {
+          "offsetMs": 10966,
+          "durationMs": 296,
+          "text": "地方"
+        },
+        {
+          "offsetMs": 11276,
+          "durationMs": 258,
+          "text": "一样"
+        },
+        {
+          "offsetMs": 11534,
+          "durationMs": 284,
+          "text": "好"
+        }
+      ]
+    },
+    "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人": {
+      "id": "playful-buddy:如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "normKey": "如果对去另一边有具体担忧我们先查清是日程不明环境不习惯还是暂时说不清楚要是遇到有人凶你或伤害你立刻启动安全护盾找信任的大人",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-037dd9ecfb82eced.mp3",
+      "durationMs": 13247,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 387,
+          "text": "如果"
+        },
+        {
+          "offsetMs": 501,
+          "durationMs": 155,
+          "text": "对"
+        },
+        {
+          "offsetMs": 656,
+          "durationMs": 129,
+          "text": "去"
+        },
+        {
+          "offsetMs": 797,
+          "durationMs": 168,
+          "text": "另"
+        },
+        {
+          "offsetMs": 965,
+          "durationMs": 374,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1352,
+          "durationMs": 129,
+          "text": "有"
+        },
+        {
+          "offsetMs": 1493,
+          "durationMs": 335,
+          "text": "具体"
+        },
+        {
+          "offsetMs": 1841,
+          "durationMs": 464,
+          "text": "担忧"
+        },
+        {
+          "offsetMs": 2640,
+          "durationMs": 206,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 2859,
+          "durationMs": 206,
+          "text": "先"
+        },
+        {
+          "offsetMs": 3065,
+          "durationMs": 528,
+          "text": "查清"
+        },
+        {
+          "offsetMs": 3697,
+          "durationMs": 180,
+          "text": "是"
+        },
+        {
+          "offsetMs": 3890,
+          "durationMs": 309,
+          "text": "日程"
+        },
+        {
+          "offsetMs": 4212,
+          "durationMs": 438,
+          "text": "不明"
+        },
+        {
+          "offsetMs": 4934,
+          "durationMs": 400,
+          "text": "环境"
+        },
+        {
+          "offsetMs": 5346,
+          "durationMs": 142,
+          "text": "不"
+        },
+        {
+          "offsetMs": 5488,
+          "durationMs": 464,
+          "text": "习惯"
+        },
+        {
+          "offsetMs": 6184,
+          "durationMs": 258,
+          "text": "还是"
+        },
+        {
+          "offsetMs": 6455,
+          "durationMs": 400,
+          "text": "暂时"
+        },
+        {
+          "offsetMs": 6867,
+          "durationMs": 180,
+          "text": "说"
+        },
+        {
+          "offsetMs": 7047,
+          "durationMs": 90,
+          "text": "不"
+        },
+        {
+          "offsetMs": 7150,
+          "durationMs": 490,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 8222,
+          "durationMs": 309,
+          "text": "要是"
+        },
+        {
+          "offsetMs": 8544,
+          "durationMs": 335,
+          "text": "遇到"
+        },
+        {
+          "offsetMs": 8892,
+          "durationMs": 296,
+          "text": "有人"
+        },
+        {
+          "offsetMs": 9201,
+          "durationMs": 232,
+          "text": "凶"
+        },
+        {
+          "offsetMs": 9433,
+          "durationMs": 129,
+          "text": "你"
+        },
+        {
+          "offsetMs": 9575,
+          "durationMs": 129,
+          "text": "或"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 412,
+          "text": "伤害"
+        },
+        {
+          "offsetMs": 10129,
+          "durationMs": 193,
+          "text": "你"
+        },
+        {
+          "offsetMs": 10593,
+          "durationMs": 322,
+          "text": "立刻"
+        },
+        {
+          "offsetMs": 10928,
+          "durationMs": 322,
+          "text": "启动"
+        },
+        {
+          "offsetMs": 11263,
+          "durationMs": 361,
+          "text": "安全"
+        },
+        {
+          "offsetMs": 11624,
+          "durationMs": 374,
+          "text": "护盾"
+        },
+        {
+          "offsetMs": 12100,
+          "durationMs": 142,
+          "text": "找"
+        },
+        {
+          "offsetMs": 12255,
+          "durationMs": 348,
+          "text": "信任"
+        },
+        {
+          "offsetMs": 12603,
+          "durationMs": 77,
+          "text": "的"
+        },
+        {
+          "offsetMs": 12693,
+          "durationMs": 374,
+          "text": "大人"
+        }
+      ]
+    },
+    "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发": {
+      "id": "playful-buddy:今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "normKey": "今天去另一边心情挺轻松没有任何害怕我们不需要做心理安抚只要把收拾日常物品拆成两三个轻快的小动作就能出发",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-e4ac0eb912bfdb2a.mp3",
+      "durationMs": 11391,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 503,
+          "text": "今天"
+        },
+        {
+          "offsetMs": 617,
+          "durationMs": 129,
+          "text": "去"
+        },
+        {
+          "offsetMs": 759,
+          "durationMs": 180,
+          "text": "另"
+        },
+        {
+          "offsetMs": 939,
+          "durationMs": 412,
+          "text": "一边"
+        },
+        {
+          "offsetMs": 1455,
+          "durationMs": 438,
+          "text": "心情"
+        },
+        {
+          "offsetMs": 1893,
+          "durationMs": 206,
+          "text": "挺"
+        },
+        {
+          "offsetMs": 2112,
+          "durationMs": 503,
+          "text": "轻松"
+        },
+        {
+          "offsetMs": 2872,
+          "durationMs": 232,
+          "text": "没有"
+        },
+        {
+          "offsetMs": 3117,
+          "durationMs": 335,
+          "text": "任何"
+        },
+        {
+          "offsetMs": 3465,
+          "durationMs": 451,
+          "text": "害怕"
+        },
+        {
+          "offsetMs": 4497,
+          "durationMs": 245,
+          "text": "我们"
+        },
+        {
+          "offsetMs": 4755,
+          "durationMs": 155,
+          "text": "不"
+        },
+        {
+          "offsetMs": 4910,
+          "durationMs": 309,
+          "text": "需要"
+        },
+        {
+          "offsetMs": 5232,
+          "durationMs": 271,
+          "text": "做"
+        },
+        {
+          "offsetMs": 5606,
+          "durationMs": 335,
+          "text": "心理"
+        },
+        {
+          "offsetMs": 5954,
+          "durationMs": 528,
+          "text": "安抚"
+        },
+        {
+          "offsetMs": 6804,
+          "durationMs": 284,
+          "text": "只要"
+        },
+        {
+          "offsetMs": 7088,
+          "durationMs": 129,
+          "text": "把"
+        },
+        {
+          "offsetMs": 7229,
+          "durationMs": 322,
+          "text": "收拾"
+        },
+        {
+          "offsetMs": 7564,
+          "durationMs": 348,
+          "text": "日常"
+        },
+        {
+          "offsetMs": 7925,
+          "durationMs": 438,
+          "text": "物品"
+        },
+        {
+          "offsetMs": 8479,
+          "durationMs": 193,
+          "text": "拆"
+        },
+        {
+          "offsetMs": 8673,
+          "durationMs": 155,
+          "text": "成"
+        },
+        {
+          "offsetMs": 8840,
+          "durationMs": 180,
+          "text": "两"
+        },
+        {
+          "offsetMs": 9021,
+          "durationMs": 206,
+          "text": "三"
+        },
+        {
+          "offsetMs": 9227,
+          "durationMs": 103,
+          "text": "个"
+        },
+        {
+          "offsetMs": 9343,
+          "durationMs": 374,
+          "text": "轻快"
+        },
+        {
+          "offsetMs": 9716,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 9820,
+          "durationMs": 580,
+          "text": "小动作"
+        },
+        {
+          "offsetMs": 10503,
+          "durationMs": 168,
+          "text": "就"
+        },
+        {
+          "offsetMs": 10670,
+          "durationMs": 103,
+          "text": "能"
+        },
+        {
+          "offsetMs": 10786,
+          "durationMs": 425,
+          "text": "出发"
+        }
+      ]
+    },
+    "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦": {
+      "id": "playful-buddy:你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "normKey": "你把原本乱糟糟的大石头拆成了清楚的小踏脚石按自己舒服的步子迈出这一小步就很棒啦",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-c384a12e4149ec7c.mp3",
+      "durationMs": 8040,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 142,
+          "text": "你"
+        },
+        {
+          "offsetMs": 243,
+          "durationMs": 129,
+          "text": "把"
+        },
+        {
+          "offsetMs": 385,
+          "durationMs": 425,
+          "text": "原本"
+        },
+        {
+          "offsetMs": 823,
+          "durationMs": 528,
+          "text": "乱糟糟"
+        },
+        {
+          "offsetMs": 1352,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 1455,
+          "durationMs": 168,
+          "text": "大"
+        },
+        {
+          "offsetMs": 1622,
+          "durationMs": 425,
+          "text": "石头"
+        },
+        {
+          "offsetMs": 2163,
+          "durationMs": 374,
+          "text": "拆成"
+        },
+        {
+          "offsetMs": 2537,
+          "durationMs": 77,
+          "text": "了"
+        },
+        {
+          "offsetMs": 2627,
+          "durationMs": 335,
+          "text": "清楚"
+        },
+        {
+          "offsetMs": 2962,
+          "durationMs": 90,
+          "text": "的"
+        },
+        {
+          "offsetMs": 3065,
+          "durationMs": 928,
+          "text": "小踏脚石"
+        },
+        {
+          "offsetMs": 4573,
+          "durationMs": 258,
+          "text": "按"
+        },
+        {
+          "offsetMs": 4844,
+          "durationMs": 258,
+          "text": "自己"
+        },
+        {
+          "offsetMs": 5114,
+          "durationMs": 322,
+          "text": "舒服"
+        },
+        {
+          "offsetMs": 5437,
+          "durationMs": 103,
+          "text": "的"
+        },
+        {
+          "offsetMs": 5553,
+          "durationMs": 387,
+          "text": "步子"
+        },
+        {
+          "offsetMs": 6055,
+          "durationMs": 284,
+          "text": "迈出"
+        },
+        {
+          "offsetMs": 6352,
+          "durationMs": 142,
+          "text": "这"
+        },
+        {
+          "offsetMs": 6493,
+          "durationMs": 103,
+          "text": "一"
+        },
+        {
+          "offsetMs": 6609,
+          "durationMs": 425,
+          "text": "小步"
+        },
+        {
+          "offsetMs": 7150,
+          "durationMs": 142,
+          "text": "就"
+        },
+        {
+          "offsetMs": 7292,
+          "durationMs": 180,
+          "text": "很"
+        },
+        {
+          "offsetMs": 7473,
+          "durationMs": 232,
+          "text": "棒"
+        },
+        {
+          "offsetMs": 7705,
+          "durationMs": 155,
+          "text": "啦"
+        }
+      ]
+    },
+    "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以": {
+      "id": "playful-buddy:你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "normKey": "你选择了先停下来休息一会儿不用勉强马上做决定什么时候想继续都可以",
+      "profileId": "playful-buddy",
+      "voiceName": "zh-CN-XiaoyiNeural",
+      "audioUrl": "/audio/tts/playful-buddy-fba68ee3dc77fd72.mp3",
+      "durationMs": 7113,
+      "boundaries": [
+        {
+          "offsetMs": 102,
+          "durationMs": 129,
+          "text": "你"
+        },
+        {
+          "offsetMs": 243,
+          "durationMs": 619,
+          "text": "选择了"
+        },
+        {
+          "offsetMs": 978,
+          "durationMs": 232,
+          "text": "先"
+        },
+        {
+          "offsetMs": 1210,
+          "durationMs": 180,
+          "text": "停"
+        },
+        {
+          "offsetMs": 1390,
+          "durationMs": 258,
+          "text": "下来"
+        },
+        {
+          "offsetMs": 1661,
+          "durationMs": 296,
+          "text": "休息"
+        },
+        {
+          "offsetMs": 1970,
+          "durationMs": 361,
+          "text": "一会儿"
+        },
+        {
+          "offsetMs": 2912,
+          "durationMs": 309,
+          "text": "不用"
+        },
+        {
+          "offsetMs": 3235,
+          "durationMs": 335,
+          "text": "勉强"
+        },
+        {
+          "offsetMs": 3582,
+          "durationMs": 374,
+          "text": "马上"
+        },
+        {
+          "offsetMs": 3969,
+          "durationMs": 129,
+          "text": "做"
+        },
+        {
+          "offsetMs": 4111,
+          "durationMs": 425,
+          "text": "决定"
+        },
+        {
+          "offsetMs": 4858,
+          "durationMs": 747,
+          "text": "什么时候"
+        },
+        {
+          "offsetMs": 5709,
+          "durationMs": 206,
+          "text": "想"
+        },
+        {
+          "offsetMs": 5928,
+          "durationMs": 348,
+          "text": "继续"
+        },
+        {
+          "offsetMs": 6289,
+          "durationMs": 168,
+          "text": "都"
+        },
+        {
+          "offsetMs": 6456,
+          "durationMs": 477,
+          "text": "可以"
         }
       ]
     },

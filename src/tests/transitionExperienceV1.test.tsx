@@ -28,6 +28,10 @@ import {
   investigateSliceCFearReason,
 } from '../domain/transition/transitionExperienceEngine';
 import { TwoHomesBridgeModal } from '../components/ChildIsland/TwoHomesBridge/TwoHomesBridgeModal';
+import {
+  DifficultyBreakerModal,
+  BREAKER_FIXED_VOICE_LINES,
+} from '../components/ChildIsland/DifficultyBreaker/DifficultyBreakerModal';
 import { ParentDashboard } from '../components/ParentCoach/ParentDashboard';
 import { INITIAL_PARENT_SCRIPTS } from '../data/mockData';
 
@@ -897,6 +901,70 @@ describe('A-LAND｜换家场景多维心理体验与认知逻辑重构 V1.0 (3 S
           expect(entry?.voiceName).toBe(comp.expectedNeuralVoice);
         }
       }
+    });
+
+    it('DifficultyBreakerModal removes "换家时有点害怕睡不着" presupposition and supports 4 multi-dimensional transition sub-branches + 4-companion voice sync', () => {
+      const view = createStatefulTestRenderer(
+        <AppProvider>
+          <DifficultyBreakerModal isOpen={true} onClose={() => {}} />
+        </AppProvider>
+      );
+
+      const fullPickText = view.findByTestId('difficulty-breaker-modal')?.text || '';
+      expect(fullPickText).not.toContain('换家时有点害怕睡不着');
+      expect(fullPickText).not.toContain('把小床单洗得香喷喷的');
+      expect(fullPickText).not.toContain('两个爱我的港湾');
+      expect(fullPickText).toContain('要去另一边住，手头或心里有不同头绪');
+
+      // Enter diff-two-homes preset
+      view.click(view.findByTestId('breaker-pick-diff-two-homes')!);
+      expect(view.findByTestId('breaker-svg-stage-fen')).toBeTruthy();
+      expect(view.findByTestId('breaker-transition-sub-selector')).toBeTruthy();
+
+      // Verify all 4 transition sub-branches are switchable without fear presupposition
+      view.click(view.findByTestId('breaker-sub-sub_loyalty_conflict')!);
+      expect(view.findByTestId('breaker-active-headline')?.text).toContain(
+        '在这边玩得开心，却担心另一边大人难过'
+      );
+
+      // Reveal fact, feeling, and guess
+      view.click(view.findByTestId('breaker-fen-fact')!);
+      view.click(view.findByTestId('breaker-fen-feeling')!);
+      view.click(view.findByTestId('breaker-fen-guess')!);
+      expect(view.findByTestId('breaker-fen-guess')?.text).toContain('[未证实猜测]');
+
+      // Switch to sub_ordinary_transition -> zero anxiety soothing
+      view.click(view.findByTestId('breaker-sub-sub_ordinary_transition')!);
+      expect(view.findByTestId('breaker-active-headline')?.text).toContain(
+        '心情轻松去另一边，只需分步理好日常物品'
+      );
+
+      // Switch to sub_specific_concern -> includes safety shield action
+      view.click(view.findByTestId('breaker-sub-sub_specific_concern')!);
+      view.click(view.findByTestId('breaker-next-to-tong')!);
+      expect(view.findByTestId('breaker-svg-stage-tong')).toBeTruthy();
+      view.click(view.findByTestId('breaker-flip-lens-btn')!);
+
+      // Proceed to Step 3 (择): verify voluntary pause and 1-step completion
+      view.click(view.findByTestId('breaker-next-to-ze')!);
+      view.click(view.findByTestId('breaker-pause-btn')!);
+      expect(view.findByTestId('breaker-paused-banner')?.text).toContain('不用勉强马上做决定');
+
+      // Place 1 safety stone and complete
+      view.click(view.findByTestId('breaker-action-act-th-spec-4')!);
+      view.click(view.findByTestId('breaker-complete-btn')!);
+      expect(view.findByTestId('breaker-step-complete')).toBeTruthy();
+
+      // Verify all 7 fixed breaker voice lines exist in prebaked manifest for all 4 companions
+      for (const comp of ALL_COMPANIONS) {
+        for (const line of Object.values(BREAKER_FIXED_VOICE_LINES)) {
+          const entry = speechNarrator.findPrebakedEntry(line, comp.expectedProfile);
+          expect(entry).not.toBeNull();
+          expect(entry?.voiceName).toBe(comp.expectedNeuralVoice);
+        }
+      }
+
+      view.unmount();
     });
   });
 });
