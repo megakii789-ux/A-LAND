@@ -4,10 +4,10 @@
 
 - **Git 分支**：`ui/visual-v2-story-pilot`
 - **基线提交（整改前）**：`e3f8b1e614f5e52ff6577439083dce0b01a72ff7`
-- **独立预览站点**：
-  - 分支预览：`https://ui-visual-v2-story-pilot.qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot`
-  - 项目主域：`https://qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot`
-  - 部署元数据：`https://ui-visual-v2-story-pilot.qingyu-island-v2-assetlab.pages.dev/version.json`
+- **Gate 3R–4R 代码整改提交**：`be636b4baaac8656668a174e0b2fa3372ef26a8a`
+- **独立预览站点（公开免登录）**：
+  - 分支固定别名预览：`https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot`
+  - 分支部署元数据：`https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/version.json`
 - **门禁声明**：
   - `artDirectorGate`: `ART_DIRECTOR_QA_HOLD`
   - `contentQaFlag`: `CONTENT_QA_REVIEW`
