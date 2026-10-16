@@ -1411,7 +1411,11 @@ export function recordTransitionExperienceProgress(
   const current = getProductExperienceMetrics(scope);
 
   const sliceId = sliceState.activeSliceId;
-  const isActionObserved = Boolean(sliceState.chosenAction && sliceState.observedOutcome);
+  const isActionObserved = Boolean(
+    sliceState.chosenAction &&
+      sliceState.observedOutcome &&
+      sliceState.observedOutcome.actionId === sliceState.chosenAction
+  );
   const isPaused = Boolean(sliceState.pausedVoluntarily);
   const isSafetyAlert =
     sliceState.safetyConcern === 'specific_person_or_harm_behavior' ||

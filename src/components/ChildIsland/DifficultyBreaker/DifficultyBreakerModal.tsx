@@ -524,6 +524,14 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
     speechNarrator.switchCompanion(nextCompanionId);
   };
 
+  const resetBreakerScenarioProgressToFen = () => {
+    setFenRevealed({ fact: false, feeling: false, guess: false });
+    setIsCoinFlipped(false);
+    setSteppingStones([null, null, null]);
+    setPausedVoluntarily(false);
+    setCurrentStep('fen');
+  };
+
   const handlePickPreset = (presetId: string, subBranchOverride?: BreakerTransitionSubBranchId) => {
     sounds.playClick();
     setSelectedPresetId(presetId);
@@ -531,11 +539,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
     if (subBranchOverride) {
       setTransitionSubId(subBranchOverride);
     }
-    setFenRevealed({ fact: false, feeling: false, guess: false });
-    setIsCoinFlipped(false);
-    setSteppingStones([null, null, null]);
-    setPausedVoluntarily(false);
-    setCurrentStep('fen');
+    resetBreakerScenarioProgressToFen();
 
     const presetObj = PRESET_DIFFICULTIES.find((p) => p.id === presetId) || PRESET_DIFFICULTIES[0];
     const stageObj =
@@ -548,10 +552,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
   const handleSwitchTransitionSubBranch = (subId: BreakerTransitionSubBranchId) => {
     sounds.playClick();
     setTransitionSubId(subId);
-    setFenRevealed({ fact: false, feeling: false, guess: false });
-    setIsCoinFlipped(false);
-    setSteppingStones([null, null, null]);
-    setPausedVoluntarily(false);
+    resetBreakerScenarioProgressToFen();
     const subContent = TRANSITION_SUB_BRANCHES[subId];
     speakWithCompanion(
       subContent.entrySpeech,
@@ -706,7 +707,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
-            <div className="flex items-center gap-1 flex-wrap" aria-label="切换拆解台伙伴角色">
+            <div className="flex items-center gap-1.5 flex-wrap" aria-label="切换拆解台伙伴角色">
               {BREAKER_COMPANION_ORDER.map((compId) => {
                 const comp = ANIMAL_COMPANIONS[compId];
                 const isSelected = compId === activeCompanion.id;
@@ -716,7 +717,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                     type="button"
                     data-testid={`breaker-companion-switch-${compId}`}
                     onClick={() => handleSwitchCompanionInline(compId)}
-                    className={`min-h-[32px] px-2.5 py-0.5 rounded-xl text-xs font-black border cursor-pointer ${
+                    className={`min-h-[44px] min-w-[44px] px-3 py-1 rounded-xl text-xs font-black border cursor-pointer ${
                       isSelected
                         ? 'bg-amber-200 text-amber-950 border-amber-600 shadow-2xs'
                         : 'bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200'
@@ -731,14 +732,14 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
 
           <div
             data-testid="breaker-companion-subtitle"
-            className="px-2.5 py-1 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs font-bold text-stone-800 leading-snug flex items-center justify-between gap-2"
+            className="px-2.5 py-1.5 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs font-bold text-stone-800 leading-snug flex items-center justify-between gap-2"
           >
             <span className="flex-1">{activeSubtitleText}</span>
             <button
               type="button"
               data-testid="breaker-replay-speech"
               onClick={() => speakWithCompanion(lastSpokenText)}
-              className="min-h-[30px] px-2 py-0.5 rounded-lg bg-white hover:bg-amber-100 text-amber-950 border border-amber-300 text-[11px] font-black shrink-0 flex items-center gap-1 cursor-pointer"
+              className="min-h-[44px] min-w-[44px] px-3 py-1 rounded-xl bg-white hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-black shrink-0 flex items-center justify-center gap-1 cursor-pointer"
               aria-label="重听拆解台语音"
             >
               <Volume2 className="w-3.5 h-3.5" />
@@ -755,7 +756,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 type="button"
                 data-testid="breaker-step-tab-fen"
                 onClick={() => setCurrentStep('fen')}
-                className={`min-h-[42px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
+                className={`min-h-[44px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
                   currentStep === 'fen'
                     ? 'bg-sky-100 text-sky-950 border-sky-600 shadow-xs'
                     : 'bg-white/80 text-stone-700 border-transparent hover:border-amber-300'
@@ -768,7 +769,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 type="button"
                 data-testid="breaker-step-tab-tong"
                 onClick={() => setCurrentStep('tong')}
-                className={`min-h-[42px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
+                className={`min-h-[44px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
                   currentStep === 'tong'
                     ? 'bg-emerald-100 text-emerald-950 border-emerald-600 shadow-xs'
                     : 'bg-white/80 text-stone-700 border-transparent hover:border-amber-300'
@@ -781,7 +782,7 @@ export const DifficultyBreakerModal: React.FC<Props> = ({ isOpen, onClose }) => 
                 type="button"
                 data-testid="breaker-step-tab-ze"
                 onClick={() => setCurrentStep('ze')}
-                className={`min-h-[42px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
+                className={`min-h-[44px] px-2 py-1.5 rounded-xl font-black text-xs sm:text-sm text-center cursor-pointer border-2 ${
                   currentStep === 'ze'
                     ? 'bg-amber-100 text-amber-950 border-amber-600 shadow-xs'
                     : 'bg-white/80 text-stone-700 border-transparent hover:border-amber-300'

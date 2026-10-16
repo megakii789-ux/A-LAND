@@ -590,7 +590,8 @@ describe('A-LAND V1.1: 全站四角色语音一致性修复 (NarrationSession + 
       'zh-CN-XiaoxiaoNeural'
     );
 
-    // Rule 5: Paused state switch must NOT resume or trigger playback
+    // Rule 5: Paused state switch terminates old audio source, does NOT auto-play, preserves paused intent,
+    // and establishes a clean new playback session in the new companion's voice when the user clicks Resume ("继续")
     speechNarrator.pause();
     expect(speechNarrator.getNarrationSession().playbackStatus).toBe('paused');
     expect(secondAudio.paused).toBe(true);
@@ -598,9 +599,28 @@ describe('A-LAND V1.1: 全站四角色语音一致性修复 (NarrationSession + 
     speechNarrator.switchCompanion('tiantian_raccoon');
     const pausedSwitchedSession = speechNarrator.getNarrationSession();
     expect(pausedSwitchedSession.companionId).toBe('tiantian_raccoon');
-    expect(pausedSwitchedSession.playbackStatus).toBe('idle');
-    expect(speechNarrator.getSpeaking()).toBe(false);
+    expect(pausedSwitchedSession.playbackStatus).toBe('paused');
+    expect(speechNarrator.getIsPaused()).toBe(true);
+    expect(speechNarrator.getSpeaking()).toBe(true);
     expect(speechNarrator.getActiveAudioElement()).toBeNull();
+
+    // User clicks Resume ("继续") -> plays in Tiantian's voice with a new session
+    speechNarrator.resume();
+    const resumedSession = speechNarrator.getNarrationSession();
+    const resumedAudio = speechNarrator.getActiveAudioElement() as MockHtmlAudioElement;
+    expect(resumedSession.companionId).toBe('tiantian_raccoon');
+    expect(resumedSession.playbackStatus).toBe('playing');
+    expect(resumedSession.playbackSessionId).toBeGreaterThan(pausedSwitchedSession.playbackSessionId);
+    expect(speechNarrator.getIsPaused()).toBe(false);
+    expect(speechNarrator.getSpeaking()).toBe(true);
+    expect(resumedAudio).not.toBeNull();
+    expect(resumedAudio).not.toBe(secondAudio);
+    expect(speechNarrator.getLastPlaybackDiagnostics()?.neuralVoiceName).toBe(
+      'zh-CN-YunxiNeural'
+    );
+
+    // Stop speech so Rule 6 starts from a true idle state
+    speechNarrator.stop();
 
     // Rule 6: Switching while idle/not speaking in PersonalizationSettingsModal does NOT auto-play a story
     const settingsView = createStatefulTestRenderer(
@@ -613,6 +633,7 @@ describe('A-LAND V1.1: 全站四角色语音一致性修复 (NarrationSession + 
     expect(speechNarrator.getCommittedCompanionId()).toBe('qiqi_deer');
     expect(speechNarrator.getSpeaking()).toBe(false);
     expect(speechNarrator.getNarrationSession().companionId).toBe('qiqi_deer');
+    expect(speechNarrator.getNarrationSession().playbackStatus).toBe('idle');
     settingsView.unmount();
 
     // Rule 7: Temporary audition in VoiceSystemAuditionModal never overwrites committed companion or pre-audition text

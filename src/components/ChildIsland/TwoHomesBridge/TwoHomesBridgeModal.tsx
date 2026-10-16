@@ -37,6 +37,9 @@ import {
   SpecificFearReasonId,
   TransitionActionId,
   TransitionExperienceState,
+  SliceBSortingBubbleId,
+  SLICE_B_SORTING_BUBBLES,
+  LELE_THIRD_PERSON_STORIES,
   TRANSITION_FIXED_VOICE_LINES,
   TRANSITION_FEELING_OPTIONS,
   SPECIFIC_FEAR_REASONS,
@@ -44,6 +47,7 @@ import {
   toggleTransitionFeeling,
   interactWithSliceAObject,
   interactWithSliceBObject,
+  getSliceBSortingStatus,
   investigateSliceCFearReason,
   getAvailableActionsForState,
   executeTransitionAction,
@@ -213,8 +217,11 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [calendarViewMode, setCalendarViewMode] = useState<'strip' | 'list'>('strip');
   const [newMissText, setNewMissText] = useState<string>('');
   const [showParentCoRead, setShowParentCoRead] = useState<boolean>(false);
+  const [selectedSliceBBubbleId, setSelectedSliceBBubbleId] =
+    useState<SliceBSortingBubbleId | null>(null);
 
   const [isSpeaking, setIsSpeaking] = useState<boolean>(speechNarrator.getSpeaking());
+  const [isPaused, setIsPaused] = useState<boolean>(speechNarrator.getIsPaused());
   const [karaoke, setKaraoke] = useState<KaraokeSyncState>(speechNarrator.getKaraokeState());
 
   const activeCompanion =
@@ -230,6 +237,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
   useEffect(() => {
     const unsubscribe = speechNarrator.subscribe(() => {
       setIsSpeaking(speechNarrator.getSpeaking());
+      setIsPaused(speechNarrator.getIsPaused());
       setKaraoke(speechNarrator.getKaraokeState());
     });
     return unsubscribe;
@@ -451,26 +459,8 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const handleToggleFeeling = (feelingId: TransitionFeelingId) => {
     sounds.playClick();
-    const nextState = toggleTransitionFeeling(currentState, feelingId);
-    // 若感受组合触发了跨情境路由（例如仅选开心去另一边 -> ORDINARY_HAPPY_TRANSITION），合并到目标 Slice
-    if (nextState.activeSliceId !== activeSliceId) {
-      const baseTarget =
-        sliceStatesById[nextState.activeSliceId] ||
-        createInitialTransitionExperienceState(nextState.activeSliceId);
-      const mergedTarget: TransitionExperienceState = {
-        ...baseTarget,
-        feelingSet: nextState.feelingSet,
-        interactiveObjects: {
-          ...baseTarget.interactiveObjects,
-          ...nextState.interactiveObjects,
-        },
-        isAnxietySoothingTriggered: false,
-        currentCompanionSpeech: nextState.currentCompanionSpeech,
-      };
-      commitSliceState(mergedTarget, mergedTarget.currentCompanionSpeech);
-    } else {
-      commitSliceState(nextState, nextState.currentCompanionSpeech);
-    }
+    const nextState = toggleTransitionFeeling(currentState, feelingId, sliceStatesById);
+    commitSliceState(nextState, nextState.currentCompanionSpeech);
   };
 
   const availableActions = getAvailableActionsForState(currentState);
@@ -532,7 +522,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 onClick={() =>
                   speakWithCurrentCompanion(TRANSITION_FIXED_VOICE_LINES.ENTRY_GREETING)
                 }
-                className="px-2.5 py-1 rounded-xl bg-teal-100 hover:bg-teal-200 text-teal-900 text-xs font-black min-h-[36px] flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+                className="px-3 py-1.5 rounded-xl bg-teal-100 hover:bg-teal-200 text-teal-900 text-xs font-black min-h-[44px] min-w-[44px] flex items-center gap-1 transition-colors cursor-pointer shrink-0"
                 aria-label="听一听双向桥小驿介绍"
               >
                 <Volume2 className="w-4 h-4" />
@@ -578,7 +568,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
             </div>
 
             {/* 场景内一键切换四伙伴（用于验证朗读中切换角色时头像、语音、字幕同步更新） */}
-            <div className="flex items-center gap-1 flex-wrap" aria-label="切换陪伴角色">
+            <div className="flex items-center gap-1.5 flex-wrap" aria-label="切换陪伴角色">
               {COMPANION_ORDER.map((compId) => {
                 const comp = ANIMAL_COMPANIONS[compId];
                 const isSelected = compId === activeCompanion.id;
@@ -588,7 +578,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     type="button"
                     data-testid={`transition-companion-switch-${compId}`}
                     onClick={() => handleSwitchCompanionInline(compId)}
-                    className={`min-h-[36px] px-2.5 py-1 rounded-xl text-xs font-black border transition-all cursor-pointer ${
+                    className={`min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-teal-700 text-white border-teal-800 shadow-2xs'
                         : 'bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200'
@@ -607,16 +597,36 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
             className="px-3 py-2 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs sm:text-sm font-bold text-stone-800 leading-snug flex items-center justify-between gap-2"
           >
             <span className="flex-1">{activeSubtitleText}</span>
-            <button
-              type="button"
-              data-testid="transition-replay-current-speech"
-              onClick={() => speakWithCurrentCompanion(currentState.currentCompanionSpeech)}
-              className="min-w-[36px] min-h-[36px] px-2 py-1 rounded-lg bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-black shrink-0 flex items-center gap-1 cursor-pointer"
-              aria-label="重听当前伙伴语音"
-            >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>重听</span>
-            </button>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {isSpeaking && (
+                <button
+                  type="button"
+                  data-testid="transition-pause-resume-speech"
+                  onClick={() => {
+                    sounds.playClick();
+                    if (isPaused) {
+                      speechNarrator.resume();
+                    } else {
+                      speechNarrator.pause();
+                    }
+                  }}
+                  className="min-w-[44px] min-h-[44px] px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 text-xs font-black shrink-0 flex items-center justify-center gap-1 cursor-pointer"
+                  aria-label={isPaused ? '继续朗读' : '暂停朗读'}
+                >
+                  <span>{isPaused ? '▶ 继续' : '⏸ 暂停'}</span>
+                </button>
+              )}
+              <button
+                type="button"
+                data-testid="transition-replay-current-speech"
+                onClick={() => speakWithCurrentCompanion(currentState.currentCompanionSpeech)}
+                className="min-w-[44px] min-h-[44px] px-3 py-1.5 rounded-xl bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-black shrink-0 flex items-center justify-center gap-1 cursor-pointer"
+                aria-label="重听当前伙伴语音"
+              >
+                <Volume2 className="w-3.5 h-3.5" />
+                <span>重听</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -668,7 +678,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
           >
             <span className="font-bold text-teal-950">
               ✨ 已为你保留当前探索状态：{SLICE_TABS.find((t) => t.id === activeSliceId)?.shortTitle}
-              {currentState.context === 'story_experience' ? '（故事体验模式）' : ''}
+              {currentState.context === 'story_experience' ? '（小水獭乐乐·故事体验模式）' : ''}
             </span>
             <button
               type="button"
@@ -677,7 +687,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 sounds.playClick();
                 setShowNeutralEntryGate(true);
               }}
-              className="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-teal-900 border border-teal-300 font-black text-[11px] cursor-pointer min-h-[32px]"
+              className="px-3 py-1.5 rounded-xl bg-white hover:bg-teal-100 text-teal-900 border border-teal-300 font-black text-xs cursor-pointer min-h-[44px] min-w-[44px]"
             >
               切换首次入口选项
             </button>
@@ -702,7 +712,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   currentState.context === 'own_life_practice'
                     ? 'bg-sky-700 text-white border-sky-800'
                     : 'bg-stone-100 text-stone-600 border-stone-200'
-                }`}
+                } min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer`}
               >
                 我的生活练习
               </button>
@@ -710,16 +720,49 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 type="button"
                 data-testid="transition-context-story_experience"
                 onClick={() => handleToggleContextMode('story_experience')}
-                className={`px-2 py-1 rounded-lg text-[11px] font-bold border cursor-pointer ${
+                className={`${
                   currentState.context === 'story_experience'
                     ? 'bg-sky-700 text-white border-sky-800'
                     : 'bg-stone-100 text-stone-600 border-stone-200'
-                }`}
+                } min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer`}
               >
-                小动物故事体验
+                小水獭乐乐的故事
               </button>
             </div>
           </div>
+
+          {/* Sprint 4.3 第二阶段：真实第三人称角色「小水獭乐乐」的故事事件与情境舞台 */}
+          {currentState.context === 'story_experience' && (
+            <div
+              data-testid="lele-third-person-story-card"
+              data-character-name={LELE_THIRD_PERSON_STORIES[activeSliceId].characterName}
+              className="p-3 rounded-2xl bg-sky-50/95 border-2 border-sky-300 space-y-1.5 text-stone-800"
+            >
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span
+                  data-testid="lele-story-character-badge"
+                  className="text-xs font-black px-2.5 py-1 rounded-full bg-sky-700 text-white"
+                >
+                  🦦 {LELE_THIRD_PERSON_STORIES[activeSliceId].characterRoleLabel}
+                </span>
+                <span
+                  data-testid="lele-story-chapter-title"
+                  className="text-xs sm:text-sm font-black text-sky-950"
+                >
+                  {LELE_THIRD_PERSON_STORIES[activeSliceId].chapterTitle}
+                </span>
+              </div>
+              <p
+                data-testid="lele-story-event-text"
+                className="text-xs sm:text-sm font-bold text-stone-800 leading-relaxed"
+              >
+                📖 故事事件：{LELE_THIRD_PERSON_STORIES[activeSliceId].storyEvent}
+              </p>
+              <p className="text-xs font-extrabold text-sky-900">
+                💡 {LELE_THIRD_PERSON_STORIES[activeSliceId].storyQuestionPrompt}
+              </p>
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-1.5">
             {TRANSITION_FEELING_OPTIONS.map((opt) => {
@@ -731,7 +774,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   data-testid={`feeling-chip-${opt.id}`}
                   aria-pressed={active}
                   onClick={() => handleToggleFeeling(opt.id)}
-                  className={`min-h-[40px] px-2.5 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer flex items-center gap-1 ${
+                  className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer flex items-center gap-1 ${
                     active
                       ? 'bg-amber-500 text-white border-amber-600 shadow-2xs'
                       : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-amber-300'
@@ -840,7 +883,9 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     );
                   }
                 }}
-                className="cursor-pointer"
+                className={
+                  activeSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT' ? 'cursor-pointer' : ''
+                }
               >
                 <rect x="28" y="96" width="112" height="76" rx="12" fill="#FEF3C7" stroke="#D97706" strokeWidth="3" />
                 <polygon points="18,98 84,52 150,98" fill="#F59E0B" stroke="#B45309" strokeWidth="3" />
@@ -859,7 +904,9 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     );
                   }
                 }}
-                className="cursor-pointer"
+                className={
+                  activeSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT' ? 'cursor-pointer' : ''
+                }
               >
                 <rect
                   x="540"
@@ -946,89 +993,110 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 strokeWidth="2"
               />
 
-              {/* 左岸想念星 (Slice A) */}
-              <g
-                onClick={() =>
-                  commitSliceState(
-                    interactWithSliceAObject(currentState, { type: 'TOGGLE_WEST_STAR' })
-                  )
-                }
-                className="cursor-pointer"
-              >
-                <rect
-                  x="181"
-                  y="35"
-                  width="88"
-                  height="36"
-                  rx="18"
-                  fill={currentState.interactiveObjects.westStarLit ? '#FDE047' : '#FFFFFF'}
-                  stroke="#D97706"
-                  strokeWidth="3"
-                />
-                <text x="225" y="58" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#78350F">
-                  {currentState.interactiveObjects.westStarLit ? '★ 念这边' : '☆ 念这边'}
-                </text>
-              </g>
-
-              {/* 右岸期待星 (Slice A) */}
-              <g
-                onClick={() =>
-                  commitSliceState(
-                    interactWithSliceAObject(currentState, { type: 'TOGGLE_EAST_STAR' })
-                  )
-                }
-                className="cursor-pointer"
-              >
-                <rect
-                  x="411"
-                  y="35"
-                  width="88"
-                  height="36"
-                  rx="18"
-                  fill={currentState.interactiveObjects.eastStarLit ? '#7DD3FC' : '#FFFFFF'}
-                  stroke="#0284C7"
-                  strokeWidth="3"
-                />
-                <text x="455" y="58" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#0C4A6E">
-                  {currentState.interactiveObjects.eastStarLit ? '★ 盼那边' : '☆ 盼那边'}
-                </text>
-              </g>
-
-              {/* 双星同时亮起连线 */}
-              {currentState.interactiveObjects.westStarLit &&
-                currentState.interactiveObjects.eastStarLit && (
-                  <g>
-                    <line
-                      x1="249"
-                      y1="54"
-                      x2="431"
-                      y2="54"
-                      stroke="#F59E0B"
-                      strokeWidth="3"
-                      strokeDasharray="6 4"
-                    />
+              {/* Sprint 4.3 P0 修复：Slice A 专属星星仅在 SLICE_A_BIDIRECTIONAL_ATTACHMENT 中渲染与可点击，严禁在 Slice B/C/Ordinary 中触发 */}
+              {activeSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT' && (
+                <>
+                  {/* 左岸想念星 (Slice A) */}
+                  <g
+                    data-testid="svg-west-star-btn"
+                    onClick={() =>
+                      commitSliceState(
+                        interactWithSliceAObject(currentState, { type: 'TOGGLE_WEST_STAR' })
+                      )
+                    }
+                    className="cursor-pointer"
+                  >
                     <rect
-                      x="282"
-                      y="36"
-                      width="116"
-                      height="26"
-                      rx="13"
-                      fill="#FEF3C7"
-                      stroke="#F59E0B"
-                      strokeWidth="2"
+                      x="181"
+                      y="35"
+                      width="88"
+                      height="36"
+                      rx="18"
+                      fill={currentState.interactiveObjects.westStarLit ? '#FDE047' : '#FFFFFF'}
+                      stroke="#D97706"
+                      strokeWidth="3"
                     />
                     <text
-                      x="340"
-                      y="53"
+                      x="225"
+                      y="58"
                       textAnchor="middle"
-                      fontSize="12"
+                      fontSize="13"
                       fontWeight="bold"
-                      fill="#92400E"
+                      fill="#78350F"
                     >
-                      双星同亮·免二选一
+                      {currentState.interactiveObjects.westStarLit ? '★ 念这边' : '☆ 念这边'}
                     </text>
                   </g>
-                )}
+
+                  {/* 右岸期待星 (Slice A) */}
+                  <g
+                    data-testid="svg-east-star-btn"
+                    onClick={() =>
+                      commitSliceState(
+                        interactWithSliceAObject(currentState, { type: 'TOGGLE_EAST_STAR' })
+                      )
+                    }
+                    className="cursor-pointer"
+                  >
+                    <rect
+                      x="411"
+                      y="35"
+                      width="88"
+                      height="36"
+                      rx="18"
+                      fill={currentState.interactiveObjects.eastStarLit ? '#7DD3FC' : '#FFFFFF'}
+                      stroke="#0284C7"
+                      strokeWidth="3"
+                    />
+                    <text
+                      x="455"
+                      y="58"
+                      textAnchor="middle"
+                      fontSize="13"
+                      fontWeight="bold"
+                      fill="#0C4A6E"
+                    >
+                      {currentState.interactiveObjects.eastStarLit ? '★ 盼那边' : '☆ 盼那边'}
+                    </text>
+                  </g>
+
+                  {/* 双星同时亮起连线 */}
+                  {currentState.interactiveObjects.westStarLit &&
+                    currentState.interactiveObjects.eastStarLit && (
+                      <g data-testid="svg-dual-stars-connected">
+                        <line
+                          x1="249"
+                          y1="54"
+                          x2="431"
+                          y2="54"
+                          stroke="#F59E0B"
+                          strokeWidth="3"
+                          strokeDasharray="6 4"
+                        />
+                        <rect
+                          x="282"
+                          y="36"
+                          width="116"
+                          height="26"
+                          rx="13"
+                          fill="#FEF3C7"
+                          stroke="#F59E0B"
+                          strokeWidth="2"
+                        />
+                        <text
+                          x="340"
+                          y="53"
+                          textAnchor="middle"
+                          fontSize="12"
+                          fontWeight="bold"
+                          fill="#92400E"
+                        >
+                          双星同亮·免二选一
+                        </text>
+                      </g>
+                    )}
+                </>
+              )}
 
               {/* Slice B 责任小围栏或分界镜指示 */}
               {activeSliceId === 'SLICE_B_LOYALTY_CONFLICT' && (
@@ -1271,185 +1339,479 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* ================= SLICE B 专属触控交互区：忠诚冲突 ================= */}
-          {activeSliceId === 'SLICE_B_LOYALTY_CONFLICT' && (
-            <div data-testid="slice-b-interactive-panel" className="space-y-3">
-              <div className="flex items-center justify-between flex-wrap gap-1.5">
-                <span className="text-xs sm:text-sm font-black text-teal-950">
-                  ② 用分界镜把「真实经历」和「对大人心情的猜测」分开：
-                </span>
-                <span className="text-[11px] font-bold text-indigo-900 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
-                  大人的情绪不由小孩负责
-                </span>
-              </div>
+          {/* ================= SLICE B 专属触控交互区：忠诚冲突（事实与猜测分界台） ================= */}
+          {activeSliceId === 'SLICE_B_LOYALTY_CONFLICT' && (() => {
+            const sortingStatus = getSliceBSortingStatus(currentState);
+            const bubbleList = Object.values(SLICE_B_SORTING_BUBBLES);
+            const placements: Record<
+              SliceBSortingBubbleId,
+              'known_fact' | 'guess_about_adult_or_future' | null
+            > = {
+              fact_happy_here: currentState.interactiveObjects.classifiedFactBubble,
+              guess_other_adult_sad: currentState.interactiveObjects.classifiedGuessBubble,
+              guess_must_be_messenger: currentState.interactiveObjects.classifiedMessengerBubble,
+            };
+            const inspectedIds = currentState.interactiveObjects.inspectedEvidenceIds || [];
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {/* 泡泡 1：真实经历 */}
-                <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-2">
-                  <div className="text-xs font-black text-emerald-950">
-                    🧩 想法一：“我今天在这边搭积木、玩拼图笑了”
+            const classifyBubbleTo = (
+              bubbleId: SliceBSortingBubbleId,
+              targetBucket: 'known_fact' | 'guess_about_adult_or_future'
+            ) => {
+              sounds.playClick();
+              commitSliceState(
+                interactWithSliceBObject(currentState, {
+                  type: 'CLASSIFY_BUBBLE',
+                  bubbleId,
+                  targetBucket,
+                })
+              );
+              setSelectedSliceBBubbleId(null);
+            };
+
+            return (
+              <div data-testid="slice-b-interactive-panel" className="space-y-3">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="space-y-0.5">
+                    <span className="text-xs sm:text-sm font-black text-teal-950 block">
+                      ② 分界镜归类台：移动想法气泡，先查证据再放进【事实盘】或【猜测云】
+                    </span>
+                    <span
+                      data-testid="slice-b-sorting-progress-badge"
+                      className="text-[11px] font-bold text-teal-900 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200 inline-block"
+                    >
+                      已归类 {sortingStatus.classifiedCount}/3 · 已查证据 {sortingStatus.inspectedCount} 条
+                      {sortingStatus.revisionCount > 0
+                        ? ` · 已调整 ${sortingStatus.revisionCount} 次`
+                        : ''}
+                      {sortingStatus.isReadyForFactGuessConclusion ? ' · ✓ 核心分界正确' : ''}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2">
+
+                  <div className="flex items-center gap-1.5 flex-wrap">
                     <button
                       type="button"
-                      data-testid="slice-b-classify-fact"
+                      data-testid="slice-b-undo-btn"
+                      disabled={!sortingStatus.canUndo}
                       onClick={() => {
                         sounds.playClick();
                         commitSliceState(
                           interactWithSliceBObject(currentState, {
-                            type: 'CLASSIFY_BUBBLE',
-                            bubbleId: 'fact_happy_here',
-                            targetBucket: 'known_fact',
+                            type: 'UNDO_LAST_CLASSIFICATION',
                           })
                         );
                       }}
-                      className={`min-h-[42px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer ${
-                        currentState.interactiveObjects.classifiedFactBubble === 'known_fact'
-                          ? 'bg-emerald-600 text-white border-emerald-700'
-                          : 'bg-white text-emerald-900 border-emerald-300 hover:bg-emerald-100'
-                      }`}
+                      className="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 disabled:opacity-45 text-xs font-black text-stone-800 cursor-pointer flex items-center gap-1"
                     >
-                      ✓ 放进【已知事实盘】
+                      <span>↩ 撤销上一步</span>
                     </button>
-                  </div>
-                </div>
-
-                {/* 泡泡 2：对大人感受的猜测 (反例 #3) */}
-                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-2">
-                  <div className="text-xs font-black text-amber-950">
-                    💭 想法二：“另一边的大人现在一定在家里伤心、怪我不乖”
-                  </div>
-                  <div className="flex flex-wrap items-center gap-1.5">
                     <button
                       type="button"
-                      data-testid="slice-b-classify-guess"
+                      data-testid="slice-b-reset-sorting-btn"
+                      disabled={sortingStatus.classifiedCount === 0}
                       onClick={() => {
                         sounds.playClick();
                         commitSliceState(
                           interactWithSliceBObject(currentState, {
-                            type: 'CLASSIFY_BUBBLE',
-                            bubbleId: 'guess_other_adult_sad',
-                            targetBucket: 'guess_about_adult_or_future',
+                            type: 'RESET_SORTING',
                           })
                         );
+                        setSelectedSliceBBubbleId(null);
                       }}
-                      className={`min-h-[42px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer ${
-                        currentState.interactiveObjects.classifiedGuessBubble ===
-                        'guess_about_adult_or_future'
-                          ? 'bg-amber-600 text-white border-amber-700'
-                          : 'bg-white text-amber-900 border-amber-300 hover:bg-amber-100'
-                      }`}
+                      className="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 disabled:opacity-45 text-xs font-bold text-stone-700 cursor-pointer"
                     >
-                      ☁️ 放进【未证实的猜测云】
-                    </button>
-
-                    <button
-                      type="button"
-                      data-testid="slice-b-try-claim-guess-as-fact"
-                      onClick={() => {
-                        sounds.playClick();
-                        commitSliceState(
-                          interactWithSliceBObject(currentState, {
-                            type: 'CLASSIFY_BUBBLE',
-                            bubbleId: 'guess_other_adult_sad',
-                            targetBucket: 'known_fact',
-                          })
-                        );
-                      }}
-                      className="min-h-[42px] px-2.5 py-1.5 rounded-xl text-xs font-bold bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300 cursor-pointer"
-                    >
-                      能当成确定事实吗？
+                      🔄 重新归类
                     </button>
                   </div>
                 </div>
-              </div>
 
-              {currentState.interactiveObjects.guessDirectlyClaimedAsFactBlocked && (
-                <div
-                  data-testid="slice-b-guess-not-fact-guard"
-                  className="p-2.5 rounded-xl bg-amber-100 border border-amber-400 text-xs font-bold text-amber-950"
-                >
-                  🔍 侦探分界提示：另一边的大人现在是不是难过，只是我们心里的担心和猜测，绝对不能直接当成已经确定的事实哦！已帮你归入【未证实的猜测云】。
+                {/* 三个待归类/可调整的想法气泡卡（支持拖拽、点选气泡后点托盘、或直接点移动按钮） */}
+                <div className="grid grid-cols-1 gap-2.5" data-testid="slice-b-bubble-cards">
+                  {bubbleList.map((bubble) => {
+                    const currentPlacement = placements[bubble.id];
+                    const isSelectedForTapMove = selectedSliceBBubbleId === bubble.id;
+                    const isEvidenceOpen = inspectedIds.includes(bubble.id);
+                    const displayText =
+                      currentState.context === 'story_experience'
+                        ? bubble.storyLabel
+                        : bubble.label;
+
+                    const factBtnTestId =
+                      bubble.id === 'fact_happy_here'
+                        ? 'slice-b-classify-fact'
+                        : bubble.id === 'guess_other_adult_sad'
+                          ? 'slice-b-try-claim-guess-as-fact'
+                          : 'slice-b-classify-messenger-as-fact';
+
+                    const guessBtnTestId =
+                      bubble.id === 'fact_happy_here'
+                        ? 'slice-b-classify-fact-as-guess'
+                        : bubble.id === 'guess_other_adult_sad'
+                          ? 'slice-b-classify-guess'
+                          : 'slice-b-classify-messenger-as-guess';
+
+                    return (
+                      <div
+                        key={bubble.id}
+                        data-testid={`slice-b-bubble-card-${bubble.id}`}
+                        data-placement={currentPlacement || 'unclassified'}
+                        draggable
+                        onDragStart={(e) => {
+                          e.dataTransfer.setData('text/plain', bubble.id);
+                          setSelectedSliceBBubbleId(bubble.id);
+                        }}
+                        className={`p-3 rounded-2xl border-2 transition-all space-y-2 ${
+                          isSelectedForTapMove
+                            ? 'bg-sky-50 border-sky-500 shadow-xs'
+                            : currentPlacement === 'known_fact'
+                              ? 'bg-emerald-50/70 border-emerald-300'
+                              : currentPlacement === 'guess_about_adult_or_future'
+                                ? 'bg-amber-50/80 border-amber-300'
+                                : 'bg-stone-50/90 border-stone-200'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2 flex-wrap">
+                          <button
+                            type="button"
+                            data-testid={`slice-b-select-bubble-${bubble.id}`}
+                            onClick={() => {
+                              sounds.playClick();
+                              setSelectedSliceBBubbleId((prev) =>
+                                prev === bubble.id ? null : bubble.id
+                              );
+                            }}
+                            className="min-h-[44px] text-left flex-1 text-xs sm:text-sm font-black text-stone-900 cursor-pointer flex items-center gap-1.5"
+                          >
+                            <span>💭 {displayText}</span>
+                          </button>
+
+                          <span
+                            data-testid={`slice-b-bubble-status-${bubble.id}`}
+                            className={`text-[11px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                              currentPlacement === 'known_fact'
+                                ? 'bg-emerald-600 text-white'
+                                : currentPlacement === 'guess_about_adult_or_future'
+                                  ? 'bg-amber-600 text-white'
+                                  : isSelectedForTapMove
+                                    ? 'bg-sky-600 text-white'
+                                    : 'bg-stone-200 text-stone-700'
+                            }`}
+                          >
+                            {currentPlacement === 'known_fact'
+                              ? '当前在：已知事实盘'
+                              : currentPlacement === 'guess_about_adult_or_future'
+                                ? '当前在：未证实猜测云'
+                                : isSelectedForTapMove
+                                  ? '已选中 · 请点下方托盘'
+                                  : '待归类'}
+                          </span>
+                        </div>
+
+                        {/* 操作按钮行：查看证据 + 移入已知事实盘 + 移入未证实猜测云（均 >= 44x44 CSS px，不预先剧透标准答案） */}
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            data-testid={`slice-b-evidence-btn-${bubble.id}`}
+                            onClick={() => {
+                              sounds.playClick();
+                              commitSliceState(
+                                interactWithSliceBObject(currentState, {
+                                  type: 'INSPECT_EVIDENCE',
+                                  bubbleId: bubble.id,
+                                })
+                              );
+                            }}
+                            className={`min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer ${
+                              isEvidenceOpen
+                                ? 'bg-sky-700 text-white border-sky-800'
+                                : 'bg-white text-sky-900 border-sky-300 hover:bg-sky-50'
+                            }`}
+                          >
+                            {isEvidenceOpen ? '🔎 已展开证据线索' : '🔍 查看证据'}
+                          </button>
+
+                          <button
+                            type="button"
+                            data-testid={factBtnTestId}
+                            onClick={() => classifyBubbleTo(bubble.id, 'known_fact')}
+                            className={`min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer ${
+                              currentPlacement === 'known_fact'
+                                ? 'bg-emerald-600 text-white border-emerald-700'
+                                : 'bg-white text-emerald-950 border-emerald-300 hover:bg-emerald-50'
+                            }`}
+                          >
+                            📥 放入【已知事实盘】
+                          </button>
+
+                          <button
+                            type="button"
+                            data-testid={guessBtnTestId}
+                            onClick={() =>
+                              classifyBubbleTo(bubble.id, 'guess_about_adult_or_future')
+                            }
+                            className={`min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl text-xs font-black border cursor-pointer ${
+                              currentPlacement === 'guess_about_adult_or_future'
+                                ? 'bg-amber-600 text-white border-amber-700'
+                                : 'bg-white text-amber-950 border-amber-300 hover:bg-amber-50'
+                            }`}
+                          >
+                            ☁️ 放入【未证实的猜测云】
+                          </button>
+                        </div>
+
+                        {/* 展开的证据卡 */}
+                        {isEvidenceOpen && (
+                          <div
+                            data-testid={`slice-b-evidence-card-${bubble.id}`}
+                            className="p-2.5 rounded-xl bg-sky-100/80 border border-sky-300 text-xs font-bold text-sky-950"
+                          >
+                            {bubble.evidenceText}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
 
-              {/* 责任小围栏 + 对两个地方的真实喜好（允许不喜欢其中一个地方 — 反例 #4） */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <button
-                  type="button"
-                  data-testid="slice-b-raise-fence"
-                  onClick={() => {
-                    sounds.playClick();
-                    commitSliceState(
-                      interactWithSliceBObject(currentState, {
-                        type: 'RAISE_RESPONSIBILITY_FENCE',
-                      })
-                    );
-                  }}
-                  className={`min-h-[46px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
-                    currentState.interactiveObjects.responsibilityFenceRaised
-                      ? 'bg-teal-700 text-white border-teal-800'
-                      : 'bg-teal-50 text-teal-950 border-teal-300 hover:bg-teal-100'
-                  }`}
-                >
-                  🛡️ 立起责任围栏（不当传话筒）
-                </button>
+                {/* 两个可放置/可点选目标托盘：【已知事实盘】 vs 【未证实的猜测云】 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {/* 托盘 1：已知事实盘 */}
+                  <div
+                    data-testid="slice-b-tray-known-fact"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const draggedId = e.dataTransfer.getData('text/plain') as SliceBSortingBubbleId;
+                      if (draggedId) {
+                        classifyBubbleTo(draggedId, 'known_fact');
+                      }
+                    }}
+                    className="p-3 rounded-2xl bg-emerald-50/90 border-2 border-emerald-300 space-y-2 min-h-[96px]"
+                  >
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="text-xs sm:text-sm font-black text-emerald-950">
+                        🟢 【已知事实盘】（亲眼看见/亲身经历）
+                      </span>
+                      {selectedSliceBBubbleId && (
+                        <button
+                          type="button"
+                          data-testid="slice-b-drop-selected-to-fact"
+                          onClick={() => classifyBubbleTo(selectedSliceBBubbleId, 'known_fact')}
+                          className="min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-xl bg-emerald-600 text-white text-xs font-black cursor-pointer"
+                        >
+                          点此放入选中气泡
+                        </button>
+                      )}
+                    </div>
 
-                <button
-                  type="button"
-                  data-testid="slice-b-attitude-like-both"
-                  onClick={() => {
-                    sounds.playClick();
-                    commitSliceState(
-                      interactWithSliceBObject(currentState, {
-                        type: 'SET_PLACE_ATTITUDE',
-                        attitude: 'like_both_places',
-                      })
-                    );
-                  }}
-                  className={`min-h-[46px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
-                    currentState.interactiveObjects.placeAttitude === 'like_both_places'
-                      ? 'bg-sky-700 text-white border-sky-800'
-                      : 'bg-sky-50 text-sky-950 border-sky-200 hover:bg-sky-100'
-                  }`}
-                >
-                  💛 我同时喜欢两个地方
-                </button>
+                    {bubbleList
+                      .filter((b) => placements[b.id] === 'known_fact')
+                      .map((b) => {
+                        const isMatch = b.trueCategory === 'known_fact';
+                        return (
+                          <div
+                            key={b.id}
+                            data-testid={`slice-b-placed-item-${b.id}`}
+                            className={`p-2.5 rounded-xl border text-xs space-y-1.5 ${
+                              isMatch
+                                ? 'bg-white border-emerald-400 text-emerald-950'
+                                : 'bg-amber-100/90 border-amber-500 text-amber-950'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-2 flex-wrap">
+                              <span className="font-black">• {b.label}</span>
+                              <button
+                                type="button"
+                                data-testid={`slice-b-adjust-${b.id}`}
+                                onClick={() =>
+                                  classifyBubbleTo(b.id, 'guess_about_adult_or_future')
+                                }
+                                className="min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 font-black text-xs cursor-pointer"
+                              >
+                                ⇄ 换到猜测云
+                              </button>
+                            </div>
+                            <p
+                              data-testid={`slice-b-tray-feedback-${b.id}`}
+                              className="font-bold leading-snug"
+                            >
+                              {b.factTrayFeedback}
+                            </p>
+                          </div>
+                        );
+                      })}
+                  </div>
 
-                <button
-                  type="button"
-                  data-testid="slice-b-attitude-dislike-one"
-                  onClick={() => {
-                    sounds.playClick();
-                    commitSliceState(
-                      interactWithSliceBObject(currentState, {
-                        type: 'SET_PLACE_ATTITUDE',
-                        attitude: 'dislike_or_unadapted_to_one_place',
-                      })
-                    );
-                  }}
-                  className={`min-h-[46px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
-                    currentState.interactiveObjects.placeAttitude ===
-                    'dislike_or_unadapted_to_one_place'
-                      ? 'bg-stone-800 text-white border-stone-900'
-                      : 'bg-stone-100 text-stone-800 border-stone-300 hover:bg-stone-200'
-                  }`}
-                >
-                  💬 我对其中一个地方不太喜欢/不习惯
-                </button>
-              </div>
+                  {/* 托盘 2：未证实的猜测云 */}
+                  <div
+                    data-testid="slice-b-tray-guess-cloud"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const draggedId = e.dataTransfer.getData('text/plain') as SliceBSortingBubbleId;
+                      if (draggedId) {
+                        classifyBubbleTo(draggedId, 'guess_about_adult_or_future');
+                      }
+                    }}
+                    className="p-3 rounded-2xl bg-amber-50/90 border-2 border-amber-300 space-y-2 min-h-[96px]"
+                  >
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="text-xs sm:text-sm font-black text-amber-950">
+                        ☁️ 【未证实的猜测云】（对大人或未来的担心）
+                      </span>
+                      {selectedSliceBBubbleId && (
+                        <button
+                          type="button"
+                          data-testid="slice-b-drop-selected-to-guess"
+                          onClick={() =>
+                            classifyBubbleTo(selectedSliceBBubbleId, 'guess_about_adult_or_future')
+                          }
+                          className="min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-xl bg-amber-600 text-white text-xs font-black cursor-pointer"
+                        >
+                          点此放入选中气泡
+                        </button>
+                      )}
+                    </div>
 
-              {currentState.interactiveObjects.placeAttitude ===
-                'dislike_or_unadapted_to_one_place' && (
-                <div
-                  data-testid="slice-b-honest-dislike-accepted"
-                  className="p-2.5 rounded-xl bg-stone-100 border border-stone-300 text-xs font-bold text-stone-800"
-                >
-                  ✓ 真实感受被接纳：对其中一个地方不太喜欢或还不习惯，是很真实的感受。没有人规定你必须说“两个地方一样好”。
+                    {bubbleList
+                      .filter((b) => placements[b.id] === 'guess_about_adult_or_future')
+                      .map((b) => {
+                        const isMatch = b.trueCategory === 'guess_about_adult_or_future';
+                        return (
+                          <div
+                            key={b.id}
+                            data-testid={`slice-b-placed-item-${b.id}`}
+                            className={`p-2.5 rounded-xl border text-xs space-y-1.5 ${
+                              isMatch
+                                ? 'bg-white border-amber-400 text-amber-950'
+                                : 'bg-rose-100/90 border-rose-400 text-rose-950'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-2 flex-wrap">
+                              <span className="font-black">• {b.label}</span>
+                              <button
+                                type="button"
+                                data-testid={`slice-b-adjust-${b.id}`}
+                                onClick={() => classifyBubbleTo(b.id, 'known_fact')}
+                                className="min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 font-black text-xs cursor-pointer"
+                              >
+                                ⇄ 换到事实盘
+                              </button>
+                            </div>
+                            <p
+                              data-testid={`slice-b-tray-feedback-${b.id}`}
+                              className="font-bold leading-snug"
+                            >
+                              {b.guessCloudFeedback}
+                            </p>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
-              )}
-            </div>
-          )}
+
+                {/* 反例 #3 侦探分界提示：当把猜测放进已知事实盘时展示 */}
+                {currentState.interactiveObjects.guessDirectlyClaimedAsFactBlocked && (
+                  <div
+                    data-testid="slice-b-guess-not-fact-guard"
+                    className="p-2.5 rounded-xl bg-amber-100 border border-amber-400 text-xs font-bold text-amber-950"
+                  >
+                    🔍 侦探分界提示：另一边的大人现在是不是难过，只是我们心里的担心和猜测，绝对不能直接当成已经确定的事实哦！你可以点「🔍 查看证据」核对线索，或点「⇄ 换到猜测云」调整分类。
+                  </div>
+                )}
+
+                {/* 仅当真实完成事实与猜测归类且无误分时，才解锁分界镜发现结论 */}
+                {sortingStatus.isReadyForFactGuessConclusion && (
+                  <div
+                    data-testid="slice-b-sorting-conclusion-card"
+                    className="p-3 rounded-2xl bg-teal-50 border-2 border-teal-400 text-xs font-bold text-teal-950 space-y-1"
+                  >
+                    <div className="font-black text-teal-900">
+                      🌟 分界镜核对成功：你已经把「亲身经历的事实」和「心里的猜测」分清楚啦！
+                    </div>
+                    <p>
+                      现在可以去下方选择「在这边安心开心地玩，把大人的心情交还给大人」查看完整行动结果。
+                    </p>
+                  </div>
+                )}
+
+                {/* 责任小围栏 + 对两个地方的真实喜好（允许不喜欢其中一个地方 — 反例 #4） */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    data-testid="slice-b-raise-fence"
+                    onClick={() => {
+                      sounds.playClick();
+                      commitSliceState(
+                        interactWithSliceBObject(currentState, {
+                          type: 'RAISE_RESPONSIBILITY_FENCE',
+                        })
+                      );
+                    }}
+                    className={`min-h-[48px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
+                      currentState.interactiveObjects.responsibilityFenceRaised
+                        ? 'bg-teal-700 text-white border-teal-800'
+                        : 'bg-teal-50 text-teal-950 border-teal-300 hover:bg-teal-100'
+                    }`}
+                  >
+                    🛡️ 立起责任围栏（不当传话筒）
+                  </button>
+
+                  <button
+                    type="button"
+                    data-testid="slice-b-attitude-like-both"
+                    onClick={() => {
+                      sounds.playClick();
+                      commitSliceState(
+                        interactWithSliceBObject(currentState, {
+                          type: 'SET_PLACE_ATTITUDE',
+                          attitude: 'like_both_places',
+                        })
+                      );
+                    }}
+                    className={`min-h-[48px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
+                      currentState.interactiveObjects.placeAttitude === 'like_both_places'
+                        ? 'bg-sky-700 text-white border-sky-800'
+                        : 'bg-sky-50 text-sky-950 border-sky-200 hover:bg-sky-100'
+                    }`}
+                  >
+                    💛 我同时喜欢两个地方
+                  </button>
+
+                  <button
+                    type="button"
+                    data-testid="slice-b-attitude-dislike-one"
+                    onClick={() => {
+                      sounds.playClick();
+                      commitSliceState(
+                        interactWithSliceBObject(currentState, {
+                          type: 'SET_PLACE_ATTITUDE',
+                          attitude: 'dislike_or_unadapted_to_one_place',
+                        })
+                      );
+                    }}
+                    className={`min-h-[48px] p-2.5 rounded-xl border text-xs font-black cursor-pointer ${
+                      currentState.interactiveObjects.placeAttitude ===
+                      'dislike_or_unadapted_to_one_place'
+                        ? 'bg-stone-800 text-white border-stone-900'
+                        : 'bg-stone-100 text-stone-800 border-stone-300 hover:bg-stone-200'
+                    }`}
+                  >
+                    💬 我对其中一个地方不太喜欢/不习惯
+                  </button>
+                </div>
+
+                {currentState.interactiveObjects.placeAttitude ===
+                  'dislike_or_unadapted_to_one_place' && (
+                  <div
+                    data-testid="slice-b-honest-dislike-accepted"
+                    className="p-2.5 rounded-xl bg-stone-100 border border-stone-300 text-xs font-bold text-stone-800"
+                  >
+                    ✓ 真实感受被接纳：对其中一个地方不太喜欢或还不习惯，是很真实的感受。没有人规定你必须说“两个地方一样好”。
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* ================= SLICE C 专属触控交互区：具体害怕与担忧 ================= */}
           {activeSliceId === 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN' && (
@@ -1643,12 +2005,21 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   sounds.playClick();
                   commitSliceState(pauseTransitionExperienceVoluntarily(currentState));
                 }}
-                className="min-h-[38px] px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300 text-xs font-black flex items-center gap-1 cursor-pointer"
+                className="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300 text-xs font-black flex items-center gap-1 cursor-pointer"
               >
                 <PauseCircle className="w-4 h-4" />
                 <span>先停下休息/暂不选</span>
               </button>
             </div>
+
+            {currentState.interactiveObjects.sliceBSortingRequiredPromptShown && (
+              <div
+                data-testid="slice-b-sorting-required-banner"
+                className="p-3 rounded-2xl bg-amber-100 border-2 border-amber-400 text-xs font-bold text-amber-950"
+              >
+                🔍 请先在上方「② 分界镜归类台」移动想法气泡：把真实经历放入【已知事实盘】、把对大人的猜测放入【未证实的猜测云】（不能直接跳过归类拿结论哦）！
+              </div>
+            )}
 
             <div className="grid grid-cols-1 gap-2">
               {availableActions.map((act) => {
@@ -1661,7 +2032,11 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     aria-pressed={isChosen}
                     onClick={() => {
                       sounds.playClick();
-                      commitSliceState(executeTransitionAction(currentState, act.id));
+                      commitSliceState(
+                        executeTransitionAction(currentState, act.id, {
+                          requireSliceBSortingForConclusion: true,
+                        })
+                      );
                     }}
                     className={`min-h-[54px] p-3 rounded-2xl border-2 text-left cursor-pointer flex items-center justify-between gap-2 ${
                       isChosen
@@ -1741,12 +2116,29 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     sounds.playClick();
                     commitSliceState(prepareRetryTransitionAttempt(currentState));
                   }}
-                  className="min-h-[38px] px-3 py-1 rounded-xl bg-white hover:bg-amber-50 text-stone-800 border border-stone-300 text-xs font-black flex items-center gap-1 cursor-pointer"
+                  className="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-xl bg-white hover:bg-amber-50 text-stone-800 border border-stone-300 text-xs font-black flex items-center gap-1 cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>换个做法再试一次</span>
                 </button>
               </div>
+
+              {currentState.context === 'story_experience' &&
+                LELE_THIRD_PERSON_STORIES[activeSliceId].storyOutcomesByAction[
+                  currentState.observedOutcome.actionId
+                ] && (
+                  <div
+                    data-testid="lele-third-person-story-outcome"
+                    className="p-2.5 rounded-xl bg-sky-100/90 border border-sky-300 text-xs font-bold text-sky-950 leading-relaxed"
+                  >
+                    🦦 <strong>小水獭乐乐的故事结果：</strong>
+                    {
+                      LELE_THIRD_PERSON_STORIES[activeSliceId].storyOutcomesByAction[
+                        currentState.observedOutcome.actionId
+                      ]
+                    }
+                  </div>
+                )}
 
               <p className="text-xs sm:text-sm font-bold leading-relaxed">
                 🎬 场景变化：{currentState.observedOutcome.sceneVisualChangeSummary}
@@ -1797,7 +2189,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setOptionalToolTab('calendar')}
-                    className={`min-h-[42px] rounded-lg text-xs font-black cursor-pointer ${
+                    className={`min-h-[44px] rounded-lg text-xs font-black cursor-pointer ${
                       optionalToolTab === 'calendar'
                         ? 'bg-white text-amber-950 shadow-2xs'
                         : 'text-stone-700'
@@ -1808,7 +2200,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setOptionalToolTab('ritual')}
-                    className={`min-h-[42px] rounded-lg text-xs font-black cursor-pointer ${
+                    className={`min-h-[44px] rounded-lg text-xs font-black cursor-pointer ${
                       optionalToolTab === 'ritual'
                         ? 'bg-white text-amber-950 shadow-2xs'
                         : 'text-stone-700'
@@ -1819,7 +2211,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setOptionalToolTab('missBox')}
-                    className={`min-h-[42px] rounded-lg text-xs font-black cursor-pointer ${
+                    className={`min-h-[44px] rounded-lg text-xs font-black cursor-pointer ${
                       optionalToolTab === 'missBox'
                         ? 'bg-white text-amber-950 shadow-2xs'
                         : 'text-stone-700'
@@ -1843,7 +2235,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                       <button
                         type="button"
                         onClick={() => speakWithCurrentCompanion(spokenTonightSchedule)}
-                        className="px-2.5 py-1 rounded-lg bg-white border border-amber-300 text-xs font-bold text-amber-900 cursor-pointer"
+                        className="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-xs font-bold text-amber-900 cursor-pointer"
                       >
                         播报日程
                       </button>
@@ -1855,7 +2247,7 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                           key={day}
                           type="button"
                           onClick={() => speakWithCurrentCompanion(`${day}，住在${home}`)}
-                          className={`p-1.5 rounded-xl border text-center cursor-pointer ${
+                          className={`min-h-[44px] p-1.5 rounded-xl border text-center cursor-pointer ${
                             isToday
                               ? 'bg-amber-500 text-white border-amber-600 font-black'
                               : 'bg-stone-50 text-stone-700 border-stone-200'
@@ -1913,14 +2305,14 @@ export const TwoHomesBridgeModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         value={newMissText}
                         onChange={(e) => setNewMissText(e.target.value)}
                         placeholder="想记下的一句话（可选）……"
-                        className="flex-1 min-h-[42px] text-xs px-3 py-2 rounded-xl border border-stone-200 bg-white"
+                        className="flex-1 min-h-[44px] text-xs px-3 py-2 rounded-xl border border-stone-200 bg-white"
                         aria-label="写下你的小思念"
                       />
                       <button
                         type="button"
                         onClick={handleSendMiss}
                         disabled={!newMissText.trim()}
-                        className="min-h-[42px] px-4 py-2 bg-amber-600 disabled:opacity-40 text-white rounded-xl text-xs font-black cursor-pointer"
+                        className="min-h-[44px] min-w-[44px] px-4 py-2 bg-amber-600 disabled:opacity-40 text-white rounded-xl text-xs font-black cursor-pointer"
                       >
                         收进盒子
                       </button>

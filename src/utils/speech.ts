@@ -1169,10 +1169,18 @@ class SpeechNarrator {
       };
     }
 
-    // Rule 5: Paused state switch must NOT resume or continue playback
+    // Rule 5: Paused state switch immediately terminates old audio source (done by this.stop above),
+    // does NOT auto-resume playback, and preserves the paused intent so the user can actively click Resume ("继续")
+    // to play in the new companion's voice.
     if (wasPaused) {
-      this.isPaused = false;
-      this.isSpeaking = false;
+      this.isSpeaking = true;
+      this.isPaused = true;
+      this.narrationSession = {
+        ...this.narrationSession,
+        companionId: compId,
+        playbackSessionId: switchedSessionId,
+        playbackStatus: 'paused',
+      };
       this.notifyListeners();
       return;
     }
@@ -2281,32 +2289,58 @@ class SpeechNarrator {
     if (this.activeAudioElement) {
       try {
         this.activeAudioElement.pause();
-        this.isPaused = true;
-        this.narrationSession.playbackStatus = 'paused';
-        sounds.setSpeechDucking(false);
-        this.notifyListeners();
-        return;
+      } catch {}
+    } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.pause();
       } catch {}
     }
 
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      try {
-        window.speechSynthesis.pause();
-        this.isPaused = true;
-        this.narrationSession.playbackStatus = 'paused';
-        sounds.setSpeechDucking(false);
-        this.notifyListeners();
-      } catch {}
-    }
+    this.isPaused = true;
+    this.narrationSession = {
+      ...this.narrationSession,
+      playbackStatus: 'paused',
+    };
+    sounds.setSpeechDucking(false);
+    this.notifyListeners();
   }
 
   public resume() {
     if (!this.isSpeaking || !this.isPaused) return;
 
+    // If the companion was switched while paused, the old audio source was terminated.
+    // Establish a clean, safe playback session in the new companion's voice upon user resume.
+    if (!this.activeAudioElement && !this.activeUtterance) {
+      const activeCompanion = this.committedCompanionId;
+      const activeProfile = COMPANION_TO_VOICE_PROFILE[activeCompanion] || this.currentProfile;
+      const baseText =
+        this.narrationSession.text ||
+        this.lastSpokenText ||
+        `我是${VOICE_PROFILES[activeProfile].companionName}。`;
+      const adapted = adaptCompanionSelfIntroText(baseText, activeCompanion);
+      const textToResume = adapted.adaptedText;
+      this.lastSpokenText = textToResume;
+      this.lastSpeakTimestampMs = 0;
+      this.speak(textToResume, undefined, undefined, {
+        ...this.lastSpokenOptions,
+        speakerId: activeCompanion,
+        lineId: adapted.lineId || this.narrationSession.lineId || this.lastSpokenOptions?.lineId,
+        sceneId: this.narrationSession.sceneId || this.lastSpokenOptions?.sceneId,
+        emotionTone: this.narrationSession.emotionTone || this.lastSpokenOptions?.emotionTone,
+        prosodyPauseMs:
+          this.narrationSession.prosodyPauseMs || this.lastSpokenOptions?.prosodyPauseMs,
+        profileOverride: undefined,
+      });
+      return;
+    }
+
     if (this.activeAudioElement) {
       try {
         this.isPaused = false;
-        this.narrationSession.playbackStatus = 'playing';
+        this.narrationSession = {
+          ...this.narrationSession,
+          playbackStatus: 'playing',
+        };
         sounds.setSpeechDucking(true);
         const playPromise = this.activeAudioElement.play();
         if (playPromise && typeof playPromise.catch === 'function') {
@@ -2320,7 +2354,10 @@ class SpeechNarrator {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         this.isPaused = false;
-        this.narrationSession.playbackStatus = 'playing';
+        this.narrationSession = {
+          ...this.narrationSession,
+          playbackStatus: 'playing',
+        };
         sounds.setSpeechDucking(true);
         window.speechSynthesis.resume();
         this.notifyListeners();
@@ -2416,3 +2453,7 @@ class SpeechNarrator {
 }
 
 export const speechNarrator = new SpeechNarrator();
+
+if (typeof window !== 'undefined') {
+  (window as any).__speechNarrator = speechNarrator;
+}

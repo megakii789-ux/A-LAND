@@ -112,6 +112,17 @@ export interface TransitionObservedOutcome {
   isSafetyProtectionRoute: boolean;
 }
 
+export type SliceBSortingBubbleId =
+  | 'fact_happy_here'
+  | 'guess_other_adult_sad'
+  | 'guess_must_be_messenger';
+
+export interface SliceBSortingHistoryEntry {
+  bubbleId: SliceBSortingBubbleId;
+  previousBucket: 'known_fact' | 'guess_about_adult_or_future' | null;
+  nextBucket: 'known_fact' | 'guess_about_adult_or_future' | null;
+}
+
 export interface TransitionInteractiveObjectState {
   // Slice A interactive objects
   westStarLit: boolean;
@@ -123,6 +134,11 @@ export interface TransitionInteractiveObjectState {
   // Slice B interactive objects
   classifiedFactBubble: 'known_fact' | 'guess_about_adult_or_future' | null;
   classifiedGuessBubble: 'known_fact' | 'guess_about_adult_or_future' | null;
+  classifiedMessengerBubble: 'known_fact' | 'guess_about_adult_or_future' | null;
+  inspectedEvidenceIds: SliceBSortingBubbleId[];
+  sliceBSortingHistory: SliceBSortingHistoryEntry[];
+  sliceBClassificationRevisionCount: number;
+  sliceBSortingRequiredPromptShown: boolean;
   responsibilityFenceRaised: boolean;
   placeAttitude: PlacePreferenceAttitude | null;
   guessDirectlyClaimedAsFactBlocked: boolean;
@@ -598,6 +614,142 @@ export const TRANSITION_ACTIONS: Record<TransitionActionId, TransitionActionMeta
   },
 };
 
+export interface SliceBSortingBubbleMeta {
+  id: SliceBSortingBubbleId;
+  thoughtId: string;
+  label: string;
+  storyLabel: string;
+  trueCategory: 'known_fact' | 'guess_about_adult_or_future';
+  evidenceText: string;
+  factTrayFeedback: string;
+  guessCloudFeedback: string;
+}
+
+export const SLICE_B_SORTING_BUBBLES: Record<SliceBSortingBubbleId, SliceBSortingBubbleMeta> = {
+  fact_happy_here: {
+    id: 'fact_happy_here',
+    thoughtId: 'thought_b_fact_joy_here',
+    label: '“我今天在这边玩拼图笑了，度过了开心的一下午。”',
+    storyLabel: '“小水獭乐乐今天在溪谷屋拼好了木头拼图，开心地拍手笑了。”',
+    trueCategory: 'known_fact',
+    evidenceText:
+      '🔍 现实证据：桌子上摆着刚拼好的拼图，自己的笑声是亲眼看见、亲身经历的真实事实。',
+    factTrayFeedback:
+      '✅ 已知事实盘反馈：桌上有拼好的拼图，这是亲身经历的真事！玩得开心绝对不是做错事。',
+    guessCloudFeedback:
+      '🤔 分界镜提醒：你把「今天玩拼图笑了」放进了猜测云。可桌上的拼图是真真切切拼好的真事呀！点「查看证据」后再把它移回【已知事实盘】试试。',
+  },
+  guess_other_adult_sad: {
+    id: 'guess_other_adult_sad',
+    thoughtId: 'thought_b_guess_adult_sad',
+    label: '“另一边的大人现在一定在家里偷偷伤心，觉得我不爱他了。”',
+    storyLabel: '“乐乐脑海里冒出念头：西岸木屋的獭妈妈现在一定在偷偷掉眼泪、怪乐乐太开心。”',
+    trueCategory: 'guess_about_adult_or_future',
+    evidenceText:
+      '🔍 现实证据：我们现在没有亲眼看见另一边的大人，也没有顺风耳和透视眼，不知道他此刻在做什么，这只是心里的担心和猜测。',
+    factTrayFeedback:
+      '⚠️ 分界镜提醒：「另一边的大人现在一定在家里伤心」只是我们心里的担心和猜测，绝对不能直接当成已经确定的事实！点点「查看证据」，再把它调整到【未证实的猜测云】吧。',
+    guessCloudFeedback:
+      '☁️ 猜测云反馈：分得很清楚！另一边大人此刻怎么想，我们没有亲眼看见，放进猜测云后心里就不会被当成事实压住啦。',
+  },
+  guess_must_be_messenger: {
+    id: 'guess_must_be_messenger',
+    thoughtId: 'thought_b_guess_messenger',
+    label: '“如果我不帮两边大人传话和哄他们，他们一定会怪我。”',
+    storyLabel: '“乐乐心想：如果我不替獭爸爸和獭妈妈传话，他们肯定会生我的气。”',
+    trueCategory: 'guess_about_adult_or_future',
+    evidenceText:
+      '🔍 现实证据：大人们有自己的手机和嘴巴可以直接商量，小孩不是传话筒，大人的关系也不归小孩负责。',
+    factTrayFeedback:
+      '⚠️ 分界镜提醒：把「我不传话大人就会怪我」当成事实会让小肩膀好沉重！点「查看证据」看看：大人有手机能自己沟通，快把它移到【未证实的猜测云】吧。',
+    guessCloudFeedback:
+      '☁️ 猜测云反馈：对啦！大人们可以直接用手机商量，担心不传话会被责怪只是猜测，小孩不用当传话筒。',
+  },
+};
+
+export interface LeleThirdPersonStoryChapter {
+  sliceId: TransitionSliceId;
+  characterName: string;
+  characterRoleLabel: string;
+  chapterTitle: string;
+  storyEvent: string;
+  storyQuestionPrompt: string;
+  storyOutcomesByAction: Partial<Record<TransitionActionId, string>>;
+}
+
+export const LELE_THIRD_PERSON_STORIES: Record<TransitionSliceId, LeleThirdPersonStoryChapter> = {
+  SLICE_A_BIDIRECTIONAL_ATTACHMENT: {
+    sliceId: 'SLICE_A_BIDIRECTIONAL_ATTACHMENT',
+    characterName: '小水獭乐乐',
+    characterRoleLabel: '第三人称故事主角 · 6岁小水獭乐乐',
+    chapterTitle: '第一幕：小水獭乐乐的两颗想念星',
+    storyEvent:
+      '周四傍晚，小水獭乐乐准备走过木桥去东岸溪谷屋。乐乐看着西岸木屋刚搭好的贝壳城堡，心里很舍不得獭妈妈；可想到东岸溪谷屋的滑草坡，乐乐又很期待见到獭爸爸。乐乐站在桥头犯了难：“我是不是只能选一边喜欢？出门时我不想抱抱也不想写信，可以直接挥挥手吗？”',
+    storyQuestionPrompt: '如果你陪在小水獭乐乐身边，你会帮乐乐怎么点亮星星、怎么走过木桥呢？',
+    storyOutcomesByAction: {
+      action_quiet_wave_no_hug_no_letter:
+        '小水獭乐乐没有勉强自己拥抱，也没有写卡片，而是轻轻向獭妈妈点了点头、挥挥小爪子，按自己的慢步子走上木桥。獭妈妈温和地目送乐乐，乐乐明白了不想抱抱也完全没关系。',
+      action_carry_both_stars_together:
+        '小水獭乐乐把西岸的琥珀想念星和东岸的青空期待星一起放进了随身小布袋。两颗星星在口袋里同时发出暖光，乐乐发现：原来心里可以同时装着两个地方，根本不需要二选一！',
+      action_fist_bump_see_you_soon:
+        '小水獭乐乐伸出毛茸茸的小拳头，和獭妈妈轻轻碰了一下，约定好周日再一起搭贝壳城堡，然后背起小包轻快地踏上了木桥。',
+    },
+  },
+  SLICE_B_LOYALTY_CONFLICT: {
+    sliceId: 'SLICE_B_LOYALTY_CONFLICT',
+    characterName: '小水獭乐乐',
+    characterRoleLabel: '第三人称故事主角 · 6岁小水獭乐乐',
+    chapterTitle: '第二幕：小水獭乐乐与分界放大镜',
+    storyEvent:
+      '周六下午，小水獭乐乐在东岸溪谷屋拼好了一幅大拼图，笑得咯咯响。可笑完之后，乐乐突然低下头想：“我在东岸玩得这么开心，西岸木屋的獭妈妈现在一定孤零零在家里掉眼泪、怪我不爱她了！而且刚才大人让我带话给另一边，我该怎么办？”',
+    storyQuestionPrompt: '快帮小水獭乐乐拿起分界放大镜，把他的念头气泡放进【已知事实盘】或【未证实的猜测云】里核对证据吧！',
+    storyOutcomesByAction: {
+      action_allow_joy_release_adult_worry:
+        '小水獭乐乐用分界镜核对了证据：“今天拼好拼图很开心”是真事，而“獭妈妈一定在掉眼泪怪我”只是脑海里的猜测。乐乐把大人的情绪放回大人的责任圈，重新开心地玩起了拼图。',
+      action_decline_messenger_role:
+        '小水獭乐乐鼓起勇气对大人说：“大人的事请你们用树叶电话自己商量吧，我是一只小水獭，不当传话筒。”立起金色责任小围栏后，乐乐觉得小肩膀一下子轻松了！',
+      action_keep_honest_place_preference:
+        '小水獭乐乐诚实地承认：自己更习惯西岸木屋软软的蒲草枕头，对东岸的新规矩还不太适应。乐乐不再强迫自己说“两个地方一模一样好”，心里踏实多了。',
+    },
+  },
+  SLICE_C_SPECIFIC_FEAR_OR_CONCERN: {
+    sliceId: 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN',
+    characterName: '小水獭乐乐',
+    characterRoleLabel: '第三人称故事主角 · 6岁小水獭乐乐',
+    chapterTitle: '第三幕：小水獭乐乐的路标与安全护盾',
+    storyEvent:
+      '这一次过桥前，小水獭乐乐肚子里像有小蝴蝶在乱飞。伙伴没有急着往乐乐包里塞玩偶，而是陪乐乐来到桥头路标前：乐乐到底是因为不知道哪天回来、不习惯黑漆漆的房间、暂时说不清楚，还是遇到了让人害怕受伤害的事呢？',
+    storyQuestionPrompt: '请先帮小水獭乐乐点亮桥头的原因路标，再为乐乐选出真正管用的办法吧！',
+    storyOutcomesByAction: {
+      action_check_schedule_signpost:
+        '小水獭乐乐点亮了桥头的日历路标，向大人问清了周日傍晚五点回来的准确时间。知道具体安排后，乐乐心里不再乱猜了。',
+      action_pack_habit_card_or_nightlight:
+        '小水獭乐乐带上了熟悉的萤火虫小夜灯和睡前习惯卡，告诉大人自己怕黑需要留一盏灯，给自己留出了慢慢适应的时间。',
+      action_confirm_reunion_stone:
+        '小水獭乐乐摸了摸桥头的重逢约定石，确认了下次见面的日子。虽然分开时鼻头还是有点酸，但乐乐知道分开只是暂时的。',
+      action_sit_quietly_no_explanation:
+        '小水獭乐乐今天找不到词形容心里的感觉，于是坐在桥边的安静长椅上歇了一会儿。没有任何人催促乐乐必须马上说出原因。',
+      action_tell_trusted_adult_immediately:
+        '当小水獭乐乐提到有人凶他、推搡他时，金色的安全护盾立刻升起！乐乐停下了所有普通换家步骤，立刻向森林里信任的猫头鹰老师和安全的大人求助。',
+      action_stay_in_safe_place_with_help:
+        '小水獭乐乐留在明亮安全的驿站里，请信任的大人守在身边保护自己，绝不独自面对让自己害怕的危险。',
+    },
+  },
+  ORDINARY_HAPPY_TRANSITION: {
+    sliceId: 'ORDINARY_HAPPY_TRANSITION',
+    characterName: '小水獭乐乐',
+    characterRoleLabel: '第三人称故事主角 · 6岁小水獭乐乐',
+    chapterTitle: '日常篇：小水獭乐乐轻快过桥记',
+    storyEvent:
+      '今天阳光暖洋洋的，小水獭乐乐要去另一边住，心里既不害怕也不纠结，只想带着心爱的彩色画本和小足球，像平时串门一样轻快走过木桥。',
+    storyQuestionPrompt: '帮小水獭乐乐选一件日常小物品，陪他轻轻松松走过木桥吧！',
+    storyOutcomesByAction: {
+      action_cross_bridge_lightheartedly:
+        '小水獭乐乐夹着画本、拍着小足球，蹦蹦跳跳地走过了阳光下的木桥，没有被任何多余的焦虑提问打扰，开启了普通又快乐的一天！',
+    },
+  },
+};
+
 export function createInitialInteractiveObjectState(): TransitionInteractiveObjectState {
   return {
     westStarLit: false,
@@ -608,6 +760,11 @@ export function createInitialInteractiveObjectState(): TransitionInteractiveObje
     declineLetter: false,
     classifiedFactBubble: null,
     classifiedGuessBubble: null,
+    classifiedMessengerBubble: null,
+    inspectedEvidenceIds: [],
+    sliceBSortingHistory: [],
+    sliceBClassificationRevisionCount: 0,
+    sliceBSortingRequiredPromptShown: false,
     responsibilityFenceRaised: false,
     placeAttitude: null,
     guessDirectlyClaimedAsFactBlocked: false,
@@ -653,6 +810,13 @@ export function createDefaultThoughtsForSlice(sliceId: TransitionSliceId): Trans
           category: 'guess_about_adult_or_future',
           childClassifiedAs: null,
           explanationText: '未证实的猜测：我们没有顺风耳和透视眼，另一边大人此刻怎么想只是我们的猜测，不能直接当成事实。',
+        },
+        {
+          id: 'thought_b_guess_messenger',
+          text: '“如果我不帮两边大人传话和哄他们，他们一定会怪我。”',
+          category: 'guess_about_adult_or_future',
+          childClassifiedAs: null,
+          explanationText: '未证实的猜测：大人们有手机可以直接商量，小孩不是传话筒。',
         },
         {
           id: 'thought_b_pref_different',
@@ -767,17 +931,21 @@ export function createInitialTransitionExperienceState(
 
 /**
  * 切换感受标签（支持多种感受共存，绝不强制单选 — 满足验收反例 #1 与 #2）
+ * Sprint 4.3 P0 修复：当发生合法跨分支迁移（nextSliceId !== state.activeSliceId）时，
+ * 必须基于目标分支独立状态（targetSliceStatesById?.[nextSliceId] 或新建干净目标分支状态），
+ * 绝不把源分支的 observedOutcome、chosenAction、actionHistory、safetyConcern 或专属物体状态污染到目标分支！
  */
 export function toggleTransitionFeeling(
   state: TransitionExperienceState,
-  feelingId: TransitionFeelingId
+  feelingId: TransitionFeelingId,
+  targetSliceStatesById?: Partial<Record<TransitionSliceId, TransitionExperienceState>>
 ): TransitionExperienceState {
   const exists = state.feelingSet.includes(feelingId);
   let nextFeelingSet = exists
     ? state.feelingSet.filter((f) => f !== feelingId)
     : [...state.feelingSet, feelingId];
 
-  // 反例 #2: 若孩子只选了或主动点选了“今天开开心心去另一边”，绝不触发焦虑安抚，自动切换到轻松日常过桥分支
+  // 反例 #2: 若孩子主动点选了“今天开开心心去另一边”，绝不触发焦虑安抚，自动切换到轻松日常过桥分支
   const isSelectingHappyRelaxed = !exists && feelingId === 'happy_relaxed_to_go';
   if (isSelectingHappyRelaxed) {
     nextFeelingSet = ['happy_relaxed_to_go'];
@@ -789,16 +957,47 @@ export function toggleTransitionFeeling(
   const hasDualAttachment =
     nextFeelingSet.includes('miss_current_place') &&
     nextFeelingSet.includes('look_forward_other_place');
+  const isOnlyAttachmentFeelings =
+    nextFeelingSet.length > 0 &&
+    nextFeelingSet.every(
+      (f) => f === 'miss_current_place' || f === 'look_forward_other_place'
+    );
 
   let nextSliceId = state.activeSliceId;
-  let nextObjects = { ...state.interactiveObjects };
-  let nextSpeech = state.currentCompanionSpeech;
-
   if (isOnlyHappyRelaxed) {
     nextSliceId = 'ORDINARY_HAPPY_TRANSITION';
-    nextSpeech = TRANSITION_FIXED_VOICE_LINES.ORDINARY_ENTRY;
-  } else if (hasDualAttachment) {
+  } else if (hasDualAttachment || isOnlyAttachmentFeelings) {
     nextSliceId = 'SLICE_A_BIDIRECTIONAL_ATTACHMENT';
+  } else if (
+    !exists &&
+    (feelingId === 'happy_here_worry_other_adult' || feelingId === 'unfamiliar_or_dislike_one_place')
+  ) {
+    nextSliceId = 'SLICE_B_LOYALTY_CONFLICT';
+  } else if (!exists && (feelingId === 'scared_or_uneasy' || feelingId === 'unsure_or_skip')) {
+    nextSliceId = 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN';
+  }
+
+  const isCrossSliceMigration = nextSliceId !== state.activeSliceId;
+  const baseState = isCrossSliceMigration
+    ? targetSliceStatesById?.[nextSliceId]
+      ? {
+          ...targetSliceStatesById[nextSliceId]!,
+          context: state.context,
+          interactiveObjects: {
+            ...targetSliceStatesById[nextSliceId]!.interactiveObjects,
+          },
+        }
+      : createInitialTransitionExperienceState(nextSliceId, state.context)
+    : state;
+
+  let nextObjects = { ...baseState.interactiveObjects };
+  let nextSpeech = isCrossSliceMigration
+    ? getSliceEntrySpeech(nextSliceId)
+    : baseState.currentCompanionSpeech;
+
+  if (isOnlyHappyRelaxed) {
+    nextSpeech = TRANSITION_FIXED_VOICE_LINES.ORDINARY_ENTRY;
+  } else if (hasDualAttachment && nextSliceId === 'SLICE_A_BIDIRECTIONAL_ATTACHMENT') {
     nextObjects = {
       ...nextObjects,
       westStarLit: true,
@@ -809,7 +1008,6 @@ export function toggleTransitionFeeling(
     !exists &&
     (feelingId === 'happy_here_worry_other_adult' || feelingId === 'unfamiliar_or_dislike_one_place')
   ) {
-    nextSliceId = 'SLICE_B_LOYALTY_CONFLICT';
     nextSpeech =
       feelingId === 'unfamiliar_or_dislike_one_place'
         ? TRANSITION_FIXED_VOICE_LINES.SLICE_B_ATTITUDE_DISLIKE_ONE
@@ -818,7 +1016,6 @@ export function toggleTransitionFeeling(
       nextObjects.placeAttitude = 'dislike_or_unadapted_to_one_place';
     }
   } else if (!exists && (feelingId === 'scared_or_uneasy' || feelingId === 'unsure_or_skip')) {
-    nextSliceId = 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN';
     nextSpeech =
       feelingId === 'unsure_or_skip'
         ? TRANSITION_FIXED_VOICE_LINES.SLICE_C_REASON_UNSURE
@@ -830,22 +1027,20 @@ export function toggleTransitionFeeling(
   }
 
   return {
-    ...state,
+    ...baseState,
     activeSliceId: nextSliceId,
     feelingSet: nextFeelingSet,
-    thoughtSet:
-      nextSliceId !== state.activeSliceId
-        ? createDefaultThoughtsForSlice(nextSliceId)
-        : state.thoughtSet,
+    thoughtSet: baseState.thoughtSet,
     interactiveObjects: nextObjects,
     isAnxietySoothingTriggered: false,
-    emotionProsodyTone: getSliceProsodyTone(nextSliceId, state.safetyConcern),
+    emotionProsodyTone: getSliceProsodyTone(nextSliceId, baseState.safetyConcern),
     currentCompanionSpeech: nextSpeech,
   };
 }
 
 /**
  * Slice A 场景物体操作：点亮左岸星、右岸星、同时点亮双星、调节过桥步速、设置小背包或拒绝拥抱/写信
+ * Sprint 4.3 P0 域层分支身份校验：严禁在 Slice B / C / Ordinary 中触发 Slice A 专属星星或物体操作！
  */
 export function interactWithSliceAObject(
   state: TransitionExperienceState,
@@ -857,6 +1052,10 @@ export function interactWithSliceAObject(
     | { type: 'SET_BACKPACK_MODE'; mode: 'dual_star_badge' | 'empty_light_pack' | 'small_drawing' }
     | { type: 'SET_DECLINE_HUG_OR_LETTER'; declineHug?: boolean; declineLetter?: boolean }
 ): TransitionExperienceState {
+  if (state.activeSliceId !== 'SLICE_A_BIDIRECTIONAL_ATTACHMENT') {
+    return state;
+  }
+
   const objects = { ...state.interactiveObjects };
   const feelings = new Set<TransitionFeelingId>(state.feelingSet);
   let speech = state.currentCompanionSpeech;
@@ -933,44 +1132,214 @@ export function interactWithSliceAObject(
 }
 
 /**
- * Slice B 场景物体操作：区分真实经历（事实）与对成人感受的猜测、立起责任小围栏、表达对两个地方的真实喜好（允许不喜欢其中一个地方）
+ * 评估 Slice B 事实与猜测分类台的当前进度、证据查看情况与误分状态
+ */
+export function getSliceBSortingStatus(state: TransitionExperienceState) {
+  const obj = state.interactiveObjects;
+  const factBucket = obj.classifiedFactBubble;
+  const guessBucket = obj.classifiedGuessBubble;
+  const messengerBucket = obj.classifiedMessengerBubble;
+
+  const classifiedCount =
+    (factBucket ? 1 : 0) + (guessBucket ? 1 : 0) + (messengerBucket ? 1 : 0);
+
+  const isFactMisclassified = factBucket === 'guess_about_adult_or_future';
+  const isGuessMisclassified = guessBucket === 'known_fact';
+  const isMessengerMisclassified = messengerBucket === 'known_fact';
+  const hasMisclassification =
+    isFactMisclassified || isGuessMisclassified || isMessengerMisclassified;
+
+  const coreFactAndGuessCorrect =
+    factBucket === 'known_fact' &&
+    guessBucket === 'guess_about_adult_or_future' &&
+    !isMessengerMisclassified;
+
+  const allThreeSortedCorrectly =
+    coreFactAndGuessCorrect && messengerBucket === 'guess_about_adult_or_future';
+
+  const inspectedCount = obj.inspectedEvidenceIds?.length || 0;
+  const revisionCount = obj.sliceBClassificationRevisionCount || 0;
+
+  return {
+    factBucket,
+    guessBucket,
+    messengerBucket,
+    classifiedCount,
+    isFactMisclassified,
+    isGuessMisclassified,
+    isMessengerMisclassified,
+    hasMisclassification,
+    coreFactAndGuessCorrect,
+    allThreeSortedCorrectly,
+    inspectedCount,
+    revisionCount,
+    canUndo: (obj.sliceBSortingHistory?.length || 0) > 0,
+    isReadyForFactGuessConclusion: coreFactAndGuessCorrect,
+  };
+}
+
+function getBubbleBucketFromObjects(
+  objects: TransitionInteractiveObjectState,
+  bubbleId: SliceBSortingBubbleId
+): 'known_fact' | 'guess_about_adult_or_future' | null {
+  if (bubbleId === 'fact_happy_here') return objects.classifiedFactBubble;
+  if (bubbleId === 'guess_other_adult_sad') return objects.classifiedGuessBubble;
+  return objects.classifiedMessengerBubble;
+}
+
+function setBubbleBucketOnObjects(
+  objects: TransitionInteractiveObjectState,
+  thoughtSet: TransitionThoughtItem[],
+  bubbleId: SliceBSortingBubbleId,
+  bucket: 'known_fact' | 'guess_about_adult_or_future' | null
+) {
+  if (bubbleId === 'fact_happy_here') {
+    objects.classifiedFactBubble = bucket;
+    const item = thoughtSet.find((t) => t.id === 'thought_b_fact_joy_here');
+    if (item) item.childClassifiedAs = bucket;
+  } else if (bubbleId === 'guess_other_adult_sad') {
+    objects.classifiedGuessBubble = bucket;
+    objects.guessDirectlyClaimedAsFactBlocked = bucket === 'known_fact';
+    const item = thoughtSet.find((t) => t.id === 'thought_b_guess_adult_sad');
+    // Known facts box must never turn an unverified guess into a confirmed known_fact
+    if (item) {
+      item.childClassifiedAs = bucket === 'known_fact' ? 'guess_about_adult_or_future' : bucket;
+    }
+  } else if (bubbleId === 'guess_must_be_messenger') {
+    objects.classifiedMessengerBubble = bucket;
+    const item = thoughtSet.find((t) => t.id === 'thought_b_guess_messenger');
+    if (item) {
+      item.childClassifiedAs = bucket === 'known_fact' ? 'guess_about_adult_or_future' : bucket;
+    }
+  }
+}
+
+/**
+ * Slice B 场景物体操作：
+ * - 真实移动/归类 3 个气泡到【已知事实盘】或【未证实的猜测云】
+ * - 查看每个气泡背后的现实证据（INSPECT_EVIDENCE）
+ * - 调整已归类气泡、撤销上一步归类（UNDO_LAST_CLASSIFICATION）、重置归类（RESET_SORTING）
+ * - 立起责任小围栏、表达对两个地方的真实喜好
+ * Sprint 4.3 P0 域层分支身份校验：严禁在非 Slice B 分支触发 Slice B 物体操作！
  */
 export function interactWithSliceBObject(
   state: TransitionExperienceState,
   interaction:
     | {
         type: 'CLASSIFY_BUBBLE';
-        bubbleId: 'fact_happy_here' | 'guess_other_adult_sad';
-        targetBucket: 'known_fact' | 'guess_about_adult_or_future';
+        bubbleId: SliceBSortingBubbleId;
+        targetBucket: 'known_fact' | 'guess_about_adult_or_future' | null;
+      }
+    | {
+        type: 'INSPECT_EVIDENCE';
+        bubbleId: SliceBSortingBubbleId;
+      }
+    | {
+        type: 'UNDO_LAST_CLASSIFICATION';
+      }
+    | {
+        type: 'RESET_SORTING';
       }
     | { type: 'RAISE_RESPONSIBILITY_FENCE' }
     | { type: 'SET_PLACE_ATTITUDE'; attitude: PlacePreferenceAttitude }
 ): TransitionExperienceState {
-  const objects = { ...state.interactiveObjects };
+  if (state.activeSliceId !== 'SLICE_B_LOYALTY_CONFLICT') {
+    return state;
+  }
+
+  const objects: TransitionInteractiveObjectState = {
+    ...state.interactiveObjects,
+    inspectedEvidenceIds: [...(state.interactiveObjects.inspectedEvidenceIds || [])],
+    sliceBSortingHistory: [...(state.interactiveObjects.sliceBSortingHistory || [])],
+  };
   let relationshipConcern = state.relationshipConcern;
   let speech = state.currentCompanionSpeech;
   let wishGoal = state.wishGoal;
+  let chosenAction = state.chosenAction;
+  let observedOutcome = state.observedOutcome;
 
   const nextThoughts = state.thoughtSet.map((t) => ({ ...t }));
 
   switch (interaction.type) {
     case 'CLASSIFY_BUBBLE': {
+      const prevBucket = getBubbleBucketFromObjects(objects, interaction.bubbleId);
+      const nextBucket = interaction.targetBucket;
+
+      if (prevBucket !== nextBucket) {
+        objects.sliceBSortingHistory.push({
+          bubbleId: interaction.bubbleId,
+          previousBucket: prevBucket,
+          nextBucket,
+        });
+        if (prevBucket !== null && nextBucket !== null) {
+          objects.sliceBClassificationRevisionCount =
+            (objects.sliceBClassificationRevisionCount || 0) + 1;
+        }
+      }
+
+      setBubbleBucketOnObjects(objects, nextThoughts, interaction.bubbleId, nextBucket);
+      objects.sliceBSortingRequiredPromptShown = false;
+
       if (interaction.bubbleId === 'fact_happy_here') {
-        objects.classifiedFactBubble = 'known_fact';
-        const item = nextThoughts.find((t) => t.id === 'thought_b_fact_joy_here');
-        if (item) item.childClassifiedAs = 'known_fact';
         speech = TRANSITION_FIXED_VOICE_LINES.SLICE_B_FACT_BUBBLE;
       } else {
-        // 反例 #3：孩子担心某一方难过，绝不能把对大人感受的猜测直接宣称为已知事实！
-        if (interaction.targetBucket === 'known_fact') {
-          objects.guessDirectlyClaimedAsFactBlocked = true;
-          objects.classifiedGuessBubble = 'guess_about_adult_or_future';
-        } else {
-          objects.classifiedGuessBubble = 'guess_about_adult_or_future';
-        }
-        const item = nextThoughts.find((t) => t.id === 'thought_b_guess_adult_sad');
-        if (item) item.childClassifiedAs = 'guess_about_adult_or_future';
         speech = TRANSITION_FIXED_VOICE_LINES.SLICE_B_GUESS_BUBBLE;
+      }
+
+      // If a bubble is now misclassified while action_allow_joy_release_adult_worry was active, invalidate the stale conclusion
+      if (
+        chosenAction === 'action_allow_joy_release_adult_worry' &&
+        (objects.classifiedFactBubble !== 'known_fact' ||
+          objects.classifiedGuessBubble !== 'guess_about_adult_or_future' ||
+          objects.classifiedMessengerBubble === 'known_fact')
+      ) {
+        chosenAction = null;
+        observedOutcome = null;
+      }
+      break;
+    }
+    case 'INSPECT_EVIDENCE': {
+      if (!objects.inspectedEvidenceIds.includes(interaction.bubbleId)) {
+        objects.inspectedEvidenceIds.push(interaction.bubbleId);
+      }
+      speech =
+        interaction.bubbleId === 'fact_happy_here'
+          ? TRANSITION_FIXED_VOICE_LINES.SLICE_B_FACT_BUBBLE
+          : TRANSITION_FIXED_VOICE_LINES.SLICE_B_GUESS_BUBBLE;
+      break;
+    }
+    case 'UNDO_LAST_CLASSIFICATION': {
+      const lastEntry = objects.sliceBSortingHistory.pop();
+      if (lastEntry) {
+        setBubbleBucketOnObjects(
+          objects,
+          nextThoughts,
+          lastEntry.bubbleId,
+          lastEntry.previousBucket
+        );
+        objects.sliceBClassificationRevisionCount =
+          (objects.sliceBClassificationRevisionCount || 0) + 1;
+        if (
+          chosenAction === 'action_allow_joy_release_adult_worry' &&
+          (objects.classifiedFactBubble !== 'known_fact' ||
+            objects.classifiedGuessBubble !== 'guess_about_adult_or_future' ||
+            objects.classifiedMessengerBubble === 'known_fact')
+        ) {
+          chosenAction = null;
+          observedOutcome = null;
+        }
+      }
+      break;
+    }
+    case 'RESET_SORTING': {
+      setBubbleBucketOnObjects(objects, nextThoughts, 'fact_happy_here', null);
+      setBubbleBucketOnObjects(objects, nextThoughts, 'guess_other_adult_sad', null);
+      setBubbleBucketOnObjects(objects, nextThoughts, 'guess_must_be_messenger', null);
+      objects.guessDirectlyClaimedAsFactBlocked = false;
+      objects.sliceBSortingHistory = [];
+      if (chosenAction === 'action_allow_joy_release_adult_worry') {
+        chosenAction = null;
+        observedOutcome = null;
       }
       break;
     }
@@ -1001,6 +1370,8 @@ export function interactWithSliceBObject(
     thoughtSet: nextThoughts,
     relationshipConcern,
     wishGoal,
+    chosenAction,
+    observedOutcome,
     interactiveObjects: objects,
     currentCompanionSpeech: speech,
   };
@@ -1008,13 +1379,26 @@ export function interactWithSliceBObject(
 
 /**
  * Slice C 场景物体操作：先调查害怕或担忧的具体原因（包含不想回答/说不清，以及涉及具体伤害时的安全分流）
+ * Sprint 4.3 P0 修复：
+ * 1. 域层分支身份校验：非 Slice C 状态调用时直接返回原状态；
+ * 2. 当担忧原因发生变化时（日程->环境、安全->普通、说不清->明确原因等），当前行动（chosenAction）及结果（observedOutcome）必须立即失效，
+ *    但历史尝试（actionHistory、attemptCount、revisionCount）完整保留，新结果只能在新行动之后产生！
  */
 export function investigateSliceCFearReason(
   state: TransitionExperienceState,
   reasonId: SpecificFearReasonId
 ): TransitionExperienceState {
+  if (state.activeSliceId !== 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN') {
+    return state;
+  }
+
   const meta = SPECIFIC_FEAR_REASONS[reasonId];
-  const objects = {
+  if (!meta) return state;
+
+  const previousReason = state.interactiveObjects.investigatedFearReason;
+  const reasonChanged = previousReason !== reasonId;
+
+  const objects: TransitionInteractiveObjectState = {
     ...state.interactiveObjects,
     investigatedFearReason: reasonId,
     illuminatedSignpost: reasonId === 'reason_schedule_uncertainty',
@@ -1035,11 +1419,12 @@ export function investigateSliceCFearReason(
     },
   ];
 
-  // 若切换了原因且之前已选行动与当前安全等级冲突，清空旧结果以便重新选择
-  const shouldResetAction =
-    state.chosenAction !== null &&
-    ((isHarmSafety && !TRANSITION_ACTIONS[state.chosenAction]?.isSafetyAction) ||
-      (!isHarmSafety && TRANSITION_ACTIONS[state.chosenAction]?.isSafetyAction));
+  // Sprint 4.3 P0: 只要担忧原因发生变化（或当前处于安全风险但旧行动非安全行动），当前行动与结果必须失效，新结果只能在新行动之后产生
+  const shouldInvalidateCurrentActionAndOutcome =
+    reasonChanged ||
+    (state.chosenAction !== null &&
+      ((isHarmSafety && !TRANSITION_ACTIONS[state.chosenAction]?.isSafetyAction) ||
+        (!isHarmSafety && TRANSITION_ACTIONS[state.chosenAction]?.isSafetyAction)));
 
   return {
     ...state,
@@ -1048,8 +1433,10 @@ export function investigateSliceCFearReason(
     practicalConcern: meta.practicalConcern,
     safetyConcern: meta.safetyConcern,
     wishGoal: meta.wishGoalText,
-    chosenAction: shouldResetAction ? null : state.chosenAction,
-    observedOutcome: shouldResetAction ? null : state.observedOutcome,
+    chosenAction: shouldInvalidateCurrentActionAndOutcome ? null : state.chosenAction,
+    observedOutcome: shouldInvalidateCurrentActionAndOutcome ? null : state.observedOutcome,
+    nextAttempt: shouldInvalidateCurrentActionAndOutcome ? null : state.nextAttempt,
+    pausedVoluntarily: false,
     interactiveObjects: objects,
     ordinaryRitualsBlockedBySafety: isHarmSafety,
     emotionProsodyTone: getSliceProsodyTone('SLICE_C_SPECIFIC_FEAR_OR_CONCERN', meta.safetyConcern),
@@ -1112,14 +1499,25 @@ export function getAvailableActionsForState(
 }
 
 /**
- * 执行孩子自主选择的过渡行动，生成真实可观察结果（反例 #5 / #7 / #9）
+ * 执行孩子自主选择的过渡行动，生成真实可观察结果（反例 #5 / #7 / #9 + Sprint 4.3 P0 跨分支校验）
  */
 export function executeTransitionAction(
   state: TransitionExperienceState,
-  actionId: TransitionActionId
+  actionId: TransitionActionId,
+  options?: { requireSliceBSortingForConclusion?: boolean }
 ): TransitionExperienceState {
   const actionMeta = TRANSITION_ACTIONS[actionId];
   if (!actionMeta) return state;
+
+  // Sprint 4.3 P0: 校验行动是否属于当前激活的 Slice，严禁跨 Slice 串改行动或结果
+  const isActionAllowedInSlice =
+    actionMeta.sliceId === state.activeSliceId ||
+    (state.activeSliceId === 'SLICE_C_SPECIFIC_FEAR_OR_CONCERN' &&
+      actionId === 'action_quiet_wave_no_hug_no_letter' &&
+      state.safetyConcern !== 'specific_person_or_harm_behavior');
+  if (!isActionAllowedInSlice) {
+    return state;
+  }
 
   // 反例 #7 防线：当处于具体伤害风险（specific_person_or_harm_behavior）时，拒绝任何普通换家仪式行动
   if (
@@ -1133,6 +1531,27 @@ export function executeTransitionAction(
     };
   }
 
+  // Sprint 4.3 第二阶段防线：在 Slice B 中，若开启了分类前置校验（UI 交互或显式开启）且气泡存在误分或未完成事实/猜测分类，
+  // 不得跳过分类直接获得「区分已知事实与猜测」的成长结论
+  const sortingStatus = getSliceBSortingStatus(state);
+  if (
+    state.activeSliceId === 'SLICE_B_LOYALTY_CONFLICT' &&
+    actionId === 'action_allow_joy_release_adult_worry' &&
+    (sortingStatus.hasMisclassification ||
+      (options?.requireSliceBSortingForConclusion && !sortingStatus.coreFactAndGuessCorrect))
+  ) {
+    return {
+      ...state,
+      chosenAction: null,
+      observedOutcome: null,
+      interactiveObjects: {
+        ...state.interactiveObjects,
+        sliceBSortingRequiredPromptShown: true,
+      },
+      currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.SLICE_B_OUTCOME_ALLOW_JOY,
+    };
+  }
+
   const priorDistinctActions = new Set(state.actionHistory);
   const isNewDistinctRevision =
     state.actionHistory.length > 0 &&
@@ -1143,7 +1562,10 @@ export function executeTransitionAction(
   const nextAttemptCount = state.attemptCount + 1;
   const nextRevisionCount = state.revisionCount + (isNewDistinctRevision ? 1 : 0);
 
-  const nextObjects = { ...state.interactiveObjects };
+  const nextObjects = {
+    ...state.interactiveObjects,
+    sliceBSortingRequiredPromptShown: false,
+  };
   if (actionId === 'action_quiet_wave_no_hug_no_letter') {
     nextObjects.declineHug = true;
     nextObjects.declineLetter = true;
@@ -1203,3 +1625,4 @@ export function pauseTransitionExperienceVoluntarily(
     currentCompanionSpeech: TRANSITION_FIXED_VOICE_LINES.PAUSE_VOLUNTARILY,
   };
 }
+
