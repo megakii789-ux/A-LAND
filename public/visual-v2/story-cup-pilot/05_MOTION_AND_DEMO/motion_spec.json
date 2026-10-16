@@ -1,0 +1,74 @@
+{
+  "canvas": {
+    "desktop": [
+      1600,
+      900
+    ],
+    "mobile": [
+      900,
+      1600
+    ]
+  },
+  "globalPolicy": {
+    "allEffectsVisualOnly": true,
+    "noIndependentGameState": true,
+    "readSpeakerStateFrom": "speechNarrator/getNarrationSession()",
+    "reducedMotion": "remove transform, parallax and sparkle; do not hide task information"
+  },
+  "states": {
+    "idle": {
+      "durationMs": 3000,
+      "repeat": true,
+      "translateYpx": [
+        0,
+        -6,
+        0
+      ],
+      "easing": "ease-in-out"
+    },
+    "blink": {
+      "durationMs": 150,
+      "repeat": false,
+      "variantEyes": "07_eyes_blink"
+    },
+    "talk": {
+      "durationMs": 220,
+      "repeat": false,
+      "variantMouth": "08_mouth_talk",
+      "note": "visual mouth opening only, NOT phoneme lip-sync; do not auto claim actual voice"
+    },
+    "celebrate": {
+      "durationMs": 400,
+      "repeat": false,
+      "translateYpx": [
+        0,
+        -15,
+        0
+      ],
+      "note": "only on actual business outcome, never on click"
+    },
+    "think": {
+      "durationMs": 320,
+      "repeat": false,
+      "variantMouth": "08_mouth_think"
+    }
+  },
+  "propTransitions": {
+    "cupSnapMs": 220,
+    "inspectHighlightMs": 180,
+    "comparisonBeamMs": 380,
+    "disabledWhenReducedMotion": true
+  },
+  "voiceEventMapping": {
+    "playing": "animation may use listening/talk variation if real speaker matches narrator",
+    "paused": "freeze/lower motion",
+    "idle": "idle",
+    "error": "idle; show original error UI"
+  },
+  "assets": {
+    "charTiaotiao": "02_STORY_CHARACTERS/tiaotiao_story_squirrel",
+    "charPupu": "02_STORY_CHARACTERS/pupu_story_elephant",
+    "cup": "03_INTERACTIVE_PROPS/obj_blue_cup.svg"
+  },
+  "status": "ANIMATED_SVG_PARTS__NOT_SKELETAL_RIG__NOT_AE_PROJECT"
+}

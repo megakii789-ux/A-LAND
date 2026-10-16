@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#88d7ff"/><stop offset=".58" stop-color="#c9efff"/><stop offset="1" stop-color="#f6e4c0"/></linearGradient>
+ <linearGradient id="isle" x1="0" x2="1" y2="1"><stop stop-color="#9edc8a"/><stop offset=".6" stop-color="#55a787"/><stop offset="1" stop-color="#387b77"/></linearGradient>
+ <linearGradient id="wood" x1="0" x2=".9" y2="1"><stop stop-color="#c98a4c"/><stop offset=".35" stop-color="#e6b86b"/><stop offset=".72" stop-color="#b16f41"/><stop offset="1" stop-color="#70432e"/></linearGradient>
+ <linearGradient id="woodSoft" x2="0" y2="1"><stop stop-color="#efc783"/><stop offset=".5" stop-color="#c18d58"/><stop offset="1" stop-color="#825339"/></linearGradient>
+ <linearGradient id="interior" x2="1" y2="1"><stop stop-color="#f8ce80"/><stop offset=".48" stop-color="#c78b56"/><stop offset="1" stop-color="#95603c"/></linearGradient>
+ <linearGradient id="leaves" x2="0" y2="1"><stop stop-color="#9cd869"/><stop offset=".5" stop-color="#4fae62"/><stop offset="1" stop-color="#24715a"/></linearGradient>
+ <radialGradient id="sun"><stop stop-color="#fff9d7" stop-opacity=".98"/><stop offset=".47" stop-color="#ffeaa5" stop-opacity=".65"/><stop offset="1" stop-color="#ffe2a7" stop-opacity="0"/></radialGradient>
+ <radialGradient id="halo"><stop stop-color="#ffde90" stop-opacity=".65"/><stop offset="1" stop-color="#ffde90" stop-opacity="0"/></radialGradient>
+ <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="tinyShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+ <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="2" seed="5" result="noise"/><feColorMatrix in="noise" type="saturate" values="0" result="gray"/><feComponentTransfer in="gray"><feFuncA type="linear" slope=".06"/></feComponentTransfer></filter>
+ </defs><path d="M0 0H900V1600H0Z M135 255Q450 30 780 255V875H135Z" fill="url(#interior)" fill-rule="evenodd"/>
+ <path d="M135 255Q450 30 780 255V875H135Z" fill="none" stroke="#7c4a30" stroke-width="47"/><path d="M145 250Q450 58 771 250V845H145Z" fill="none" stroke="#f6bf7b" stroke-width="10"/>
+ <path d="M0 -25Q185 158 152 572Q115 820 155 1200" stroke="#8c5534" stroke-width="104" fill="none"/><path d="M900 -25Q740 158 783 572Q812 820 763 1200" stroke="#8c5534" stroke-width="104" fill="none"/><rect y="1030" width="900" height="570" fill="#9a613f"/></svg>

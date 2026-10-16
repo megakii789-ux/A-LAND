@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#88d7ff"/><stop offset=".58" stop-color="#c9efff"/><stop offset="1" stop-color="#f6e4c0"/></linearGradient>
+ <linearGradient id="isle" x1="0" x2="1" y2="1"><stop stop-color="#9edc8a"/><stop offset=".6" stop-color="#55a787"/><stop offset="1" stop-color="#387b77"/></linearGradient>
+ <linearGradient id="wood" x1="0" x2=".9" y2="1"><stop stop-color="#c98a4c"/><stop offset=".35" stop-color="#e6b86b"/><stop offset=".72" stop-color="#b16f41"/><stop offset="1" stop-color="#70432e"/></linearGradient>
+ <linearGradient id="woodSoft" x2="0" y2="1"><stop stop-color="#efc783"/><stop offset=".5" stop-color="#c18d58"/><stop offset="1" stop-color="#825339"/></linearGradient>
+ <linearGradient id="interior" x2="1" y2="1"><stop stop-color="#f8ce80"/><stop offset=".48" stop-color="#c78b56"/><stop offset="1" stop-color="#95603c"/></linearGradient>
+ <linearGradient id="leaves" x2="0" y2="1"><stop stop-color="#9cd869"/><stop offset=".5" stop-color="#4fae62"/><stop offset="1" stop-color="#24715a"/></linearGradient>
+ <radialGradient id="sun"><stop stop-color="#fff9d7" stop-opacity=".98"/><stop offset=".47" stop-color="#ffeaa5" stop-opacity=".65"/><stop offset="1" stop-color="#ffe2a7" stop-opacity="0"/></radialGradient>
+ <radialGradient id="halo"><stop stop-color="#ffde90" stop-opacity=".65"/><stop offset="1" stop-color="#ffde90" stop-opacity="0"/></radialGradient>
+ <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="tinyShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+ <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="2" seed="5" result="noise"/><feColorMatrix in="noise" type="saturate" values="0" result="gray"/><feComponentTransfer in="gray"><feFuncA type="linear" slope=".06"/></feComponentTransfer></filter>
+ </defs><ellipse cx="450" cy="1332" rx="425" ry="92" fill="#513729" opacity=".28" filter="url(#softShadow)"/>
+ <rect x="-48" y="1198" width="994" height="440" rx="86" fill="url(#wood)" stroke="#75472e" stroke-width="17"/><rect x="-16" y="1190" width="933" height="135" rx="65" fill="#e8b67b" stroke="#a66d42" stroke-width="11"/>
+ <path d="M70 1270Q460 1308 836 1270" stroke="#ffe2ac" stroke-width="10" opacity=".7" fill="none"/>
+ <g stroke="#f9db9d" fill="none" stroke-dasharray="9 8" stroke-width="4"><ellipse cx="190" cy="1250" rx="85" ry="27"/><ellipse cx="452" cy="1250" rx="82" ry="27"/><ellipse cx="713" cy="1250" rx="91" ry="27"/></g></svg>

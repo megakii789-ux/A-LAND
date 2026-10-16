@@ -1,0 +1,57 @@
+{
+  "scene": "StoryGrove::cup-size",
+  "baseline": "f27438146cb9bc6a4b841f6745f63165173106c4",
+  "layers": {
+    "desktop": [
+      "01_SCENE_LAYERS/desktop/L1_sky_distant.svg",
+      "01_SCENE_LAYERS/desktop/L2_treehouse_arch.svg",
+      "01_SCENE_LAYERS/desktop/L3_shelves_lamps_foliage.svg",
+      "01_SCENE_LAYERS/desktop/L4_tabletop.svg",
+      "01_SCENE_LAYERS/desktop/L5_foreground_foliage.svg"
+    ],
+    "mobile": [
+      "01_SCENE_LAYERS/mobile/L1_sky_distant.svg",
+      "01_SCENE_LAYERS/mobile/L2_treehouse_arch.svg",
+      "01_SCENE_LAYERS/mobile/L3_shelves_lamps_foliage.svg",
+      "01_SCENE_LAYERS/mobile/L4_tabletop.svg",
+      "01_SCENE_LAYERS/mobile/L5_foreground_foliage.svg"
+    ]
+  },
+  "props": {
+    "obj_wooden_block": "03_INTERACTIVE_PROPS/obj_wooden_block.svg",
+    "obj_blue_cup": "03_INTERACTIVE_PROPS/obj_blue_cup.svg",
+    "obj_elephant_bucket": "03_INTERACTIVE_PROPS/obj_elephant_bucket.svg",
+    "obj_twig_ruler": "03_INTERACTIVE_PROPS/obj_twig_ruler.svg"
+  },
+  "characters": {
+    "squirrel": "tiaotiao_story_squirrel",
+    "elephant": "pupu_story_elephant"
+  },
+  "sourceInteraction": {
+    "svgViewBox": [
+      0,
+      0,
+      420,
+      220
+    ],
+    "dropZoneIds": [
+      "cup-dropzone-NEXT_TO_BLOCK",
+      "cup-dropzone-CENTER_TABLE",
+      "cup-dropzone-NEXT_TO_BUCKET"
+    ],
+    "cupItemTestId": "movable-blue-cup-prop",
+    "cupPositionEnum": [
+      "CENTER_TABLE",
+      "NEXT_TO_BLOCK",
+      "NEXT_TO_BUCKET"
+    ]
+  },
+  "productionReleaseStatus": "ART_DIRECTOR_QA_HOLD",
+  "engineeringAssetStatus": "VECTOR_MASTERS_READY",
+  "notes": [
+    "visual-only; do not write domain state",
+    "transparent image layers pointer-events none",
+    "no altered voice profiles",
+    "scene vector art not 3D cinematic production quality"
+  ]
+}

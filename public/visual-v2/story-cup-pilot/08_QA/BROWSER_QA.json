@@ -1,0 +1,46 @@
+{
+  "scene": "cup-size",
+  "testMethod": "REAL_CHROMIUM_BROWSER_WITH_INLINE_ASSET_DATA_URLS",
+  "browser": "/usr/bin/chromium / Playwright 1.57.0",
+  "hostConstraint": "Direct file:// navigation blocked by administrator; equivalent index.html injected into Chromium with same local asset bytes as data URIs, not a deployed HTTP site.",
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "actions": [
+        "to block",
+        "to bucket",
+        "compare both"
+      ],
+      "horizontalOverflowPx": 0,
+      "minButtonCSSPx": 56,
+      "browserConsoleErrors": 0,
+      "screenshot": "08_QA/browser_demo_390x844.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "actions": [
+        "to block",
+        "to bucket",
+        "compare both"
+      ],
+      "horizontalOverflowPx": 0,
+      "minButtonCSSPx": 56,
+      "browserConsoleErrors": 0,
+      "screenshot": "08_QA/browser_demo_1440x900.png",
+      "status": "PASS"
+    }
+  ],
+  "notTested": [
+    "drag gestures under real touch device",
+    "6 viewport matrix in deployed app",
+    "audio connection to StoryGroveModal",
+    "TTS and lip-sync",
+    "individual body part animation assembled in app",
+    "3D art director visual review",
+    "release-safe access-independent content gating"
+  ],
+  "conclusion": "ASSET_LAB_BROWSER_INTERACTION_PASS__INTEGRATION_AND_ART_QA_HOLD"
+}

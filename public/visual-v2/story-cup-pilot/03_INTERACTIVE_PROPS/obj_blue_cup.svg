@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520" role="img"><defs>
+<linearGradient id="ceramic" x2=".9" y2=".25"><stop stop-color="#0a86d7"/><stop offset=".25" stop-color="#67d8ff"/><stop offset=".58" stop-color="#2386d8"/><stop offset="1" stop-color="#0753a6"/></linearGradient>
+<linearGradient id="ceramicRim" x2="0" y2="1"><stop stop-color="#dff9ff"/><stop offset="1" stop-color="#449bd6"/></linearGradient>
+<linearGradient id="woodBlue" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#f4b56c"/><stop offset=".5" stop-color="#cd774a"/><stop offset="1" stop-color="#8d463a"/></linearGradient>
+<linearGradient id="pail" x2="1" y2=".3"><stop stop-color="#eec58b"/><stop offset=".4" stop-color="#bd885a"/><stop offset="1" stop-color="#7c5139"/></linearGradient>
+<linearGradient id="shine" x2="1" y2="1"><stop stop-color="#fff7c6"/><stop offset="1" stop-color="#ffe8a4" stop-opacity=".2"/></linearGradient>
+<filter id="propShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs><ellipse cx="255" cy="440" rx="154" ry="27" fill="#3c5c7a" opacity=".25" filter="url(#propShadow)"/>
+ <path d="M345 190C457 175 462 343 353 347" stroke="#125faa" stroke-width="36" fill="none"/><path d="M347 204C429 203 427 317 353 319" stroke="#9be5fd" stroke-width="16" fill="none"/>
+ <path d="M115 165L148 416Q245 459 349 415L384 166Z" fill="url(#ceramic)" stroke="#0d549b" stroke-width="13"/>
+ <path d="M133 180L162 411Q244 443 326 406" fill="none" stroke="#d3f8ff" stroke-width="13" opacity=".68"/>
+ <ellipse cx="248" cy="165" rx="137" ry="42" fill="url(#ceramicRim)" stroke="#0b64ac" stroke-width="13"/><ellipse cx="248" cy="170" rx="110" ry="22" fill="#b5efff" stroke="#e8ffff" stroke-width="8"/>
+ <path d="M157 292Q242 312 330 289" stroke="#d4faff" stroke-width="8" fill="none" opacity=".6"/>
+ <path d="M159 346Q247 368 327 347" stroke="#d4faff" stroke-width="8" fill="none" opacity=".6"/>
+ <ellipse cx="234" cy="226" rx="37" ry="13" fill="#dcfcff" opacity=".45"/></svg>

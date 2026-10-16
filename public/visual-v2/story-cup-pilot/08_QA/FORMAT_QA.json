@@ -1,0 +1,15 @@
+{
+  "counts": {
+    "svgs": 51,
+    "pngs": 32,
+    "webps": 29,
+    "svgParsed": 51,
+    "rasterReadable": 61,
+    "pngAlpha": 52,
+    "hasTrueTransparentPixels": 50
+  },
+  "errors": [],
+  "artDirectorQaGate": "ART_DIRECTOR_QA_HOLD",
+  "assetNativeType": "VECTOR_ORIGINAL, NOT ORIGINAL 3D RENDER",
+  "note": "Raster pixel width not proof of cinematic 3D fidelity; please review visual_contact_sheet.png"
+}

@@ -1,0 +1,80 @@
+{
+  "gate": "GATE0_INPUT_FREEZE",
+  "status": "GATE0_PASS",
+  "verifiedAt": "2026-10-16T23:01:45+08:00",
+  "handoffDriveFolderId": "1ZgLYMsfU9hfGunGsFDLKdBQrOjVnq7nB",
+  "handoffZipFileId": "1Ur1mppWT-sSgnEsz0d3J-RPOTlt4dQpV",
+  "handoffZipName": "A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016.zip",
+  "handoffZipBytes": 5904211,
+  "handoffZipSha256Expected": "375ccc095ef56bcb496d3f06d413ba27b14953b2d7c020185b9b74b33bb17b1e",
+  "handoffZipSha256Actual": "375ccc095ef56bcb496d3f06d413ba27b14953b2d7c020185b9b74b33bb17b1e",
+  "verifyAssetsPyOutput": {
+    "verified_count": 131,
+    "fail_count": 0,
+    "failures": [],
+    "artDirectorGate": "ART_DIRECTOR_QA_HOLD"
+  },
+  "sha256SumsFileCheck": {
+    "totalEntries": 131,
+    "passedEntries": 131,
+    "failedEntries": 0
+  },
+  "gitBaseline": {
+    "repository": "megakii789-ux/A-LAND",
+    "baseBranch": "origin/ui/visual-v2-assetlab",
+    "expectedBaseSha": "f27438146cb9bc6a4b841f6745f63165173106c4",
+    "actualRemoteBaseSha": "f27438146cb9bc6a4b841f6745f63165173106c4",
+    "diffFromExpectedBaseline": [],
+    "isolatedWorktreePath": "/home/voga/A-LAND-visual-v2-story-pilot",
+    "isolatedBranch": "ui/visual-v2-story-pilot",
+    "untouchedBranches": {
+      "origin/preview": "dc71b227d5a55d43fc8743f84b44d7c459522988",
+      "origin/main": "f8c7401907b3fe5831c343b995b777254fdfe45d",
+      "origin/public-live": "dc71b227d5a55d43fc8743f84b44d7c459522988",
+      "origin/public-hold": "e00706e281b298414ee8eebe9de3853fa6ec9765"
+    }
+  },
+  "storyGroveCupSizeDomInventory": {
+    "sourceFile": "src/components/ChildIsland/StoryGrove/StoryGroveModal.tsx",
+    "sceneContainerTestId": "interactive-leaf-scene-cup-size",
+    "svgTestId": "story-interactive-svg-cup-size",
+    "svgViewBox": "0 0 420 220",
+    "svgRef": "svgCupRef",
+    "dropZones": [
+      { "testId": "cup-dropzone-NEXT_TO_BLOCK", "x": 94, "y": 86, "width": 62, "height": 56 },
+      { "testId": "cup-dropzone-CENTER_TABLE", "x": 174, "y": 86, "width": 62, "height": 56 },
+      { "testId": "cup-dropzone-NEXT_TO_BUCKET", "x": 236, "y": 86, "width": 62, "height": 56 }
+    ],
+    "movableProp": {
+      "testId": "movable-blue-cup-prop",
+      "attributes": ["data-cup-position", "data-dragging"],
+      "pointerHandlers": [
+        "handleCupPointerDown",
+        "handleCupSvgPointerMove",
+        "handleCupSvgPointerUp",
+        "handleCupSvgPointerCancel"
+      ],
+      "constantSizeGaugeTestId": "cup-constant-size-gauge"
+    },
+    "hotspotButtons": [
+      "story-hotspot-obj_wooden_block",
+      "story-hotspot-obj_blue_cup",
+      "story-hotspot-obj_elephant_bucket",
+      "story-hotspot-obj_twig_ruler"
+    ],
+    "fallbackPositionButtons": [
+      "move-cup-to-block",
+      "move-cup-to-center",
+      "move-cup-to-bucket"
+    ],
+    "actionButtons": [
+      "story-action-act_compare_both_sides",
+      "story-action-act_only_look_squirrel",
+      "story-action-act_ask_usage_need"
+    ]
+  },
+  "contentAuditNote": {
+    "issue": "StoryGrove cup-size dialogue contains '小狐狸果果' whereas global companion Guoguo is a squirrel.",
+    "disposition": "CONTENT_QA_REVIEW (flagged only; business text frozen and untouched per contract)"
+  }
+}

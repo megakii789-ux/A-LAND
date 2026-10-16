@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520" role="img"><defs>
+<linearGradient id="ceramic" x2=".9" y2=".25"><stop stop-color="#0a86d7"/><stop offset=".25" stop-color="#67d8ff"/><stop offset=".58" stop-color="#2386d8"/><stop offset="1" stop-color="#0753a6"/></linearGradient>
+<linearGradient id="ceramicRim" x2="0" y2="1"><stop stop-color="#dff9ff"/><stop offset="1" stop-color="#449bd6"/></linearGradient>
+<linearGradient id="woodBlue" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#f4b56c"/><stop offset=".5" stop-color="#cd774a"/><stop offset="1" stop-color="#8d463a"/></linearGradient>
+<linearGradient id="pail" x2="1" y2=".3"><stop stop-color="#eec58b"/><stop offset=".4" stop-color="#bd885a"/><stop offset="1" stop-color="#7c5139"/></linearGradient>
+<linearGradient id="shine" x2="1" y2="1"><stop stop-color="#fff7c6"/><stop offset="1" stop-color="#ffe8a4" stop-opacity=".2"/></linearGradient>
+<filter id="propShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs><ellipse cx="258" cy="427" rx="169" ry="28" fill="#4c4337" opacity=".22" filter="url(#propShadow)"/>
+ <path d="M108 180L296 120L416 186L229 258Z" fill="#ffcf83" stroke="#a95f3d" stroke-width="11"/>
+ <path d="M108 180L229 258V403L108 327Z" fill="url(#woodBlue)" stroke="#a0573c" stroke-width="11"/>
+ <path d="M229 258L416 186V326L229 403Z" fill="#b86b47" stroke="#8b4938" stroke-width="11"/>
+ <path d="M136 205L226 262V369" stroke="#ffdb9c" stroke-width="13" opacity=".6" fill="none"/>
+ <path d="M263 286L383 235" stroke="#e39e69" stroke-width="8" opacity=".6"/>
+ <circle cx="320" cy="293" r="25" fill="#ffdfa8" opacity=".28"/></svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="900" viewBox="0 0 800 900" role="img"><defs>
+<radialGradient id="squirrelFur"><stop stop-color="#fbd394"/><stop offset=".57" stop-color="#cb7c43"/><stop offset="1" stop-color="#9e4e37"/></radialGradient>
+<radialGradient id="elephantFur"><stop stop-color="#d9ebf6"/><stop offset=".63" stop-color="#9fbed5"/><stop offset="1" stop-color="#708ea8"/></radialGradient>
+<linearGradient id="vest" x2="1" y2="1"><stop stop-color="#a3e6d8"/><stop offset="1" stop-color="#2f9c91"/></linearGradient>
+<linearGradient id="yellow" x2="1" y2="1"><stop stop-color="#ffe2a4"/><stop offset=".7" stop-color="#e8aa49"/><stop offset="1" stop-color="#c67f35"/></linearGradient>
+<filter id="rigShade" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+</defs><ellipse cx="383" cy="600" rx="174" ry="198" fill="url(#squirrelFur)" stroke="#9a5b42" stroke-width="14"/><path d="M276 549Q380 494 494 548L492 712Q377 774 275 711Z" fill="url(#vest)" stroke="#247b75" stroke-width="11"/><ellipse cx="381" cy="627" rx="72" ry="94" fill="#f8e5bf" opacity=".8"/><path d="M324 714Q380 740 441 715" stroke="#ecfbe0" stroke-width="9" fill="none"/><circle cx="381" cy="631" r="24" fill="#ffe0a4"/><path d="M369 626l12 -14 12 14 -12 15Z" fill="#8db85f"/></svg>

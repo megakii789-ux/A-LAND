@@ -1,0 +1,15 @@
+{
+  "assertions": {
+    "allSvgXmlParse": true,
+    "sha256ManifestProduced": true,
+    "hasStageCommands": true,
+    "hasMovableCup": true,
+    "hasCharacterRigSquirrel": true,
+    "hasCharacterRigElephant": true
+  },
+  "errors": [],
+  "visualArtQuality": "ART_DIRECTOR_QA_HOLD",
+  "browserValidation": "NOT_EXECUTED_YET",
+  "formatValidation": "PASSED",
+  "note": "SVG native files, mechanical alpha/export verification, do not conflate engineering-ready with approved high-quality 3D visuals"
+}

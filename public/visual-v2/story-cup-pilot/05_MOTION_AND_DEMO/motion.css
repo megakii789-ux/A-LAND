@@ -1,0 +1,8 @@
+/* Purely decorative UI motions, never mutate the domain model. */
+@keyframes al-cup-idle {0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes al-cup-shimmer {0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes al-character-welcome {0%,100%{transform:rotate(0deg)}50%{transform:rotate(3deg)}}
+.al-actor-idle{animation:al-cup-idle 3s ease-in-out infinite}
+.al-actor-welcome{animation:al-character-welcome 1.8s ease-in-out infinite}
+.al-inspect-glow{animation:al-cup-shimmer 1s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.al-actor-idle,.al-actor-welcome,.al-inspect-glow{animation:none!important;transition:none!important}}

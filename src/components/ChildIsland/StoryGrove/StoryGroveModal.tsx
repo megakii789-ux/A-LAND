@@ -54,15 +54,46 @@ import {
 } from '../../../domain/storyGrove/interactiveStoryLeaves';
 import { ParentGateModal } from '../../ParentGateModal';
 import { IslandUiIconSvg } from '../CompanionIcons';
+import {
+  StoryCupSceneArtV2,
+  StoryCupLayerControlBarV2,
+  STORY_CUP_PROPS,
+  type SceneLayerId,
+} from '../../../visual-v2/story-cup-pilot/StoryCupSceneArtV2';
+
+function detectVisualV2PilotDefault(): boolean {
+  if (typeof window === 'undefined' || !window.location) return false;
+  const pathname = window.location.pathname || '/';
+  const searchParams = new URLSearchParams(window.location.search || '');
+  return (
+    pathname === '/visual-v2-review' ||
+    pathname.startsWith('/visual-v2-review/') ||
+    searchParams.get('visual_v2') === '1'
+  );
+}
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   initialLeafId?: string | null;
+  visualV2Pilot?: boolean;
 }
 
-export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafId }) => {
+export const StoryGroveModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  initialLeafId,
+  visualV2Pilot,
+}) => {
   const { completedLeaves, markLeafComplete, childQuotes, todayWeather } = useApp();
+  const isV2CupPilot = visualV2Pilot ?? detectVisualV2PilotDefault();
+  const [v2EnabledLayers, setV2EnabledLayers] = useState<Record<SceneLayerId, boolean>>({
+    L1: true,
+    L2: true,
+    L3: true,
+    L4: true,
+    L5: true,
+  });
 
   const [activeLeafId, setActiveLeafId] = useState<string>(initialLeafId || 'cup-size');
   const [stage, setStage] = useState<
@@ -944,7 +975,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
       <div className="bg-amber-50/95 border border-amber-200/90 rounded-3xl p-3.5 sm:p-7 max-w-2xl w-full shadow-2xl relative my-auto transition-all duration-200 text-stone-800 max-h-[92vh] overflow-y-auto">
         <button
           onClick={handleCloseStoryGrove}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-500 hover:text-stone-700 p-2 rounded-full hover:bg-amber-100/60 transition-colors z-20 min-w-[52px] min-h-[52px] flex items-center justify-center cursor-pointer"
+          className={`absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-500 hover:text-stone-700 p-2 rounded-full hover:bg-amber-100/60 transition-colors z-20 ${
+            isV2CupPilot ? 'min-w-[56px] min-h-[56px]' : 'min-w-[52px] min-h-[52px]'
+          } flex items-center justify-center cursor-pointer`}
           aria-label="离开故事林"
         >
           <X className="w-6 h-6" />
@@ -966,7 +999,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         '欢迎来到故事林。点点童话场景里的东西，自己试试不同的办法，看看伙伴们会有什么反应！'
                       )
                     }
-                    className="p-2 rounded-full hover:bg-amber-100 text-amber-700 min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer"
+                    className={`p-2 rounded-full hover:bg-amber-100 text-amber-700 ${
+                      isV2CupPilot ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
+                    } flex items-center justify-center cursor-pointer`}
                     aria-label="朗读故事林介绍"
                   >
                     <Volume2 className="w-5 h-5" />
@@ -1016,7 +1051,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   type="button"
                   data-testid="open-camp-transfer-challenge"
                   onClick={handleStartTransferChallenge}
-                  className="min-h-[48px] px-4 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shadow-sm"
+                  className="min-h-[56px] px-4 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer shadow-sm"
                 >
                   <span>进入树屋露营夜</span>
                   <ArrowRight className="w-4 h-4" />
@@ -1087,7 +1122,7 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
             <div className="flex items-center justify-between pr-12">
               <button
                 onClick={handleReturnToCatalog}
-                className="min-h-[48px] px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
+                className="min-h-[56px] px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" /> 返回叶子目录
               </button>
@@ -1136,8 +1171,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 </span>
                 <button
                   type="button"
+                  data-testid="story-request-adult-review-btn"
                   onClick={handleRequestAdultReview}
-                  className="min-h-[48px] px-4 py-2.5 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
+                  className="min-h-[56px] px-4 py-2.5 bg-amber-100/90 hover:bg-amber-200 text-amber-950 font-bold rounded-xl text-xs border border-amber-300 cursor-pointer transition-colors"
                 >
                   🔒 家长 / 审阅人验证后预览（需输入家长 PIN）
                 </button>
@@ -1155,7 +1191,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
               <div className="flex items-center justify-between gap-2 pr-12 flex-wrap">
                 <button
                   onClick={handleReturnToCatalog}
-                  className="min-h-[44px] px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer"
+                  className={`${
+                    isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[44px]'
+                  } px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white text-xs sm:text-sm font-bold text-stone-700 flex items-center gap-1.5 border border-amber-200 cursor-pointer`}
                 >
                   <ArrowLeft className="w-4 h-4" /> 返回目录
                 </button>
@@ -1169,7 +1207,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   <button
                     type="button"
                     onClick={() => setLeafMode('classicDoors')}
-                    className="min-h-[38px] px-2.5 py-1 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold cursor-pointer"
+                    className={`${
+                      isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[38px]'
+                    } px-2.5 py-1 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold cursor-pointer`}
                   >
                     三扇门卡片
                   </button>
@@ -1185,6 +1225,18 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                 </div>
               )}
 
+              {isV2CupPilot && interactiveLeafDef.id === 'cup-size' && (
+                <StoryCupLayerControlBarV2
+                  enabledLayers={v2EnabledLayers}
+                  onToggleLayer={(id) =>
+                    setV2EnabledLayers((prev) => ({ ...prev, [id]: !prev[id] }))
+                  }
+                  onResetLayers={() =>
+                    setV2EnabledLayers({ L1: true, L2: true, L3: true, L4: true, L5: true })
+                  }
+                />
+              )}
+
               <div className="bg-white/95 p-3 sm:p-4 rounded-3xl border border-amber-200 shadow-sm space-y-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <div>
@@ -1198,7 +1250,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                   <button
                     type="button"
                     onClick={() => handleSpeak(interactiveLeafDef.sceneSettingPrompt)}
-                    className="min-w-[44px] min-h-[44px] p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 flex items-center justify-center cursor-pointer shrink-0"
+                    className={`${
+                      isV2CupPilot ? 'min-w-[56px] min-h-[56px]' : 'min-w-[44px] min-h-[44px]'
+                    } p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 flex items-center justify-center cursor-pointer shrink-0`}
                     aria-label="朗读场景提示"
                   >
                     <Volume2 className="w-5 h-5" />
@@ -1221,25 +1275,50 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       ? comparedCupPositions.length
                       : undefined
                   }
-                  className="relative rounded-2xl overflow-hidden border-2 border-amber-200 bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-100 h-56 sm:h-64 select-none touch-none"
+                  data-v2-pilot={
+                    isV2CupPilot && interactiveLeafDef.id === 'cup-size' ? 'true' : undefined
+                  }
+                  className={
+                    isV2CupPilot && interactiveLeafDef.id === 'cup-size'
+                      ? 'relative rounded-2xl overflow-hidden border-2 border-amber-300 bg-[#bdeef7] h-64 sm:h-80 select-none touch-none'
+                      : 'relative rounded-2xl overflow-hidden border-2 border-amber-200 bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-100 h-56 sm:h-64 select-none touch-none'
+                  }
                 >
+                  {isV2CupPilot && interactiveLeafDef.id === 'cup-size' && (
+                    <StoryCupSceneArtV2
+                      cupPosition={cupPosition}
+                      comparedCupPositions={comparedCupPositions}
+                      inspectedHotspotIds={inspectedHotspotIds}
+                      activeHotspotId={activeHotspotId}
+                      selectedSceneActionId={selectedSceneActionId}
+                      hasAllRequiredEvidence={Boolean(
+                        effectiveLeafOutcome?.hasAllRequiredEvidence
+                      )}
+                      isGoalCompleted={Boolean(effectiveLeafOutcome?.isGoalCompleted)}
+                      enabledLayers={v2EnabledLayers}
+                    />
+                  )}
                   {interactiveLeafDef.id === 'cup-size' ? (
                     <svg
                       ref={svgCupRef}
                       data-testid="story-interactive-svg-cup-size"
                       viewBox="0 0 420 220"
-                      className="w-full h-full touch-none"
+                      className="w-full h-full touch-none relative z-10"
                       role="img"
                       aria-label="一只杯子是大还是小童话木桌场景（可按住水杯左右拖动对比）"
                       onPointerMove={handleCupSvgPointerMove}
                       onPointerUp={handleCupSvgPointerUp}
                       onPointerCancel={handleCupSvgPointerCancel}
                     >
-                      <circle cx="65" cy="40" r="45" fill="#A7F3D0" opacity="0.55" />
-                      <circle cx="355" cy="36" r="52" fill="#6EE7B7" opacity="0.45" />
-                      <rect x="20" y="142" width="380" height="22" rx="8" fill="#B45309" />
-                      <rect x="48" y="164" width="18" height="46" rx="4" fill="#92400E" />
-                      <rect x="354" y="164" width="18" height="46" rx="4" fill="#92400E" />
+                      {!isV2CupPilot && (
+                        <>
+                          <circle cx="65" cy="40" r="45" fill="#A7F3D0" opacity="0.55" />
+                          <circle cx="355" cy="36" r="52" fill="#6EE7B7" opacity="0.45" />
+                          <rect x="20" y="142" width="380" height="22" rx="8" fill="#B45309" />
+                          <rect x="48" y="164" width="18" height="46" rx="4" fill="#92400E" />
+                          <rect x="354" y="164" width="18" height="46" rx="4" fill="#92400E" />
+                        </>
+                      )}
 
                       {/* Sprint 4.1 FIX-04: Three visual drop zones on table for direct drag & snap */}
                       <rect
@@ -1332,50 +1411,74 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BLOCK')}
                         style={{ cursor: 'pointer' }}
                       >
-                        <circle cx="24" cy="24" r="16" fill="#D97706" />
-                        <circle cx="14" cy="12" r="6" fill="#B45309" />
-                        <circle cx="34" cy="12" r="6" fill="#B45309" />
-                        <circle
-                          cx="20"
-                          cy="22"
-                          r={cupPosition === 'NEXT_TO_BLOCK' ? '3.1' : '2.3'}
-                          fill="#1C1917"
-                        />
-                        <circle
-                          cx="29"
-                          cy="22"
-                          r={cupPosition === 'NEXT_TO_BLOCK' ? '3.1' : '2.3'}
-                          fill="#1C1917"
-                        />
-                        <path
-                          d={
-                            cupPosition === 'NEXT_TO_BLOCK'
-                              ? 'M18 29 Q24 35 30 29'
-                              : 'M19 30 Q24 32 29 30'
-                          }
-                          fill="none"
-                          stroke="#451A03"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <rect
-                          x="30"
-                          y="40"
-                          width="22"
-                          height="22"
-                          rx="4"
-                          fill="#F59E0B"
-                          stroke={
-                            inspectedHotspotIds.includes('obj_wooden_block') ||
-                            comparedCupPositions.includes('NEXT_TO_BLOCK')
-                              ? '#059669'
-                              : '#78350F'
-                          }
-                          strokeWidth="2.5"
-                        />
+                        {isV2CupPilot ? (
+                          <>
+                            <rect
+                              x="-6"
+                              y="-6"
+                              width="78"
+                              height="78"
+                              fill="transparent"
+                            />
+                            <image
+                              data-testid="v2-prop-image-obj_wooden_block"
+                              href={STORY_CUP_PROPS.obj_wooden_block.svg}
+                              data-webp-src={STORY_CUP_PROPS.obj_wooden_block.webp}
+                              x="16"
+                              y="18"
+                              width="48"
+                              height="48"
+                              style={{ pointerEvents: 'none' }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <circle cx="24" cy="24" r="16" fill="#D97706" />
+                            <circle cx="14" cy="12" r="6" fill="#B45309" />
+                            <circle cx="34" cy="12" r="6" fill="#B45309" />
+                            <circle
+                              cx="20"
+                              cy="22"
+                              r={cupPosition === 'NEXT_TO_BLOCK' ? '3.1' : '2.3'}
+                              fill="#1C1917"
+                            />
+                            <circle
+                              cx="29"
+                              cy="22"
+                              r={cupPosition === 'NEXT_TO_BLOCK' ? '3.1' : '2.3'}
+                              fill="#1C1917"
+                            />
+                            <path
+                              d={
+                                cupPosition === 'NEXT_TO_BLOCK'
+                                  ? 'M18 29 Q24 35 30 29'
+                                  : 'M19 30 Q24 32 29 30'
+                              }
+                              fill="none"
+                              stroke="#451A03"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                            <rect
+                              x="30"
+                              y="40"
+                              width="22"
+                              height="22"
+                              rx="4"
+                              fill="#F59E0B"
+                              stroke={
+                                inspectedHotspotIds.includes('obj_wooden_block') ||
+                                comparedCupPositions.includes('NEXT_TO_BLOCK')
+                                  ? '#059669'
+                                  : '#78350F'
+                              }
+                              strokeWidth="2.5"
+                            />
+                          </>
+                        )}
                         <text
                           x="41"
-                          y="55"
+                          y={isV2CupPilot ? '70' : '55'}
                           fontSize="9.5"
                           textAnchor="middle"
                           fill="#451A03"
@@ -1391,35 +1494,59 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         onClick={() => handleMoveCupToPosition('NEXT_TO_BUCKET')}
                         style={{ cursor: 'pointer' }}
                       >
-                        <ellipse cx="56" cy="48" rx="28" ry="24" fill="#94A3B8" />
-                        <circle cx="46" cy="42" r="2.8" fill="#0F172A" />
-                        <path
-                          d={
-                            selectedSceneActionId === 'act_only_look_squirrel'
-                              ? 'M32 48 Q22 68 28 78'
-                              : cupPosition === 'NEXT_TO_BUCKET'
-                                ? 'M32 44 Q14 30 20 16'
-                                : 'M32 46 Q18 42 20 28'
-                          }
-                          fill="none"
-                          stroke="#64748B"
-                          strokeWidth="7"
-                          strokeLinecap="round"
-                        />
-                        <polygon
-                          points="2,34 46,34 40,90 8,90"
-                          fill="#FB923C"
-                          stroke={
-                            inspectedHotspotIds.includes('obj_elephant_bucket') ||
-                            comparedCupPositions.includes('NEXT_TO_BUCKET')
-                              ? '#059669'
-                              : '#9A3412'
-                          }
-                          strokeWidth="2.5"
-                        />
+                        {isV2CupPilot ? (
+                          <>
+                            <rect
+                              x="-10"
+                              y="14"
+                              width="82"
+                              height="84"
+                              fill="transparent"
+                            />
+                            <image
+                              data-testid="v2-prop-image-obj_elephant_bucket"
+                              href={STORY_CUP_PROPS.obj_elephant_bucket.svg}
+                              data-webp-src={STORY_CUP_PROPS.obj_elephant_bucket.webp}
+                              x="-6"
+                              y="24"
+                              width="64"
+                              height="68"
+                              style={{ pointerEvents: 'none' }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <ellipse cx="56" cy="48" rx="28" ry="24" fill="#94A3B8" />
+                            <circle cx="46" cy="42" r="2.8" fill="#0F172A" />
+                            <path
+                              d={
+                                selectedSceneActionId === 'act_only_look_squirrel'
+                                  ? 'M32 48 Q22 68 28 78'
+                                  : cupPosition === 'NEXT_TO_BUCKET'
+                                    ? 'M32 44 Q14 30 20 16'
+                                    : 'M32 46 Q18 42 20 28'
+                              }
+                              fill="none"
+                              stroke="#64748B"
+                              strokeWidth="7"
+                              strokeLinecap="round"
+                            />
+                            <polygon
+                              points="2,34 46,34 40,90 8,90"
+                              fill="#FB923C"
+                              stroke={
+                                inspectedHotspotIds.includes('obj_elephant_bucket') ||
+                                comparedCupPositions.includes('NEXT_TO_BUCKET')
+                                  ? '#059669'
+                                  : '#9A3412'
+                              }
+                              strokeWidth="2.5"
+                            />
+                          </>
+                        )}
                         <text
                           x="24"
-                          y="65"
+                          y={isV2CupPilot ? '98' : '65'}
                           fontSize="10"
                           textAnchor="middle"
                           fill="#431407"
@@ -1429,11 +1556,34 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         </text>
                       </g>
 
-                      {/* Movable Forest Blue Cup Prop (Supports Direct Drag & Snap + Click Fallback) */}
+                      {/* Movable Forest Blue Cup Prop (Supports Direct Drag & Snap + Click/Keyboard Fallback) */}
                       <g
                         data-testid="movable-blue-cup-prop"
                         data-cup-position={cupPosition}
                         data-dragging={isDraggingCup ? 'true' : 'false'}
+                        tabIndex={isV2CupPilot ? 0 : undefined}
+                        role={isV2CupPilot ? 'button' : undefined}
+                        aria-label={
+                          isV2CupPilot
+                            ? '拖动蓝水杯，或使用键盘左右方向键移动位置对比'
+                            : undefined
+                        }
+                        onKeyDown={
+                          isV2CupPilot
+                            ? (e) => {
+                                if (e.key === 'ArrowLeft') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('NEXT_TO_BLOCK');
+                                } else if (e.key === 'ArrowRight') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('NEXT_TO_BUCKET');
+                                } else if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  handleMoveCupToPosition('CENTER_TABLE');
+                                }
+                              }
+                            : undefined
+                        }
                         onPointerDown={handleCupPointerDown}
                         style={{ cursor: isDraggingCup ? 'grabbing' : 'grab' }}
                         transform={
@@ -1447,50 +1597,65 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         }
                       >
                         <rect
-                          x="-6"
-                          y="0"
-                          width="54"
-                          height="56"
+                          x={isV2CupPilot ? '-22' : '-6'}
+                          y={isV2CupPilot ? '-16' : '0'}
+                          width={isV2CupPilot ? '84' : '54'}
+                          height={isV2CupPilot ? '84' : '56'}
                           fill="transparent"
                         />
-                        <rect
-                          x="0"
-                          y="10"
-                          width="38"
-                          height="42"
-                          rx="6"
-                          fill="#38BDF8"
-                          stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
-                          strokeWidth={isDraggingCup ? '3.5' : '2.8'}
-                        />
-                        <path
-                          d="M38 18 C48 18, 48 36, 38 36"
-                          fill="none"
-                          stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
-                          strokeWidth="3.5"
-                        />
-                        <line
-                          x1="6"
-                          y1="24"
-                          x2="32"
-                          y2="24"
-                          stroke="#E0F2FE"
-                          strokeWidth="2"
-                          strokeDasharray="3 2"
-                        />
-                        <line
-                          x1="6"
-                          y1="36"
-                          x2="32"
-                          y2="36"
-                          stroke="#E0F2FE"
-                          strokeWidth="2"
-                          strokeDasharray="3 2"
-                        />
+                        {isV2CupPilot ? (
+                          <image
+                            data-testid="v2-prop-image-obj_blue_cup"
+                            href={STORY_CUP_PROPS.obj_blue_cup.svg}
+                            data-webp-src={STORY_CUP_PROPS.obj_blue_cup.webp}
+                            x="-8"
+                            y="4"
+                            width="54"
+                            height="54"
+                            style={{ pointerEvents: 'none' }}
+                          />
+                        ) : (
+                          <>
+                            <rect
+                              x="0"
+                              y="10"
+                              width="38"
+                              height="42"
+                              rx="6"
+                              fill="#38BDF8"
+                              stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
+                              strokeWidth={isDraggingCup ? '3.5' : '2.8'}
+                            />
+                            <path
+                              d="M38 18 C48 18, 48 36, 38 36"
+                              fill="none"
+                              stroke={isDraggingCup ? '#F59E0B' : '#0284C7'}
+                              strokeWidth="3.5"
+                            />
+                            <line
+                              x1="6"
+                              y1="24"
+                              x2="32"
+                              y2="24"
+                              stroke="#E0F2FE"
+                              strokeWidth="2"
+                              strokeDasharray="3 2"
+                            />
+                            <line
+                              x1="6"
+                              y1="36"
+                              x2="32"
+                              y2="36"
+                              stroke="#E0F2FE"
+                              strokeWidth="2"
+                              strokeDasharray="3 2"
+                            />
+                          </>
+                        )}
                         <text
                           data-testid="cup-constant-size-gauge"
                           x="19"
-                          y="6"
+                          y={isV2CupPilot ? '2' : '6'}
                           fontSize="8.5"
                           textAnchor="middle"
                           fill="#0369A1"
@@ -1575,19 +1740,53 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         onClick={() => handleInspectStoryHotspot('obj_twig_ruler')}
                         style={{ cursor: 'pointer' }}
                       >
-                        <rect
-                          x="0"
-                          y="0"
-                          width="190"
-                          height="10"
-                          rx="5"
-                          fill="#78350F"
-                          stroke={inspectedHotspotIds.includes('obj_twig_ruler') ? '#10B981' : 'none'}
-                          strokeWidth="2"
-                        />
-                        <line x1="35" y1="0" x2="35" y2="10" stroke="#FDE68A" strokeWidth="2" />
-                        <line x1="95" y1="0" x2="95" y2="10" stroke="#FDE68A" strokeWidth="2" />
-                        <line x1="155" y1="0" x2="155" y2="10" stroke="#FDE68A" strokeWidth="2" />
+                        {isV2CupPilot ? (
+                          <>
+                            <rect
+                              x="0"
+                              y="-18"
+                              width="190"
+                              height="44"
+                              fill="transparent"
+                            />
+                            <image
+                              data-testid="v2-prop-image-obj_twig_ruler"
+                              href={STORY_CUP_PROPS.obj_twig_ruler.svg}
+                              data-webp-src={STORY_CUP_PROPS.obj_twig_ruler.webp}
+                              x="20"
+                              y="-22"
+                              width="150"
+                              height="52"
+                              preserveAspectRatio="xMidYMid meet"
+                              style={{ pointerEvents: 'none' }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <rect
+                              x="0"
+                              y="0"
+                              width="190"
+                              height="10"
+                              rx="5"
+                              fill="#78350F"
+                              stroke={
+                                inspectedHotspotIds.includes('obj_twig_ruler') ? '#10B981' : 'none'
+                              }
+                              strokeWidth="2"
+                            />
+                            <line x1="35" y1="0" x2="35" y2="10" stroke="#FDE68A" strokeWidth="2" />
+                            <line x1="95" y1="0" x2="95" y2="10" stroke="#FDE68A" strokeWidth="2" />
+                            <line
+                              x1="155"
+                              y1="0"
+                              x2="155"
+                              y2="10"
+                              stroke="#FDE68A"
+                              strokeWidth="2"
+                            />
+                          </>
+                        )}
                       </g>
 
                       {selectedSceneActionId === 'act_compare_both_sides' &&
@@ -1953,7 +2152,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         type="button"
                         data-testid={`story-hotspot-${hotspot.id}`}
                         onClick={() => handleInspectStoryHotspot(hotspot.id)}
-                        className={`min-h-[44px] px-2.5 py-1.5 rounded-2xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 border-2 ${
+                        className={`${
+                          isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[44px]'
+                        } px-2.5 py-1.5 rounded-2xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 border-2 ${
                           isCurrent
                             ? 'bg-amber-400 text-stone-950 border-stone-900 shadow-sm'
                             : isInspected
@@ -1978,7 +2179,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       type="button"
                       data-testid="move-cup-to-block"
                       onClick={() => handleMoveCupToPosition('NEXT_TO_BLOCK')}
-                      className={`min-h-[46px] px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      className={`${
+                        isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[46px]'
+                      } px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
                         cupPosition === 'NEXT_TO_BLOCK'
                           ? 'bg-emerald-600 text-white border-emerald-700 shadow-sm'
                           : 'bg-amber-50 hover:bg-amber-100 text-stone-900 border-amber-300'
@@ -1990,7 +2193,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       type="button"
                       data-testid="move-cup-to-center"
                       onClick={() => handleMoveCupToPosition('CENTER_TABLE')}
-                      className={`min-h-[46px] px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      className={`${
+                        isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[46px]'
+                      } px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
                         cupPosition === 'CENTER_TABLE'
                           ? 'bg-sky-600 text-white border-sky-700 shadow-sm'
                           : 'bg-stone-50 hover:bg-stone-100 text-stone-800 border-stone-300'
@@ -2002,7 +2207,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                       type="button"
                       data-testid="move-cup-to-bucket"
                       onClick={() => handleMoveCupToPosition('NEXT_TO_BUCKET')}
-                      className={`min-h-[46px] px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      className={`${
+                        isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[46px]'
+                      } px-2 py-1.5 rounded-2xl text-xs font-black border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
                         cupPosition === 'NEXT_TO_BUCKET'
                           ? 'bg-emerald-600 text-white border-emerald-700 shadow-sm'
                           : 'bg-amber-50 hover:bg-amber-100 text-stone-900 border-amber-300'
@@ -2068,7 +2275,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                         type="button"
                         data-testid={`story-action-${action.id}`}
                         onClick={() => handleSelectStoryAction(action.id)}
-                        className={`min-h-[50px] p-2.5 sm:p-3 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                        className={`${
+                          isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[50px]'
+                        } p-2.5 sm:p-3 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
                           isSelected
                             ? 'bg-emerald-50 border-emerald-500 text-emerald-950 shadow-sm'
                             : 'bg-stone-50/90 hover:bg-amber-50/60 border-stone-200 text-stone-800'
@@ -2143,7 +2352,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                               type="button"
                               data-testid="story-revise-action-btn"
                               onClick={handleReturnToSceneObserve}
-                              className="min-h-[46px] px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                              className={`${
+                                isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[46px]'
+                              } px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer shrink-0`}
                             >
                               <RefreshCw className="w-4 h-4" />
                               <span>回到场景换个办法试试</span>
@@ -2170,7 +2381,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                               type="button"
                               data-testid="story-complete-return-island-btn"
                               onClick={handleCloseStoryGrove}
-                              className="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs cursor-pointer shrink-0"
+                              className={`${
+                                isV2CupPilot ? 'min-h-[56px] min-w-[56px]' : 'min-h-[44px]'
+                              } px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs cursor-pointer shrink-0`}
                             >
                               回小岛看变化
                             </button>
@@ -2183,7 +2396,9 @@ export const StoryGroveModal: React.FC<Props> = ({ isOpen, onClose, initialLeafI
                             type="button"
                             data-testid="parent-co-read-drawer-toggle"
                             onClick={() => setShowParentCoReadDrawer((v) => !v)}
-                            className="text-xs font-bold text-amber-900 hover:text-amber-700 cursor-pointer flex items-center gap-1"
+                            className={`${
+                              isV2CupPilot ? 'min-h-[56px] min-w-[56px] px-3 py-2 rounded-xl bg-amber-100/60' : ''
+                            } text-xs font-bold text-amber-900 hover:text-amber-700 cursor-pointer flex items-center gap-1`}
                           >
                             <span>
                               {showParentCoReadDrawer

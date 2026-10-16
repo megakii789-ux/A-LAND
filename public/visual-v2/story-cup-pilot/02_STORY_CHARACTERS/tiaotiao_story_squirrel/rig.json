@@ -1,0 +1,82 @@
+{
+  "characterId": "tiaotiao_story_squirrel",
+  "assetType": "illustrated_2_5d_svg_rig",
+  "canvas": [
+    800,
+    900
+  ],
+  "originAt": "top-left",
+  "parts": [
+    {
+      "id": "00_shadow",
+      "src": "rig_parts/00_shadow.svg",
+      "anchor": null
+    },
+    {
+      "id": "01_tail_back",
+      "src": "rig_parts/01_tail_back.svg",
+      "anchor": null
+    },
+    {
+      "id": "02_feet",
+      "src": "rig_parts/02_feet.svg",
+      "anchor": null
+    },
+    {
+      "id": "03_body",
+      "src": "rig_parts/03_body.svg",
+      "anchor": null
+    },
+    {
+      "id": "04_left_arm",
+      "src": "rig_parts/04_left_arm.svg",
+      "anchor": {
+        "x": 285,
+        "y": 555
+      }
+    },
+    {
+      "id": "05_right_arm",
+      "src": "rig_parts/05_right_arm.svg",
+      "anchor": {
+        "x": 517,
+        "y": 552
+      }
+    },
+    {
+      "id": "06_head",
+      "src": "rig_parts/06_head.svg",
+      "anchor": null
+    },
+    {
+      "id": "07_eyes_open",
+      "src": "rig_parts/07_eyes_open.svg",
+      "anchor": null
+    },
+    {
+      "id": "08_mouth_smile",
+      "src": "rig_parts/08_mouth_smile.svg",
+      "anchor": null
+    }
+  ],
+  "variantParts": {
+    "eyes": [
+      "07_eyes_open",
+      "07_eyes_blink"
+    ],
+    "mouth": [
+      "08_mouth_smile",
+      "08_mouth_talk",
+      "08_mouth_think"
+    ]
+  },
+  "speechPolicy": "Animation is decorative only. Audio waveform/phoneme lip-sync NOT implemented; do not infer speech status from animation.",
+  "states": [
+    "idle",
+    "blink",
+    "talk",
+    "think",
+    "celebrate"
+  ],
+  "status": "VECTOR_ENGINEERING_READY__ART_DIRECTOR_REVIEW_REQUIRED"
+}

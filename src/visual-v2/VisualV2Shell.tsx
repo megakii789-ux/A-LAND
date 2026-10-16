@@ -74,6 +74,16 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
     });
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location) {
+      const pathname = window.location.pathname || '';
+      if (pathname.startsWith('/visual-v2-review/story-cup-pilot')) {
+        recordLandmarkVisit('story');
+        setChildPlace('story');
+      }
+    }
+  }, [setChildPlace]);
+
   const reducedMotion = Boolean(personalization.accessibility.reducedMotion);
 
   const isWeatherOpen = childPlace === 'weather';
@@ -137,17 +147,31 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
         <V2ArtDirectorHoldBanner />
 
         <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-2xl bg-white/85 border border-[#72CBFF]/50 text-xs font-bold text-[#123C5C]">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <img src={effectSvgUrl('leaf')} alt="" className="w-4 h-4" />
-            <span>入口：`/visual-v2-review` · 独立资产包 V0.1</span>
+            <span>入口：`/visual-v2-review` · V2.2 故事林样板 (`StoryGrove::cup-size`)</span>
+            <span
+              data-testid="v2-pilot-gate-badge"
+              className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-black"
+            >
+              ENGINEERING_PILOT_PASS
+            </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              data-testid="v2-open-story-cup-pilot-btn"
+              onClick={() => handleOpenPlace('story')}
+              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-amber-400 bg-amber-100 hover:bg-amber-200 text-amber-950 font-black cursor-pointer"
+            >
+              打开 V2.2《一只杯子》样板
+            </button>
             <button
               type="button"
               data-testid="v2-reduced-motion-toggle"
               aria-pressed={reducedMotion}
               onClick={handleToggleReducedMotion}
-              className="min-h-[44px] px-3 py-1 rounded-xl border border-[#18B7A4]/50 bg-[#FFF9EC] hover:bg-[#FFD67A]/40 text-[#123C5C] font-extrabold cursor-pointer"
+              className="min-h-[56px] px-3 py-1 rounded-xl border border-[#18B7A4]/50 bg-[#FFF9EC] hover:bg-[#FFD67A]/40 text-[#123C5C] font-extrabold cursor-pointer"
             >
               {reducedMotion ? '已开启减少动画' : '减少动画'}
             </button>
@@ -156,7 +180,7 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
                 type="button"
                 data-testid="v2-exit-review-btn"
                 onClick={onExitV2Review}
-                className="min-h-[44px] px-3 py-1 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 font-extrabold cursor-pointer"
+                className="min-h-[56px] px-3 py-1 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 font-extrabold cursor-pointer"
               >
                 返回原版皮肤 (`/`)
               </button>
@@ -367,6 +391,7 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
         isOpen={isStoryOpen}
         onClose={handleCloseModal}
         initialLeafId={selectedLeafId}
+        visualV2Pilot={true}
       />
 
       <ThoughtDetectiveLabModal
