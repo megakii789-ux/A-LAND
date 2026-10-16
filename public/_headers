@@ -21,8 +21,17 @@
 /version.json
   Cache-Control: no-cache, no-store, must-revalidate
 
+/visual-v2-review
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Art-Director-Qa-Gate: ART_DIRECTOR_QA_HOLD
+
+/visual-v2-review/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Art-Director-Qa-Gate: ART_DIRECTOR_QA_HOLD
+
 /api/*
   Cache-Control: no-cache, no-store, must-revalidate
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+

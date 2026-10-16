@@ -1,0 +1,116 @@
+/* A-LAND V2 browser-native animation sources; NO AE proprietary file or skeletal rig. */
+@keyframes aland-idle {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-10px) rotate(0.6deg) scale(1.012); }
+}
+@keyframes aland-greeting {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-17px) rotate(-8deg); }
+  65% { transform: translateY(-7px) rotate(5deg); }
+}
+@keyframes aland-listen {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(7deg); }
+}
+@keyframes aland-celebrate {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-26px) scale(1.07); }
+}
+@keyframes aland-sparkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes aland-wave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(12px); }
+}
+@keyframes aland-panel-enter {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.aland-v2-scope {
+  --v2-sea-blue: #72CBFF;
+  --v2-sky-blue: #60BCF6;
+  --v2-sun-yellow: #FFD67A;
+  --v2-leaf-green: #A7D676;
+  --v2-coral-pink: #FFB6C9;
+  --v2-lavender: #B9A6FF;
+  --v2-paper-white: #FFF7EB;
+  --v2-ink-blue: #123C5C;
+  --v2-wood-brown: #B68C64;
+  --v2-primary-teal: #18B7A4;
+  background:
+    radial-gradient(ellipse at 10% 2%, rgba(114, 203, 255, 0.38), transparent 40%),
+    linear-gradient(155deg, #F5FBFE 0%, #EAF5F0 65%, #FFF4E4 100%);
+  color: var(--v2-ink-blue);
+}
+
+.aland-actor[data-motion="idle"] {
+  animation: aland-idle 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.aland-actor[data-motion="greeting"] {
+  animation: aland-greeting 0.7s ease-out infinite;
+  transform-origin: center bottom;
+}
+.aland-actor[data-motion="listening"] {
+  animation: aland-listen 1.8s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.aland-actor[data-motion="celebrate"] {
+  animation: aland-celebrate 0.7s ease-out 1;
+  transform-origin: center bottom;
+}
+.aland-sparkle {
+  animation: aland-sparkle 2.2s ease-in-out infinite;
+}
+.aland-wave {
+  animation: aland-wave 4s ease-in-out infinite;
+}
+.aland-scene-enter {
+  animation: aland-panel-enter 0.38s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.aland-scene-layers {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.aland-scene-layers img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aland-actor,
+  .aland-sparkle,
+  .aland-wave,
+  .aland-scene-enter {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.aland-v2-reduce-motion .aland-actor,
+.aland-v2-reduce-motion .aland-sparkle,
+.aland-v2-reduce-motion .aland-wave,
+.aland-v2-reduce-motion .aland-scene-enter {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Let V2 SceneBackdropV2 SVG backplate shine through the modal backdrop in V2 review mode */
+.aland-v2-scope div.fixed.inset-0.z-50 {
+  background-color: rgba(18, 60, 92, 0.24) !important;
+  backdrop-filter: blur(2px) !important;
+}
+

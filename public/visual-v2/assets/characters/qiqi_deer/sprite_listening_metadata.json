@@ -1,0 +1,16 @@
+{
+  "asset": "qiqi_deer",
+  "state": "listening",
+  "format": "PNG_SPRITESHEET_4x2",
+  "sheetWidth": 1080,
+  "sheetHeight": 640,
+  "frameWidth": 270,
+  "frameHeight": 320,
+  "columns": 4,
+  "frames": 8,
+  "durationMs": 840,
+  "loop": true,
+  "sourceType": "whole_raster_transform_not_rigged_joint_animation",
+  "nativeSourceWidthPx": 172,
+  "nativeSourceHeightPx": 244
+}

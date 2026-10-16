@@ -1,0 +1,10 @@
+{
+  "source": "V04_ui_component_styleguide.png",
+  "method": "grabCut",
+  "pixel_dimensions": [
+    94,
+    71
+  ],
+  "render_scale": "native",
+  "requires_manual_QA": true
+}

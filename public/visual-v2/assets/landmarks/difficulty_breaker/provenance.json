@@ -1,0 +1,22 @@
+{
+  "name": "difficulty_breaker",
+  "source_image": "V14_character_landmark_asset_board.png",
+  "crop_xyxy": [
+    1418,
+    670,
+    1635,
+    829
+  ],
+  "export_dims_native": [
+    191,
+    151
+  ],
+  "export_dims_upscaled": [
+    382,
+    302
+  ],
+  "alpha_background": true,
+  "method": "cv2.grabCut interactive seed + connected region + alpha edge refinement",
+  "manual_qa_required": true,
+  "upscaled_is_not_higher_native_detail": true
+}

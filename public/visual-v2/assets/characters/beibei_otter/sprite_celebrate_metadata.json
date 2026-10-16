@@ -1,0 +1,16 @@
+{
+  "asset": "beibei_otter",
+  "state": "celebrate",
+  "format": "PNG_SPRITESHEET_4x2",
+  "sheetWidth": 1080,
+  "sheetHeight": 640,
+  "frameWidth": 270,
+  "frameHeight": 320,
+  "columns": 4,
+  "frames": 8,
+  "durationMs": 480,
+  "loop": false,
+  "sourceType": "whole_raster_transform_not_rigged_joint_animation",
+  "nativeSourceWidthPx": 194,
+  "nativeSourceHeightPx": 260
+}

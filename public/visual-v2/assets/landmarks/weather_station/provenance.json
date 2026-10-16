@@ -1,0 +1,22 @@
+{
+  "name": "weather_station",
+  "source_image": "V14_character_landmark_asset_board.png",
+  "crop_xyxy": [
+    613,
+    676,
+    802,
+    830
+  ],
+  "export_dims_native": [
+    113,
+    147
+  ],
+  "export_dims_upscaled": [
+    226,
+    294
+  ],
+  "alpha_background": true,
+  "method": "cv2.grabCut interactive seed + connected region + alpha edge refinement",
+  "manual_qa_required": true,
+  "upscaled_is_not_higher_native_detail": true
+}

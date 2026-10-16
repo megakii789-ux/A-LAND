@@ -17,7 +17,8 @@ const FORBIDDEN_CACHE_PATTERNS = [
   /\/cdn-cgi\//,                        // Cloudflare Access 访问控制与认证挑战端点
   /\/version\.json$/,                   // 部署版本与回滚核验元数据
   /^\/$/,                               // 私有预览首页 HTML 严禁离线缓存 (D6-03)
-  /\/index\.html$/                      // 私有预览入口 HTML 严禁离线缓存 (D6-03)
+  /\/index\.html$/,                     // 私有预览入口 HTML 严禁离线缓存 (D6-03)
+  /^\/visual-v2-review/                 // V2 独立视觉审阅入口严禁离线缓存或旧路由劫持
 ];
 
 function purgeAllCaches() {
