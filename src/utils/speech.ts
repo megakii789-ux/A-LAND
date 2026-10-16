@@ -73,11 +73,19 @@ export const VOICE_PROFILE_TO_COMPANION: Record<VoiceProfileType, CompanionVoice
   'starlight-companion': 'qiqi_deer'
 };
 
+export type EmotionProsodyTone =
+  | 'warm-dual-empathy'
+  | 'calm-fact-clarity'
+  | 'gentle-inquiry'
+  | 'protective-safety'
+  | 'light-everyday';
+
 export interface SpeakOptions {
   speakerId?: string;
   lineId?: string;
   sceneId?: string;
   profileOverride?: VoiceProfileType;
+  emotionTone?: EmotionProsodyTone;
 }
 
 export type VoiceSourceType =
@@ -103,6 +111,8 @@ export interface PlaybackDiagnostics {
   speakerId?: string;
   lineId?: string;
   sceneId?: string;
+  emotionTone?: EmotionProsodyTone;
+  prosodyPauseMs?: number;
   timestampMs: number;
 }
 
@@ -1171,6 +1181,17 @@ class SpeechNarrator {
       resolvedVoiceLabel
     );
 
+    const tonePauseBonus =
+      options?.emotionTone === 'warm-dual-empathy'
+        ? 45
+        : options?.emotionTone === 'gentle-inquiry'
+          ? 60
+          : options?.emotionTone === 'protective-safety'
+            ? 35
+            : options?.emotionTone === 'calm-fact-clarity'
+              ? 30
+              : 0;
+
     this.recordDiagnostics({
       playbackSessionId: sessionId,
       companionId: targetCompanionId,
@@ -1195,6 +1216,8 @@ class SpeechNarrator {
       speakerId: options?.speakerId || targetCompanionId,
       lineId: options?.lineId,
       sceneId: options?.sceneId,
+      emotionTone: options?.emotionTone,
+      prosodyPauseMs: profileCfg.breathPauseMs + tonePauseBonus,
       timestampMs: nowMs
     });
 

@@ -209,15 +209,15 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
       title: '双向桥小驿',
       subTitle:
         completedToyBoatCount > 0
-          ? `小船已顺畅通航 ${completedToyBoatCount} 次 · 两个温暖家`
-          : '两个温暖家 · 日程安心想念',
-      tag: completedToyBoatCount > 0 ? `已通航 ${completedToyBoatCount} 次` : '温暖两家',
+          ? `小船已顺畅通航 ${completedToyBoatCount} 次 · 换家心意与小桥`
+          : '两处生活地点 · 换家心情与自主过渡',
+      tag: completedToyBoatCount > 0 ? `已通航 ${completedToyBoatCount} 次` : '双向小桥',
       desc:
         completedToyBoatCount > 0
-          ? `桥下溪流的小木船已完成 ${completedToyBoatCount} 项协商试航！两头温暖的家连得更紧密啦。`
-          : '一座美丽的木拱桥连着两头温暖的家，看日程表、收拾书包、想念可以安心说。',
+          ? `桥下溪流的小木船已完成 ${completedToyBoatCount} 项协商试航！来桥上探索换家的不同心情与办法吧。`
+          : '连接两处生活地点的木拱桥，支持双向想念、分清事实与猜测、调查具体担忧或轻松过桥。',
       actionText: '踏上双向小桥',
-      ariaLabel: '进入双向桥小驿（进入照顾小桥）：两个温暖的家，看日程安排、收拾小书包与安心想念',
+      ariaLabel: '进入双向桥小驿（进入照顾小桥）：探索换家时的不同感受、原因与过渡方式',
       colorScheme: {
         bg: 'from-teal-100 to-cyan-50',
         border: 'border-teal-300',
@@ -227,7 +227,7 @@ export const FairytaleIslandMap: React.FC<FairytaleIslandMapProps> = ({
         badgeText: 'text-teal-950',
         glow: '#14B8A6',
       },
-      speechText: '这里是双向桥小驿，也就是照顾小桥。桥的两边都是爱你的家，日程清清楚楚，两边的爸爸妈妈都深深爱着你。',
+      speechText: '这里是双向桥小驿。去另一边住的时候，每个人心里可能会有不一样的感受，也可能平平常常。先点点看你现在有什么感觉吧！',
       coords: {
         cx: 490,
         cy: 535,

@@ -95,8 +95,18 @@ export interface ToyBoatSessionSnapshot {
   taskStatesById?: Record<string, ToyBoatTaskProgressSnapshot>;
 }
 
+import type {
+  TransitionExperienceState,
+  TransitionSliceId,
+} from '../transition/transitionExperienceEngine';
+
 export interface CompanionSessionMemory {
-  gameId: 'friend_asks_home' | 'toy_boat' | 'crayon_detective' | 'story_grove';
+  gameId:
+    | 'friend_asks_home'
+    | 'toy_boat'
+    | 'crayon_detective'
+    | 'story_grove'
+    | 'two_homes_bridge';
   scenarioTitle: string;
   /** P1-B: 区分“已安排/正在进行但尚未观察结果”与“已完成并观察结果” */
   eventStage?: 'ARRANGED_OR_STARTED' | 'COMPLETED_OBSERVED';
@@ -215,6 +225,16 @@ export interface ProductExperienceMetrics {
   latestCampTransferAttempt: StoryGroveTransferAttemptRecord | null;
   /** Sprint 4.1 FIX-03: 树屋露营夜历史最佳自主完成表现 */
   bestCampTransferIndependence: TransferCompletionIndependence | null;
+  /** 换家场景 V1.0: 实际完成过完整探索与行动反馈的换家情境 ID 列表 */
+  exploredTransitionSliceIds: TransitionSliceId[];
+  /** 换家场景 V1.0: 孩子主动选择暂停或先休息的换家情境 ID 列表 */
+  pausedTransitionSliceIds: TransitionSliceId[];
+  /** 换家场景 V1.0: 当前激活的换家情境 ID（供返回/重进恢复） */
+  activeTransitionSliceId: TransitionSliceId | null;
+  /** 换家场景 V1.0: 各换家情境独立保存的状态快照（防止跨情境切换串状态） */
+  transitionSliceStatesById: Record<string, TransitionExperienceState>;
+  /** 换家场景 V1.0: 是否记录到涉及具体人或伤害行为的安全保护求助触发 */
+  transitionSafetyAlertRecorded: boolean;
   /** Sprint 2: 动物伙伴对孩子当前会话具体选择的温暖记忆 */
   latestCompanionMemory: CompanionSessionMemory | null;
   lastUpdatedAt: string | null;
@@ -261,6 +281,11 @@ function createDefaultMetrics(scope: MetricsSessionScope = 'CHILD_SESSION'): Pro
     hasEverCompletedCampTransfer: false,
     latestCampTransferAttempt: null,
     bestCampTransferIndependence: null,
+    exploredTransitionSliceIds: [],
+    pausedTransitionSliceIds: [],
+    activeTransitionSliceId: null,
+    transitionSliceStatesById: {},
+    transitionSafetyAlertRecorded: false,
     latestCompanionMemory: null,
     lastUpdatedAt: null,
   };
@@ -307,7 +332,9 @@ export function hasRecordedExperienceMetrics(metrics: ProductExperienceMetrics):
       metrics.completedTransferScenarioIds.length > 0 ||
       metrics.activeExplorationCount > 0 ||
       metrics.totalPromptCalls > 0 ||
-      metrics.voluntaryExitNodes.length > 0
+      metrics.voluntaryExitNodes.length > 0 ||
+      metrics.exploredTransitionSliceIds.length > 0 ||
+      metrics.pausedTransitionSliceIds.length > 0
   );
 }
 
@@ -427,6 +454,21 @@ export function getProductExperienceMetrics(explicitScope?: MetricsSessionScope)
         parsed.bestCampTransferIndependence === 'ORDINARY_ATTEMPT'
           ? parsed.bestCampTransferIndependence
           : null,
+      exploredTransitionSliceIds: Array.isArray(parsed.exploredTransitionSliceIds)
+        ? parsed.exploredTransitionSliceIds
+        : [],
+      pausedTransitionSliceIds: Array.isArray(parsed.pausedTransitionSliceIds)
+        ? parsed.pausedTransitionSliceIds
+        : [],
+      activeTransitionSliceId:
+        typeof parsed.activeTransitionSliceId === 'string'
+          ? (parsed.activeTransitionSliceId as TransitionSliceId)
+          : null,
+      transitionSliceStatesById:
+        parsed.transitionSliceStatesById && typeof parsed.transitionSliceStatesById === 'object'
+          ? parsed.transitionSliceStatesById
+          : {},
+      transitionSafetyAlertRecorded: Boolean(parsed.transitionSafetyAlertRecorded),
       latestCompanionMemory:
         parsed.latestCompanionMemory && typeof parsed.latestCompanionMemory === 'object'
           ? parsed.latestCompanionMemory
@@ -1346,6 +1388,68 @@ export function recordToyBoatSessionProgress(
       completedToyBoatTaskIds: nextCompleted,
       toyBoatTaskCompletionModes: nextCompletionModes,
       toyBoatSessionState: snapshot,
+      latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
+      taskParticipationCounts: nextParticipation,
+    },
+    scope
+  );
+}
+
+/**
+ * 换家场景多维心理体验与认知逻辑重构 V1.0:
+ * 记录换家体验情境进展、跨情境独立状态快照与动物伙伴记忆：
+ * - 严格按情境 ID (SLICE_A / SLICE_B / SLICE_C / ORDINARY) 独立保存状态，防止切换或重试时串状态（反例 #9）；
+ * - 仅当真实执行了行动并观察到结果时，才将该情境记入 exploredTransitionSliceIds；
+ * - 若孩子主动暂停或休息，记入 pausedTransitionSliceIds；
+ * - 绝不虚构“焦虑减轻百分比”或假改善分数（反例 #10）。
+ */
+export function recordTransitionExperienceProgress(
+  sliceState: TransitionExperienceState,
+  companionMemory?: CompanionSessionMemory
+): ProductExperienceMetrics {
+  const scope = getActiveMetricsScope();
+  const current = getProductExperienceMetrics(scope);
+
+  const sliceId = sliceState.activeSliceId;
+  const isActionObserved = Boolean(sliceState.chosenAction && sliceState.observedOutcome);
+  const isPaused = Boolean(sliceState.pausedVoluntarily);
+  const isSafetyAlert =
+    sliceState.safetyConcern === 'specific_person_or_harm_behavior' ||
+    Boolean(sliceState.observedOutcome?.isSafetyProtectionRoute);
+
+  const nextExplored =
+    isActionObserved && !current.exploredTransitionSliceIds.includes(sliceId)
+      ? [...current.exploredTransitionSliceIds, sliceId]
+      : current.exploredTransitionSliceIds;
+
+  const nextPaused =
+    isPaused && !current.pausedTransitionSliceIds.includes(sliceId)
+      ? [...current.pausedTransitionSliceIds, sliceId]
+      : current.pausedTransitionSliceIds;
+
+  const nextSliceStates: Record<string, TransitionExperienceState> = {
+    ...current.transitionSliceStatesById,
+    [sliceId]: sliceState,
+  };
+
+  const sessionKey = `${scope}:transition:${sliceId}`;
+  const nextParticipation = { ...current.taskParticipationCounts };
+  if (!activeSessionParticipationKeys.has(sessionKey)) {
+    activeSessionParticipationKeys.add(sessionKey);
+    nextParticipation[`transition:${sliceId}`] =
+      (nextParticipation[`transition:${sliceId}`] || 0) + 1;
+  }
+
+  return saveProductExperienceMetrics(
+    {
+      ...current,
+      exploredTransitionSliceIds: nextExplored,
+      pausedTransitionSliceIds: nextPaused,
+      activeTransitionSliceId: sliceId,
+      transitionSliceStatesById: nextSliceStates,
+      transitionSafetyAlertRecorded: Boolean(
+        current.transitionSafetyAlertRecorded || isSafetyAlert
+      ),
       latestCompanionMemory: companionMemory ?? current.latestCompanionMemory,
       taskParticipationCounts: nextParticipation,
     },

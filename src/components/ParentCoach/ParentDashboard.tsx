@@ -809,6 +809,8 @@ export const ParentDashboard: React.FC = () => {
                     expMetrics.pausedFriendHomeScenarioIds.length > 0 ||
                     expMetrics.completedStoryLeafIds.length > 0 ||
                     expMetrics.storyGroveTransferAttempts.length > 0 ||
+                    expMetrics.exploredTransitionSliceIds.length > 0 ||
+                    expMetrics.pausedTransitionSliceIds.length > 0 ||
                     expMetrics.totalCluesClassified > 0 ||
                     expMetrics.hypothesisRevisionCount > 0 ||
                     expMetrics.completedTransferScenarioIds.length > 0
@@ -816,6 +818,7 @@ export const ParentDashboard: React.FC = () => {
                 const hasPlaytestData = Boolean(
                   playtestMetrics.lastUpdatedAt !== null ||
                     playtestMetrics.completedDetectiveCaseIds.length > 0 ||
+                    playtestMetrics.exploredTransitionSliceIds.length > 0 ||
                     playtestMetrics.totalCluesClassified > 0 ||
                     playtestMetrics.hypothesisRevisionCount > 0 ||
                     playtestMetrics.completedTransferScenarioIds.length > 0
@@ -884,10 +887,14 @@ export const ParentDashboard: React.FC = () => {
                             {expMetrics.storyGroveTransferAttempts.filter((a) => a.isCompleted).length} 次迁移
                           </span>
                         </div>
-                        <div className="p-2.5 bg-white rounded-xl border border-indigo-100">
-                          <span className="text-[11px] text-stone-500 block">迁移实验室完成</span>
+                        <div
+                          data-testid="parent-transition-bridge-counts"
+                          className="p-2.5 bg-white rounded-xl border border-indigo-100"
+                        >
+                          <span className="text-[11px] text-stone-500 block">换家情境（探索 / 暂停）</span>
                           <span className="text-base font-black text-teal-900">
-                            {expMetrics.independentTransferCount} 独立 / {expMetrics.promptedTransferCount} 提示
+                            探索 {expMetrics.exploredTransitionSliceIds.length} 幕 / 主动暂停{' '}
+                            {expMetrics.pausedTransitionSliceIds.length} 次
                           </span>
                         </div>
                       </div>
