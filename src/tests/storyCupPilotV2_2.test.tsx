@@ -440,8 +440,30 @@ describe('A-LAND V2.2 StoryGrove::cup-size Visual Skinning Pilot (Gate 1–Gate 
     const sceneContainer = renderer.findByTestId('interactive-leaf-scene-cup-size');
     expect(sceneContainer.props['data-cup-position']).toBe('CENTER_TABLE');
 
-    // Keyboard navigation on movable-blue-cup-prop: ArrowLeft -> NEXT_TO_BLOCK
+    // Gate 4R (Gate3R-UX-02): Verify V2 SVG interactive targets have v2-story-svg-focusable and no inline outline:none
+    const dropzoneBlock = renderer.findByTestId('cup-dropzone-NEXT_TO_BLOCK');
+    const dropzoneCenter = renderer.findByTestId('cup-dropzone-CENTER_TABLE');
+    const dropzoneBucket = renderer.findByTestId('cup-dropzone-NEXT_TO_BUCKET');
     const movableCup = renderer.findByTestId('movable-blue-cup-prop');
+
+    for (const svgTarget of [dropzoneBlock, dropzoneCenter, dropzoneBucket, movableCup]) {
+      expect(svgTarget.props.className).toBe('v2-story-svg-focusable');
+      expect(svgTarget.props.style?.outline).toBeUndefined();
+      expect(svgTarget.props.role).toBe('button');
+      expect(svgTarget.props.tabIndex).toBe(0);
+    }
+
+    // Dropzone Enter / Space keyboard activation
+    renderer.keyDown(dropzoneBucket, ' ');
+    expect(
+      renderer.findByTestId('interactive-leaf-scene-cup-size').props['data-cup-position']
+    ).toBe('NEXT_TO_BUCKET');
+    renderer.keyDown(dropzoneCenter, 'Enter');
+    expect(
+      renderer.findByTestId('interactive-leaf-scene-cup-size').props['data-cup-position']
+    ).toBe('CENTER_TABLE');
+
+    // Keyboard navigation on movable-blue-cup-prop: ArrowLeft -> NEXT_TO_BLOCK
     renderer.keyDown(movableCup, 'ArrowLeft');
     expect(
       renderer.findByTestId('interactive-leaf-scene-cup-size').props['data-cup-position']

@@ -1327,9 +1327,10 @@ export const StoryGroveModal: React.FC<Props> = ({
                         </>
                       )}
 
-                      {/* Sprint 4.1 FIX-04 + V2.2 Gate 3R: Three visual drop zones on table for direct drag & snap */}
+                      {/* Sprint 4.1 FIX-04 + V2.2 Gate 3R/4R: Three visual drop zones on table for direct drag & snap + keyboard focus */}
                       <rect
                         data-testid="cup-dropzone-NEXT_TO_BLOCK"
+                        className={isV2CupPilot ? 'v2-story-svg-focusable' : undefined}
                         role={isV2CupPilot ? 'button' : undefined}
                         tabIndex={isV2CupPilot ? 0 : undefined}
                         aria-label={isV2CupPilot ? '把蓝水杯移到小积木旁对比' : undefined}
@@ -1360,10 +1361,11 @@ export const StoryGroveModal: React.FC<Props> = ({
                               }
                             : undefined
                         }
-                        style={{ cursor: 'pointer', outline: 'none' }}
+                        style={{ cursor: 'pointer' }}
                       />
                       <rect
                         data-testid="cup-dropzone-CENTER_TABLE"
+                        className={isV2CupPilot ? 'v2-story-svg-focusable' : undefined}
                         role={isV2CupPilot ? 'button' : undefined}
                         tabIndex={isV2CupPilot ? 0 : undefined}
                         aria-label={isV2CupPilot ? '把蓝水杯放回木桌中间' : undefined}
@@ -1394,10 +1396,11 @@ export const StoryGroveModal: React.FC<Props> = ({
                               }
                             : undefined
                         }
-                        style={{ cursor: 'pointer', outline: 'none' }}
+                        style={{ cursor: 'pointer' }}
                       />
                       <rect
                         data-testid="cup-dropzone-NEXT_TO_BUCKET"
+                        className={isV2CupPilot ? 'v2-story-svg-focusable' : undefined}
                         role={isV2CupPilot ? 'button' : undefined}
                         tabIndex={isV2CupPilot ? 0 : undefined}
                         aria-label={isV2CupPilot ? '把蓝水杯移到大水桶旁对比' : undefined}
@@ -1428,7 +1431,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                               }
                             : undefined
                         }
-                        style={{ cursor: 'pointer', outline: 'none' }}
+                        style={{ cursor: 'pointer' }}
                       />
 
                       {isDraggingCup && hoveredCupDropZone && (
@@ -1619,6 +1622,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                       {/* Movable Forest Blue Cup Prop (Supports Direct Drag & Snap + Click/Keyboard Fallback) */}
                       <g
                         data-testid="movable-blue-cup-prop"
+                        className={isV2CupPilot ? 'v2-story-svg-focusable' : undefined}
                         data-cup-position={cupPosition}
                         data-dragging={isDraggingCup ? 'true' : 'false'}
                         tabIndex={isV2CupPilot ? 0 : undefined}
@@ -1645,7 +1649,7 @@ export const StoryGroveModal: React.FC<Props> = ({
                             : undefined
                         }
                         onPointerDown={handleCupPointerDown}
-                        style={{ cursor: isDraggingCup ? 'grabbing' : 'grab', outline: 'none' }}
+                        style={{ cursor: isDraggingCup ? 'grabbing' : 'grab' }}
                         transform={
                           isV2CupPilot
                             ? isDraggingCup && dragCupSvgX !== null
@@ -1661,10 +1665,12 @@ export const StoryGroveModal: React.FC<Props> = ({
                         }
                       >
                         <rect
+                          className={isV2CupPilot ? 'v2-story-cup-focus-ring' : undefined}
                           x={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.x : -6}
                           y={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.y : 0}
                           width={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.width : 54}
                           height={isV2CupPilot ? v2StageMatrix.props.blueCup.hitRect.height : 56}
+                          rx={isV2CupPilot ? '12' : undefined}
                           fill="transparent"
                         />
                         {isV2CupPilot ? (

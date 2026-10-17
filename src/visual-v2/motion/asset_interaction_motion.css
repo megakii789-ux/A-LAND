@@ -114,3 +114,26 @@
   backdrop-filter: blur(2px) !important;
 }
 
+/* Gate 4R (Gate3R-UX-02): High-contrast keyboard :focus-visible indicator for V2 SVG interactive elements */
+.v2-story-svg-focusable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.v2-story-svg-focusable:focus-visible {
+  outline: 3.5px solid #0284C7;
+  outline-offset: 3px;
+}
+
+rect.v2-story-svg-focusable:focus-visible {
+  stroke: #0284C7 !important;
+  stroke-width: 3.5px !important;
+  stroke-dasharray: none !important;
+  fill: #BAE6FD !important;
+  fill-opacity: 0.48 !important;
+}
+
+g.v2-story-svg-focusable:focus-visible .v2-story-cup-focus-ring {
+  stroke: #0284C7;
+  stroke-width: 3.5px;
+  fill: rgba(186, 230, 253, 0.28);
+}

@@ -1,10 +1,11 @@
 import { chromium } from 'playwright';
-import { spawn } from 'child_process';
+import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-const WORKTREE_DIR = '/home/voga/A-LAND-visual-v2-story-pilot';
-const ARTIFACT_DIR = '/home/voga/.gemini/antigravity/brain/14e51dfc-628e-475c-bb64-37e80b5c7d73';
+const WORKTREE_DIR = process.cwd();
+const GIT_COMMIT_SHA = execSync('git rev-parse HEAD', { cwd: WORKTREE_DIR }).toString().trim();
+const ARTIFACT_DIR = process.env.ARTIFACT_DIR || '';
 const DOCS_OUT_DIR = path.join(WORKTREE_DIR, 'docs/v2-story-cup-pilot');
 const DOCS_SCREENSHOTS_DIR = path.join(DOCS_OUT_DIR, 'screenshots');
 const PORT = 4182;
@@ -22,7 +23,7 @@ const VIEWPORTS = [
 async function saveScreenshot(page, fileName) {
   const repoFullPath = path.join(DOCS_SCREENSHOTS_DIR, fileName);
   await page.screenshot({ path: repoFullPath, fullPage: false });
-  if (fs.existsSync(ARTIFACT_DIR)) {
+  if (ARTIFACT_DIR && fs.existsSync(ARTIFACT_DIR)) {
     fs.copyFileSync(repoFullPath, path.join(ARTIFACT_DIR, fileName));
   }
   return `docs/v2-story-cup-pilot/screenshots/${fileName}`;
@@ -513,15 +514,138 @@ async function main() {
       repoPath: blockShot,
     });
 
-    // Input Method B: Keyboard control (Enter -> CENTER_TABLE, ArrowRight -> NEXT_TO_BUCKET, triggers Pupu speech)
-    await cupProp.focus();
+    // Input Method B (Gate 4R / Gate3R-UX-02): Real Keyboard Tab -> :focus-visible -> Enter/Space/ArrowLeft/ArrowRight + 2 Focus Screenshots
+    await deepPage.locator('button[aria-label="朗读场景提示"]').focus();
+    await deepPage.keyboard.press('Tab');
+    await deepPage.waitForTimeout(120);
+
+    const dropzoneFocusCheck = await deepPage.evaluate(() => {
+      const active = document.activeElement;
+      if (!active) return { focusedTestId: null, matchesFocusVisible: false };
+      const cs = window.getComputedStyle(active);
+      return {
+        focusedTestId: active.getAttribute('data-testid'),
+        role: active.getAttribute('role'),
+        matchesFocusVisible: active.matches(':focus-visible'),
+        outlineStyle: cs.outlineStyle,
+        outlineWidth: cs.outlineWidth,
+        outlineColor: cs.outlineColor,
+        strokeColor: cs.stroke,
+        strokeWidth: cs.strokeWidth,
+      };
+    });
+
+    if (
+      dropzoneFocusCheck.focusedTestId !== 'cup-dropzone-NEXT_TO_BLOCK' ||
+      !dropzoneFocusCheck.matchesFocusVisible ||
+      dropzoneFocusCheck.outlineStyle !== 'solid' ||
+      dropzoneFocusCheck.outlineWidth === '0px'
+    ) {
+      throw new Error(
+        `Gate 4R keyboard focus check failed on dropzone: ${JSON.stringify(dropzoneFocusCheck)}`
+      );
+    }
+
+    const focusDropzoneShot = await saveScreenshot(
+      deepPage,
+      'v2_2_gate4r_keyboard_focus_dropzone.png'
+    );
+    screenshots.push({
+      viewport: '1440x900',
+      mode: 'keyboard_focus_dropzone',
+      file: 'v2_2_gate4r_keyboard_focus_dropzone.png',
+      repoPath: focusDropzoneShot,
+    });
+
+    // Tab to CENTER_TABLE dropzone and activate via Enter
+    await deepPage.keyboard.press('Tab');
+    await deepPage.waitForTimeout(80);
     await deepPage.keyboard.press('Enter');
-    await deepPage.waitForTimeout(150);
+    await deepPage.waitForTimeout(120);
+    const posAfterDropzoneEnter = await sceneLoc.getAttribute('data-cup-position');
+
+    // Tab to NEXT_TO_BUCKET dropzone and activate via Space
+    await deepPage.keyboard.press('Tab');
+    await deepPage.waitForTimeout(80);
+    await deepPage.keyboard.press('Space');
+    await deepPage.waitForTimeout(120);
+    const posAfterDropzoneSpace = await sceneLoc.getAttribute('data-cup-position');
+
+    // Tab to movable-blue-cup-prop and verify :focus-visible + capture 2nd focus screenshot
+    await deepPage.keyboard.press('Tab');
+    await deepPage.waitForTimeout(120);
+
+    const movableCupFocusCheck = await deepPage.evaluate(() => {
+      const active = document.activeElement;
+      if (!active) return { focusedTestId: null, matchesFocusVisible: false };
+      const cs = window.getComputedStyle(active);
+      const ringEl = active.querySelector('.v2-story-cup-focus-ring');
+      const ringCs = ringEl ? window.getComputedStyle(ringEl) : null;
+      return {
+        focusedTestId: active.getAttribute('data-testid'),
+        role: active.getAttribute('role'),
+        matchesFocusVisible: active.matches(':focus-visible'),
+        outlineStyle: cs.outlineStyle,
+        outlineWidth: cs.outlineWidth,
+        outlineColor: cs.outlineColor,
+        focusRingStroke: ringCs ? ringCs.stroke : null,
+        focusRingStrokeWidth: ringCs ? ringCs.strokeWidth : null,
+      };
+    });
+
+    if (
+      movableCupFocusCheck.focusedTestId !== 'movable-blue-cup-prop' ||
+      !movableCupFocusCheck.matchesFocusVisible ||
+      movableCupFocusCheck.outlineStyle !== 'solid' ||
+      movableCupFocusCheck.outlineWidth === '0px'
+    ) {
+      throw new Error(
+        `Gate 4R keyboard focus check failed on movable-blue-cup-prop: ${JSON.stringify(movableCupFocusCheck)}`
+      );
+    }
+
+    const focusCupShot = await saveScreenshot(
+      deepPage,
+      'v2_2_gate4r_keyboard_focus_movable_cup.png'
+    );
+    screenshots.push({
+      viewport: '1440x900',
+      mode: 'keyboard_focus_movable_cup',
+      file: 'v2_2_gate4r_keyboard_focus_movable_cup.png',
+      repoPath: focusCupShot,
+    });
+
+    // Keyboard Enter -> CENTER_TABLE, ArrowLeft -> NEXT_TO_BLOCK, ArrowRight -> NEXT_TO_BUCKET
+    await deepPage.keyboard.press('Enter');
+    await deepPage.waitForTimeout(120);
     const posAfterKeyEnter = await sceneLoc.getAttribute('data-cup-position');
+
+    await deepPage.keyboard.press('ArrowLeft');
+    await deepPage.waitForTimeout(120);
+    const posAfterKeyLeft = await sceneLoc.getAttribute('data-cup-position');
 
     await deepPage.keyboard.press('ArrowRight');
     await deepPage.waitForTimeout(120);
     const posAfterKeyRight = await sceneLoc.getAttribute('data-cup-position');
+
+    if (
+      posAfterDropzoneEnter !== 'CENTER_TABLE' ||
+      posAfterDropzoneSpace !== 'NEXT_TO_BUCKET' ||
+      posAfterKeyEnter !== 'CENTER_TABLE' ||
+      posAfterKeyLeft !== 'NEXT_TO_BLOCK' ||
+      posAfterKeyRight !== 'NEXT_TO_BUCKET'
+    ) {
+      throw new Error(
+        `Gate 4R keyboard navigation state assertion failed: ${JSON.stringify({
+          posAfterDropzoneEnter,
+          posAfterDropzoneSpace,
+          posAfterKeyEnter,
+          posAfterKeyLeft,
+          posAfterKeyRight,
+        })}`
+      );
+    }
+
     const pupuSpeakerState = {
       activeStorySpeaker: await deepPage
         .locator('[data-testid="v2-story-cup-art-backdrop"]')
@@ -678,6 +802,7 @@ async function main() {
       artDirectorGate: 'ART_DIRECTOR_QA_HOLD',
       engineeringPilotGate: 'ENGINEERING_AUDIT_HOLD',
       contentQaFlag: 'CONTENT_QA_REVIEW',
+      gitCommitSha: GIT_COMMIT_SHA,
       verifiedAt: new Date().toISOString(),
       viewportsTested: VIEWPORTS.map((v) => v.name),
       consoleErrorCount: consoleErrors.length,
@@ -718,11 +843,28 @@ async function main() {
           interactiveAxNodes.some(
             (n) => !n.ignored && n.role === 'button' && n.name?.includes('大水桶旁')
           ),
+        keyboardVisibleFocusVerification: {
+          dropzoneFocusCheck,
+          movableCupFocusCheck,
+          posAfterDropzoneEnter,
+          posAfterDropzoneSpace,
+          posAfterKeyEnter,
+          posAfterKeyLeft,
+          posAfterKeyRight,
+          screenshots: [
+            'docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_dropzone.png',
+            'docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_movable_cup.png',
+          ],
+          pass: true,
+        },
       },
       deepFunctionalVerification: {
         initialPos,
         posAfterDragToBlock,
+        posAfterDropzoneEnter,
+        posAfterDropzoneSpace,
         posAfterKeyEnter,
+        posAfterKeyLeft,
         posAfterKeyRight,
         posAfterBtnCenter,
         posAfterBtnBlock,
@@ -745,15 +887,16 @@ async function main() {
     const reportJson = JSON.stringify(report, null, 2);
     fs.writeFileSync(path.join(DOCS_OUT_DIR, 'GATE3R_6VIEWPORT_REPORT.json'), reportJson);
     fs.writeFileSync(path.join(DOCS_OUT_DIR, 'GATE3_6VIEWPORT_REPORT.json'), reportJson);
-    if (fs.existsSync(ARTIFACT_DIR)) {
+    if (ARTIFACT_DIR && fs.existsSync(ARTIFACT_DIR)) {
       fs.writeFileSync(path.join(ARTIFACT_DIR, 'GATE3_6VIEWPORT_REPORT.json'), reportJson);
     }
 
-    console.log('Gate 3R Verification Summary:');
+    console.log('Gate 3R/4R Verification Summary:');
     console.log(
       JSON.stringify(
         {
           gate: report.gate,
+          gitCommitSha: report.gitCommitSha,
           engineeringPilotGate: report.engineeringPilotGate,
           consoleErrorCount: report.consoleErrorCount,
           pageErrorCount: report.pageErrorCount,
@@ -788,6 +931,8 @@ async function main() {
               report.accessibilityVerification.movableBlueCupExposedInAxTree,
             allThreeDropzonesExposedInAxTree:
               report.accessibilityVerification.allThreeDropzonesExposedInAxTree,
+            keyboardVisibleFocusPass:
+              report.accessibilityVerification.keyboardVisibleFocusVerification.pass,
           },
           deepFunctionalVerification: report.deepFunctionalVerification,
           totalScreenshots: screenshots.length,
