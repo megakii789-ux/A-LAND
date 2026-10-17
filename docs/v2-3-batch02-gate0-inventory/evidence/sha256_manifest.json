@@ -1,0 +1,102 @@
+{
+  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R",
+  "branch": "ui/visual-v2-batch02-gate0r-contract",
+  "baselineBranch": "ui/visual-v2-batch02-gate0-inventory",
+  "baselineCommitSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
+  "baselineCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
+  "canonicalCodeSha": "56936d624dc491de4c5f4085115892eb4609edfa",
+  "decision": "BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "fileCount": 18,
+  "files": [
+    {
+      "path": "src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts",
+      "byteSize": 59973,
+      "sha256": "b9458237a141dca8a4ccc8ae18a0a6fdbb6221589dcab7ab6c67b39e20fe781d"
+    },
+    {
+      "path": "src/tests/v2_3Batch02Gate0Inventory.test.ts",
+      "byteSize": 36165,
+      "sha256": "a5df997c916bee53c6d594cd4775c1a4f8954d6d513b6af8b8411116c4a70ca1"
+    },
+    {
+      "path": "scripts/verify_v2_3_batch02_gate0_inventory.mjs",
+      "byteSize": 60405,
+      "sha256": "39e4eb0d2d2d2ff21f3de70731e6ea6df31d6cd739746f3e2e4a94ffaab461aa"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md",
+      "byteSize": 8392,
+      "sha256": "f6b1bf3e812d1ebeb19b7fc608711c91463753ac329e6ece01faf3a20f833523"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_AND_INTERFACE_SPEC.md",
+      "byteSize": 14660,
+      "sha256": "a143090a5fcffee7355aee1f0672d3baf2beb650fa5cd3525016503b2f3fe415"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_INTERFACE_MAP.json",
+      "byteSize": 23964,
+      "sha256": "e3cd2debdc5267320d162f21be66f27ac7d9a74e9b5b0ef6fd4d453795a83ff7"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md",
+      "byteSize": 11945,
+      "sha256": "efc66b157dfaf8c00007bad3cbf2bc3c74d1584f13f9556a6e748693cfd8d591"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md",
+      "byteSize": 11945,
+      "sha256": "efc66b157dfaf8c00007bad3cbf2bc3c74d1584f13f9556a6e748693cfd8d591"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_ARTWORK_GAP_LEDGER.json",
+      "byteSize": 185706,
+      "sha256": "d5f4013784d4ad3bef79ae8b1c868e5978c13139de426a50f9870499c9ddd6b7"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json",
+      "byteSize": 98683,
+      "sha256": "9887e75150ab3b451ccb5fb5c59b76de1668a046019ce0a6696992e4eb469130"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv",
+      "byteSize": 26543,
+      "sha256": "2a389ed4720b69bd1ab07719e7814289223232de78f2ae5dc698a4289d046aab"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md",
+      "byteSize": 5778,
+      "sha256": "45ca77b927da241a9dd46fa98545e5c96fe13e93b2742d5325bc987eb293c3da"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json",
+      "byteSize": 3604,
+      "sha256": "710b02c44c81e068d8845ab91755279f5a76a3027ea0ae571874a86817f0c8f9"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json",
+      "byteSize": 19135,
+      "sha256": "c09d4a80c9662bfa9774eb890649c4d472ff42a8b98a70a4d03992fe99932e13"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log",
+      "byteSize": 115,
+      "sha256": "7800603773ab476543812886d04e9dd6ceee0f7ee808e82c930a315be3d1fa80"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/vitest.log",
+      "byteSize": 2709,
+      "sha256": "49e53c70b0b830cef1c6e51a33aafd6fcacf35cfd283b50e9d9e1d6f581bedce"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/build.log",
+      "byteSize": 3808,
+      "sha256": "3618dadd93a9ffe2cbb47e51b77bf908833c184afd19aa6c05a822f5983bc5bb"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/git_status_and_diff_summary.txt",
+      "byteSize": 4788,
+      "sha256": "e775ebcfab616238cf6a248054206009b19369bca9ef6db8112bc925b4c9b841"
+    }
+  ]
+}

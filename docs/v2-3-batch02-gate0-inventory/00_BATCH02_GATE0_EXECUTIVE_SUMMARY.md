@@ -8,6 +8,7 @@
   - **Batch01R U3R Frozen Branch**: `ui/visual-v2-batch01r-u3r-final` (`d0b497acade40bd4bbd2cc9f16e9550df2b19504` / code SHA `6a5ae8d186850ac6ddb30823bf9c87134c10c320`)
   - **Gate 0 Inventory Baseline Branch**: `ui/visual-v2-batch02-gate0-inventory` (`a6a1f843fd9955539912bfd1b30cc46a399a9ed8` / code SHA `25a09c7a23bda842cf8327d12f4e3df4df4b1597`)
 - **Active Gate B0R Branch**: `ui/visual-v2-batch02-gate0r-contract`
+  - **Gate B0R Canonical Code SHA (`CANONICAL_CODE_SHA`)**: `56936d624dc491de4c5f4085115892eb4609edfa`
 - **Final Gate B0R Decision**: **`BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED`**
 - **Retained Global & Dynamic Hold Flags**:
   - `ART_DIRECTOR_QA_HOLD = true`

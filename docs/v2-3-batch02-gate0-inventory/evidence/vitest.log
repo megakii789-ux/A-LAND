@@ -1,50 +1,52 @@
+=== npx vitest run @ CANONICAL_CODE_SHA 56936d624dc491de4c5f4085115892eb4609edfa ===
 
  RUN  v5.0.4 /home/voga/A-LAND-visual-v2-batch01r-art-remediation
 
- ✓ tests/domain/weeklyReportService.test.ts (4 tests) 15ms
- ✓ src/tests/interactive3D.test.ts (5 tests) 3ms
- ✓ tests/domain/weather.test.ts (6 tests) 5ms
- ✓ tests/domain/hug.test.ts (10 tests) 20ms
- ✓ tests/domain/pwaOffline.test.ts (14 tests) 17ms
- ✓ tests/domain/safety.test.ts (12 tests) 7ms
- ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 8ms
- ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 10ms
- ✓ src/tests/v2_3Batch02Gate0Inventory.test.ts (5 tests) 5ms
+ ✓ tests/domain/firestoreRules.test.ts (10 tests) 5ms
+ ✓ tests/domain/weeklyReportService.test.ts (4 tests) 21ms
+ ✓ tests/domain/scaffolding.test.ts (4 tests) 5ms
+ ✓ tests/domain/hug.test.ts (10 tests) 23ms
+ ✓ tests/domain/pwaOffline.test.ts (14 tests) 7ms
  ✓ tests/domain/interactiveGamesE2E.test.ts (4 tests) 6ms
+ ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 5ms
+ ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 7ms
+ ✓ tests/domain/research.test.ts (9 tests) 5ms
+ ✓ tests/domain/transfer.test.ts (17 tests) 12ms
  ✓ tests/domain/personalizationEngine.test.ts (17 tests) 13ms
  ✓ tests/domain/cognitiveKernel.test.ts (18 tests) 12ms
- ✓ tests/domain/transfer.test.ts (17 tests) 17ms
- ✓ tests/domain/research.test.ts (9 tests) 10ms
- ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 326ms
- ✓ src/tests/speechSystem.test.ts (31 tests) 20ms
- ✓ tests/domain/firestoreRules.test.ts (10 tests) 4ms
+ ✓ src/tests/speechSystem.test.ts (31 tests) 19ms
  ✓ tests/domain/hugContract.test.ts (4 tests) 5ms
+ ✓ tests/domain/safety.test.ts (12 tests) 8ms
  ✓ src/tests/weather.test.ts (4 tests) 6ms
- ✓ tests/domain/scaffolding.test.ts (4 tests) 5ms
- ✓ tests/domain/caregiver.test.ts (9 tests) 7ms
- ✓ src/tests/parentMedals.test.ts (5 tests) 9ms
- ✓ src/tests/parentingPocketTips.test.ts (6 tests) 5ms
- ✓ tests/domain/backendAuthData.test.ts (12 tests) 185ms
+ ✓ src/tests/interactive3D.test.ts (5 tests) 6ms
+ ✓ tests/domain/weather.test.ts (6 tests) 5ms
+ ✓ tests/domain/caregiver.test.ts (9 tests) 6ms
+ ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 418ms
  ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests) 5ms
- ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 236ms
- ✓ src/tests/growthObservationLog.test.ts (2 tests) 3ms
+ ✓ src/tests/parentingPocketTips.test.ts (6 tests) 8ms
+ ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 230ms
+ ✓ src/tests/parentMedals.test.ts (5 tests) 5ms
+ ✓ tests/domain/backendAuthData.test.ts (12 tests) 197ms
+ ✓ src/tests/v2_3Batch02Gate0Inventory.test.ts (7 tests) 93ms
  ✓ src/tests/calmSpace.test.ts (7 tests) 12ms
- ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 115ms
- ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 136ms
- ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 169ms
- ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 147ms
- ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 159ms
- ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 172ms
- ✓ src/tests/v2_3Batch01WeatherCalm.test.tsx (17 tests) 126ms
- ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 226ms
- ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 236ms
- ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 142ms
- ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 228ms
- ✓ src/tests/sprint4AuthenticityAndImmersion.test.tsx (9 tests) 277ms
- ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 176ms
+ ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 118ms
+ ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 123ms
+ ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 122ms
+ ✓ src/tests/growthObservationLog.test.ts (2 tests) 3ms
+ ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 166ms
+ ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 150ms
+ ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 203ms
+ ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 213ms
+ ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 124ms
+ ✓ src/tests/v2_3Batch01WeatherCalm.test.tsx (17 tests) 133ms
+ ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 260ms
+ ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 270ms
+ ✓ src/tests/sprint4AuthenticityAndImmersion.test.tsx (9 tests) 296ms
+ ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 209ms
 
  Test Files  41 passed (41)
-      Tests  410 passed (410)
-   Start at  15:36:43
-   Duration  887ms (transform 45%, import 33%, tests 22%, worker 1%)
+      Tests  412 passed (412)
+   Start at  16:48:28
+   Duration  855ms (transform 38%, import 36%, tests 24%, worker 1%)
 
+EXIT_CODE=0

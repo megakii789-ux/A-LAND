@@ -1,0 +1,374 @@
+{
+  "schemaVersion": "1.1.0-B0R",
+  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R_COUNTEREXAMPLE_REGRESSION",
+  "verifiedAt": "2026-10-17T08:48:27.584Z",
+  "nodeVersion": "v20.20.2",
+  "totalCases": 15,
+  "allAssertionsPassed": true,
+  "cases": [
+    {
+      "caseId": "CE-00_current_repo_73_rows",
+      "description": "Current repo ledger (36 existing + 15 reference boards + 22 missing canonical sets)",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasons": [
+        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking).",
+        "DUPLICATE_TECH_SVG_TEMPLATES: 27 existing v2-3-layer-factory SVG files share identical byte-for-byte templates across modes/stages and are ineligible as production art.",
+        "LOW_RES_CUTOUTS_AND_TECH_SVGS_ONLY: 51 existing assets are low-resolution grabCut cutouts or procedural SVG placeholders marked TECH_PREVIEW_ONLY."
+      ]
+    },
+    {
+      "caseId": "CE-01_empty_ledger",
+      "description": "Empty ledger array []",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasons": [
+        "EMPTY_ASSET_LEDGER: Zero asset inventory entries were supplied for Batch02 eligibility evaluation.",
+        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-02_auditor_counterexample_1_single_fake_accepted_row",
+      "description": "Auditor Counterexample 1 (only_one_accepted_label_missing_other_scene): 1 fake PRODUCTION_ART_ACCEPTED row with filePath=null, existsInRepo=false, format=\"missing\"",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasons": [
+        "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
+        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-03_auditor_counterexample_2_fake_accepted_plus_unverified",
+      "description": "Auditor Counterexample 2 (accepted_label_plus_unverified_other_scene): 1 fake accepted row + 1 UNVERIFIED row",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasons": [
+        "UNVERIFIED_ASSETS_PRESENT: 1 asset entry(ies) have status UNVERIFIED (fixture_unknown_breaker).",
+        "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
+        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-04_auditor_counterexample_3_two_fake_labels_no_files_no_hashes",
+      "description": "Auditor Counterexample 3 (two_labels_no_files_no_hashes): 2 fake PRODUCTION_ART_ACCEPTED rows across detective & breaker with null files/hashes",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasons": [
+        "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
+        "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_breaker\" is not in the canonical Batch02 manifest.",
+        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-05_missing_one_discrete_state",
+      "description": "67 of 68 valid discrete state entries (1 discrete state missing)",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-06_unresolved_companion_wildcard_path",
+      "description": "Complete 68 entries except 1 companion entry still contains {companionId} wildcard in filePath",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "UNRESOLVED_WILDCARD_OR_EMPTY_PATH: prod_shared_4companions_3d_rig_masters__qiqi_speaking (set=prod_shared_4companions_3d_rig_masters, variant=qiqi_speaking) has invalid or wildcard filePath \"public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp\".",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing.",
+        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      ]
+    },
+    {
+      "caseId": "CE-07_below_minimum_dimensions",
+      "description": "Complete 68 entries except desktop scene plate is 1280x720 (< required 2560x1440)",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "INSUFFICIENT_PIXEL_DIMENSIONS: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) dimensions (1280x720) are below minimum required 2560x1440.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+      ]
+    },
+    {
+      "caseId": "CE-08_missing_required_alpha_channel",
+      "description": "Complete 68 entries except an RGBA layer has hasAlphaTransparency: false",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "MISSING_REQUIRED_ALPHA_CHANNEL: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) requires RGBA alpha transparency (requireAlpha=true), but hasAlphaTransparency is false.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+      ]
+    },
+    {
+      "caseId": "CE-09_unapproved_duplicate_sha256",
+      "description": "Complete 68 entries except 2 states share the same SHA-256 without an approved sharedAssetRef",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 66,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 2,
+      "blockingReasons": [
+        "UNAPPROVED_DUPLICATE_SHA256_ACROSS_STATES: Discrete states (prod_detective_prop_tool_flag_states__flag_attached, prod_detective_prop_tool_flag_states__flag_removed) share identical SHA-256 \"9516e4ad846272bdebd93ff410421e1023a08926f5b5c5a35af296abba62902e\" without a valid Art-Director-approved sharedAssetRef.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 2/68 required discrete state variants are incomplete or missing."
+      ]
+    },
+    {
+      "caseId": "CE-10_svg_format_rejected_as_production_art",
+      "description": "Complete 68 entries except 1 prop entry is format: \"svg\"",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "INVALID_PRODUCTION_FORMAT: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) has format \"svg\"; only raster 3D renders (\"png\" or \"webp\") are eligible.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+      ]
+    },
+    {
+      "caseId": "CE-11_missing_art_director_approval",
+      "description": "Complete 68 entries except 1 entry has artDirectorApproval: null",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 67,
+      "verifiedSetCount": 21,
+      "missingSetCount": 1,
+      "missingDiscreteStateCount": 1,
+      "blockingReasons": [
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_prop_tool_two_sided_coin_states__front (set=prod_detective_prop_tool_two_sided_coin_states, variant=front) lacks a valid Art Director sign-off matching its SHA-256.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+      ]
+    },
+    {
+      "caseId": "CE-12_duplicate_asset_id_poisoning",
+      "description": "Complete 68 entries plus 1 duplicate assetId entry",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedDiscreteStateCount": 68,
+      "verifiedSetCount": 22,
+      "missingSetCount": 0,
+      "missingDiscreteStateCount": 0,
+      "blockingReasons": [
+        "DUPLICATE_ASSET_ID_ENTRIES: Duplicate assetId values detected (prod_detective_master_plate_desktop_16x9)."
+      ]
+    },
+    {
+      "caseId": "POS-01_complete_68_valid_discrete_states_with_approvals",
+      "description": "Positive synthetic control: All 68 canonical discrete states (across 22 sets & 4 companions) with valid dimensions, alpha, hashes, and Art Director approvals",
+      "expectedAuthorized": true,
+      "actualAuthorized": true,
+      "gateStatus": "BATCH02_UI_REPLACEMENT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": false,
+        "ARTWORK_GAP": false,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": false
+      },
+      "verifiedDiscreteStateCount": 68,
+      "verifiedSetCount": 22,
+      "missingSetCount": 0,
+      "missingDiscreteStateCount": 0,
+      "blockingReasons": []
+    },
+    {
+      "caseId": "POS-02_complete_68_valid_states_plus_historical_tech_preview_rows",
+      "description": "Positive synthetic control with historical audit rows: All 68 canonical discrete states valid + existing TECH_PREVIEW_ONLY & reference_board rows retained for provenance",
+      "expectedAuthorized": true,
+      "actualAuthorized": true,
+      "gateStatus": "BATCH02_UI_REPLACEMENT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": false,
+        "ARTWORK_GAP": false,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": false
+      },
+      "verifiedDiscreteStateCount": 68,
+      "verifiedSetCount": 22,
+      "missingSetCount": 0,
+      "missingDiscreteStateCount": 0,
+      "blockingReasons": []
+    }
+  ]
+}

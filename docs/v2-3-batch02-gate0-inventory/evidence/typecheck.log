@@ -1,4 +1,2 @@
-
-> react-example@0.0.0 typecheck
-> tsc --noEmit
-
+=== npm run typecheck (tsc --noEmit) @ CANONICAL_CODE_SHA 56936d624dc491de4c5f4085115892eb4609edfa ===
+EXIT_CODE=0

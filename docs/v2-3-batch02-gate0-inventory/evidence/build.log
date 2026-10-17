@@ -1,3 +1,4 @@
+=== npm run build @ CANONICAL_CODE_SHA 56936d624dc491de4c5f4085115892eb4609edfa ===
 
 > react-example@0.0.0 build
 > tsc --noEmit && vitest run && vite build && node scripts/generate-version-json.mjs --mode runtime --gates-passed --out dist/version.json
@@ -5,52 +6,52 @@
 
  RUN  v5.0.4 /home/voga/A-LAND-visual-v2-batch01r-art-remediation
 
- ✓ tests/domain/hug.test.ts (10 tests) 9ms
- ✓ tests/domain/weeklyReportService.test.ts (4 tests) 13ms
- ✓ tests/domain/pwaOffline.test.ts (14 tests) 5ms
- ✓ tests/domain/caregiver.test.ts (9 tests) 5ms
- ✓ tests/domain/safety.test.ts (12 tests) 6ms
+ ✓ src/tests/interactive3D.test.ts (5 tests) 3ms
+ ✓ tests/domain/weeklyReportService.test.ts (4 tests) 15ms
+ ✓ tests/domain/hug.test.ts (10 tests) 16ms
+ ✓ tests/domain/pwaOffline.test.ts (14 tests) 12ms
+ ✓ tests/domain/caregiver.test.ts (9 tests) 7ms
+ ✓ tests/domain/safety.test.ts (12 tests) 7ms
+ ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 11ms
+ ✓ src/tests/weather.test.ts (4 tests) 4ms
  ✓ tests/domain/interactiveGamesE2E.test.ts (4 tests) 5ms
- ✓ src/tests/contentAuditRegistry.test.ts (13 tests) 8ms
- ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 7ms
- ✓ src/tests/weather.test.ts (4 tests) 5ms
- ✓ tests/domain/scaffolding.test.ts (4 tests) 4ms
- ✓ tests/domain/transfer.test.ts (17 tests) 10ms
- ✓ tests/domain/personalizationEngine.test.ts (17 tests) 12ms
- ✓ tests/domain/research.test.ts (9 tests) 7ms
- ✓ tests/domain/cognitiveKernel.test.ts (18 tests) 13ms
- ✓ src/tests/speechSystem.test.ts (31 tests) 22ms
- ✓ tests/domain/hugContract.test.ts (4 tests) 5ms
- ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 331ms
- ✓ src/tests/parentMedals.test.ts (5 tests) 7ms
+ ✓ tests/domain/transfer.test.ts (17 tests) 13ms
+ ✓ tests/domain/cognitiveKernel.test.ts (18 tests) 14ms
+ ✓ tests/domain/personalizationEngine.test.ts (17 tests) 13ms
+ ✓ tests/domain/firestoreRules.test.ts (10 tests) 3ms
+ ✓ src/tests/parentingPocketTips.test.ts (6 tests) 6ms
+ ✓ src/tests/speechSystem.test.ts (31 tests) 25ms
+ ✓ tests/domain/hugContract.test.ts (4 tests) 3ms
+ ✓ tests/domain/cloudflarePagesAdapter.test.ts (8 tests) 397ms
+ ✓ tests/domain/scaffolding.test.ts (4 tests) 5ms
+ ✓ tests/domain/research.test.ts (9 tests) 8ms
  ✓ tests/domain/weather.test.ts (6 tests) 4ms
- ✓ tests/domain/firestoreRules.test.ts (10 tests) 6ms
- ✓ src/tests/interactive3D.test.ts (5 tests) 6ms
- ✓ src/tests/v2_3Batch02Gate0Inventory.test.ts (5 tests) 7ms
- ✓ tests/domain/backendAuthData.test.ts (12 tests) 185ms
- ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests) 5ms
- ✓ src/tests/parentingPocketTips.test.ts (6 tests) 4ms
- ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 224ms
- ✓ src/tests/growthObservationLog.test.ts (2 tests) 4ms
- ✓ src/tests/calmSpace.test.ts (7 tests) 20ms
- ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 129ms
- ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 153ms
- ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 147ms
- ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 144ms
- ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 159ms
- ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 165ms
- ✓ src/tests/v2_3Batch01WeatherCalm.test.tsx (17 tests) 123ms
+ ✓ tests/domain/interactiveGamesState.test.ts (13 tests) 9ms
+ ✓ src/tests/cognitiveEncyclopedia.test.ts (5 tests) 4ms
+ ✓ src/tests/parentMedals.test.ts (5 tests) 7ms
+ ✓ tests/domain/backendAuthData.test.ts (12 tests) 162ms
+ ✓ tests/domain/p0SecurityRemediation.test.ts (18 tests) 237ms
+ ✓ src/tests/calmSpace.test.ts (7 tests) 21ms
+ ✓ src/tests/growthObservationLog.test.ts (2 tests) 2ms
+ ✓ src/tests/v2_3Batch02Gate0Inventory.test.ts (7 tests) 96ms
+ ✓ src/tests/sprint2InteractiveDepth.test.tsx (2 tests) 136ms
+ ✓ src/tests/sprint1VerticalSlice.test.tsx (7 tests) 111ms
+ ✓ src/tests/storyCupPilotV2_2.test.tsx (5 tests) 149ms
+ ✓ src/tests/voiceGlobalSyncV1_1.test.tsx (7 tests) 154ms
+ ✓ src/tests/sprint3FairytaleTransfer.test.tsx (4 tests) 162ms
+ ✓ src/tests/sprint4_3StateAndTouchLoop.test.tsx (5 tests) 192ms
+ ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 208ms
+ ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 157ms
  ✓ src/tests/sprint4AuthenticityAndImmersion.test.tsx (9 tests) 253ms
- ✓ src/tests/sprint1_1PlayabilityAndCognitiveLoop.test.tsx (16 tests) 238ms
- ✓ src/tests/sprint4_2GlobalVoiceSync.test.tsx (34 tests) 172ms
- ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 193ms
- ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 261ms
- ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 277ms
+ ✓ src/tests/adultPreviewSessionLeak.test.tsx (3 tests) 258ms
+ ✓ src/tests/v2_3Batch01WeatherCalm.test.tsx (17 tests) 174ms
+ ✓ src/tests/visualV2AssetLabIntegration.test.tsx (5 tests) 185ms
+ ✓ src/tests/transitionExperienceV1.test.tsx (24 tests) 280ms
 
  Test Files  41 passed (41)
-      Tests  410 passed (410)
-   Start at  15:36:45
-   Duration  896ms (transform 46%, import 31%, tests 22%, worker 1%)
+      Tests  412 passed (412)
+   Start at  16:48:30
+   Duration  949ms (transform 47%, import 31%, tests 21%, worker 1%)
 
 vite v8.3.4 building client environment for production...
 transforming...
@@ -58,13 +59,14 @@ transforming...
 rendering chunks...
 computing gzip size...
 dist/index.html                     1.81 kB │ gzip:   0.83 kB
-dist/assets/index-Y_oBvglH.css    204.54 kB │ gzip:  25.32 kB
-dist/assets/index-9kxKl1aG.js   2,532.58 kB │ gzip: 568.95 kB
+dist/assets/index-BzsWN_nv.css    204.51 kB │ gzip:  25.32 kB
+dist/assets/index-lk_UNxlC.js   2,532.58 kB │ gzip: 568.95 kB
 
-✓ built in 415ms
+✓ built in 429ms
 [plugin builtin:vite-reporter] 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-[generate-version-json] Wrote RUNTIME_DEPLOYMENT_METADATA -> dist/version.json commitSha=25a09c7a23bda842cf8327d12f4e3df4df4b1597 (source=GIT_HEAD) audit=FAIL_CLOSED_PENDING_AUDIT (16/16 PENDING, renderable=0)
+[generate-version-json] Wrote RUNTIME_DEPLOYMENT_METADATA -> dist/version.json commitSha=56936d624dc491de4c5f4085115892eb4609edfa (source=GIT_HEAD) audit=FAIL_CLOSED_PENDING_AUDIT (16/16 PENDING, renderable=0)
+EXIT_CODE=0

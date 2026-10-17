@@ -1,34 +1,78 @@
 {
-  "gate": "A-LAND_V2.3_BATCH02_GATE0_INVENTORY",
-  "status": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
-  "verifiedAt": "2026-10-17T07:36:47.254Z",
-  "baselineArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
-  "baselineCanonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+  "gate": "A-LAND_V2.3_BATCH02_GATE_B0R",
+  "status": "BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "executionStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "verifiedAt": "2026-10-17T08:48:27.593Z",
+  "baseline": {
+    "frozenBranch": "ui/visual-v2-batch01r-u3r-final",
+    "frozenArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
+    "frozenCanonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+    "gate0InventoryBranch": "ui/visual-v2-batch02-gate0-inventory",
+    "gate0InventoryArchiveHeadSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
+    "gate0InventoryCanonicalCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
+    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract"
+  },
   "zeroFrozenBusinessFilesModified": true,
   "modifiedForbiddenFiles": [],
+  "modifiedFilesSinceGate0Inventory": [
+    "docs/v2-3-batch02-gate0-inventory/00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_ARTWORK_GAP_LEDGER.json",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_AND_INTERFACE_SPEC.md",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_INTERFACE_MAP.json",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md",
+    "docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md",
+    "docs/v2-3-batch02-gate0-inventory/evidence/build.log",
+    "docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json",
+    "docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log",
+    "docs/v2-3-batch02-gate0-inventory/evidence/vitest.log",
+    "scripts/verify_v2_3_batch02_gate0_inventory.mjs",
+    "src/tests/v2_3Batch02Gate0Inventory.test.ts",
+    "src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts"
+  ],
   "sourceContractAssertions": {
     "detectiveHas4Tabs": true,
     "detectiveHas5Tools": true,
+    "detectiveBoxItemsUseTargetAndPlaced": true,
+    "detectiveCircleItemsUseTargetAndPlaced": true,
+    "detectiveInitialStepIs1": true,
+    "detectiveHandlersPlaceUnconditionallyWithPlayClick": true,
     "detectiveLaunchesCrayonTransferAndBreaker": true,
     "breakerHas5Stages": true,
     "breakerHas3PresetsAnd4Subbranches": true,
-    "breakerResetsProgressionOnPresetAndSubbranchSwitch": true
+    "breakerResetsProgressionOnPresetAndSubbranchSwitch": true,
+    "breakerUsesSpeechNarratorSubscribeAndSwitchCompanion": true
   },
   "artworkPreflightSummary": {
-    "totalInspectedAndRequiredEntries": 73,
+    "totalInspectedAndRequiredSetEntries": 73,
     "existingRepoAssetsInspected": 43,
     "upstreamReferenceBoardsInspected": 8,
-    "missingProductionAssetsRequired": 22,
+    "missingProductionAssetSetsRequired": 22,
+    "missingDiscreteStateVariantsRequired": 68,
+    "discreteStatesByScene": {
+      "thought_detective": 30,
+      "difficulty_breaker": 26,
+      "shared_companion_rig": 12
+    },
     "productionArtAcceptedCount": 0,
+    "verifiedDiscreteStateCount": 0,
+    "verifiedSetCount": 0,
     "techPreviewOnlyCount": 51,
-    "missingCount": 22,
+    "missingSetCount": 22,
+    "missingDiscreteStateCount": 68,
     "duplicateByteForByteSvgEntriesCount": 27
+  },
+  "counterexampleRegressionSummary": {
+    "totalCases": 15,
+    "allAssertionsPassed": true
   },
   "holdFlags": {
     "ART_DIRECTOR_QA_HOLD": true,
-    "ASSET_ARTWORK_BLOCKED": true,
     "CONTENT_QA_REVIEW": true,
     "PRODUCTION_RELEASE_HOLD": true,
+    "ASSET_ARTWORK_BLOCKED": true,
     "ARTWORK_GAP": true,
     "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
   }
