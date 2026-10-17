@@ -1,11 +1,75 @@
 {
-  "schemaVersion": "1.0.0",
-  "gateId": "A-LAND_V2.3_BATCH02_GATE0_B0_A",
-  "generatedAt": "2026-10-17T15:30:00+08:00",
+  "schemaVersion": "1.1.0-B0R",
+  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R_A",
+  "generatedAt": "2026-10-17T16:30:00+08:00",
   "frozenBaseline": {
-    "branch": "ui/visual-v2-batch01r-u3r-final",
-    "archiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
-    "canonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320"
+    "frozenBranch": "ui/visual-v2-batch01r-u3r-final",
+    "frozenArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
+    "frozenCanonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+    "gate0InventoryBranch": "ui/visual-v2-batch02-gate0-inventory",
+    "gate0InventoryArchiveHeadSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
+    "gate0InventoryCanonicalCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
+    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract"
+  },
+  "requiredViewports": [
+    {
+      "id": "mobile_360x800",
+      "width": 360,
+      "height": 800,
+      "orientation": "portrait",
+      "aspectTier": "mobile_3_4"
+    },
+    {
+      "id": "mobile_390x844",
+      "width": 390,
+      "height": 844,
+      "orientation": "portrait",
+      "aspectTier": "mobile_3_4"
+    },
+    {
+      "id": "mobile_430x932",
+      "width": 430,
+      "height": 932,
+      "orientation": "portrait",
+      "aspectTier": "mobile_3_4"
+    },
+    {
+      "id": "tablet_768x1024",
+      "width": 768,
+      "height": 1024,
+      "orientation": "portrait",
+      "aspectTier": "tablet_adaptive"
+    },
+    {
+      "id": "tablet_1024x1366",
+      "width": 1024,
+      "height": 1366,
+      "orientation": "portrait",
+      "aspectTier": "tablet_adaptive"
+    },
+    {
+      "id": "desktop_1440x900",
+      "width": 1440,
+      "height": 900,
+      "orientation": "landscape",
+      "aspectTier": "desktop_16_9"
+    }
+  ],
+  "optionalAdditionalViewports": [
+    {
+      "id": "tablet_1024x768",
+      "width": 1024,
+      "height": 768,
+      "orientation": "landscape",
+      "aspectTier": "desktop_16_9"
+    }
+  ],
+  "stageCompositionRule": {
+    "mobilePortraitAspect": "3:4",
+    "desktopLandscapeAspect": "16:9",
+    "forbidDestructiveObjectCoverCropOnMobile": true,
+    "mobileCompositionPolicy": "Render dedicated 3:4 portrait scene plates (>=1200x1600) in an aspect-ratio-preserving stage container (aspect-[3/4] or full-bleed safe-zone backdrop with object-contain / safe focal framing) so sky, workbench, and companion anchors are never vertically sliced into a shallow horizontal strip.",
+    "desktopCompositionPolicy": "Render dedicated 16:9 landscape scene plates (>=2560x1440) with L1/L2/L3 depth parallax and interactive prop anchors."
   },
   "inspectedSourceFiles": [
     {
@@ -113,85 +177,149 @@
           "name": "activeTab",
           "type": "'tools' | 'threeBoxes' | 'circles' | 'fourSteps'",
           "defaultValue": "'tools'",
-          "line": 20,
+          "line": 38,
           "purpose": "Controls the 4 top-level cognitive exploration modes in Thought Detective Lab."
-        },
-        {
-          "name": "activeTool",
-          "type": "'flag' | 'lenses' | 'coin' | 'scale' | 'fence'",
-          "defaultValue": "'flag'",
-          "line": 21,
-          "purpose": "Selects which of the 5 thinking tools is active inside the tools tab."
-        },
-        {
-          "name": "personFlagRemoved",
-          "type": "boolean",
-          "defaultValue": "false",
-          "line": 22,
-          "purpose": "Tool 1 (Flag): Separates the person (“我”) from the temporary mistake/event (“事”)."
-        },
-        {
-          "name": "currentLens",
-          "type": "'my' | 'his' | 'sky'",
-          "defaultValue": "'my'",
-          "line": 23,
-          "purpose": "Tool 2 (Three Lenses): Switches between My Lens, Peer Lens, and Sky Bird-Eye Lens."
-        },
-        {
-          "name": "coinSide",
-          "type": "'front' | 'back'",
-          "defaultValue": "'front'",
-          "line": 24,
-          "purpose": "Tool 3 (Two-Sided Coin): Flips between the difficulty side and the caring/intention side."
         },
         {
           "name": "isBreakerOpen",
           "type": "boolean",
           "defaultValue": "false",
-          "line": 25,
+          "line": 39,
           "purpose": "Opens DifficultyBreakerModal directly from ThoughtDetectiveLabModal header CTA."
         },
         {
           "name": "isCrayonGameOpen",
           "type": "boolean",
           "defaultValue": "false",
-          "line": 26,
+          "line": 40,
           "purpose": "Switches modal body into CrayonDetectiveGame spatial investigation view."
         },
         {
           "name": "isTransferLabOpen",
           "type": "boolean",
           "defaultValue": "false",
-          "line": 27,
+          "line": 41,
           "purpose": "Opens TransferScenariosModal from the 4-Steps progression tab."
         },
         {
           "name": "expMetrics",
           "type": "ProductExperienceMetrics",
           "defaultValue": "loadProductExperienceMetrics()",
-          "line": 28,
+          "line": 42,
           "purpose": "Displays live completedDetectiveCaseIds, hypothesisRevisionCount, and completedTransferScenarioIds."
         },
         {
+          "name": "activeTool",
+          "type": "'flag' | 'lenses' | 'coin' | 'scale' | 'fence'",
+          "defaultValue": "'flag'",
+          "line": 45,
+          "purpose": "Selects which of the 5 thinking tools is active inside the tools tab."
+        },
+        {
+          "name": "personFlagRemoved",
+          "type": "boolean",
+          "defaultValue": "false",
+          "line": 48,
+          "purpose": "Tool 1 (Flag): Separates the person (“我”) from the temporary mistake/event (“事”)."
+        },
+        {
+          "name": "currentLens",
+          "type": "'my' | 'his' | 'sky'",
+          "defaultValue": "'my'",
+          "line": 51,
+          "purpose": "Tool 2 (Three Lenses): Switches between My Lens, Peer Lens, and Sky Bird-Eye Lens."
+        },
+        {
+          "name": "coinSide",
+          "type": "'front' | 'back'",
+          "defaultValue": "'front'",
+          "line": 54,
+          "purpose": "Tool 3 (Two-Sided Coin): Flips between the difficulty side and the caring/intention side."
+        },
+        {
           "name": "boxItems",
-          "type": "Array<{ id: '1'..'5', text: string, correctBox: 'visible' | 'heart' | 'guess', sorted: string | null }>",
-          "defaultValue": "5 unsorted items",
-          "line": 38,
-          "purpose": "Mode 2 (Three Boxes): Classifies statements into Visible Fact, Heart Feeling, or Mind Guess."
+          "type": "Array<{ id: string, text: string, target: 'visible' | 'heart' | 'guess', placed: 'visible' | 'heart' | 'guess' | null }>",
+          "defaultValue": "5 items: id '1' (placed: 'visible') & id '2' (placed: 'heart') pre-placed as examples; id '3', '4', '5' have placed: null",
+          "line": 57,
+          "initialItems": [
+            {
+              "id": "1",
+              "text": "桌上的牛奶打翻了，地板湿了",
+              "target": "visible",
+              "placed": "visible"
+            },
+            {
+              "id": "2",
+              "text": "心里一阵酸酸的，想掉眼泪",
+              "target": "heart",
+              "placed": "heart"
+            },
+            {
+              "id": "3",
+              "text": "“他肯定是故意让我难看的！”",
+              "target": "guess",
+              "placed": null
+            },
+            {
+              "id": "4",
+              "text": "门被风吹得砰的一声关上了",
+              "target": "visible",
+              "placed": null
+            },
+            {
+              "id": "5",
+              "text": "肚子紧绷绷的，像个小皮球",
+              "target": "heart",
+              "placed": null
+            }
+          ],
+          "purpose": "Mode 2 (Three Boxes): Exploratory classification into Visible Fact, Heart Feeling, or Mind Guess via handlePlaceBox(id, boxType)."
         },
         {
           "name": "circleItems",
-          "type": "Array<{ id: 'c1'..'c5', text: string, correctCircle: 'adult' | 'mine' | 'together', sorted: string | null }>",
-          "defaultValue": "5 unsorted items",
-          "line": 53,
-          "purpose": "Mode 3 (Control Circles): Separates Adult Responsibility, My Choice, and Shared Discussion."
+          "type": "Array<{ id: string, text: string, target: 'adult' | 'mine' | 'together', placed: 'adult' | 'mine' | 'together' | null }>",
+          "defaultValue": "5 items: id 'c1' (placed: 'adult') & id 'c2' (placed: 'mine') pre-placed as examples; id 'c3', 'c4', 'c5' have placed: null",
+          "line": 66,
+          "initialItems": [
+            {
+              "id": "c1",
+              "text": "大人分开住在不同房子里",
+              "target": "adult",
+              "placed": "adult"
+            },
+            {
+              "id": "c2",
+              "text": "难过了跟大人要一个抱抱",
+              "target": "mine",
+              "placed": "mine"
+            },
+            {
+              "id": "c3",
+              "text": "周末一起去公园还是去看绘本",
+              "target": "together",
+              "placed": null
+            },
+            {
+              "id": "c4",
+              "text": "大人之间商量生活费和日程",
+              "target": "adult",
+              "placed": null
+            },
+            {
+              "id": "c5",
+              "text": "晚上按时刷牙洗脸睡觉",
+              "target": "mine",
+              "placed": null
+            }
+          ],
+          "purpose": "Mode 3 (Control Circles): Exploratory boundary classification into Adult Responsibility, My Choice, or Shared Discussion via handlePlaceCircle(id, circleType)."
         },
         {
           "name": "currentStep",
           "type": "number (1 | 2 | 3 | 4)",
-          "defaultValue": "3",
-          "line": 68,
-          "purpose": "Mode 4 (Four Steps): Highlights the 4-step cognitive scaffolding ladder (Naming -> Flow -> Hearing Thought -> Testing Thought)."
+          "defaultValue": "1",
+          "line": 75,
+          "purpose": "Mode 4 (Four Steps): Highlights the active step (initial 1) on the 4-step cognitive scaffolding ladder."
         }
       ],
       "modesAndTools": {
@@ -204,8 +332,8 @@
                 "toolId": "flag",
                 "label": "「人」与「事」小旗子",
                 "interactiveState": "personFlagRemoved (boolean)",
-                "audioEffect": "sounds.playSuccess() on flag removal / sounds.playClick() on reset",
-                "narration": "Speaks tool intro and separated-event encouragement via speechNarrator.speak()"
+                "audioEffect": "sounds.playClick() on both flag removal and reset (lines 336-358)",
+                "narration": "Speaks tool intro and separated-event encouragement via handleSpeak / speechNarrator.speak()"
               },
               {
                 "toolId": "lenses",
@@ -246,7 +374,8 @@
               "guess (脑子猜的)"
             ],
             "itemCount": 5,
-            "completionEffect": "When all 5 items are sorted into their matching box, calls unlockMedal('thought-detective') and sounds.playSuccess()"
+            "handlerName": "handlePlaceBox(id, boxType) (lines 83-88)",
+            "placementBehavior": "Plays sounds.playClick() and unconditionally sets item.placed = boxType for matching id. Does NOT block placement on target mismatch, does NOT call unlockMedal(\"thought-detective\"), and does NOT call sounds.playSuccess(). Items 1 and 2 start pre-placed as examples; items 3, 4, 5 start with placed: null and can be moved freely between boxes."
           },
           {
             "tabId": "circles",
@@ -257,11 +386,13 @@
               "together (一起商量)"
             ],
             "itemCount": 5,
-            "completionEffect": "Plays sounds.playSuccess() on accurate boundary classification, gentle retry sound on mismatch"
+            "handlerName": "handlePlaceCircle(id, circleType) (lines 90-95)",
+            "placementBehavior": "Plays sounds.playClick() and unconditionally sets item.placed = circleType for matching id. Does NOT block placement on target mismatch and does NOT call sounds.playSuccess(). Items c1 and c2 start pre-placed as examples; items c3, c4, c5 start with placed: null and can be moved freely between circles."
           },
           {
             "tabId": "fourSteps",
             "label": "往后退一步4阶",
+            "initialStep": 1,
             "steps": [
               "1 命名 (情绪天气站)",
               "2 看变化 (情绪天气站/心情小盒子)",
@@ -411,9 +542,9 @@
         ]
       },
       "staleProgressionResetProof": {
-        "helperFunction": "resetBreakerScenarioProgressToFen (lines 536-541)",
+        "helperFunction": "resetBreakerScenarioProgressToFen (lines 527-533)",
         "invokedBy": [
-          "handlePickPreset (lines 543-550)",
+          "handlePickPreset (lines 535-550)",
           "handleSwitchTransitionSubBranch (lines 552-565)"
         ],
         "clearedStateFields": {
@@ -431,9 +562,25 @@
           "tiantian_raccoon",
           "qiqi_deer"
         ],
-        "inlineSwitchHandler": "handleSwitchCompanionInline (lines 521-534)",
-        "globalSyncMechanism": "Calls updatePersonalization({ companionId: compId }) + speechNarrator.syncWithCompanion(compId) and speaks SWITCH_COMPANION_GREETING[compId]",
-        "subtitleSynchronization": "Subscribes to speechNarrator.subscribeKaraoke and speechNarrator.subscribeSpeakingState; displays karaoke.fullText while speaking and falls back to lastSpokenText with replay button (`breaker-replay-speech`)."
+        "inlineSwitchHandler": "handleSwitchCompanionInline (lines 522-525)",
+        "globalSyncMechanism": "Calls updatePersonalization({ companionId: nextCompanionId }) + speechNarrator.switchCompanion(nextCompanionId) (does NOT call syncWithCompanion and does NOT speak a greeting on inline switch).",
+        "subtitleSynchronization": "Subscribes via speechNarrator.subscribe(() => { setIsSpeaking(speechNarrator.getSpeaking()); setKaraoke(speechNarrator.getKaraokeState()); }) (lines 489-495); displays karaoke.fullText while speaking and falls back to lastSpokenText with replay button (`breaker-replay-speech`).",
+        "contractDetails": {
+          "subscriptionMethod": "speechNarrator.subscribe",
+          "speakingGetter": "speechNarrator.getSpeaking()",
+          "karaokeGetter": "speechNarrator.getKaraokeState()",
+          "inlineCompanionSwitchHandler": "handleSwitchCompanionInline",
+          "inlineCompanionSwitchCalls": [
+            "updatePersonalization({ companionId: nextCompanionId })",
+            "speechNarrator.switchCompanion(nextCompanionId)"
+          ],
+          "speaksGreetingOnInlineSwitch": false,
+          "sourceLineRange": {
+            "subscribeEffect": "489-495",
+            "speakWithCompanionHelper": "513-520",
+            "handleSwitchCompanionInline": "522-525"
+          }
+        }
       }
     }
   }

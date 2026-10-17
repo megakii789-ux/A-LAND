@@ -1,21 +1,28 @@
 #!/usr/bin/env node
 /**
- * A-LAND V2.3 Batch02 · Gate 0 — Programmatic Source Behavior & Production Art Preflight Verifier
+ * A-LAND V2.3 Batch02 · Gate 0 / Gate B0R — Programmatic Source Behavior, Discrete Asset & Eligibility Verifier
  *
  * Performs:
- * 1. Gate B0-A: Verifies live source contracts of ThoughtDetectiveLabModal.tsx and DifficultyBreakerModal.tsx
+ * 1. Gate B0R-A: Verifies live source contracts of ThoughtDetectiveLabModal.tsx and DifficultyBreakerModal.tsx
+ *    (exact line numbers, `{ id, text, target, placed }` state shapes, initial `currentStep = 1`, exploratory
+ *    `handlePlaceBox`/`handlePlaceCircle` behavior, and `speechNarrator.subscribe` + `switchCompanion` voice contract)
  *    and outputs `docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_INTERFACE_MAP.json`.
- * 2. Gate B0-B: Scans all existing Batch02-related assets in `public/visual-v2/**` and upstream reference boards,
- *    computes exact dimensions, alpha transparency, byte size, SHA-256, duplicate geometry clusters, and missing
- *    production 3D assets, and outputs `docs/v2-3-batch02-gate0-inventory/BATCH02_ARTWORK_GAP_LEDGER.json`.
- * 3. Gate B0-C: Verifies zero modifications to frozen business modules or Batch01R components, and records
- *    `ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED` into `evidence/gate0_inventory_verification.json`.
+ * 2. Gate B0R-B & B0R-C: Dynamically inspects disk paths for all 36 existing repo assets, 15 upstream reference boards,
+ *    22 canonical production asset sets, and 68 discrete state variants (`BATCH02_CANONICAL_DISCRETE_STATES`);
+ *    evaluates fail-closed eligibility via `evaluateBatch02ProductionArtEligibility`; runs the counterexample
+ *    regression suite (`evidence/b0r_counterexample_regression.json`); and outputs
+ *    `BATCH02_ARTWORK_GAP_LEDGER.json`, `BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json`, and
+ *    `BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv`.
+ * 3. Gate B0R-D: Verifies zero modifications to frozen business modules or Batch01R components, and records
+ *    `BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED` into
+ *    `evidence/gate0_inventory_verification.json`.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { execSync } from 'node:child_process';
+import { transformSync } from 'esbuild';
 
 const ROOT_DIR = process.cwd();
 const OUT_DIR = path.join(ROOT_DIR, 'docs/v2-3-batch02-gate0-inventory');
@@ -25,6 +32,37 @@ const REF_DIR =
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
+
+// Dynamically load the TypeScript contract module so Node 20 and Node 22 execute the exact same source of truth
+const contractsTsPath = path.join(
+  ROOT_DIR,
+  'src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts'
+);
+const contractsTsSource = fs.readFileSync(contractsTsPath, 'utf8');
+const { code: contractsJsCode } = transformSync(contractsTsSource, {
+  loader: 'ts',
+  format: 'esm',
+});
+const contractsMod = await import(
+  'data:text/javascript;base64,' + Buffer.from(contractsJsCode).toString('base64')
+);
+
+const {
+  BATCH02_CANONICAL_ASSET_SETS,
+  BATCH02_CANONICAL_DISCRETE_STATES,
+  BATCH02_GATE0_BASELINE,
+  BATCH02_GATE0_EXECUTION_STATUS,
+  BATCH02_GATE_B0R_DECISION_STATUS,
+  BATCH02_OPTIONAL_ADDITIONAL_VIEWPORTS,
+  BATCH02_REQUIRED_VIEWPORTS,
+  BATCH02_STAGE_COMPOSITION_RULE,
+  DIFFICULTY_BREAKER_VOICE_SYNC_CONTRACT,
+  THOUGHT_DETECTIVE_INITIAL_BOX_ITEMS,
+  THOUGHT_DETECTIVE_INITIAL_CIRCLE_ITEMS,
+  THOUGHT_DETECTIVE_INITIAL_STEP,
+  evaluateBatch02ProductionArtEligibility,
+  validateThoughtDetectiveStateContract,
+} = contractsMod;
 
 function sha256Buffer(buf) {
   return crypto.createHash('sha256').update(buf).digest('hex');
@@ -97,7 +135,7 @@ function inspectFile(relOrAbsPath, isAbs = false) {
 }
 
 // ============================================================================
-// 1. Verify Live Source Contracts & Build BATCH02_BEHAVIOR_INTERFACE_MAP.json
+// 1. Gate B0R-A: Verify Live Source Contracts & Build BATCH02_BEHAVIOR_INTERFACE_MAP.json
 // ============================================================================
 
 const detectivePath = 'src/components/ChildIsland/ThoughtDetectiveLab/ThoughtDetectiveLabModal.tsx';
@@ -124,6 +162,24 @@ const sourceAssertions = {
     detectiveSrc.includes("activeTool === 'coin'") &&
     detectiveSrc.includes("activeTool === 'scale'") &&
     detectiveSrc.includes("activeTool === 'fence'"),
+  detectiveBoxItemsUseTargetAndPlaced:
+    detectiveSrc.includes("{ id: '1', text: '桌上的牛奶打翻了，地板湿了', target: 'visible', placed: 'visible' }") &&
+    detectiveSrc.includes("{ id: '2', text: '心里一阵酸酸的，想掉眼泪', target: 'heart', placed: 'heart' }") &&
+    detectiveSrc.includes("{ id: '3', text: '“他肯定是故意让我难看的！”', target: 'guess', placed: null as string | null }") &&
+    !detectiveSrc.includes('correctBox') &&
+    !detectiveSrc.includes('sorted:'),
+  detectiveCircleItemsUseTargetAndPlaced:
+    detectiveSrc.includes("{ id: 'c1', text: '大人分开住在不同房子里', target: 'adult', placed: 'adult' }") &&
+    detectiveSrc.includes("{ id: 'c2', text: '难过了跟大人要一个抱抱', target: 'mine', placed: 'mine' }") &&
+    detectiveSrc.includes("{ id: 'c3', text: '周末一起去公园还是去看绘本', target: 'together', placed: null as string | null }") &&
+    !detectiveSrc.includes('correctCircle'),
+  detectiveInitialStepIs1:
+    detectiveSrc.includes('const [currentStep, setCurrentStep] = useState<number>(1);'),
+  detectiveHandlersPlaceUnconditionallyWithPlayClick:
+    detectiveSrc.includes('const handlePlaceBox = (itemId: string, boxType: string) =>') &&
+    detectiveSrc.includes('const handlePlaceCircle = (itemId: string, circleType: string) =>') &&
+    !detectiveSrc.includes('unlockMedal') &&
+    !detectiveSrc.includes('playSuccess'),
   detectiveLaunchesCrayonTransferAndBreaker:
     detectiveSrc.includes('<CrayonDetectiveGame') &&
     detectiveSrc.includes('<TransferScenariosModal') &&
@@ -149,6 +205,13 @@ const sourceAssertions = {
     breakerSrc.includes('setIsCoinFlipped(false)') &&
     breakerSrc.includes('setSteppingStones([null, null, null])') &&
     breakerSrc.includes('setPausedVoluntarily(false)'),
+  breakerUsesSpeechNarratorSubscribeAndSwitchCompanion:
+    breakerSrc.includes('const unsubscribe = speechNarrator.subscribe(() => {') &&
+    breakerSrc.includes('setIsSpeaking(speechNarrator.getSpeaking());') &&
+    breakerSrc.includes('setKaraoke(speechNarrator.getKaraokeState());') &&
+    breakerSrc.includes('speechNarrator.switchCompanion(nextCompanionId);') &&
+    !breakerSrc.includes('subscribeKaraoke') &&
+    !breakerSrc.includes('subscribeSpeakingState'),
 };
 
 for (const [k, ok] of Object.entries(sourceAssertions)) {
@@ -157,27 +220,41 @@ for (const [k, ok] of Object.entries(sourceAssertions)) {
   }
 }
 
+const initialStateValidation = validateThoughtDetectiveStateContract({
+  boxItems: THOUGHT_DETECTIVE_INITIAL_BOX_ITEMS,
+  circleItems: THOUGHT_DETECTIVE_INITIAL_CIRCLE_ITEMS,
+  currentStep: THOUGHT_DETECTIVE_INITIAL_STEP,
+});
+if (!initialStateValidation.valid) {
+  throw new Error(
+    `Initial ThoughtDetective state contract validation failed: ${initialStateValidation.errors.join(
+      '; '
+    )}`
+  );
+}
+
+const inspectedSourceFiles = [
+  inspectFile(detectivePath),
+  inspectFile(breakerPath),
+  inspectFile(shellPath),
+  inspectFile(auditPath),
+  inspectFile(crayonPath),
+  inspectFile(transferPath),
+  inspectFile('src/context/AppContext.tsx'),
+  inspectFile('src/utils/speech.ts'),
+  inspectFile('src/domain/cognitive/productExperienceMetrics.ts'),
+  inspectFile('src/domain/privacy/parentAccess.ts'),
+];
+
 const behaviorInterfaceMap = {
-  schemaVersion: '1.0.0',
-  gateId: 'A-LAND_V2.3_BATCH02_GATE0_B0_A',
-  generatedAt: '2026-10-17T15:30:00+08:00',
-  frozenBaseline: {
-    branch: 'ui/visual-v2-batch01r-u3r-final',
-    archiveHeadSha: 'd0b497acade40bd4bbd2cc9f16e9550df2b19504',
-    canonicalCodeSha: '6a5ae8d186850ac6ddb30823bf9c87134c10c320',
-  },
-  inspectedSourceFiles: [
-    inspectFile(detectivePath),
-    inspectFile(breakerPath),
-    inspectFile(shellPath),
-    inspectFile(auditPath),
-    inspectFile(crayonPath),
-    inspectFile(transferPath),
-    inspectFile('src/context/AppContext.tsx'),
-    inspectFile('src/utils/speech.ts'),
-    inspectFile('src/domain/cognitive/productExperienceMetrics.ts'),
-    inspectFile('src/domain/privacy/parentAccess.ts'),
-  ],
+  schemaVersion: '1.1.0-B0R',
+  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0R_A',
+  generatedAt: '2026-10-17T16:30:00+08:00',
+  frozenBaseline: BATCH02_GATE0_BASELINE,
+  requiredViewports: BATCH02_REQUIRED_VIEWPORTS,
+  optionalAdditionalViewports: BATCH02_OPTIONAL_ADDITIONAL_VIEWPORTS,
+  stageCompositionRule: BATCH02_STAGE_COMPOSITION_RULE,
+  inspectedSourceFiles,
   modules: {
     thought_detective_lab: {
       componentName: 'ThoughtDetectiveLabModal',
@@ -202,85 +279,91 @@ const behaviorInterfaceMap = {
           name: 'activeTab',
           type: "'tools' | 'threeBoxes' | 'circles' | 'fourSteps'",
           defaultValue: "'tools'",
-          line: 20,
+          line: 38,
           purpose: 'Controls the 4 top-level cognitive exploration modes in Thought Detective Lab.',
-        },
-        {
-          name: 'activeTool',
-          type: "'flag' | 'lenses' | 'coin' | 'scale' | 'fence'",
-          defaultValue: "'flag'",
-          line: 21,
-          purpose: 'Selects which of the 5 thinking tools is active inside the tools tab.',
-        },
-        {
-          name: 'personFlagRemoved',
-          type: 'boolean',
-          defaultValue: 'false',
-          line: 22,
-          purpose: 'Tool 1 (Flag): Separates the person (“我”) from the temporary mistake/event (“事”).',
-        },
-        {
-          name: 'currentLens',
-          type: "'my' | 'his' | 'sky'",
-          defaultValue: "'my'",
-          line: 23,
-          purpose: 'Tool 2 (Three Lenses): Switches between My Lens, Peer Lens, and Sky Bird-Eye Lens.',
-        },
-        {
-          name: 'coinSide',
-          type: "'front' | 'back'",
-          defaultValue: "'front'",
-          line: 24,
-          purpose: 'Tool 3 (Two-Sided Coin): Flips between the difficulty side and the caring/intention side.',
         },
         {
           name: 'isBreakerOpen',
           type: 'boolean',
           defaultValue: 'false',
-          line: 25,
+          line: 39,
           purpose: 'Opens DifficultyBreakerModal directly from ThoughtDetectiveLabModal header CTA.',
         },
         {
           name: 'isCrayonGameOpen',
           type: 'boolean',
           defaultValue: 'false',
-          line: 26,
+          line: 40,
           purpose: 'Switches modal body into CrayonDetectiveGame spatial investigation view.',
         },
         {
           name: 'isTransferLabOpen',
           type: 'boolean',
           defaultValue: 'false',
-          line: 27,
+          line: 41,
           purpose: 'Opens TransferScenariosModal from the 4-Steps progression tab.',
         },
         {
           name: 'expMetrics',
           type: 'ProductExperienceMetrics',
           defaultValue: 'loadProductExperienceMetrics()',
-          line: 28,
+          line: 42,
           purpose: 'Displays live completedDetectiveCaseIds, hypothesisRevisionCount, and completedTransferScenarioIds.',
         },
         {
+          name: 'activeTool',
+          type: "'flag' | 'lenses' | 'coin' | 'scale' | 'fence'",
+          defaultValue: "'flag'",
+          line: 45,
+          purpose: 'Selects which of the 5 thinking tools is active inside the tools tab.',
+        },
+        {
+          name: 'personFlagRemoved',
+          type: 'boolean',
+          defaultValue: 'false',
+          line: 48,
+          purpose: 'Tool 1 (Flag): Separates the person (“我”) from the temporary mistake/event (“事”).',
+        },
+        {
+          name: 'currentLens',
+          type: "'my' | 'his' | 'sky'",
+          defaultValue: "'my'",
+          line: 51,
+          purpose: 'Tool 2 (Three Lenses): Switches between My Lens, Peer Lens, and Sky Bird-Eye Lens.',
+        },
+        {
+          name: 'coinSide',
+          type: "'front' | 'back'",
+          defaultValue: "'front'",
+          line: 54,
+          purpose: 'Tool 3 (Two-Sided Coin): Flips between the difficulty side and the caring/intention side.',
+        },
+        {
           name: 'boxItems',
-          type: "Array<{ id: '1'..'5', text: string, correctBox: 'visible' | 'heart' | 'guess', sorted: string | null }>",
-          defaultValue: '5 unsorted items',
-          line: 38,
-          purpose: 'Mode 2 (Three Boxes): Classifies statements into Visible Fact, Heart Feeling, or Mind Guess.',
+          type: "Array<{ id: string, text: string, target: 'visible' | 'heart' | 'guess', placed: 'visible' | 'heart' | 'guess' | null }>",
+          defaultValue:
+            "5 items: id '1' (placed: 'visible') & id '2' (placed: 'heart') pre-placed as examples; id '3', '4', '5' have placed: null",
+          line: 57,
+          initialItems: THOUGHT_DETECTIVE_INITIAL_BOX_ITEMS,
+          purpose:
+            'Mode 2 (Three Boxes): Exploratory classification into Visible Fact, Heart Feeling, or Mind Guess via handlePlaceBox(id, boxType).',
         },
         {
           name: 'circleItems',
-          type: "Array<{ id: 'c1'..'c5', text: string, correctCircle: 'adult' | 'mine' | 'together', sorted: string | null }>",
-          defaultValue: '5 unsorted items',
-          line: 53,
-          purpose: 'Mode 3 (Control Circles): Separates Adult Responsibility, My Choice, and Shared Discussion.',
+          type: "Array<{ id: string, text: string, target: 'adult' | 'mine' | 'together', placed: 'adult' | 'mine' | 'together' | null }>",
+          defaultValue:
+            "5 items: id 'c1' (placed: 'adult') & id 'c2' (placed: 'mine') pre-placed as examples; id 'c3', 'c4', 'c5' have placed: null",
+          line: 66,
+          initialItems: THOUGHT_DETECTIVE_INITIAL_CIRCLE_ITEMS,
+          purpose:
+            'Mode 3 (Control Circles): Exploratory boundary classification into Adult Responsibility, My Choice, or Shared Discussion via handlePlaceCircle(id, circleType).',
         },
         {
           name: 'currentStep',
           type: 'number (1 | 2 | 3 | 4)',
-          defaultValue: '3',
-          line: 68,
-          purpose: 'Mode 4 (Four Steps): Highlights the 4-step cognitive scaffolding ladder (Naming -> Flow -> Hearing Thought -> Testing Thought).',
+          defaultValue: '1',
+          line: 75,
+          purpose: 'Mode 4 (Four Steps): Highlights the active step (initial 1) on the 4-step cognitive scaffolding ladder.',
         },
       ],
       modesAndTools: {
@@ -293,8 +376,8 @@ const behaviorInterfaceMap = {
                 toolId: 'flag',
                 label: '「人」与「事」小旗子',
                 interactiveState: 'personFlagRemoved (boolean)',
-                audioEffect: 'sounds.playSuccess() on flag removal / sounds.playClick() on reset',
-                narration: 'Speaks tool intro and separated-event encouragement via speechNarrator.speak()',
+                audioEffect: 'sounds.playClick() on both flag removal and reset (lines 336-358)',
+                narration: 'Speaks tool intro and separated-event encouragement via handleSpeak / speechNarrator.speak()',
               },
               {
                 toolId: 'lenses',
@@ -331,19 +414,23 @@ const behaviorInterfaceMap = {
             label: '三个小盒子',
             categories: ['visible (眼睛看到的)', 'heart (心里的感觉)', 'guess (脑子猜的)'],
             itemCount: 5,
-            completionEffect:
-              "When all 5 items are sorted into their matching box, calls unlockMedal('thought-detective') and sounds.playSuccess()",
+            handlerName: 'handlePlaceBox(id, boxType) (lines 83-88)',
+            placementBehavior:
+              'Plays sounds.playClick() and unconditionally sets item.placed = boxType for matching id. Does NOT block placement on target mismatch, does NOT call unlockMedal("thought-detective"), and does NOT call sounds.playSuccess(). Items 1 and 2 start pre-placed as examples; items 3, 4, 5 start with placed: null and can be moved freely between boxes.',
           },
           {
             tabId: 'circles',
             label: '控制圈',
             categories: ['adult (大人的事)', 'mine (我的事)', 'together (一起商量)'],
             itemCount: 5,
-            completionEffect: 'Plays sounds.playSuccess() on accurate boundary classification, gentle retry sound on mismatch',
+            handlerName: 'handlePlaceCircle(id, circleType) (lines 90-95)',
+            placementBehavior:
+              'Plays sounds.playClick() and unconditionally sets item.placed = circleType for matching id. Does NOT block placement on target mismatch and does NOT call sounds.playSuccess(). Items c1 and c2 start pre-placed as examples; items c3, c4, c5 start with placed: null and can be moved freely between circles.',
           },
           {
             tabId: 'fourSteps',
             label: '往后退一步4阶',
+            initialStep: 1,
             steps: ['1 命名 (情绪天气站)', '2 看变化 (情绪天气站/心情小盒子)', '3 听见想法 (想法侦探社)', '4 想法不一定是真的 (三个镜头)'],
             childModalLaunch: 'Opens TransferScenariosModal (isTransferLabOpen = true)',
           },
@@ -487,9 +574,9 @@ const behaviorInterfaceMap = {
         ],
       },
       staleProgressionResetProof: {
-        helperFunction: 'resetBreakerScenarioProgressToFen (lines 536-541)',
+        helperFunction: 'resetBreakerScenarioProgressToFen (lines 527-533)',
         invokedBy: [
-          'handlePickPreset (lines 543-550)',
+          'handlePickPreset (lines 535-550)',
           'handleSwitchTransitionSubBranch (lines 552-565)',
         ],
         clearedStateFields: {
@@ -502,11 +589,12 @@ const behaviorInterfaceMap = {
       },
       companionAndVoiceSync: {
         companionOrder: ['guoguo_squirrel', 'beibei_otter', 'tiantian_raccoon', 'qiqi_deer'],
-        inlineSwitchHandler: 'handleSwitchCompanionInline (lines 521-534)',
+        inlineSwitchHandler: 'handleSwitchCompanionInline (lines 522-525)',
         globalSyncMechanism:
-          'Calls updatePersonalization({ companionId: compId }) + speechNarrator.syncWithCompanion(compId) and speaks SWITCH_COMPANION_GREETING[compId]',
+          'Calls updatePersonalization({ companionId: nextCompanionId }) + speechNarrator.switchCompanion(nextCompanionId) (does NOT call syncWithCompanion and does NOT speak a greeting on inline switch).',
         subtitleSynchronization:
-          'Subscribes to speechNarrator.subscribeKaraoke and speechNarrator.subscribeSpeakingState; displays karaoke.fullText while speaking and falls back to lastSpokenText with replay button (`breaker-replay-speech`).',
+          'Subscribes via speechNarrator.subscribe(() => { setIsSpeaking(speechNarrator.getSpeaking()); setKaraoke(speechNarrator.getKaraokeState()); }) (lines 489-495); displays karaoke.fullText while speaking and falls back to lastSpokenText with replay button (`breaker-replay-speech`).',
+        contractDetails: DIFFICULTY_BREAKER_VOICE_SYNC_CONTRACT,
       },
     },
   },
@@ -519,7 +607,8 @@ fs.writeFileSync(
 );
 
 // ============================================================================
-// 2. Gate B0-B: Scan Existing Assets & Build BATCH02_ARTWORK_GAP_LEDGER.json
+// 2. Gate B0R-B & B0R-C: Dynamic Disk Inspection of Existing Assets,
+//    22 Canonical Asset Sets & 68 Discrete State Deliverables
 // ============================================================================
 
 const existingRepoAssetPaths = [
@@ -529,14 +618,16 @@ const existingRepoAssetPaths = [
     sceneId: 'thought_detective',
     role: 'Legacy V2.0 Scene Backplate SVG (`tools_room_scene_backplate.svg`)',
     relPath: 'public/visual-v2/assets/scenes/tools_room_scene_backplate.svg',
-    provenance: 'Procedural SVG bookshelf/window template (shares identical geometry with difficulty_breaker_scene_backplate.svg except gradient colors)',
+    provenance:
+      'Procedural SVG bookshelf/window template (shares identical geometry with difficulty_breaker_scene_backplate.svg except gradient colors)',
   },
   {
     assetId: 'legacy_svg_backplate_difficulty_breaker',
     sceneId: 'difficulty_breaker',
     role: 'Legacy V2.0 Scene Backplate SVG (`difficulty_breaker_scene_backplate.svg`)',
     relPath: 'public/visual-v2/assets/scenes/difficulty_breaker_scene_backplate.svg',
-    provenance: 'Procedural SVG bookshelf/window template (shares identical geometry with tools_room_scene_backplate.svg except gradient colors)',
+    provenance:
+      'Procedural SVG bookshelf/window template (shares identical geometry with tools_room_scene_backplate.svg except gradient colors)',
   },
   // Landmark cutouts
   {
@@ -665,12 +756,12 @@ const existingAssetLedgerEntries = inspectedExisting.map((entry) => {
     sceneId: entry.sceneId,
     role: entry.role,
     filePath: entry.relPath,
-    existsInRepo: true,
-    format: entry.info.format,
-    pixelDimensions: entry.info.pixelDimensions,
-    hasAlphaTransparency: entry.info.hasAlphaTransparency,
-    byteSize: entry.info.bytes,
-    sha256: entry.info.sha256,
+    existsInRepo: Boolean(entry.info),
+    format: entry.info ? entry.info.format : 'missing',
+    pixelDimensions: entry.info ? entry.info.pixelDimensions : null,
+    hasAlphaTransparency: entry.info ? entry.info.hasAlphaTransparency : null,
+    byteSize: entry.info ? entry.info.bytes : null,
+    sha256: entry.info ? entry.info.sha256 : null,
     provenance: entry.provenance,
     sharesIdenticalBytesWith: sameShaPaths,
     status: 'TECH_PREVIEW_ONLY',
@@ -712,265 +803,117 @@ const referenceBoardEntries = referenceBoardFiles.map((fileName) => {
   };
 });
 
-// Required Missing Production 3D Assets for Batch 02 (Thought Detective + Difficulty Breaker)
-const missingProductionAssets = [
-  // Thought Detective Lab — Scene Plates & Depth Layers
-  {
-    assetId: 'prod_detective_master_plate_desktop_16x9',
-    sceneId: 'thought_detective',
-    role: 'Thought Detective Lab 3D Master Scene Backplate — Desktop 16:9 (>=2560x1440 RGBA/WebP, zero text/characters)',
-    targetPath: 'public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: false,
-    gapReason: 'No high-resolution 3D cartoon detective treehouse/workshop desktop scene plate exists in Git or Google Drive.',
-  },
-  {
-    assetId: 'prod_detective_master_plate_mobile_3x4',
-    sceneId: 'thought_detective',
-    role: 'Thought Detective Lab 3D Master Scene Backplate — Mobile 3:4 (>=1200x1600 RGBA/WebP, safe top/bottom UI zones)',
-    targetPath: 'public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp',
-    requiredMinDims: { width: 1200, height: 1600 },
-    requiredAlpha: false,
-    gapReason: 'No dedicated 3:4 portrait mobile scene plate exists for Thought Detective Lab.',
-  },
-  {
-    assetId: 'prod_detective_layer_distant_window_sky',
-    sceneId: 'thought_detective',
-    role: 'Thought Detective L1 Distant Layer — Observatory Window & Island Sky (>=2560x1440 transparent WebP/PNG)',
-    targetPath: 'public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: true,
-    gapReason: 'Missing independent L1 distant parallax layer.',
-  },
-  {
-    assetId: 'prod_detective_layer_mid_workbench_bookshelves',
-    sceneId: 'thought_detective',
-    role: 'Thought Detective L2 Midground Layer — 3D Wooden Investigation Desk & Clue Shelves (>=2560x1440 transparent WebP/PNG)',
-    targetPath: 'public/visual-v2/batch02-art/layers/detective_l2_mid_workbench_rgba.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: true,
-    gapReason: 'Missing independent L2 3D wooden investigation workbench layer.',
-  },
-  {
-    assetId: 'prod_detective_layer_fore_arch_lanterns',
-    sceneId: 'thought_detective',
-    role: 'Thought Detective L3 Foreground Frame — Warm Wooden Archway & Hanging Magnifier Lamps (>=2560x1440 transparent WebP/PNG)',
-    targetPath: 'public/visual-v2/batch02-art/layers/detective_l3_fore_arch_rgba.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: true,
-    gapReason: 'Missing independent L3 foreground framing layer.',
-  },
-  // Thought Detective Lab — 5 Thinking Tools & Interactive Mode Props
-  {
-    assetId: 'prod_detective_prop_tool_flag_states',
-    sceneId: 'thought_detective',
-    role: '3D Interactive Tool 1 Prop — Person vs. Event Flag (`flag`: attached vs. removed states, >=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_tool_flag_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Completely missing even in low-res cutouts (only 4 tool cutouts exist; `flag` was never cut out).',
-  },
-  {
-    assetId: 'prod_detective_prop_tool_three_lenses_states',
-    sceneId: 'thought_detective',
-    role: '3D Interactive Tool 2 Prop — Three Perspective Lenses (`my`, `his`, `sky` 3D turret states, >=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_tool_three_lenses_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Existing `binoculars/native.png` is only 68x64 px and has no `my`/`his`/`sky` state variants.',
-  },
-  {
-    assetId: 'prod_detective_prop_tool_two_sided_coin_states',
-    sceneId: 'thought_detective',
-    role: '3D Interactive Tool 3 Prop — Two-Sided Coin (`front` difficulty side & `back` caring side, >=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_tool_coin_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Existing `two_sided_coin/native.png` is only 68x64 px and lacks front/back 3D state sprites.',
-  },
-  {
-    assetId: 'prod_detective_prop_tool_balance_scale_states',
-    sceneId: 'thought_detective',
-    role: '3D Interactive Tool 4 Prop — Fairness Balance Scale (>=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_tool_balance_scale_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Existing `balance_scale/native.png` is only 99x65 px.',
-  },
-  {
-    assetId: 'prod_detective_prop_tool_safety_fence_states',
-    sceneId: 'thought_detective',
-    role: '3D Interactive Tool 5 Prop — Protective Safety Fence Shield (`fence`, >=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_tool_safety_fence_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Completely missing even in low-res cutouts (`fence` was never cut out).',
-  },
-  {
-    assetId: 'prod_detective_prop_three_boxes_set',
-    sceneId: 'thought_detective',
-    role: '3D Mode 2 Props — Three Sorting Chests (`visible` camera chest, `heart` feeling chest, `guess` cloud chest, >=600x400 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_three_boxes_set_rgba.webp',
-    requiredMinDims: { width: 600, height: 400 },
-    requiredAlpha: true,
-    gapReason: 'Existing `v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg` is just 3 flat rectangles (`<rect width="130" height="90"/>`).',
-  },
-  {
-    assetId: 'prod_detective_prop_control_circles_rings',
-    sceneId: 'thought_detective',
-    role: '3D Mode 3 Props — Concentric Wooden/Glowing Control Rings (`adult`, `mine`, `together`, >=800x600 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_control_circles_rgba.webp',
-    requiredMinDims: { width: 800, height: 600 },
-    requiredAlpha: true,
-    gapReason: 'Zero assets exist for Mode 3 (`circles`) even in `v2-3-layer-factory`.',
-  },
-  {
-    assetId: 'prod_detective_prop_four_steps_staircase',
-    sceneId: 'thought_detective',
-    role: '3D Mode 4 Props — 4-Step Stepping-Back Observation Ladder (`currentStep: 1..4`, >=800x500 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/detective_four_steps_ladder_rgba.webp',
-    requiredMinDims: { width: 800, height: 500 },
-    requiredAlpha: true,
-    gapReason: 'Zero assets exist for Mode 4 (`fourSteps`) even in `v2-3-layer-factory`.',
-  },
+// Dynamically inspect all 68 canonical discrete state paths on disk (never hardcoded!)
+const discreteStateDeliverableEntries = BATCH02_CANONICAL_DISCRETE_STATES.map((dSpec) => {
+  const diskInfo = inspectFile(dSpec.targetFilePath, false);
+  const existsOnDisk = Boolean(diskInfo);
+  return {
+    discreteOrderId: dSpec.discreteOrderId,
+    discreteAssetId: dSpec.discreteAssetId,
+    setId: dSpec.setId,
+    sceneId: dSpec.sceneId,
+    stateVariant: dSpec.stateVariant,
+    companionId: dSpec.companionId,
+    targetGroupPath: dSpec.targetGroupPath,
+    filePath: dSpec.targetFilePath,
+    existsInRepo: existsOnDisk,
+    format: existsOnDisk ? diskInfo.format : 'missing',
+    pixelDimensions: existsOnDisk ? diskInfo.pixelDimensions : null,
+    requiredMinDimensions: { width: dSpec.minWidth, height: dSpec.minHeight },
+    requireAlpha: dSpec.requireAlpha,
+    hasAlphaTransparency: existsOnDisk ? diskInfo.hasAlphaTransparency : dSpec.requireAlpha,
+    byteSize: existsOnDisk ? diskInfo.bytes : null,
+    sha256: existsOnDisk ? diskInfo.sha256 : null,
+    waitingOwner: dSpec.waitingOwner,
+    approvalAuthority: dSpec.approvalAuthority,
+    artDirectorApproval: null,
+    status: 'MISSING',
+    productionOrderStatus: 'NOT_PRODUCED_NOT_APPROVED',
+    gapReason: `Discrete state deliverable "${dSpec.stateVariant}" for set "${dSpec.setId}" has not been produced or signed off by ${dSpec.waitingOwner}.`,
+  };
+});
 
-  // Difficulty Breaker — Scene Plates, Depth Layers & 5-Stage Interactive Props
-  {
-    assetId: 'prod_breaker_master_plate_desktop_16x9',
-    sceneId: 'difficulty_breaker',
-    role: 'Difficulty Breaker 3D Master Scene Backplate — Desktop 16:9 (>=2560x1440 RGBA/WebP, Artisan Stone-Splitting Workbench & Creek)',
-    targetPath: 'public/visual-v2/batch02-art/scenes/breaker_workbench_creek_desktop.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: false,
-    gapReason: 'No high-resolution 3D cartoon workbench/creek desktop scene plate exists for Difficulty Breaker.',
-  },
-  {
-    assetId: 'prod_breaker_master_plate_mobile_3x4',
-    sceneId: 'difficulty_breaker',
-    role: 'Difficulty Breaker 3D Master Scene Backplate — Mobile 3:4 (>=1200x1600 RGBA/WebP)',
-    targetPath: 'public/visual-v2/batch02-art/scenes/breaker_workbench_creek_mobile.webp',
-    requiredMinDims: { width: 1200, height: 1600 },
-    requiredAlpha: false,
-    gapReason: 'No dedicated 3:4 portrait mobile scene plate exists for Difficulty Breaker.',
-  },
-  {
-    assetId: 'prod_breaker_layer_creek_and_workbench',
-    sceneId: 'difficulty_breaker',
-    role: 'Difficulty Breaker L2 Midground Layer — 3D Wooden Splitting Table & Sparkling Stepping-Stone Stream (>=2560x1440 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/layers/breaker_l2_workbench_stream_rgba.webp',
-    requiredMinDims: { width: 2560, height: 1440 },
-    requiredAlpha: true,
-    gapReason: 'Missing independent 3D workbench and creek midground layer.',
-  },
-  {
-    assetId: 'prod_breaker_prop_preset_boulders_3x',
-    sceneId: 'difficulty_breaker',
-    role: 'Stage 0 (`pick`) 3D Preset Boulders & 4 Two-Homes Subbranch Compass Tokens (`diff-two-homes`, `diff-blocks-broken`, `diff-friend-ask`, >=512x512 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/breaker_preset_boulders_rgba.webp',
-    requiredMinDims: { width: 512, height: 512 },
-    requiredAlpha: true,
-    gapReason: 'Missing 3D preset boulders and 4 transition subbranch tokens.',
-  },
-  {
-    assetId: 'prod_breaker_prop_fen_crystal_stones_3x',
-    sceneId: 'difficulty_breaker',
-    role: 'Stage 1 (`fen`) 3D Splittable Crystal Stones — Fact (Emerald), Feeling (Rose), Guess (Amber) in Unsplit & Split-Glow States (>=900x450 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/breaker_fen_crystals_rgba.webp',
-    requiredMinDims: { width: 900, height: 450 },
-    requiredAlpha: true,
-    gapReason: 'Existing `v2-3-layer-factory/assets/difficulty_breaker/divide/*` is identical to `select/*` and has no splittable crystal states.',
-  },
-  {
-    assetId: 'prod_breaker_prop_tong_dual_lens_turntable',
-    sceneId: 'difficulty_breaker',
-    role: 'Stage 2 (`tong`) 3D Dual-Sided Perspective Lens Turntable (`isCoinFlipped: false | true`, >=600x600 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/breaker_tong_dual_lens_rgba.webp',
-    requiredMinDims: { width: 600, height: 600 },
-    requiredAlpha: true,
-    gapReason: 'Missing 3D dual-sided lens turntable asset for Stage 2 (`tong`).',
-  },
-  {
-    assetId: 'prod_breaker_prop_ze_river_stepping_stones',
-    sceneId: 'difficulty_breaker',
-    role: 'Stage 3 (`ze`) 3D Creek Stepping-Stone Slots (3 slots: empty, standard action placed, safety action placed, plus voluntary pause rest cushion, >=900x450 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/breaker_ze_stepping_stones_rgba.webp',
-    requiredMinDims: { width: 900, height: 450 },
-    requiredAlpha: true,
-    gapReason: 'Existing `step_stones.svg` is identical to `detective/tool_objects.svg` (3 flat rectangles) with zero slot or pause states.',
-  },
-  {
-    assetId: 'prod_breaker_prop_complete_celebration_bridge',
-    sceneId: 'difficulty_breaker',
-    role: 'Stage 4 (`complete`) 3D Completed Stepping-Stone Path & Lantern Celebration Overlay (>=1200x675 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/props/breaker_complete_path_rgba.webp',
-    requiredMinDims: { width: 1200, height: 675 },
-    requiredAlpha: true,
-    gapReason: 'Missing 3D completion stage overlay.',
-  },
-  // High-Resolution 3D Companion Masters & Expression Rigs
-  {
-    assetId: 'prod_shared_4companions_3d_rig_masters',
-    sceneId: 'shared_companion_rig',
-    role: '4 Animal Companions (`guoguo`, `beibei`, `tiantian`, `qiqi`) High-Res 3D Layered Masters (torso, head, eyes, voice-synced mouth, near/far arms, >=1024x1024 RGBA)',
-    targetPath: 'public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp',
-    requiredMinDims: { width: 1024, height: 1024 },
-    requiredAlpha: true,
-    gapReason:
-      'Existing native cutouts are 154x168 to 198x162 px grabCut crops from V14, and existing 168 rig part SVGs in `v2-3-layer-factory` are flat 2D ellipses/circles (`production_quality_approved = 0`).',
-  },
-];
+// Build the 22 canonical set-level entries by dynamically inspecting their group path & discrete state children
+const canonicalSetLedgerEntries = BATCH02_CANONICAL_ASSET_SETS.map((setSpec) => {
+  const children = discreteStateDeliverableEntries.filter((d) => d.setId === setSpec.setId);
+  const groupDiskInfo = !setSpec.targetGroupPath.includes('{')
+    ? inspectFile(setSpec.targetGroupPath, false)
+    : null;
+  const anyChildExists = children.some((c) => c.existsInRepo);
+  const existsOnDisk = Boolean(groupDiskInfo) || anyChildExists;
 
-const missingLedgerEntries = missingProductionAssets.map((m) => ({
-  assetId: m.assetId,
-  sceneId: m.sceneId,
-  role: m.role,
-  filePath: m.targetPath,
-  existsInRepo: false,
-  format: 'missing',
-  pixelDimensions: null,
-  requiredMinDimensions: m.requiredMinDims,
-  hasAlphaTransparency: m.requiredAlpha,
-  byteSize: null,
-  sha256: null,
-  provenance: 'NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)',
-  sharesIdenticalBytesWith: [],
-  status: 'MISSING',
-  gapReason: m.gapReason,
-}));
+  return {
+    setOrderId: setSpec.setOrderId,
+    assetId: setSpec.setId,
+    setId: setSpec.setId,
+    sceneId: setSpec.sceneId,
+    role: setSpec.role,
+    filePath: setSpec.targetGroupPath,
+    existsInRepo: existsOnDisk,
+    format: groupDiskInfo ? groupDiskInfo.format : 'missing',
+    pixelDimensions: groupDiskInfo ? groupDiskInfo.pixelDimensions : null,
+    requiredMinDimensions: { width: setSpec.minWidth, height: setSpec.minHeight },
+    hasAlphaTransparency: groupDiskInfo ? groupDiskInfo.hasAlphaTransparency : setSpec.requireAlpha,
+    byteSize: groupDiskInfo ? groupDiskInfo.bytes : null,
+    sha256: groupDiskInfo ? groupDiskInfo.sha256 : null,
+    requiredStateVariants: setSpec.requiredStateVariants,
+    minimumDiscreteStateVariants: setSpec.minimumDiscreteStateVariants,
+    waitingOwner: setSpec.waitingOwner,
+    approvalAuthority: setSpec.approvalAuthority,
+    artDirectorApproval: null,
+    provenance:
+      'NOT_YET_PRODUCED (Waiting on Art Production / Art Director sign-off before Batch02 UI replacement)',
+    sharesIdenticalBytesWith: [],
+    status: 'MISSING',
+    gapReason: `Missing ${setSpec.minimumDiscreteStateVariants} required discrete state variant(s) [${setSpec.requiredStateVariants.join(
+      ', '
+    )}]; waiting on ${setSpec.waitingOwner}.`,
+    discreteStateDeliverables: children,
+  };
+});
 
 const allLedgerEntries = [
   ...existingAssetLedgerEntries,
   ...referenceBoardEntries,
-  ...missingLedgerEntries,
+  ...canonicalSetLedgerEntries,
 ];
 
+const eligibilityReport = evaluateBatch02ProductionArtEligibility(allLedgerEntries);
+
 const artworkGapLedger = {
-  schemaVersion: '1.0.0',
-  gateId: 'A-LAND_V2.3_BATCH02_GATE0_B0_B',
-  generatedAt: '2026-10-17T15:30:00+08:00',
-  overallDecision: 'ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED',
-  holdFlags: {
-    ART_DIRECTOR_QA_HOLD: true,
-    ASSET_ARTWORK_BLOCKED: true,
-    CONTENT_QA_REVIEW: true,
-    PRODUCTION_RELEASE_HOLD: true,
-    ARTWORK_GAP: true,
-    BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED: true,
-  },
+  schemaVersion: '1.1.0-B0R',
+  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0R_B',
+  generatedAt: '2026-10-17T16:30:00+08:00',
+  overallDecision: eligibilityReport.gateStatus,
+  gateB0RDecision: BATCH02_GATE_B0R_DECISION_STATUS,
+  waitingProductionOwner: 'Art Production / Art Director',
+  holdFlags: eligibilityReport.holdFlags,
   summaryCounts: {
-    totalInspectedAndRequiredEntries: allLedgerEntries.length,
+    totalInspectedAndRequiredSetEntries: allLedgerEntries.length,
     existingRepoAssetsInspected: existingAssetLedgerEntries.length,
     upstreamReferenceBoardsInspected: referenceBoardEntries.length,
-    missingProductionAssetsRequired: missingLedgerEntries.length,
-    productionArtAcceptedCount: allLedgerEntries.filter(
-      (e) => e.status === 'PRODUCTION_ART_ACCEPTED'
-    ).length,
-    techPreviewOnlyCount: allLedgerEntries.filter((e) => e.status === 'TECH_PREVIEW_ONLY').length,
-    missingCount: allLedgerEntries.filter((e) => e.status === 'MISSING').length,
-    duplicateByteForByteSvgEntriesCount: existingAssetLedgerEntries.filter(
-      (e) => e.sharesIdenticalBytesWith.length > 0
-    ).length,
+    missingProductionAssetSetsRequired: canonicalSetLedgerEntries.length,
+    missingDiscreteStateVariantsRequired: discreteStateDeliverableEntries.length,
+    discreteStatesByScene: {
+      thought_detective: discreteStateDeliverableEntries.filter(
+        (d) => d.sceneId === 'thought_detective'
+      ).length,
+      difficulty_breaker: discreteStateDeliverableEntries.filter(
+        (d) => d.sceneId === 'difficulty_breaker'
+      ).length,
+      shared_companion_rig: discreteStateDeliverableEntries.filter(
+        (d) => d.sceneId === 'shared_companion_rig'
+      ).length,
+    },
+    productionArtAcceptedCount: eligibilityReport.productionAcceptedCount,
+    verifiedDiscreteStateCount: eligibilityReport.verifiedDiscreteStateCount,
+    verifiedSetCount: eligibilityReport.verifiedSetCount,
+    techPreviewOnlyCount: eligibilityReport.techPreviewOnlyCount,
+    missingSetCount: eligibilityReport.missingRequiredSetIds.length,
+    missingDiscreteStateCount: eligibilityReport.missingRequiredDiscreteStateIds.length,
+    duplicateByteForByteSvgEntriesCount: eligibilityReport.duplicateGeometryClusterCount,
   },
+  eligibilityReport,
   duplicateGeometryForensicFindings: [
     {
       clusterId: 'detective_workshop_svg_4x_identical',
@@ -1028,11 +971,366 @@ fs.writeFileSync(
   'utf8'
 );
 
+// Write Discrete 68-State Production Manifest JSON & CSV (Gate B0R-C / P2-01)
+const discreteManifestJson = {
+  schemaVersion: '1.1.0-B0R',
+  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0R_C_DISCRETE_MANIFEST',
+  generatedAt: '2026-10-17T16:30:00+08:00',
+  waitingOwner: 'Art Production / Art Director',
+  approvalAuthority: 'Art Director',
+  note: '22 grouped production asset sets expand into 68 proposed discrete state deliverables across thought_detective (30), difficulty_breaker (26), and shared_companion_rig (12 across 4 companions). Zero unresolved {companionId} wildcards remain in discrete targetFilePaths.',
+  totals: {
+    canonicalAssetSets: BATCH02_CANONICAL_ASSET_SETS.length,
+    canonicalDiscreteStates: discreteStateDeliverableEntries.length,
+    thoughtDetectiveDiscreteStates: 30,
+    difficultyBreakerDiscreteStates: 26,
+    sharedCompanionRigDiscreteStates: 12,
+    producedCount: discreteStateDeliverableEntries.filter((d) => d.existsInRepo).length,
+    approvedCount: 0,
+    missingCount: discreteStateDeliverableEntries.filter((d) => !d.existsInRepo).length,
+  },
+  sets: canonicalSetLedgerEntries.map((s) => ({
+    setOrderId: s.setOrderId,
+    setId: s.setId,
+    sceneId: s.sceneId,
+    role: s.role,
+    targetGroupPath: s.filePath,
+    requiredMinDimensions: s.requiredMinDimensions,
+    requireAlpha: s.hasAlphaTransparency,
+    requiredStateVariants: s.requiredStateVariants,
+    minimumDiscreteStateVariants: s.minimumDiscreteStateVariants,
+    waitingOwner: s.waitingOwner,
+    approvalAuthority: s.approvalAuthority,
+    status: s.status,
+  })),
+  discreteStates: discreteStateDeliverableEntries,
+};
+
+fs.writeFileSync(
+  path.join(OUT_DIR, 'BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json'),
+  JSON.stringify(discreteManifestJson, null, 2) + '\n',
+  'utf8'
+);
+
+const csvHeader =
+  'discrete_order_id,discrete_asset_id,set_id,scene_id,state_variant,companion_id,target_group_path,resolved_target_file_path,min_width,min_height,require_alpha,waiting_owner,approval_authority,exists_in_repo,status\n';
+const csvRows = discreteStateDeliverableEntries
+  .map((d) =>
+    [
+      d.discreteOrderId,
+      d.discreteAssetId,
+      d.setId,
+      d.sceneId,
+      d.stateVariant,
+      d.companionId ?? '',
+      d.targetGroupPath,
+      d.filePath,
+      d.requiredMinDimensions.width,
+      d.requiredMinDimensions.height,
+      d.requireAlpha ? 'True' : 'False',
+      `"${d.waitingOwner}"`,
+      `"${d.approvalAuthority}"`,
+      d.existsInRepo ? 'True' : 'False',
+      d.productionOrderStatus,
+    ].join(',')
+  )
+  .join('\n');
+
+fs.writeFileSync(
+  path.join(OUT_DIR, 'BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv'),
+  csvHeader + csvRows + '\n',
+  'utf8'
+);
+
 // ============================================================================
-// 3. Gate B0-C: Verify Zero Frozen File Modifications & Write Verification Summary
+// 3. Gate B0R-B & B0R-D: Counterexample & Negative/Positive Eligibility Regression
 // ============================================================================
 
-const diffNamesRaw = execSync('git diff --name-only d0b497acade40bd4bbd2cc9f16e9550df2b19504', {
+const auditorFixture = {
+  assetId: 'fixture_minimal_detective',
+  sceneId: 'thought_detective',
+  role: 'synthetic test fixture',
+  filePath: null,
+  existsInRepo: false,
+  format: 'missing',
+  pixelDimensions: null,
+  hasAlphaTransparency: null,
+  alphaZeroRatio: null,
+  byteSize: null,
+  sha256: null,
+  provenance: 'synthetic audit test',
+  sharesIdenticalBytesWith: [],
+  status: 'PRODUCTION_ART_ACCEPTED',
+  gapReason: 'none',
+};
+
+function createSyntheticValidCompleteManifest() {
+  return BATCH02_CANONICAL_DISCRETE_STATES.map((spec, idx) => {
+    const sha256 = crypto
+      .createHash('sha256')
+      .update(`valid_prod_asset_${spec.discreteAssetId}_${idx}`)
+      .digest('hex');
+    return {
+      assetId: spec.discreteAssetId,
+      setId: spec.setId,
+      stateVariant: spec.stateVariant,
+      companionId: spec.companionId,
+      sceneId: spec.sceneId,
+      role: `Approved 3D Production Render for ${spec.discreteAssetId}`,
+      filePath: spec.targetFilePath,
+      existsInRepo: true,
+      format: 'webp',
+      pixelDimensions: { width: spec.minWidth, height: spec.minHeight },
+      requiredMinDimensions: { width: spec.minWidth, height: spec.minHeight },
+      hasAlphaTransparency: spec.requireAlpha ? true : false,
+      byteSize: 245760 + idx * 1024,
+      sha256,
+      provenance: 'Art Director Signed Production 3D Render',
+      sharesIdenticalBytesWith: [],
+      status: 'PRODUCTION_ART_ACCEPTED',
+      gapReason: '',
+      artDirectorApproval: {
+        approvedBy: 'Art Director Lead',
+        approvalId: `AD-BATCH02-SIGN-${String(idx + 1).padStart(3, '0')}`,
+        approvedSha256: sha256,
+        approvedAt: '2026-10-18T10:00:00+08:00',
+        version: '2.3.0',
+      },
+    };
+  });
+}
+
+const counterexampleCases = [
+  {
+    caseId: 'CE-00_current_repo_73_rows',
+    description: 'Current repo ledger (36 existing + 15 reference boards + 22 missing canonical sets)',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility(allLedgerEntries),
+  },
+  {
+    caseId: 'CE-01_empty_ledger',
+    description: 'Empty ledger array []',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility([]),
+  },
+  {
+    caseId: 'CE-02_auditor_counterexample_1_single_fake_accepted_row',
+    description:
+      'Auditor Counterexample 1 (only_one_accepted_label_missing_other_scene): 1 fake PRODUCTION_ART_ACCEPTED row with filePath=null, existsInRepo=false, format="missing"',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility([auditorFixture]),
+  },
+  {
+    caseId: 'CE-03_auditor_counterexample_2_fake_accepted_plus_unverified',
+    description:
+      'Auditor Counterexample 2 (accepted_label_plus_unverified_other_scene): 1 fake accepted row + 1 UNVERIFIED row',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility([
+      auditorFixture,
+      {
+        ...auditorFixture,
+        assetId: 'fixture_unknown_breaker',
+        sceneId: 'difficulty_breaker',
+        status: 'UNVERIFIED',
+      },
+    ]),
+  },
+  {
+    caseId: 'CE-04_auditor_counterexample_3_two_fake_labels_no_files_no_hashes',
+    description:
+      'Auditor Counterexample 3 (two_labels_no_files_no_hashes): 2 fake PRODUCTION_ART_ACCEPTED rows across detective & breaker with null files/hashes',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility([
+      auditorFixture,
+      {
+        ...auditorFixture,
+        assetId: 'fixture_breaker',
+        sceneId: 'difficulty_breaker',
+      },
+    ]),
+  },
+  {
+    caseId: 'CE-05_missing_one_discrete_state',
+    description: '67 of 68 valid discrete state entries (1 discrete state missing)',
+    expectedAuthorized: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      createSyntheticValidCompleteManifest().slice(0, 67)
+    ),
+  },
+  {
+    caseId: 'CE-06_unresolved_companion_wildcard_path',
+    description: 'Complete 68 entries except 1 companion entry still contains {companionId} wildcard in filePath',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      manifest[manifest.length - 1] = {
+        ...manifest[manifest.length - 1],
+        filePath: 'public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp',
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-07_below_minimum_dimensions',
+    description: 'Complete 68 entries except desktop scene plate is 1280x720 (< required 2560x1440)',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      manifest[0] = {
+        ...manifest[0],
+        pixelDimensions: { width: 1280, height: 720 },
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-08_missing_required_alpha_channel',
+    description: 'Complete 68 entries except an RGBA layer has hasAlphaTransparency: false',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      manifest[2] = {
+        ...manifest[2],
+        hasAlphaTransparency: false,
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-09_unapproved_duplicate_sha256',
+    description: 'Complete 68 entries except 2 states share the same SHA-256 without an approved sharedAssetRef',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      const dupSha = manifest[5].sha256;
+      manifest[6] = {
+        ...manifest[6],
+        sha256: dupSha,
+        artDirectorApproval: {
+          ...manifest[6].artDirectorApproval,
+          approvedSha256: dupSha,
+        },
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-10_svg_format_rejected_as_production_art',
+    description: 'Complete 68 entries except 1 prop entry is format: "svg"',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      manifest[5] = {
+        ...manifest[5],
+        format: 'svg',
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-11_missing_art_director_approval',
+    description: 'Complete 68 entries except 1 entry has artDirectorApproval: null',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      manifest[10] = {
+        ...manifest[10],
+        artDirectorApproval: null,
+      };
+      return evaluateBatch02ProductionArtEligibility(manifest);
+    })(),
+  },
+  {
+    caseId: 'CE-12_duplicate_asset_id_poisoning',
+    description: 'Complete 68 entries plus 1 duplicate assetId entry',
+    expectedAuthorized: false,
+    report: (() => {
+      const manifest = createSyntheticValidCompleteManifest();
+      return evaluateBatch02ProductionArtEligibility([...manifest, manifest[0]]);
+    })(),
+  },
+  {
+    caseId: 'POS-01_complete_68_valid_discrete_states_with_approvals',
+    description:
+      'Positive synthetic control: All 68 canonical discrete states (across 22 sets & 4 companions) with valid dimensions, alpha, hashes, and Art Director approvals',
+    expectedAuthorized: true,
+    report: evaluateBatch02ProductionArtEligibility(createSyntheticValidCompleteManifest()),
+  },
+  {
+    caseId: 'POS-02_complete_68_valid_states_plus_historical_tech_preview_rows',
+    description:
+      'Positive synthetic control with historical audit rows: All 68 canonical discrete states valid + existing TECH_PREVIEW_ONLY & reference_board rows retained for provenance',
+    expectedAuthorized: true,
+    report: evaluateBatch02ProductionArtEligibility([
+      ...existingAssetLedgerEntries,
+      ...referenceBoardEntries,
+      ...createSyntheticValidCompleteManifest(),
+    ]),
+  },
+];
+
+for (const testCase of counterexampleCases) {
+  const actual = testCase.report.canAuthorizeBatch02UiReplacement;
+  if (actual !== testCase.expectedAuthorized) {
+    throw new Error(
+      `Counterexample regression failure on ${testCase.caseId}: expected canAuthorizeBatch02UiReplacement=${testCase.expectedAuthorized}, got ${actual}`
+    );
+  }
+  // Ensure holdFlags never contradict canAuthorizeBatch02UiReplacement
+  if (
+    testCase.report.holdFlags.BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED !== !actual ||
+    testCase.report.holdFlags.ARTWORK_GAP !== !actual ||
+    testCase.report.holdFlags.ASSET_ARTWORK_BLOCKED !== !actual
+  ) {
+    throw new Error(
+      `Contradictory holdFlags on ${testCase.caseId}: canAuthorize=${actual}, holdFlags=${JSON.stringify(
+        testCase.report.holdFlags
+      )}`
+    );
+  }
+}
+
+const counterexampleRegressionOutput = {
+  schemaVersion: '1.1.0-B0R',
+  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0R_COUNTEREXAMPLE_REGRESSION',
+  verifiedAt: new Date().toISOString(),
+  nodeVersion: process.version,
+  totalCases: counterexampleCases.length,
+  allAssertionsPassed: true,
+  cases: counterexampleCases.map((c) => ({
+    caseId: c.caseId,
+    description: c.description,
+    expectedAuthorized: c.expectedAuthorized,
+    actualAuthorized: c.report.canAuthorizeBatch02UiReplacement,
+    gateStatus: c.report.gateStatus,
+    holdFlags: c.report.holdFlags,
+    verifiedDiscreteStateCount: c.report.verifiedDiscreteStateCount,
+    verifiedSetCount: c.report.verifiedSetCount,
+    missingSetCount: c.report.missingRequiredSetIds.length,
+    missingDiscreteStateCount: c.report.missingRequiredDiscreteStateIds.length,
+    blockingReasons: c.report.blockingReasons,
+  })),
+};
+
+fs.writeFileSync(
+  path.join(EVIDENCE_DIR, 'b0r_counterexample_regression.json'),
+  JSON.stringify(counterexampleRegressionOutput, null, 2) + '\n',
+  'utf8'
+);
+
+// ============================================================================
+// 4. Gate B0R-D: Verify Zero Frozen File Modifications & Write Verification Summary
+// ============================================================================
+
+const diffFromU3R = execSync('git diff --name-only d0b497acade40bd4bbd2cc9f16e9550df2b19504', {
+  cwd: ROOT_DIR,
+  encoding: 'utf8',
+})
+  .trim()
+  .split('\n')
+  .filter(Boolean);
+
+const diffFromGate0 = execSync('git diff --name-only a6a1f843fd9955539912bfd1b30cc46a399a9ed8', {
   cwd: ROOT_DIR,
   encoding: 'utf8',
 })
@@ -1054,7 +1352,7 @@ const forbiddenPrefixes = [
   'src/utils/',
 ];
 
-const modifiedForbiddenFiles = diffNamesRaw.filter((f) =>
+const modifiedForbiddenFiles = diffFromU3R.filter((f) =>
   forbiddenPrefixes.some((prefix) => f === prefix || f.startsWith(prefix))
 );
 
@@ -1065,15 +1363,20 @@ if (modifiedForbiddenFiles.length > 0) {
 }
 
 const verificationSummary = {
-  gate: 'A-LAND_V2.3_BATCH02_GATE0_INVENTORY',
-  status: 'ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED',
+  gate: 'A-LAND_V2.3_BATCH02_GATE_B0R',
+  status: BATCH02_GATE_B0R_DECISION_STATUS,
+  executionStatus: BATCH02_GATE0_EXECUTION_STATUS,
   verifiedAt: new Date().toISOString(),
-  baselineArchiveHeadSha: 'd0b497acade40bd4bbd2cc9f16e9550df2b19504',
-  baselineCanonicalCodeSha: '6a5ae8d186850ac6ddb30823bf9c87134c10c320',
+  baseline: BATCH02_GATE0_BASELINE,
   zeroFrozenBusinessFilesModified: modifiedForbiddenFiles.length === 0,
   modifiedForbiddenFiles,
+  modifiedFilesSinceGate0Inventory: diffFromGate0,
   sourceContractAssertions: sourceAssertions,
   artworkPreflightSummary: artworkGapLedger.summaryCounts,
+  counterexampleRegressionSummary: {
+    totalCases: counterexampleRegressionOutput.totalCases,
+    allAssertionsPassed: counterexampleRegressionOutput.allAssertionsPassed,
+  },
   holdFlags: artworkGapLedger.holdFlags,
 };
 
