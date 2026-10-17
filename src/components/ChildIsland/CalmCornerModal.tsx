@@ -79,35 +79,46 @@ export const CalmCornerModal: React.FC<Props> = ({
             : 'bg-emerald-50/95 border border-emerald-200 rounded-3xl p-5 sm:p-8 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto'
         }
       >
-        {/* Header */}
+        {/* Header (Gate U3: Two-row responsive layout in V2 mode) */}
         {isV2Active ? (
-          <div className="flex items-center justify-between gap-2.5 px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md">
-            <div className="flex items-center gap-3 min-w-0">
-              <img
-                src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
-                alt=""
-                aria-hidden="true"
-                className="w-12 h-10 object-contain drop-shadow-xs shrink-0"
-              />
-              <div className="min-w-0">
-                <h3 className="text-lg sm:text-xl font-black text-[#451A03] flex items-center gap-2 flex-wrap">
-                  <span>绿草平静角</span>
-                  <span className="text-xs bg-emerald-100 text-emerald-900 border border-emerald-400 px-2.5 py-0.5 rounded-full font-extrabold">
-                    无压力 · 随时可停
-                  </span>
+          <div
+            data-testid="v2-calm-corner-modal-header"
+            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <img
+                  src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                />
+                <h3
+                  data-testid="v2-calm-corner-header-title"
+                  className="text-lg sm:text-xl font-black text-[#451A03] whitespace-nowrap"
+                >
+                  绿草平静角
                 </h3>
-                <p className="text-xs text-[#92400E] font-bold">
-                  深吸一口气，跟着暮光灯笼与呼吸光球让浪花慢慢平息
-                </p>
               </div>
+              <button
+                onClick={onClose}
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                aria-label="离开平静角"
+              >
+                <X className="w-6 h-6" />
+              </button>
             </div>
-            <button
-              onClick={onClose}
-              className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center transition-colors cursor-pointer shrink-0"
-              aria-label="离开平静角"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            <div className="flex flex-wrap items-center gap-2 border-t border-amber-300/60 pt-1.5">
+              <span className="text-xs bg-emerald-100 text-emerald-900 border border-emerald-400 px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap">
+                无压力 · 随时可停
+              </span>
+              <p
+                data-testid="v2-calm-corner-header-subtitle"
+                className="text-xs sm:text-sm text-[#92400E] font-bold leading-relaxed"
+              >
+                深吸一口气，跟着暮光灯笼与呼吸光球让浪花慢慢平息
+              </p>
+            </div>
           </div>
         ) : (
           <>

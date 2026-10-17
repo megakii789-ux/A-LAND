@@ -845,4 +845,105 @@ describe('A-LAND V2.3 Batch01R — Weather Station & Calm Corner Visual Correcti
       expect(hugRequested).toBe(false);
     });
   });
+
+  describe('Gates U1–U3: Batch01R Minimal UX Closeout (Single Primary Weather Selector, Zero-Crop Stage Geometry & Header Typography)', () => {
+    it('Gate U1: ensures V2 Weather Station has a single primary 6-weather selector (SVG stage tokens only) while preserving dynamic phrase bar, keyboard Enter/Space, and legacy `/` selector', () => {
+      const rendererV2 = createStatefulTestRenderer(
+        <AppProvider>
+          <WeatherStationModal
+            isOpen={true}
+            onClose={() => {}}
+            onGoToCalm={() => {}}
+            visualV2Pilot={true}
+          />
+        </AppProvider>
+      );
+
+      rendererV2.click(rendererV2.findByAriaLabel('看今天头顶的天气'));
+
+      const tokenIds = ['sunny', 'cloudy', 'rainy', 'stormy', 'foggy', 'opt_out'] as const;
+      for (const id of tokenIds) {
+        expect(rendererV2.findByTestId(`v2-weather-svg-token-${id}`)).not.toBeNull();
+      }
+
+      // Duplicate 6-card primary selector grid must NOT exist in V2 mode
+      expect(rendererV2.findByAriaLabel('天气选择：晴天')).toBeNull();
+      expect(rendererV2.findByAriaLabel('天气选择：雨天')).toBeNull();
+
+      // Dynamic phrase bar + read-aloud button must update when selecting a weather token
+      rendererV2.click(rendererV2.findByTestId('v2-weather-svg-token-rainy'));
+      const phraseBar = rendererV2.findByTestId('v2-weather-selected-phrase-bar');
+      expect(phraseBar).not.toBeNull();
+      expect(phraseBar.props['data-selected-weather']).toBe('rainy');
+      expect(rendererV2.findByTestId('v2-weather-dynamic-phrase').text).toContain(
+        '我现在像下雨天，眼眶或心里有点湿湿的'
+      );
+      expect(rendererV2.findByTestId('v2-weather-selected-phrase-read-aloud')).not.toBeNull();
+
+      // Keyboard Enter / Space on SVG token activates selection
+      const cloudyToken = rendererV2.findByTestId('v2-weather-svg-token-cloudy');
+      cloudyToken.props.onKeyDown({
+        key: 'Enter',
+        preventDefault: () => {},
+        stopPropagation: () => {},
+      });
+      rendererV2.flush();
+      expect(
+        rendererV2.findByTestId('v2-weather-station-stage-wrapper').props['data-weather-state']
+      ).toBe('cloudy');
+
+      // Legacy mode (`visualV2Pilot={false}`) still keeps the classic 6-card selector
+      const rendererLegacy = createStatefulTestRenderer(
+        <AppProvider>
+          <WeatherStationModal
+            isOpen={true}
+            onClose={() => {}}
+            onGoToCalm={() => {}}
+            visualV2Pilot={false}
+          />
+        </AppProvider>
+      );
+      rendererLegacy.click(rendererLegacy.findByAriaLabel('看今天头顶的天气'));
+      expect(rendererLegacy.findByAriaLabel('天气选择：晴天')).not.toBeNull();
+    });
+
+    it('Gate U2: enforces exact 1376x768 desktop and 896x1200 mobile dimensions across all 26 Weather Station & Calm Corner layers for 0% stage crop loss', () => {
+      const allSceneLayers = [...V2_3_WEATHER_STATION_ASSETS, ...V2_3_CALM_CORNER_ASSETS];
+      expect(allSceneLayers.length).toBe(26);
+      for (const layer of allSceneLayers) {
+        expect(layer.nativeWidth).toBe(1376);
+        expect(layer.nativeHeight).toBe(768);
+        expect(layer.mobileNativeWidth).toBe(896);
+        expect(layer.mobileNativeHeight).toBe(1200);
+      }
+    });
+
+    it('Gate U3: renders full unwrapped scene titles in Weather Station and Calm Space headers without truncate classes', () => {
+      const weatherRenderer = createStatefulTestRenderer(
+        <AppProvider>
+          <WeatherStationModal
+            isOpen={true}
+            onClose={() => {}}
+            onGoToCalm={() => {}}
+            visualV2Pilot={true}
+          />
+        </AppProvider>
+      );
+      const weatherTitle = weatherRenderer.findByTestId('v2-weather-header-title');
+      expect(weatherTitle).not.toBeNull();
+      expect(weatherTitle.text).toBe('情绪天气站');
+      expect(String(weatherTitle.props.className || '').includes('truncate')).toBe(false);
+
+      const calmRenderer = createStatefulTestRenderer(
+        <AppProvider>
+          <CalmSpace isOpen={true} onClose={() => {}} visualV2Pilot={true} />
+        </AppProvider>
+      );
+      const calmTitle = calmRenderer.findByTestId('v2-calm-header-title');
+      expect(calmTitle).not.toBeNull();
+      expect(calmTitle.text).toBe('绿草冷静空间');
+      expect(String(calmTitle.props.className || '').includes('truncate')).toBe(false);
+    });
+  });
 });
+

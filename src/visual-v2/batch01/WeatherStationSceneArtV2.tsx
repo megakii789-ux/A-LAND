@@ -92,15 +92,17 @@ const WEATHER_LAYER_LABELS: Record<V2_3WeatherLayerPart, string> = {
 const WEATHER_TOKEN_SPECS: ReadonlyArray<{
   type: V2_3WeatherState;
   shortLabel: string;
+  fullLabel: string;
+  subtitle: string;
   fill: string;
   stroke: string;
 }> = [
-  { type: 'sunny', shortLabel: '晴', fill: '#FEF3C7', stroke: '#D97706' },
-  { type: 'cloudy', shortLabel: '阴', fill: '#F1F5F9', stroke: '#475569' },
-  { type: 'rainy', shortLabel: '雨', fill: '#E0F2FE', stroke: '#0284C7' },
-  { type: 'stormy', shortLabel: '雷', fill: '#EDE9FE', stroke: '#7C3AED' },
-  { type: 'foggy', shortLabel: '雾', fill: '#D1FAE5', stroke: '#059669' },
-  { type: 'opt_out', shortLabel: '不选', fill: '#F5F5F4', stroke: '#78716C' },
+  { type: 'sunny', shortLabel: '晴', fullLabel: '晴天', subtitle: '暖洋洋', fill: '#FEF3C7', stroke: '#D97706' },
+  { type: 'cloudy', shortLabel: '阴', fullLabel: '阴天', subtitle: '软绵绵', fill: '#F1F5F9', stroke: '#475569' },
+  { type: 'rainy', shortLabel: '雨', fullLabel: '雨天', subtitle: '湿漉漉', fill: '#E0F2FE', stroke: '#0284C7' },
+  { type: 'stormy', shortLabel: '雷', fullLabel: '雷雨', subtitle: '轰隆隆', fill: '#EDE9FE', stroke: '#7C3AED' },
+  { type: 'foggy', shortLabel: '雾', fullLabel: '雾天', subtitle: '白茫茫', fill: '#D1FAE5', stroke: '#059669' },
+  { type: 'opt_out', shortLabel: '不选', fullLabel: '我不想选', subtitle: '先休息', fill: '#F5F5F4', stroke: '#78716C' },
 ];
 
 export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> = ({
@@ -227,12 +229,12 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
       {/* 4 Official Companions Switcher Bar (Child-Safe 3D Wooden Pill Bar) */}
       <div
         data-testid="v2-weather-companion-switcher"
-        className="flex items-center justify-between gap-2 px-3 py-2 rounded-2xl bg-linear-to-r from-[#8C5830] via-[#A46B3E] to-[#8C5830] border-2 border-[#FDE68A]/80 shadow-md"
+        className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-2xl bg-linear-to-r from-[#8C5830] via-[#A46B3E] to-[#8C5830] border-2 border-[#FDE68A]/80 shadow-md"
       >
-        <span className="text-xs sm:text-sm font-black text-amber-50 drop-shadow-2xs shrink-0">
+        <span className="hidden sm:inline text-xs sm:text-sm font-black text-amber-50 drop-shadow-2xs shrink-0">
           陪伴伙伴：
         </span>
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto">
+        <div className="grid grid-cols-4 gap-1.5 flex-1">
           {COMPANION_SPECS.map((spec) => {
             const isActive = companionId === spec.id;
             const cutout = V2_3_COMPANION_NATIVE_CUTOUT_MAP[spec.id];
@@ -244,9 +246,9 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                 aria-pressed={isActive}
                 aria-label={`切换陪伴伙伴：${spec.roleTitle}`}
                 onClick={() => handleSwitchCompanion(spec)}
-                className={`min-h-[56px] min-w-[64px] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 border-2 transition-all cursor-pointer shrink-0 ${
+                className={`min-h-[48px] sm:min-h-[56px] px-1.5 sm:px-2.5 py-1 rounded-xl flex items-center justify-center gap-1 border-2 transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-linear-to-b from-[#FFFBEB] to-[#FDE68A] border-[#F59E0B] text-[#78350F] shadow-sm scale-102 font-black'
+                    ? 'bg-linear-to-b from-[#FFFBEB] to-[#FDE68A] border-[#F59E0B] text-[#78350F] shadow-sm font-black'
                     : 'bg-[#6D4121]/85 border-[#B77D4E]/70 text-amber-100 hover:bg-[#7C4B27] font-bold'
                 }`}
               >
@@ -254,21 +256,21 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                   src={cutout.publicUrl}
                   alt=""
                   aria-hidden="true"
-                  className="w-7 h-7 object-contain drop-shadow-2xs shrink-0"
+                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain drop-shadow-2xs shrink-0"
                 />
-                <span className="text-xs sm:text-sm">{spec.shortName}</span>
+                <span className="text-xs sm:text-sm whitespace-nowrap">{spec.shortName}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Responsive 3D Fairytale Coastal Observatory Stage Container */}
+      {/* Responsive 3D Fairytale Coastal Observatory Stage Container (0% source crop: 896x1200 mobile portrait / 1376x768 desktop) */}
       <div
         data-testid="v2-weather-station-stage"
-        data-stage-layout={isMobileStage ? 'mobile-4x3' : 'desktop-16x9'}
-        className={`relative w-full overflow-hidden rounded-3xl border-4 border-[#9A6338] shadow-[0_14px_32px_rgba(12,74,110,0.28)] bg-sky-900 select-none ${
-          isMobileStage ? 'aspect-[420/340]' : 'aspect-[16/9]'
+        data-stage-layout={isMobileStage ? 'mobile-portrait-896x1200' : 'desktop-1376x768'}
+        className={`relative w-full overflow-hidden rounded-3xl ring-4 ring-[#9A6338] shadow-[0_14px_32px_rgba(12,74,110,0.28)] bg-sky-900 select-none ${
+          isMobileStage ? 'aspect-[896/1200]' : 'aspect-[1376/768]'
         }`}
       >
         {/* 1. V2.3 High-Detail 3D Fairytale Layers (backplate -> weather_actor -> front_effect) */}
@@ -310,8 +312,8 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
             className="absolute inset-0 pointer-events-none"
             style={{ zIndex: 4 }}
           >
-            <div className="absolute inset-x-0 top-[20%] h-14 bg-white/45 blur-md" />
-            <div className="absolute inset-x-0 top-[48%] h-16 bg-emerald-50/50 blur-md" />
+            <div className="absolute inset-x-0 top-[18%] h-14 bg-white/45 blur-md" />
+            <div className="absolute inset-x-0 top-[44%] h-16 bg-emerald-50/50 blur-md" />
           </div>
         )}
 
@@ -319,7 +321,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           <div
             data-testid="v2-weather-optout-veil"
             aria-hidden="true"
-            className="absolute inset-0 bg-amber-950/18 backdrop-blur-[1px] pointer-events-none flex items-center justify-center"
+            className="absolute inset-x-0 top-12 pointer-events-none flex items-center justify-center"
             style={{ zIndex: 4 }}
           >
             <span className="px-4 py-1.5 rounded-full bg-[#FFFBEB]/95 text-[#78350F] text-xs sm:text-sm font-black shadow-md border-2 border-[#F59E0B]">
@@ -359,21 +361,23 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           </div>
         )}
 
-        {/* 5. 3D Companion Cutout & Warm Storybook Speech Bubble on Left Veranda */}
+        {/* 5. 3D Companion Cutout & Warm Storybook Speech Bubble on Bottom/Left Wooden Veranda */}
         <div
           data-testid="v2-weather-companion-slot"
-          className="absolute left-2.5 bottom-2 z-10 pointer-events-none flex items-end gap-2 max-w-[78%] sm:max-w-[62%]"
+          className={`absolute left-2.5 bottom-2.5 z-10 pointer-events-none flex items-end gap-2 ${
+            isMobileStage ? 'right-2.5 max-w-[94%]' : 'max-w-[33%]'
+          }`}
         >
           <V2_3CompanionRigActor
             companionId={companionId}
             state={companionRigState}
             prefersReducedMotion={prefersReducedMotion}
             testIdPrefix="v2-weather-companion-rig"
-            className={isMobileStage ? 'w-21 h-25 shrink-0' : 'w-28 h-34 shrink-0'}
+            className={isMobileStage ? 'w-19 h-23 shrink-0' : 'w-26 h-32 shrink-0'}
           />
           <div
             data-testid="v2-weather-companion-speech-bubble"
-            className="mb-2 px-3 py-2 rounded-2xl bg-linear-to-b from-[#FFFDF7]/96 to-[#FEF3C7]/95 border-2 border-[#D97706] shadow-md text-left"
+            className="mb-1.5 px-3 py-2 rounded-2xl bg-linear-to-b from-[#FFFDF7]/96 to-[#FEF3C7]/95 border-2 border-[#D97706] shadow-md text-left min-w-0"
           >
             <div className="text-[11px] font-black text-[#B45309]">
               {activeCompanionSpec.roleTitle}
@@ -384,21 +388,21 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           </div>
         </div>
 
-        {/* 6. Interactive SVG Sky-Horizon Observatory Dial (Keyboard Focusable .v2-story-svg-focusable >= 56x56 CSS px) */}
+        {/* 6. Single Primary Interactive SVG Weather Selector Dial (Keyboard Focusable .v2-story-svg-focusable >= 56x56 CSS px) */}
         <svg
           data-testid="v2-weather-interactive-svg"
-          viewBox={isMobileStage ? '0 0 420 340' : '0 0 1200 675'}
+          viewBox={isMobileStage ? '0 0 448 600' : '0 0 1376 768'}
           className="absolute inset-0 w-full h-full z-20 pointer-events-auto"
-          aria-label="情绪天气站可交互舞台热区"
+          aria-label="情绪天气站主天气选择转盘"
         >
           {isMobileStage ? (
             <>
-              {/* Mobile 420x340 coordinate system: 3x2 translucent sky-dial badges on upper-right, each 90x88 SVG units (>= 62x60 CSS px at 360px viewport) */}
+              {/* Mobile 448x600 coordinate system (exact 1:2 of 896x1200): 3x2 tactile weather cards in central observatory zone (y=216..416), each 132x96 SVG units (>= 90x66 CSS px at 360px viewport), non-overlapping with bottom companion deck (y=445..588) */}
               {WEATHER_TOKEN_SPECS.map((spec, index) => {
                 const col = index % 3;
                 const row = Math.floor(index / 3);
-                const x = 124 + col * 95;
-                const y = 34 + row * 92;
+                const x = 18 + col * 140;
+                const y = 216 + row * 104;
                 const isSelected = weatherState === spec.type;
                 return (
                   <g
@@ -406,7 +410,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     data-testid={`v2-weather-svg-token-${spec.type}`}
                     role="button"
                     tabIndex={0}
-                    aria-label={`舞台快捷切换天气：${WEATHER_LABELS[spec.type]}`}
+                    aria-label={`挑选今天头顶的天气：${spec.fullLabel}（${spec.subtitle}）`}
                     aria-pressed={isSelected}
                     onClick={() => onSelectPrimary(spec.type)}
                     onKeyDown={(e) => handleSvgKeyActivate(e, () => onSelectPrimary(spec.type))}
@@ -415,23 +419,53 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     <rect
                       x={x}
                       y={y}
-                      width={90}
-                      height={88}
+                      width={132}
+                      height={96}
                       rx={22}
                       fill={spec.fill}
-                      fillOpacity={isSelected ? 0.94 : 0.76}
+                      fillOpacity={isSelected ? 0.96 : 0.84}
                       stroke={isSelected ? '#B45309' : spec.stroke}
-                      strokeWidth={isSelected ? 4 : 2.5}
+                      strokeWidth={isSelected ? 4.5 : 2.5}
                     />
+                    {isSelected && (
+                      <circle
+                        cx={x + 112}
+                        cy={y + 20}
+                        r={11}
+                        fill="#D97706"
+                      />
+                    )}
+                    {isSelected && (
+                      <text
+                        x={x + 112}
+                        y={y + 25}
+                        textAnchor="middle"
+                        fill="#FFFBEB"
+                        fontSize="13"
+                        fontWeight="900"
+                      >
+                        ✓
+                      </text>
+                    )}
                     <text
-                      x={x + 45}
-                      y={y + 51}
+                      x={x + 66}
+                      y={y + 44}
                       textAnchor="middle"
                       fill="#1E293B"
-                      fontSize="19"
+                      fontSize="20"
                       fontWeight="900"
                     >
-                      {spec.shortLabel}
+                      {spec.fullLabel}
+                    </text>
+                    <text
+                      x={x + 66}
+                      y={y + 72}
+                      textAnchor="middle"
+                      fill="#475569"
+                      fontSize="14"
+                      fontWeight="800"
+                    >
+                      {spec.subtitle}
                     </text>
                   </g>
                 );
@@ -439,10 +473,10 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
             </>
           ) : (
             <>
-              {/* Desktop/Tablet 1200x675 coordinate system: 6 sky-horizon observatory badges on bottom-right deck, each 124x124 SVG units (>= 58x58 CSS px) */}
+              {/* Desktop/Tablet 1376x768 coordinate system: 6 observatory weather selector cards on bottom-right deck (x=468..1350, y=592..740), each 142x148 SVG units (>= 71x74 CSS px at 768px..1440px) */}
               {WEATHER_TOKEN_SPECS.map((spec, index) => {
-                const x = 408 + index * 128;
-                const y = 528;
+                const x = 468 + index * 148;
+                const y = 592;
                 const isSelected = weatherState === spec.type;
                 return (
                   <g
@@ -450,7 +484,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     data-testid={`v2-weather-svg-token-${spec.type}`}
                     role="button"
                     tabIndex={0}
-                    aria-label={`舞台快捷切换天气：${WEATHER_LABELS[spec.type]}`}
+                    aria-label={`挑选今天头顶的天气：${spec.fullLabel}（${spec.subtitle}）`}
                     aria-pressed={isSelected}
                     onClick={() => onSelectPrimary(spec.type)}
                     onKeyDown={(e) => handleSvgKeyActivate(e, () => onSelectPrimary(spec.type))}
@@ -459,23 +493,53 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     <rect
                       x={x}
                       y={y}
-                      width={120}
-                      height={120}
+                      width={142}
+                      height={148}
                       rx={30}
                       fill={spec.fill}
-                      fillOpacity={isSelected ? 0.95 : 0.8}
+                      fillOpacity={isSelected ? 0.96 : 0.84}
                       stroke={isSelected ? '#B45309' : spec.stroke}
                       strokeWidth={isSelected ? 6 : 3.5}
                     />
+                    {isSelected && (
+                      <circle
+                        cx={x + 116}
+                        cy={y + 28}
+                        r={15}
+                        fill="#D97706"
+                      />
+                    )}
+                    {isSelected && (
+                      <text
+                        x={x + 116}
+                        y={y + 34}
+                        textAnchor="middle"
+                        fill="#FFFBEB"
+                        fontSize="18"
+                        fontWeight="900"
+                      >
+                        ✓
+                      </text>
+                    )}
                     <text
-                      x={x + 60}
+                      x={x + 71}
                       y={y + 72}
                       textAnchor="middle"
                       fill="#0F172A"
-                      fontSize="30"
+                      fontSize="27"
                       fontWeight="900"
                     >
-                      {spec.shortLabel}
+                      {spec.fullLabel}
+                    </text>
+                    <text
+                      x={x + 71}
+                      y={y + 112}
+                      textAnchor="middle"
+                      fill="#475569"
+                      fontSize="19"
+                      fontWeight="800"
+                    >
+                      {spec.subtitle}
                     </text>
                   </g>
                 );

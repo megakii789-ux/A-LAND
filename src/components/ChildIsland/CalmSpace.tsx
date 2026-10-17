@@ -127,84 +127,101 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
       <div
         className={
           isV2Active
-            ? 'bg-linear-to-b from-[#0F293A] via-[#13384C] to-[#1B4652] border-4 border-[#D97706] rounded-[32px] p-4 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(4,24,36,0.65)] relative my-auto text-stone-800 space-y-4 max-h-[92vh] overflow-y-auto'
+            ? 'bg-linear-to-b from-[#0F293A] via-[#13384C] to-[#1B4652] border-4 border-[#D97706] rounded-[32px] p-3 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(4,24,36,0.65)] relative my-auto text-stone-800 space-y-2.5 sm:space-y-4 max-h-[94vh] overflow-y-auto'
             : 'bg-linear-to-b from-teal-50 via-emerald-50 to-amber-50 border-2 border-teal-200/80 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto text-stone-800 space-y-6 max-h-[92vh] overflow-y-auto'
         }
       >
-        {/* Top Header & Controls */}
-        <div
-          className={
-            isV2Active
-              ? 'flex items-center justify-between gap-2.5 px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md'
-              : 'flex items-center justify-between gap-3 border-b border-teal-200/60 pb-4'
-          }
-        >
-          <div className="flex items-center gap-3 min-w-0">
-            {isV2Active ? (
-              <img
-                src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
-                alt=""
-                aria-hidden="true"
-                className="w-12 h-10 object-contain drop-shadow-xs shrink-0"
-              />
-            ) : (
-              <div className="w-13 h-13 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center p-1.5 shadow-inner shrink-0 border border-teal-200">
-                <LocationBadgeIllustration type="calm" className="w-full h-full" />
-              </div>
-            )}
-            <div className="min-w-0">
-              <h2
-                className={`text-lg sm:text-2xl font-black flex items-center gap-2 flex-wrap ${
-                  isV2Active ? 'text-[#451A03]' : 'text-teal-950'
-                }`}
-              >
-                <span>绿草冷静空间</span>
-                <span
-                  className={`text-xs px-2.5 py-0.5 rounded-full font-extrabold ${
-                    isV2Active
-                      ? 'bg-emerald-100 text-emerald-900 border border-emerald-400'
-                      : 'bg-teal-100 text-teal-800'
-                  }`}
+        {/* Top Header & Controls (Gate U3: Two-row responsive layout in V2 mode so 绿草冷静空间 and subtitle are 100% readable without awkward wrapping or truncation) */}
+        {isV2Active ? (
+          <div
+            data-testid="v2-calm-sanctuary-header"
+            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <img
+                  src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                />
+                <h2
+                  data-testid="v2-calm-header-title"
+                  className="text-lg sm:text-2xl font-black text-[#451A03] whitespace-nowrap"
                 >
-                  非竞争 · 随时可离开
-                </span>
-              </h2>
+                  绿草冷静空间
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={toggleMute}
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                  title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
+                  aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
+                >
+                  {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                </button>
+                <button
+                  onClick={onClose}
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                  aria-label="关闭冷静空间，返回主页"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 border-t border-amber-300/60 pt-1.5">
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap bg-emerald-100 text-emerald-900 border border-emerald-400">
+                非竞争 · 随时可离开
+              </span>
               <p
-                className={`text-xs sm:text-sm font-bold mt-0.5 ${
-                  isV2Active ? 'text-[#92400E]' : 'text-stone-600 font-medium'
-                }`}
+                data-testid="v2-calm-header-subtitle"
+                className="text-xs sm:text-sm font-bold text-[#92400E] leading-relaxed"
               >
                 给心里的波浪留一点时间，跟着暮光灯笼与呼吸光球慢慢松开
               </p>
             </div>
           </div>
+        ) : (
+          <div className="flex items-center justify-between gap-3 border-b border-teal-200/60 pb-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-13 h-13 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center p-1.5 shadow-inner shrink-0 border border-teal-200">
+                <LocationBadgeIllustration type="calm" className="w-full h-full" />
+              </div>
+              <div className="min-w-0">
+                <h2 className="text-lg sm:text-2xl font-black flex items-center gap-2 flex-wrap text-teal-950">
+                  <span>绿草冷静空间</span>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full font-extrabold bg-teal-100 text-teal-800">
+                    非竞争 · 随时可离开
+                  </span>
+                </h2>
+                <p className="text-xs sm:text-sm font-medium mt-0.5 text-stone-600">
+                  给心里的波浪留一点时间，跟着暮光灯笼与呼吸光球慢慢松开
+                </p>
+              </div>
+            </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={toggleMute}
-              className={`${
-                isV2Active
-                  ? 'w-14 h-14 min-w-[56px] min-h-[56px] bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F]'
-                  : 'w-12 h-12 min-w-[48px] min-h-[48px] border border-teal-200 bg-white hover:bg-teal-50 text-teal-800'
-              } flex items-center justify-center rounded-2xl transition-colors cursor-pointer`}
-              title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
-              aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
-            >
-              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={onClose}
-              className={`${
-                isV2Active
-                  ? 'w-14 h-14 min-w-[56px] min-h-[56px] bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100'
-                  : 'w-12 h-12 min-w-[48px] min-h-[48px] text-stone-400 hover:text-stone-700 hover:bg-teal-100/60'
-              } flex items-center justify-center rounded-2xl transition-colors cursor-pointer`}
-              aria-label="关闭冷静空间，返回主页"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={toggleMute}
+                className="w-12 h-12 min-w-[48px] min-h-[48px] border border-teal-200 bg-white hover:bg-teal-50 text-teal-800 flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
+                aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
+              >
+                {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
+              <button
+                onClick={onClose}
+                className="w-12 h-12 min-w-[48px] min-h-[48px] text-stone-400 hover:text-stone-700 hover:bg-teal-100/60 flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                aria-label="关闭冷静空间，返回主页"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* 屏幕阅读器呼吸引导专属实时播报区 (Screen Reader Live Region) */}
         <div

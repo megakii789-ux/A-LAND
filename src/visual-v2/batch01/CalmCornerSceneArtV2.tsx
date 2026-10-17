@@ -218,12 +218,12 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
       {/* 4 Official Companions Switcher Bar (Twilight Sanctuary Lantern Bar) */}
       <div
         data-testid="v2-calm-companion-switcher"
-        className="flex items-center justify-between gap-2 px-3 py-2 rounded-2xl bg-linear-to-r from-[#13384C] via-[#1B4D63] to-[#13384C] border-2 border-[#FDE68A]/85 shadow-md"
+        className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-2xl bg-linear-to-r from-[#13384C] via-[#1B4D63] to-[#13384C] border-2 border-[#FDE68A]/85 shadow-md"
       >
-        <span className="text-xs sm:text-sm font-black text-amber-100 shrink-0">
+        <span className="hidden sm:inline text-xs sm:text-sm font-black text-amber-100 shrink-0">
           平静伙伴：
         </span>
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto">
+        <div className="grid grid-cols-4 gap-1.5 flex-1">
           {COMPANION_CALM_SPECS.map((spec) => {
             const isActive = companionId === spec.id;
             const cutout = V2_3_COMPANION_NATIVE_CUTOUT_MAP[spec.id];
@@ -235,9 +235,9 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                 aria-pressed={isActive}
                 aria-label={`切换平静陪伴伙伴：${spec.roleTitle}`}
                 onClick={() => handleSwitchCompanion(spec)}
-                className={`min-h-[56px] min-w-[64px] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 border-2 transition-all cursor-pointer shrink-0 ${
+                className={`min-h-[48px] sm:min-h-[56px] px-1.5 sm:px-2.5 py-1 rounded-xl flex items-center justify-center gap-1 border-2 transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-linear-to-b from-[#FFFBEB] to-[#FDE68A] border-[#F59E0B] text-[#78350F] shadow-sm scale-102 font-black'
+                    ? 'bg-linear-to-b from-[#FFFBEB] to-[#FDE68A] border-[#F59E0B] text-[#78350F] shadow-sm font-black'
                     : 'bg-[#0F293A]/85 border-teal-400/50 text-teal-100 hover:bg-[#163C52] font-bold'
                 }`}
               >
@@ -245,21 +245,21 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                   src={cutout.publicUrl}
                   alt=""
                   aria-hidden="true"
-                  className="w-7 h-7 object-contain drop-shadow-2xs shrink-0"
+                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain drop-shadow-2xs shrink-0"
                 />
-                <span className="text-xs sm:text-sm">{spec.shortName}</span>
+                <span className="text-xs sm:text-sm whitespace-nowrap">{spec.shortName}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Responsive 3D Twilight Forest & Lantern Sanctuary Stage */}
+      {/* Responsive 3D Twilight Forest & Lantern Sanctuary Stage (0% source crop: 896x1200 mobile portrait / 1376x768 desktop) */}
       <div
         data-testid="v2-calm-corner-stage"
-        data-stage-layout={isMobileStage ? 'mobile-4x3' : 'desktop-16x9'}
-        className={`relative w-full overflow-hidden rounded-3xl border-4 border-[#D97706] shadow-[0_16px_38px_rgba(8,47,73,0.45)] bg-[#0F293A] select-none ${
-          isMobileStage ? 'aspect-[420/340]' : 'aspect-[16/9]'
+        data-stage-layout={isMobileStage ? 'mobile-portrait-896x1200' : 'desktop-1376x768'}
+        className={`relative w-full overflow-hidden rounded-3xl ring-4 ring-[#D97706] shadow-[0_16px_38px_rgba(8,47,73,0.45)] bg-[#0F293A] select-none ${
+          isMobileStage ? 'aspect-[896/1200]' : 'aspect-[1376/768]'
         }`}
       >
         {/* 1. V2.3 High-Detail 3D Calm Sanctuary Layers (room -> breathing_visual) */}
@@ -312,10 +312,12 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
           </span>
         </div>
 
-        {/* 3. 3D Companion Cutout & Warm Lantern Speech Bubble on Left Mossy Bank */}
+        {/* 3. 3D Companion Cutout & Warm Lantern Speech Bubble on Bottom/Left Mossy Bank */}
         <div
           data-testid="v2-calm-companion-slot"
-          className="absolute left-2.5 bottom-2 z-10 pointer-events-none flex items-end gap-2 max-w-[44%] sm:max-w-[42%]"
+          className={`absolute left-2.5 bottom-2.5 z-10 pointer-events-none flex items-end gap-2 ${
+            isMobileStage ? 'right-2.5 max-w-[94%]' : 'max-w-[38%]'
+          }`}
         >
           <V2_3CompanionRigActor
             companionId={companionId}
@@ -324,31 +326,29 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
             testIdPrefix="v2-calm-companion-rig"
             className={isMobileStage ? 'w-19 h-23 shrink-0' : 'w-26 h-32 shrink-0'}
           />
-          {!isMobileStage && (
-            <div
-              data-testid="v2-calm-companion-speech-bubble"
-              className="mb-2 px-3 py-2 rounded-2xl bg-linear-to-b from-[#FFFDF7]/95 to-[#FEF3C7]/95 border-2 border-[#D97706] shadow-md text-left"
-            >
-              <div className="text-[11px] font-black text-[#B45309]">
-                {activeCompanionSpec.roleTitle}
-              </div>
-              <p className="text-xs font-extrabold text-[#451A03] leading-snug line-clamp-2">
-                {activeCompanionSpec.calmLine}
-              </p>
+          <div
+            data-testid="v2-calm-companion-speech-bubble"
+            className="mb-1.5 px-3 py-2 rounded-2xl bg-linear-to-b from-[#FFFDF7]/95 to-[#FEF3C7]/95 border-2 border-[#D97706] shadow-md text-left min-w-0"
+          >
+            <div className="text-[11px] font-black text-[#B45309]">
+              {activeCompanionSpec.roleTitle}
             </div>
-          )}
+            <p className="text-xs font-extrabold text-[#451A03] leading-snug line-clamp-2">
+              {activeCompanionSpec.calmLine}
+            </p>
+          </div>
         </div>
 
         {/* 4. Single Unified Interactive SVG Breathing Orb & 3-Color Grounding Gems (>= 56x56 CSS px) */}
         <svg
           data-testid="v2-calm-interactive-svg"
-          viewBox={isMobileStage ? '0 0 420 340' : '0 0 1200 675'}
+          viewBox={isMobileStage ? '0 0 448 600' : '0 0 1376 768'}
           className="absolute inset-0 w-full h-full z-20 pointer-events-auto"
           aria-label="绿草平静角可交互呼吸与颜色接地舞台"
         >
           {isMobileStage ? (
             <>
-              {/* Central Breathing Orb Target on Mobile (420x340): aligned with center 3D breathing sphere */}
+              {/* Central Breathing Orb Target on Mobile (448x600, exact 1:2 of 896x1200): coaxially centered at (224, 220) matching L2 halo (448, 440) */}
               <g
                 data-testid="v2-calm-svg-breathe-orb"
                 role="button"
@@ -364,43 +364,43 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                 className="v2-story-svg-focusable cursor-pointer"
               >
                 <rect
-                  x={146}
-                  y={84}
-                  width={128}
-                  height={112}
-                  rx={56}
+                  x={140}
+                  y={136}
+                  width={168}
+                  height={168}
+                  rx={84}
                   fill={isPaused ? '#FEF3C7' : '#CCFBF1'}
                   fillOpacity={0.28}
                   stroke={isPaused ? '#F59E0B' : '#2DD4BF'}
-                  strokeWidth={4}
+                  strokeWidth={4.5}
                 />
                 <rect
-                  x={152}
-                  y={152}
-                  width={116}
-                  height={38}
-                  rx={19}
+                  x={150}
+                  y={246}
+                  width={148}
+                  height={46}
+                  rx={23}
                   fill="#FFFBEB"
-                  fillOpacity={0.94}
+                  fillOpacity={0.95}
                   stroke="#D97706"
-                  strokeWidth={2.5}
+                  strokeWidth={3}
                 />
                 <text
-                  x={210}
-                  y={176}
+                  x={224}
+                  y={275}
                   textAnchor="middle"
                   fill="#78350F"
-                  fontSize="15"
+                  fontSize="17"
                   fontWeight="900"
                 >
                   {isPaused ? '▶ 点击继续' : `⏸ ${PHASE_DISPLAY_LABELS[phase]}`}
                 </text>
               </g>
 
-              {/* 3 Grounding Color Gems on Mobile (bottom-right): each 96x84 SVG units (>= 64x56 CSS px at 360px viewport) */}
+              {/* 3 Grounding Color Gems on Mobile (y=344..436): each 130x92 SVG units (>= 89x63 CSS px at 360px viewport), non-overlapping with bottom companion deck (y=450..588) */}
               {groundingItems.map((item, idx) => {
-                const x = 114 + idx * 100;
-                const y = 240;
+                const x = 18 + idx * 141;
+                const y = 344;
                 return (
                   <g
                     key={item.id}
@@ -418,23 +418,23 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                     <rect
                       x={x}
                       y={y}
-                      width={94}
-                      height={84}
-                      rx={22}
+                      width={130}
+                      height={92}
+                      rx={24}
                       fill={item.fill}
                       fillOpacity={item.active ? 0.97 : 0.88}
                       stroke={item.active ? '#F59E0B' : item.stroke}
                       strokeWidth={item.active ? 4.5 : 2.5}
                     />
                     <text
-                      x={x + 47}
-                      y={y + 49}
+                      x={x + 65}
+                      y={y + 53}
                       textAnchor="middle"
                       fill="#0F172A"
-                      fontSize="16"
+                      fontSize="19"
                       fontWeight="900"
                     >
-                      {item.active ? `✓${item.shortLabel}` : item.shortLabel}
+                      {item.active ? `✓ ${item.shortLabel}` : item.shortLabel}
                     </text>
                   </g>
                 );
@@ -442,7 +442,7 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
             </>
           ) : (
             <>
-              {/* Central Breathing Orb Target on Desktop (1200x675): aligned with center 3D breathing sphere */}
+              {/* Central Breathing Orb Target on Desktop (1376x768): coaxially centered at (688, 320) matching L2 halo (688, 320) */}
               <g
                 data-testid="v2-calm-svg-breathe-orb"
                 role="button"
@@ -458,43 +458,43 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                 className="v2-story-svg-focusable cursor-pointer"
               >
                 <rect
-                  x={470}
-                  y={165}
-                  width={260}
-                  height={240}
-                  rx={120}
+                  x={548}
+                  y={180}
+                  width={280}
+                  height={280}
+                  rx={140}
                   fill={isPaused ? '#FEF3C7' : '#CCFBF1'}
                   fillOpacity={0.22}
                   stroke={isPaused ? '#F59E0B' : '#2DD4BF'}
                   strokeWidth={6}
                 />
                 <rect
-                  x={485}
-                  y={330}
-                  width={230}
-                  height={64}
-                  rx={32}
+                  x={563}
+                  y={376}
+                  width={250}
+                  height={68}
+                  rx={34}
                   fill="#FFFBEB"
                   fillOpacity={0.95}
                   stroke="#D97706"
                   strokeWidth={4}
                 />
                 <text
-                  x={600}
-                  y={371}
+                  x={688}
+                  y={420}
                   textAnchor="middle"
                   fill="#78350F"
-                  fontSize="28"
+                  fontSize="30"
                   fontWeight="900"
                 >
                   {isPaused ? '▶ 点击继续呼吸' : `⏸ ${PHASE_DISPLAY_LABELS[phase]}`}
                 </text>
               </g>
 
-              {/* 3 Grounding Color Gems on Desktop (bottom-right): each 196x136 SVG units (>= 84x58 CSS px) */}
+              {/* 3 Grounding Color Gems on Desktop (bottom-right): each 232x148 SVG units (>= 116x74 CSS px at 768px..1440px) */}
               {groundingItems.map((item, idx) => {
-                const x = 520 + idx * 216;
-                const y = 512;
+                const x = 588 + idx * 252;
+                const y = 588;
                 return (
                   <g
                     key={item.id}
@@ -512,20 +512,20 @@ export const CalmCornerSceneArtV2: React.FC<CalmCornerSceneArtV2Props> = ({
                     <rect
                       x={x}
                       y={y}
-                      width={196}
-                      height={136}
-                      rx={30}
+                      width={232}
+                      height={148}
+                      rx={32}
                       fill={item.fill}
                       fillOpacity={item.active ? 0.97 : 0.88}
                       stroke={item.active ? '#F59E0B' : item.stroke}
                       strokeWidth={item.active ? 6 : 3.5}
                     />
                     <text
-                      x={x + 98}
-                      y={y + 78}
+                      x={x + 116}
+                      y={y + 84}
                       textAnchor="middle"
                       fill="#0F172A"
-                      fontSize="28"
+                      fontSize="30"
                       fontWeight="900"
                     >
                       {item.active ? `✓ ${item.shortLabel}` : item.shortLabel}

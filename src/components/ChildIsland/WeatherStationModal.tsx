@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Sun,
   Cloud,
@@ -185,6 +185,7 @@ export const WeatherStationModal: React.FC<Props> = ({
   const [allowDualWeather, setAllowDualWeather] = useState<boolean>(!!todayWeather?.secondary);
   const [calmCornerDeclined, setCalmCornerDeclined] = useState<boolean>(false);
   const [withAdultChosen, setWithAdultChosen] = useState<boolean>(false);
+  const modalScrollRef = useRef<HTMLDivElement | null>(null);
 
   if (!isOpen) return null;
 
@@ -227,6 +228,9 @@ export const WeatherStationModal: React.FC<Props> = ({
 
     if (isHeavy) {
       setStep('heavyHolding');
+      if (modalScrollRef.current) {
+        modalScrollRef.current.scrollTop = 0;
+      }
       handleSpeak(
         selectedPrimary === 'stormy'
           ? '你现在像一团暴风雨。可以生气，可以大喊。我在这儿，我们一起等雷声停下来。'
@@ -270,6 +274,10 @@ export const WeatherStationModal: React.FC<Props> = ({
       onSelectPrimary={(weather) => {
         sounds.playClick();
         setSelectedPrimary(weather);
+        const found = WEATHERS.find((w) => w.type === weather);
+        if (found) {
+          handleSpeak(found.childPhrase);
+        }
       }}
       onToggleBodySensation={toggleSensation}
     />
@@ -292,55 +300,67 @@ export const WeatherStationModal: React.FC<Props> = ({
       }`}
     >
       <div
+        ref={modalScrollRef}
         className={
           isV2Active
-            ? 'bg-linear-to-b from-[#E0F2FE] via-[#FFFBEB] to-[#F3D5B5] border-4 border-[#9A6338] rounded-[32px] p-4 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(12,74,110,0.45)] relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto space-y-4'
+            ? 'bg-linear-to-b from-[#E0F2FE] via-[#FFFBEB] to-[#F3D5B5] border-4 border-[#9A6338] rounded-[32px] p-3 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(12,74,110,0.45)] relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto space-y-2.5 sm:space-y-3.5'
             : 'bg-white/98 border border-sky-100 rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[90vh] overflow-y-auto'
         }
       >
-        {/* V2 3D Wooden Observatory Top Banner vs Legacy Close Button */}
+        {/* V2 3D Wooden Observatory Top Banner (Gate U3: Two-row responsive mobile layout, zero truncate on title/subtitle, >=56px buttons) vs Legacy Close Button */}
         {isV2Active ? (
           <div
             data-testid="v2-weather-observatory-header"
-            className="flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] shadow-md"
+            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] shadow-md space-y-1.5"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <img
-                src="/visual-v2/batch01r-art/cutouts/landmarks/weather_station/idle_native.png"
-                alt=""
-                aria-hidden="true"
-                className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
-              />
-              <div className="min-w-0">
-                <h2 className="text-lg sm:text-xl font-black text-[#451A03] truncate">
-                  情绪天气站 · 海湾木屋观景台
-                </h2>
-                <p className="text-xs font-bold text-[#92400E] truncate">
-                  每种天气都被欢迎 · 没有对错与打分
-                </p>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <img
+                  src="/visual-v2/batch01r-art/cutouts/landmarks/weather_station/idle_native.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                />
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <h2
+                    data-testid="v2-weather-header-title"
+                    className="text-lg sm:text-2xl font-black text-[#451A03] whitespace-nowrap"
+                  >
+                    情绪天气站
+                  </h2>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-[#78350F] border border-amber-400 font-extrabold whitespace-nowrap">
+                    海湾木屋观景台
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleSpeak('欢迎来到情绪天气站。挑选今天头顶的天气，晴、阴、雨、雷、雾，或者不想选，都可以。')
+                  }
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] hover:brightness-105 shadow-xs flex items-center justify-center cursor-pointer"
+                  title="朗读提示"
+                  aria-label="朗读提示"
+                >
+                  <Volume2 className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FFFBEB] to-[#F5F5F4] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 shadow-xs flex items-center justify-center cursor-pointer"
+                  aria-label="关闭天气站"
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() =>
-                  handleSpeak('欢迎来到情绪天气站。挑选今天头顶的天气，晴、阴、雨、雷、雾，或者不想选，都可以。')
-                }
-                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] hover:brightness-105 shadow-xs flex items-center justify-center cursor-pointer"
-                title="朗读提示"
-                aria-label="朗读提示"
-              >
-                <Volume2 className="w-6 h-6" />
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FFFBEB] to-[#F5F5F4] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 shadow-xs flex items-center justify-center cursor-pointer"
-                aria-label="关闭天气站"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+            <p
+              data-testid="v2-weather-header-subtitle"
+              className="text-xs sm:text-sm font-bold text-[#92400E] leading-relaxed border-t border-amber-300/60 pt-1.5"
+            >
+              每种天气都被欢迎 · 没有对错与打分，只选最像你现在的感觉
+            </p>
           </div>
         ) : (
           <button
@@ -414,6 +434,9 @@ export const WeatherStationModal: React.FC<Props> = ({
                 onClick={() => {
                   sounds.playClick();
                   setStep('select');
+                  if (modalScrollRef.current) {
+                    modalScrollRef.current.scrollTop = 0;
+                  }
                 }}
                 className={
                   isV2Active
@@ -443,10 +466,10 @@ export const WeatherStationModal: React.FC<Props> = ({
 
         {/* STEP 2: 选天气与感受 */}
         {step === 'select' && (
-          <div className="space-y-4">
-            <div className={`flex items-center justify-between gap-3 ${isV2Active ? '' : 'pr-12'}`}>
-              <div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#451A03] flex items-center gap-2">
+          <div className="space-y-3.5">
+            <div className={`flex items-center justify-between gap-2.5 ${isV2Active ? '' : 'pr-12'}`}>
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-2xl font-black text-[#451A03] flex items-center gap-2">
                   <span>挑选今天的天气</span>
                   {!isV2Active && (
                     <button
@@ -459,8 +482,10 @@ export const WeatherStationModal: React.FC<Props> = ({
                     </button>
                   )}
                 </h3>
-                <p className="text-sm sm:text-base text-[#78350F] font-bold">
-                  每种天气都很好，没有对错，只选最像你的感觉
+                <p className="text-xs sm:text-base text-[#78350F] font-bold">
+                  {isV2Active
+                    ? '直接点按观景台里的天气卡，切换头顶的天气与心情'
+                    : '每种天气都很好，没有对错，只选最像你的感觉'}
                 </p>
               </div>
 
@@ -468,7 +493,7 @@ export const WeatherStationModal: React.FC<Props> = ({
                 onClick={() => setStep('camera')}
                 className={`text-sm flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl font-black ${
                   isV2Active
-                    ? 'min-h-[56px] min-w-[56px] bg-[#FFFDF7] hover:bg-amber-50 text-[#78350F] border-2 border-[#B45309] shadow-xs'
+                    ? 'min-h-[56px] min-w-[56px] bg-[#FFFDF7] hover:bg-amber-50 text-[#78350F] border-2 border-[#B45309] shadow-xs whitespace-nowrap'
                     : 'min-h-[48px] bg-sky-50 hover:bg-sky-100 text-sky-700'
                 } cursor-pointer shrink-0`}
                 aria-label="返回天上的眼睛"
@@ -480,87 +505,87 @@ export const WeatherStationModal: React.FC<Props> = ({
 
             {isV2Active && renderV2Stage()}
 
-            {/* 6 个 3D 触感天气卡片 (晴 / 阴 / 雨 / 雷 / 雾 / 我不想选) */}
-            <div
-              className={
-                isV2Active
-                  ? 'p-3.5 rounded-3xl bg-linear-to-b from-[#9A6338] to-[#7C4B27] border-3 border-[#FDE68A]/80 shadow-lg space-y-3'
-                  : ''
-              }
-            >
-              <label
-                className={`text-sm font-black uppercase tracking-wider block ${
-                  isV2Active ? 'text-amber-50' : 'text-stone-700 mb-2.5'
-                }`}
-              >
-                1. 挑选今天头顶的天气：
-              </label>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
-                {WEATHERS.map((w) => {
-                  const Icon = w.icon;
-                  const isSelected = selectedPrimary === w.type;
-                  return (
-                    <button
-                      key={w.type}
-                      type="button"
-                      onClick={() => {
-                        sounds.playClick();
-                        setSelectedPrimary(w.type);
-                      }}
-                      className={`min-h-[82px] sm:min-h-[92px] p-2 sm:p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border-3 transition-all cursor-pointer ${
-                        isV2Active
-                          ? isSelected
-                            ? `${w.v2CardBg} ${w.v2CardBorder} ring-3 ring-[#FFFBEB] shadow-[0_5px_0_rgba(69,26,3,0.45)] scale-103 font-black`
-                            : 'bg-[#FFFDF7]/95 border-[#D6B08C] hover:border-[#F59E0B] shadow-sm'
-                          : isSelected
+            {/* Gate U1: In V2 mode, WeatherStationSceneArtV2's 6 SVG weather hotspots are the SINGLE primary weather selector.
+                Only render the legacy WEATHERS.map 6-card grid when !isV2Active (original / route). */}
+            {!isV2Active && (
+              <div>
+                <label className="text-sm font-black uppercase tracking-wider block text-stone-700 mb-2.5">
+                  1. 挑选今天头顶的天气：
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
+                  {WEATHERS.map((w) => {
+                    const Icon = w.icon;
+                    const isSelected = selectedPrimary === w.type;
+                    return (
+                      <button
+                        key={w.type}
+                        type="button"
+                        onClick={() => {
+                          sounds.playClick();
+                          setSelectedPrimary(w.type);
+                        }}
+                        className={`min-h-[82px] sm:min-h-[92px] p-2 sm:p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border-3 transition-all cursor-pointer ${
+                          isSelected
                             ? `${w.bgColor} ${w.borderColor} shadow-sm scale-102 font-black`
                             : 'bg-white border-stone-200 hover:border-stone-300'
-                      }`}
-                      aria-label={`天气选择：${w.label}`}
-                    >
-                      {isV2Active && w.v2CutoutUrl ? (
-                        <img
-                          src={w.v2CutoutUrl}
-                          alt=""
-                          aria-hidden="true"
-                          className="w-10 h-10 object-contain drop-shadow-xs"
-                        />
-                      ) : (
+                        }`}
+                        aria-label={`天气选择：${w.label}`}
+                      >
                         <Icon className={`w-8 h-8 ${w.color}`} />
-                      )}
-                      <span className="text-sm font-black text-stone-900">{w.label}</span>
-                      {isV2Active && w.v2Subtitle && (
-                        <span className="text-[11px] font-bold text-stone-600 leading-tight">
-                          {w.v2Subtitle}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
+                        <span className="text-sm font-black text-stone-900">{w.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+            )}
 
-              {/* 儿童句子卡片 */}
-              <div
-                className={
-                  isV2Active
-                    ? 'p-3 bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-2 border-[#F59E0B] rounded-2xl flex items-center justify-between gap-2 shadow-inner'
-                    : 'mt-3.5 p-3.5 bg-amber-50/90 border-2 border-amber-200 rounded-2xl flex items-center justify-between gap-2'
-                }
-              >
-                <span className="text-sm sm:text-base text-[#451A03] font-black">
-                  “{currentPrimaryConfig.childPhrase}”
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleSpeak(currentPrimaryConfig.childPhrase)}
-                  className={`text-amber-900 p-2 hover:bg-amber-200/70 rounded-xl ${
-                    isV2Active ? 'min-w-[56px] min-h-[56px] bg-amber-100 border border-amber-400' : 'min-w-[48px] min-h-[48px]'
-                  } flex items-center justify-center cursor-pointer shrink-0`}
-                  aria-label="朗读天气句子"
-                >
-                  <Volume2 className="w-5 h-5" />
-                </button>
+            {/* 动态天气描述句与朗读卡片 (保留完整语义与朗读能力) */}
+            <div
+              data-testid="v2-weather-selected-phrase-bar"
+              data-selected-weather={selectedPrimary}
+              className={
+                isV2Active
+                  ? 'p-3.5 bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] rounded-2xl flex items-center justify-between gap-3 shadow-md'
+                  : 'mt-3.5 p-3.5 bg-amber-50/90 border-2 border-amber-200 rounded-2xl flex items-center justify-between gap-2'
+              }
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                {isV2Active && currentPrimaryConfig.v2CutoutUrl && (
+                  <img
+                    src={currentPrimaryConfig.v2CutoutUrl}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-11 h-11 object-contain drop-shadow-xs shrink-0"
+                  />
+                )}
+                <div className="min-w-0">
+                  {isV2Active && (
+                    <div className="text-xs font-black text-[#B45309]">
+                      当前选择：{currentPrimaryConfig.label}（{currentPrimaryConfig.v2Subtitle}）
+                    </div>
+                  )}
+                  <span
+                    data-testid="v2-weather-dynamic-phrase"
+                    className="text-sm sm:text-base text-[#451A03] font-black block leading-snug"
+                  >
+                    “{currentPrimaryConfig.childPhrase}”
+                  </span>
+                </div>
               </div>
+              <button
+                type="button"
+                data-testid="v2-weather-selected-phrase-read-aloud"
+                onClick={() => handleSpeak(currentPrimaryConfig.childPhrase)}
+                className={`text-amber-900 p-2 hover:bg-amber-200/70 rounded-2xl ${
+                  isV2Active
+                    ? 'w-14 h-14 min-w-[56px] min-h-[56px] bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706]'
+                    : 'min-w-[48px] min-h-[48px]'
+                } flex items-center justify-center cursor-pointer shrink-0`}
+                aria-label="朗读天气句子"
+              >
+                <Volume2 className="w-5 h-5" />
+              </button>
             </div>
 
             {/* 如果选了“我不想选”，直接提供轻柔确认退出按钮 */}
