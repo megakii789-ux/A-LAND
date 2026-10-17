@@ -1,0 +1,35 @@
+{
+  "gate": "A-LAND_V2.3_BATCH02_GATE0_INVENTORY",
+  "status": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "verifiedAt": "2026-10-17T07:35:41.372Z",
+  "baselineArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
+  "baselineCanonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+  "zeroFrozenBusinessFilesModified": true,
+  "modifiedForbiddenFiles": [],
+  "sourceContractAssertions": {
+    "detectiveHas4Tabs": true,
+    "detectiveHas5Tools": true,
+    "detectiveLaunchesCrayonTransferAndBreaker": true,
+    "breakerHas5Stages": true,
+    "breakerHas3PresetsAnd4Subbranches": true,
+    "breakerResetsProgressionOnPresetAndSubbranchSwitch": true
+  },
+  "artworkPreflightSummary": {
+    "totalInspectedAndRequiredEntries": 73,
+    "existingRepoAssetsInspected": 43,
+    "upstreamReferenceBoardsInspected": 8,
+    "missingProductionAssetsRequired": 22,
+    "productionArtAcceptedCount": 0,
+    "techPreviewOnlyCount": 51,
+    "missingCount": 22,
+    "duplicateByteForByteSvgEntriesCount": 27
+  },
+  "holdFlags": {
+    "ART_DIRECTOR_QA_HOLD": true,
+    "ASSET_ARTWORK_BLOCKED": true,
+    "CONTENT_QA_REVIEW": true,
+    "PRODUCTION_RELEASE_HOLD": true,
+    "ARTWORK_GAP": true,
+    "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+  }
+}

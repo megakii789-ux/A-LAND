@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "1.0.0",
+  "gateId": "A-LAND_V2.3_BATCH02_GATE0_B0_A",
+  "generatedAt": "2026-10-17T15:30:00+08:00",
+  "frozenBaseline": {
+    "branch": "ui/visual-v2-batch01r-u3r-final",
+    "archiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
+    "canonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320"
+  },
+  "inspectedSourceFiles": [
+    {
+      "filePath": "src/components/ChildIsland/ThoughtDetectiveLab/ThoughtDetectiveLabModal.tsx",
+      "bytes": 45560,
+      "sha256": "b76279089dfb728ccb4d8bac21741901e4448298eb9404281139186e291d483e",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/components/ChildIsland/DifficultyBreaker/DifficultyBreakerModal.tsx",
+      "bytes": 74536,
+      "sha256": "93bc7835122fdacc1fccf01ab40d542066e6cd0a9cf043507224a973f93921aa",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/visual-v2/VisualV2Shell.tsx",
+      "bytes": 21113,
+      "sha256": "1aa969e195a0e49ea0ea051c94ce2ddf69e950329a5810d7c6c9941ef23bea00",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/domain/cognitive/ContentAuditRegistry.ts",
+      "bytes": 30297,
+      "sha256": "fbc825550bdfa597bb140b8ca51b461f8595f484bf0ce6a55e2f07fe11864eb2",
+      "format": "ts",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/components/InteractiveGames/CrayonDetectiveGame/CrayonDetectiveGame.tsx",
+      "bytes": 97058,
+      "sha256": "9c00f572cba01613965ec327b0a2d5c7cec3a60950b870861c0b3eebcb68770e",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/components/InteractiveGames/TransferLab/TransferScenariosModal.tsx",
+      "bytes": 28981,
+      "sha256": "94f346dd6edd9491eb3eb7f7a0f885f589d93d60d52c86b7b32be1b9d1807a20",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/context/AppContext.tsx",
+      "bytes": 23751,
+      "sha256": "b55e36bd8ad872dd453934969157ee5d181c9c6a3f90f069fc6e8e79bd12f0e2",
+      "format": "tsx",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/utils/speech.ts",
+      "bytes": 80993,
+      "sha256": "bb6474a2f717f2ec717878ca99714c9a0e6053896dd2631556bf59c44bdafbe1",
+      "format": "ts",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/domain/cognitive/productExperienceMetrics.ts",
+      "bytes": 59659,
+      "sha256": "3cf9781e1b1ad917d54d923ff16e58f50452581788d766256c6ee44482e69cd8",
+      "format": "ts",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    },
+    {
+      "filePath": "src/domain/privacy/parentAccess.ts",
+      "bytes": 8011,
+      "sha256": "c4f1ac21fcf28c7d92d94dba16a93ed452da9a8770d15287d56facb54ccf8f98",
+      "format": "ts",
+      "pixelDimensions": null,
+      "hasAlphaTransparency": null
+    }
+  ],
+  "modules": {
+    "thought_detective_lab": {
+      "componentName": "ThoughtDetectiveLabModal",
+      "sourceFile": "src/components/ChildIsland/ThoughtDetectiveLab/ThoughtDetectiveLabModal.tsx",
+      "totalLines": 873,
+      "v2SceneKey": "detective",
+      "v2LandmarkId": "tools_room",
+      "auditRecord": {
+        "contentId": "thought-detective-lab",
+        "sceneVersion": "1.0.0",
+        "versionSha256": "64c601398b5ac27d6e56789abcdef0123456789abcdef0123456789234567",
+        "auditStatus": "PENDING",
+        "riskTier": "LOW_EXPLORATION",
+        "reviewTier": "EDITORIAL_REVIEW"
+      },
+      "propsContract": {
+        "isOpen": "boolean",
+        "onClose": "() => void"
+      },
+      "internalStateVariables": [
+        {
+          "name": "activeTab",
+          "type": "'tools' | 'threeBoxes' | 'circles' | 'fourSteps'",
+          "defaultValue": "'tools'",
+          "line": 20,
+          "purpose": "Controls the 4 top-level cognitive exploration modes in Thought Detective Lab."
+        },
+        {
+          "name": "activeTool",
+          "type": "'flag' | 'lenses' | 'coin' | 'scale' | 'fence'",
+          "defaultValue": "'flag'",
+          "line": 21,
+          "purpose": "Selects which of the 5 thinking tools is active inside the tools tab."
+        },
+        {
+          "name": "personFlagRemoved",
+          "type": "boolean",
+          "defaultValue": "false",
+          "line": 22,
+          "purpose": "Tool 1 (Flag): Separates the person (“我”) from the temporary mistake/event (“事”)."
+        },
+        {
+          "name": "currentLens",
+          "type": "'my' | 'his' | 'sky'",
+          "defaultValue": "'my'",
+          "line": 23,
+          "purpose": "Tool 2 (Three Lenses): Switches between My Lens, Peer Lens, and Sky Bird-Eye Lens."
+        },
+        {
+          "name": "coinSide",
+          "type": "'front' | 'back'",
+          "defaultValue": "'front'",
+          "line": 24,
+          "purpose": "Tool 3 (Two-Sided Coin): Flips between the difficulty side and the caring/intention side."
+        },
+        {
+          "name": "isBreakerOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "line": 25,
+          "purpose": "Opens DifficultyBreakerModal directly from ThoughtDetectiveLabModal header CTA."
+        },
+        {
+          "name": "isCrayonGameOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "line": 26,
+          "purpose": "Switches modal body into CrayonDetectiveGame spatial investigation view."
+        },
+        {
+          "name": "isTransferLabOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "line": 27,
+          "purpose": "Opens TransferScenariosModal from the 4-Steps progression tab."
+        },
+        {
+          "name": "expMetrics",
+          "type": "ProductExperienceMetrics",
+          "defaultValue": "loadProductExperienceMetrics()",
+          "line": 28,
+          "purpose": "Displays live completedDetectiveCaseIds, hypothesisRevisionCount, and completedTransferScenarioIds."
+        },
+        {
+          "name": "boxItems",
+          "type": "Array<{ id: '1'..'5', text: string, correctBox: 'visible' | 'heart' | 'guess', sorted: string | null }>",
+          "defaultValue": "5 unsorted items",
+          "line": 38,
+          "purpose": "Mode 2 (Three Boxes): Classifies statements into Visible Fact, Heart Feeling, or Mind Guess."
+        },
+        {
+          "name": "circleItems",
+          "type": "Array<{ id: 'c1'..'c5', text: string, correctCircle: 'adult' | 'mine' | 'together', sorted: string | null }>",
+          "defaultValue": "5 unsorted items",
+          "line": 53,
+          "purpose": "Mode 3 (Control Circles): Separates Adult Responsibility, My Choice, and Shared Discussion."
+        },
+        {
+          "name": "currentStep",
+          "type": "number (1 | 2 | 3 | 4)",
+          "defaultValue": "3",
+          "line": 68,
+          "purpose": "Mode 4 (Four Steps): Highlights the 4-step cognitive scaffolding ladder (Naming -> Flow -> Hearing Thought -> Testing Thought)."
+        }
+      ],
+      "modesAndTools": {
+        "tabs": [
+          {
+            "tabId": "tools",
+            "label": "5个思考小工具",
+            "tools": [
+              {
+                "toolId": "flag",
+                "label": "「人」与「事」小旗子",
+                "interactiveState": "personFlagRemoved (boolean)",
+                "audioEffect": "sounds.playSuccess() on flag removal / sounds.playClick() on reset",
+                "narration": "Speaks tool intro and separated-event encouragement via speechNarrator.speak()"
+              },
+              {
+                "toolId": "lenses",
+                "label": "三个小镜头",
+                "interactiveState": "currentLens ('my' | 'his' | 'sky')",
+                "audioEffect": "sounds.playClick()",
+                "narration": "Speaks perspective description for My Lens, His Lens, or Sky Lens"
+              },
+              {
+                "toolId": "coin",
+                "label": "两面硬币",
+                "interactiveState": "coinSide ('front' | 'back')",
+                "audioEffect": "sounds.playCoinFlip()",
+                "narration": "Speaks front (difficulty) or back (love/meaning) coin text"
+              },
+              {
+                "toolId": "scale",
+                "label": "公平小天平",
+                "interactiveState": "Static dual-pan comparison card (left: different rules/habits, right: equal care/safety)",
+                "audioEffect": "sounds.playClick()",
+                "narration": "Speaks scale explanation via speechNarrator.speak()"
+              },
+              {
+                "toolId": "fence",
+                "label": "安全围栏",
+                "interactiveState": "Non-negotiable body safety & anti-bullying boundary card (bypasses perspective trade-off)",
+                "audioEffect": "sounds.playClick()",
+                "narration": "Speaks safety boundary rules via speechNarrator.speak()"
+              }
+            ]
+          },
+          {
+            "tabId": "threeBoxes",
+            "label": "三个小盒子",
+            "categories": [
+              "visible (眼睛看到的)",
+              "heart (心里的感觉)",
+              "guess (脑子猜的)"
+            ],
+            "itemCount": 5,
+            "completionEffect": "When all 5 items are sorted into their matching box, calls unlockMedal('thought-detective') and sounds.playSuccess()"
+          },
+          {
+            "tabId": "circles",
+            "label": "控制圈",
+            "categories": [
+              "adult (大人的事)",
+              "mine (我的事)",
+              "together (一起商量)"
+            ],
+            "itemCount": 5,
+            "completionEffect": "Plays sounds.playSuccess() on accurate boundary classification, gentle retry sound on mismatch"
+          },
+          {
+            "tabId": "fourSteps",
+            "label": "往后退一步4阶",
+            "steps": [
+              "1 命名 (情绪天气站)",
+              "2 看变化 (情绪天气站/心情小盒子)",
+              "3 听见想法 (想法侦探社)",
+              "4 想法不一定是真的 (三个镜头)"
+            ],
+            "childModalLaunch": "Opens TransferScenariosModal (isTransferLabOpen = true)"
+          }
+        ]
+      },
+      "crossModuleRoutingAndChildSafety": {
+        "launchesCrayonDetectiveGame": {
+          "stateFlag": "isCrayonGameOpen",
+          "auditGateId": "game_crayon_detective",
+          "riskTier": "HIGH_SAFETY_CRISIS",
+          "childModeBehaviorWhenPending": "Fail-closed: blocks child rendering with friendly preparation card and requires session-bound ParentGateModal + issueAdultPreviewSession(SCOPE_KEY) for adult review.",
+          "exitBehavior": "onExit sets isCrayonGameOpen=false and refreshes expMetrics via loadProductExperienceMetrics()."
+        },
+        "launchesTransferScenariosModal": {
+          "stateFlag": "isTransferLabOpen",
+          "auditGateIds": [
+            "transfer_missing_biscuit",
+            "transfer_rainy_park_plan",
+            "transfer_unanswered_wave"
+          ],
+          "childModeBehaviorWhenPending": "Fail-closed per scenario scope (`transfer:${scenario.id}`): blocks child mode until approved or session-bound adult preview token is issued."
+        },
+        "launchesDifficultyBreakerModal": {
+          "stateFlag": "isBreakerOpen",
+          "triggerSelector": "Header button “去困难拆解台” (lines 116-123)",
+          "exitBehavior": "onClose sets isBreakerOpen=false while preserving ThoughtDetectiveLabModal state."
+        }
+      }
+    },
+    "difficulty_breaker": {
+      "componentName": "DifficultyBreakerModal",
+      "sourceFile": "src/components/ChildIsland/DifficultyBreaker/DifficultyBreakerModal.tsx",
+      "totalLines": 1638,
+      "v2SceneKey": "breaker",
+      "v2LandmarkId": "difficulty_breaker",
+      "auditRecord": {
+        "contentId": "difficulty-breaker",
+        "sceneVersion": "1.0.0",
+        "versionSha256": "86e8235bad7ce49f80789abcdef0123456789abcdef0123456789456789",
+        "auditStatus": "PENDING",
+        "riskTier": "LOW_EXPLORATION",
+        "reviewTier": "EDITORIAL_REVIEW"
+      },
+      "propsContract": {
+        "isOpen": "boolean",
+        "onClose": "() => void"
+      },
+      "stages": [
+        {
+          "stageId": "pick",
+          "testId": "breaker-step-pick",
+          "label": "STEP 0: 挑选大石头困难 (PICK)",
+          "userActions": [
+            "Select one of 3 preset difficulties (`breaker-pick-diff-two-homes`, `breaker-pick-diff-blocks-broken`, `breaker-pick-diff-friend-ask`)",
+            "Or directly select one of 4 transition subbranches (`breaker-pick-sub-sub_dual_attachment`, `sub_loyalty_conflict`, `sub_specific_concern`, `sub_ordinary_transition`)",
+            "Replay entry greeting (`BREAKER_FIXED_VOICE_LINES.ENTRY_GREETING`)"
+          ]
+        },
+        {
+          "stageId": "fen",
+          "testId": "breaker-step-fen",
+          "label": "STEP 1: 分 (看清事实、感受与脑中想法)",
+          "userActions": [
+            "Tap SVG crystal pieces or detail cards (`breaker-fen-fact`, `breaker-fen-feeling`, `breaker-fen-guess`) to toggle `fenRevealed.fact | feeling | guess`",
+            "Switch 4 transition subbranches inline (`breaker-sub-*`) when `selectedPresetId === \"diff-two-homes\"`",
+            "Navigate back to `pick` (`breaker-back-to-pick`) or forward to `tong` (`breaker-next-to-tong`)"
+          ]
+        },
+        {
+          "stageId": "tong",
+          "testId": "breaker-step-tong",
+          "label": "STEP 2: 通 (转动双面透镜，换个角度看看)",
+          "userActions": [
+            "Flip dual-sided perspective lens (`breaker-flip-lens-btn`) toggling `isCoinFlipped` and speaking `silverLining` or `shiftContent`",
+            "Navigate back to `fen` or forward to `ze` (`breaker-next-to-ze`)"
+          ]
+        },
+        {
+          "stageId": "ze",
+          "testId": "breaker-step-ze",
+          "label": "STEP 3: 择 (挑 1~3 块舒服的小踏脚石或主动暂停)",
+          "userActions": [
+            "Place 1 to 3 action cards (`breaker-action-*`) into 3 river stepping-stone slots (`breaker-stone-slot-0..2`)",
+            "Remove a placed stone from any slot (`handleRemoveStone(slotIdx)`)",
+            "Click voluntary pause (`breaker-pause-btn`) setting `pausedVoluntarily = true` and speaking `PAUSE_SPEECH`",
+            "Complete breaker (`breaker-complete-btn`) when `placedStonesCount >= 1`, unlocking `breaker-master` and `action-pioneer` medals"
+          ]
+        },
+        {
+          "stageId": "complete",
+          "testId": "breaker-step-complete",
+          "label": "STEP 4: 拆解完成总结",
+          "userActions": [
+            "Review chosen stepping stones and companion encouragement (`COMPLETE_SPEECH`)",
+            "Reset to `pick` (`breaker-reset-btn`) or close modal (`onClose`)"
+          ]
+        }
+      ],
+      "presetsAndSubbranches": {
+        "presets": [
+          {
+            "id": "diff-two-homes",
+            "title": "去另一个家住时，心里有不同头绪或小事想理清",
+            "hasTransitionSubBranches": true,
+            "subBranches": [
+              {
+                "id": "sub_dual_attachment",
+                "shortLabel": "两边都想念",
+                "subtitle": "既期待这边，也挂念那边",
+                "emotionTone": "warm-dual-empathy"
+              },
+              {
+                "id": "sub_loyalty_conflict",
+                "shortLabel": "怕大人不开心",
+                "subtitle": "在妈妈面前不敢提想爸爸",
+                "emotionTone": "warm-dual-empathy"
+              },
+              {
+                "id": "sub_specific_concern",
+                "shortLabel": "惦记具体小事",
+                "subtitle": "小夜灯、绘本或作业没带齐",
+                "emotionTone": "protective-safety"
+              },
+              {
+                "id": "sub_ordinary_transition",
+                "shortLabel": "只是平常换住处",
+                "subtitle": "心情挺轻松，理一下小安排",
+                "emotionTone": "light-everyday"
+              }
+            ]
+          },
+          {
+            "id": "diff-blocks-broken",
+            "title": "辛辛苦苦搭好的高塔倒了，心里又急又气",
+            "hasTransitionSubBranches": false
+          },
+          {
+            "id": "diff-friend-ask",
+            "title": "好朋友一直追问我不想回答的家里私事",
+            "hasTransitionSubBranches": false
+          }
+        ]
+      },
+      "staleProgressionResetProof": {
+        "helperFunction": "resetBreakerScenarioProgressToFen (lines 536-541)",
+        "invokedBy": [
+          "handlePickPreset (lines 543-550)",
+          "handleSwitchTransitionSubBranch (lines 552-565)"
+        ],
+        "clearedStateFields": {
+          "fenRevealed": "{ fact: false, feeling: false, guess: false }",
+          "isCoinFlipped": false,
+          "steppingStones": "[null, null, null]",
+          "pausedVoluntarily": false,
+          "currentStep": "'fen'"
+        }
+      },
+      "companionAndVoiceSync": {
+        "companionOrder": [
+          "guoguo_squirrel",
+          "beibei_otter",
+          "tiantian_raccoon",
+          "qiqi_deer"
+        ],
+        "inlineSwitchHandler": "handleSwitchCompanionInline (lines 521-534)",
+        "globalSyncMechanism": "Calls updatePersonalization({ companionId: compId }) + speechNarrator.syncWithCompanion(compId) and speaks SWITCH_COMPANION_GREETING[compId]",
+        "subtitleSynchronization": "Subscribes to speechNarrator.subscribeKaraoke and speechNarrator.subscribeSpeakingState; displays karaoke.fullText while speaking and falls back to lastSpokenText with replay button (`breaker-replay-speech`)."
+      }
+    }
+  }
+}

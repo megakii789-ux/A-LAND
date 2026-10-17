@@ -1,0 +1,1603 @@
+{
+  "schemaVersion": "1.0.0",
+  "gateId": "A-LAND_V2.3_BATCH02_GATE0_B0_B",
+  "generatedAt": "2026-10-17T15:30:00+08:00",
+  "overallDecision": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "holdFlags": {
+    "ART_DIRECTOR_QA_HOLD": true,
+    "ASSET_ARTWORK_BLOCKED": true,
+    "CONTENT_QA_REVIEW": true,
+    "PRODUCTION_RELEASE_HOLD": true,
+    "ARTWORK_GAP": true,
+    "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+  },
+  "summaryCounts": {
+    "totalInspectedAndRequiredEntries": 73,
+    "existingRepoAssetsInspected": 43,
+    "upstreamReferenceBoardsInspected": 8,
+    "missingProductionAssetsRequired": 22,
+    "productionArtAcceptedCount": 0,
+    "techPreviewOnlyCount": 51,
+    "missingCount": 22,
+    "duplicateByteForByteSvgEntriesCount": 27
+  },
+  "duplicateGeometryForensicFindings": [
+    {
+      "clusterId": "detective_workshop_svg_4x_identical",
+      "sha256": "f78cd87c24986274903f9e73f7d8671c5a2c0cf825b0a6298804e4f362052124",
+      "bytes": 1786,
+      "files": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/workshop.svg"
+      ],
+      "finding": "All 4 detective modes share the exact same 1,786-byte flat 2D house/boxes SVG template; modes `circles` and `fourSteps` are not even represented."
+    },
+    {
+      "clusterId": "detective_and_breaker_boxes_stones_9x_identical",
+      "sha256_detective": "dcbbb7c84af1d7b9b5fa6ef15035dc43e7cb24e070894f621e0f86b249f05e1a",
+      "sha256_breaker": "fac24115bfecd0f08b901189167806e82b621c51dc9b0d897478ffbd2f107474",
+      "bytes": 594,
+      "files": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg"
+      ],
+      "finding": "All 4 detective `tool_objects.svg` files and all 5 difficulty_breaker `step_stones.svg` files contain the exact same 3 flat `<rect width=\"130\" height=\"90\" rx=\"12\">` shapes at identical coordinates."
+    },
+    {
+      "clusterId": "breaker_workbench_5x_identical",
+      "sha256": "4513badc2273985b74a22c91b2530574a4f384871f23c1b296420d3604480851",
+      "bytes": 1380,
+      "files": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg"
+      ],
+      "finding": "All 5 Difficulty Breaker stages share the exact same 1,380-byte flat SVG workbench template with zero stage-specific differentiation."
+    }
+  ],
+  "entries": [
+    {
+      "assetId": "legacy_svg_backplate_tools_room",
+      "sceneId": "thought_detective",
+      "role": "Legacy V2.0 Scene Backplate SVG (`tools_room_scene_backplate.svg`)",
+      "filePath": "public/visual-v2/assets/scenes/tools_room_scene_backplate.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 4535,
+      "sha256": "f1c8f5810108882edc00c171c13278652d69c6b7ed65b9e6b58a4eba5160c6b4",
+      "provenance": "Procedural SVG bookshelf/window template (shares identical geometry with difficulty_breaker_scene_backplate.svg except gradient colors)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Procedural vector backplate template; lacks Pixar/Nintendo-grade 3D lighting, depth layers, and tactile props."
+    },
+    {
+      "assetId": "legacy_svg_backplate_difficulty_breaker",
+      "sceneId": "difficulty_breaker",
+      "role": "Legacy V2.0 Scene Backplate SVG (`difficulty_breaker_scene_backplate.svg`)",
+      "filePath": "public/visual-v2/assets/scenes/difficulty_breaker_scene_backplate.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 4544,
+      "sha256": "c385d03cca452afa0101c9ba935bbc6f82477556d83ba218c34c7c34ad93ca7a",
+      "provenance": "Procedural SVG bookshelf/window template (shares identical geometry with tools_room_scene_backplate.svg except gradient colors)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Procedural vector backplate template; lacks Pixar/Nintendo-grade 3D lighting, depth layers, and tactile props."
+    },
+    {
+      "assetId": "cutout_landmark_tools_room_native_png",
+      "sceneId": "thought_detective",
+      "role": "Map Landmark Cutout (`tools_room/idle_native.png`)",
+      "filePath": "public/visual-v2/assets/landmarks/tools_room/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 180,
+        "height": 144
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 55139,
+      "sha256": "6b92f858c0639b10e2b0db035072c4d20c3f1067f023b95f87ac77b0e774899e",
+      "provenance": "cv2.grabCut crop [220,672,406,828] from V14_character_landmark_asset_board.png (180x144 native)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (180x144 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_landmark_tools_room_native_webp",
+      "sceneId": "thought_detective",
+      "role": "Map Landmark Cutout WebP (`tools_room/idle_native.webp`)",
+      "filePath": "public/visual-v2/assets/landmarks/tools_room/idle_native.webp",
+      "existsInRepo": true,
+      "format": "webp",
+      "pixelDimensions": {
+        "width": 180,
+        "height": 144
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 9842,
+      "sha256": "726536450955df60cd608f7e0172361232bf7b442601b9d817f89c331729817d",
+      "provenance": "cv2.grabCut crop [220,672,406,828] from V14_character_landmark_asset_board.png (180x144 native)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (180x144 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_landmark_tools_room_2x_png",
+      "sceneId": "thought_detective",
+      "role": "Map Landmark Cutout 2x Upscaled (`tools_room/idle_2x_upscaled.png`)",
+      "filePath": "public/visual-v2/assets/landmarks/tools_room/idle_2x_upscaled.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 360,
+        "height": 288
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 139464,
+      "sha256": "2f548e489b207090da6baf861137a0a6a69ea9237713c57e20ad228be4accc77",
+      "provenance": "2x interpolation from 180x144 grabCut (360x288; provenance notes upscaled_is_not_higher_native_detail=true)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (360x288 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_landmark_difficulty_breaker_native_png",
+      "sceneId": "difficulty_breaker",
+      "role": "Map Landmark Cutout (`difficulty_breaker/idle_native.png`)",
+      "filePath": "public/visual-v2/assets/landmarks/difficulty_breaker/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 191,
+        "height": 151
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 54907,
+      "sha256": "f21845ffd2d1ee8bc06bc100ed96ac7157abd38c1d45a1d5eb5f3b025b18903a",
+      "provenance": "cv2.grabCut crop [1418,670,1635,829] from V14_character_landmark_asset_board.png (191x151 native)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (191x151 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_landmark_difficulty_breaker_native_webp",
+      "sceneId": "difficulty_breaker",
+      "role": "Map Landmark Cutout WebP (`difficulty_breaker/idle_native.webp`)",
+      "filePath": "public/visual-v2/assets/landmarks/difficulty_breaker/idle_native.webp",
+      "existsInRepo": true,
+      "format": "webp",
+      "pixelDimensions": {
+        "width": 191,
+        "height": 151
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 9930,
+      "sha256": "f45960fc7d9c3be9453037fa119d72b845b7a469d1966525a0442d5e69d24bc3",
+      "provenance": "cv2.grabCut crop [1418,670,1635,829] from V14_character_landmark_asset_board.png (191x151 native)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (191x151 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_landmark_difficulty_breaker_2x_png",
+      "sceneId": "difficulty_breaker",
+      "role": "Map Landmark Cutout 2x Upscaled (`difficulty_breaker/idle_2x_upscaled.png`)",
+      "filePath": "public/visual-v2/assets/landmarks/difficulty_breaker/idle_2x_upscaled.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 382,
+        "height": 302
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 132438,
+      "sha256": "63f04c89516e345cc22052c667e95c84739c3004c52d288ab8fbf608d9342dd2",
+      "provenance": "2x interpolation from 191x151 grabCut (382x302; provenance notes upscaled_is_not_higher_native_detail=true)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (382x302 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_prop_tool_binoculars_png",
+      "sceneId": "thought_detective",
+      "role": "Tool Prop Cutout (`binoculars/native.png` -> 三个小镜头)",
+      "filePath": "public/visual-v2/assets/props/tools/binoculars/native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 68,
+        "height": 64
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 10515,
+      "sha256": "676ff8240590a4bd1825de67f0023030c2cfff8a226274446634e58068e8e52d",
+      "provenance": "grabCut from V04_ui_component_styleguide.png (68x64 px miniature icon)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (68x64 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_prop_tool_two_sided_coin_png",
+      "sceneId": "thought_detective",
+      "role": "Tool Prop Cutout (`two_sided_coin/native.png` -> 两面硬币 / 双面透镜)",
+      "filePath": "public/visual-v2/assets/props/tools/two_sided_coin/native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 81,
+        "height": 67
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 10114,
+      "sha256": "b4be3cb82d18039205aca5d0560d0e5134417fd20dd25ff36c8fcf24ef0bab32",
+      "provenance": "grabCut from V04_ui_component_styleguide.png (68x64 px miniature icon)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (81x67 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_prop_tool_balance_scale_png",
+      "sceneId": "thought_detective",
+      "role": "Tool Prop Cutout (`balance_scale/native.png` -> 公平小天平)",
+      "filePath": "public/visual-v2/assets/props/tools/balance_scale/native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 99,
+        "height": 73
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 13839,
+      "sha256": "2fe942a860c799ba7f72cd7d72e52e5f5831cf8fdff25d9edaf93abe350f1208",
+      "provenance": "grabCut from V04_ui_component_styleguide.png (99x65 px miniature icon)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (99x73 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_prop_tool_weather_clouds_png",
+      "sceneId": "thought_detective",
+      "role": "Mismatched Tool Prop Cutout (`weather_clouds/native.png` — not one of the 5 detective tools)",
+      "filePath": "public/visual-v2/assets/props/tools/weather_clouds/native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 94,
+        "height": 71
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 10759,
+      "sha256": "b4909ffec78681308714955c39835e550184bc1d99e0851cec83342b47efb915",
+      "provenance": "grabCut from V04_ui_component_styleguide.png (68x64 px miniature icon)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (94x71 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "tech_factory_detective_tools_workshop",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/tools/workshop.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/tools/workshop.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 1786,
+      "sha256": "f78cd87c2498627423178fe54c9221e887905582005f9751c0a35d1bde07214f",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/workshop.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1786B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_tools_tool_objects",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/tools/tool_objects.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/tools/tool_objects.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "dcbbb7c84af1d7b984470289b67b143139e2c861a856ab13f63554e97a37ff38",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/tool_objects.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_tools_actor",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/tools/actor.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/tools/actor.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 676,
+      "sha256": "00b3c5572da6aa87d8c987e210c866cc00287f0eff3fe9360992cd68e4f7e1e2",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/actor.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (676B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_three_boxes_workshop",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/three_boxes/workshop.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/workshop.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 1786,
+      "sha256": "f78cd87c2498627423178fe54c9221e887905582005f9751c0a35d1bde07214f",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/workshop.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1786B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_three_boxes_tool_objects",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/three_boxes/tool_objects.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "dcbbb7c84af1d7b984470289b67b143139e2c861a856ab13f63554e97a37ff38",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/tool_objects.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_three_boxes_actor",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/three_boxes/actor.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/actor.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 676,
+      "sha256": "00b3c5572da6aa87d8c987e210c866cc00287f0eff3fe9360992cd68e4f7e1e2",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/actor.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (676B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_lenses_workshop",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/lenses/workshop.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/workshop.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 1786,
+      "sha256": "f78cd87c2498627423178fe54c9221e887905582005f9751c0a35d1bde07214f",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/workshop.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1786B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_lenses_tool_objects",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/lenses/tool_objects.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/tool_objects.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "dcbbb7c84af1d7b984470289b67b143139e2c861a856ab13f63554e97a37ff38",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/tool_objects.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_lenses_actor",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/lenses/actor.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/actor.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 676,
+      "sha256": "00b3c5572da6aa87d8c987e210c866cc00287f0eff3fe9360992cd68e4f7e1e2",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/scales/actor.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (676B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_scales_workshop",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/scales/workshop.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/scales/workshop.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 1786,
+      "sha256": "f78cd87c2498627423178fe54c9221e887905582005f9751c0a35d1bde07214f",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/workshop.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/workshop.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1786B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_scales_tool_objects",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/scales/tool_objects.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/scales/tool_objects.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "dcbbb7c84af1d7b984470289b67b143139e2c861a856ab13f63554e97a37ff38",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/tool_objects.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_detective_scales_actor",
+      "sceneId": "thought_detective",
+      "role": "V2.3 Tech Layer Factory SVG (detective/scales/actor.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/detective/scales/actor.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 676,
+      "sha256": "00b3c5572da6aa87d8c987e210c866cc00287f0eff3fe9360992cd68e4f7e1e2",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/detective/tools/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/three_boxes/actor.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/detective/lenses/actor.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (676B) with 3 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_select_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/select/workbench.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 1380,
+      "sha256": "4513badc2273985b221600e34b404a09e90b7b043a87579f04546e21a8a4ef90",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1380B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_select_step_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/select/step_stones.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "fac24115bfecd0f0e74bf71615b6740551ae7e425b6e29a018cd0ce338570108",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_select_feedback",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/select/feedback.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/feedback.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 830,
+      "sha256": "e0921afb3c2b74950c9090492ccf099dc866cd9db54ba1653114d349aacea15b",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/feedback.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (830B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_divide_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/divide/workbench.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 1380,
+      "sha256": "4513badc2273985b221600e34b404a09e90b7b043a87579f04546e21a8a4ef90",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1380B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_divide_step_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/divide/step_stones.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "fac24115bfecd0f0e74bf71615b6740551ae7e425b6e29a018cd0ce338570108",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_divide_feedback",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/divide/feedback.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/feedback.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 830,
+      "sha256": "e0921afb3c2b74950c9090492ccf099dc866cd9db54ba1653114d349aacea15b",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/feedback.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (830B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_connect_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/connect/workbench.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 1380,
+      "sha256": "4513badc2273985b221600e34b404a09e90b7b043a87579f04546e21a8a4ef90",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1380B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_connect_step_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/connect/step_stones.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "fac24115bfecd0f0e74bf71615b6740551ae7e425b6e29a018cd0ce338570108",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_connect_feedback",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/connect/feedback.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/feedback.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 830,
+      "sha256": "e0921afb3c2b74950c9090492ccf099dc866cd9db54ba1653114d349aacea15b",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/feedback.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (830B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_choose_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/choose/workbench.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 1380,
+      "sha256": "4513badc2273985b221600e34b404a09e90b7b043a87579f04546e21a8a4ef90",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1380B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_choose_step_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/choose/step_stones.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "fac24115bfecd0f0e74bf71615b6740551ae7e425b6e29a018cd0ce338570108",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_choose_feedback",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/choose/feedback.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/feedback.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 830,
+      "sha256": "e0921afb3c2b74950c9090492ccf099dc866cd9db54ba1653114d349aacea15b",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/feedback.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (830B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_complete_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/complete/workbench.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/workbench.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 1380,
+      "sha256": "4513badc2273985b221600e34b404a09e90b7b043a87579f04546e21a8a4ef90",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/workbench.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/workbench.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (1380B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_complete_step_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/complete/step_stones.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/step_stones.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 594,
+      "sha256": "fac24115bfecd0f0e74bf71615b6740551ae7e425b6e29a018cd0ce338570108",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/step_stones.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/step_stones.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (594B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "tech_factory_breaker_complete_feedback",
+      "sceneId": "difficulty_breaker",
+      "role": "V2.3 Tech Layer Factory SVG (difficulty_breaker/complete/feedback.svg)",
+      "filePath": "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/complete/feedback.svg",
+      "existsInRepo": true,
+      "format": "svg",
+      "pixelDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 830,
+      "sha256": "e0921afb3c2b74950c9090492ccf099dc866cd9db54ba1653114d349aacea15b",
+      "provenance": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017.zip (DELIVERY_QA_SUMMARY.json: production_quality_approved = 0)",
+      "sharesIdenticalBytesWith": [
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/select/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/divide/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/connect/feedback.svg",
+        "public/visual-v2/v2-3-layer-factory/assets/difficulty_breaker/choose/feedback.svg"
+      ],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Shares 100% identical byte-for-byte SVG content (830B) with 4 other files; simplified flat geometric placeholder with production_quality_approved=0."
+    },
+    {
+      "assetId": "cutout_companion_guoguo_squirrel_native_png",
+      "sceneId": "shared_companion_rig",
+      "role": "Companion Native Cutout (guoguo_squirrel/idle_native.png)",
+      "filePath": "public/visual-v2/batch01r-art/cutouts/characters/guoguo_squirrel/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 206,
+        "height": 259
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 95590,
+      "sha256": "7d7242cb635a561bcb0dff297aa1b1cfd64c823e6c3ca6dee3d9a3c0aec0cfa1",
+      "provenance": "cv2.grabCut crop from V14_character_landmark_asset_board.png (low-res preview cutout)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (206x259 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_companion_beibei_otter_native_png",
+      "sceneId": "shared_companion_rig",
+      "role": "Companion Native Cutout (beibei_otter/idle_native.png)",
+      "filePath": "public/visual-v2/batch01r-art/cutouts/characters/beibei_otter/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 194,
+        "height": 260
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 92657,
+      "sha256": "0742f8d5aa4582fc4a77d95fc6165935f157ecd0215e553737f49c187a51092d",
+      "provenance": "cv2.grabCut crop from V14_character_landmark_asset_board.png (low-res preview cutout)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (194x260 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_companion_tiantian_raccoon_native_png",
+      "sceneId": "shared_companion_rig",
+      "role": "Companion Native Cutout (tiantian_raccoon/idle_native.png)",
+      "filePath": "public/visual-v2/batch01r-art/cutouts/characters/tiantian_raccoon/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 181,
+        "height": 239
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 87031,
+      "sha256": "616b7d598cd544dfa3bb1bcf4e39ae41fc2394955af59e5f4e882dcdeeac299e",
+      "provenance": "cv2.grabCut crop from V14_character_landmark_asset_board.png (low-res preview cutout)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (181x239 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "cutout_companion_qiqi_deer_native_png",
+      "sceneId": "shared_companion_rig",
+      "role": "Companion Native Cutout (qiqi_deer/idle_native.png)",
+      "filePath": "public/visual-v2/batch01r-art/cutouts/characters/qiqi_deer/idle_native.png",
+      "existsInRepo": true,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 172,
+        "height": 244
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 71250,
+      "sha256": "420390a101d9cb59749cc20096519f7ff40afeefbb11b21f6d41386aae00c323",
+      "provenance": "cv2.grabCut crop from V14_character_landmark_asset_board.png (low-res preview cutout)",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Low-resolution grabCut cutout (172x244 px) extracted from composite reference sheet; blurs when scaled to modal stage."
+    },
+    {
+      "assetId": "reference_board_user_reference_non_shipping",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (USER_REFERENCE_NON_SHIPPING.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/USER_REFERENCE_NON_SHIPPING.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": 3489373,
+      "sha256": "8546d2ae508a67bd6b4fc072cca65850bc3208f8eed726826eb061a4a63cca0c",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v03_cast_and_host_concept",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V03_cast_and_host_concept.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V03_cast_and_host_concept.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1448,
+        "height": 1086
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2648326,
+      "sha256": "82a084bec0fbd5b06567c9037cce2a73488016a4385c16c2229c84d5b5679317",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v04_ui_component_styleguide",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V04_ui_component_styleguide.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V04_ui_component_styleguide.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2374395,
+      "sha256": "87efa017ce887a4b59dfed3db93dcb2fa44c4c1f77be077095b8823933af4c72",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v08_ae_motion_board",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V08_ae_motion_board.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V08_ae_motion_board.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2497094,
+      "sha256": "a50d4384992c0c059d1363263a9a803809b7aa141036b4211e425b4dc30ea24c",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v10_desktop_home_island_v2",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V10_desktop_home_island_v2.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V10_desktop_home_island_v2.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2885332,
+      "sha256": "ed2364c2a9d002e5c87035521ea7b22049cb80cc868c9e3a99ab732f0df8a15c",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v11_mobile_home_island_v2",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V11_mobile_home_island_v2.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V11_mobile_home_island_v2.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 941,
+        "height": 1672
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2260664,
+      "sha256": "2bd6ce83eecfd2d330124f101c440f9f9098ebebc3bd7d7477c4e86501bca667",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v12_weather_station",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V12_weather_station.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V12_weather_station.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2200498,
+      "sha256": "045d5de698ad1de1b280c99950fac79998b7e5b17e449fb946ecf3b4279ef4eb",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "reference_board_v14_character_landmark_asset_board",
+      "sceneId": "reference_board",
+      "role": "Approved Visual Style Reference Sheet (V14_character_landmark_asset_board.png)",
+      "filePath": "01_APPROVED_VISUAL_REFERENCES/V14_character_landmark_asset_board.png",
+      "existsInRepo": false,
+      "format": "png",
+      "pixelDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": 2195746,
+      "sha256": "8b472067d74f4d2839fb40a22a597bdcf61038da2ddcf30567a504d7b99a2bb7",
+      "provenance": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip / 01_APPROVED_VISUAL_REFERENCES",
+      "sharesIdenticalBytesWith": [],
+      "status": "TECH_PREVIEW_ONLY",
+      "gapReason": "Composite multi-panel concept/styleguide sheet with baked-in typography and callouts; cannot be directly mounted as a clean character-free/text-free runtime layer."
+    },
+    {
+      "assetId": "prod_detective_master_plate_desktop_16x9",
+      "sceneId": "thought_detective",
+      "role": "Thought Detective Lab 3D Master Scene Backplate — Desktop 16:9 (>=2560x1440 RGBA/WebP, zero text/characters)",
+      "filePath": "public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "No high-resolution 3D cartoon detective treehouse/workshop desktop scene plate exists in Git or Google Drive."
+    },
+    {
+      "assetId": "prod_detective_master_plate_mobile_3x4",
+      "sceneId": "thought_detective",
+      "role": "Thought Detective Lab 3D Master Scene Backplate — Mobile 3:4 (>=1200x1600 RGBA/WebP, safe top/bottom UI zones)",
+      "filePath": "public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 1200,
+        "height": 1600
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "No dedicated 3:4 portrait mobile scene plate exists for Thought Detective Lab."
+    },
+    {
+      "assetId": "prod_detective_layer_distant_window_sky",
+      "sceneId": "thought_detective",
+      "role": "Thought Detective L1 Distant Layer — Observatory Window & Island Sky (>=2560x1440 transparent WebP/PNG)",
+      "filePath": "public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing independent L1 distant parallax layer."
+    },
+    {
+      "assetId": "prod_detective_layer_mid_workbench_bookshelves",
+      "sceneId": "thought_detective",
+      "role": "Thought Detective L2 Midground Layer — 3D Wooden Investigation Desk & Clue Shelves (>=2560x1440 transparent WebP/PNG)",
+      "filePath": "public/visual-v2/batch02-art/layers/detective_l2_mid_workbench_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing independent L2 3D wooden investigation workbench layer."
+    },
+    {
+      "assetId": "prod_detective_layer_fore_arch_lanterns",
+      "sceneId": "thought_detective",
+      "role": "Thought Detective L3 Foreground Frame — Warm Wooden Archway & Hanging Magnifier Lamps (>=2560x1440 transparent WebP/PNG)",
+      "filePath": "public/visual-v2/batch02-art/layers/detective_l3_fore_arch_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing independent L3 foreground framing layer."
+    },
+    {
+      "assetId": "prod_detective_prop_tool_flag_states",
+      "sceneId": "thought_detective",
+      "role": "3D Interactive Tool 1 Prop — Person vs. Event Flag (`flag`: attached vs. removed states, >=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_tool_flag_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Completely missing even in low-res cutouts (only 4 tool cutouts exist; `flag` was never cut out)."
+    },
+    {
+      "assetId": "prod_detective_prop_tool_three_lenses_states",
+      "sceneId": "thought_detective",
+      "role": "3D Interactive Tool 2 Prop — Three Perspective Lenses (`my`, `his`, `sky` 3D turret states, >=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_tool_three_lenses_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `binoculars/native.png` is only 68x64 px and has no `my`/`his`/`sky` state variants."
+    },
+    {
+      "assetId": "prod_detective_prop_tool_two_sided_coin_states",
+      "sceneId": "thought_detective",
+      "role": "3D Interactive Tool 3 Prop — Two-Sided Coin (`front` difficulty side & `back` caring side, >=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_tool_coin_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `two_sided_coin/native.png` is only 68x64 px and lacks front/back 3D state sprites."
+    },
+    {
+      "assetId": "prod_detective_prop_tool_balance_scale_states",
+      "sceneId": "thought_detective",
+      "role": "3D Interactive Tool 4 Prop — Fairness Balance Scale (>=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_tool_balance_scale_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `balance_scale/native.png` is only 99x65 px."
+    },
+    {
+      "assetId": "prod_detective_prop_tool_safety_fence_states",
+      "sceneId": "thought_detective",
+      "role": "3D Interactive Tool 5 Prop — Protective Safety Fence Shield (`fence`, >=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_tool_safety_fence_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Completely missing even in low-res cutouts (`fence` was never cut out)."
+    },
+    {
+      "assetId": "prod_detective_prop_three_boxes_set",
+      "sceneId": "thought_detective",
+      "role": "3D Mode 2 Props — Three Sorting Chests (`visible` camera chest, `heart` feeling chest, `guess` cloud chest, >=600x400 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_three_boxes_set_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 600,
+        "height": 400
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `v2-3-layer-factory/assets/detective/three_boxes/tool_objects.svg` is just 3 flat rectangles (`<rect width=\"130\" height=\"90\"/>`)."
+    },
+    {
+      "assetId": "prod_detective_prop_control_circles_rings",
+      "sceneId": "thought_detective",
+      "role": "3D Mode 3 Props — Concentric Wooden/Glowing Control Rings (`adult`, `mine`, `together`, >=800x600 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_control_circles_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Zero assets exist for Mode 3 (`circles`) even in `v2-3-layer-factory`."
+    },
+    {
+      "assetId": "prod_detective_prop_four_steps_staircase",
+      "sceneId": "thought_detective",
+      "role": "3D Mode 4 Props — 4-Step Stepping-Back Observation Ladder (`currentStep: 1..4`, >=800x500 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/detective_four_steps_ladder_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 800,
+        "height": 500
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Zero assets exist for Mode 4 (`fourSteps`) even in `v2-3-layer-factory`."
+    },
+    {
+      "assetId": "prod_breaker_master_plate_desktop_16x9",
+      "sceneId": "difficulty_breaker",
+      "role": "Difficulty Breaker 3D Master Scene Backplate — Desktop 16:9 (>=2560x1440 RGBA/WebP, Artisan Stone-Splitting Workbench & Creek)",
+      "filePath": "public/visual-v2/batch02-art/scenes/breaker_workbench_creek_desktop.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "No high-resolution 3D cartoon workbench/creek desktop scene plate exists for Difficulty Breaker."
+    },
+    {
+      "assetId": "prod_breaker_master_plate_mobile_3x4",
+      "sceneId": "difficulty_breaker",
+      "role": "Difficulty Breaker 3D Master Scene Backplate — Mobile 3:4 (>=1200x1600 RGBA/WebP)",
+      "filePath": "public/visual-v2/batch02-art/scenes/breaker_workbench_creek_mobile.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 1200,
+        "height": 1600
+      },
+      "hasAlphaTransparency": false,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "No dedicated 3:4 portrait mobile scene plate exists for Difficulty Breaker."
+    },
+    {
+      "assetId": "prod_breaker_layer_creek_and_workbench",
+      "sceneId": "difficulty_breaker",
+      "role": "Difficulty Breaker L2 Midground Layer — 3D Wooden Splitting Table & Sparkling Stepping-Stone Stream (>=2560x1440 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/layers/breaker_l2_workbench_stream_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 2560,
+        "height": 1440
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing independent 3D workbench and creek midground layer."
+    },
+    {
+      "assetId": "prod_breaker_prop_preset_boulders_3x",
+      "sceneId": "difficulty_breaker",
+      "role": "Stage 0 (`pick`) 3D Preset Boulders & 4 Two-Homes Subbranch Compass Tokens (`diff-two-homes`, `diff-blocks-broken`, `diff-friend-ask`, >=512x512 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/breaker_preset_boulders_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing 3D preset boulders and 4 transition subbranch tokens."
+    },
+    {
+      "assetId": "prod_breaker_prop_fen_crystal_stones_3x",
+      "sceneId": "difficulty_breaker",
+      "role": "Stage 1 (`fen`) 3D Splittable Crystal Stones — Fact (Emerald), Feeling (Rose), Guess (Amber) in Unsplit & Split-Glow States (>=900x450 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/breaker_fen_crystals_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 900,
+        "height": 450
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `v2-3-layer-factory/assets/difficulty_breaker/divide/*` is identical to `select/*` and has no splittable crystal states."
+    },
+    {
+      "assetId": "prod_breaker_prop_tong_dual_lens_turntable",
+      "sceneId": "difficulty_breaker",
+      "role": "Stage 2 (`tong`) 3D Dual-Sided Perspective Lens Turntable (`isCoinFlipped: false | true`, >=600x600 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/breaker_tong_dual_lens_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 600,
+        "height": 600
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing 3D dual-sided lens turntable asset for Stage 2 (`tong`)."
+    },
+    {
+      "assetId": "prod_breaker_prop_ze_river_stepping_stones",
+      "sceneId": "difficulty_breaker",
+      "role": "Stage 3 (`ze`) 3D Creek Stepping-Stone Slots (3 slots: empty, standard action placed, safety action placed, plus voluntary pause rest cushion, >=900x450 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/breaker_ze_stepping_stones_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 900,
+        "height": 450
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing `step_stones.svg` is identical to `detective/tool_objects.svg` (3 flat rectangles) with zero slot or pause states."
+    },
+    {
+      "assetId": "prod_breaker_prop_complete_celebration_bridge",
+      "sceneId": "difficulty_breaker",
+      "role": "Stage 4 (`complete`) 3D Completed Stepping-Stone Path & Lantern Celebration Overlay (>=1200x675 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/props/breaker_complete_path_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 1200,
+        "height": 675
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Missing 3D completion stage overlay."
+    },
+    {
+      "assetId": "prod_shared_4companions_3d_rig_masters",
+      "sceneId": "shared_companion_rig",
+      "role": "4 Animal Companions (`guoguo`, `beibei`, `tiantian`, `qiqi`) High-Res 3D Layered Masters (torso, head, eyes, voice-synced mouth, near/far arms, >=1024x1024 RGBA)",
+      "filePath": "public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp",
+      "existsInRepo": false,
+      "format": "missing",
+      "pixelDimensions": null,
+      "requiredMinDimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "hasAlphaTransparency": true,
+      "byteSize": null,
+      "sha256": null,
+      "provenance": "NOT_YET_PRODUCED (Must be commissioned/generated and approved by Art Director before Batch02 UI replacement)",
+      "sharesIdenticalBytesWith": [],
+      "status": "MISSING",
+      "gapReason": "Existing native cutouts are 154x168 to 198x162 px grabCut crops from V14, and existing 168 rig part SVGs in `v2-3-layer-factory` are flat 2D ellipses/circles (`production_quality_approved = 0`)."
+    }
+  ]
+}
