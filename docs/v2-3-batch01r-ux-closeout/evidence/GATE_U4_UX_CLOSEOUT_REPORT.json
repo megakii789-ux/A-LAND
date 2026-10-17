@@ -1,0 +1,2035 @@
+{
+  "generatedAt": "2026-10-17T06:11:03.008Z",
+  "gitCommitSha": "c4d8542813d4de212a8efe3a6f830dbea050233f",
+  "branch": "ui/visual-v2-batch01r-ux-closeout",
+  "packageVersion": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017",
+  "packageZipSha256": "1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d",
+  "mandatoryHoldFlags": {
+    "ASSET_ARTWORK_BLOCKED": true,
+    "ART_DIRECTOR_QA_HOLD": true,
+    "TECH_PREVIEW_NOT_ART_APPROVED": true,
+    "CONTENT_QA_REVIEW": true,
+    "PRODUCTION_RELEASE_HOLD": true,
+    "V2_3_BATCH01_TECH_INTEGRATION_AUTHORIZED": true,
+    "ENGINEERING_PILOT_AUDIT_PASS_STORY_CUP_ONLY": true,
+    "productionQualityApproved": 0
+  },
+  "summary": {
+    "gateU1SinglePrimaryWeatherSelectorPass": true,
+    "gateU2ZeroCropStageGeometryPass": true,
+    "gateU3HeaderTypographyPass": true,
+    "all6ViewportsPass": true,
+    "all4CompanionsSwitchedPass": true,
+    "mediaTrackerResetPass": true,
+    "consoleErrorsCount": 0,
+    "pageErrorsCount": 0,
+    "http404sCount": 0,
+    "weatherSvgKeyboardFocusPass": true,
+    "calmSvgKeyboardFocusPass": true,
+    "foggyDualSensationPass": true,
+    "weatherQaDrawerLayerTogglePass": true,
+    "optOutPass": true,
+    "heavyHoldingPass": true,
+    "calmPausedFreezePass": true,
+    "calmGroundingAndAdultPass": true,
+    "calmCornerModalPass": true,
+    "reducedMotionPass": true,
+    "storyCupRegressionPass": true
+  },
+  "e2eDetails": {
+    "rainyDynamicPhraseState": {
+      "selectedWeatherAttr": "rainy",
+      "phraseText": "“我现在像下雨天，眼眶或心里有点湿湿的”"
+    },
+    "companionSwitchResults": [
+      {
+        "requested": "beibei_otter",
+        "active": "beibei_otter"
+      },
+      {
+        "requested": "tiantian_raccoon",
+        "active": "tiantian_raccoon"
+      },
+      {
+        "requested": "qiqi_deer",
+        "active": "qiqi_deer"
+      },
+      {
+        "requested": "guoguo_squirrel",
+        "active": "guoguo_squirrel"
+      }
+    ],
+    "mediaTrackerSequenceA": [
+      {
+        "sceneId": "weather_station:sunny",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/sunny/backplate",
+          "weather_station/sunny/weather_actor",
+          "weather_station/sunny/front_effect"
+        ]
+      },
+      {
+        "sceneId": "weather_station:rainy",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/rainy/backplate",
+          "weather_station/rainy/weather_actor",
+          "weather_station/rainy/front_effect"
+        ]
+      },
+      {
+        "sceneId": "weather_station:stormy",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/stormy/backplate",
+          "weather_station/stormy/weather_actor",
+          "weather_station/stormy/front_effect"
+        ]
+      }
+    ],
+    "mediaTrackerSequenceB": [
+      {
+        "sceneId": "weather_station:stormy",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/stormy/backplate",
+          "weather_station/stormy/weather_actor",
+          "weather_station/stormy/front_effect"
+        ]
+      },
+      {
+        "sceneId": "weather_station:foggy",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/foggy/backplate",
+          "weather_station/foggy/weather_actor",
+          "weather_station/foggy/front_effect"
+        ]
+      },
+      {
+        "sceneId": "weather_station:sunny",
+        "totalExpected": 3,
+        "loadedCount": 3,
+        "fallbackCount": 0,
+        "assetKeys": [
+          "weather_station/sunny/backplate",
+          "weather_station/sunny/weather_actor",
+          "weather_station/sunny/front_effect"
+        ]
+      }
+    ],
+    "weatherSvgKeyboardFocusRing": {
+      "isActiveElement": true,
+      "stroke": "rgb(2, 132, 199)",
+      "strokeWidth": "4.5px",
+      "filter": "none"
+    },
+    "calmSvgKeyboardFocusRing": {
+      "isActiveElement": true,
+      "stroke": "rgb(2, 132, 199)",
+      "strokeWidth": "4.5px",
+      "filter": "none"
+    },
+    "foggyDualState": {
+      "weatherState": "foggy",
+      "dualWeather": "rainy",
+      "fogOverlayVisible": true,
+      "secondaryBadgeVisible": true,
+      "sensationsBadgeVisible": true
+    },
+    "weatherLayerToggleResult": {
+      "drawerOpen": true,
+      "actorLayerPresentWhenDisabled": false
+    },
+    "calmPausedState": {
+      "calmAssetState": "paused",
+      "isPaused": "true",
+      "ringTransform": "scale(1)",
+      "ringTransition": "none"
+    },
+    "calmGroundingAndAdultState": {
+      "redPressed": true,
+      "yellowPressed": true,
+      "bluePressed": true,
+      "adultTipsExpanded": true
+    },
+    "calmCornerModalVerified": {
+      "modalVisible": true,
+      "stageVisible": true,
+      "greenActive": true,
+      "noDebugDrawerInChildUi": true
+    },
+    "reducedMotionResult": {
+      "stageReducedMotion": true,
+      "companionReducedMotion": true,
+      "companionMouthActive": false,
+      "ringScaleFrozenAtOne": true
+    }
+  },
+  "distBundles": [
+    {
+      "file": "dist/assets/index-C8sKZfxa.js",
+      "bytes": 2531672,
+      "kilobytes": 2472.34
+    },
+    {
+      "file": "dist/assets/index-CAMvN13F.css",
+      "bytes": 204229,
+      "kilobytes": 199.44
+    }
+  ],
+  "viewportResults": [
+    {
+      "viewport": "360x800",
+      "width": 360,
+      "height": 800,
+      "weatherStationV2": {
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 308,
+        "stageClientHeight": 412.5,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 90,
+          "scrollWidth": 90,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 308,
+            "clientHeight": 412.5,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 308,
+            "clientHeight": 412.5,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 308,
+            "clientHeight": 412.5,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 90.8,
+            "height": 66,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 2.2,
+            "allAssetsLoadedMs": 2.2,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 2.2,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 2.2,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 2.2,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 308,
+        "stageClientHeight": 412.5,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 108,
+          "scrollWidth": 108,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 308,
+            "clientHeight": 412.5,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 332.6,
+            "clientHeight": 445.5,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 115.5,
+            "height": 115.5,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 89.4,
+            "height": 63.3,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 89.4,
+            "height": 63.3,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 89.4,
+            "height": 63.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 7.7,
+            "allAssetsLoadedMs": 7.7,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 7.7,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 7.7,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "390x844",
+      "width": 390,
+      "height": 844,
+      "weatherStationV2": {
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 338,
+        "stageClientHeight": 452.7,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 90,
+          "scrollWidth": 90,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 338,
+            "clientHeight": 452.7,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 338,
+            "clientHeight": 452.7,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 338,
+            "clientHeight": 452.7,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 99.6,
+            "height": 72.4,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 338,
+        "stageClientHeight": 452.7,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 108,
+          "scrollWidth": 108,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 338,
+            "clientHeight": 452.7,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 365,
+            "clientHeight": 488.9,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 126.7,
+            "height": 126.7,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 98.1,
+            "height": 69.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 98.1,
+            "height": 69.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 98.1,
+            "height": 69.4,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 21.7,
+            "allAssetsLoadedMs": 21.8,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 21.7,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 21.8,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "430x932",
+      "width": 430,
+      "height": 932,
+      "weatherStationV2": {
+        "scrollWidth": 430,
+        "innerWidth": 430,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 378,
+        "stageClientHeight": 506.3,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 90,
+          "scrollWidth": 90,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 378,
+            "clientHeight": 506.3,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 378,
+            "clientHeight": 506.3,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 378,
+            "clientHeight": 506.3,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 111.4,
+            "height": 81,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.4,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.4,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.4,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 430,
+        "innerWidth": 430,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-portrait-896x1200",
+        "stageClientWidth": 378,
+        "stageClientHeight": 506.3,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 108,
+          "scrollWidth": 108,
+          "height": 28,
+          "lineHeight": 28
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 378,
+            "clientHeight": 506.3,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 896,
+            "naturalHeight": 1200,
+            "clientWidth": 408.2,
+            "clientHeight": 546.8,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 141.8,
+            "height": 141.8,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 109.7,
+            "height": 77.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 109.7,
+            "height": 77.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 109.7,
+            "height": 77.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 7.4,
+            "allAssetsLoadedMs": 7.4,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 7.4,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 7.4,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "weatherStationV2": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 672,
+        "stageClientHeight": 375.1,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 120,
+          "scrollWidth": 120,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 672,
+            "clientHeight": 375.1,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 672,
+            "clientHeight": 375.1,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 672,
+            "clientHeight": 375.1,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 69.3,
+            "height": 72.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 664,
+        "stageClientHeight": 370.6,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 144,
+          "scrollWidth": 144,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 664,
+            "clientHeight": 370.6,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 717.1,
+            "clientHeight": 400.2,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 135.1,
+            "height": 135.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 112,
+            "height": 71.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 112,
+            "height": 71.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 112,
+            "height": 71.4,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 15.6,
+            "allAssetsLoadedMs": 15.7,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 15.6,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 15.7,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "1024x1366",
+      "width": 1024,
+      "height": 1366,
+      "weatherStationV2": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 120,
+          "scrollWidth": 120,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.2,
+            "allAssetsLoadedMs": 1.2,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 144,
+          "scrollWidth": 144,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 769,
+            "clientHeight": 429.2,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 144.9,
+            "height": 144.9,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 14.2,
+            "allAssetsLoadedMs": 14.2,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 14.2,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 14.2,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "weatherStationV2": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 120,
+          "scrollWidth": 120,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.4,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.4,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.4,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 144,
+          "scrollWidth": 144,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 769,
+            "clientHeight": 429.2,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 144.9,
+            "height": 144.9,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 13.1,
+            "allAssetsLoadedMs": 13.2,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 13.1,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 13.2,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "viewport": "360x800",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_360x800_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_original_weather_station.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_360x800_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_original_calm_corner.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_360x800_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_station.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "weather_station",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_360x800_v2_weather_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_hotspot_overlay.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_360x800_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_corner.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "calm_corner",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_360x800_v2_calm_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_hotspot_overlay.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_390x844_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_original_weather_station.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_390x844_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_original_calm_corner.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_390x844_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_station.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "weather_station",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_390x844_v2_weather_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_hotspot_overlay.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_390x844_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_corner.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "calm_corner",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_390x844_v2_calm_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_hotspot_overlay.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_430x932_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_original_weather_station.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_430x932_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_original_calm_corner.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_430x932_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_station.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "weather_station",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_430x932_v2_weather_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_hotspot_overlay.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_430x932_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_corner.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "calm_corner",
+      "mode": "v2_hotspot_overlay",
+      "file": "v2_3_batch01r_430x932_v2_calm_hotspot_overlay.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_hotspot_overlay.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_768x1024_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_original_weather_station.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_768x1024_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_original_calm_corner.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_768x1024_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_v2_weather_station.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_768x1024_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_v2_calm_corner.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_1024x1366_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_original_weather_station.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_1024x1366_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_original_calm_corner.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_1024x1366_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_v2_weather_station.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_1024x1366_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_v2_calm_corner.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01r_1440x900_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_original_weather_station.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01r_1440x900_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_original_calm_corner.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "weather_station",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_1440x900_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_v2_weather_station.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "calm_corner",
+      "mode": "v2_batch01r",
+      "file": "v2_3_batch01r_1440x900_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_v2_calm_corner.png"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "http404s": []
+}

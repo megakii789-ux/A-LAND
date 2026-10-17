@@ -1,0 +1,29 @@
+ .../calm_breathing_halo_exhale_mobile_rgba.png     | Bin 0 -> 67440 bytes
+ .../layers/calm_breathing_halo_exhale_rgba.png     | Bin 20827 -> 68074 bytes
+ .../calm_breathing_halo_inhale_mobile_rgba.png     | Bin 0 -> 56036 bytes
+ .../layers/calm_breathing_halo_inhale_rgba.png     | Bin 17219 -> 58645 bytes
+ .../calm_breathing_halo_paused_mobile_rgba.png     | Bin 0 -> 59506 bytes
+ .../layers/calm_breathing_halo_paused_rgba.png     | Bin 18950 -> 61194 bytes
+ .../calm_breathing_halo_rest_mobile_rgba.png       | Bin 0 -> 63479 bytes
+ .../layers/calm_breathing_halo_rest_rgba.png       | Bin 19526 -> 63920 bytes
+ .../layers/weather_actor_cloudy_mobile_rgba.png    | Bin 0 -> 88614 bytes
+ .../layers/weather_actor_cloudy_rgba.png           | Bin 72834 -> 79287 bytes
+ .../layers/weather_actor_foggy_mobile_rgba.png     | Bin 0 -> 98344 bytes
+ .../layers/weather_actor_foggy_rgba.png            | Bin 62833 -> 68854 bytes
+ .../layers/weather_actor_opt_out_mobile_rgba.png   | Bin 0 -> 62401 bytes
+ .../layers/weather_actor_opt_out_rgba.png          | Bin 48282 -> 53621 bytes
+ .../layers/weather_actor_rainy_mobile_rgba.png     | Bin 0 -> 95247 bytes
+ .../layers/weather_actor_rainy_rgba.png            | Bin 60563 -> 66407 bytes
+ .../layers/weather_actor_stormy_mobile_rgba.png    | Bin 0 -> 86665 bytes
+ .../layers/weather_actor_stormy_rgba.png           | Bin 60442 -> 65739 bytes
+ .../layers/weather_actor_sunny_mobile_rgba.png     | Bin 0 -> 96329 bytes
+ .../layers/weather_actor_sunny_rgba.png            | Bin 62648 -> 69541 bytes
+ scripts/verify_v2_3_batch01r_art_remediation.mjs   | 289 ++++++++++++++++++++-
+ src/components/ChildIsland/CalmCornerModal.tsx     |  61 +++--
+ src/components/ChildIsland/CalmSpace.tsx           | 147 ++++++-----
+ src/components/ChildIsland/WeatherStationModal.tsx | 263 ++++++++++---------
+ src/tests/v2_3Batch01WeatherCalm.test.tsx          | 101 +++++++
+ src/visual-v2/batch01/CalmCornerSceneArtV2.tsx     | 152 +++++------
+ src/visual-v2/batch01/WeatherStationSceneArtV2.tsx | 162 ++++++++----
+ src/visual-v2/manifest/v2_3Batch01Manifest.ts      | 182 ++++++-------
+ 28 files changed, 918 insertions(+), 439 deletions(-)
