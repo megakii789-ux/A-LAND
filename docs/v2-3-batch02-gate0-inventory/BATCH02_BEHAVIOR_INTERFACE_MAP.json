@@ -9,7 +9,10 @@
     "gate0InventoryBranch": "ui/visual-v2-batch02-gate0-inventory",
     "gate0InventoryArchiveHeadSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
     "gate0InventoryCanonicalCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
-    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract"
+    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract",
+    "gateB0RArchiveHeadSha": "dafe3a96c97278d947abbb78da9972aa468ed625",
+    "gateB0RCanonicalCodeSha": "56936d624dc491de4c5f4085115892eb4609edfa",
+    "gateB0RBBranch": "ui/visual-v2-batch02-b0rb-closeout"
   },
   "requiredViewports": [
     {

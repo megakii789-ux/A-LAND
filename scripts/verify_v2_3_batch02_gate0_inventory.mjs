@@ -53,6 +53,7 @@ const {
   BATCH02_GATE0_BASELINE,
   BATCH02_GATE0_EXECUTION_STATUS,
   BATCH02_GATE_B0R_DECISION_STATUS,
+  BATCH02_GATE_B0RB_DECISION_STATUS,
   BATCH02_OPTIONAL_ADDITIONAL_VIEWPORTS,
   BATCH02_REQUIRED_VIEWPORTS,
   BATCH02_STAGE_COMPOSITION_RULE,
@@ -1043,8 +1044,10 @@ fs.writeFileSync(
 );
 
 // ============================================================================
-// 3. Gate B0R-B & B0R-D: Counterexample & Negative/Positive Eligibility Regression
+// 3. Gate B0R-B & B0R-D: Counterexample & Physical Eligibility Regression
 // ============================================================================
+
+const fixedReferenceMs = Date.parse('2026-10-17T18:00:00+08:00');
 
 const auditorFixture = {
   assetId: 'fixture_minimal_detective',
@@ -1085,7 +1088,7 @@ function createSyntheticValidCompleteManifest() {
       hasAlphaTransparency: spec.requireAlpha ? true : false,
       byteSize: 245760 + idx * 1024,
       sha256,
-      provenance: 'Art Director Signed Production 3D Render',
+      provenance: 'Candidate Metadata Structure Fixture (No Physical File)',
       sharesIdenticalBytesWith: [],
       status: 'PRODUCTION_ART_ACCEPTED',
       gapReason: '',
@@ -1093,113 +1096,274 @@ function createSyntheticValidCompleteManifest() {
         approvedBy: 'Art Director Lead',
         approvalId: `AD-BATCH02-SIGN-${String(idx + 1).padStart(3, '0')}`,
         approvedSha256: sha256,
-        approvedAt: '2026-10-18T10:00:00+08:00',
+        approvedAt: '2026-10-17T12:00:00+08:00',
         version: '2.3.0',
       },
     };
   });
 }
 
+/**
+ * Exact generator from independent audit `04_REPRO_FULL_FABRICATED_MANIFEST.mjs`.
+ */
+function createAuditorFabricated68Manifest(pathMode = 'canon') {
+  return BATCH02_CANONICAL_DISCRETE_STATES.map((spec, i) => {
+    const hash = crypto
+      .createHash('sha256')
+      .update('FAKE_NOT_AN_IMAGE_' + spec.discreteAssetId)
+      .digest('hex');
+    return {
+      assetId: spec.discreteAssetId,
+      setId: spec.setId,
+      stateVariant: spec.stateVariant,
+      companionId: spec.companionId,
+      sceneId: spec.sceneId,
+      role: 'Fabricated model metadata',
+      filePath:
+        pathMode === 'canon'
+          ? spec.targetFilePath
+          : `public/visual-v2/batch02-art/DOES_NOT_EXIST_${i}.webp`,
+      existsInRepo: true,
+      format: 'webp',
+      pixelDimensions: { width: spec.minWidth, height: spec.minHeight },
+      hasAlphaTransparency: !!spec.requireAlpha,
+      byteSize: 299000 + i,
+      sha256: hash,
+      provenance: 'Fabricated / never inspected',
+      sharesIdenticalBytesWith: [],
+      status: 'PRODUCTION_ART_ACCEPTED',
+      gapReason: '',
+      artDirectorApproval: {
+        approvedBy: 'Anyone can write Art Director',
+        approvalId: 'SELF_ATTEST_' + i,
+        approvedSha256: hash,
+        approvedAt: '2100-01-01T00:00:00Z',
+      },
+    };
+  });
+}
+
+// Generate exact post-fix reproduction output matching `03_INDEPENDENT_FULL_FABRICATED_MANIFEST_REPRO.json`
+const auditorFullFabricatedCases = [
+  ['all_68_nonexistent_canonical', createAuditorFabricated68Manifest('canon')],
+  ['all_68_nonexistent_wrong_paths', createAuditorFabricated68Manifest('wrong')],
+];
+
+const auditorReproAfterFixOutput = {
+  source: 'src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts',
+  source_sha256: sha256Buffer(fs.readFileSync(contractsTsPath)),
+  fileCount: BATCH02_CANONICAL_DISCRETE_STATES.length,
+  allCanonicalPathsAbsent: BATCH02_CANONICAL_DISCRETE_STATES.every(
+    (s) => !fs.existsSync(path.join(ROOT_DIR, s.targetFilePath))
+  ),
+  cases: auditorFullFabricatedCases.map(([id, entries]) => {
+    const r = evaluateBatch02ProductionArtEligibility(entries, {
+      referenceNowMs: fixedReferenceMs,
+    });
+    return {
+      id,
+      inputCount: entries.length,
+      exampleEntry: entries[0],
+      canAuthorizeBatch02UiReplacement: r.canAuthorizeBatch02UiReplacement,
+      gateStatus: r.gateStatus,
+      holds: r.holdFlags,
+      verifiedCount: r.verifiedDiscreteStateCount,
+      metadataComplete: r.metadataComplete,
+      physicallyVerifiedOnDisk: r.physicallyVerifiedOnDisk,
+      authenticatedApprovalVerified: r.authenticatedApprovalVerified,
+      blockingReasonsCount: r.blockingReasons.length,
+      blockingReasonsSample: r.blockingReasons.slice(0, 5),
+      blockingReasonsByLayerSample: {
+        layer2MetadataAndPathSample: r.blockingReasons
+          .filter(
+            (msg) =>
+              msg.includes('FUTURE_APPROVAL_TIMESTAMP_REJECTED') ||
+              msg.includes('NON_CANONICAL_FILE_PATH')
+          )
+          .slice(0, 2),
+        layer3PhysicalDiskSample: r.blockingReasons
+          .filter((msg) => msg.includes('PHYSICAL_FILE_MISSING_ON_DISK'))
+          .slice(0, 2),
+        layer4IndependentApprovalSample: r.blockingReasons.filter((msg) =>
+          msg.includes('CANDIDATE_SELF_ATTESTATION_NOT_TRUSTED')
+        ),
+        layer5HoldLockSample: r.blockingReasons.filter((msg) =>
+          msg.includes('READ_ONLY_READINESS_HOLD_LOCK_ACTIVE')
+        ),
+      },
+    };
+  }),
+};
+
+fs.writeFileSync(
+  path.join(EVIDENCE_DIR, 'b0rb_full_fabricated_manifest_repro_after_fix.json'),
+  JSON.stringify(auditorReproAfterFixOutput, null, 2) + '\n',
+  'utf8'
+);
+
 const counterexampleCases = [
+  {
+    caseId: 'CE-AUDITOR-FULL-01_all_68_nonexistent_canonical',
+    description:
+      'Independent Auditor Full 68/68 Fabricated Manifest #1 (all_68_nonexistent_canonical): 68 nonexistent canonical files with existsInRepo=true, fake SHA-256, and self-attested future approval (2100-01-01)',
+    expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      createAuditorFabricated68Manifest('canon'),
+      { referenceNowMs: fixedReferenceMs }
+    ),
+  },
+  {
+    caseId: 'CE-AUDITOR-FULL-02_all_68_nonexistent_wrong_paths',
+    description:
+      'Independent Auditor Full 68/68 Fabricated Manifest #2 (all_68_nonexistent_wrong_paths): 68 nonexistent wrong paths (DOES_NOT_EXIST_*.webp) with existsInRepo=true and self-attested future approval',
+    expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      createAuditorFabricated68Manifest('wrong'),
+      { referenceNowMs: fixedReferenceMs }
+    ),
+  },
   {
     caseId: 'CE-00_current_repo_73_rows',
     description: 'Current repo ledger (36 existing + 15 reference boards + 22 missing canonical sets)',
     expectedAuthorized: false,
-    report: evaluateBatch02ProductionArtEligibility(allLedgerEntries),
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(allLedgerEntries, {
+      referenceNowMs: fixedReferenceMs,
+    }),
   },
   {
     caseId: 'CE-01_empty_ledger',
     description: 'Empty ledger array []',
     expectedAuthorized: false,
-    report: evaluateBatch02ProductionArtEligibility([]),
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility([], {
+      referenceNowMs: fixedReferenceMs,
+    }),
   },
   {
     caseId: 'CE-02_auditor_counterexample_1_single_fake_accepted_row',
     description:
       'Auditor Counterexample 1 (only_one_accepted_label_missing_other_scene): 1 fake PRODUCTION_ART_ACCEPTED row with filePath=null, existsInRepo=false, format="missing"',
     expectedAuthorized: false,
-    report: evaluateBatch02ProductionArtEligibility([auditorFixture]),
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility([auditorFixture], {
+      referenceNowMs: fixedReferenceMs,
+    }),
   },
   {
     caseId: 'CE-03_auditor_counterexample_2_fake_accepted_plus_unverified',
     description:
       'Auditor Counterexample 2 (accepted_label_plus_unverified_other_scene): 1 fake accepted row + 1 UNVERIFIED row',
     expectedAuthorized: false,
-    report: evaluateBatch02ProductionArtEligibility([
-      auditorFixture,
-      {
-        ...auditorFixture,
-        assetId: 'fixture_unknown_breaker',
-        sceneId: 'difficulty_breaker',
-        status: 'UNVERIFIED',
-      },
-    ]),
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      [
+        auditorFixture,
+        {
+          ...auditorFixture,
+          assetId: 'fixture_unknown_breaker',
+          sceneId: 'difficulty_breaker',
+          status: 'UNVERIFIED',
+        },
+      ],
+      { referenceNowMs: fixedReferenceMs }
+    ),
   },
   {
     caseId: 'CE-04_auditor_counterexample_3_two_fake_labels_no_files_no_hashes',
     description:
       'Auditor Counterexample 3 (two_labels_no_files_no_hashes): 2 fake PRODUCTION_ART_ACCEPTED rows across detective & breaker with null files/hashes',
     expectedAuthorized: false,
-    report: evaluateBatch02ProductionArtEligibility([
-      auditorFixture,
-      {
-        ...auditorFixture,
-        assetId: 'fixture_breaker',
-        sceneId: 'difficulty_breaker',
-      },
-    ]),
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      [
+        auditorFixture,
+        {
+          ...auditorFixture,
+          assetId: 'fixture_breaker',
+          sceneId: 'difficulty_breaker',
+        },
+      ],
+      { referenceNowMs: fixedReferenceMs }
+    ),
   },
   {
     caseId: 'CE-05_missing_one_discrete_state',
     description: '67 of 68 valid discrete state entries (1 discrete state missing)',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: evaluateBatch02ProductionArtEligibility(
-      createSyntheticValidCompleteManifest().slice(0, 67)
+      createSyntheticValidCompleteManifest().slice(0, 67),
+      { referenceNowMs: fixedReferenceMs }
     ),
   },
   {
     caseId: 'CE-06_unresolved_companion_wildcard_path',
     description: 'Complete 68 entries except 1 companion entry still contains {companionId} wildcard in filePath',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       manifest[manifest.length - 1] = {
         ...manifest[manifest.length - 1],
         filePath: 'public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp',
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-07_below_minimum_dimensions',
     description: 'Complete 68 entries except desktop scene plate is 1280x720 (< required 2560x1440)',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       manifest[0] = {
         ...manifest[0],
         pixelDimensions: { width: 1280, height: 720 },
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-08_missing_required_alpha_channel',
     description: 'Complete 68 entries except an RGBA layer has hasAlphaTransparency: false',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       manifest[2] = {
         ...manifest[2],
         hasAlphaTransparency: false,
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-09_unapproved_duplicate_sha256',
     description: 'Complete 68 entries except 2 states share the same SHA-256 without an approved sharedAssetRef',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       const dupSha = manifest[5].sha256;
@@ -1211,61 +1375,84 @@ const counterexampleCases = [
           approvedSha256: dupSha,
         },
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-10_svg_format_rejected_as_production_art',
     description: 'Complete 68 entries except 1 prop entry is format: "svg"',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       manifest[5] = {
         ...manifest[5],
         format: 'svg',
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-11_missing_art_director_approval',
     description: 'Complete 68 entries except 1 entry has artDirectorApproval: null',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
       manifest[10] = {
         ...manifest[10],
         artDirectorApproval: null,
       };
-      return evaluateBatch02ProductionArtEligibility(manifest);
+      return evaluateBatch02ProductionArtEligibility(manifest, {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
     caseId: 'CE-12_duplicate_asset_id_poisoning',
     description: 'Complete 68 entries plus 1 duplicate assetId entry',
     expectedAuthorized: false,
+    expectedMetadataComplete: false,
+    expectedPhysicallyVerified: false,
     report: (() => {
       const manifest = createSyntheticValidCompleteManifest();
-      return evaluateBatch02ProductionArtEligibility([...manifest, manifest[0]]);
+      return evaluateBatch02ProductionArtEligibility([...manifest, manifest[0]], {
+        referenceNowMs: fixedReferenceMs,
+      });
     })(),
   },
   {
-    caseId: 'POS-01_complete_68_valid_discrete_states_with_approvals',
+    caseId: 'READINESS-POS-01_complete_68_metadata_structure_only_hold_locked',
     description:
-      'Positive synthetic control: All 68 canonical discrete states (across 22 sets & 4 companions) with valid dimensions, alpha, hashes, and Art Director approvals',
-    expectedAuthorized: true,
-    report: evaluateBatch02ProductionArtEligibility(createSyntheticValidCompleteManifest()),
+      'Metadata Readiness Control (formerly POS-01): Complete 68 structural metadata entries prove ONLY metadataComplete=true; because physical files and independent Art Director registry sign-off are absent, canAuthorizeBatch02UiReplacement MUST be false and ARTWORK_GAP=true',
+    expectedAuthorized: false,
+    expectedMetadataComplete: true,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(createSyntheticValidCompleteManifest(), {
+      referenceNowMs: fixedReferenceMs,
+    }),
   },
   {
-    caseId: 'POS-02_complete_68_valid_states_plus_historical_tech_preview_rows',
+    caseId: 'READINESS-POS-02_complete_68_metadata_plus_historical_rows_hold_locked',
     description:
-      'Positive synthetic control with historical audit rows: All 68 canonical discrete states valid + existing TECH_PREVIEW_ONLY & reference_board rows retained for provenance',
-    expectedAuthorized: true,
-    report: evaluateBatch02ProductionArtEligibility([
-      ...existingAssetLedgerEntries,
-      ...referenceBoardEntries,
-      ...createSyntheticValidCompleteManifest(),
-    ]),
+      'Metadata Readiness Control with historical audit rows (formerly POS-02): Complete 68 structural metadata entries + TECH_PREVIEW_ONLY rows prove ONLY metadataComplete=true while keeping canAuthorizeBatch02UiReplacement=false and ARTWORK_GAP=true',
+    expectedAuthorized: false,
+    expectedMetadataComplete: true,
+    expectedPhysicallyVerified: false,
+    report: evaluateBatch02ProductionArtEligibility(
+      [
+        ...existingAssetLedgerEntries,
+        ...referenceBoardEntries,
+        ...createSyntheticValidCompleteManifest(),
+      ],
+      { referenceNowMs: fixedReferenceMs }
+    ),
   },
 ];
 
@@ -1276,7 +1463,16 @@ for (const testCase of counterexampleCases) {
       `Counterexample regression failure on ${testCase.caseId}: expected canAuthorizeBatch02UiReplacement=${testCase.expectedAuthorized}, got ${actual}`
     );
   }
-  // Ensure holdFlags never contradict canAuthorizeBatch02UiReplacement
+  if (testCase.report.metadataComplete !== testCase.expectedMetadataComplete) {
+    throw new Error(
+      `Metadata readiness mismatch on ${testCase.caseId}: expected metadataComplete=${testCase.expectedMetadataComplete}, got ${testCase.report.metadataComplete}`
+    );
+  }
+  if (testCase.report.physicallyVerifiedOnDisk !== testCase.expectedPhysicallyVerified) {
+    throw new Error(
+      `Physical verification mismatch on ${testCase.caseId}: expected physicallyVerifiedOnDisk=${testCase.expectedPhysicallyVerified}, got ${testCase.report.physicallyVerifiedOnDisk}`
+    );
+  }
   if (
     testCase.report.holdFlags.BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED !== !actual ||
     testCase.report.holdFlags.ARTWORK_GAP !== !actual ||
@@ -1291,8 +1487,8 @@ for (const testCase of counterexampleCases) {
 }
 
 const counterexampleRegressionOutput = {
-  schemaVersion: '1.1.0-B0R',
-  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0R_COUNTEREXAMPLE_REGRESSION',
+  schemaVersion: '1.2.0-B0R-B',
+  gateId: 'A-LAND_V2.3_BATCH02_GATE_B0RB_COUNTEREXAMPLE_REGRESSION',
   verifiedAt: new Date().toISOString(),
   nodeVersion: process.version,
   totalCases: counterexampleCases.length,
@@ -1302,13 +1498,22 @@ const counterexampleRegressionOutput = {
     description: c.description,
     expectedAuthorized: c.expectedAuthorized,
     actualAuthorized: c.report.canAuthorizeBatch02UiReplacement,
+    expectedMetadataComplete: c.expectedMetadataComplete,
+    actualMetadataComplete: c.report.metadataComplete,
+    expectedPhysicallyVerified: c.expectedPhysicallyVerified,
+    actualPhysicallyVerified: c.report.physicallyVerifiedOnDisk,
+    authenticatedApprovalVerified: c.report.authenticatedApprovalVerified,
     gateStatus: c.report.gateStatus,
     holdFlags: c.report.holdFlags,
+    metadataReadyDiscreteStateCount: c.report.metadataReadyDiscreteStateCount,
+    physicallyVerifiedDiscreteStateCount: c.report.physicallyVerifiedDiscreteStateCount,
+    approvedDiscreteStateCount: c.report.approvedDiscreteStateCount,
     verifiedDiscreteStateCount: c.report.verifiedDiscreteStateCount,
     verifiedSetCount: c.report.verifiedSetCount,
     missingSetCount: c.report.missingRequiredSetIds.length,
     missingDiscreteStateCount: c.report.missingRequiredDiscreteStateIds.length,
-    blockingReasons: c.report.blockingReasons,
+    blockingReasonsCount: c.report.blockingReasons.length,
+    blockingReasonsSample: c.report.blockingReasons.slice(0, 6),
   })),
 };
 
@@ -1363,8 +1568,8 @@ if (modifiedForbiddenFiles.length > 0) {
 }
 
 const verificationSummary = {
-  gate: 'A-LAND_V2.3_BATCH02_GATE_B0R',
-  status: BATCH02_GATE_B0R_DECISION_STATUS,
+  gate: 'A-LAND_V2.3_BATCH02_GATE_B0R_B',
+  status: BATCH02_GATE_B0RB_DECISION_STATUS,
   executionStatus: BATCH02_GATE0_EXECUTION_STATUS,
   verifiedAt: new Date().toISOString(),
   baseline: BATCH02_GATE0_BASELINE,
@@ -1376,6 +1581,10 @@ const verificationSummary = {
   counterexampleRegressionSummary: {
     totalCases: counterexampleRegressionOutput.totalCases,
     allAssertionsPassed: counterexampleRegressionOutput.allAssertionsPassed,
+    auditor68FabricatedCanonicalRejected:
+      auditorReproAfterFixOutput.cases[0].canAuthorizeBatch02UiReplacement === false,
+    auditor68FabricatedWrongPathsRejected:
+      auditorReproAfterFixOutput.cases[1].canAuthorizeBatch02UiReplacement === false,
   },
   holdFlags: artworkGapLedger.holdFlags,
 };

@@ -6,7 +6,7 @@ To guarantee zero regressions to frozen business logic (`ThoughtDetectiveLabModa
 
 1. **Executable Contracts (`src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts`)**:
    - Defines `ThoughtDetectiveSceneArtV2Props` and `DifficultyBreakerSceneArtV2Props` with 1:1 state and callback parity against the live business components (`boxItems` & `circleItems` using `{ id, text, target, placed }`, `onPlaceBox` & `onPlaceCircle`, `currentStep` initial value `1`).
-   - Defines `evaluateBatch02ProductionArtEligibility(entries)` which enforces a **fail-closed** preflight check against `BATCH02_CANONICAL_ASSET_SETS` (`22` sets) and `BATCH02_CANONICAL_DISCRETE_STATES` (`68` discrete states across `thought_detective`, `difficulty_breaker`, and all `4` companions in `shared_companion_rig`): until all required high-resolution 3D assets exist on disk, meet minimum pixel dimensions and alpha requirements, carry valid SHA-256 digests, and include cryptographic `artDirectorApproval` sign-off, `canAuthorizeBatch02UiReplacement` evaluates to `false` and returns `ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED`.
+   - Defines `evaluateBatch02ProductionArtEligibility(entries, options?)` which enforces a **5-layer fail-closed** preflight check against `BATCH02_CANONICAL_ASSET_SETS` (`22` sets) and `BATCH02_CANONICAL_DISCRETE_STATES` (`68` discrete states across `thought_detective`, `difficulty_breaker`, and all `4` companions in `shared_companion_rig`): separating `metadataComplete`, `physicallyVerifiedOnDisk` (real disk `stat/read`, byte-level SHA-256, and real PNG/WebP binary decoding), `authenticatedApprovalVerified` (verified against `BATCH02_INDEPENDENT_ART_APPROVAL_REGISTRY`, never trusting candidate self-attestations), and `canAuthorizeBatch02UiReplacement` (locked to `false` under `BATCH02_READ_ONLY_READINESS_HOLD_LOCK`).
 2. **Reuse of `V2_3LayerStageAdapter.tsx` Infrastructure**:
    - **Media Load Tracker (`useV2_3MediaLoadTracker`)**: Scene-scoped and asset-set-scoped `loadedCount` / `fallbackCount` / timing metrics (`window.__ALAND_V2_3_MEDIA_METRICS__`), resetting synchronously whenever `sceneId` or active tool/stage asset signature changes.
    - **Aspect-Ratio-Preserving Stage Rendering (`BATCH02_STAGE_COMPOSITION_RULE`)**: Responsive `16:9` desktop (`>= 640px`) and `3:4` mobile (`< 640px`) stage composition. Strictly **prohibits** destructive `188–215px` `object-cover` vertical cropping of `3:4` mobile scene plates (preserving the Gate U2 composition standard).
@@ -31,12 +31,12 @@ When Batch02 production 3D assets are delivered by `Art Production / Art Directo
 
 ---
 
-## 3. Mandatory Gate B0R Stop Condition
+## 3. Mandatory Gate B0R-B Stop Condition
 
-Per `02_ANTIGRAVITY_GATE_B0R_TASK.md` and `09_B0R_SCOPE_CLARIFICATION_CN.md`:
-- Because `productionArtAcceptedCount === 0` (`0/22` canonical asset sets and `0/68` discrete state variants approved, while `27` existing `v2-3-layer-factory` SVG files are duplicate flat geometric templates), **Batch02 full UI replacement is NOT authorized in this round**.
-- `ThoughtDetectiveLabModal.tsx` and `DifficultyBreakerModal.tsx` remain **100% untouched** on `ui/visual-v2-batch02-gate0r-contract`.
-- Execution concludes at **`BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED`**, retaining:
+Per `02_ANTIGRAVITY_B0R_B_PHYSICAL_ELIGIBILITY_CLOSEOUT.md`:
+- Because `productionArtAcceptedCount === 0` (`0/22` canonical asset sets and `0/68` discrete state variants physically produced or approved in `BATCH02_INDEPENDENT_ART_APPROVAL_REGISTRY`), **Batch02 full UI replacement is NOT authorized in this round**.
+- `ThoughtDetectiveLabModal.tsx` and `DifficultyBreakerModal.tsx` remain **100% untouched** on `ui/visual-v2-batch02-b0rb-closeout`.
+- Execution concludes at **`B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED`**, retaining:
   - `ART_DIRECTOR_QA_HOLD = true`
   - `ASSET_ARTWORK_BLOCKED = true`
   - `CONTENT_QA_REVIEW = true`
