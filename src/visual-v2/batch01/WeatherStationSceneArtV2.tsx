@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import type { WeatherType } from '../../types';
 import { useApp } from '../../context/AppContext';
+import { sounds } from '../../utils/sound';
+import { speechNarrator } from '../../utils/speech';
 import { useReducedMotionPreference } from '../story-cup-pilot/StoryCupSceneArtV2';
 import {
   type V2_3CompanionId,
@@ -8,6 +10,7 @@ import {
   type V2_3WeatherLayerPart,
   type V2_3WeatherState,
   V2_3_BATCH01_META,
+  V2_3_COMPANION_NATIVE_CUTOUT_MAP,
   V2_3_WEATHER_LAYER_Z_ORDER,
   getWeatherStationLayers,
 } from '../manifest/v2_3Batch01Manifest';
@@ -27,6 +30,7 @@ export interface WeatherStationSceneArtV2Props {
   bodySensations: string[];
   onSelectPrimary: (weather: WeatherType) => void;
   onToggleBodySensation: (label: string) => void;
+  forceEnableQaForTest?: boolean;
 }
 
 const WEATHER_LABELS: Record<V2_3WeatherState, string> = {
@@ -38,10 +42,51 @@ const WEATHER_LABELS: Record<V2_3WeatherState, string> = {
   opt_out: '我不想选',
 };
 
+const WEATHER_COMPANION_LINES: Record<V2_3WeatherState, string> = {
+  sunny: '今天心里像暖洋洋的太阳，亮堂堂的真舒服！',
+  cloudy: '天上有朵慢悠悠的云，有一点点心事也没关系。',
+  rainy: '心里下起毛毛雨啦，我陪你撑把温暖的小伞。',
+  stormy: '轰隆隆的雷雨好有力气，我在木屋阳台陪你等雨停。',
+  foggy: '白茫茫的雾气看不清，我们先慢慢呼吸、稳稳站好。',
+  opt_out: '今天不想挑天气也完全没关系，我们安安静静看海湾吧。',
+};
+
+const COMPANION_SPECS: ReadonlyArray<{
+  id: V2_3CompanionId;
+  shortName: string;
+  roleTitle: string;
+  greetingLine: string;
+}> = [
+  {
+    id: 'guoguo_squirrel',
+    shortName: '果果',
+    roleTitle: '松鼠果果',
+    greetingLine: '我是松鼠果果！今天你的心里是什么天气呢？',
+  },
+  {
+    id: 'beibei_otter',
+    shortName: '贝贝',
+    roleTitle: '水獭贝贝',
+    greetingLine: '我是水獭贝贝！不管晴天还是雨天，我都陪你听海浪。',
+  },
+  {
+    id: 'tiantian_raccoon',
+    shortName: '天天',
+    roleTitle: '小浣熊天天',
+    greetingLine: '我是小浣熊天天！用望远镜看看头顶的云朵吧。',
+  },
+  {
+    id: 'qiqi_deer',
+    shortName: '奇奇',
+    roleTitle: '小鹿奇奇',
+    greetingLine: '我是小鹿奇奇！慢慢感受身体的温度，每一种天气都被欢迎。',
+  },
+];
+
 const WEATHER_LAYER_LABELS: Record<V2_3WeatherLayerPart, string> = {
-  backplate: 'L1 天空环境背板',
-  weather_actor: 'L2 气象主体层',
-  front_effect: 'L3 前景气象粒子',
+  backplate: 'L1 3D海湾观景台背板',
+  weather_actor: 'L2 3D天空气象主层',
+  front_effect: 'L3 3D木质廊檐与光效前景',
 };
 
 const WEATHER_TOKEN_SPECS: ReadonlyArray<{
@@ -50,8 +95,8 @@ const WEATHER_TOKEN_SPECS: ReadonlyArray<{
   fill: string;
   stroke: string;
 }> = [
-  { type: 'sunny', shortLabel: '晴', fill: '#FEF3C7', stroke: '#F59E0B' },
-  { type: 'cloudy', shortLabel: '阴', fill: '#F1F5F9', stroke: '#64748B' },
+  { type: 'sunny', shortLabel: '晴', fill: '#FEF3C7', stroke: '#D97706' },
+  { type: 'cloudy', shortLabel: '阴', fill: '#F1F5F9', stroke: '#475569' },
   { type: 'rainy', shortLabel: '雨', fill: '#E0F2FE', stroke: '#0284C7' },
   { type: 'stormy', shortLabel: '雷', fill: '#EDE9FE', stroke: '#7C3AED' },
   { type: 'foggy', shortLabel: '雾', fill: '#D1FAE5', stroke: '#059669' },
@@ -66,9 +111,11 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
   intensity,
   bodySensations,
   onSelectPrimary,
-  onToggleBodySensation,
+  forceEnableQaForTest = false,
 }) => {
-  const { personalization } = useApp();
+  const appCtx = useApp();
+  const personalization = appCtx?.personalization;
+  const updatePersonalization = appCtx?.updatePersonalization;
   const prefersReducedMotion = useReducedMotionPreference();
   const companionId = (personalization?.companionId || 'guoguo_squirrel') as V2_3CompanionId;
 
@@ -116,7 +163,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           ? 'thinking'
           : 'listening';
 
-  const intensityScale = intensity >= 5 ? 1.12 : intensity >= 3 ? 1.0 : 0.9;
+  const intensityScale = intensity >= 5 ? 1.06 : intensity >= 3 ? 1.0 : 0.96;
 
   const handleToggleLayer = (id: string) => {
     const part = id as V2_3WeatherLayerPart;
@@ -151,6 +198,19 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
     }
   };
 
+  const handleSwitchCompanion = (spec: (typeof COMPANION_SPECS)[number]) => {
+    sounds.playClick();
+    if (typeof updatePersonalization === 'function') {
+      updatePersonalization({ companionId: spec.id });
+    } else {
+      speechNarrator.syncWithCompanion(spec.id);
+    }
+    speechNarrator.speak(spec.greetingLine);
+  };
+
+  const activeCompanionSpec =
+    COMPANION_SPECS.find((c) => c.id === companionId) || COMPANION_SPECS[0];
+
   return (
     <div
       data-testid="v2-weather-station-stage-wrapper"
@@ -158,19 +218,60 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
       data-weather-step={step}
       data-intensity={intensity}
       data-dual-weather={allowDualWeather && selectedSecondary ? selectedSecondary : 'none'}
+      data-companion-id={companionId}
       data-art-gate="ART_DIRECTOR_QA_HOLD"
+      data-artwork-status="ASSET_ARTWORK_BLOCKED"
       data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
-      className="space-y-1.5"
+      className="space-y-2.5"
     >
-      {/* Responsive Layered Stage Container */}
+      {/* 4 Official Companions Switcher Bar (Child-Safe 3D Wooden Pill Bar) */}
+      <div
+        data-testid="v2-weather-companion-switcher"
+        className="flex items-center justify-between gap-2 px-3 py-2 rounded-2xl bg-linear-to-r from-[#8C5830] via-[#A46B3E] to-[#8C5830] border-2 border-[#FDE68A]/80 shadow-md"
+      >
+        <span className="text-xs sm:text-sm font-black text-amber-50 drop-shadow-2xs shrink-0">
+          陪伴伙伴：
+        </span>
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto">
+          {COMPANION_SPECS.map((spec) => {
+            const isActive = companionId === spec.id;
+            const cutout = V2_3_COMPANION_NATIVE_CUTOUT_MAP[spec.id];
+            return (
+              <button
+                key={spec.id}
+                type="button"
+                data-testid={`v2-weather-switch-companion-${spec.id}`}
+                aria-pressed={isActive}
+                aria-label={`切换陪伴伙伴：${spec.roleTitle}`}
+                onClick={() => handleSwitchCompanion(spec)}
+                className={`min-h-[56px] min-w-[64px] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 border-2 transition-all cursor-pointer shrink-0 ${
+                  isActive
+                    ? 'bg-linear-to-b from-[#FFFBEB] to-[#FDE68A] border-[#F59E0B] text-[#78350F] shadow-sm scale-102 font-black'
+                    : 'bg-[#6D4121]/85 border-[#B77D4E]/70 text-amber-100 hover:bg-[#7C4B27] font-bold'
+                }`}
+              >
+                <img
+                  src={cutout.publicUrl}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-7 h-7 object-contain drop-shadow-2xs shrink-0"
+                />
+                <span className="text-xs sm:text-sm">{spec.shortName}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Responsive 3D Fairytale Coastal Observatory Stage Container */}
       <div
         data-testid="v2-weather-station-stage"
         data-stage-layout={isMobileStage ? 'mobile-4x3' : 'desktop-16x9'}
-        className={`relative w-full overflow-hidden rounded-3xl border-2 border-sky-300/90 shadow-md bg-sky-950/20 select-none ${
+        className={`relative w-full overflow-hidden rounded-3xl border-4 border-[#9A6338] shadow-[0_14px_32px_rgba(12,74,110,0.28)] bg-sky-900 select-none ${
           isMobileStage ? 'aspect-[420/340]' : 'aspect-[16/9]'
         }`}
       >
-        {/* 1. V2.3 Environment SVG Layers (backplate -> weather_actor -> front_effect) */}
+        {/* 1. V2.3 High-Detail 3D Fairytale Layers (backplate -> weather_actor -> front_effect) */}
         {V2_3_WEATHER_LAYER_Z_ORDER.map((part, idx) => {
           if (enabledLayers[part] === false) return null;
           const record = layerRecords[part];
@@ -186,13 +287,14 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                 }
               : {
                   zIndex: idx + 1,
-                  opacity: isFront && intensity === 1 ? 0.65 : 1,
+                  opacity: isFront && intensity === 1 ? 0.85 : 1,
                 };
 
           return (
             <V2_3ResilientSvgLayer
               key={`${weatherState}-${part}`}
               record={record}
+              isMobileStage={isMobileStage}
               testId={`v2-weather-layer-${part}`}
               style={transformStyle}
               onAssetMetric={recordAssetEvent}
@@ -200,7 +302,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           );
         })}
 
-        {/* 2. State-Driven Visual Differentiation for Shared-Geometry Fixtures (foggy & opt_out) */}
+        {/* 2. State-Driven Atmospheric Overlays for Foggy & Opt-Out */}
         {weatherState === 'foggy' && (
           <div
             data-testid="v2-weather-fog-overlay"
@@ -208,9 +310,8 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
             className="absolute inset-0 pointer-events-none"
             style={{ zIndex: 4 }}
           >
-            <div className="absolute inset-x-0 top-[18%] h-12 bg-white/55 blur-md" />
-            <div className="absolute inset-x-0 top-[46%] h-16 bg-emerald-50/65 blur-md" />
-            <div className="absolute inset-x-0 bottom-[12%] h-14 bg-white/60 blur-sm" />
+            <div className="absolute inset-x-0 top-[20%] h-14 bg-white/45 blur-md" />
+            <div className="absolute inset-x-0 top-[48%] h-16 bg-emerald-50/50 blur-md" />
           </div>
         )}
 
@@ -218,10 +319,10 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           <div
             data-testid="v2-weather-optout-veil"
             aria-hidden="true"
-            className="absolute inset-0 bg-stone-900/25 backdrop-blur-[1px] pointer-events-none flex items-center justify-center"
+            className="absolute inset-0 bg-amber-950/18 backdrop-blur-[1px] pointer-events-none flex items-center justify-center"
             style={{ zIndex: 4 }}
           >
-            <span className="px-3.5 py-1 rounded-full bg-white/90 text-stone-800 text-xs font-extrabold shadow-xs border border-stone-300">
+            <span className="px-4 py-1.5 rounded-full bg-[#FFFBEB]/95 text-[#78350F] text-xs sm:text-sm font-black shadow-md border-2 border-[#F59E0B]">
               安静休息中 · 今天不挑天气也没关系
             </span>
           </div>
@@ -232,9 +333,12 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           <div
             data-testid="v2-weather-secondary-badge"
             data-secondary-weather={selectedSecondary}
-            className="absolute top-2.5 left-2.5 z-10 px-3 py-1 rounded-full bg-white/92 border-2 border-sky-300 shadow-xs text-xs font-black text-sky-950 pointer-events-none flex items-center gap-1.5"
+            className="absolute top-3 left-3 z-10 px-3.5 py-1 rounded-full bg-[#FFFBEB]/95 border-2 border-[#F59E0B] shadow-sm text-xs font-black text-[#78350F] pointer-events-none flex items-center gap-1.5"
           >
-            <span>双天气并存：{WEATHER_LABELS[weatherState]} + {WEATHER_LABELS[selectedSecondary as V2_3WeatherState]}</span>
+            <span>
+              双天气并存：{WEATHER_LABELS[weatherState]} +{' '}
+              {WEATHER_LABELS[selectedSecondary as V2_3WeatherState]}
+            </span>
           </div>
         )}
 
@@ -242,12 +346,12 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
         {bodySensations.length > 0 && weatherState !== 'opt_out' && (
           <div
             data-testid="v2-weather-stage-sensations"
-            className="absolute top-2.5 right-2.5 z-10 max-w-[62%] flex flex-wrap justify-end gap-1 pointer-events-none"
+            className="absolute top-3 right-3 z-10 max-w-[60%] flex flex-wrap justify-end gap-1 pointer-events-none"
           >
             {bodySensations.map((sensation) => (
               <span
                 key={sensation}
-                className="px-2 py-0.5 rounded-full bg-amber-100/95 border border-amber-400 text-[11px] font-black text-amber-950 shadow-2xs"
+                className="px-2.5 py-0.5 rounded-full bg-[#FFFBEB]/95 border-2 border-[#F59E0B] text-[11px] font-black text-[#78350F] shadow-xs"
               >
                 {sensation}
               </span>
@@ -255,21 +359,32 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
           </div>
         )}
 
-        {/* 5. V2.3 7-Part Companion Rig Actor (4 official companions only) */}
+        {/* 5. 3D Companion Cutout & Warm Storybook Speech Bubble on Left Veranda */}
         <div
           data-testid="v2-weather-companion-slot"
-          className="absolute left-2.5 bottom-2 z-10 pointer-events-none"
+          className="absolute left-2.5 bottom-2 z-10 pointer-events-none flex items-end gap-2 max-w-[78%] sm:max-w-[62%]"
         >
           <V2_3CompanionRigActor
             companionId={companionId}
             state={companionRigState}
             prefersReducedMotion={prefersReducedMotion}
             testIdPrefix="v2-weather-companion-rig"
-            className={isMobileStage ? 'w-20 h-25' : 'w-26 h-32'}
+            className={isMobileStage ? 'w-21 h-25 shrink-0' : 'w-28 h-34 shrink-0'}
           />
+          <div
+            data-testid="v2-weather-companion-speech-bubble"
+            className="mb-2 px-3 py-2 rounded-2xl bg-linear-to-b from-[#FFFDF7]/96 to-[#FEF3C7]/95 border-2 border-[#D97706] shadow-md text-left"
+          >
+            <div className="text-[11px] font-black text-[#B45309]">
+              {activeCompanionSpec.roleTitle}
+            </div>
+            <p className="text-xs sm:text-sm font-extrabold text-[#451A03] leading-snug line-clamp-2">
+              {WEATHER_COMPANION_LINES[weatherState]}
+            </p>
+          </div>
         </div>
 
-        {/* 6. Interactive SVG Stage Targets (Keyboard Focusable .v2-story-svg-focusable >= 56x56 CSS px) */}
+        {/* 6. Interactive SVG Sky-Horizon Observatory Dial (Keyboard Focusable .v2-story-svg-focusable >= 56x56 CSS px) */}
         <svg
           data-testid="v2-weather-interactive-svg"
           viewBox={isMobileStage ? '0 0 420 340' : '0 0 1200 675'}
@@ -278,12 +393,12 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
         >
           {isMobileStage ? (
             <>
-              {/* Mobile 420x340 coordinate system: 3x2 weather quick-tokens on right/bottom-right, each 88x86 SVG units (>= 60x59 CSS px at 360px viewport) */}
+              {/* Mobile 420x340 coordinate system: 3x2 translucent sky-dial badges on upper-right, each 90x88 SVG units (>= 62x60 CSS px at 360px viewport) */}
               {WEATHER_TOKEN_SPECS.map((spec, index) => {
                 const col = index % 3;
                 const row = Math.floor(index / 3);
-                const x = 128 + col * 94;
-                const y = 148 + row * 92;
+                const x = 124 + col * 95;
+                const y = 34 + row * 92;
                 const isSelected = weatherState === spec.type;
                 return (
                   <g
@@ -300,20 +415,20 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     <rect
                       x={x}
                       y={y}
-                      width={88}
-                      height={86}
-                      rx={18}
+                      width={90}
+                      height={88}
+                      rx={22}
                       fill={spec.fill}
-                      fillOpacity={isSelected ? 0.96 : 0.82}
-                      stroke={isSelected ? '#0284C7' : spec.stroke}
+                      fillOpacity={isSelected ? 0.94 : 0.76}
+                      stroke={isSelected ? '#B45309' : spec.stroke}
                       strokeWidth={isSelected ? 4 : 2.5}
                     />
                     <text
-                      x={x + 44}
-                      y={y + 50}
+                      x={x + 45}
+                      y={y + 51}
                       textAnchor="middle"
                       fill="#1E293B"
-                      fontSize="20"
+                      fontSize="19"
                       fontWeight="900"
                     >
                       {spec.shortLabel}
@@ -324,10 +439,10 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
             </>
           ) : (
             <>
-              {/* Desktop/Tablet 1200x675 coordinate system: 6 weather sky orbs along bottom-right, each 156x146 SVG units (>= 64x60 CSS px) */}
+              {/* Desktop/Tablet 1200x675 coordinate system: 6 sky-horizon observatory badges on bottom-right deck, each 124x124 SVG units (>= 58x58 CSS px) */}
               {WEATHER_TOKEN_SPECS.map((spec, index) => {
-                const x = 210 + index * 160;
-                const y = 505;
+                const x = 408 + index * 128;
+                const y = 528;
                 const isSelected = weatherState === spec.type;
                 return (
                   <g
@@ -344,20 +459,20 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
                     <rect
                       x={x}
                       y={y}
-                      width={150}
-                      height={144}
-                      rx={28}
+                      width={120}
+                      height={120}
+                      rx={30}
                       fill={spec.fill}
-                      fillOpacity={isSelected ? 0.96 : 0.84}
-                      stroke={isSelected ? '#0284C7' : spec.stroke}
+                      fillOpacity={isSelected ? 0.95 : 0.8}
+                      stroke={isSelected ? '#B45309' : spec.stroke}
                       strokeWidth={isSelected ? 6 : 3.5}
                     />
                     <text
-                      x={x + 75}
-                      y={y + 84}
+                      x={x + 60}
+                      y={y + 72}
                       textAnchor="middle"
                       fill="#0F172A"
-                      fontSize="34"
+                      fontSize="30"
                       fontWeight="900"
                     >
                       {spec.shortLabel}
@@ -370,10 +485,10 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
         </svg>
       </div>
 
-      {/* 7. Default-Collapsed Engineering / QA Hold Reviewer Drawer */}
+      {/* 7. QA Hold Reviewer Drawer — strictly hidden in normal child UI, shown only with ?qa=1 */}
       <V2_3ReviewerDebugDrawer
         sceneKey="weather_station"
-        sceneTitle="V2.3 情绪天气站样板"
+        sceneTitle="V2.3 Batch01R 情绪天气站视觉纠偏样板"
         activeStateLabel={`${WEATHER_LABELS[weatherState]} (step=${step}, intensity=${intensity})`}
         companionId={companionId}
         companionState={companionRigState}
@@ -384,6 +499,7 @@ export const WeatherStationSceneArtV2: React.FC<WeatherStationSceneArtV2Props> =
         mediaSummary={mediaSummary}
         geometryDisclosure={V2_3_BATCH01_META.geometrySharingDisclosures.weatherStation}
         testIdPrefix="v2-weather"
+        forceEnableQaForTest={forceEnableQaForTest}
       />
     </div>
   );

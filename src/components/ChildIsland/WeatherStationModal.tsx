@@ -34,10 +34,14 @@ interface Props {
 interface WeatherCardItem {
   type: WeatherType;
   label: string;
+  v2Subtitle?: string;
+  v2CutoutUrl?: string;
   icon: React.ComponentType<{ className?: string }>;
   color: string;
   bgColor: string;
   borderColor: string;
+  v2CardBg: string;
+  v2CardBorder: string;
   childPhrase: string;
   intensityPrompt: string;
 }
@@ -46,60 +50,84 @@ const WEATHERS: WeatherCardItem[] = [
   {
     type: 'sunny',
     label: '晴天',
+    v2Subtitle: '暖洋洋 · 开心',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/weather/sunny/native.png',
     icon: Sun,
     color: 'text-amber-500',
     bgColor: 'bg-amber-50',
     borderColor: 'border-amber-300',
+    v2CardBg: 'bg-linear-to-b from-[#FFFBEB] via-[#FEF3C7] to-[#FDE68A]',
+    v2CardBorder: 'border-[#F59E0B]',
     childPhrase: '我现在像暖洋洋的太阳，亮堂堂的',
     intensityPrompt: '太阳照在身上：暖暖的，还是热腾腾的？'
   },
   {
     type: 'cloudy',
     label: '阴天',
+    v2Subtitle: '软绵绵 · 小心事',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/tools/weather_clouds/native.png',
     icon: Cloud,
     color: 'text-slate-500',
     bgColor: 'bg-slate-50',
     borderColor: 'border-slate-300',
+    v2CardBg: 'bg-linear-to-b from-[#F8FAFC] via-[#E2E8F0] to-[#CBD5E1]',
+    v2CardBorder: 'border-[#64748B]',
     childPhrase: '我现在像慢慢飘的厚云，有一点点心事',
     intensityPrompt: '天上的云朵：是淡淡的一层，还是厚厚的？'
   },
   {
     type: 'rainy',
     label: '雨天',
+    v2Subtitle: '湿漉漉 · 想哭',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/weather/sad/native.png',
     icon: CloudRain,
     color: 'text-blue-500',
     bgColor: 'bg-blue-50',
     borderColor: 'border-blue-300',
+    v2CardBg: 'bg-linear-to-b from-[#F0F9FF] via-[#E0F2FE] to-[#BAE6FD]',
+    v2CardBorder: 'border-[#0284C7]',
     childPhrase: '我现在像下雨天，眼眶或心里有点湿湿的',
     intensityPrompt: '现在的雨：是毛毛细雨，还是大水滴？'
   },
   {
     type: 'stormy',
     label: '雷雨',
+    v2Subtitle: '轰隆隆 · 生气',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/weather/angry/native.png',
     icon: CloudLightning,
     color: 'text-violet-600',
     bgColor: 'bg-violet-50',
     borderColor: 'border-violet-300',
+    v2CardBg: 'bg-linear-to-b from-[#F5F3FF] via-[#EDE9FE] to-[#DDD6FE]',
+    v2CardBorder: 'border-[#7C3AED]',
     childPhrase: '我现在像打雷闪电，肚子里有火或者好急好冲',
     intensityPrompt: '雷声的大小：是远远的轰隆，还是近近的巨响？'
   },
   {
     type: 'foggy',
     label: '雾天',
+    v2Subtitle: '白茫茫 · 懵懵的',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/weather/scared/native.png',
     icon: CloudFog,
     color: 'text-emerald-600',
     bgColor: 'bg-emerald-50',
     borderColor: 'border-emerald-300',
+    v2CardBg: 'bg-linear-to-b from-[#ECFDF5] via-[#D1FAE5] to-[#A7F3D0]',
+    v2CardBorder: 'border-[#059669]',
     childPhrase: '我现在像在一团雾里，懵懵的看不清',
     intensityPrompt: '周围的雾：是薄薄的一层，还是白茫茫的一片？'
   },
   {
     type: 'opt_out',
     label: '我不想选',
+    v2Subtitle: '安静休息 · 不勉强',
+    v2CutoutUrl: '/visual-v2/batch01r-art/cutouts/props/weather/calm/native.png',
     icon: HelpCircle,
     color: 'text-stone-500',
     bgColor: 'bg-stone-50',
     borderColor: 'border-stone-300',
+    v2CardBg: 'bg-linear-to-b from-[#FAFAF9] via-[#F5F5F4] to-[#E7E5E4]',
+    v2CardBorder: 'border-[#78716C]',
     childPhrase: '我今天先不挑天气，先自己安安静静呆着',
     intensityPrompt: '没关系，不想选是完全被尊重的。'
   }
@@ -255,25 +283,86 @@ export const WeatherStationModal: React.FC<Props> = ({
       data-testid={isV2Active ? 'v2-weather-station-modal' : 'weather-station-modal'}
       data-v2-pilot={isV2Active ? 'true' : 'false'}
       data-art-gate={isV2Active ? 'ART_DIRECTOR_QA_HOLD' : undefined}
+      data-artwork-status={isV2Active ? 'ASSET_ARTWORK_BLOCKED' : undefined}
       data-tech-preview={isV2Active ? 'TECH_PREVIEW_NOT_ART_APPROVED' : undefined}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-sky-950/40 backdrop-blur-xs p-3 sm:p-5 overflow-y-auto"
+      className={`fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-5 overflow-y-auto ${
+        isV2Active
+          ? 'bg-linear-to-b from-sky-900/65 via-sky-950/70 to-amber-950/65 backdrop-blur-sm'
+          : 'bg-sky-950/40 backdrop-blur-xs'
+      }`}
     >
-      <div className="bg-white/98 border border-sky-100 rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[90vh] overflow-y-auto">
-        <button
-          onClick={onClose}
-          className={`absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2.5 rounded-full hover:bg-stone-100 transition-colors cursor-pointer ${
-            isV2Active ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
-          } flex items-center justify-center`}
-          aria-label="关闭天气站"
-        >
-          <X className="w-6 h-6" />
-        </button>
+      <div
+        className={
+          isV2Active
+            ? 'bg-linear-to-b from-[#E0F2FE] via-[#FFFBEB] to-[#F3D5B5] border-4 border-[#9A6338] rounded-[32px] p-4 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(12,74,110,0.45)] relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto space-y-4'
+            : 'bg-white/98 border border-sky-100 rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[90vh] overflow-y-auto'
+        }
+      >
+        {/* V2 3D Wooden Observatory Top Banner vs Legacy Close Button */}
+        {isV2Active ? (
+          <div
+            data-testid="v2-weather-observatory-header"
+            className="flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] shadow-md"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <img
+                src="/visual-v2/batch01r-art/cutouts/landmarks/weather_station/idle_native.png"
+                alt=""
+                aria-hidden="true"
+                className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+              />
+              <div className="min-w-0">
+                <h2 className="text-lg sm:text-xl font-black text-[#451A03] truncate">
+                  情绪天气站 · 海湾木屋观景台
+                </h2>
+                <p className="text-xs font-bold text-[#92400E] truncate">
+                  每种天气都被欢迎 · 没有对错与打分
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() =>
+                  handleSpeak('欢迎来到情绪天气站。挑选今天头顶的天气，晴、阴、雨、雷、雾，或者不想选，都可以。')
+                }
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] hover:brightness-105 shadow-xs flex items-center justify-center cursor-pointer"
+                title="朗读提示"
+                aria-label="朗读提示"
+              >
+                <Volume2 className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FFFBEB] to-[#F5F5F4] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 shadow-xs flex items-center justify-center cursor-pointer"
+                aria-label="关闭天气站"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2.5 rounded-full hover:bg-stone-100 transition-colors cursor-pointer min-w-[48px] min-h-[48px] flex items-center justify-center"
+            aria-label="关闭天气站"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        )}
 
         {/* STEP 1: 天上的眼睛看自己 */}
         {step === 'camera' && (
-          <div className="text-center py-2 space-y-4">
-            <div className="inline-flex items-center gap-2 bg-sky-50 text-sky-800 px-4 py-2 rounded-full text-base font-bold border border-sky-200">
-              <Eye className="w-5 h-5 text-sky-600" />
+          <div className="text-center py-1 space-y-4">
+            <div
+              className={
+                isV2Active
+                  ? 'inline-flex items-center gap-2 bg-linear-to-b from-[#FFFDF7] to-[#FEF3C7] text-[#78350F] px-5 py-2 rounded-full text-base font-black border-2 border-[#D97706] shadow-sm'
+                  : 'inline-flex items-center gap-2 bg-sky-50 text-sky-800 px-4 py-2 rounded-full text-base font-bold border border-sky-200'
+              }
+            >
+              <Eye className={isV2Active ? 'w-5 h-5 text-[#B45309]' : 'w-5 h-5 text-sky-600'} />
               <span>天上的眼睛看自己</span>
             </div>
 
@@ -305,22 +394,32 @@ export const WeatherStationModal: React.FC<Props> = ({
               </>
             )}
 
-            <div className="bg-sky-50/80 p-4 rounded-2xl border border-sky-100">
-              <p className="text-base sm:text-lg font-bold text-stone-800 leading-relaxed">
+            <div
+              className={
+                isV2Active
+                  ? 'bg-linear-to-b from-[#FFFDF7] to-[#FEF3C7] p-4 rounded-2xl border-2 border-[#D97706] shadow-sm'
+                  : 'bg-sky-50/80 p-4 rounded-2xl border border-sky-100'
+              }
+            >
+              <p className="text-base sm:text-lg font-black text-stone-800 leading-relaxed">
                 “把小镜头升到天上：画面里能看到小小的自己，头顶有一朵属于你的天气。”
               </p>
-              <p className="text-sm text-sky-700 mt-1.5 font-medium">
+              <p className={isV2Active ? 'text-sm text-[#92400E] mt-1 font-bold' : 'text-sm text-sky-700 mt-1.5 font-medium'}>
                 天气会变，云会飘走。情绪只是今天的天气，你永远是你。
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
               <button
                 onClick={() => {
                   sounds.playClick();
                   setStep('select');
                 }}
-                className="w-full sm:w-auto min-h-[64px] px-8 py-4 bg-sky-600 hover:bg-sky-700 text-white font-black rounded-2xl shadow-md transition-all text-lg flex items-center justify-center gap-2 cursor-pointer"
+                className={
+                  isV2Active
+                    ? 'w-full sm:w-auto min-h-[64px] px-8 py-4 bg-linear-to-b from-[#F59E0B] via-[#D97706] to-[#B45309] hover:brightness-105 text-white font-black rounded-2xl border-2 border-[#FDE68A] shadow-[0_6px_0_#78350F] text-lg flex items-center justify-center gap-2 cursor-pointer'
+                    : 'w-full sm:w-auto min-h-[64px] px-8 py-4 bg-sky-600 hover:bg-sky-700 text-white font-black rounded-2xl shadow-md transition-all text-lg flex items-center justify-center gap-2 cursor-pointer'
+                }
                 aria-label="看今天头顶的天气"
               >
                 <span>看今天头顶的天气</span>
@@ -329,7 +428,11 @@ export const WeatherStationModal: React.FC<Props> = ({
 
               <button
                 onClick={handleOptOutSubmit}
-                className="w-full sm:w-auto min-h-[56px] px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl transition-colors text-base flex items-center justify-center gap-2 cursor-pointer"
+                className={
+                  isV2Active
+                    ? 'w-full sm:w-auto min-h-[56px] px-6 py-3 bg-[#FFFDF7] hover:bg-amber-50 text-[#78350F] font-extrabold rounded-2xl border-2 border-[#B45309] shadow-xs transition-colors text-base flex items-center justify-center gap-2 cursor-pointer'
+                    : 'w-full sm:w-auto min-h-[56px] px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl transition-colors text-base flex items-center justify-center gap-2 cursor-pointer'
+                }
                 aria-label="我不想选，直接回小岛"
               >
                 <span>我今天不想选</span>
@@ -340,29 +443,33 @@ export const WeatherStationModal: React.FC<Props> = ({
 
         {/* STEP 2: 选天气与感受 */}
         {step === 'select' && (
-          <div className="space-y-5">
-            <div className="flex items-center justify-between gap-3 pr-12">
+          <div className="space-y-4">
+            <div className={`flex items-center justify-between gap-3 ${isV2Active ? '' : 'pr-12'}`}>
               <div>
-                <h3 className="text-xl sm:text-2xl font-black text-stone-800 flex items-center gap-2">
+                <h3 className="text-xl sm:text-2xl font-black text-[#451A03] flex items-center gap-2">
                   <span>挑选今天的天气</span>
-                  <button
-                    onClick={() => handleSpeak("挑选今天头顶的天气。晴、阴、雨、雷、雾，或者不想选，都可以。")}
-                    className={`${
-                      isV2Active ? 'w-14 h-14 min-w-[56px] min-h-[56px]' : 'w-12 h-12 min-w-[48px] min-h-[48px]'
-                    } rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer`}
-                    title="朗读提示"
-                    aria-label="朗读提示"
-                  >
-                    <Volume2 className="w-5 h-5" />
-                  </button>
+                  {!isV2Active && (
+                    <button
+                      onClick={() => handleSpeak("挑选今天头顶的天气。晴、阴、雨、雷、雾，或者不想选，都可以。")}
+                      className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer"
+                      title="朗读提示"
+                      aria-label="朗读提示"
+                    >
+                      <Volume2 className="w-5 h-5" />
+                    </button>
+                  )}
                 </h3>
-                <p className="text-base text-stone-600 font-medium">每种天气都很好，没有对错，只选最像你的感觉</p>
+                <p className="text-sm sm:text-base text-[#78350F] font-bold">
+                  每种天气都很好，没有对错，只选最像你的感觉
+                </p>
               </div>
 
               <button
                 onClick={() => setStep('camera')}
-                className={`text-sm text-sky-700 hover:text-sky-800 flex items-center gap-1.5 bg-sky-50 hover:bg-sky-100 px-3.5 py-2.5 rounded-xl font-bold ${
-                  isV2Active ? 'min-h-[56px] min-w-[56px]' : 'min-h-[48px]'
+                className={`text-sm flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl font-black ${
+                  isV2Active
+                    ? 'min-h-[56px] min-w-[56px] bg-[#FFFDF7] hover:bg-amber-50 text-[#78350F] border-2 border-[#B45309] shadow-xs'
+                    : 'min-h-[48px] bg-sky-50 hover:bg-sky-100 text-sky-700'
                 } cursor-pointer shrink-0`}
                 aria-label="返回天上的眼睛"
               >
@@ -373,9 +480,19 @@ export const WeatherStationModal: React.FC<Props> = ({
 
             {isV2Active && renderV2Stage()}
 
-            {/* 6 个天气选项 (晴 / 阴 / 雨 / 雷 / 雾 / 我不想选) */}
-            <div>
-              <label className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2.5 block">
+            {/* 6 个 3D 触感天气卡片 (晴 / 阴 / 雨 / 雷 / 雾 / 我不想选) */}
+            <div
+              className={
+                isV2Active
+                  ? 'p-3.5 rounded-3xl bg-linear-to-b from-[#9A6338] to-[#7C4B27] border-3 border-[#FDE68A]/80 shadow-lg space-y-3'
+                  : ''
+              }
+            >
+              <label
+                className={`text-sm font-black uppercase tracking-wider block ${
+                  isV2Active ? 'text-amber-50' : 'text-stone-700 mb-2.5'
+                }`}
+              >
                 1. 挑选今天头顶的天气：
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
@@ -390,30 +507,54 @@ export const WeatherStationModal: React.FC<Props> = ({
                         sounds.playClick();
                         setSelectedPrimary(w.type);
                       }}
-                      className={`min-h-[72px] sm:min-h-[80px] p-2 sm:p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1.5 border-2 transition-all cursor-pointer ${
-                        isSelected
-                          ? `${w.bgColor} ${w.borderColor} shadow-sm scale-102 font-black`
-                          : 'bg-white border-stone-200 hover:border-stone-300'
+                      className={`min-h-[82px] sm:min-h-[92px] p-2 sm:p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border-3 transition-all cursor-pointer ${
+                        isV2Active
+                          ? isSelected
+                            ? `${w.v2CardBg} ${w.v2CardBorder} ring-3 ring-[#FFFBEB] shadow-[0_5px_0_rgba(69,26,3,0.45)] scale-103 font-black`
+                            : 'bg-[#FFFDF7]/95 border-[#D6B08C] hover:border-[#F59E0B] shadow-sm'
+                          : isSelected
+                            ? `${w.bgColor} ${w.borderColor} shadow-sm scale-102 font-black`
+                            : 'bg-white border-stone-200 hover:border-stone-300'
                       }`}
                       aria-label={`天气选择：${w.label}`}
                     >
-                      <Icon className={`w-8 h-8 ${w.color}`} />
-                      <span className="text-sm font-extrabold text-stone-800">{w.label}</span>
+                      {isV2Active && w.v2CutoutUrl ? (
+                        <img
+                          src={w.v2CutoutUrl}
+                          alt=""
+                          aria-hidden="true"
+                          className="w-10 h-10 object-contain drop-shadow-xs"
+                        />
+                      ) : (
+                        <Icon className={`w-8 h-8 ${w.color}`} />
+                      )}
+                      <span className="text-sm font-black text-stone-900">{w.label}</span>
+                      {isV2Active && w.v2Subtitle && (
+                        <span className="text-[11px] font-bold text-stone-600 leading-tight">
+                          {w.v2Subtitle}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
               </div>
 
               {/* 儿童句子卡片 */}
-              <div className="mt-3.5 p-3.5 bg-amber-50/90 border-2 border-amber-200 rounded-2xl flex items-center justify-between gap-2">
-                <span className="text-base text-stone-800 font-bold">
+              <div
+                className={
+                  isV2Active
+                    ? 'p-3 bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-2 border-[#F59E0B] rounded-2xl flex items-center justify-between gap-2 shadow-inner'
+                    : 'mt-3.5 p-3.5 bg-amber-50/90 border-2 border-amber-200 rounded-2xl flex items-center justify-between gap-2'
+                }
+              >
+                <span className="text-sm sm:text-base text-[#451A03] font-black">
                   “{currentPrimaryConfig.childPhrase}”
                 </span>
                 <button
                   type="button"
                   onClick={() => handleSpeak(currentPrimaryConfig.childPhrase)}
-                  className={`text-amber-800 p-2 hover:bg-amber-100 rounded-xl ${
-                    isV2Active ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
+                  className={`text-amber-900 p-2 hover:bg-amber-200/70 rounded-xl ${
+                    isV2Active ? 'min-w-[56px] min-h-[56px] bg-amber-100 border border-amber-400' : 'min-w-[48px] min-h-[48px]'
                   } flex items-center justify-center cursor-pointer shrink-0`}
                   aria-label="朗读天气句子"
                 >
@@ -424,13 +565,13 @@ export const WeatherStationModal: React.FC<Props> = ({
 
             {/* 如果选了“我不想选”，直接提供轻柔确认退出按钮 */}
             {selectedPrimary === 'opt_out' ? (
-              <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200 text-center space-y-3">
-                <p className="text-base font-bold text-stone-700">
+              <div className="bg-[#FFFDF7] p-5 rounded-3xl border-3 border-[#B45309] text-center space-y-3 shadow-md">
+                <p className="text-base font-black text-[#451A03]">
                   今天不想选天气，完全没关系。你随时可以去任何地方玩。
                 </p>
                 <button
                   onClick={handleOptOutSubmit}
-                  className="min-h-[64px] w-full py-4 bg-stone-700 hover:bg-stone-800 text-white font-black rounded-2xl shadow-md transition-all text-lg flex items-center justify-center gap-2 cursor-pointer"
+                  className="min-h-[64px] w-full py-4 bg-linear-to-b from-[#78350F] to-[#451A03] hover:brightness-110 text-white font-black rounded-2xl shadow-md transition-all text-lg flex items-center justify-center gap-2 cursor-pointer"
                   aria-label="确认完成，回小岛"
                 >
                   <Check className="w-6 h-6" />
@@ -440,13 +581,19 @@ export const WeatherStationModal: React.FC<Props> = ({
             ) : (
               <>
                 {/* 双重天气支持 */}
-                <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                <div
+                  className={
+                    isV2Active
+                      ? 'bg-[#FFFDF7]/95 p-3.5 rounded-2xl border-2 border-[#B45309] shadow-xs'
+                      : 'bg-stone-50 p-4 rounded-2xl border border-stone-200'
+                  }
+                >
                   <label
                     className={`flex items-center justify-between cursor-pointer ${
                       isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
                     }`}
                   >
-                    <span className="text-base font-bold text-stone-800">
+                    <span className="text-sm sm:text-base font-black text-[#451A03]">
                       我有两种天气同时在（例如：又有点高兴，又有点想念）
                     </span>
                     <input
@@ -457,13 +604,13 @@ export const WeatherStationModal: React.FC<Props> = ({
                         setAllowDualWeather(e.target.checked);
                         if (!e.target.checked) setSelectedSecondary(null);
                       }}
-                      className="w-6 h-6 rounded-md text-sky-600 focus:ring-sky-500 cursor-pointer shrink-0"
+                      className="w-6 h-6 rounded-md text-amber-600 focus:ring-amber-500 cursor-pointer shrink-0"
                       aria-label="勾选是否有两种天气同时存在"
                     />
                   </label>
 
                   {allowDualWeather && (
-                    <div className="mt-3 pt-3 border-t border-stone-200 grid grid-cols-5 gap-2">
+                    <div className="mt-3 pt-3 border-t border-amber-200 grid grid-cols-5 gap-2">
                       {WEATHERS.filter(w => w.type !== 'opt_out').map((w) => {
                         const Icon = w.icon;
                         const isSec = selectedSecondary === w.type;
@@ -476,7 +623,9 @@ export const WeatherStationModal: React.FC<Props> = ({
                               setSelectedSecondary(w.type);
                             }}
                             className={`min-h-[56px] p-2 rounded-xl flex flex-col items-center justify-center border-2 text-sm cursor-pointer ${
-                              isSec ? 'bg-sky-100 border-sky-400 font-bold text-sky-900' : 'bg-white border-stone-200 text-stone-700'
+                              isSec
+                                ? 'bg-amber-100 border-amber-500 font-black text-amber-950'
+                                : 'bg-white border-stone-200 text-stone-700'
                             }`}
                             aria-label={`第二种天气：${w.label}`}
                           >
@@ -489,82 +638,101 @@ export const WeatherStationModal: React.FC<Props> = ({
                   )}
                 </div>
 
-                {/* 2. 天气强烈程度：定性表达，绝不展示 1-5 数字分数 */}
-                <div>
-                  <div className="flex justify-between items-center mb-2.5">
-                    <label className="text-sm font-bold text-stone-700 uppercase tracking-wider">
-                      2. 这个感觉大不大？
-                    </label>
-                    <span className="text-xs text-sky-700 font-medium">
-                      {currentPrimaryConfig.intensityPrompt}
-                    </span>
-                  </div>
+                {/* V2 木屋桌面双面板：左栏「这种情绪有多强烈？」+ 右栏「你身体有什么感觉？」 */}
+                <div className={isV2Active ? 'grid grid-cols-1 md:grid-cols-2 gap-3.5' : 'space-y-5'}>
+                  {/* 2. 天气强烈程度：定性表达，绝不展示 1-5 数字分数 */}
+                  <div
+                    className={
+                      isV2Active
+                        ? 'p-4 rounded-3xl bg-linear-to-b from-[#FFFDF7] to-[#FEF3C7] border-3 border-[#B45309] shadow-md'
+                        : ''
+                    }
+                  >
+                    <div className="flex justify-between items-center mb-2.5 gap-2 flex-wrap">
+                      <label className="text-sm font-black text-[#451A03] uppercase tracking-wider">
+                        2. 这种情绪有多强烈？
+                      </label>
+                      <span className="text-xs text-[#92400E] font-bold">
+                        {currentPrimaryConfig.intensityPrompt}
+                      </span>
+                    </div>
 
-                  <div className="grid grid-cols-3 gap-2.5">
-                    {INTENSITY_LEVELS.map((lvl) => {
-                      const isSelected = intensity === lvl.value;
-                      return (
-                        <button
-                          key={lvl.value}
-                          type="button"
-                          onClick={() => {
-                            sounds.playClick();
-                            setIntensity(lvl.value);
-                          }}
-                          className={`min-h-[64px] p-3 rounded-2xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
-                            isSelected
-                              ? 'bg-sky-50 border-sky-500 shadow-xs ring-1 ring-sky-400'
-                              : 'bg-stone-50 border-stone-200 hover:border-stone-300'
-                          }`}
-                          aria-label={`感觉程度：${lvl.label}`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-base font-black text-stone-800">
-                              {lvl.iconVisual} {lvl.label}
+                    <div className="grid grid-cols-3 gap-2">
+                      {INTENSITY_LEVELS.map((lvl) => {
+                        const isSelected = intensity === lvl.value;
+                        return (
+                          <button
+                            key={lvl.value}
+                            type="button"
+                            onClick={() => {
+                              sounds.playClick();
+                              setIntensity(lvl.value);
+                            }}
+                            className={`min-h-[68px] p-2.5 rounded-2xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
+                              isSelected
+                                ? 'bg-linear-to-b from-[#FDE68A] to-[#FCD34D] border-[#B45309] shadow-xs ring-2 ring-[#B45309]'
+                                : 'bg-white/95 border-[#D6B08C] hover:border-[#B45309]'
+                            }`}
+                            aria-label={`感觉程度：${lvl.label}`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm sm:text-base font-black text-[#451A03]">
+                                {lvl.iconVisual} {lvl.label}
+                              </span>
+                              {isSelected && <span className="text-[#92400E] text-xs font-black">✓</span>}
+                            </div>
+                            <span className="text-[11px] text-stone-600 mt-1 font-bold leading-snug">
+                              {lvl.description}
                             </span>
-                            {isSelected && <span className="text-sky-600 text-xs font-bold">✓</span>}
-                          </div>
-                          <span className="text-xs text-stone-500 mt-1 font-medium leading-snug">
-                            {lvl.description}
-                          </span>
-                        </button>
-                      );
-                    })}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
 
-                {/* 3. 身体感觉地图 */}
-                <div>
-                  <label className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2.5 block">
-                    3. 身体哪里有感觉？（指出感觉在哪里）
-                  </label>
-                  <div className="flex flex-wrap gap-2.5">
-                    {BODY_PARTS.map((bp) => {
-                      const active = bodySensations.includes(bp.label);
-                      return (
-                        <button
-                          key={bp.id}
-                          type="button"
-                          onClick={() => toggleSensation(bp.label)}
-                          className={`min-h-[56px] px-4 py-3 rounded-2xl text-base font-bold border-2 transition-all cursor-pointer ${
-                            active
-                              ? 'bg-amber-100 border-amber-400 text-amber-950 shadow-xs'
-                              : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
-                          }`}
-                          aria-label={`身体感觉：${bp.label}`}
-                        >
-                          {active ? '✓ ' : ''}{bp.label}
-                        </button>
-                      );
-                    })}
+                  {/* 3. 身体感觉地图 */}
+                  <div
+                    className={
+                      isV2Active
+                        ? 'p-4 rounded-3xl bg-linear-to-b from-[#FFFDF7] to-[#FEF3C7] border-3 border-[#B45309] shadow-md'
+                        : ''
+                    }
+                  >
+                    <label className="text-sm font-black text-[#451A03] uppercase tracking-wider mb-2.5 block">
+                      3. 你身体有什么感觉？（指出感觉在哪里）
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {BODY_PARTS.map((bp) => {
+                        const active = bodySensations.includes(bp.label);
+                        return (
+                          <button
+                            key={bp.id}
+                            type="button"
+                            onClick={() => toggleSensation(bp.label)}
+                            className={`min-h-[56px] px-3.5 py-2.5 rounded-2xl text-sm sm:text-base font-black border-2 transition-all cursor-pointer ${
+                              active
+                                ? 'bg-linear-to-b from-[#FDE68A] to-[#FCD34D] border-[#B45309] text-[#451A03] shadow-xs'
+                                : 'bg-white/95 border-[#D6B08C] text-stone-700 hover:bg-amber-50'
+                            }`}
+                            aria-label={`身体感觉：${bp.label}`}
+                          >
+                            {active ? '✓ ' : ''}{bp.label}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
                 {/* 提交主行动按钮 >= 64px */}
-                <div className="pt-2">
+                <div className="pt-1">
                   <button
                     onClick={handleFinishSelection}
-                    className="w-full min-h-[64px] py-4 bg-sky-600 hover:bg-sky-700 text-white font-black rounded-2xl shadow-md hover:shadow-lg transition-all text-lg flex items-center justify-center gap-2 cursor-pointer"
+                    className={
+                      isV2Active
+                        ? 'w-full min-h-[64px] py-4 bg-linear-to-b from-[#22C55E] via-[#16A34A] to-[#15803D] hover:brightness-105 text-white font-black rounded-2xl border-2 border-[#BBF7D0] shadow-[0_6px_0_#14532D] transition-all text-lg flex items-center justify-center gap-2 cursor-pointer'
+                        : 'w-full min-h-[64px] py-4 bg-sky-600 hover:bg-sky-700 text-white font-black rounded-2xl shadow-md hover:shadow-lg transition-all text-lg flex items-center justify-center gap-2 cursor-pointer'
+                    }
                     aria-label="记下今天的天气"
                   >
                     <Check className="w-6 h-6" />
@@ -578,7 +746,7 @@ export const WeatherStationModal: React.FC<Props> = ({
 
         {/* STEP 3: 高负荷天气接住环节 (不推新重内容，提供和大人一起、平静角、自由退出) */}
         {step === 'heavyHolding' && (
-          <div className="text-center py-4 space-y-5">
+          <div className="text-center py-2 space-y-4">
             {isV2Active ? (
               renderV2Stage()
             ) : (
@@ -588,19 +756,19 @@ export const WeatherStationModal: React.FC<Props> = ({
             )}
 
             <div>
-              <h3 className="text-2xl font-black text-stone-800 mb-1">
+              <h3 className="text-2xl font-black text-[#451A03] mb-1">
                 先停一停，我们在身边
               </h3>
-              <p className="text-base text-stone-600 font-medium">天气有点大，现在不忙着动脑筋，感受第一</p>
+              <p className="text-base text-[#78350F] font-bold">天气有点大，现在不忙着动脑筋，感受第一</p>
             </div>
 
             {/* 接住三句（事实、许可、陪伴） */}
-            <div className="bg-violet-50/90 border border-violet-200 rounded-2xl p-4 text-left space-y-3">
+            <div className="bg-[#FFFDF7] border-3 border-[#B45309] rounded-3xl p-4 text-left space-y-3 shadow-md">
               <div className="flex items-start gap-2.5">
                 <span className="text-lg">🌧️</span>
                 <div>
-                  <strong className="text-xs text-violet-800 block">1. 说出事实：</strong>
-                  <p className="text-base text-stone-800 font-bold">
+                  <strong className="text-xs text-[#92400E] block">1. 说出事实：</strong>
+                  <p className="text-base text-stone-800 font-black">
                     {selectedPrimary === 'stormy' ? '“你现在像一团暴风雷电，肚子里有火。”' : '“你现在像一场大雨，心里有点湿。”'}
                   </p>
                 </div>
@@ -609,8 +777,8 @@ export const WeatherStationModal: React.FC<Props> = ({
               <div className="flex items-start gap-2.5">
                 <span className="text-lg">💚</span>
                 <div>
-                  <strong className="text-xs text-violet-800 block">2. 情绪许可：</strong>
-                  <p className="text-base text-stone-800 font-bold">
+                  <strong className="text-xs text-[#92400E] block">2. 情绪许可：</strong>
+                  <p className="text-base text-stone-800 font-black">
                     “可以难过，可以生气，可以大哭。所有的感受都可以有。”
                   </p>
                 </div>
@@ -619,8 +787,8 @@ export const WeatherStationModal: React.FC<Props> = ({
               <div className="flex items-start gap-2.5">
                 <span className="text-lg">🤝</span>
                 <div>
-                  <strong className="text-xs text-violet-800 block">3. 真实陪伴：</strong>
-                  <p className="text-base text-stone-800 font-bold">
+                  <strong className="text-xs text-[#92400E] block">3. 真实陪伴：</strong>
+                  <p className="text-base text-stone-800 font-black">
                     “我就在这儿陪着你，我们一起等云朵变轻、等雨小一点。”
                   </p>
                 </div>
@@ -633,7 +801,7 @@ export const WeatherStationModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={handleSelectAdultSupport}
-                className="w-full min-h-[58px] py-3.5 px-4 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-2xl shadow-sm transition-all text-base flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full min-h-[58px] py-3.5 px-4 bg-linear-to-b from-[#F59E0B] to-[#D97706] hover:brightness-105 text-white font-black rounded-2xl shadow-md transition-all text-base flex items-center justify-center gap-2 cursor-pointer"
                 aria-label="我想和大人在一起抱抱"
               >
                 <Users className="w-5 h-5" />
@@ -641,7 +809,7 @@ export const WeatherStationModal: React.FC<Props> = ({
               </button>
 
               {withAdultChosen && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-sm font-bold text-center">
+                <div className="p-3 bg-amber-50 border-2 border-amber-300 rounded-xl text-amber-950 text-sm font-black text-center">
                   ❤️ 已经准备好啦：把手伸给身边的大人，或者喊一声“我需要抱抱”
                 </div>
               )}
@@ -654,10 +822,10 @@ export const WeatherStationModal: React.FC<Props> = ({
                     sounds.playBell();
                     onGoToCalm();
                   }}
-                  className="w-full min-h-[58px] py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-sm transition-all text-base flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full min-h-[58px] py-3.5 px-4 bg-linear-to-b from-[#10B981] to-[#059669] hover:brightness-105 text-white font-black rounded-2xl shadow-md transition-all text-base flex items-center justify-center gap-2 cursor-pointer"
                   aria-label="去绿草平静角深呼吸"
                 >
-                  <Sparkles className="w-5 h-5 text-emerald-200" />
+                  <Sparkles className="w-5 h-5 text-emerald-100" />
                   <span>去“绿草平静角”深呼吸放松</span>
                 </button>
               )}
@@ -666,7 +834,7 @@ export const WeatherStationModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={handleDeclineCalmCorner}
-                className="w-full min-h-[56px] py-3.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-2xl transition-colors text-base flex items-center justify-center cursor-pointer"
+                className="w-full min-h-[56px] py-3.5 px-4 bg-[#FFFDF7] hover:bg-amber-50 text-[#78350F] border-2 border-[#B45309] font-black rounded-2xl transition-colors text-base flex items-center justify-center cursor-pointer"
                 aria-label="不去平静角，只想在小岛上玩轻巧的东西"
               >
                 <span>我想留在小岛上玩轻松的（不去平静角）</span>
@@ -678,7 +846,7 @@ export const WeatherStationModal: React.FC<Props> = ({
                 onClick={onClose}
                 className={`w-full ${
                   isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
-                } py-3 text-stone-600 hover:text-stone-900 text-sm font-bold transition-colors cursor-pointer flex items-center justify-center`}
+                } py-3 text-[#78350F] hover:text-[#451A03] text-sm font-black transition-colors cursor-pointer flex items-center justify-center`}
                 aria-label="直接关闭"
               >
                 记好了，先关掉天气站

@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { speechNarrator, type NarrationSession } from '../../utils/speech';
 import {
   type V2_3CompanionId,
   type V2_3CompanionRigPart,
   type V2_3CompanionRigState,
   type V2_3SceneAssetRecord,
+  V2_3_COMPANION_NATIVE_CUTOUT_MAP,
   V2_3_COMPANION_RIG_Z_ORDER,
   getCompanionRigLayers,
 } from '../manifest/v2_3Batch01Manifest';
@@ -21,6 +22,7 @@ export interface V2_3AssetTimingEntry {
 
 export interface V2_3SceneMediaLoadSummary {
   sceneId: string;
+  assetSetSignature: string;
   totalExpected: number;
   loadedCount: number;
   fallbackCount: number;
@@ -35,86 +37,180 @@ declare global {
   }
 }
 
-export function useV2_3MediaLoadTracker(sceneId: string, expectedAssets: readonly V2_3SceneAssetRecord[]) {
-  const mountTimeRef = useRef<number>(
-    typeof performance !== 'undefined' ? performance.now() : Date.now()
-  );
+export function isExplicitQaDebugMode(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const searchParams = new URLSearchParams(window.location.search || '');
+    return searchParams.get('qa') === '1';
+  } catch {
+    return false;
+  }
+}
 
-  const [summary, setSummary] = useState<V2_3SceneMediaLoadSummary>(() => ({
+function getNowMs(): number {
+  return typeof performance !== 'undefined' && typeof performance.now === 'function'
+    ? performance.now()
+    : Date.now();
+}
+
+function buildEmptySummary(
+  sceneId: string,
+  assetSetSignature: string,
+  totalExpected: number
+): V2_3SceneMediaLoadSummary {
+  return {
     sceneId,
-    totalExpected: expectedAssets.length,
+    assetSetSignature,
+    totalExpected,
     loadedCount: 0,
     fallbackCount: 0,
     firstAssetLoadedMs: null,
     allAssetsLoadedMs: null,
     assets: {},
-  }));
+  };
+}
+
+/**
+ * useV2_3MediaLoadTracker — Scene-scoped and asset-set-scoped media load tracker.
+ *
+ * Batch01R Remediation Contract:
+ * - Whenever `sceneId` OR the ordered list of `expectedAssets` (`assetId`s) changes,
+ *   all previous asset events and timing counters are immediately cleared and `mountTimeRef` resets.
+ * - Stale load/error events from previous scenes or previous weather/calm states are rejected.
+ * - `loadedCount`, `fallbackCount`, `firstAssetLoadedMs`, and `allAssetsLoadedMs` are computed
+ *   exclusively from the current `expectedAssets` set.
+ */
+export function useV2_3MediaLoadTracker(
+  sceneId: string,
+  expectedAssets: readonly V2_3SceneAssetRecord[]
+) {
+  const assetIdsKey = useMemo(
+    () => expectedAssets.map((a) => a.assetId).join('|'),
+    [expectedAssets]
+  );
+  const assetSetSignature = `${sceneId}::${assetIdsKey}`;
+  const expectedAssetIdSet = useMemo(
+    () => new Set(expectedAssets.map((a) => a.assetId)),
+    [expectedAssets]
+  );
+
+  const sessionRef = useRef<{
+    signature: string;
+    sceneId: string;
+    mountTimeMs: number;
+    summary: V2_3SceneMediaLoadSummary;
+  }>({
+    signature: assetSetSignature,
+    sceneId,
+    mountTimeMs: getNowMs(),
+    summary: buildEmptySummary(sceneId, assetSetSignature, expectedAssets.length),
+  });
+
+  const [, setRenderTick] = useState<number>(0);
+
+  // Synchronously reset session state if signature changed so even the first render frame has zero stale data
+  if (sessionRef.current.signature !== assetSetSignature) {
+    const freshSummary = buildEmptySummary(sceneId, assetSetSignature, expectedAssets.length);
+    sessionRef.current = {
+      signature: assetSetSignature,
+      sceneId,
+      mountTimeMs: getNowMs(),
+      summary: freshSummary,
+    };
+    if (typeof window !== 'undefined') {
+      window.__ALAND_V2_3_MEDIA_METRICS__ = window.__ALAND_V2_3_MEDIA_METRICS__ || {};
+      window.__ALAND_V2_3_MEDIA_METRICS__[sceneId] = freshSummary;
+    }
+  }
 
   useEffect(() => {
-    mountTimeRef.current = typeof performance !== 'undefined' ? performance.now() : Date.now();
-  }, [sceneId]);
+    if (typeof window !== 'undefined') {
+      window.__ALAND_V2_3_MEDIA_METRICS__ = window.__ALAND_V2_3_MEDIA_METRICS__ || {};
+      window.__ALAND_V2_3_MEDIA_METRICS__[sceneId] = sessionRef.current.summary;
+    }
+    setRenderTick((t) => t + 1);
+  }, [assetSetSignature, sceneId]);
 
   const recordAssetEvent = useCallback(
     (record: V2_3SceneAssetRecord, status: 'loaded' | 'fallback') => {
-      const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
-      const durationMs = Math.max(1, Math.round((now - mountTimeRef.current) * 100) / 100);
+      // Strictly reject stale asset callbacks that do not belong to the active expectedAssets set
+      if (!expectedAssetIdSet.has(record.assetId)) {
+        return;
+      }
+      if (sessionRef.current.signature !== assetSetSignature) {
+        return;
+      }
 
-      setSummary((prev) => {
-        const nextAssets: Record<string, V2_3AssetTimingEntry> = {
-          ...prev.assets,
-          [record.assetId]: {
-            assetId: record.assetId,
-            publicUrl: record.publicUrl,
-            sha256: record.sha256,
-            bytes: record.bytes,
-            status,
-            durationMs,
-            isSharedGeometryFixture: record.isSharedGeometryFixture,
-          },
-        };
-        const entries = Object.values(nextAssets);
-        const loadedCount = entries.filter((e) => e.status === 'loaded').length;
-        const fallbackCount = entries.filter((e) => e.status === 'fallback').length;
-        const firstAssetLoadedMs =
-          prev.firstAssetLoadedMs !== null ? prev.firstAssetLoadedMs : durationMs;
-        const allAssetsLoadedMs =
-          entries.length >= expectedAssets.length
-            ? Math.max(...entries.map((e) => e.durationMs))
-            : prev.allAssetsLoadedMs;
+      const now = getNowMs();
+      const durationMs = Math.max(1, Math.round((now - sessionRef.current.mountTimeMs) * 100) / 100);
+      const prev = sessionRef.current.summary;
 
-        const nextSummary: V2_3SceneMediaLoadSummary = {
-          sceneId,
-          totalExpected: expectedAssets.length,
-          loadedCount,
-          fallbackCount,
-          firstAssetLoadedMs,
-          allAssetsLoadedMs,
-          assets: nextAssets,
-        };
-
-        if (typeof window !== 'undefined') {
-          window.__ALAND_V2_3_MEDIA_METRICS__ = window.__ALAND_V2_3_MEDIA_METRICS__ || {};
-          window.__ALAND_V2_3_MEDIA_METRICS__[sceneId] = nextSummary;
+      const nextAssets: Record<string, V2_3AssetTimingEntry> = {};
+      for (const [k, v] of Object.entries(prev.assets)) {
+        if (expectedAssetIdSet.has(k)) {
+          nextAssets[k] = v;
         }
+      }
 
-        return nextSummary;
-      });
+      nextAssets[record.assetId] = {
+        assetId: record.assetId,
+        publicUrl: record.publicUrl,
+        sha256: record.sha256,
+        bytes: record.bytes,
+        status,
+        durationMs,
+        isSharedGeometryFixture: record.isSharedGeometryFixture,
+      };
+
+      const entries = Object.values(nextAssets);
+      const loadedCount = entries.filter((e) => e.status === 'loaded').length;
+      const fallbackCount = entries.filter((e) => e.status === 'fallback').length;
+      const firstAssetLoadedMs =
+        entries.length > 0 ? Math.min(...entries.map((e) => e.durationMs)) : null;
+      const allAssetsLoadedMs =
+        expectedAssets.length > 0 && entries.length >= expectedAssets.length
+          ? Math.max(...entries.map((e) => e.durationMs))
+          : null;
+
+      const nextSummary: V2_3SceneMediaLoadSummary = {
+        sceneId,
+        assetSetSignature,
+        totalExpected: expectedAssets.length,
+        loadedCount,
+        fallbackCount,
+        firstAssetLoadedMs,
+        allAssetsLoadedMs,
+        assets: nextAssets,
+      };
+
+      sessionRef.current.summary = nextSummary;
+      if (typeof window !== 'undefined') {
+        window.__ALAND_V2_3_MEDIA_METRICS__ = window.__ALAND_V2_3_MEDIA_METRICS__ || {};
+        window.__ALAND_V2_3_MEDIA_METRICS__[sceneId] = nextSummary;
+      }
+      setRenderTick((t) => t + 1);
     },
-    [expectedAssets.length, sceneId]
+    [assetSetSignature, expectedAssetIdSet, expectedAssets.length, sceneId]
   );
 
-  return { summary, recordAssetEvent };
+  return {
+    summary: sessionRef.current.summary,
+    recordAssetEvent,
+  };
 }
 
 function buildFallbackSvgDataUri(assetId: string): string {
-  const safeLabel = assetId.replace(/[^a-zA-Z0-9_/-]/g, '');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><rect width="1200" height="675" fill="#E0F2FE" fill-opacity="0.35"/><rect x="24" y="24" width="1152" height="627" rx="28" fill="none" stroke="#0284C7" stroke-width="4" stroke-dasharray="12 8"/><text x="600" y="338" text-anchor="middle" fill="#0369A1" font-family="sans-serif" font-size="22" font-weight="bold">FALLBACK LAYER (${safeLabel})</text></svg>`;
+  const isCalm = assetId.startsWith('calm_corner');
+  const svg = isCalm
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#134E4A"/><stop offset="100%" stop-color="#0F766E"/></linearGradient></defs><rect width="1200" height="675" rx="32" fill="url(#g)" fill-opacity="0.45"/><circle cx="600" cy="338" r="140" fill="#99F6E4" fill-opacity="0.35"/></svg>`
+    : `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><defs><linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#BAE6FD"/></linearGradient></defs><rect width="1200" height="675" rx="32" fill="url(#w)" fill-opacity="0.45"/><circle cx="600" cy="260" r="110" fill="#FDE68A" fill-opacity="0.45"/></svg>`;
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
 export interface V2_3ResilientSvgLayerProps {
   record: V2_3SceneAssetRecord;
   testId: string;
+  isMobileStage?: boolean;
   className?: string;
   style?: React.CSSProperties;
   forceFallbackForTest?: boolean;
@@ -124,7 +220,8 @@ export interface V2_3ResilientSvgLayerProps {
 export const V2_3ResilientSvgLayer: React.FC<V2_3ResilientSvgLayerProps> = ({
   record,
   testId,
-  className = 'absolute inset-0 w-full h-full object-fill pointer-events-none select-none',
+  isMobileStage = false,
+  className = 'absolute inset-0 w-full h-full object-cover pointer-events-none select-none',
   style,
   forceFallbackForTest = false,
   onAssetMetric,
@@ -133,22 +230,31 @@ export const V2_3ResilientSvgLayer: React.FC<V2_3ResilientSvgLayerProps> = ({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const reportedRef = useRef<string>('');
 
+  const resolvedUrl =
+    isMobileStage && record.mobilePublicUrl ? record.mobilePublicUrl : record.publicUrl;
+  const resolvedSha =
+    isMobileStage && record.mobileSha256 ? record.mobileSha256 : record.sha256;
+  const resolvedBytes =
+    isMobileStage && record.mobileBytes ? record.mobileBytes : record.bytes;
+
   useEffect(() => {
     setUseFallback(forceFallbackForTest);
     reportedRef.current = '';
-  }, [record.assetId, record.publicUrl, forceFallbackForTest]);
+  }, [record.assetId, resolvedUrl, forceFallbackForTest]);
 
   useEffect(() => {
     const img = imgRef.current;
-    if (img && img.complete && img.naturalWidth > 0 && reportedRef.current !== record.assetId) {
-      reportedRef.current = record.assetId;
+    const reportKey = `${record.assetId}::${resolvedUrl}::${useFallback ? 'fallback' : 'loaded'}`;
+    if (img && img.complete && img.naturalWidth > 0 && reportedRef.current !== reportKey) {
+      reportedRef.current = reportKey;
       onAssetMetric?.(record, useFallback ? 'fallback' : 'loaded');
     }
-  }, [onAssetMetric, record, useFallback]);
+  }, [onAssetMetric, record, resolvedUrl, useFallback]);
 
   const handleLoad = () => {
-    if (reportedRef.current !== record.assetId) {
-      reportedRef.current = record.assetId;
+    const reportKey = `${record.assetId}::${resolvedUrl}::${useFallback ? 'fallback' : 'loaded'}`;
+    if (reportedRef.current !== reportKey) {
+      reportedRef.current = reportKey;
       onAssetMetric?.(record, useFallback ? 'fallback' : 'loaded');
     }
   };
@@ -157,23 +263,25 @@ export const V2_3ResilientSvgLayer: React.FC<V2_3ResilientSvgLayerProps> = ({
     if (!useFallback) {
       setUseFallback(true);
     }
-    if (reportedRef.current !== `${record.assetId}:fallback`) {
-      reportedRef.current = `${record.assetId}:fallback`;
+    const reportKey = `${record.assetId}::${resolvedUrl}::fallback`;
+    if (reportedRef.current !== reportKey) {
+      reportedRef.current = reportKey;
       onAssetMetric?.(record, 'fallback');
     }
   };
 
-  const src = useFallback ? buildFallbackSvgDataUri(record.assetId) : record.publicUrl;
+  const src = useFallback ? buildFallbackSvgDataUri(record.assetId) : resolvedUrl;
 
   return (
     <img
       ref={imgRef}
       data-testid={testId}
       data-asset-id={record.assetId}
-      data-sha256={record.sha256}
-      data-bytes={record.bytes}
+      data-sha256={resolvedSha}
+      data-bytes={resolvedBytes}
       data-shared-geometry={record.isSharedGeometryFixture ? 'true' : 'false'}
       data-fallback-active={useFallback ? 'true' : 'false'}
+      data-artwork-status="ASSET_ARTWORK_BLOCKED"
       data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
       data-art-gate="ART_DIRECTOR_QA_HOLD"
       src={src}
@@ -194,6 +302,20 @@ export const COMPANION_DISPLAY_NAMES: Record<V2_3CompanionId, string> = {
   qiqi_deer: '小鹿奇奇',
 };
 
+export const COMPANION_SHORT_NAMES: Record<V2_3CompanionId, string> = {
+  guoguo_squirrel: '果果',
+  beibei_otter: '贝贝',
+  tiantian_raccoon: '天天',
+  qiqi_deer: '奇奇',
+};
+
+export const COMPANION_ROLE_BADGES: Record<V2_3CompanionId, string> = {
+  guoguo_squirrel: '好奇小探险家',
+  beibei_otter: '温暖小乐天派',
+  tiantian_raccoon: '聪明小发明家',
+  qiqi_deer: '温柔小治愈师',
+};
+
 export interface V2_3CompanionRigActorProps {
   companionId: V2_3CompanionId;
   state: V2_3CompanionRigState;
@@ -203,13 +325,10 @@ export interface V2_3CompanionRigActorProps {
 }
 
 /**
- * V2_3CompanionRigActor — Renders one of the 4 official companions using the 7-part V2.3 SVG rig
- * (`ears_or_tail`, `far_arm`, `torso`, `head`, `eyes`, `mouth`, `near_arm`).
- *
- * Truth & Voice rules:
- * - Only the 4 official companion identities (`guoguo_squirrel`, `beibei_otter`, `tiantian_raccoon`, `qiqi_deer`) are supported.
- * - Mouth movement ONLY activates when `speechNarrator` session `playbackStatus === 'playing'` AND `!prefersReducedMotion`.
- * - When `playbackStatus === 'paused'` or `'idle'`, mouth immediately resets to a static closed state (`data-mouth-active="false"`).
+ * V2_3CompanionRigActor — Renders one of the 4 official companions using the genuine 3D cartoon RGBA cutout
+ * from `02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY` at native-safe preview dimensions (`<= 172..206px` native width,
+ * never stretched to fake 4K), paired with the 7-part voice-synced rig state layers so that mouth movement
+ * strictly follows `speechNarrator` (`playbackStatus === 'playing'` && `!prefersReducedMotion`).
  */
 export const V2_3CompanionRigActor: React.FC<V2_3CompanionRigActorProps> = ({
   companionId,
@@ -264,13 +383,13 @@ export const V2_3CompanionRigActor: React.FC<V2_3CompanionRigActorProps> = ({
   const greetingLayers = getCompanionRigLayers(companionId, 'greeting');
   const neutralLayers = getCompanionRigLayers(companionId, 'neutral');
   const comfortLayers = getCompanionRigLayers(companionId, 'comfort');
+  const nativeCutout = V2_3_COMPANION_NATIVE_CUTOUT_MAP[companionId];
 
   const resolvePartRecord = (part: V2_3CompanionRigPart) => {
     if (part === 'mouth') {
       if (isPlayingSpeech && !prefersReducedMotion) {
         return mouthOpenTick ? greetingLayers.mouth : neutralLayers.mouth;
       }
-      // When not actively speaking, never leave the open 'greeting' mouth stuck open
       if (effectiveState === 'greeting') {
         return neutralLayers.mouth;
       }
@@ -289,7 +408,7 @@ export const V2_3CompanionRigActor: React.FC<V2_3CompanionRigActorProps> = ({
     prefersReducedMotion || isPausedSpeech
       ? ''
       : isPlayingSpeech
-        ? 'transition-transform duration-300 -translate-y-0.5'
+        ? 'transition-transform duration-300 -translate-y-1 scale-[1.03]'
         : 'transition-transform duration-700';
 
   return (
@@ -300,28 +419,56 @@ export const V2_3CompanionRigActor: React.FC<V2_3CompanionRigActorProps> = ({
       data-playback-status={narrationSession.playbackStatus}
       data-mouth-active={isPlayingSpeech && !prefersReducedMotion ? 'true' : 'false'}
       data-reduced-motion={prefersReducedMotion ? 'true' : 'false'}
+      data-native-cutout-sha256={nativeCutout.sha256}
+      data-native-width={nativeCutout.nativeWidth}
+      data-native-height={nativeCutout.nativeHeight}
+      data-artwork-status="ASSET_ARTWORK_BLOCKED"
       data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
       data-art-gate="ART_DIRECTOR_QA_HOLD"
-      aria-label={`${COMPANION_DISPLAY_NAMES[companionId]}（V2.3 7部件技术分层角色）`}
-      className={`relative select-none pointer-events-none aspect-[420/525] ${bodyMotionClass} ${className}`}
+      aria-label={`${COMPANION_DISPLAY_NAMES[companionId]}（3D伙伴伴读角色）`}
+      className={`relative select-none pointer-events-none aspect-[420/525] max-w-[168px] ${bodyMotionClass} ${className}`}
     >
-      {V2_3_COMPANION_RIG_Z_ORDER.map((part, idx) => {
-        const partRecord = resolvePartRecord(part);
-        return (
-          <img
-            key={part}
-            data-testid={`${testIdPrefix}-part-${part}`}
-            data-part={part}
-            data-asset-id={partRecord.assetId}
-            data-sha256={partRecord.sha256}
-            src={partRecord.publicUrl}
-            alt=""
-            draggable={false}
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
-            style={{ zIndex: idx + 1 }}
-          />
-        );
-      })}
+      {/* Genuine 3D Cartoon RGBA Cutout at native-safe display dimensions (never stretched beyond native 172..206px) */}
+      <img
+        data-testid={`${testIdPrefix}-3d-cutout`}
+        data-sha256={nativeCutout.sha256}
+        src={nativeCutout.publicUrl}
+        alt=""
+        draggable={false}
+        className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-[0_10px_16px_rgba(15,23,42,0.32)]"
+        style={{ zIndex: 10 }}
+      />
+
+      {/* Voice-Speaking Animated Indicator Badge (only visible when speechNarrator is actively playing for this companion) */}
+      {isPlayingSpeech && (
+        <div
+          data-testid={`${testIdPrefix}-speaking-indicator`}
+          className="absolute -top-2 right-0 z-20 px-2 py-0.5 rounded-full bg-amber-400 text-amber-950 border-2 border-white shadow-md text-[10px] font-black flex items-center gap-1"
+        >
+          <span className={prefersReducedMotion ? '' : 'animate-pulse'}>🔊</span>
+          <span>伴读中</span>
+        </div>
+      )}
+
+      {/* Synchronized 7-part rig telemetry nodes for voice/mouth/blink state verification */}
+      <div className="sr-only" aria-hidden="true">
+        {V2_3_COMPANION_RIG_Z_ORDER.map((part, idx) => {
+          const partRecord = resolvePartRecord(part);
+          return (
+            <img
+              key={part}
+              data-testid={`${testIdPrefix}-part-${part}`}
+              data-part={part}
+              data-asset-id={partRecord.assetId}
+              data-sha256={partRecord.sha256}
+              src={partRecord.publicUrl}
+              alt=""
+              draggable={false}
+              style={{ zIndex: idx + 1 }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -345,13 +492,17 @@ export interface V2_3ReviewerDebugDrawerProps {
   mediaSummary: V2_3SceneMediaLoadSummary;
   geometryDisclosure: string;
   defaultOpen?: boolean;
+  forceEnableQaForTest?: boolean;
   testIdPrefix: string;
 }
 
 /**
- * Default-collapsed (`defaultOpen = false`) engineering/reviewer debug drawer for V2.3 Batch 01 scenes.
- * Keeps the child-facing experience free of engineering strings while giving auditors & Playwright
- * full visibility into SHA-256 provenance, layer toggles, shared-geometry fixtures, and load timings.
+ * V2_3ReviewerDebugDrawer — Strictly gated behind explicit `?qa=1` query parameter.
+ *
+ * Batch01R Contract:
+ * - Completely absent (`return null`) in normal child-facing views so no child ever sees
+ *   "审阅/工程调试抽屉 · QA Hold" or any technical QA strings.
+ * - Only renders when `?qa=1` is explicitly present in the URL (or `forceEnableQaForTest` in unit tests).
  */
 export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = ({
   sceneKey,
@@ -366,18 +517,25 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
   mediaSummary,
   geometryDisclosure,
   defaultOpen = false,
+  forceEnableQaForTest = false,
   testIdPrefix,
 }) => {
+  const qaAllowed = forceEnableQaForTest || isExplicitQaDebugMode();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [narrationSession, setNarrationSession] = useState<NarrationSession>(() =>
     speechNarrator.getNarrationSession()
   );
 
   useEffect(() => {
+    if (!qaAllowed) return;
     return speechNarrator.subscribe(() => {
       setNarrationSession({ ...speechNarrator.getNarrationSession() });
     });
-  }, []);
+  }, [qaAllowed]);
+
+  if (!qaAllowed) {
+    return null;
+  }
 
   const visibleCount = layers.filter((l) => enabledLayers[l.id] !== false).length;
 
@@ -386,6 +544,7 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
       data-testid={`${testIdPrefix}-debug-drawer-container`}
       data-scene-key={sceneKey}
       data-drawer-open={isOpen ? 'true' : 'false'}
+      data-artwork-status="ASSET_ARTWORK_BLOCKED"
       data-art-gate="ART_DIRECTOR_QA_HOLD"
       data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
       data-content-gate="CONTENT_QA_REVIEW"
@@ -403,8 +562,8 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
         >
           <span>
             {isOpen
-              ? `收起审阅调试抽屉 (${sceneTitle} · QA Hold)`
-              : `审阅/工程调试抽屉 (图层 ${visibleCount}/${layers.length} · QA Hold)`}
+              ? `收起QA审阅面板 (${sceneTitle})`
+              : `QA审阅面板 (?qa=1 · 图层 ${visibleCount}/${layers.length})`}
           </span>
         </button>
       </div>
@@ -421,7 +580,7 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
                 data-testid={`${testIdPrefix}-art-hold-badge`}
                 className="px-2 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black"
               >
-                ART_DIRECTOR_QA_HOLD · TECH_PREVIEW_NOT_ART_APPROVED
+                ASSET_ARTWORK_BLOCKED · ART_DIRECTOR_QA_HOLD
               </span>
               <span
                 data-testid={`${testIdPrefix}-production-zero-badge`}
@@ -451,7 +610,7 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
             data-testid={`${testIdPrefix}-geometry-disclosure`}
             className="text-[11px] text-slate-300 bg-slate-800/80 rounded-xl px-2.5 py-1.5 border border-slate-700 leading-relaxed"
           >
-            <strong className="text-amber-300">技术适配源披露：</strong>
+            <strong className="text-amber-300">美术门禁披露：</strong>
             {geometryDisclosure}
           </div>
 
@@ -475,12 +634,11 @@ export const V2_3ReviewerDebugDrawer: React.FC<V2_3ReviewerDebugDrawerProps> = (
             </span>
           </div>
 
-          {/* Layer Toggle Buttons >= 56x56 CSS px */}
           <div
             data-testid={`${testIdPrefix}-layer-toggles`}
             className="grid grid-cols-2 sm:grid-cols-4 gap-1.5"
             role="group"
-            aria-label={`${sceneTitle} V2.3 图层独立开关`}
+            aria-label={`${sceneTitle} 图层独立开关`}
           >
             {layers.map((layer) => {
               const active = enabledLayers[layer.id] !== false;

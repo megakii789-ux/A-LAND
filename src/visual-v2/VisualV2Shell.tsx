@@ -33,6 +33,7 @@ import {
   V2ChildAudioBar,
   V2ParentDashboardShell,
 } from './V2UIStateComponents';
+import { isExplicitQaDebugMode } from './adapters/V2_3LayerStageAdapter';
 import { effectSvgUrl } from './AlandVisualAssets';
 import './motion/asset_interaction_motion.css';
 
@@ -45,7 +46,7 @@ export interface VisualV2ShellProps {
  * 契约：
  * - 不修改任何冻结业务层 (`AppContext`、`domain/**`、`speech.ts`、`ContentAuditRegistry`、`parentAccess`)；
  * - 所有地点事件、四伙伴语音、暂停切换恢复、Slice A/B/C、拆解器、求助、家长门禁与内容审核 Fail-Closed 100% 走原业务逻辑；
- * - 对仍缺少 4K 3D 母版与骨骼口型的资产明确标注 `ART_DIRECTOR_QA_HOLD`。
+ * - 门禁元数据保留在 DOM data-* 属性、/version.json 与审计文件中；QA 调试条仅在显式 `?qa=1` 时展示。
  */
 export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) => {
   const {
@@ -103,6 +104,7 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
   }, [setChildPlace]);
 
   const reducedMotion = Boolean(personalization.accessibility.reducedMotion);
+  const showQaStrip = isExplicitQaDebugMode();
 
   const isWeatherOpen = childPlace === 'weather';
   const isCalmOpen = childPlace === 'calm';
@@ -149,6 +151,7 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
   return (
     <div
       data-testid="visual-v2-shell"
+      data-artwork-status="ASSET_ARTWORK_BLOCKED"
       data-art-gate="ART_DIRECTOR_QA_HOLD"
       data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
       className={`aland-v2-scope min-h-screen flex flex-col font-sans antialiased select-none max-w-full ${
@@ -158,71 +161,81 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
       {/* 既有顶栏：完整保留家长门禁、静音与隐私声明入口 */}
       <Navbar />
 
-      {/* V2 视觉评审顶部控制与 ART_DIRECTOR_QA_HOLD 披露栏 */}
-      <div
-        data-testid="v2-review-top-strip"
-        className="max-w-5xl mx-auto w-full px-3 sm:px-6 pt-2 space-y-2"
-      >
-        <V2ArtDirectorHoldBanner />
+      {/* QA 审阅顶部控制栏：仅在显式 ?qa=1 时展示可视化条，儿童正常阅读界面隐藏为元数据标记 */}
+      {showQaStrip ? (
+        <div
+          data-testid="v2-review-top-strip"
+          className="max-w-5xl mx-auto w-full px-3 sm:px-6 pt-2 space-y-2"
+        >
+          <V2ArtDirectorHoldBanner />
 
-        <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-2xl bg-white/85 border border-[#72CBFF]/50 text-xs font-bold text-[#123C5C]">
-          <div className="flex items-center gap-2 flex-wrap">
-            <img src={effectSvgUrl('leaf')} alt="" className="w-4 h-4" />
-            <span>入口：`/visual-v2-review` · V2.3 Batch 01（天气站 + 平静角）& V2.2 故事林样板</span>
-            <span
-              data-testid="v2-pilot-gate-badge"
-              className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-black"
-            >
-              TECH_PREVIEW_NOT_ART_APPROVED · ART_DIRECTOR_QA_HOLD
-            </span>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <button
-              type="button"
-              data-testid="v2-open-weather-pilot-btn"
-              onClick={() => handleOpenPlace('weather')}
-              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-sky-400 bg-sky-100 hover:bg-sky-200 text-sky-950 font-black cursor-pointer"
-            >
-              打开 V2.3 天气站样板
-            </button>
-            <button
-              type="button"
-              data-testid="v2-open-calm-pilot-btn"
-              onClick={() => handleOpenPlace('calm')}
-              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-teal-400 bg-teal-100 hover:bg-teal-200 text-teal-950 font-black cursor-pointer"
-            >
-              打开 V2.3 平静角样板
-            </button>
-            <button
-              type="button"
-              data-testid="v2-open-story-cup-pilot-btn"
-              onClick={() => handleOpenPlace('story')}
-              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-amber-400 bg-amber-100 hover:bg-amber-200 text-amber-950 font-black cursor-pointer"
-            >
-              打开 V2.2《一只杯子》样板
-            </button>
-            <button
-              type="button"
-              data-testid="v2-reduced-motion-toggle"
-              aria-pressed={reducedMotion}
-              onClick={handleToggleReducedMotion}
-              className="min-h-[56px] px-3 py-1 rounded-xl border border-[#18B7A4]/50 bg-[#FFF9EC] hover:bg-[#FFD67A]/40 text-[#123C5C] font-extrabold cursor-pointer"
-            >
-              {reducedMotion ? '已开启减少动画' : '减少动画'}
-            </button>
-            {onExitV2Review && (
+          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-2xl bg-white/85 border border-[#72CBFF]/50 text-xs font-bold text-[#123C5C]">
+            <div className="flex items-center gap-2 flex-wrap">
+              <img src={effectSvgUrl('leaf')} alt="" className="w-4 h-4" />
+              <span>QA 审阅模式 (`?qa=1`) · Batch01R 视觉纠偏</span>
+              <span
+                data-testid="v2-pilot-gate-badge"
+                className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-black"
+              >
+                ASSET_ARTWORK_BLOCKED · ART_DIRECTOR_QA_HOLD
+              </span>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
-                data-testid="v2-exit-review-btn"
-                onClick={onExitV2Review}
-                className="min-h-[56px] px-3 py-1 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 font-extrabold cursor-pointer"
+                data-testid="v2-open-weather-pilot-btn"
+                onClick={() => handleOpenPlace('weather')}
+                className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-sky-400 bg-sky-100 hover:bg-sky-200 text-sky-950 font-black cursor-pointer"
               >
-                返回原版皮肤 (`/`)
+                打开天气站样板
               </button>
-            )}
+              <button
+                type="button"
+                data-testid="v2-open-calm-pilot-btn"
+                onClick={() => handleOpenPlace('calm')}
+                className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-teal-400 bg-teal-100 hover:bg-teal-200 text-teal-950 font-black cursor-pointer"
+              >
+                打开平静角样板
+              </button>
+              <button
+                type="button"
+                data-testid="v2-open-story-cup-pilot-btn"
+                onClick={() => handleOpenPlace('story')}
+                className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-amber-400 bg-amber-100 hover:bg-amber-200 text-amber-950 font-black cursor-pointer"
+              >
+                打开《一只杯子》样板
+              </button>
+              <button
+                type="button"
+                data-testid="v2-reduced-motion-toggle"
+                aria-pressed={reducedMotion}
+                onClick={handleToggleReducedMotion}
+                className="min-h-[56px] px-3 py-1 rounded-xl border border-[#18B7A4]/50 bg-[#FFF9EC] hover:bg-[#FFD67A]/40 text-[#123C5C] font-extrabold cursor-pointer"
+              >
+                {reducedMotion ? '已开启减少动画' : '减少动画'}
+              </button>
+              {onExitV2Review && (
+                <button
+                  type="button"
+                  data-testid="v2-exit-review-btn"
+                  onClick={onExitV2Review}
+                  className="min-h-[56px] px-3 py-1 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 font-extrabold cursor-pointer"
+                >
+                  返回原版皮肤 (`/`)
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div
+          data-testid="v2-art-director-hold-banner"
+          data-art-gate="ART_DIRECTOR_QA_HOLD"
+          data-artwork-status="ASSET_ARTWORK_BLOCKED"
+          className="sr-only"
+          aria-hidden="true"
+        />
+      )}
 
       <main className="flex-1">
         {currentView === 'parent' ? (

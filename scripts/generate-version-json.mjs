@@ -228,6 +228,7 @@ if (mode === 'template') {
     releaseGateStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
     releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
     artDirectorQaGate: 'ART_DIRECTOR_QA_HOLD',
+    artworkQualityGate: 'ASSET_ARTWORK_BLOCKED',
     techPreviewGate: 'TECH_PREVIEW_NOT_ART_APPROVED',
     engineeringPilotGate: 'ENGINEERING_PILOT_AUDIT_PASS_STORY_CUP_ONLY',
     v2_3Batch01Gate: 'V2_3_BATCH01_TECH_INTEGRATION_AUTHORIZED',
@@ -237,6 +238,8 @@ if (mode === 'template') {
     visualPilotVersion: 'A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016',
     visualPilotModule: 'StoryGrove::cup-size',
     visualLayerFactoryVersion: 'A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017',
+    batch01rHandoffPackage: 'A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017',
+    batch01rHandoffZipSha256: '1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d',
     visualBatch01Modules: ['WeatherStationModal', 'CalmCornerModal', 'CalmSpace'],
     visualBatch01Routes: [
       '/visual-v2-review/weather-station-pilot',
@@ -332,6 +335,7 @@ if (mode === 'template') {
     releaseGateStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
     releaseApprovalStatus: 'ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED',
     artDirectorQaGate: 'ART_DIRECTOR_QA_HOLD',
+    artworkQualityGate: 'ASSET_ARTWORK_BLOCKED',
     techPreviewGate: 'TECH_PREVIEW_NOT_ART_APPROVED',
     engineeringPilotGate: 'ENGINEERING_PILOT_AUDIT_PASS_STORY_CUP_ONLY',
     v2_3Batch01Gate: 'V2_3_BATCH01_TECH_INTEGRATION_AUTHORIZED',
@@ -341,6 +345,8 @@ if (mode === 'template') {
     visualPilotVersion: 'A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016',
     visualPilotModule: 'StoryGrove::cup-size',
     visualLayerFactoryVersion: 'A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017',
+    batch01rHandoffPackage: 'A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017',
+    batch01rHandoffZipSha256: '1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d',
     visualBatch01Modules: ['WeatherStationModal', 'CalmCornerModal', 'CalmSpace'],
     visualBatch01Routes: [
       '/visual-v2-review/weather-station-pilot',

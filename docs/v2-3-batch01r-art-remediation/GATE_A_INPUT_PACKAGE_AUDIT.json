@@ -1,0 +1,754 @@
+{
+  "packageFile": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017.zip",
+  "packageBytes": 20970433,
+  "packageSha256": "1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d",
+  "inventoryVerifiedCount": 57,
+  "allHashesMatched": true,
+  "gateAUpstreamArtMasterStatus": "ASSET_ARTWORK_BLOCKED",
+  "artDirectorQaGate": "ART_DIRECTOR_QA_HOLD",
+  "items": [
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/USER_REFERENCE_NON_SHIPPING.png",
+      "expectedBytes": 3489373,
+      "actualBytes": 3489373,
+      "expectedSha256": "8546d2ae508a67bd6b4fc072cca65850bc3208f8eed726826eb061a4a63cca0c",
+      "actualSha256": "8546d2ae508a67bd6b4fc072cca65850bc3208f8eed726826eb061a4a63cca0c",
+      "shaMatch": true,
+      "image": {
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V03_cast_and_host_concept.png",
+      "expectedBytes": 2648326,
+      "actualBytes": 2648326,
+      "expectedSha256": "82a084bec0fbd5b06567c9037cce2a73488016a4385c16c2229c84d5b5679317",
+      "actualSha256": "82a084bec0fbd5b06567c9037cce2a73488016a4385c16c2229c84d5b5679317",
+      "shaMatch": true,
+      "image": {
+        "width": 1448,
+        "height": 1086,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V04_ui_component_styleguide.png",
+      "expectedBytes": 2374395,
+      "actualBytes": 2374395,
+      "expectedSha256": "87efa017ce887a4b59dfed3db93dcb2fa44c4c1f77be077095b8823933af4c72",
+      "actualSha256": "87efa017ce887a4b59dfed3db93dcb2fa44c4c1f77be077095b8823933af4c72",
+      "shaMatch": true,
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V08_ae_motion_board.png",
+      "expectedBytes": 2497094,
+      "actualBytes": 2497094,
+      "expectedSha256": "a50d4384992c0c059d1363263a9a803809b7aa141036b4211e425b4dc30ea24c",
+      "actualSha256": "a50d4384992c0c059d1363263a9a803809b7aa141036b4211e425b4dc30ea24c",
+      "shaMatch": true,
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V10_desktop_home_island_v2.png",
+      "expectedBytes": 2885332,
+      "actualBytes": 2885332,
+      "expectedSha256": "ed2364c2a9d002e5c87035521ea7b22049cb80cc868c9e3a99ab732f0df8a15c",
+      "actualSha256": "ed2364c2a9d002e5c87035521ea7b22049cb80cc868c9e3a99ab732f0df8a15c",
+      "shaMatch": true,
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V11_mobile_home_island_v2.png",
+      "expectedBytes": 2260664,
+      "actualBytes": 2260664,
+      "expectedSha256": "2bd6ce83eecfd2d330124f101c440f9f9098ebebc3bd7d7477c4e86501bca667",
+      "actualSha256": "2bd6ce83eecfd2d330124f101c440f9f9098ebebc3bd7d7477c4e86501bca667",
+      "shaMatch": true,
+      "image": {
+        "width": 941,
+        "height": 1672,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V12_weather_station.png",
+      "expectedBytes": 2200498,
+      "actualBytes": 2200498,
+      "expectedSha256": "045d5de698ad1de1b280c99950fac79998b7e5b17e449fb946ecf3b4279ef4eb",
+      "actualSha256": "045d5de698ad1de1b280c99950fac79998b7e5b17e449fb946ecf3b4279ef4eb",
+      "shaMatch": true,
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "01_APPROVED_VISUAL_REFERENCES/V14_character_landmark_asset_board.png",
+      "expectedBytes": 2195746,
+      "actualBytes": 2195746,
+      "expectedSha256": "8b472067d74f4d2839fb40a22a597bdcf61038da2ddcf30567a504d7b99a2bb7",
+      "actualSha256": "8b472067d74f4d2839fb40a22a597bdcf61038da2ddcf30567a504d7b99a2bb7",
+      "shaMatch": true,
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB"
+      },
+      "alphaZeroRatio": 0.0,
+      "alphaSub255Ratio": 0.0
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/characters/beibei_otter/idle_native.png",
+      "expectedBytes": 92657,
+      "actualBytes": 92657,
+      "expectedSha256": "0742f8d5aa4582fc4a77d95fc6165935f157ecd0215e553737f49c187a51092d",
+      "actualSha256": "0742f8d5aa4582fc4a77d95fc6165935f157ecd0215e553737f49c187a51092d",
+      "shaMatch": true,
+      "image": {
+        "width": 194,
+        "height": 260,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3454,
+      "alphaSub255Ratio": 0.3928
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/characters/guoguo_squirrel/idle_native.png",
+      "expectedBytes": 95590,
+      "actualBytes": 95590,
+      "expectedSha256": "7d7242cb635a561bcb0dff297aa1b1cfd64c823e6c3ca6dee3d9a3c0aec0cfa1",
+      "actualSha256": "7d7242cb635a561bcb0dff297aa1b1cfd64c823e6c3ca6dee3d9a3c0aec0cfa1",
+      "shaMatch": true,
+      "image": {
+        "width": 206,
+        "height": 259,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.4814,
+      "alphaSub255Ratio": 0.5303
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/characters/qiqi_deer/idle_native.png",
+      "expectedBytes": 71250,
+      "actualBytes": 71250,
+      "expectedSha256": "420390a101d9cb59749cc20096519f7ff40afeefbb11b21f6d41386aae00c323",
+      "actualSha256": "420390a101d9cb59749cc20096519f7ff40afeefbb11b21f6d41386aae00c323",
+      "shaMatch": true,
+      "image": {
+        "width": 172,
+        "height": 244,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.4321,
+      "alphaSub255Ratio": 0.4948
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/characters/tiantian_raccoon/idle_native.png",
+      "expectedBytes": 87031,
+      "actualBytes": 87031,
+      "expectedSha256": "616b7d598cd544dfa3bb1bcf4e39ae41fc2394955af59e5f4e882dcdeeac299e",
+      "actualSha256": "616b7d598cd544dfa3bb1bcf4e39ae41fc2394955af59e5f4e882dcdeeac299e",
+      "shaMatch": true,
+      "image": {
+        "width": 181,
+        "height": 239,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3175,
+      "alphaSub255Ratio": 0.3673
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/calm_corner/idle_native.png",
+      "expectedBytes": 43466,
+      "actualBytes": 43466,
+      "expectedSha256": "fb058c18909a5ca84d4fee02083d1bec39aae97e29f018aca251a748be68ea45",
+      "actualSha256": "fb058c18909a5ca84d4fee02083d1bec39aae97e29f018aca251a748be68ea45",
+      "shaMatch": true,
+      "image": {
+        "width": 173,
+        "height": 122,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3525,
+      "alphaSub255Ratio": 0.4163
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/courage_house/idle_native.png",
+      "expectedBytes": 45043,
+      "actualBytes": 45043,
+      "expectedSha256": "b6b3249e616ef617873f695edcddd2386026ff34c5885ddb5fe79bbc9c0e4834",
+      "actualSha256": "b6b3249e616ef617873f695edcddd2386026ff34c5885ddb5fe79bbc9c0e4834",
+      "shaMatch": true,
+      "image": {
+        "width": 171,
+        "height": 140,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3539,
+      "alphaSub255Ratio": 0.4058
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/difficulty_breaker/idle_native.png",
+      "expectedBytes": 54907,
+      "actualBytes": 54907,
+      "expectedSha256": "f21845ffd2d1ee8bc06bc100ed96ac7157abd38c1d45a1d5eb5f3b025b18903a",
+      "actualSha256": "f21845ffd2d1ee8bc06bc100ed96ac7157abd38c1d45a1d5eb5f3b025b18903a",
+      "shaMatch": true,
+      "image": {
+        "width": 191,
+        "height": 151,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.4041,
+      "alphaSub255Ratio": 0.4684
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/starlight_cabin/idle_native.png",
+      "expectedBytes": 51495,
+      "actualBytes": 51495,
+      "expectedSha256": "1029a827ddaed73d5830bdffda563e3a729176b5554c63989de0aa53c48d3bd1",
+      "actualSha256": "1029a827ddaed73d5830bdffda563e3a729176b5554c63989de0aa53c48d3bd1",
+      "shaMatch": true,
+      "image": {
+        "width": 169,
+        "height": 157,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3573,
+      "alphaSub255Ratio": 0.4118
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/story_grove/idle_native.png",
+      "expectedBytes": 58941,
+      "actualBytes": 58941,
+      "expectedSha256": "eab19ca3ae1001d70ef6d9f7286da4d5ab5fa1d7475d091b3cebd5d14882131f",
+      "actualSha256": "eab19ca3ae1001d70ef6d9f7286da4d5ab5fa1d7475d091b3cebd5d14882131f",
+      "shaMatch": true,
+      "image": {
+        "width": 189,
+        "height": 146,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3342,
+      "alphaSub255Ratio": 0.4011
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/tools_room/idle_native.png",
+      "expectedBytes": 55139,
+      "actualBytes": 55139,
+      "expectedSha256": "6b92f858c0639b10e2b0db035072c4d20c3f1067f023b95f87ac77b0e774899e",
+      "actualSha256": "6b92f858c0639b10e2b0db035072c4d20c3f1067f023b95f87ac77b0e774899e",
+      "shaMatch": true,
+      "image": {
+        "width": 180,
+        "height": 144,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3488,
+      "alphaSub255Ratio": 0.411
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/two_homes_bridge/idle_native.png",
+      "expectedBytes": 49197,
+      "actualBytes": 49197,
+      "expectedSha256": "157b94f0e35d28d45111d4e835252545538e9d83521e50ce2b0e3e569ad7de80",
+      "actualSha256": "157b94f0e35d28d45111d4e835252545538e9d83521e50ce2b0e3e569ad7de80",
+      "shaMatch": true,
+      "image": {
+        "width": 213,
+        "height": 107,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3363,
+      "alphaSub255Ratio": 0.4044
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/landmarks/weather_station/idle_native.png",
+      "expectedBytes": 32793,
+      "actualBytes": 32793,
+      "expectedSha256": "f3c43c939fcb48d645eef98d47abc6deb1e28cf592211c18c7645da28af92b1f",
+      "actualSha256": "f3c43c939fcb48d645eef98d47abc6deb1e28cf592211c18c7645da28af92b1f",
+      "shaMatch": true,
+      "image": {
+        "width": 113,
+        "height": 147,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.5711,
+      "alphaSub255Ratio": 0.6588
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/tools/balance_scale/native.png",
+      "expectedBytes": 13839,
+      "actualBytes": 13839,
+      "expectedSha256": "2fe942a860c799ba7f72cd7d72e52e5f5831cf8fdff25d9edaf93abe350f1208",
+      "actualSha256": "2fe942a860c799ba7f72cd7d72e52e5f5831cf8fdff25d9edaf93abe350f1208",
+      "shaMatch": true,
+      "image": {
+        "width": 99,
+        "height": 73,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.44,
+      "alphaSub255Ratio": 0.5387
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/tools/binoculars/native.png",
+      "expectedBytes": 10515,
+      "actualBytes": 10515,
+      "expectedSha256": "676ff8240590a4bd1825de67f0023030c2cfff8a226274446634e58068e8e52d",
+      "actualSha256": "676ff8240590a4bd1825de67f0023030c2cfff8a226274446634e58068e8e52d",
+      "shaMatch": true,
+      "image": {
+        "width": 68,
+        "height": 64,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.6229,
+      "alphaSub255Ratio": 0.7337
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/tools/two_sided_coin/native.png",
+      "expectedBytes": 10114,
+      "actualBytes": 10114,
+      "expectedSha256": "b4be3cb82d18039205aca5d0560d0e5134417fd20dd25ff36c8fcf24ef0bab32",
+      "actualSha256": "b4be3cb82d18039205aca5d0560d0e5134417fd20dd25ff36c8fcf24ef0bab32",
+      "shaMatch": true,
+      "image": {
+        "width": 81,
+        "height": 67,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.4,
+      "alphaSub255Ratio": 0.5043
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/tools/weather_clouds/native.png",
+      "expectedBytes": 10759,
+      "actualBytes": 10759,
+      "expectedSha256": "b4909ffec78681308714955c39835e550184bc1d99e0851cec83342b47efb915",
+      "actualSha256": "b4909ffec78681308714955c39835e550184bc1d99e0851cec83342b47efb915",
+      "shaMatch": true,
+      "image": {
+        "width": 94,
+        "height": 71,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3229,
+      "alphaSub255Ratio": 0.4182
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/weather/angry/native.png",
+      "expectedBytes": 9063,
+      "actualBytes": 9063,
+      "expectedSha256": "143b89bc2cc06447ecd2f923301c0e11b56aca3094a3991271aca283dfb9bd07",
+      "actualSha256": "143b89bc2cc06447ecd2f923301c0e11b56aca3094a3991271aca283dfb9bd07",
+      "shaMatch": true,
+      "image": {
+        "width": 80,
+        "height": 72,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3368,
+      "alphaSub255Ratio": 0.4347
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/weather/calm/native.png",
+      "expectedBytes": 8886,
+      "actualBytes": 8886,
+      "expectedSha256": "fa3bc2fcd155ab1a5effdc0eddeeb0bb44dd374b230a7c758e08f4a61614b676",
+      "actualSha256": "fa3bc2fcd155ab1a5effdc0eddeeb0bb44dd374b230a7c758e08f4a61614b676",
+      "shaMatch": true,
+      "image": {
+        "width": 86,
+        "height": 68,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3793,
+      "alphaSub255Ratio": 0.4764
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/weather/sad/native.png",
+      "expectedBytes": 9111,
+      "actualBytes": 9111,
+      "expectedSha256": "78d4c5040d24223e15a741ad28647621c79b6a20f5eeb6516dea8cc135018cb7",
+      "actualSha256": "78d4c5040d24223e15a741ad28647621c79b6a20f5eeb6516dea8cc135018cb7",
+      "shaMatch": true,
+      "image": {
+        "width": 79,
+        "height": 77,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3363,
+      "alphaSub255Ratio": 0.4406
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/weather/scared/native.png",
+      "expectedBytes": 8522,
+      "actualBytes": 8522,
+      "expectedSha256": "564c3caf1283c0876139bfe393673fa2ca5151f4fb1a47148acfeb4c155d0f4a",
+      "actualSha256": "564c3caf1283c0876139bfe393673fa2ca5151f4fb1a47148acfeb4c155d0f4a",
+      "shaMatch": true,
+      "image": {
+        "width": 78,
+        "height": 72,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.3312,
+      "alphaSub255Ratio": 0.4309
+    },
+    {
+      "path": "02_EXISTING_TRANSPARENT_CUTOUTS_PREVIEW_ONLY/props/weather/sunny/native.png",
+      "expectedBytes": 7147,
+      "actualBytes": 7147,
+      "expectedSha256": "769c050c20c5cfb18c8f6044f4228bd21b3b476494c64ede8e267db8a7ab7b70",
+      "actualSha256": "769c050c20c5cfb18c8f6044f4228bd21b3b476494c64ede8e267db8a7ab7b70",
+      "shaMatch": true,
+      "image": {
+        "width": 61,
+        "height": 61,
+        "mode": "RGBA"
+      },
+      "alphaZeroRatio": 0.355,
+      "alphaSub255Ratio": 0.4687
+    },
+    {
+      "path": "02_VISUAL_QUALITY_GATE.md",
+      "expectedBytes": 1244,
+      "actualBytes": 1244,
+      "expectedSha256": "227cbaa08b5e2545eb0f5449cf00357400d4a2508c2754a1dd5d268fd25fc57e",
+      "actualSha256": "227cbaa08b5e2545eb0f5449cf00357400d4a2508c2754a1dd5d268fd25fc57e",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/exhale/breathing_visual.svg",
+      "expectedBytes": 476,
+      "actualBytes": 476,
+      "expectedSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "actualSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/exhale/room.svg",
+      "expectedBytes": 1655,
+      "actualBytes": 1655,
+      "expectedSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "actualSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/inhale/breathing_visual.svg",
+      "expectedBytes": 476,
+      "actualBytes": 476,
+      "expectedSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "actualSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/inhale/room.svg",
+      "expectedBytes": 1655,
+      "actualBytes": 1655,
+      "expectedSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "actualSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/paused/breathing_visual.svg",
+      "expectedBytes": 537,
+      "actualBytes": 537,
+      "expectedSha256": "418cc2bbe8166f3812062c82f45a65876717541e9ff1fe0fbf95bcfd2d17f8dc",
+      "actualSha256": "418cc2bbe8166f3812062c82f45a65876717541e9ff1fe0fbf95bcfd2d17f8dc",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/paused/room.svg",
+      "expectedBytes": 1716,
+      "actualBytes": 1716,
+      "expectedSha256": "5050b78c9d41ac0625d886547d3c8767fa4da6fbb8ea0646a08d1300d821aa3b",
+      "actualSha256": "5050b78c9d41ac0625d886547d3c8767fa4da6fbb8ea0646a08d1300d821aa3b",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/rest/breathing_visual.svg",
+      "expectedBytes": 476,
+      "actualBytes": 476,
+      "expectedSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "actualSha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/calm_corner/rest/room.svg",
+      "expectedBytes": 1655,
+      "actualBytes": 1655,
+      "expectedSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "actualSha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/cloudy/backplate.svg",
+      "expectedBytes": 1225,
+      "actualBytes": 1225,
+      "expectedSha256": "f651d72c97e382598c60636a4de7c6c1163a6c6e2b4f8fa28092781e421ec5af",
+      "actualSha256": "f651d72c97e382598c60636a4de7c6c1163a6c6e2b4f8fa28092781e421ec5af",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/cloudy/front_effect.svg",
+      "expectedBytes": 889,
+      "actualBytes": 889,
+      "expectedSha256": "81baa443404d7d49c3ddfe2fec058d098e388e9178af66e7a4cf1000e011909a",
+      "actualSha256": "81baa443404d7d49c3ddfe2fec058d098e388e9178af66e7a4cf1000e011909a",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/cloudy/weather_actor.svg",
+      "expectedBytes": 735,
+      "actualBytes": 735,
+      "expectedSha256": "219711a0317f946de8e15b9e133fe5c0b9c44c9524d866ad3747a9744571b0a8",
+      "actualSha256": "219711a0317f946de8e15b9e133fe5c0b9c44c9524d866ad3747a9744571b0a8",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/foggy/backplate.svg",
+      "expectedBytes": 1225,
+      "actualBytes": 1225,
+      "expectedSha256": "f651d72c97e382598c60636a4de7c6c1163a6c6e2b4f8fa28092781e421ec5af",
+      "actualSha256": "f651d72c97e382598c60636a4de7c6c1163a6c6e2b4f8fa28092781e421ec5af",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/foggy/front_effect.svg",
+      "expectedBytes": 889,
+      "actualBytes": 889,
+      "expectedSha256": "81baa443404d7d49c3ddfe2fec058d098e388e9178af66e7a4cf1000e011909a",
+      "actualSha256": "81baa443404d7d49c3ddfe2fec058d098e388e9178af66e7a4cf1000e011909a",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/foggy/weather_actor.svg",
+      "expectedBytes": 735,
+      "actualBytes": 735,
+      "expectedSha256": "219711a0317f946de8e15b9e133fe5c0b9c44c9524d866ad3747a9744571b0a8",
+      "actualSha256": "219711a0317f946de8e15b9e133fe5c0b9c44c9524d866ad3747a9744571b0a8",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/opt_out/backplate.svg",
+      "expectedBytes": 1166,
+      "actualBytes": 1166,
+      "expectedSha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+      "actualSha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/opt_out/front_effect.svg",
+      "expectedBytes": 830,
+      "actualBytes": 830,
+      "expectedSha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+      "actualSha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/opt_out/weather_actor.svg",
+      "expectedBytes": 676,
+      "actualBytes": 676,
+      "expectedSha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+      "actualSha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/rainy/backplate.svg",
+      "expectedBytes": 3383,
+      "actualBytes": 3383,
+      "expectedSha256": "25f5f81bd4cf1d65e500e32d00bb441c6e793eb5013ae21cde31723bae4ac93f",
+      "actualSha256": "25f5f81bd4cf1d65e500e32d00bb441c6e793eb5013ae21cde31723bae4ac93f",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/rainy/front_effect.svg",
+      "expectedBytes": 3047,
+      "actualBytes": 3047,
+      "expectedSha256": "f5d6e29b345355f7445cd85afe391c88a2c4c165d298211d0848d90e76d5c5ba",
+      "actualSha256": "f5d6e29b345355f7445cd85afe391c88a2c4c165d298211d0848d90e76d5c5ba",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/rainy/weather_actor.svg",
+      "expectedBytes": 2895,
+      "actualBytes": 2895,
+      "expectedSha256": "45a6dc0c1b363a7ef2d2874b609113ea1b5dbc457385f77e282a7757029f2280",
+      "actualSha256": "45a6dc0c1b363a7ef2d2874b609113ea1b5dbc457385f77e282a7757029f2280",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/stormy/backplate.svg",
+      "expectedBytes": 3442,
+      "actualBytes": 3442,
+      "expectedSha256": "dd6704af2260dfadf5e94d9e49e5c6e43cf009c8c919547c52142697a541bf8f",
+      "actualSha256": "dd6704af2260dfadf5e94d9e49e5c6e43cf009c8c919547c52142697a541bf8f",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/stormy/front_effect.svg",
+      "expectedBytes": 3115,
+      "actualBytes": 3115,
+      "expectedSha256": "a86bb6a6fc7b7840e3d0c7491095ca337905b2d7494d501253c7dbb4ed4cef11",
+      "actualSha256": "a86bb6a6fc7b7840e3d0c7491095ca337905b2d7494d501253c7dbb4ed4cef11",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/stormy/weather_actor.svg",
+      "expectedBytes": 2953,
+      "actualBytes": 2953,
+      "expectedSha256": "80c8da1dbf2e18701889c301c3f31e04db76cbb3e2a7622ce1e793e7ccd4ec97",
+      "actualSha256": "80c8da1dbf2e18701889c301c3f31e04db76cbb3e2a7622ce1e793e7ccd4ec97",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/sunny/backplate.svg",
+      "expectedBytes": 1166,
+      "actualBytes": 1166,
+      "expectedSha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+      "actualSha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/sunny/front_effect.svg",
+      "expectedBytes": 830,
+      "actualBytes": 830,
+      "expectedSha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+      "actualSha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "03_TECHNICAL_LAYER_FIXTURES_NOT_PRODUCTION/assets/weather_station/sunny/weather_actor.svg",
+      "expectedBytes": 676,
+      "actualBytes": 676,
+      "expectedSha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+      "actualSha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    },
+    {
+      "path": "ANTIGRAVITY_BATCH01R_EXECUTE.md",
+      "expectedBytes": 5347,
+      "actualBytes": 5347,
+      "expectedSha256": "ebdf2a9ae9399015f748ee30985cf06678ea35b3eccb55ead05cc41133ccd7dc",
+      "actualSha256": "ebdf2a9ae9399015f748ee30985cf06678ea35b3eccb55ead05cc41133ccd7dc",
+      "shaMatch": true,
+      "image": null,
+      "alphaZeroRatio": null,
+      "alphaSub255Ratio": null
+    }
+  ]
+}
