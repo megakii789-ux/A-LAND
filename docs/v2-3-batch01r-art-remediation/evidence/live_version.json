@@ -1,0 +1,71 @@
+{
+  "project": "qingyu-island-v2-assetlab",
+  "repository": "megakii789-ux/A-LAND",
+  "metadataKind": "RUNTIME_DEPLOYMENT_METADATA",
+  "branch": "ui/visual-v2-batch01r-art-remediation",
+  "productionHoldBranch": "public-hold",
+  "commitSha": "6c6e6cf16193f4bb7fd27d8a0cb9161ecf6973c4",
+  "shortCommitSha": "6c6e6cf16193",
+  "commitIdentitySource": "GIT_HEAD",
+  "deploymentTimestamp": "2026-10-17T03:37:35.569Z",
+  "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
+  "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "artDirectorQaGate": "ART_DIRECTOR_QA_HOLD",
+  "artworkQualityGate": "ASSET_ARTWORK_BLOCKED",
+  "techPreviewGate": "TECH_PREVIEW_NOT_ART_APPROVED",
+  "engineeringPilotGate": "ENGINEERING_PILOT_AUDIT_PASS_STORY_CUP_ONLY",
+  "v2_3Batch01Gate": "V2_3_BATCH01_TECH_INTEGRATION_AUTHORIZED",
+  "productionReleaseGate": "PRODUCTION_RELEASE_HOLD",
+  "contentQaReviewFlag": "CONTENT_QA_REVIEW",
+  "visualAssetFactoryVersion": "A_LAND_V2_ASSET_FACTORY_V0_1_20261016",
+  "visualPilotVersion": "A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016",
+  "visualPilotModule": "StoryGrove::cup-size",
+  "visualLayerFactoryVersion": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017",
+  "batch01rHandoffPackage": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017",
+  "batch01rHandoffZipSha256": "1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d",
+  "visualBatch01Modules": [
+    "WeatherStationModal",
+    "CalmCornerModal",
+    "CalmSpace"
+  ],
+  "visualBatch01Routes": [
+    "/visual-v2-review/weather-station-pilot",
+    "/visual-v2-review/calm-corner-pilot"
+  ],
+  "productionQualityApprovedCount": 0,
+  "visualReviewRoute": "/visual-v2-review",
+  "visualPilotRoute": "/visual-v2-review/story-cup-pilot",
+  "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
+  "contentAuditSummary": {
+    "evaluationMethod": "RUNTIME_REGISTRY_EXECUTION",
+    "totalRegisteredItems": 16,
+    "pendingReviewCount": 16,
+    "passedCount": 0,
+    "rejectedOrRevokedCount": 0,
+    "renderableInChildModeCount": 0,
+    "riskTierBreakdown": {
+      "LOW_EXPLORATION": 7,
+      "MEDIUM_FAMILY_PEER_PRIVACY": 7,
+      "HIGH_SAFETY_CRISIS": 2
+    },
+    "defaultChildModePolicy": "FAIL_CLOSED_BLOCK_UNAPPROVED"
+  },
+  "remoteHelpRelayStatus": "FAIL_CLOSED_503",
+  "mode": "local-only-verified",
+  "remoteRelayEnabled": false,
+  "cloudSyncEnabled": false,
+  "accessControlRequired": false,
+  "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
+  "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
+  "rollbackTargetSha": "ae22f7ab8b124829196370cdce5a5bfc430c8e9c",
+  "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
+  "buildToolchain": {
+    "node": "v20.20.2",
+    "vite": "8.3.4",
+    "typescript": "7.0.2",
+    "vitest": "5.0.4",
+    "esbuild": "0.28.2"
+  },
+  "updatedAt": "2026-10-17T03:37:35.569Z"
+}
