@@ -307,39 +307,36 @@ export const WeatherStationModal: React.FC<Props> = ({
             : 'bg-white/98 border border-sky-100 rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[90vh] overflow-y-auto'
         }
       >
-        {/* V2 3D Wooden Observatory Top Banner (Gate U3: Two-row responsive mobile layout, zero truncate on title/subtitle, >=56px buttons) vs Legacy Close Button */}
+        {/* V2 3D Wooden Observatory Top Banner (Gate U3R: Two-row responsive mobile layout, zero overlap/truncate on title/subtitle, >=56px buttons) vs Legacy Close Button */}
         {isV2Active ? (
           <div
             data-testid="v2-weather-observatory-header"
-            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] shadow-md space-y-1.5"
+            className="px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#B45309] shadow-md space-y-1.5"
           >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <img
+                  data-testid="v2-weather-header-icon"
                   src="/visual-v2/batch01r-art/cutouts/landmarks/weather_station/idle_native.png"
                   alt=""
                   aria-hidden="true"
-                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                  className="w-8 h-8 sm:w-11 sm:h-9 object-contain drop-shadow-xs shrink-0"
                 />
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <h2
-                    data-testid="v2-weather-header-title"
-                    className="text-lg sm:text-2xl font-black text-[#451A03] whitespace-nowrap"
-                  >
-                    情绪天气站
-                  </h2>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-[#78350F] border border-amber-400 font-extrabold whitespace-nowrap">
-                    海湾木屋观景台
-                  </span>
-                </div>
+                <h2
+                  data-testid="v2-weather-header-title"
+                  className="text-[17px] min-[380px]:text-lg sm:text-2xl font-black tracking-tight text-[#451A03] whitespace-nowrap shrink-0"
+                >
+                  情绪天气站
+                </h2>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
                 <button
                   type="button"
+                  data-testid="v2-weather-header-audio-btn"
                   onClick={() =>
                     handleSpeak('欢迎来到情绪天气站。挑选今天头顶的天气，晴、阴、雨、雷、雾，或者不想选，都可以。')
                   }
-                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] hover:brightness-105 shadow-xs flex items-center justify-center cursor-pointer"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] hover:brightness-105 shadow-xs flex items-center justify-center cursor-pointer shrink-0"
                   title="朗读提示"
                   aria-label="朗读提示"
                 >
@@ -347,20 +344,29 @@ export const WeatherStationModal: React.FC<Props> = ({
                 </button>
                 <button
                   type="button"
+                  data-testid="v2-weather-header-close-btn"
                   onClick={onClose}
-                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FFFBEB] to-[#F5F5F4] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 shadow-xs flex items-center justify-center cursor-pointer"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-linear-to-b from-[#FFFBEB] to-[#F5F5F4] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 shadow-xs flex items-center justify-center cursor-pointer shrink-0"
                   aria-label="关闭天气站"
                 >
                   <X className="w-6 h-6" />
                 </button>
               </div>
             </div>
-            <p
-              data-testid="v2-weather-header-subtitle"
-              className="text-xs sm:text-sm font-bold text-[#92400E] leading-relaxed border-t border-amber-300/60 pt-1.5"
-            >
-              每种天气都被欢迎 · 没有对错与打分，只选最像你现在的感觉
-            </p>
+            <div className="flex flex-wrap items-center gap-2 border-t border-amber-300/60 pt-1.5">
+              <span
+                data-testid="v2-weather-header-badge"
+                className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-[#78350F] border border-amber-400 font-extrabold whitespace-nowrap"
+              >
+                海湾木屋观景台
+              </span>
+              <p
+                data-testid="v2-weather-header-subtitle"
+                className="text-xs sm:text-sm font-bold text-[#92400E] leading-relaxed"
+              >
+                每种天气都被欢迎 · 没有对错与打分，只选最像你现在的感觉
+              </p>
+            </div>
           </div>
         ) : (
           <button

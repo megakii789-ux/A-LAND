@@ -918,7 +918,7 @@ describe('A-LAND V2.3 Batch01R — Weather Station & Calm Corner Visual Correcti
       }
     });
 
-    it('Gate U3: renders full unwrapped scene titles in Weather Station and Calm Space headers without truncate classes', () => {
+    it('Gate U3R: renders non-shrinking, non-overlapping scene titles and >=56x56px action buttons in Weather Station, Calm Space, and Calm Corner Modal headers without truncate or overflow-hidden clipping', () => {
       const weatherRenderer = createStatefulTestRenderer(
         <AppProvider>
           <WeatherStationModal
@@ -930,9 +930,25 @@ describe('A-LAND V2.3 Batch01R — Weather Station & Calm Corner Visual Correcti
         </AppProvider>
       );
       const weatherTitle = weatherRenderer.findByTestId('v2-weather-header-title');
+      const weatherIcon = weatherRenderer.findByTestId('v2-weather-header-icon');
+      const weatherAudioBtn = weatherRenderer.findByTestId('v2-weather-header-audio-btn');
+      const weatherCloseBtn = weatherRenderer.findByTestId('v2-weather-header-close-btn');
+      const weatherBadge = weatherRenderer.findByTestId('v2-weather-header-badge');
+      const weatherSubtitle = weatherRenderer.findByTestId('v2-weather-header-subtitle');
       expect(weatherTitle).not.toBeNull();
+      expect(weatherIcon).not.toBeNull();
+      expect(weatherAudioBtn).not.toBeNull();
+      expect(weatherCloseBtn).not.toBeNull();
+      expect(weatherBadge).not.toBeNull();
+      expect(weatherSubtitle).not.toBeNull();
       expect(weatherTitle.text).toBe('情绪天气站');
       expect(String(weatherTitle.props.className || '').includes('truncate')).toBe(false);
+      expect(String(weatherTitle.props.className || '').includes('overflow-hidden')).toBe(false);
+      expect(String(weatherTitle.props.className || '').includes('shrink-0')).toBe(true);
+      expect(String(weatherAudioBtn.props.className || '')).toContain('min-w-[56px]');
+      expect(String(weatherAudioBtn.props.className || '')).toContain('min-h-[56px]');
+      expect(String(weatherCloseBtn.props.className || '')).toContain('min-w-[56px]');
+      expect(String(weatherCloseBtn.props.className || '')).toContain('min-h-[56px]');
 
       const calmRenderer = createStatefulTestRenderer(
         <AppProvider>
@@ -940,9 +956,45 @@ describe('A-LAND V2.3 Batch01R — Weather Station & Calm Corner Visual Correcti
         </AppProvider>
       );
       const calmTitle = calmRenderer.findByTestId('v2-calm-header-title');
+      const calmIcon = calmRenderer.findByTestId('v2-calm-header-icon');
+      const calmAudioBtn = calmRenderer.findByTestId('v2-calm-header-audio-btn');
+      const calmCloseBtn = calmRenderer.findByTestId('v2-calm-header-close-btn');
+      const calmBadge = calmRenderer.findByTestId('v2-calm-header-badge');
+      const calmSubtitle = calmRenderer.findByTestId('v2-calm-header-subtitle');
       expect(calmTitle).not.toBeNull();
+      expect(calmIcon).not.toBeNull();
+      expect(calmAudioBtn).not.toBeNull();
+      expect(calmCloseBtn).not.toBeNull();
+      expect(calmBadge).not.toBeNull();
+      expect(calmSubtitle).not.toBeNull();
       expect(calmTitle.text).toBe('绿草冷静空间');
+      expect(calmBadge.text).toBe('非竞争 · 随时可离开');
       expect(String(calmTitle.props.className || '').includes('truncate')).toBe(false);
+      expect(String(calmTitle.props.className || '').includes('overflow-hidden')).toBe(false);
+      expect(String(calmTitle.props.className || '').includes('shrink-0')).toBe(true);
+      expect(String(calmAudioBtn.props.className || '')).toContain('min-w-[56px]');
+      expect(String(calmAudioBtn.props.className || '')).toContain('min-h-[56px]');
+      expect(String(calmCloseBtn.props.className || '')).toContain('min-w-[56px]');
+      expect(String(calmCloseBtn.props.className || '')).toContain('min-h-[56px]');
+
+      const calmCornerModalRenderer = createStatefulTestRenderer(
+        <AppProvider>
+          <CalmCornerModal
+            isOpen={true}
+            onClose={() => {}}
+            onRequestHug={() => {}}
+            visualV2Pilot={true}
+          />
+        </AppProvider>
+      );
+      const calmCornerTitle = calmCornerModalRenderer.findByTestId('v2-calm-corner-header-title');
+      const calmCornerCloseBtn = calmCornerModalRenderer.findByTestId('v2-calm-corner-header-close-btn');
+      expect(calmCornerTitle).not.toBeNull();
+      expect(calmCornerCloseBtn).not.toBeNull();
+      expect(calmCornerTitle.text).toBe('绿草平静角');
+      expect(String(calmCornerTitle.props.className || '').includes('shrink-0')).toBe(true);
+      expect(String(calmCornerCloseBtn.props.className || '')).toContain('min-w-[56px]');
+      expect(String(calmCornerCloseBtn.props.className || '')).toContain('min-h-[56px]');
     });
   });
 });

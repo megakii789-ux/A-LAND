@@ -118,7 +118,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
       data-art-gate={isV2Active ? 'ART_DIRECTOR_QA_HOLD' : undefined}
       data-artwork-status={isV2Active ? 'ASSET_ARTWORK_BLOCKED' : undefined}
       data-tech-preview={isV2Active ? 'TECH_PREVIEW_NOT_ART_APPROVED' : undefined}
-      className={`fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto animate-in fade-in duration-300 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 overflow-y-auto animate-in fade-in duration-300 ${
         isV2Active
           ? 'bg-linear-to-b from-[#071925]/80 via-[#0C2536]/85 to-[#081C29]/85 backdrop-blur-md'
           : 'bg-teal-950/60 backdrop-blur-md'
@@ -127,44 +127,49 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
       <div
         className={
           isV2Active
-            ? 'bg-linear-to-b from-[#0F293A] via-[#13384C] to-[#1B4652] border-4 border-[#D97706] rounded-[32px] p-3 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(4,24,36,0.65)] relative my-auto text-stone-800 space-y-2.5 sm:space-y-4 max-h-[94vh] overflow-y-auto'
+            ? 'bg-linear-to-b from-[#0F293A] via-[#13384C] to-[#1B4652] border-4 border-[#D97706] rounded-[32px] p-2.5 sm:p-6 max-w-3xl w-full shadow-[0_24px_60px_rgba(4,24,36,0.65)] relative my-auto text-stone-800 space-y-2.5 sm:space-y-4 max-h-[94vh] overflow-y-auto'
             : 'bg-linear-to-b from-teal-50 via-emerald-50 to-amber-50 border-2 border-teal-200/80 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto text-stone-800 space-y-6 max-h-[92vh] overflow-y-auto'
         }
       >
-        {/* Top Header & Controls (Gate U3: Two-row responsive layout in V2 mode so 绿草冷静空间 and subtitle are 100% readable without awkward wrapping or truncation) */}
+        {/* Top Header & Controls (Gate U3R: Non-overlapping responsive header at 360/390/430px with 0px² rect intersection and >=56px buttons) */}
         {isV2Active ? (
           <div
             data-testid="v2-calm-sanctuary-header"
-            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
+            className="px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
           >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
+              <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                 <img
+                  data-testid="v2-calm-header-icon"
                   src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
                   alt=""
                   aria-hidden="true"
-                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                  className="w-8 h-8 sm:w-11 sm:h-9 object-contain drop-shadow-xs shrink-0"
                 />
                 <h2
                   data-testid="v2-calm-header-title"
-                  className="text-lg sm:text-2xl font-black text-[#451A03] whitespace-nowrap"
+                  className="text-[17px] min-[380px]:text-lg sm:text-2xl font-black tracking-tight text-[#451A03] whitespace-nowrap shrink-0"
                 >
                   绿草冷静空间
                 </h2>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
                 <button
+                  type="button"
+                  data-testid="v2-calm-header-audio-btn"
                   onClick={toggleMute}
-                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-linear-to-b from-[#FEF3C7] to-[#FDE68A] border-2 border-[#D97706] text-[#78350F] flex items-center justify-center rounded-2xl transition-colors cursor-pointer shrink-0"
                   title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
                   aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
                 >
                   {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                 </button>
                 <button
+                  type="button"
+                  data-testid="v2-calm-header-close-btn"
                   onClick={onClose}
-                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center rounded-2xl transition-colors cursor-pointer"
+                  className="w-14 h-14 min-w-[56px] min-h-[56px] bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center rounded-2xl transition-colors cursor-pointer shrink-0"
                   aria-label="关闭冷静空间，返回主页"
                 >
                   <X className="w-6 h-6" />
@@ -173,7 +178,10 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
             </div>
 
             <div className="flex flex-wrap items-center gap-2 border-t border-amber-300/60 pt-1.5">
-              <span className="text-xs px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap bg-emerald-100 text-emerald-900 border border-emerald-400">
+              <span
+                data-testid="v2-calm-header-badge"
+                className="text-xs px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap bg-emerald-100 text-emerald-900 border border-emerald-400"
+              >
                 非竞争 · 随时可离开
               </span>
               <p

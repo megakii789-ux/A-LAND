@@ -10,6 +10,8 @@ const DOCS_OUT_DIR = path.join(WORKTREE_DIR, 'docs/v2-3-batch01r-art-remediation
 const DOCS_SCREENSHOTS_DIR = path.join(DOCS_OUT_DIR, 'screenshots');
 const UX_CLOSEOUT_DIR = path.join(WORKTREE_DIR, 'docs/v2-3-batch01r-ux-closeout/evidence');
 const UX_CLOSEOUT_SCREENSHOTS_DIR = path.join(UX_CLOSEOUT_DIR, 'screenshots');
+const U3R_OUT_DIR = path.join(WORKTREE_DIR, 'docs/v2-3-batch01r-u3r-final/evidence');
+const U3R_SCREENSHOTS_DIR = path.join(U3R_OUT_DIR, 'screenshots');
 const PORT = 4186;
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 
@@ -27,10 +29,12 @@ async function saveScreenshot(page, fileName) {
   await page.screenshot({ path: repoFullPath, fullPage: false });
   const uxFullPath = path.join(UX_CLOSEOUT_SCREENSHOTS_DIR, fileName);
   fs.copyFileSync(repoFullPath, uxFullPath);
+  const u3rFullPath = path.join(U3R_SCREENSHOTS_DIR, fileName);
+  fs.copyFileSync(repoFullPath, u3rFullPath);
   if (ARTIFACT_DIR && fs.existsSync(ARTIFACT_DIR)) {
     fs.copyFileSync(repoFullPath, path.join(ARTIFACT_DIR, fileName));
   }
-  return `docs/v2-3-batch01r-ux-closeout/evidence/screenshots/${fileName}`;
+  return `docs/v2-3-batch01r-u3r-final/evidence/screenshots/${fileName}`;
 }
 
 async function captureHotspotOverlayScreenshot(page, selectorList, fileName, titleText) {
@@ -127,6 +131,7 @@ function getDistBundleStats() {
 async function main() {
   fs.mkdirSync(DOCS_SCREENSHOTS_DIR, { recursive: true });
   fs.mkdirSync(UX_CLOSEOUT_SCREENSHOTS_DIR, { recursive: true });
+  fs.mkdirSync(U3R_SCREENSHOTS_DIR, { recursive: true });
 
   console.log('Starting Vite preview server on port', PORT);
   const serverProc = spawn(
@@ -265,13 +270,111 @@ async function main() {
         );
         const readAloudRect = readAloudBtn ? readAloudBtn.getBoundingClientRect() : null;
 
-        // Gate U3: Header title typography & non-truncation check
+        // Gate U3 / U3R: Header 2D rectangle collision, horizontal/vertical clearance & elementFromPoint hit-test
+        function rectIntersectionArea(a, b) {
+          if (!a || !b) return -1;
+          const xOverlap = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
+          const yOverlap = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+          return Math.round(xOverlap * yOverlap * 100) / 100;
+        }
+        function roundRect(r) {
+          if (!r) return null;
+          return {
+            left: Math.round(r.left * 10) / 10,
+            top: Math.round(r.top * 10) / 10,
+            right: Math.round(r.right * 10) / 10,
+            bottom: Math.round(r.bottom * 10) / 10,
+            width: Math.round(r.width * 10) / 10,
+            height: Math.round(r.height * 10) / 10,
+          };
+        }
+
+        const iconEl = document.querySelector('[data-testid="v2-weather-header-icon"]');
         const titleEl = document.querySelector('[data-testid="v2-weather-header-title"]');
+        const audioBtn = document.querySelector('[data-testid="v2-weather-header-audio-btn"]');
+        const closeBtn =
+          document.querySelector('[data-testid="v2-weather-header-close-btn"]') ||
+          document.querySelector('[aria-label="关闭天气站"]');
+        const badgeEl = document.querySelector('[data-testid="v2-weather-header-badge"]');
+        const subtitleEl = document.querySelector('[data-testid="v2-weather-header-subtitle"]');
+
+        const iconRect = iconEl ? iconEl.getBoundingClientRect() : null;
         const titleRect = titleEl ? titleEl.getBoundingClientRect() : null;
+        const audioBtnRect = audioBtn ? audioBtn.getBoundingClientRect() : null;
+        const closeBtnRect = closeBtn ? closeBtn.getBoundingClientRect() : null;
+        const badgeRect = badgeEl ? badgeEl.getBoundingClientRect() : null;
+        const subtitleRect = subtitleEl ? subtitleEl.getBoundingClientRect() : null;
+
         const titleStyle = titleEl ? window.getComputedStyle(titleEl) : null;
         const titleLineHeight = titleStyle ? parseFloat(titleStyle.lineHeight) || 28 : 28;
-        const closeBtn = document.querySelector('[aria-label="关闭天气站"]');
-        const closeBtnRect = closeBtn ? closeBtn.getBoundingClientRect() : null;
+
+        const intersectionAreas = {
+          titleVsAudioBtn: rectIntersectionArea(titleRect, audioBtnRect),
+          titleVsCloseBtn: rectIntersectionArea(titleRect, closeBtnRect),
+          titleVsIcon: rectIntersectionArea(titleRect, iconRect),
+          audioBtnVsCloseBtn: rectIntersectionArea(audioBtnRect, closeBtnRect),
+          subtitleVsAudioBtn: rectIntersectionArea(subtitleRect, audioBtnRect),
+          subtitleVsCloseBtn: rectIntersectionArea(subtitleRect, closeBtnRect),
+          badgeVsAudioBtn: rectIntersectionArea(badgeRect, audioBtnRect),
+          badgeVsCloseBtn: rectIntersectionArea(badgeRect, closeBtnRect),
+        };
+
+        const sameHorizontalRow = Boolean(
+          titleRect &&
+            audioBtnRect &&
+            Math.min(titleRect.bottom, audioBtnRect.bottom) -
+              Math.max(titleRect.top, audioBtnRect.top) >
+              0
+        );
+        const horizontalGapPx =
+          titleRect && audioBtnRect
+            ? Math.round((audioBtnRect.left - titleRect.right) * 10) / 10
+            : 0;
+        const verticalGapPx =
+          titleRect && audioBtnRect
+            ? Math.round(
+                Math.max(audioBtnRect.top - titleRect.bottom, titleRect.top - audioBtnRect.bottom) *
+                  10
+              ) / 10
+            : 0;
+        const clearanceGapPass = sameHorizontalRow ? horizontalGapPx >= 8 : verticalGapPx >= 6;
+
+        const samplePoints = titleRect
+          ? [
+              {
+                point: 'left',
+                x: Math.round((titleRect.left + 6) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+              {
+                point: 'center',
+                x: Math.round((titleRect.left + titleRect.width / 2) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+              {
+                point: 'right',
+                x: Math.round((titleRect.right - 6) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+            ]
+          : [];
+        const elementFromPointSamples = samplePoints.map((pt) => {
+          const hit = document.elementFromPoint(pt.x, pt.y);
+          const hitsTitleOrTextContainer = Boolean(
+            hit && titleEl && (hit === titleEl || titleEl.contains(hit))
+          );
+          return {
+            ...pt,
+            hitTag: hit ? hit.tagName : null,
+            hitTestId: hit ? hit.getAttribute('data-testid') : null,
+            hitsTitleOrTextContainer,
+          };
+        });
+
+        const zeroPairwiseIntersections = Object.values(intersectionAreas).every((v) => v === 0);
+        const allHitSamplesPass =
+          elementFromPointSamples.length === 3 &&
+          elementFromPointSamples.every((s) => s.hitsTitleOrTextContainer);
 
         // Gate U2: Layer geometry & zero-crop verification
         const layers = ['backplate', 'weather_actor', 'front_effect'].map((part) => {
@@ -347,6 +450,23 @@ async function main() {
           };
         });
 
+        const gateU3HeaderTypographyPass = Boolean(
+          titleEl &&
+            titleEl.textContent?.trim() === '情绪天气站' &&
+            titleEl.scrollWidth <= titleEl.clientWidth + 1 &&
+            titleRect &&
+            titleRect.height <= titleLineHeight * 1.45 &&
+            audioBtnRect &&
+            audioBtnRect.width >= 55.5 &&
+            audioBtnRect.height >= 55.5 &&
+            closeBtnRect &&
+            closeBtnRect.width >= 55.5 &&
+            closeBtnRect.height >= 55.5 &&
+            zeroPairwiseIntersections &&
+            clearanceGapPass &&
+            allHitSamplesPass
+        );
+
         return {
           scrollWidth,
           innerWidth,
@@ -367,16 +487,26 @@ async function main() {
               l.visibleWidthRatio >= 0.995 &&
               l.objectFit !== 'fill'
           ),
-          gateU3HeaderTypographyPass: Boolean(
-            titleEl &&
-              titleEl.textContent?.trim() === '情绪天气站' &&
-              titleEl.scrollWidth <= titleEl.clientWidth + 1 &&
-              titleRect &&
-              titleRect.height <= titleLineHeight * 1.45 &&
-              closeBtnRect &&
-              closeBtnRect.width >= 55.5 &&
-              closeBtnRect.height >= 55.5
-          ),
+          gateU3HeaderTypographyPass,
+          gateU3RHeaderCollisionAudit: {
+            scene: 'weather_station',
+            titleText: titleEl?.textContent?.trim() || '',
+            iconRect: roundRect(iconRect),
+            titleRect: roundRect(titleRect),
+            audioBtnRect: roundRect(audioBtnRect),
+            closeBtnRect: roundRect(closeBtnRect),
+            badgeRect: roundRect(badgeRect),
+            subtitleRect: roundRect(subtitleRect),
+            intersectionAreas,
+            zeroPairwiseIntersections,
+            sameHorizontalRow,
+            horizontalGapPx,
+            verticalGapPx,
+            clearanceGapPass,
+            elementFromPointSamples,
+            allHitSamplesPass,
+            pass: gateU3HeaderTypographyPass,
+          },
           headerTitleMetrics: {
             text: titleEl?.textContent?.trim() || '',
             clientWidth: titleEl ? titleEl.clientWidth : 0,
@@ -426,7 +556,7 @@ async function main() {
             '[data-testid="v2-calm-svg-color-blue"]',
           ],
           overlayFile,
-          `Gate U2+U3 Calm Hotspots (${vp.name}) — 0% Crop / Coaxial Orb`
+          `Gate U2+U3R Calm Hotspots (${vp.name}) — 0% Crop / 0px² Header Overlap`
         );
         screenshots.push({
           viewport: vp.name,
@@ -452,13 +582,111 @@ async function main() {
           '[aria-label*="红色物品感知练习：请在周围房间里找到一件红色的东西"]'
         );
 
-        // Gate U3: Header title typography & non-truncation check
+        // Gate U3 / U3R: Header 2D rectangle collision, horizontal/vertical clearance & elementFromPoint hit-test
+        function rectIntersectionArea(a, b) {
+          if (!a || !b) return -1;
+          const xOverlap = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
+          const yOverlap = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+          return Math.round(xOverlap * yOverlap * 100) / 100;
+        }
+        function roundRect(r) {
+          if (!r) return null;
+          return {
+            left: Math.round(r.left * 10) / 10,
+            top: Math.round(r.top * 10) / 10,
+            right: Math.round(r.right * 10) / 10,
+            bottom: Math.round(r.bottom * 10) / 10,
+            width: Math.round(r.width * 10) / 10,
+            height: Math.round(r.height * 10) / 10,
+          };
+        }
+
+        const iconEl = document.querySelector('[data-testid="v2-calm-header-icon"]');
         const titleEl = document.querySelector('[data-testid="v2-calm-header-title"]');
+        const audioBtn = document.querySelector('[data-testid="v2-calm-header-audio-btn"]');
+        const closeBtn =
+          document.querySelector('[data-testid="v2-calm-header-close-btn"]') ||
+          document.querySelector('[aria-label="关闭冷静空间，返回主页"]');
+        const badgeEl = document.querySelector('[data-testid="v2-calm-header-badge"]');
+        const subtitleEl = document.querySelector('[data-testid="v2-calm-header-subtitle"]');
+
+        const iconRect = iconEl ? iconEl.getBoundingClientRect() : null;
         const titleRect = titleEl ? titleEl.getBoundingClientRect() : null;
+        const audioBtnRect = audioBtn ? audioBtn.getBoundingClientRect() : null;
+        const closeBtnRect = closeBtn ? closeBtn.getBoundingClientRect() : null;
+        const badgeRect = badgeEl ? badgeEl.getBoundingClientRect() : null;
+        const subtitleRect = subtitleEl ? subtitleEl.getBoundingClientRect() : null;
+
         const titleStyle = titleEl ? window.getComputedStyle(titleEl) : null;
         const titleLineHeight = titleStyle ? parseFloat(titleStyle.lineHeight) || 28 : 28;
-        const closeBtn = document.querySelector('[aria-label="关闭冷静空间，返回主页"]');
-        const closeBtnRect = closeBtn ? closeBtn.getBoundingClientRect() : null;
+
+        const intersectionAreas = {
+          titleVsAudioBtn: rectIntersectionArea(titleRect, audioBtnRect),
+          titleVsCloseBtn: rectIntersectionArea(titleRect, closeBtnRect),
+          titleVsIcon: rectIntersectionArea(titleRect, iconRect),
+          audioBtnVsCloseBtn: rectIntersectionArea(audioBtnRect, closeBtnRect),
+          subtitleVsAudioBtn: rectIntersectionArea(subtitleRect, audioBtnRect),
+          subtitleVsCloseBtn: rectIntersectionArea(subtitleRect, closeBtnRect),
+          badgeVsAudioBtn: rectIntersectionArea(badgeRect, audioBtnRect),
+          badgeVsCloseBtn: rectIntersectionArea(badgeRect, closeBtnRect),
+        };
+
+        const sameHorizontalRow = Boolean(
+          titleRect &&
+            audioBtnRect &&
+            Math.min(titleRect.bottom, audioBtnRect.bottom) -
+              Math.max(titleRect.top, audioBtnRect.top) >
+              0
+        );
+        const horizontalGapPx =
+          titleRect && audioBtnRect
+            ? Math.round((audioBtnRect.left - titleRect.right) * 10) / 10
+            : 0;
+        const verticalGapPx =
+          titleRect && audioBtnRect
+            ? Math.round(
+                Math.max(audioBtnRect.top - titleRect.bottom, titleRect.top - audioBtnRect.bottom) *
+                  10
+              ) / 10
+            : 0;
+        const clearanceGapPass = sameHorizontalRow ? horizontalGapPx >= 8 : verticalGapPx >= 6;
+
+        const samplePoints = titleRect
+          ? [
+              {
+                point: 'left',
+                x: Math.round((titleRect.left + 6) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+              {
+                point: 'center',
+                x: Math.round((titleRect.left + titleRect.width / 2) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+              {
+                point: 'right',
+                x: Math.round((titleRect.right - 6) * 10) / 10,
+                y: Math.round((titleRect.top + titleRect.height / 2) * 10) / 10,
+              },
+            ]
+          : [];
+        const elementFromPointSamples = samplePoints.map((pt) => {
+          const hit = document.elementFromPoint(pt.x, pt.y);
+          const hitsTitleOrTextContainer = Boolean(
+            hit && titleEl && (hit === titleEl || titleEl.contains(hit))
+          );
+          return {
+            ...pt,
+            hitTag: hit ? hit.tagName : null,
+            hitTestId: hit ? hit.getAttribute('data-testid') : null,
+            hitsTitleOrTextContainer,
+          };
+        });
+
+        const zeroPairwiseIntersections = Object.values(intersectionAreas).every((v) => v === 0);
+        const allHitSamplesPass =
+          elementFromPointSamples.length === 3 &&
+          elementFromPointSamples.every((s) => s.hitsTitleOrTextContainer);
 
         // Gate U2: Layer geometry & zero-crop verification
         const layers = ['room', 'breathing_visual'].map((part) => {
@@ -538,6 +766,23 @@ async function main() {
           };
         });
 
+        const gateU3HeaderTypographyPass = Boolean(
+          titleEl &&
+            titleEl.textContent?.trim() === '绿草冷静空间' &&
+            titleEl.scrollWidth <= titleEl.clientWidth + 1 &&
+            titleRect &&
+            titleRect.height <= titleLineHeight * 1.45 &&
+            audioBtnRect &&
+            audioBtnRect.width >= 55.5 &&
+            audioBtnRect.height >= 55.5 &&
+            closeBtnRect &&
+            closeBtnRect.width >= 55.5 &&
+            closeBtnRect.height >= 55.5 &&
+            zeroPairwiseIntersections &&
+            clearanceGapPass &&
+            allHitSamplesPass
+        );
+
         return {
           scrollWidth,
           innerWidth,
@@ -555,16 +800,26 @@ async function main() {
                 l.objectFit !== 'fill'
             ) && orbHorizontalCenterDeltaPx <= 2,
           orbHorizontalCenterDeltaPx,
-          gateU3HeaderTypographyPass: Boolean(
-            titleEl &&
-              titleEl.textContent?.trim() === '绿草冷静空间' &&
-              titleEl.scrollWidth <= titleEl.clientWidth + 1 &&
-              titleRect &&
-              titleRect.height <= titleLineHeight * 1.45 &&
-              closeBtnRect &&
-              closeBtnRect.width >= 55.5 &&
-              closeBtnRect.height >= 55.5
-          ),
+          gateU3HeaderTypographyPass,
+          gateU3RHeaderCollisionAudit: {
+            scene: 'calm_corner',
+            titleText: titleEl?.textContent?.trim() || '',
+            iconRect: roundRect(iconRect),
+            titleRect: roundRect(titleRect),
+            audioBtnRect: roundRect(audioBtnRect),
+            closeBtnRect: roundRect(closeBtnRect),
+            badgeRect: roundRect(badgeRect),
+            subtitleRect: roundRect(subtitleRect),
+            intersectionAreas,
+            zeroPairwiseIntersections,
+            sameHorizontalRow,
+            horizontalGapPx,
+            verticalGapPx,
+            clearanceGapPass,
+            elementFromPointSamples,
+            allHitSamplesPass,
+            pass: gateU3HeaderTypographyPass,
+          },
           headerTitleMetrics: {
             text: titleEl?.textContent?.trim() || '',
             clientWidth: titleEl ? titleEl.clientWidth : 0,
@@ -955,10 +1210,34 @@ async function main() {
           m.assetKeys.every((k) => k.startsWith(m.sceneId.replace(':', '/')))
       );
 
+    const headerCollisionAudit = {
+      generatedAt: new Date().toISOString(),
+      gitCommitSha: GIT_COMMIT_SHA,
+      branch: 'ui/visual-v2-batch01r-u3r-final',
+      gate: 'U3R',
+      allViewportsZeroCollisionPass: gateU3AllPass,
+      mobileNarrowViewports: viewportResults
+        .filter((v) => v.width <= 430)
+        .map((v) => ({
+          viewport: v.viewport,
+          width: v.width,
+          height: v.height,
+          calmSpaceHeader: v.calmCornerV2.gateU3RHeaderCollisionAudit,
+          weatherStationHeader: v.weatherStationV2.gateU3RHeaderCollisionAudit,
+        })),
+      allViewports: viewportResults.map((v) => ({
+        viewport: v.viewport,
+        width: v.width,
+        height: v.height,
+        calmSpaceHeader: v.calmCornerV2.gateU3RHeaderCollisionAudit,
+        weatherStationHeader: v.weatherStationV2.gateU3RHeaderCollisionAudit,
+      })),
+    };
+
     const report = {
       generatedAt: new Date().toISOString(),
       gitCommitSha: GIT_COMMIT_SHA,
-      branch: 'ui/visual-v2-batch01r-ux-closeout',
+      branch: 'ui/visual-v2-batch01r-u3r-final',
       packageVersion: 'A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017',
       packageZipSha256: '1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d',
       mandatoryHoldFlags: {
@@ -975,6 +1254,7 @@ async function main() {
         gateU1SinglePrimaryWeatherSelectorPass: gateU1AllPass,
         gateU2ZeroCropStageGeometryPass: gateU2AllPass,
         gateU3HeaderTypographyPass: gateU3AllPass,
+        gateU3RHeaderZeroCollisionPass: gateU3AllPass,
         all6ViewportsPass: allViewportsPass,
         all4CompanionsSwitchedPass,
         mediaTrackerResetPass,
@@ -1019,6 +1299,7 @@ async function main() {
           reducedMotionResult.ringScaleFrozenAtOne,
         storyCupRegressionPass,
       },
+      headerCollisionAudit,
       e2eDetails: {
         rainyDynamicPhraseState,
         companionSwitchResults,
@@ -1045,7 +1326,16 @@ async function main() {
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
     const uxReportPath = path.join(UX_CLOSEOUT_DIR, 'GATE_U4_UX_CLOSEOUT_REPORT.json');
     fs.writeFileSync(uxReportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
-    console.log('Saved Gate U4 UX Closeout report ->', uxReportPath);
+    const u3rCollisionPath = path.join(U3R_OUT_DIR, 'HEADER_COLLISION_AUDIT_U3R.json');
+    fs.writeFileSync(
+      u3rCollisionPath,
+      JSON.stringify(headerCollisionAudit, null, 2) + '\n',
+      'utf8'
+    );
+    const u3rReportPath = path.join(U3R_OUT_DIR, 'playwright_u3r_report.json');
+    fs.writeFileSync(u3rReportPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
+    console.log('Saved Gate U3R Collision Audit ->', u3rCollisionPath);
+    console.log('Saved Gate U3R Playwright Report ->', u3rReportPath);
 
     const failedChecks = Object.entries(report.summary).filter(
       ([k, v]) =>
@@ -1053,10 +1343,10 @@ async function main() {
         (typeof v === 'number' && k.endsWith('Count') && v > 0)
     );
     if (failedChecks.length > 0) {
-      console.error('Gate U4 verification had failing checks:', failedChecks);
+      console.error('Gate U3R verification had failing checks:', failedChecks);
       process.exitCode = 1;
     } else {
-      console.log('ALL GATES U1–U4 6-VIEWPORT & E2E CHECKS PASSED!');
+      console.log('ALL GATES U1–U3R 6-VIEWPORT & E2E CHECKS PASSED!');
     }
   } finally {
     if (browser) {

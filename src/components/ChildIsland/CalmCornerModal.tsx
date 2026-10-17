@@ -79,37 +79,43 @@ export const CalmCornerModal: React.FC<Props> = ({
             : 'bg-emerald-50/95 border border-emerald-200 rounded-3xl p-5 sm:p-8 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[92vh] overflow-y-auto'
         }
       >
-        {/* Header (Gate U3: Two-row responsive layout in V2 mode) */}
+        {/* Header (Gate U3R: Two-row responsive layout in V2 mode with 0px² rect intersection) */}
         {isV2Active ? (
           <div
             data-testid="v2-calm-corner-modal-header"
-            className="px-3.5 py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
+            className="px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl bg-linear-to-r from-[#FFFDF7] via-[#FEF3C7] to-[#FFFDF7] border-3 border-[#D97706] shadow-md space-y-1.5"
           >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
+              <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                 <img
+                  data-testid="v2-calm-corner-header-icon"
                   src="/visual-v2/batch01r-art/cutouts/landmarks/calm_corner/idle_native.png"
                   alt=""
                   aria-hidden="true"
-                  className="w-11 h-9 object-contain drop-shadow-xs shrink-0"
+                  className="w-8 h-8 sm:w-11 sm:h-9 object-contain drop-shadow-xs shrink-0"
                 />
                 <h3
                   data-testid="v2-calm-corner-header-title"
-                  className="text-lg sm:text-xl font-black text-[#451A03] whitespace-nowrap"
+                  className="text-[17px] min-[380px]:text-lg sm:text-xl font-black tracking-tight text-[#451A03] whitespace-nowrap shrink-0"
                 >
                   绿草平静角
                 </h3>
               </div>
               <button
+                type="button"
+                data-testid="v2-calm-corner-header-close-btn"
                 onClick={onClose}
-                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                className="w-14 h-14 min-w-[56px] min-h-[56px] rounded-2xl bg-[#FFFDF7] border-2 border-[#9A6338] text-[#451A03] hover:bg-amber-100 flex items-center justify-center transition-colors cursor-pointer shrink-0 ml-auto"
                 aria-label="离开平静角"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
             <div className="flex flex-wrap items-center gap-2 border-t border-amber-300/60 pt-1.5">
-              <span className="text-xs bg-emerald-100 text-emerald-900 border border-emerald-400 px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap">
+              <span
+                data-testid="v2-calm-corner-header-badge"
+                className="text-xs bg-emerald-100 text-emerald-900 border border-emerald-400 px-2.5 py-0.5 rounded-full font-extrabold whitespace-nowrap"
+              >
                 无压力 · 随时可停
               </span>
               <p
