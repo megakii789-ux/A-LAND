@@ -3,7 +3,8 @@
   "artDirectorGate": "ART_DIRECTOR_QA_HOLD",
   "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
   "contentQaFlag": "CONTENT_QA_REVIEW",
-  "verifiedAt": "2026-10-16T17:09:53.573Z",
+  "gitCommitSha": "1330a797824c4d55a367ad04b7e7099d71cf8e6a",
+  "verifiedAt": "2026-10-17T00:15:30.182Z",
   "viewportsTested": [
     "360x800",
     "390x844",
@@ -1528,12 +1529,47 @@
       }
     ],
     "movableBlueCupExposedInAxTree": true,
-    "allThreeDropzonesExposedInAxTree": true
+    "allThreeDropzonesExposedInAxTree": true,
+    "keyboardVisibleFocusVerification": {
+      "dropzoneFocusCheck": {
+        "focusedTestId": "cup-dropzone-NEXT_TO_BLOCK",
+        "role": "button",
+        "matchesFocusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "3px",
+        "outlineColor": "rgb(2, 132, 199)",
+        "strokeColor": "rgb(2, 132, 199)",
+        "strokeWidth": "3.5px"
+      },
+      "movableCupFocusCheck": {
+        "focusedTestId": "movable-blue-cup-prop",
+        "role": "button",
+        "matchesFocusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "3px",
+        "outlineColor": "rgb(2, 132, 199)",
+        "focusRingStroke": "rgb(2, 132, 199)",
+        "focusRingStrokeWidth": "3.5px"
+      },
+      "posAfterDropzoneEnter": "CENTER_TABLE",
+      "posAfterDropzoneSpace": "NEXT_TO_BUCKET",
+      "posAfterKeyEnter": "CENTER_TABLE",
+      "posAfterKeyLeft": "NEXT_TO_BLOCK",
+      "posAfterKeyRight": "NEXT_TO_BUCKET",
+      "screenshots": [
+        "docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_dropzone.png",
+        "docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_movable_cup.png"
+      ],
+      "pass": true
+    }
   },
   "deepFunctionalVerification": {
     "initialPos": "CENTER_TABLE",
     "posAfterDragToBlock": "NEXT_TO_BLOCK",
+    "posAfterDropzoneEnter": "CENTER_TABLE",
+    "posAfterDropzoneSpace": "NEXT_TO_BUCKET",
     "posAfterKeyEnter": "CENTER_TABLE",
+    "posAfterKeyLeft": "NEXT_TO_BLOCK",
     "posAfterKeyRight": "NEXT_TO_BUCKET",
     "posAfterBtnCenter": "CENTER_TABLE",
     "posAfterBtnBlock": "NEXT_TO_BLOCK",
@@ -1646,6 +1682,18 @@
       "mode": "position_NEXT_TO_BLOCK",
       "file": "v2_2_gate3_position_NEXT_TO_BLOCK.png",
       "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate3_position_NEXT_TO_BLOCK.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "keyboard_focus_dropzone",
+      "file": "v2_2_gate4r_keyboard_focus_dropzone.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_dropzone.png"
+    },
+    {
+      "viewport": "1440x900",
+      "mode": "keyboard_focus_movable_cup",
+      "file": "v2_2_gate4r_keyboard_focus_movable_cup.png",
+      "repoPath": "docs/v2-story-cup-pilot/screenshots/v2_2_gate4r_keyboard_focus_movable_cup.png"
     },
     {
       "viewport": "1440x900",

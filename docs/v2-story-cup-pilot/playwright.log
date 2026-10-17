@@ -7,9 +7,10 @@ Testing viewport 1024x1366...
 Testing viewport 1440x900...
 Running mobile 390x844 pointer drag & speaker separation check...
 Running deep E2E functional checks for Gate 3R...
-Gate 3R Verification Summary:
+Gate 3R/4R Verification Summary:
 {
   "gate": "GATE3R_PASS",
+  "gitCommitSha": "1330a797824c4d55a367ad04b7e7099d71cf8e6a",
   "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
   "consoleErrorCount": 0,
   "pageErrorCount": 0,
@@ -66,12 +67,16 @@ Gate 3R Verification Summary:
   },
   "accessibilityVerification": {
     "movableBlueCupExposedInAxTree": true,
-    "allThreeDropzonesExposedInAxTree": true
+    "allThreeDropzonesExposedInAxTree": true,
+    "keyboardVisibleFocusPass": true
   },
   "deepFunctionalVerification": {
     "initialPos": "CENTER_TABLE",
     "posAfterDragToBlock": "NEXT_TO_BLOCK",
+    "posAfterDropzoneEnter": "CENTER_TABLE",
+    "posAfterDropzoneSpace": "NEXT_TO_BUCKET",
     "posAfterKeyEnter": "CENTER_TABLE",
+    "posAfterKeyLeft": "NEXT_TO_BLOCK",
     "posAfterKeyRight": "NEXT_TO_BUCKET",
     "posAfterBtnCenter": "CENTER_TABLE",
     "posAfterBtnBlock": "NEXT_TO_BLOCK",
@@ -88,5 +93,5 @@ Gate 3R Verification Summary:
     "voiceCompanionInStoryPill": "qiqi_deer",
     "reducedMotionAttr": "true"
   },
-  "totalScreenshots": 21
+  "totalScreenshots": 23
 }

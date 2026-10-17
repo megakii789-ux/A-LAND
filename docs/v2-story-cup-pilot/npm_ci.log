@@ -1,0 +1,72 @@
+=== CLEAN WORKTREE CI ENVIRONMENT ===
+git_head_sha: 1330a797824c4d55a367ad04b7e7099d71cf8e6a
+git_branch: ui/visual-v2-story-pilot
+node_version: v20.20.2
+npm_version: 10.8.2
+os_uname: Linux 6.8.0-138-generic x86_64
+timestamp_utc: 2026-10-17T00:14:41Z
+=== npm ci ===
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/ai@3.0.0',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/app@0.16.3',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/app-compat@0.5.19',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/auth@1.13.7',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/auth-compat@0.6.12',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/firestore@4.18.0',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/firestore-compat@0.4.15',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/storage@0.14.6',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@firebase/storage-compat@0.4.6',
+npm warn EBADENGINE   required: { node: '>=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'vitest@5.0.4',
+npm warn EBADENGINE   required: { node: '^22.12.0 || ^24.0.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn reify Removing non-directory /home/voga/A-LAND-visual-v2-story-pilot/node_modules
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+
+added 275 packages, and audited 276 packages in 4s
+
+45 packages are looking for funding
+  run `npm fund` for details
+
+4 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

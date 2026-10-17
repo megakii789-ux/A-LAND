@@ -1,23 +1,29 @@
-=== 1. GET https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/version.json ===
+# CANONICAL IMMUTABLE DEPLOYMENT & BRANCH ALIAS HTTP RESPONSES
+# canonical_code_commit_sha: 1330a797824c4d55a367ad04b7e7099d71cf8e6a
+# immutable_deployment_id: a62a63cf
+# immutable_deployment_url: https://a62a63cf.qingyu-island-v2-assetlab.pages.dev
+# branch_alias_url: https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev
+
+=== 1. GET https://a62a63cf.qingyu-island-v2-assetlab.pages.dev/version.json (Immutable Deployment URL) ===
 HTTP/1.1 200 Connection established
 
 HTTP/2 200 
-date: Fri, 16 Oct 2026 17:16:53 GMT
+date: Sat, 17 Oct 2026 00:16:41 GMT
 content-type: application/json
 content-length: 2148
 access-control-allow-origin: *
 cache-control: no-cache, no-store, must-revalidate
-etag: "dcf1be1fec090bea7151a888d5a65312"
+etag: "e5b21d6a1172ccc50221881463467cd9"
 permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: no-referrer
 x-content-type-options: nosniff
 x-frame-options: DENY
 x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
 x-robots-tag: noindex, nofollow, noarchive
-report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=kWT3BMVp6rle3viV5utdGjGKspTdvT2458AfbGVrDZa4AzDMgNenckPGwyOxb6%2FNnbOXQ2SuuW2YT7KjxenC83r3HnvToYcxUFtbQEufopDtk64MXxUNn7IPDVqJNZx0RTExuxUkbixSJGNVcopW4zYbepm1fRQVha4dUAJ%2FZ94VuAxDTQHLbZQlfcCTltMWyxT7rA%3D%3D"}]}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=YC7RGdV7zaxn7IgMTPwz6szz52mNkXHFV%2F9og3xNpt%2FMEoKTIrJcgsi7%2Bo2EHc0lIYf9sOb4KKacZgesfMpZo1o5NCO%2FKJ8iB2kKE5BPTutHOQV32ZCmNlc1LBtMacpXP2H3O2bAeND6flTO9Eyo28kGy9N89G6SnO3KaN0m6g%3D%3D"}]}
 nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
 server: cloudflare
-cf-ray: a4b8b6c17b135bbf-KIX
+cf-ray: a4bb1db3da7dd1c3-KIX
 alt-svc: h3=":443"; ma=86400
 
 {
@@ -26,10 +32,10 @@ alt-svc: h3=":443"; ma=86400
   "metadataKind": "RUNTIME_DEPLOYMENT_METADATA",
   "branch": "ui/visual-v2-story-pilot",
   "productionHoldBranch": "public-hold",
-  "commitSha": "be636b4baaac8656668a174e0b2fa3372ef26a8a",
-  "shortCommitSha": "be636b4baaac",
+  "commitSha": "1330a797824c4d55a367ad04b7e7099d71cf8e6a",
+  "shortCommitSha": "1330a797824c",
   "commitIdentitySource": "GIT_HEAD",
-  "deploymentTimestamp": "2026-10-16T17:14:23.372Z",
+  "deploymentTimestamp": "2026-10-17T00:14:50.603Z",
   "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
   "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
   "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
@@ -72,91 +78,14 @@ alt-svc: h3=":443"; ma=86400
     "vitest": "5.0.4",
     "esbuild": "0.28.2"
   },
-  "updatedAt": "2026-10-16T17:14:23.372Z"
+  "updatedAt": "2026-10-17T00:14:50.603Z"
 }
 
-=== 2. GET https://f7011578.qingyu-island-v2-assetlab.pages.dev/version.json ===
+=== 2. GET https://a62a63cf.qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot (Immutable Deployment Route) ===
 HTTP/1.1 200 Connection established
 
 HTTP/2 200 
-date: Fri, 16 Oct 2026 17:16:54 GMT
-content-type: application/json
-content-length: 2148
-access-control-allow-origin: *
-cache-control: no-cache, no-store, must-revalidate
-etag: "dcf1be1fec090bea7151a888d5a65312"
-permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
-referrer-policy: no-referrer
-x-content-type-options: nosniff
-x-frame-options: DENY
-x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
-x-robots-tag: noindex, nofollow, noarchive
-report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=qFpupK6T8sLbHHl2wQKuRvnYuwsk56hadw8b%2FjuzYorBi45LbTAUqXXeUe1sk4ivvQDWqkq50mcGp7PhPMPaZtq%2FzKq5GYCTF1wKwN8bQJnL%2F8E5Due%2Bf0SwMWjMI7pL4VHeDjxLTbLaEud6v7gcHZjd%2BBNuyFORCib0QyDp5g%3D%3D"}]}
-nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
-server: cloudflare
-cf-ray: a4b8b6c60bf1b554-KIX
-alt-svc: h3=":443"; ma=86400
-
-{
-  "project": "qingyu-island-preview",
-  "repository": "megakii789-ux/A-LAND",
-  "metadataKind": "RUNTIME_DEPLOYMENT_METADATA",
-  "branch": "ui/visual-v2-story-pilot",
-  "productionHoldBranch": "public-hold",
-  "commitSha": "be636b4baaac8656668a174e0b2fa3372ef26a8a",
-  "shortCommitSha": "be636b4baaac",
-  "commitIdentitySource": "GIT_HEAD",
-  "deploymentTimestamp": "2026-10-16T17:14:23.372Z",
-  "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
-  "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
-  "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
-  "artDirectorQaGate": "ART_DIRECTOR_QA_HOLD",
-  "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
-  "contentQaReviewFlag": "CONTENT_QA_REVIEW",
-  "visualAssetFactoryVersion": "A_LAND_V2_ASSET_FACTORY_V0_1_20261016",
-  "visualPilotVersion": "A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016",
-  "visualPilotModule": "StoryGrove::cup-size",
-  "visualReviewRoute": "/visual-v2-review",
-  "visualPilotRoute": "/visual-v2-review/story-cup-pilot",
-  "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
-  "contentAuditSummary": {
-    "evaluationMethod": "RUNTIME_REGISTRY_EXECUTION",
-    "totalRegisteredItems": 16,
-    "pendingReviewCount": 16,
-    "passedCount": 0,
-    "rejectedOrRevokedCount": 0,
-    "renderableInChildModeCount": 0,
-    "riskTierBreakdown": {
-      "LOW_EXPLORATION": 7,
-      "MEDIUM_FAMILY_PEER_PRIVACY": 7,
-      "HIGH_SAFETY_CRISIS": 2
-    },
-    "defaultChildModePolicy": "FAIL_CLOSED_BLOCK_UNAPPROVED"
-  },
-  "remoteHelpRelayStatus": "FAIL_CLOSED_503",
-  "mode": "local-only-verified",
-  "remoteRelayEnabled": false,
-  "cloudSyncEnabled": false,
-  "accessControlRequired": false,
-  "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
-  "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
-  "rollbackTargetSha": "ae22f7ab8b124829196370cdce5a5bfc430c8e9c",
-  "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
-  "buildToolchain": {
-    "node": "v20.20.2",
-    "vite": "8.3.4",
-    "typescript": "7.0.2",
-    "vitest": "5.0.4",
-    "esbuild": "0.28.2"
-  },
-  "updatedAt": "2026-10-16T17:14:23.372Z"
-}
-
-=== 3. GET https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot ===
-HTTP/1.1 200 Connection established
-
-HTTP/2 200 
-date: Fri, 16 Oct 2026 17:16:55 GMT
+date: Sat, 17 Oct 2026 00:16:43 GMT
 content-type: text/html; charset=utf-8
 access-control-allow-origin: *
 cache-control: no-cache, no-store, must-revalidate
@@ -168,9 +97,9 @@ x-content-type-options: nosniff
 x-frame-options: DENY
 x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
 x-robots-tag: noindex, nofollow, noarchive
-report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=erLuECjFTj1Eh4hm0l7noDpdIjhb7NQPUf3un53BRzoFh%2BvkuSKL4XNL44g8cSO8tE7oVnm2soAk7LZgP3ijNpA4PS4NEfRnl87bQBcivnqirpZ2EJiEaSRYcKOpuAeXBBnaDP453EexWDFqJOZ%2BeIrSK9dtKVOTaDR8SN%2Bm94Mbg9VWgjUEZ9h3zP0dFBT0AOD2rw%3D%3D"}]}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=4842tQgSoXxdnfTiDfXaPNULZWr0EcugjT8jXB%2B9KHhpZ4%2FpS5%2BBueDAZBzus%2Be4gFciwzPvz5rScUsq5%2BiePDrbiTNlirpmbvmaB1LbLdwTqBSrkyMPBAfpW8qCJ1HNINWG5xUZ%2B%2FTWu2BS0B5REt1xg7e6UI3CtLi2NuHEXw%3D%3D"}]}
 server: cloudflare
-cf-ray: a4b8b6caca28fcb6-KIX
+cf-ray: a4bb1dbb8e8d9649-KIX
 alt-svc: h3=":443"; ma=86400
 
 <!doctype html>
@@ -193,8 +122,135 @@ alt-svc: h3=":443"; ma=86400
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta name="release-gate-status" content="ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED" />
-    <script type="module" crossorigin src="/assets/index-DYOB9sW3.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-TSjhtW1t.css">
+    <script type="module" crossorigin src="/assets/index-CtLocKiX.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BIquANf2.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
+
+=== 3. GET https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/version.json (Branch Alias URL) ===
+HTTP/1.1 200 Connection established
+
+HTTP/2 200 
+date: Sat, 17 Oct 2026 00:16:44 GMT
+content-type: application/json
+content-length: 2148
+access-control-allow-origin: *
+cache-control: no-cache, no-store, must-revalidate
+etag: "e5b21d6a1172ccc50221881463467cd9"
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+referrer-policy: no-referrer
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=U3egNSBduYeCRnQFbVg5zG39arZ%2Fn%2Bc6WnjG2ivQyQT5GWhkwHGVTi2tR1XdSX6z0I6VPaXDI6XLUWoLZnWKlR8wrGKOVvaIiTAh2ICx2NtmARMA5LYCfFAtuR8OeBeMSdIZxVuzadl1bNAhkupmRm4MHG4tgZOwriAluRmuylykdtpaiGoYfQpb4Ss0wbYQPjCA6A%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a4bb1dc34cce3062-KIX
+alt-svc: h3=":443"; ma=86400
+
+{
+  "project": "qingyu-island-preview",
+  "repository": "megakii789-ux/A-LAND",
+  "metadataKind": "RUNTIME_DEPLOYMENT_METADATA",
+  "branch": "ui/visual-v2-story-pilot",
+  "productionHoldBranch": "public-hold",
+  "commitSha": "1330a797824c4d55a367ad04b7e7099d71cf8e6a",
+  "shortCommitSha": "1330a797824c",
+  "commitIdentitySource": "GIT_HEAD",
+  "deploymentTimestamp": "2026-10-17T00:14:50.603Z",
+  "buildStatus": "VERIFIED_QUALITY_GATE_PASSED",
+  "releaseGateStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "releaseApprovalStatus": "ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED",
+  "artDirectorQaGate": "ART_DIRECTOR_QA_HOLD",
+  "engineeringPilotGate": "ENGINEERING_AUDIT_HOLD",
+  "contentQaReviewFlag": "CONTENT_QA_REVIEW",
+  "visualAssetFactoryVersion": "A_LAND_V2_ASSET_FACTORY_V0_1_20261016",
+  "visualPilotVersion": "A_LAND_V2_2_STORY_CUP_ENGINEERING_ASSETS_AND_STAGE_COMMANDS_20261016",
+  "visualPilotModule": "StoryGrove::cup-size",
+  "visualReviewRoute": "/visual-v2-review",
+  "visualPilotRoute": "/visual-v2-review/story-cup-pilot",
+  "contentAuditGate": "FAIL_CLOSED_PENDING_AUDIT",
+  "contentAuditSummary": {
+    "evaluationMethod": "RUNTIME_REGISTRY_EXECUTION",
+    "totalRegisteredItems": 16,
+    "pendingReviewCount": 16,
+    "passedCount": 0,
+    "rejectedOrRevokedCount": 0,
+    "renderableInChildModeCount": 0,
+    "riskTierBreakdown": {
+      "LOW_EXPLORATION": 7,
+      "MEDIUM_FAMILY_PEER_PRIVACY": 7,
+      "HIGH_SAFETY_CRISIS": 2
+    },
+    "defaultChildModePolicy": "FAIL_CLOSED_BLOCK_UNAPPROVED"
+  },
+  "remoteHelpRelayStatus": "FAIL_CLOSED_503",
+  "mode": "local-only-verified",
+  "remoteRelayEnabled": false,
+  "cloudSyncEnabled": false,
+  "accessControlRequired": false,
+  "pwaPrivatePreviewHtmlCache": "DISABLED_BY_GATE_D6",
+  "rollbackPolicy": "WHITELIST_ONLY_F8C74019_REVOKED",
+  "rollbackTargetSha": "ae22f7ab8b124829196370cdce5a5bfc430c8e9c",
+  "previewDomainSuggested": "https://preview.qingyu-island-preview.pages.dev",
+  "buildToolchain": {
+    "node": "v20.20.2",
+    "vite": "8.3.4",
+    "typescript": "7.0.2",
+    "vitest": "5.0.4",
+    "esbuild": "0.28.2"
+  },
+  "updatedAt": "2026-10-17T00:14:50.603Z"
+}
+
+=== 4. GET https://ui-visual-v2-story-pilot-n35m.qingyu-island-v2-assetlab.pages.dev/visual-v2-review/story-cup-pilot (Branch Alias Route) ===
+HTTP/1.1 200 Connection established
+
+HTTP/2 200 
+date: Sat, 17 Oct 2026 00:16:45 GMT
+content-type: text/html; charset=utf-8
+access-control-allow-origin: *
+cache-control: no-cache, no-store, must-revalidate
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+referrer-policy: no-referrer
+x-art-director-qa-gate: ART_DIRECTOR_QA_HOLD
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-release-gate-status: ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED
+x-robots-tag: noindex, nofollow, noarchive
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=guF3UE1EItJJlAq3m6H9N2MIk%2F%2FaY4ujZAHkJR0aSKuMpUcewRGy%2BXUkpTlGfI9pQls7Eil5Ym4HEp1lnn1TPpw2ciYQGoeutNVLcmRH22Cxj16u09QxVwsin29YJGs6d0KjmfdRmtC6lY15z3ya5iwmQoMy36oUloSQbO32o8P5eOcr%2BoXc3jGrz97qKsHOPR70DQ%3D%3D"}]}
+server: cloudflare
+cf-ray: a4bb1dc99b93d2a7-KIX
+alt-svc: h3=":443"; ma=86400
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d9488" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="晴雨小岛" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/pwa-icon.svg" />
+    <link rel="apple-touch-icon" href="/pwa-icon.svg" />
+    <title>晴雨小岛 · 6岁儿童思考方法成长空间</title>
+    <meta name="description" content="基于儿童认知发展与学习科学的思考方法与情绪成长空间。通过退后一步与分、通、择三种姿态，陪伴孩子在具体生活场景中探索思考工具，提供孩子端温暖小岛与家长端养育教练。" />
+    <meta property="og:title" content="晴雨小岛 · 6岁儿童思考方法成长空间" />
+    <meta property="og:description" content="基于儿童认知发展与学习科学的思考方法与情绪成长空间。通过退后一步与分、通、择三种姿态，陪伴孩子在具体生活场景中探索思考工具，提供孩子端温暖小岛与家长端养育教练。" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="release-gate-status" content="ENGINEERING_PREVIEW_NOT_RELEASE_APPROVED" />
+    <script type="module" crossorigin src="/assets/index-CtLocKiX.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BIquANf2.css">
   </head>
   <body>
     <div id="root"></div>
