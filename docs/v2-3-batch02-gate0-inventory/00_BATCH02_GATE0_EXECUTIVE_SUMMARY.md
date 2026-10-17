@@ -9,6 +9,7 @@
   - **Frozen Canonical Code SHA**: `6a5ae8d186850ac6ddb30823bf9c87134c10c320`
   - **Batch01R Status**: `BATCH01R_U1_U2_U3R_ENGINEERING_UX_AUDIT_PASS` (Frozen — zero modifications in this branch)
 - **Active Gate 0 Branch**: `ui/visual-v2-batch02-gate0-inventory`
+  - **Canonical Code SHA (`CANONICAL_CODE_SHA`)**: `25a09c7a23bda842cf8327d12f4e3df4df4b1597`
 - **Final Gate 0 Decision**: **`ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED`**
 - **Retained Global Hold Flags**:
   - `ART_DIRECTOR_QA_HOLD = true`

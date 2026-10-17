@@ -1,7 +1,7 @@
 {
   "gate": "A-LAND_V2.3_BATCH02_GATE0_INVENTORY",
   "status": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
-  "verifiedAt": "2026-10-17T07:35:41.372Z",
+  "verifiedAt": "2026-10-17T07:36:47.254Z",
   "baselineArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
   "baselineCanonicalCodeSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
   "zeroFrozenBusinessFilesModified": true,
