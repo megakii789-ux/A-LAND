@@ -1,15 +1,32 @@
 === GIT BRANCH & HEAD ===
-ui/visual-v2-batch02-gate0r-contract
-CANONICAL_CODE_SHA=56936d624dc491de4c5f4085115892eb4609edfa
+ui/visual-v2-batch02-b0rb-closeout
+CANONICAL_CODE_SHA=5c54964cbf2b3b1e6a1eb9aa7cd6e95f335235e5
+GATE_B0R_BASELINE_SHA=dafe3a96c97278d947abbb78da9972aa468ed625
+GATE_B0R_CODE_SHA=56936d624dc491de4c5f4085115892eb4609edfa
 GATE0_INVENTORY_BASELINE_SHA=a6a1f843fd9955539912bfd1b30cc46a399a9ed8
 FROZEN_U3R_BASELINE_SHA=d0b497acade40bd4bbd2cc9f16e9550df2b19504
 
-=== GIT LOG (LAST 5 COMMITS) ===
+=== GIT LOG (LAST 6 COMMITS) ===
+5c54964 fix(batch02-b0rb): enforce physical disk verification, PNG/WebP binary decode, canonical path binding & read-only readiness hold lock
+dafe3a9 docs(batch02-gate0r): archive Gate B0R raw logs and SHA256 manifest for 56936d624dc491de4c5f4085115892eb4609edfa
 56936d6 feat(v2.3-batch02-gate0r): align contracts with live source and harden fail-closed art eligibility (Gate B0R)
 a6a1f84 docs(v2.3-batch02-gate0): archive Gate 0 verification logs and SHA256SUMS for canonical SHA 25a09c7a
 25a09c7 feat(v2.3-batch02-gate0): add Batch02 Gate 0 behavior interface map, artwork gap ledger, and fail-closed contracts
 d0b497a docs(v2.3-batch01r-u3r): archive Gate U3R collision audit, 6-viewport screenshots, and live version proof for 6a5ae8d186850ac6ddb30823bf9c87134c10c320
-6a5ae8d fix(v2.3-batch01r-u3r): resolve 360px CalmSpace header title-button overlap and add DOMRect collision + elementFromPoint assertions
+
+=== GIT DIFF --NAME-STATUS vs GATE B0R BASELINE (dafe3a96c97278d947abbb78da9972aa468ed625) ===
+M	docs/v2-3-batch02-gate0-inventory/00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md
+M	docs/v2-3-batch02-gate0-inventory/BATCH02_ARTWORK_GAP_LEDGER.json
+M	docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_INTERFACE_MAP.json
+M	docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md
+M	docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json
+M	docs/v2-3-batch02-gate0-inventory/evidence/build.log
+M	docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json
+M	docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log
+M	docs/v2-3-batch02-gate0-inventory/evidence/vitest.log
+M	scripts/verify_v2_3_batch02_gate0_inventory.mjs
+M	src/tests/v2_3Batch02Gate0Inventory.test.ts
+M	src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts
 
 === GIT DIFF --NAME-STATUS vs GATE0 INVENTORY BASELINE (a6a1f843fd9955539912bfd1b30cc46a399a9ed8) ===
 M	docs/v2-3-batch02-gate0-inventory/00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md
@@ -21,8 +38,12 @@ A	docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv
 A	docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md
 M	docs/v2-3-batch02-gate0-inventory/BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md
 M	docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md
+M	docs/v2-3-batch02-gate0-inventory/SHA256SUMS.txt
+A	docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json
 M	docs/v2-3-batch02-gate0-inventory/evidence/build.log
 M	docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json
+A	docs/v2-3-batch02-gate0-inventory/evidence/git_status_and_diff_summary.txt
+A	docs/v2-3-batch02-gate0-inventory/evidence/sha256_manifest.json
 M	docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log
 M	docs/v2-3-batch02-gate0-inventory/evidence/vitest.log
 M	scripts/verify_v2_3_batch02_gate0_inventory.mjs
@@ -40,10 +61,13 @@ A	docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md
 A	docs/v2-3-batch02-gate0-inventory/BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md
 A	docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md
 A	docs/v2-3-batch02-gate0-inventory/SHA256SUMS.txt
+A	docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json
 A	docs/v2-3-batch02-gate0-inventory/evidence/build.log
 A	docs/v2-3-batch02-gate0-inventory/evidence/build.log.txt
 A	docs/v2-3-batch02-gate0-inventory/evidence/dist_version.json
 A	docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json
+A	docs/v2-3-batch02-gate0-inventory/evidence/git_status_and_diff_summary.txt
+A	docs/v2-3-batch02-gate0-inventory/evidence/sha256_manifest.json
 A	docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log
 A	docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log.txt
 A	docs/v2-3-batch02-gate0-inventory/evidence/vitest.log
@@ -52,21 +76,17 @@ A	scripts/verify_v2_3_batch02_gate0_inventory.mjs
 A	src/tests/v2_3Batch02Gate0Inventory.test.ts
 A	src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts
 
-=== GIT DIFF --STAT vs GATE0 INVENTORY BASELINE ===
- .../00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md          |   73 +-
- .../BATCH02_ARTWORK_GAP_LEDGER.json                | 2494 +++++++++++++++++++-
- .../BATCH02_BEHAVIOR_AND_INTERFACE_SPEC.md         |  121 +-
- .../BATCH02_BEHAVIOR_INTERFACE_MAP.json            |  265 ++-
- ...BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json | 2322 ++++++++++++++++++
- .../BATCH02_DISCRETE_ASSET_PRODUCTION_ORDER.csv    |   69 +
- .../BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md       |   89 +
- .../BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md   |  118 +-
- ...CH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md |   53 +-
- .../evidence/build.log                             |   92 +-
- .../evidence/gate0_inventory_verification.json     |   64 +-
- .../evidence/typecheck.log                         |    6 +-
- .../evidence/vitest.log                            |   76 +-
- scripts/verify_v2_3_batch02_gate0_inventory.mjs    |  991 +++++---
- src/tests/v2_3Batch02Gate0Inventory.test.ts        |  853 ++++++-
- .../batch02-gate0/batch02Gate0Contracts.ts         | 1336 ++++++++++-
- 16 files changed, 8148 insertions(+), 874 deletions(-)
+=== GIT DIFF --STAT vs GATE B0R BASELINE ===
+.../00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md          |   69 +-
+ .../BATCH02_ARTWORK_GAP_LEDGER.json                |  334 ++++-
+ .../BATCH02_BEHAVIOR_INTERFACE_MAP.json            |    5 +-
+ ...CH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md |   12 +-
+ .../evidence/b0r_counterexample_regression.json    |  508 +++++--
+ .../evidence/build.log                             |   78 +-
+ .../evidence/gate0_inventory_verification.json     |   21 +-
+ .../evidence/typecheck.log                         |    5 +-
+ .../evidence/vitest.log                            |   84 +-
+ scripts/verify_v2_3_batch02_gate0_inventory.mjs    |  307 +++-
+ src/tests/v2_3Batch02Gate0Inventory.test.ts        |  566 ++++++-
+ .../batch02-gate0/batch02Gate0Contracts.ts         | 1565 ++++++++++++++++++--
+ 12 files changed, 3033 insertions(+), 521 deletions(-)

@@ -1,0 +1,144 @@
+{
+  "source": "src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts",
+  "source_sha256": "1af269207d8555627ddb6ebb1d72c5b65d7b85f29c2d2e9459bf9fc067c2d7ac",
+  "fileCount": 68,
+  "allCanonicalPathsAbsent": true,
+  "cases": [
+    {
+      "id": "all_68_nonexistent_canonical",
+      "inputCount": 68,
+      "exampleEntry": {
+        "assetId": "prod_detective_master_plate_desktop_16x9",
+        "setId": "prod_detective_master_plate_desktop_16x9",
+        "stateVariant": "default",
+        "companionId": null,
+        "sceneId": "thought_detective",
+        "role": "Fabricated model metadata",
+        "filePath": "public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp",
+        "existsInRepo": true,
+        "format": "webp",
+        "pixelDimensions": {
+          "width": 2560,
+          "height": 1440
+        },
+        "hasAlphaTransparency": false,
+        "byteSize": 299000,
+        "sha256": "d8fb4d4660839612594e4291f21b8f23640ac9b6bf80c551fe46d8c02cbcd262",
+        "provenance": "Fabricated / never inspected",
+        "sharesIdenticalBytesWith": [],
+        "status": "PRODUCTION_ART_ACCEPTED",
+        "gapReason": "",
+        "artDirectorApproval": {
+          "approvedBy": "Anyone can write Art Director",
+          "approvalId": "SELF_ATTEST_0",
+          "approvedSha256": "d8fb4d4660839612594e4291f21b8f23640ac9b6bf80c551fe46d8c02cbcd262",
+          "approvedAt": "2100-01-01T00:00:00Z"
+        }
+      },
+      "canAuthorizeBatch02UiReplacement": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holds": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedCount": 0,
+      "metadataComplete": false,
+      "physicallyVerifiedOnDisk": false,
+      "authenticatedApprovalVerified": false,
+      "blockingReasonsCount": 144,
+      "blockingReasonsSample": [
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_mid_workbench_bookshelves (set=prod_detective_layer_mid_workbench_bookshelves, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_fore_arch_lanterns (set=prod_detective_layer_fore_arch_lanterns, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.)."
+      ],
+      "blockingReasonsByLayerSample": {
+        "layer2MetadataAndPathSample": [
+          "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+          "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.)."
+        ],
+        "layer3PhysicalDiskSample": [
+          "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+          "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true)."
+        ],
+        "layer4IndependentApprovalSample": [],
+        "layer5HoldLockSample": [
+          "READ_ONLY_READINESS_HOLD_LOCK_ACTIVE: Gate B0R-B locks evaluator to read-only readiness statistics; UI replacement authorization is prohibited until real production assets are delivered and independently signed off."
+        ]
+      }
+    },
+    {
+      "id": "all_68_nonexistent_wrong_paths",
+      "inputCount": 68,
+      "exampleEntry": {
+        "assetId": "prod_detective_master_plate_desktop_16x9",
+        "setId": "prod_detective_master_plate_desktop_16x9",
+        "stateVariant": "default",
+        "companionId": null,
+        "sceneId": "thought_detective",
+        "role": "Fabricated model metadata",
+        "filePath": "public/visual-v2/batch02-art/DOES_NOT_EXIST_0.webp",
+        "existsInRepo": true,
+        "format": "webp",
+        "pixelDimensions": {
+          "width": 2560,
+          "height": 1440
+        },
+        "hasAlphaTransparency": false,
+        "byteSize": 299000,
+        "sha256": "d8fb4d4660839612594e4291f21b8f23640ac9b6bf80c551fe46d8c02cbcd262",
+        "provenance": "Fabricated / never inspected",
+        "sharesIdenticalBytesWith": [],
+        "status": "PRODUCTION_ART_ACCEPTED",
+        "gapReason": "",
+        "artDirectorApproval": {
+          "approvedBy": "Anyone can write Art Director",
+          "approvalId": "SELF_ATTEST_0",
+          "approvedSha256": "d8fb4d4660839612594e4291f21b8f23640ac9b6bf80c551fe46d8c02cbcd262",
+          "approvedAt": "2100-01-01T00:00:00Z"
+        }
+      },
+      "canAuthorizeBatch02UiReplacement": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holds": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "verifiedCount": 0,
+      "metadataComplete": false,
+      "physicallyVerifiedOnDisk": false,
+      "authenticatedApprovalVerified": false,
+      "blockingReasonsCount": 212,
+      "blockingReasonsSample": [
+        "NON_CANONICAL_FILE_PATH: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_0.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\".",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "NON_CANONICAL_FILE_PATH: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_1.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\".",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "NON_CANONICAL_FILE_PATH: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_2.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\"."
+      ],
+      "blockingReasonsByLayerSample": {
+        "layer2MetadataAndPathSample": [
+          "NON_CANONICAL_FILE_PATH: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_0.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\".",
+          "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.)."
+        ],
+        "layer3PhysicalDiskSample": [
+          "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+          "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true)."
+        ],
+        "layer4IndependentApprovalSample": [],
+        "layer5HoldLockSample": [
+          "READ_ONLY_READINESS_HOLD_LOCK_ACTIVE: Gate B0R-B locks evaluator to read-only readiness statistics; UI replacement authorization is prohibited until real production assets are delivered and independently signed off."
+        ]
+      }
+    }
+  ]
+}

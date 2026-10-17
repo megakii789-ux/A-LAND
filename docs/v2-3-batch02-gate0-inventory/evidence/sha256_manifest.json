@@ -1,32 +1,32 @@
 {
-  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R",
-  "branch": "ui/visual-v2-batch02-gate0r-contract",
-  "baselineBranch": "ui/visual-v2-batch02-gate0-inventory",
-  "baselineCommitSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
-  "baselineCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
-  "canonicalCodeSha": "56936d624dc491de4c5f4085115892eb4609edfa",
-  "decision": "BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
-  "fileCount": 18,
+  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R_B",
+  "branch": "ui/visual-v2-batch02-b0rb-closeout",
+  "baselineBranch": "ui/visual-v2-batch02-gate0r-contract",
+  "baselineCommitSha": "dafe3a96c97278d947abbb78da9972aa468ed625",
+  "baselineCodeSha": "56936d624dc491de4c5f4085115892eb4609edfa",
+  "canonicalCodeSha": "5c54964cbf2b3b1e6a1eb9aa7cd6e95f335235e5",
+  "decision": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "fileCount": 19,
   "files": [
     {
       "path": "src/visual-v2/batch02-gate0/batch02Gate0Contracts.ts",
-      "byteSize": 59973,
-      "sha256": "b9458237a141dca8a4ccc8ae18a0a6fdbb6221589dcab7ab6c67b39e20fe781d"
+      "byteSize": 102740,
+      "sha256": "1af269207d8555627ddb6ebb1d72c5b65d7b85f29c2d2e9459bf9fc067c2d7ac"
     },
     {
       "path": "src/tests/v2_3Batch02Gate0Inventory.test.ts",
-      "byteSize": 36165,
-      "sha256": "a5df997c916bee53c6d594cd4775c1a4f8954d6d513b6af8b8411116c4a70ca1"
+      "byteSize": 54690,
+      "sha256": "08348c77e43ab450eacfb14e44e58830292a0c0898299dc6d39f336fbfe6de8c"
     },
     {
       "path": "scripts/verify_v2_3_batch02_gate0_inventory.mjs",
-      "byteSize": 60405,
-      "sha256": "39e4eb0d2d2d2ff21f3de70731e6ea6df31d6cd739746f3e2e4a94ffaab461aa"
+      "byteSize": 68834,
+      "sha256": "4f94b8c8930130f92f002ff7d6991fdcce003411ff255034a3efd5ef316b659c"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/00_BATCH02_GATE0_EXECUTIVE_SUMMARY.md",
-      "byteSize": 8392,
-      "sha256": "f6b1bf3e812d1ebeb19b7fc608711c91463753ac329e6ece01faf3a20f833523"
+      "byteSize": 6913,
+      "sha256": "c406713b57472612733f6244162ad53ffa1ecb8798067b2c6b361d97d962502f"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_AND_INTERFACE_SPEC.md",
@@ -35,8 +35,8 @@
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_BEHAVIOR_INTERFACE_MAP.json",
-      "byteSize": 23964,
-      "sha256": "e3cd2debdc5267320d162f21be66f27ac7d9a74e9b5b0ef6fd4d453795a83ff7"
+      "byteSize": 24172,
+      "sha256": "2fd96603a334146afb5eac289ef9575465364a3595586ea76c903741291b5c49"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md",
@@ -50,8 +50,8 @@
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_ARTWORK_GAP_LEDGER.json",
-      "byteSize": 185706,
-      "sha256": "d5f4013784d4ad3bef79ae8b1c868e5978c13139de426a50f9870499c9ddd6b7"
+      "byteSize": 205367,
+      "sha256": "bd854df9f08c33e694d24c33ec421adff41910faae50f47fa4c07599ea7b011f"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_DISCRETE_ASSET_PRODUCTION_MANIFEST.json",
@@ -65,38 +65,43 @@
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md",
-      "byteSize": 5778,
-      "sha256": "45ca77b927da241a9dd46fa98545e5c96fe13e93b2742d5325bc987eb293c3da"
+      "byteSize": 5842,
+      "sha256": "06f9d13a5f2bd4e40d2f3e04d92e3787ae7eb29a19ca98d48d085a811e51e298"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json",
-      "byteSize": 3604,
-      "sha256": "710b02c44c81e068d8845ab91755279f5a76a3027ea0ae571874a86817f0c8f9"
+      "byteSize": 4233,
+      "sha256": "a20cfd87a9fe7dc57e7a722196c437798a3f226b06b9dd9e46983cfcbd3e418e"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json",
-      "byteSize": 19135,
-      "sha256": "c09d4a80c9662bfa9774eb890649c4d472ff42a8b98a70a4d03992fe99932e13"
+      "byteSize": 44130,
+      "sha256": "25a49ef35794d3741b20f14674a53fc964068845f04e37ba324eaabbab7c987a"
+    },
+    {
+      "path": "docs/v2-3-batch02-gate0-inventory/evidence/b0rb_full_fabricated_manifest_repro_after_fix.json",
+      "byteSize": 10766,
+      "sha256": "af10e598f96c5e432559e5cdcea0a93634fa307dcf9b6fea5fc2426eb2c8ebac"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log",
-      "byteSize": 115,
-      "sha256": "7800603773ab476543812886d04e9dd6ceee0f7ee808e82c930a315be3d1fa80"
+      "byteSize": 104,
+      "sha256": "9f1d76d53a63d3c466f7b6467bb1d07de06a10a9fa3eaa7c36a0e1d97fd15e5b"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/vitest.log",
-      "byteSize": 2709,
-      "sha256": "49e53c70b0b830cef1c6e51a33aafd6fcacf35cfd283b50e9d9e1d6f581bedce"
+      "byteSize": 2616,
+      "sha256": "09cfbd8eefadd8fc1d03aa1f14a5d4f68e0b6e19b687a8438e8fb9c44e0b4016"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/build.log",
-      "byteSize": 3808,
-      "sha256": "3618dadd93a9ffe2cbb47e51b77bf908833c184afd19aa6c05a822f5983bc5bb"
+      "byteSize": 3711,
+      "sha256": "18c72b0e74416ae349c9fd32559d3a5bc74514fe3a7b39df184feb8e54b8a3de"
     },
     {
       "path": "docs/v2-3-batch02-gate0-inventory/evidence/git_status_and_diff_summary.txt",
-      "byteSize": 4788,
-      "sha256": "e775ebcfab616238cf6a248054206009b19369bca9ef6db8112bc925b4c9b841"
+      "byteSize": 6129,
+      "sha256": "3291ac0941074e397f5adb74ca98e37ac116288d76882384f3e2d44543bb22d3"
     }
   ]
 }

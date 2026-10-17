@@ -1,17 +1,22 @@
 {
-  "schemaVersion": "1.1.0-B0R",
-  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0R_COUNTEREXAMPLE_REGRESSION",
-  "verifiedAt": "2026-10-17T08:48:27.584Z",
+  "schemaVersion": "1.2.0-B0R-B",
+  "gateId": "A-LAND_V2.3_BATCH02_GATE_B0RB_COUNTEREXAMPLE_REGRESSION",
+  "verifiedAt": "2026-10-17T09:41:30.329Z",
   "nodeVersion": "v20.20.2",
-  "totalCases": 15,
+  "totalCases": 17,
   "allAssertionsPassed": true,
   "cases": [
     {
-      "caseId": "CE-00_current_repo_73_rows",
-      "description": "Current repo ledger (36 existing + 15 reference boards + 22 missing canonical sets)",
+      "caseId": "CE-AUDITOR-FULL-01_all_68_nonexistent_canonical",
+      "description": "Independent Auditor Full 68/68 Fabricated Manifest #1 (all_68_nonexistent_canonical): 68 nonexistent canonical files with existsInRepo=true, fake SHA-256, and self-attested future approval (2100-01-01)",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -20,17 +25,93 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
       "verifiedDiscreteStateCount": 0,
       "verifiedSetCount": 0,
       "missingSetCount": 22,
       "missingDiscreteStateCount": 68,
-      "blockingReasons": [
-        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
-        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking).",
-        "DUPLICATE_TECH_SVG_TEMPLATES: 27 existing v2-3-layer-factory SVG files share identical byte-for-byte templates across modes/stages and are ineligible as production art.",
-        "LOW_RES_CUTOUTS_AND_TECH_SVGS_ONLY: 51 existing assets are low-resolution grabCut cutouts or procedural SVG placeholders marked TECH_PREVIEW_ONLY."
+      "blockingReasonsCount": 144,
+      "blockingReasonsSample": [
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_mid_workbench_bookshelves (set=prod_detective_layer_mid_workbench_bookshelves, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_fore_arch_lanterns (set=prod_detective_layer_fore_arch_lanterns, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.)."
+      ]
+    },
+    {
+      "caseId": "CE-AUDITOR-FULL-02_all_68_nonexistent_wrong_paths",
+      "description": "Independent Auditor Full 68/68 Fabricated Manifest #2 (all_68_nonexistent_wrong_paths): 68 nonexistent wrong paths (DOES_NOT_EXIST_*.webp) with existsInRepo=true and self-attested future approval",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 212,
+      "blockingReasonsSample": [
+        "NON_CANONICAL_FILE_PATH: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_0.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\".",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "NON_CANONICAL_FILE_PATH: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_1.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\".",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.).",
+        "NON_CANONICAL_FILE_PATH: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) declared filePath \"public/visual-v2/batch02-art/DOES_NOT_EXIST_2.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\".",
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) failed approval metadata validation (FUTURE_APPROVAL_TIMESTAMP_REJECTED: artDirectorApproval.approvedAt \"2100-01-01T00:00:00Z\" is in the future relative to evaluation time.)."
+      ]
+    },
+    {
+      "caseId": "CE-00_current_repo_73_rows",
+      "description": "Current repo ledger (36 existing + 15 reference boards + 22 missing canonical sets)",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "holdFlags": {
+        "ART_DIRECTOR_QA_HOLD": true,
+        "CONTENT_QA_REVIEW": true,
+        "PRODUCTION_RELEASE_HOLD": true,
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
+      },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 10,
+      "blockingReasonsSample": [
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_ART_VERIFICATION_INCOMPLETE: 0/68 canonical discrete state files passed on-disk existence, SHA-256 byte verification, and real PNG/WebP binary decoding.",
+        "INDEPENDENT_ART_APPROVAL_REGISTRY_EMPTY_HOLD: Candidate manifest self-declarations (artDirectorApproval) are untrusted; 0/68 assets exist in BATCH02_INDEPENDENT_ART_APPROVAL_REGISTRY.",
+        "UNAPPROVED_DISCRETE_STATES: 68/68 discrete states lack independent Art Director registry sign-off."
       ]
     },
     {
@@ -38,7 +119,12 @@
       "description": "Empty ledger array []",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -47,16 +133,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
       "verifiedDiscreteStateCount": 0,
       "verifiedSetCount": 0,
       "missingSetCount": 22,
       "missingDiscreteStateCount": 68,
-      "blockingReasons": [
+      "blockingReasonsCount": 9,
+      "blockingReasonsSample": [
         "EMPTY_ASSET_LEDGER: Zero asset inventory entries were supplied for Batch02 eligibility evaluation.",
-        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
-        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_ART_VERIFICATION_INCOMPLETE: 0/68 canonical discrete state files passed on-disk existence, SHA-256 byte verification, and real PNG/WebP binary decoding.",
+        "INDEPENDENT_ART_APPROVAL_REGISTRY_EMPTY_HOLD: Candidate manifest self-declarations (artDirectorApproval) are untrusted; 0/68 assets exist in BATCH02_INDEPENDENT_ART_APPROVAL_REGISTRY."
       ]
     },
     {
@@ -64,7 +155,12 @@
       "description": "Auditor Counterexample 1 (only_one_accepted_label_missing_other_scene): 1 fake PRODUCTION_ART_ACCEPTED row with filePath=null, existsInRepo=false, format=\"missing\"",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -73,16 +169,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
       "verifiedDiscreteStateCount": 0,
       "verifiedSetCount": 0,
       "missingSetCount": 22,
       "missingDiscreteStateCount": 68,
-      "blockingReasons": [
+      "blockingReasonsCount": 9,
+      "blockingReasonsSample": [
         "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
-        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
-        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_ART_VERIFICATION_INCOMPLETE: 0/68 canonical discrete state files passed on-disk existence, SHA-256 byte verification, and real PNG/WebP binary decoding.",
+        "INDEPENDENT_ART_APPROVAL_REGISTRY_EMPTY_HOLD: Candidate manifest self-declarations (artDirectorApproval) are untrusted; 0/68 assets exist in BATCH02_INDEPENDENT_ART_APPROVAL_REGISTRY."
       ]
     },
     {
@@ -90,7 +191,12 @@
       "description": "Auditor Counterexample 2 (accepted_label_plus_unverified_other_scene): 1 fake accepted row + 1 UNVERIFIED row",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -99,17 +205,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
       "verifiedDiscreteStateCount": 0,
       "verifiedSetCount": 0,
       "missingSetCount": 22,
       "missingDiscreteStateCount": 68,
-      "blockingReasons": [
+      "blockingReasonsCount": 10,
+      "blockingReasonsSample": [
         "UNVERIFIED_ASSETS_PRESENT: 1 asset entry(ies) have status UNVERIFIED (fixture_unknown_breaker).",
         "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
-        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
-        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_ART_VERIFICATION_INCOMPLETE: 0/68 canonical discrete state files passed on-disk existence, SHA-256 byte verification, and real PNG/WebP binary decoding."
       ]
     },
     {
@@ -117,7 +227,12 @@
       "description": "Auditor Counterexample 3 (two_labels_no_files_no_hashes): 2 fake PRODUCTION_ART_ACCEPTED rows across detective & breaker with null files/hashes",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -126,17 +241,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
+      "metadataReadyDiscreteStateCount": 0,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
       "verifiedDiscreteStateCount": 0,
       "verifiedSetCount": 0,
       "missingSetCount": 22,
       "missingDiscreteStateCount": 68,
-      "blockingReasons": [
+      "blockingReasonsCount": 10,
+      "blockingReasonsSample": [
         "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_minimal_detective\" is not in the canonical Batch02 manifest.",
         "UNKNOWN_ACCEPTED_ASSET_ID: \"fixture_breaker\" is not in the canonical Batch02 manifest.",
-        "ZERO_VERIFIED_PRODUCTION_ART: 0 canonical Batch02 production assets passed physical, dimension, alpha, SHA-256, and Art Director approval verification.",
-        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+        "MISSING_CANONICAL_ASSET_SETS: 22/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 68/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 4/4 required companions (guoguo_squirrel, beibei_otter, tiantian_raccoon, qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_ART_VERIFICATION_INCOMPLETE: 0/68 canonical discrete state files passed on-disk existence, SHA-256 byte verification, and real PNG/WebP binary decoding."
       ]
     },
     {
@@ -144,7 +263,12 @@
       "description": "67 of 68 valid discrete state entries (1 discrete state missing)",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -153,14 +277,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 75,
+      "blockingReasonsSample": [
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -168,7 +299,12 @@
       "description": "Complete 68 entries except 1 companion entry still contains {companionId} wildcard in filePath",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -177,15 +313,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
-        "UNRESOLVED_WILDCARD_OR_EMPTY_PATH: prod_shared_4companions_3d_rig_masters__qiqi_speaking (set=prod_shared_4companions_3d_rig_masters, variant=qiqi_speaking) has invalid or wildcard filePath \"public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp\".",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing.",
-        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete high-resolution 3D rig states (idle, listening, speaking)."
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 78,
+      "blockingReasonsSample": [
+        "UNRESOLVED_WILDCARD_OR_TRAVERSAL_PATH: prod_shared_4companions_3d_rig_masters__qiqi_speaking (set=prod_shared_4companions_3d_rig_masters, variant=qiqi_speaking) has invalid, wildcard, or traversal filePath \"public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp\".",
+        "NON_CANONICAL_FILE_PATH: prod_shared_4companions_3d_rig_masters__qiqi_speaking (set=prod_shared_4companions_3d_rig_masters, variant=qiqi_speaking) declared filePath \"public/visual-v2/batch02-art/characters/{companionId}/rig_master_rgba.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/characters/qiqi_deer/rig_master_speaking_rgba.webp\".",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "MISSING_COMPANION_RIG_COVERAGE: 1/4 required companions (qiqi_deer) lack complete 3-state metadata coverage.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -193,7 +335,12 @@
       "description": "Complete 68 entries except desktop scene plate is 1280x720 (< required 2560x1440)",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -202,14 +349,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 76,
+      "blockingReasonsSample": [
         "INSUFFICIENT_PIXEL_DIMENSIONS: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) dimensions (1280x720) are below minimum required 2560x1440.",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -217,7 +371,12 @@
       "description": "Complete 68 entries except an RGBA layer has hasAlphaTransparency: false",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -226,14 +385,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 76,
+      "blockingReasonsSample": [
         "MISSING_REQUIRED_ALPHA_CHANNEL: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) requires RGBA alpha transparency (requireAlpha=true), but hasAlphaTransparency is false.",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -241,7 +407,12 @@
       "description": "Complete 68 entries except 2 states share the same SHA-256 without an approved sharedAssetRef",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -250,14 +421,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 66,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 2,
-      "blockingReasons": [
-        "UNAPPROVED_DUPLICATE_SHA256_ACROSS_STATES: Discrete states (prod_detective_prop_tool_flag_states__flag_attached, prod_detective_prop_tool_flag_states__flag_removed) share identical SHA-256 \"9516e4ad846272bdebd93ff410421e1023a08926f5b5c5a35af296abba62902e\" without a valid Art-Director-approved sharedAssetRef.",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 2/68 required discrete state variants are incomplete or missing."
+      "metadataReadyDiscreteStateCount": 66,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 76,
+      "blockingReasonsSample": [
+        "UNAPPROVED_DUPLICATE_SHA256_ACROSS_STATES: Discrete states (prod_detective_prop_tool_flag_states__flag_attached, prod_detective_prop_tool_flag_states__flag_removed) share identical SHA-256 \"9516e4ad846272bdebd93ff410421e1023a08926f5b5c5a35af296abba62902e\" without a valid sharedAssetRef.",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 2/68 required discrete state variants have incomplete or invalid metadata.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -265,7 +443,12 @@
       "description": "Complete 68 entries except 1 prop entry is format: \"svg\"",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -274,14 +457,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 77,
+      "blockingReasonsSample": [
         "INVALID_PRODUCTION_FORMAT: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) has format \"svg\"; only raster 3D renders (\"png\" or \"webp\") are eligible.",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+        "NON_CANONICAL_FILE_PATH: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) declared filePath \"public/visual-v2/batch02-art/props/detective_tool_flag_rgba__flag_attached.webp\", which violates strict canonical binding to \"public/visual-v2/batch02-art/props/detective_tool_flag_rgba__flag_attached.webp\".",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -289,7 +479,12 @@
       "description": "Complete 68 entries except 1 entry has artDirectorApproval: null",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -298,14 +493,21 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 67,
-      "verifiedSetCount": 21,
-      "missingSetCount": 1,
-      "missingDiscreteStateCount": 1,
-      "blockingReasons": [
-        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_prop_tool_two_sided_coin_states__front (set=prod_detective_prop_tool_two_sided_coin_states, variant=front) lacks a valid Art Director sign-off matching its SHA-256.",
-        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets are incomplete or missing.",
-        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants are incomplete or missing."
+      "metadataReadyDiscreteStateCount": 67,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 76,
+      "blockingReasonsSample": [
+        "MISSING_OR_INVALID_ART_DIRECTOR_APPROVAL: prod_detective_prop_tool_two_sided_coin_states__front (set=prod_detective_prop_tool_two_sided_coin_states, variant=front) failed approval metadata validation (Missing artDirectorApproval object or sha256.).",
+        "MISSING_CANONICAL_ASSET_SETS: 1/22 required production asset sets have incomplete or invalid metadata.",
+        "MISSING_CANONICAL_DISCRETE_STATES: 1/68 required discrete state variants have incomplete or invalid metadata.",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
@@ -313,7 +515,12 @@
       "description": "Complete 68 entries plus 1 duplicate assetId entry",
       "expectedAuthorized": false,
       "actualAuthorized": false,
-      "gateStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+      "expectedMetadataComplete": false,
+      "actualMetadataComplete": false,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
@@ -322,53 +529,94 @@
         "ARTWORK_GAP": true,
         "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 68,
-      "verifiedSetCount": 22,
-      "missingSetCount": 0,
-      "missingDiscreteStateCount": 0,
-      "blockingReasons": [
-        "DUPLICATE_ASSET_ID_ENTRIES: Duplicate assetId values detected (prod_detective_master_plate_desktop_16x9)."
+      "metadataReadyDiscreteStateCount": 68,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 75,
+      "blockingReasonsSample": [
+        "DUPLICATE_ASSET_ID_ENTRIES: Duplicate assetId values detected (prod_detective_master_plate_desktop_16x9).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_mid_workbench_bookshelves (set=prod_detective_layer_mid_workbench_bookshelves, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l2_mid_workbench_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_fore_arch_lanterns (set=prod_detective_layer_fore_arch_lanterns, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l3_fore_arch_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true)."
       ]
     },
     {
-      "caseId": "POS-01_complete_68_valid_discrete_states_with_approvals",
-      "description": "Positive synthetic control: All 68 canonical discrete states (across 22 sets & 4 companions) with valid dimensions, alpha, hashes, and Art Director approvals",
-      "expectedAuthorized": true,
-      "actualAuthorized": true,
-      "gateStatus": "BATCH02_UI_REPLACEMENT_AUTHORIZED",
+      "caseId": "READINESS-POS-01_complete_68_metadata_structure_only_hold_locked",
+      "description": "Metadata Readiness Control (formerly POS-01): Complete 68 structural metadata entries prove ONLY metadataComplete=true; because physical files and independent Art Director registry sign-off are absent, canAuthorizeBatch02UiReplacement MUST be false and ARTWORK_GAP=true",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "expectedMetadataComplete": true,
+      "actualMetadataComplete": true,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
         "PRODUCTION_RELEASE_HOLD": true,
-        "ASSET_ARTWORK_BLOCKED": false,
-        "ARTWORK_GAP": false,
-        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": false
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 68,
-      "verifiedSetCount": 22,
-      "missingSetCount": 0,
-      "missingDiscreteStateCount": 0,
-      "blockingReasons": []
+      "metadataReadyDiscreteStateCount": 68,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 73,
+      "blockingReasonsSample": [
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_mid_workbench_bookshelves (set=prod_detective_layer_mid_workbench_bookshelves, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l2_mid_workbench_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_fore_arch_lanterns (set=prod_detective_layer_fore_arch_lanterns, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l3_fore_arch_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) canonical file \"public/visual-v2/batch02-art/props/detective_tool_flag_rgba__flag_attached.webp\" does not exist on disk (caller claimed existsInRepo=true)."
+      ]
     },
     {
-      "caseId": "POS-02_complete_68_valid_states_plus_historical_tech_preview_rows",
-      "description": "Positive synthetic control with historical audit rows: All 68 canonical discrete states valid + existing TECH_PREVIEW_ONLY & reference_board rows retained for provenance",
-      "expectedAuthorized": true,
-      "actualAuthorized": true,
-      "gateStatus": "BATCH02_UI_REPLACEMENT_AUTHORIZED",
+      "caseId": "READINESS-POS-02_complete_68_metadata_plus_historical_rows_hold_locked",
+      "description": "Metadata Readiness Control with historical audit rows (formerly POS-02): Complete 68 structural metadata entries + TECH_PREVIEW_ONLY rows prove ONLY metadataComplete=true while keeping canAuthorizeBatch02UiReplacement=false and ARTWORK_GAP=true",
+      "expectedAuthorized": false,
+      "actualAuthorized": false,
+      "expectedMetadataComplete": true,
+      "actualMetadataComplete": true,
+      "expectedPhysicallyVerified": false,
+      "actualPhysicallyVerified": false,
+      "authenticatedApprovalVerified": false,
+      "gateStatus": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
       "holdFlags": {
         "ART_DIRECTOR_QA_HOLD": true,
         "CONTENT_QA_REVIEW": true,
         "PRODUCTION_RELEASE_HOLD": true,
-        "ASSET_ARTWORK_BLOCKED": false,
-        "ARTWORK_GAP": false,
-        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": false
+        "ASSET_ARTWORK_BLOCKED": true,
+        "ARTWORK_GAP": true,
+        "BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED": true
       },
-      "verifiedDiscreteStateCount": 68,
-      "verifiedSetCount": 22,
-      "missingSetCount": 0,
-      "missingDiscreteStateCount": 0,
-      "blockingReasons": []
+      "metadataReadyDiscreteStateCount": 68,
+      "physicallyVerifiedDiscreteStateCount": 0,
+      "approvedDiscreteStateCount": 0,
+      "verifiedDiscreteStateCount": 0,
+      "verifiedSetCount": 0,
+      "missingSetCount": 22,
+      "missingDiscreteStateCount": 68,
+      "blockingReasonsCount": 75,
+      "blockingReasonsSample": [
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_desktop_16x9 (set=prod_detective_master_plate_desktop_16x9, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_desktop.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_master_plate_mobile_3x4 (set=prod_detective_master_plate_mobile_3x4, variant=default) canonical file \"public/visual-v2/batch02-art/scenes/detective_workshop_mobile.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_distant_window_sky (set=prod_detective_layer_distant_window_sky, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l1_distant_sky_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_mid_workbench_bookshelves (set=prod_detective_layer_mid_workbench_bookshelves, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l2_mid_workbench_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_layer_fore_arch_lanterns (set=prod_detective_layer_fore_arch_lanterns, variant=default) canonical file \"public/visual-v2/batch02-art/layers/detective_l3_fore_arch_rgba.webp\" does not exist on disk (caller claimed existsInRepo=true).",
+        "PHYSICAL_FILE_MISSING_ON_DISK: prod_detective_prop_tool_flag_states__flag_attached (set=prod_detective_prop_tool_flag_states, variant=flag_attached) canonical file \"public/visual-v2/batch02-art/props/detective_tool_flag_rgba__flag_attached.webp\" does not exist on disk (caller claimed existsInRepo=true)."
+      ]
     }
   ]
 }

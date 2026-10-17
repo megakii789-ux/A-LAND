@@ -1,2 +1,3 @@
-=== npm run typecheck (tsc --noEmit) @ CANONICAL_CODE_SHA 56936d624dc491de4c5f4085115892eb4609edfa ===
-EXIT_CODE=0
+Command: ./node_modules/.bin/tsc --noEmit
+Compiler: Version 7.0.2
+Exit Code: 0 (Zero TypeScript errors)

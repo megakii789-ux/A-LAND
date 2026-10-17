@@ -1,8 +1,8 @@
 {
-  "gate": "A-LAND_V2.3_BATCH02_GATE_B0R",
-  "status": "BATCH02_GATE0R_CONTRACT_PASS / ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
+  "gate": "A-LAND_V2.3_BATCH02_GATE_B0R_B",
+  "status": "B0R_A_PASS / B0R_C_PASS / B0R_B_PHYSICAL_GATE_PASS_BUT_ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
   "executionStatus": "ARTWORK_GAP / BATCH02_UI_REPLACEMENT_NOT_AUTHORIZED",
-  "verifiedAt": "2026-10-17T08:48:27.593Z",
+  "verifiedAt": "2026-10-17T09:41:30.338Z",
   "baseline": {
     "frozenBranch": "ui/visual-v2-batch01r-u3r-final",
     "frozenArchiveHeadSha": "d0b497acade40bd4bbd2cc9f16e9550df2b19504",
@@ -10,7 +10,10 @@
     "gate0InventoryBranch": "ui/visual-v2-batch02-gate0-inventory",
     "gate0InventoryArchiveHeadSha": "a6a1f843fd9955539912bfd1b30cc46a399a9ed8",
     "gate0InventoryCanonicalCodeSha": "25a09c7a23bda842cf8327d12f4e3df4df4b1597",
-    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract"
+    "gateB0RBranch": "ui/visual-v2-batch02-gate0r-contract",
+    "gateB0RArchiveHeadSha": "dafe3a96c97278d947abbb78da9972aa468ed625",
+    "gateB0RCanonicalCodeSha": "56936d624dc491de4c5f4085115892eb4609edfa",
+    "gateB0RBBranch": "ui/visual-v2-batch02-b0rb-closeout"
   },
   "zeroFrozenBusinessFilesModified": true,
   "modifiedForbiddenFiles": [],
@@ -24,8 +27,12 @@
     "docs/v2-3-batch02-gate0-inventory/BATCH02_PRODUCTION_ARTWORK_GAP_MATRIX.md",
     "docs/v2-3-batch02-gate0-inventory/BATCH02_RESOURCE_DEPENDENCY_AND_GAP_TABLE.md",
     "docs/v2-3-batch02-gate0-inventory/BATCH02_V2_INTEGRATION_PLAN_AND_VALIDATION_SPEC.md",
+    "docs/v2-3-batch02-gate0-inventory/SHA256SUMS.txt",
+    "docs/v2-3-batch02-gate0-inventory/evidence/b0r_counterexample_regression.json",
     "docs/v2-3-batch02-gate0-inventory/evidence/build.log",
     "docs/v2-3-batch02-gate0-inventory/evidence/gate0_inventory_verification.json",
+    "docs/v2-3-batch02-gate0-inventory/evidence/git_status_and_diff_summary.txt",
+    "docs/v2-3-batch02-gate0-inventory/evidence/sha256_manifest.json",
     "docs/v2-3-batch02-gate0-inventory/evidence/typecheck.log",
     "docs/v2-3-batch02-gate0-inventory/evidence/vitest.log",
     "scripts/verify_v2_3_batch02_gate0_inventory.mjs",
@@ -65,8 +72,10 @@
     "duplicateByteForByteSvgEntriesCount": 27
   },
   "counterexampleRegressionSummary": {
-    "totalCases": 15,
-    "allAssertionsPassed": true
+    "totalCases": 17,
+    "allAssertionsPassed": true,
+    "auditor68FabricatedCanonicalRejected": true,
+    "auditor68FabricatedWrongPathsRejected": true
   },
   "holdFlags": {
     "ART_DIRECTOR_QA_HOLD": true,
