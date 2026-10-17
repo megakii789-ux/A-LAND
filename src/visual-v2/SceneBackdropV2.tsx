@@ -99,8 +99,8 @@ export const SceneBackdropV2: React.FC<SceneBackdropV2Props> = ({
         )}
       </div>
 
-      {/* 3. 顶部场景资产与 ART_DIRECTOR_QA_HOLD 状态铭牌 (故事林 V2.2 样板内已由底部折叠审阅抽屉承接，儿童阅读流默认不悬浮工程铭牌) */}
-      {sceneKey !== 'story' && (
+      {/* 3. 顶部场景资产与 ART_DIRECTOR_QA_HOLD 状态铭牌 (故事林 V2.2 及 V2.3 Batch 01 天气站/平静角样板内已由底部折叠审阅抽屉承接，儿童阅读流默认不悬浮工程铭牌) */}
+      {sceneKey !== 'story' && sceneKey !== 'weather' && sceneKey !== 'calm' && (
         <>
           <div
             aria-hidden="true"

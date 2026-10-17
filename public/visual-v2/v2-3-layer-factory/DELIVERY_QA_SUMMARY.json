@@ -1,0 +1,10 @@
+{
+  "request_items": 334,
+  "new_editable_svg_masters": 318,
+  "environment_layers": 150,
+  "character_rig_parts": 168,
+  "already_existing_icons": 16,
+  "production_quality_approved": 0,
+  "art_gate": "ART_DIRECTOR_QA_HOLD",
+  "deployment_gate": "NOT_DEPLOYED"
+}

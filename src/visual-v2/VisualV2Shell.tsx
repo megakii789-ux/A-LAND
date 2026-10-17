@@ -5,6 +5,7 @@ import { AlwaysReachableCalmCard } from '../components/ChildIsland/AlwaysReachab
 import { HugSupportEntry } from '../components/ChildIsland/HugSupportEntry';
 import { WeatherStationModal } from '../components/ChildIsland/WeatherStationModal';
 import { CalmSpace } from '../components/ChildIsland/CalmSpace';
+import { CalmCornerModal } from '../components/ChildIsland/CalmCornerModal';
 import { StoryGroveModal } from '../components/ChildIsland/StoryGrove/StoryGroveModal';
 import { ThoughtDetectiveLabModal } from '../components/ChildIsland/ThoughtDetectiveLab/ThoughtDetectiveLabModal';
 import { CourageHouseModal } from '../components/ChildIsland/CourageHouse/CourageHouseModal';
@@ -56,12 +57,14 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
     medals,
     personalization,
     updatePersonalization,
+    requestHug,
   } = useApp();
 
   const [viewMode, setViewMode] = useState<'map' | 'cards'>('map');
   const [isMedalsOpen, setIsMedalsOpen] = useState(false);
   const [isPersonalizationOpen, setIsPersonalizationOpen] = useState(false);
   const [isBreakerOpen, setIsBreakerOpen] = useState(false);
+  const [isCalmCornerModalOpen, setIsCalmCornerModalOpen] = useState(false);
   const [isGamesHubOpen, setIsGamesHubOpen] = useState(false);
   const [selectedHubGame, setSelectedHubGame] = useState<
     'detective' | 'friend_asks' | 'boat' | 'transfer'
@@ -80,6 +83,21 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
       if (pathname.startsWith('/visual-v2-review/story-cup-pilot')) {
         recordLandmarkVisit('story');
         setChildPlace('story');
+      } else if (
+        pathname.startsWith('/visual-v2-review/weather-station-pilot') ||
+        pathname.startsWith('/visual-v2-review/batch01-weather')
+      ) {
+        recordLandmarkVisit('weather');
+        setChildPlace('weather');
+      } else if (pathname.startsWith('/visual-v2-review/calm-corner-modal-pilot')) {
+        recordLandmarkVisit('calm');
+        setIsCalmCornerModalOpen(true);
+      } else if (
+        pathname.startsWith('/visual-v2-review/calm-corner-pilot') ||
+        pathname.startsWith('/visual-v2-review/batch01-calm')
+      ) {
+        recordLandmarkVisit('calm');
+        setChildPlace('calm');
       }
     }
   }, [setChildPlace]);
@@ -132,6 +150,7 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
     <div
       data-testid="visual-v2-shell"
       data-art-gate="ART_DIRECTOR_QA_HOLD"
+      data-tech-preview="TECH_PREVIEW_NOT_ART_APPROVED"
       className={`aland-v2-scope min-h-screen flex flex-col font-sans antialiased select-none max-w-full ${
         reducedMotion ? 'aland-v2-reduce-motion' : ''
       }`}
@@ -149,15 +168,31 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
         <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-2xl bg-white/85 border border-[#72CBFF]/50 text-xs font-bold text-[#123C5C]">
           <div className="flex items-center gap-2 flex-wrap">
             <img src={effectSvgUrl('leaf')} alt="" className="w-4 h-4" />
-            <span>入口：`/visual-v2-review` · V2.2 故事林样板 (`StoryGrove::cup-size`)</span>
+            <span>入口：`/visual-v2-review` · V2.3 Batch 01（天气站 + 平静角）& V2.2 故事林样板</span>
             <span
               data-testid="v2-pilot-gate-badge"
               className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-black"
             >
-              ENGINEERING_AUDIT_HOLD
+              TECH_PREVIEW_NOT_ART_APPROVED · ART_DIRECTOR_QA_HOLD
             </span>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              data-testid="v2-open-weather-pilot-btn"
+              onClick={() => handleOpenPlace('weather')}
+              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-sky-400 bg-sky-100 hover:bg-sky-200 text-sky-950 font-black cursor-pointer"
+            >
+              打开 V2.3 天气站样板
+            </button>
+            <button
+              type="button"
+              data-testid="v2-open-calm-pilot-btn"
+              onClick={() => handleOpenPlace('calm')}
+              className="min-h-[56px] px-3.5 py-1.5 rounded-xl border-2 border-teal-400 bg-teal-100 hover:bg-teal-200 text-teal-950 font-black cursor-pointer"
+            >
+              打开 V2.3 平静角样板
+            </button>
             <button
               type="button"
               data-testid="v2-open-story-cup-pilot-btn"
@@ -379,12 +414,21 @@ export const VisualV2Shell: React.FC<VisualV2ShellProps> = ({ onExitV2Review }) 
         isOpen={isWeatherOpen}
         onClose={handleCloseModal}
         onGoToCalm={() => setChildPlace('calm')}
+        visualV2Pilot={true}
       />
 
       <CalmSpace
         isOpen={isCalmOpen}
         onClose={handleCloseModal}
         onNavigateHome={handleCloseModal}
+        visualV2Pilot={true}
+      />
+
+      <CalmCornerModal
+        isOpen={isCalmCornerModalOpen}
+        onClose={() => setIsCalmCornerModalOpen(false)}
+        onRequestHug={requestHug}
+        visualV2Pilot={true}
       />
 
       <StoryGroveModal

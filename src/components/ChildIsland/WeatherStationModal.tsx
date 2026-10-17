@@ -21,11 +21,14 @@ import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { isHeavyWeather } from '../../domain/weather/soilWeatherContract';
 import { WeatherSunCloudIllustration } from './StoryGrove/StoryIllustrations';
+import { isVisualV2ReviewRoute } from '../../App';
+import { WeatherStationSceneArtV2 } from '../../visual-v2/batch01/WeatherStationSceneArtV2';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onGoToCalm: () => void;
+  visualV2Pilot?: boolean;
 }
 
 interface WeatherCardItem {
@@ -137,8 +140,14 @@ const BODY_PARTS = [
   { id: 'relaxed', label: '全身松松的' }
 ];
 
-export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCalm }) => {
+export const WeatherStationModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  onGoToCalm,
+  visualV2Pilot,
+}) => {
   const { todayWeather, saveTodayWeather } = useApp();
+  const isV2Active = Boolean(visualV2Pilot) || isVisualV2ReviewRoute();
 
   const [step, setStep] = useState<'camera' | 'select' | 'heavyHolding'>('camera');
   const [selectedPrimary, setSelectedPrimary] = useState<WeatherType>(todayWeather?.primary || 'sunny');
@@ -222,17 +231,39 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
     speechNarrator.speak('你真勇敢，愿意和大人在一起。去找身边的爸爸、妈妈或老师抱一抱吧。');
   };
 
+  const renderV2Stage = () => (
+    <WeatherStationSceneArtV2
+      step={step}
+      selectedPrimary={selectedPrimary}
+      selectedSecondary={selectedSecondary}
+      allowDualWeather={allowDualWeather}
+      intensity={intensity}
+      bodySensations={bodySensations}
+      onSelectPrimary={(weather) => {
+        sounds.playClick();
+        setSelectedPrimary(weather);
+      }}
+      onToggleBodySensation={toggleSensation}
+    />
+  );
+
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label="情绪天气站"
+      data-testid={isV2Active ? 'v2-weather-station-modal' : 'weather-station-modal'}
+      data-v2-pilot={isV2Active ? 'true' : 'false'}
+      data-art-gate={isV2Active ? 'ART_DIRECTOR_QA_HOLD' : undefined}
+      data-tech-preview={isV2Active ? 'TECH_PREVIEW_NOT_ART_APPROVED' : undefined}
       className="fixed inset-0 z-50 flex items-center justify-center bg-sky-950/40 backdrop-blur-xs p-3 sm:p-5 overflow-y-auto"
     >
       <div className="bg-white/98 border border-sky-100 rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative my-auto animate-in zoom-in-95 duration-200 text-stone-800 max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2.5 rounded-full hover:bg-stone-100 transition-colors cursor-pointer min-w-[48px] min-h-[48px] flex items-center justify-center"
+          className={`absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2.5 rounded-full hover:bg-stone-100 transition-colors cursor-pointer ${
+            isV2Active ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
+          } flex items-center justify-center`}
           aria-label="关闭天气站"
         >
           <X className="w-6 h-6" />
@@ -246,27 +277,33 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
               <span>天上的眼睛看自己</span>
             </div>
 
-            {/* Storybook Weather Illustration */}
-            <div className="rounded-3xl overflow-hidden border-2 border-sky-200/90 shadow-sm bg-white">
-              <WeatherSunCloudIllustration className="w-full h-32 sm:h-40 object-cover" />
-            </div>
-
-            <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto bg-linear-to-b from-sky-200 via-sky-100 to-amber-50 rounded-full flex flex-col items-center justify-center shadow-inner border-4 border-white overflow-hidden">
-              <div className="absolute top-2 text-sky-800 font-black text-xs tracking-wide bg-white/90 px-3 py-0.5 rounded-full shadow-2xs">
-                拉远一点看
-              </div>
-
-              <div className="animate-bounce duration-1000 motion-reduce:animate-none">
-                <currentPrimaryConfig.icon className={`w-12 h-12 ${currentPrimaryConfig.color} drop-shadow-xs`} />
-              </div>
-
-              <div className="mt-1 text-center">
-                <div className="w-10 h-10 bg-amber-200 rounded-full mx-auto flex items-center justify-center border-2 border-white shadow-xs">
-                  <span className="text-xl">🧒</span>
+            {isV2Active ? (
+              renderV2Stage()
+            ) : (
+              <>
+                {/* Storybook Weather Illustration */}
+                <div className="rounded-3xl overflow-hidden border-2 border-sky-200/90 shadow-sm bg-white">
+                  <WeatherSunCloudIllustration className="w-full h-32 sm:h-40 object-cover" />
                 </div>
-                <span className="text-xs font-bold text-stone-700 block">我</span>
-              </div>
-            </div>
+
+                <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto bg-linear-to-b from-sky-200 via-sky-100 to-amber-50 rounded-full flex flex-col items-center justify-center shadow-inner border-4 border-white overflow-hidden">
+                  <div className="absolute top-2 text-sky-800 font-black text-xs tracking-wide bg-white/90 px-3 py-0.5 rounded-full shadow-2xs">
+                    拉远一点看
+                  </div>
+
+                  <div className="animate-bounce duration-1000 motion-reduce:animate-none">
+                    <currentPrimaryConfig.icon className={`w-12 h-12 ${currentPrimaryConfig.color} drop-shadow-xs`} />
+                  </div>
+
+                  <div className="mt-1 text-center">
+                    <div className="w-10 h-10 bg-amber-200 rounded-full mx-auto flex items-center justify-center border-2 border-white shadow-xs">
+                      <span className="text-xl">🧒</span>
+                    </div>
+                    <span className="text-xs font-bold text-stone-700 block">我</span>
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="bg-sky-50/80 p-4 rounded-2xl border border-sky-100">
               <p className="text-base sm:text-lg font-bold text-stone-800 leading-relaxed">
@@ -303,14 +340,16 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
 
         {/* STEP 2: 选天气与感受 */}
         {step === 'select' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between gap-3">
+          <div className="space-y-5">
+            <div className="flex items-center justify-between gap-3 pr-12">
               <div>
                 <h3 className="text-xl sm:text-2xl font-black text-stone-800 flex items-center gap-2">
                   <span>挑选今天的天气</span>
                   <button
                     onClick={() => handleSpeak("挑选今天头顶的天气。晴、阴、雨、雷、雾，或者不想选，都可以。")}
-                    className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer"
+                    className={`${
+                      isV2Active ? 'w-14 h-14 min-w-[56px] min-h-[56px]' : 'w-12 h-12 min-w-[48px] min-h-[48px]'
+                    } rounded-xl hover:bg-sky-100 text-sky-700 transition-colors flex items-center justify-center cursor-pointer`}
                     title="朗读提示"
                     aria-label="朗读提示"
                   >
@@ -322,13 +361,17 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
 
               <button
                 onClick={() => setStep('camera')}
-                className="text-sm text-sky-700 hover:text-sky-800 flex items-center gap-1.5 bg-sky-50 hover:bg-sky-100 px-3.5 py-2.5 rounded-xl font-bold min-h-[48px] cursor-pointer"
+                className={`text-sm text-sky-700 hover:text-sky-800 flex items-center gap-1.5 bg-sky-50 hover:bg-sky-100 px-3.5 py-2.5 rounded-xl font-bold ${
+                  isV2Active ? 'min-h-[56px] min-w-[56px]' : 'min-h-[48px]'
+                } cursor-pointer shrink-0`}
                 aria-label="返回天上的眼睛"
               >
                 <Eye className="w-4 h-4" />
                 <span>天上的眼睛</span>
               </button>
             </div>
+
+            {isV2Active && renderV2Stage()}
 
             {/* 6 个天气选项 (晴 / 阴 / 雨 / 雷 / 雾 / 我不想选) */}
             <div>
@@ -369,7 +412,9 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
                 <button
                   type="button"
                   onClick={() => handleSpeak(currentPrimaryConfig.childPhrase)}
-                  className="text-amber-800 p-2 hover:bg-amber-100 rounded-xl min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer shrink-0"
+                  className={`text-amber-800 p-2 hover:bg-amber-100 rounded-xl ${
+                    isV2Active ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
+                  } flex items-center justify-center cursor-pointer shrink-0`}
                   aria-label="朗读天气句子"
                 >
                   <Volume2 className="w-5 h-5" />
@@ -396,7 +441,11 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
               <>
                 {/* 双重天气支持 */}
                 <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200">
-                  <label className="flex items-center justify-between cursor-pointer min-h-[48px]">
+                  <label
+                    className={`flex items-center justify-between cursor-pointer ${
+                      isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+                    }`}
+                  >
                     <span className="text-base font-bold text-stone-800">
                       我有两种天气同时在（例如：又有点高兴，又有点想念）
                     </span>
@@ -408,7 +457,7 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
                         setAllowDualWeather(e.target.checked);
                         if (!e.target.checked) setSelectedSecondary(null);
                       }}
-                      className="w-5 h-5 rounded-md text-sky-600 focus:ring-sky-500 cursor-pointer"
+                      className="w-6 h-6 rounded-md text-sky-600 focus:ring-sky-500 cursor-pointer shrink-0"
                       aria-label="勾选是否有两种天气同时存在"
                     />
                   </label>
@@ -529,10 +578,14 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
 
         {/* STEP 3: 高负荷天气接住环节 (不推新重内容，提供和大人一起、平静角、自由退出) */}
         {step === 'heavyHolding' && (
-          <div className="text-center py-4 space-y-6">
-            <div className="w-16 h-16 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center mx-auto shadow-inner">
-              <CloudLightning className="w-8 h-8" />
-            </div>
+          <div className="text-center py-4 space-y-5">
+            {isV2Active ? (
+              renderV2Stage()
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center mx-auto shadow-inner">
+                <CloudLightning className="w-8 h-8" />
+              </div>
+            )}
 
             <div>
               <h3 className="text-2xl font-black text-stone-800 mb-1">
@@ -623,7 +676,9 @@ export const WeatherStationModal: React.FC<Props> = ({ isOpen, onClose, onGoToCa
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full min-h-[48px] py-3 text-stone-600 hover:text-stone-900 text-sm font-bold transition-colors cursor-pointer flex items-center justify-center"
+                className={`w-full ${
+                  isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+                } py-3 text-stone-600 hover:text-stone-900 text-sm font-bold transition-colors cursor-pointer flex items-center justify-center`}
                 aria-label="直接关闭"
               >
                 记好了，先关掉天气站

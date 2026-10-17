@@ -137,3 +137,9 @@ g.v2-story-svg-focusable:focus-visible .v2-story-cup-focus-ring {
   stroke-width: 3.5px;
   fill: rgba(186, 230, 253, 0.28);
 }
+
+g.v2-story-svg-focusable:focus-visible > rect,
+g.v2-story-svg-focusable:focus > rect {
+  stroke: #0284C7 !important;
+  stroke-width: 4.5px !important;
+}

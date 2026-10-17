@@ -18,19 +18,24 @@ import { sounds } from '../../utils/sound';
 import { speechNarrator } from '../../utils/speech';
 import { LocationBadgeIllustration } from './StoryGrove/StoryIllustrations';
 import { Organic3DBreathingSphere } from './Organic3DBreathingSphere';
+import { isVisualV2ReviewRoute } from '../../App';
+import { CalmCornerSceneArtV2 } from '../../visual-v2/batch01/CalmCornerSceneArtV2';
 
 interface CalmSpaceProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigateHome?: () => void;
+  visualV2Pilot?: boolean;
 }
 
 export const CalmSpace: React.FC<CalmSpaceProps> = ({
   isOpen,
   onClose,
-  onNavigateHome
+  onNavigateHome,
+  visualV2Pilot,
 }) => {
   const { requestHug, isMuted, toggleMute } = useApp();
+  const isV2Active = Boolean(visualV2Pilot) || isVisualV2ReviewRoute();
 
   // Breathing Rhythm State: 'inhale' (吸气) -> 'hold' (停一停) -> 'exhale' (呼气) -> 'rest' (休息)
   const [phase, setPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
@@ -117,9 +122,13 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="冷静角落·减压空间"
+      data-testid={isV2Active ? 'v2-calm-space-modal' : 'calm-space-modal'}
+      data-v2-pilot={isV2Active ? 'true' : 'false'}
+      data-art-gate={isV2Active ? 'ART_DIRECTOR_QA_HOLD' : undefined}
+      data-tech-preview={isV2Active ? 'TECH_PREVIEW_NOT_ART_APPROVED' : undefined}
       className="fixed inset-0 z-50 flex items-center justify-center bg-teal-950/60 backdrop-blur-md p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-300"
     >
-      <div className="bg-linear-to-b from-teal-50 via-emerald-50 to-amber-50 border-2 border-teal-200/80 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto text-stone-800 space-y-6">
+      <div className="bg-linear-to-b from-teal-50 via-emerald-50 to-amber-50 border-2 border-teal-200/80 rounded-3xl p-5 sm:p-8 max-w-2xl w-full shadow-2xl relative my-auto text-stone-800 space-y-6 max-h-[92vh] overflow-y-auto">
 
         {/* Top Header & Controls */}
         <div className="flex items-center justify-between gap-3 border-b border-teal-200/60 pb-4">
@@ -128,7 +137,7 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               <LocationBadgeIllustration type="calm" className="w-full h-full" />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-teal-950 flex items-center gap-2">
+              <h2 className="text-xl sm:text-2xl font-black text-teal-950 flex items-center gap-2 flex-wrap">
                 <span>绿草冷静空间</span>
                 <span className="text-xs bg-teal-100 text-teal-800 px-2.5 py-0.5 rounded-full font-bold">
                   非竞争 · 随时可离开
@@ -140,10 +149,12 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={toggleMute}
-              className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-800 transition-colors cursor-pointer"
+              className={`${
+                isV2Active ? 'w-14 h-14 min-w-[56px] min-h-[56px]' : 'w-12 h-12 min-w-[48px] min-h-[48px]'
+              } flex items-center justify-center rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-800 transition-colors cursor-pointer`}
               title={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
               aria-label={isMuted ? '取消静音，开启语音指导与呼吸音效' : '静音，关闭语音指导与呼吸音效'}
             >
@@ -151,7 +162,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
             </button>
             <button
               onClick={onClose}
-              className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl text-stone-400 hover:text-stone-700 hover:bg-teal-100/60 transition-colors cursor-pointer"
+              className={`${
+                isV2Active ? 'w-14 h-14 min-w-[56px] min-h-[56px]' : 'w-12 h-12 min-w-[48px] min-h-[48px]'
+              } flex items-center justify-center rounded-xl text-stone-400 hover:text-stone-700 hover:bg-teal-100/60 transition-colors cursor-pointer`}
               aria-label="关闭冷静空间，返回主页"
             >
               <X className="w-6 h-6" />
@@ -184,7 +197,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={theme === item.id}
               aria-label={`切换呼吸引导主题为：${item.label}，${item.desc}${theme === item.id ? '（当前正在使用）' : ''}`}
-              className={`flex-1 min-h-[48px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`flex-1 ${
+                isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+              } py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 theme === item.id
                   ? 'bg-white text-teal-900 shadow-sm border border-teal-200'
                   : 'text-stone-600 hover:text-stone-900'
@@ -196,26 +211,79 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
         </div>
 
         {/* Central Animated Breathing Rhythm Display */}
-        <div className="bg-white/80 border-2 border-teal-200/80 rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-xs relative overflow-hidden">
+        <div className="bg-white/80 border-2 border-teal-200/80 rounded-3xl p-4 sm:p-7 text-center space-y-5 shadow-xs relative overflow-hidden">
 
           {/* Pause / Play Control */}
-          <button
-            onClick={() => {
-              sounds.playClick();
-              setIsPaused(!isPaused);
-            }}
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 min-h-[48px] px-3.5 py-2 rounded-xl border border-teal-200 bg-teal-50 text-teal-800 text-xs font-bold flex items-center gap-1.5 hover:bg-teal-100 transition-colors cursor-pointer"
-            aria-pressed={isPaused}
-            aria-label={isPaused ? '继续呼吸引导节律动画与声音' : '暂停呼吸引导节律动画与声音'}
-          >
-            {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
-            <span>{isPaused ? '继续' : '暂停'}</span>
-          </button>
-
-          {/* 3D Organic Tactile Breathing Sphere */}
-          <div className="py-2">
-            <Organic3DBreathingSphere phase={phase} theme={theme} isPaused={isPaused} />
+          <div className={isV2Active ? 'flex justify-end' : ''}>
+            <button
+              onClick={() => {
+                sounds.playClick();
+                setIsPaused(!isPaused);
+              }}
+              className={`${
+                isV2Active
+                  ? 'min-h-[56px] min-w-[56px] px-4 py-2.5'
+                  : 'absolute top-3 right-3 sm:top-4 sm:right-4 min-h-[48px] px-3.5 py-2'
+              } rounded-xl border border-teal-200 bg-teal-50 text-teal-800 text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-teal-100 transition-colors cursor-pointer`}
+              aria-pressed={isPaused}
+              aria-label={isPaused ? '继续呼吸引导节律动画与声音' : '暂停呼吸引导节律动画与声音'}
+            >
+              {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+              <span>{isPaused ? '继续' : '暂停'}</span>
+            </button>
           </div>
+
+          {/* V2.3 Layered Stage vs Legacy 3D Breathing Sphere */}
+          {isV2Active ? (
+            <CalmCornerSceneArtV2
+              phase={phase}
+              isPaused={isPaused}
+              theme={theme}
+              onTogglePause={() => {
+                sounds.playClick();
+                setIsPaused((prev) => !prev);
+              }}
+              groundingItems={[
+                {
+                  id: 'red',
+                  shortLabel: '找红色',
+                  active: groundingColors.red,
+                  fill: '#FFE4E6',
+                  stroke: '#F43F5E',
+                  onToggle: () => {
+                    sounds.playBell();
+                    setGroundingColors((prev) => ({ ...prev, red: !prev.red }));
+                  },
+                },
+                {
+                  id: 'yellow',
+                  shortLabel: '找黄色',
+                  active: groundingColors.yellow,
+                  fill: '#FEF3C7',
+                  stroke: '#F59E0B',
+                  onToggle: () => {
+                    sounds.playBell();
+                    setGroundingColors((prev) => ({ ...prev, yellow: !prev.yellow }));
+                  },
+                },
+                {
+                  id: 'blue',
+                  shortLabel: '找蓝色',
+                  active: groundingColors.blue,
+                  fill: '#E0F2FE',
+                  stroke: '#0284C7',
+                  onToggle: () => {
+                    sounds.playBell();
+                    setGroundingColors((prev) => ({ ...prev, blue: !prev.blue }));
+                  },
+                },
+              ]}
+            />
+          ) : (
+            <div className="py-2">
+              <Organic3DBreathingSphere phase={phase} theme={theme} isPaused={isPaused} />
+            </div>
+          )}
 
           {/* Readable Phase Text Instruction with aria-live */}
           <div className="space-y-1.5">
@@ -223,7 +291,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               <span aria-live="polite" aria-atomic="true">{getPhaseText()}</span>
               <button
                 onClick={() => handleSpeakGuidance(getPhaseText())}
-                className="min-w-[48px] min-h-[48px] p-2 text-teal-700 hover:text-teal-900 flex items-center justify-center rounded-lg cursor-pointer"
+                className={`${
+                  isV2Active ? 'min-w-[56px] min-h-[56px]' : 'min-w-[48px] min-h-[48px]'
+                } p-2 text-teal-700 hover:text-teal-900 flex items-center justify-center rounded-lg cursor-pointer`}
                 aria-label={`通过语音朗读当前呼吸引导提示：${getPhaseText()}`}
               >
                 <Volume2 className="w-5 h-5" />
@@ -252,7 +322,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.red}
               aria-label={groundingColors.red ? '红色物品感知练习：已标记找到红色的东西，点击可取消' : '红色物品感知练习：请在周围房间里找到一件红色的东西，找到后点击'}
-              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`${
+                isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+              } p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.red
                   ? 'bg-rose-100 border-rose-400 text-rose-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-rose-50/50'
@@ -269,7 +341,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.yellow}
               aria-label={groundingColors.yellow ? '黄色物品感知练习：已标记找到黄色的东西，点击可取消' : '黄色物品感知练习：请在周围房间里找到一件黄色的东西，找到后点击'}
-              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`${
+                isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+              } p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.yellow
                   ? 'bg-amber-100 border-amber-400 text-amber-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-amber-50/50'
@@ -286,7 +360,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
               }}
               aria-pressed={groundingColors.blue}
               aria-label={groundingColors.blue ? '蓝色物品感知练习：已标记找到蓝色的东西，点击可取消' : '蓝色物品感知练习：请在周围房间里找到一件蓝色的东西，找到后点击'}
-              className={`min-h-[48px] p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              className={`${
+                isV2Active ? 'min-h-[56px]' : 'min-h-[48px]'
+              } p-2.5 rounded-xl border font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 groundingColors.blue
                   ? 'bg-sky-100 border-sky-400 text-sky-900 shadow-xs'
                   : 'bg-white border-stone-200 text-stone-700 hover:bg-sky-50/50'
@@ -311,7 +387,9 @@ export const CalmSpace: React.FC<CalmSpaceProps> = ({
                 sounds.playClick();
                 setShowAdultTips(!showAdultTips);
               }}
-              className="min-h-[48px] text-xs text-teal-700 hover:text-teal-900 font-bold px-3 py-2 rounded-lg hover:bg-teal-100/50 transition-colors cursor-pointer flex items-center"
+              className={`${
+                isV2Active ? 'min-h-[56px] min-w-[56px]' : 'min-h-[48px]'
+              } text-xs text-teal-700 hover:text-teal-900 font-bold px-3 py-2 rounded-lg hover:bg-teal-100/50 transition-colors cursor-pointer flex items-center`}
               aria-expanded={showAdultTips}
               aria-label={showAdultTips ? '收起给身旁大人的共同调节卡陪伴建议' : '展开查看给身旁大人的共同调节卡陪伴建议'}
             >

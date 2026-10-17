@@ -22,7 +22,7 @@ export function useReducedMotionPreference(): boolean {
     }
   }, []);
 
-  return Boolean(personalization.accessibility.reducedMotion) || systemReduced;
+  return Boolean(personalization?.accessibility?.reducedMotion) || systemReduced;
 }
 
 export type StoryCupCharacterState = 'idle' | 'blink' | 'talk' | 'think' | 'celebrate';
