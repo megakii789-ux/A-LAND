@@ -1,0 +1,1504 @@
+{
+  "generatedAt": "2026-10-17T01:14:12.003Z",
+  "gitCommitSha": "ed63f8382ac29e18234d85ebc65dae17ce19383d",
+  "branch": "ui/visual-v2-batch01-weather-calm",
+  "packageVersion": "A_LAND_V2_3_TECH_VECTOR_LAYER_FACTORY_20261017",
+  "packageZipSha256": "f98f3d84f87e0a358e522d0566acf3628c1c66234d3181f59bd00fae07637a74",
+  "mandatoryHoldFlags": {
+    "ART_DIRECTOR_QA_HOLD": true,
+    "TECH_PREVIEW_NOT_ART_APPROVED": true,
+    "CONTENT_QA_REVIEW": true,
+    "PRODUCTION_RELEASE_HOLD": true,
+    "V2_3_BATCH01_TECH_INTEGRATION_AUTHORIZED": true,
+    "ENGINEERING_PILOT_AUDIT_PASS_STORY_CUP_ONLY": true,
+    "productionQualityApproved": 0
+  },
+  "summary": {
+    "all6ViewportsPass": true,
+    "consoleErrorsCount": 0,
+    "pageErrorsCount": 0,
+    "http404sCount": 0,
+    "weatherSvgKeyboardFocusPass": true,
+    "calmSvgKeyboardFocusPass": true,
+    "foggyDualSensationPass": true,
+    "weatherLayerTogglePass": true,
+    "optOutPass": true,
+    "heavyHoldingPass": true,
+    "calmPausedFreezePass": true,
+    "calmGroundingAndAdultPass": true,
+    "calmCornerModalPass": true,
+    "reducedMotionPass": true,
+    "storyCupRegressionPass": true
+  },
+  "e2eDetails": {
+    "weatherSvgKeyboardFocusRing": {
+      "isActiveElement": true,
+      "stroke": "rgb(2, 132, 199)",
+      "strokeWidth": "4.5px",
+      "filter": "none"
+    },
+    "calmSvgKeyboardFocusRing": {
+      "isActiveElement": true,
+      "stroke": "rgb(2, 132, 199)",
+      "strokeWidth": "4.5px",
+      "filter": "none"
+    },
+    "foggyDualState": {
+      "weatherState": "foggy",
+      "dualWeather": "rainy",
+      "fogOverlayVisible": true,
+      "secondaryBadgeVisible": true,
+      "sensationsBadgeVisible": true
+    },
+    "weatherLayerToggleResult": {
+      "drawerOpen": true,
+      "actorLayerPresentWhenDisabled": false
+    },
+    "calmPausedState": {
+      "calmAssetState": "paused",
+      "isPaused": "true",
+      "ringTransform": "scale(1)",
+      "ringTransition": "none"
+    },
+    "calmGroundingAndAdultState": {
+      "redPressed": true,
+      "yellowPressed": true,
+      "bluePressed": true,
+      "adultTipsExpanded": true
+    },
+    "calmCornerModalVerified": {
+      "modalVisible": true,
+      "stageVisible": true,
+      "greenActive": true
+    },
+    "reducedMotionResult": {
+      "stageReducedMotion": true,
+      "companionReducedMotion": true,
+      "companionMouthActive": false,
+      "ringScaleFrozenAtOne": true
+    }
+  },
+  "distBundles": [
+    {
+      "file": "dist/assets/index-BzdlNGt4.js",
+      "bytes": 2493529,
+      "kilobytes": 2435.09
+    },
+    {
+      "file": "dist/assets/index-aOaByqsr.css",
+      "bytes": 181035,
+      "kilobytes": 176.79
+    }
+  ],
+  "viewportResults": [
+    {
+      "viewport": "360x800",
+      "width": 360,
+      "height": 800,
+      "weatherStationV2": {
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 60.6,
+            "height": 59.2,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.2,
+            "allAssetsLoadedMs": 1.2,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 360,
+        "innerWidth": 360,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 69.3,
+            "height": 64.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 58.6,
+            "height": 57.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 58.6,
+            "height": 57.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 58.6,
+            "height": 57.4,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 20.1,
+            "allAssetsLoadedMs": 20.1,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 20.1,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 20.1,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "390x844",
+      "width": 390,
+      "height": 844,
+      "weatherStationV2": {
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 66.8,
+            "height": 65.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.2,
+            "allAssetsLoadedMs": 1.2,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.2,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 77.6,
+            "height": 72.3,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 65.6,
+            "height": 64.2,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 65.6,
+            "height": 64.2,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 65.6,
+            "height": 64.2,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 15.2,
+            "allAssetsLoadedMs": 15.2,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 15.2,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 15.2,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "430x932",
+      "width": 430,
+      "height": 932,
+      "weatherStationV2": {
+        "scrollWidth": 430,
+        "innerWidth": 430,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 75.2,
+            "height": 73.5,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 430,
+        "innerWidth": 430,
+        "horizontalOverflow": false,
+        "stageLayout": "mobile-4x3",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 88.7,
+            "height": 82.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 74.9,
+            "height": 73.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 74.9,
+            "height": 73.4,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 74.9,
+            "height": 73.4,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 14.2,
+            "allAssetsLoadedMs": 14.3,
+            "assets": {
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 14.2,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 14.3,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "weatherStationV2": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.4,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.4,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 107.4,
+            "height": 89.5,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 6.8,
+            "allAssetsLoadedMs": 6.8,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 6.8,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 6.8,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "1024x1366",
+      "width": 1024,
+      "height": 1366,
+      "weatherStationV2": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 107.4,
+            "height": 89.5,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 6.6,
+            "allAssetsLoadedMs": 6.6,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 6.6,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 6.6,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "weatherStationV2": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 63.9,
+            "height": 61.3,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/backplate.svg",
+                "sha256": "ce412151936007d9138a4726adee0b7b17e4d12eebd6beb65194a386b862f13e",
+                "bytes": 1166,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/weather_actor.svg",
+                "sha256": "78572c6cd080d4bb118f8dc892b5213d45e96995a92060d5b926552a0170a574",
+                "bytes": 676,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/weather_station/sunny/front_effect.svg",
+                "sha256": "56a8e0bcb6e170be616c192e85ee87832fcb44e4d22a4d10ddf7f1c7b44d533e",
+                "bytes": 830,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-16x9",
+        "debugDrawerDefaultClosed": true,
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1200,
+            "naturalHeight": 675,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 107.4,
+            "height": 89.5,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 94,
+            "height": 67.1,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 6.6,
+            "allAssetsLoadedMs": 6.7,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/room.svg",
+                "sha256": "7238f29412b26f65a5e758bb5f526b4889d6ebff8e33c00f3c5191eee5472213",
+                "bytes": 1655,
+                "status": "loaded",
+                "durationMs": 6.6,
+                "isSharedGeometryFixture": true
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/v2-3-layer-factory/assets/calm_corner/inhale/breathing_visual.svg",
+                "sha256": "b8ac02c00187a4ae6769eff567e76434c1a9df2b606922847be6208e93bffc62",
+                "bytes": 476,
+                "status": "loaded",
+                "durationMs": 6.7,
+                "isSharedGeometryFixture": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "viewport": "360x800",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_360x800_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_360x800_original_weather_station.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_360x800_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_360x800_original_calm_corner.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_360x800_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_360x800_v2_weather_station.png"
+    },
+    {
+      "viewport": "360x800",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_360x800_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_360x800_v2_calm_corner.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_390x844_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_390x844_original_weather_station.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_390x844_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_390x844_original_calm_corner.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_390x844_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_390x844_v2_weather_station.png"
+    },
+    {
+      "viewport": "390x844",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_390x844_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_390x844_v2_calm_corner.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_430x932_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_430x932_original_weather_station.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_430x932_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_430x932_original_calm_corner.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_430x932_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_430x932_v2_weather_station.png"
+    },
+    {
+      "viewport": "430x932",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_430x932_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_430x932_v2_calm_corner.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_768x1024_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_768x1024_original_weather_station.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_768x1024_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_768x1024_original_calm_corner.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_768x1024_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_768x1024_v2_weather_station.png"
+    },
+    {
+      "viewport": "768x1024",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_768x1024_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_768x1024_v2_calm_corner.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_1024x1366_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1024x1366_original_weather_station.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_1024x1366_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1024x1366_original_calm_corner.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_1024x1366_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1024x1366_v2_weather_station.png"
+    },
+    {
+      "viewport": "1024x1366",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_1024x1366_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1024x1366_v2_calm_corner.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "weather_station",
+      "mode": "original",
+      "file": "v2_3_batch01_1440x900_original_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1440x900_original_weather_station.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "calm_corner",
+      "mode": "original",
+      "file": "v2_3_batch01_1440x900_original_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1440x900_original_calm_corner.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "weather_station",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_1440x900_v2_weather_station.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1440x900_v2_weather_station.png"
+    },
+    {
+      "viewport": "1440x900",
+      "scene": "calm_corner",
+      "mode": "v2_batch01",
+      "file": "v2_3_batch01_1440x900_v2_calm_corner.png",
+      "repoPath": "docs/v2-3-batch01-weather-calm/screenshots/v2_3_batch01_1440x900_v2_calm_corner.png"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "http404s": []
+}
