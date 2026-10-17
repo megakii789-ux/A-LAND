@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-17T06:11:03.008Z",
-  "gitCommitSha": "c4d8542813d4de212a8efe3a6f830dbea050233f",
-  "branch": "ui/visual-v2-batch01r-ux-closeout",
+  "generatedAt": "2026-10-17T06:52:49.448Z",
+  "gitCommitSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+  "branch": "ui/visual-v2-batch01r-u3r-final",
   "packageVersion": "A_LAND_BATCH01R_VISUAL_CORRECTION_HANDOFF_20261017",
   "packageZipSha256": "1914661b9592e0efc754ad409da905f6428f81e530966ba739754059580b4a8d",
   "mandatoryHoldFlags": {
@@ -18,6 +18,7 @@
     "gateU1SinglePrimaryWeatherSelectorPass": true,
     "gateU2ZeroCropStageGeometryPass": true,
     "gateU3HeaderTypographyPass": true,
+    "gateU3RHeaderZeroCollisionPass": true,
     "all6ViewportsPass": true,
     "all4CompanionsSwitchedPass": true,
     "mediaTrackerResetPass": true,
@@ -35,6 +36,1772 @@
     "calmCornerModalPass": true,
     "reducedMotionPass": true,
     "storyCupRegressionPass": true
+  },
+  "headerCollisionAudit": {
+    "generatedAt": "2026-10-17T06:52:49.448Z",
+    "gitCommitSha": "6a5ae8d186850ac6ddb30823bf9c87134c10c320",
+    "branch": "ui/visual-v2-batch01r-u3r-final",
+    "gate": "U3R",
+    "allViewportsZeroCollisionPass": true,
+    "mobileNarrowViewports": [
+      {
+        "viewport": "360x800",
+        "width": 360,
+        "height": 800,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 61,
+            "right": 67,
+            "bottom": 93,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 172.5,
+            "bottom": 89.8,
+            "width": 99.5,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 207,
+            "top": 49,
+            "right": 263,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 269,
+            "top": 49,
+            "right": 325,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 118,
+            "right": 163.7,
+            "bottom": 140,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 148,
+            "right": 325,
+            "bottom": 187,
+            "width": 290,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 34.5,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 122.7,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 166.5,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 71,
+            "right": 71,
+            "bottom": 103,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.3,
+            "right": 159.9,
+            "bottom": 99.8,
+            "width": 82.9,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 203,
+            "top": 59,
+            "right": 259,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 265,
+            "top": 59,
+            "right": 321,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 128,
+            "right": 145,
+            "bottom": 150,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 158,
+            "right": 321,
+            "bottom": 197,
+            "width": 282,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 43.1,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 118.4,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 153.9,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "390x844",
+        "width": 390,
+        "height": 844,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 62.3,
+            "right": 67,
+            "bottom": 94.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 178.3,
+            "bottom": 92.3,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 237,
+            "top": 50.3,
+            "right": 293,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 299,
+            "top": 50.3,
+            "right": 355,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 119.3,
+            "right": 163.7,
+            "bottom": 141.3,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 149.3,
+            "right": 355,
+            "bottom": 188.3,
+            "width": 320,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 58.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 72.8,
+            "right": 71,
+            "bottom": 104.8,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.8,
+            "right": 164.8,
+            "bottom": 102.8,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 233,
+            "top": 60.8,
+            "right": 289,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 295,
+            "top": 60.8,
+            "right": 351,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 129.8,
+            "right": 145,
+            "bottom": 151.8,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 159.8,
+            "right": 351,
+            "bottom": 198.8,
+            "width": 312,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 68.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "430x932",
+        "width": 430,
+        "height": 932,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 65,
+            "right": 67,
+            "bottom": 97,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 67,
+            "right": 178.3,
+            "bottom": 95,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 277,
+            "top": 53,
+            "right": 333,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 339,
+            "top": 53,
+            "right": 395,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 122,
+            "right": 163.7,
+            "bottom": 144,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 152,
+            "right": 359,
+            "bottom": 171.5,
+            "width": 324,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 98.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 76.3,
+            "right": 71,
+            "bottom": 108.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 78.3,
+            "right": 164.8,
+            "bottom": 106.3,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 273,
+            "top": 64.3,
+            "right": 329,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 335,
+            "top": 64.3,
+            "right": 391,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 133.3,
+            "right": 145,
+            "bottom": 155.3,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 163.3,
+            "right": 361.7,
+            "bottom": 182.8,
+            "width": 322.7,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 108.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      }
+    ],
+    "allViewports": [
+      {
+        "viewport": "360x800",
+        "width": 360,
+        "height": 800,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 61,
+            "right": 67,
+            "bottom": 93,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 172.5,
+            "bottom": 89.8,
+            "width": 99.5,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 207,
+            "top": 49,
+            "right": 263,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 269,
+            "top": 49,
+            "right": 325,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 118,
+            "right": 163.7,
+            "bottom": 140,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 148,
+            "right": 325,
+            "bottom": 187,
+            "width": 290,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 34.5,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 122.7,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 166.5,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 71,
+            "right": 71,
+            "bottom": 103,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.3,
+            "right": 159.9,
+            "bottom": 99.8,
+            "width": 82.9,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 203,
+            "top": 59,
+            "right": 259,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 265,
+            "top": 59,
+            "right": 321,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 128,
+            "right": 145,
+            "bottom": 150,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 158,
+            "right": 321,
+            "bottom": 197,
+            "width": 282,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 43.1,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 118.4,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 153.9,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "390x844",
+        "width": 390,
+        "height": 844,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 62.3,
+            "right": 67,
+            "bottom": 94.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 178.3,
+            "bottom": 92.3,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 237,
+            "top": 50.3,
+            "right": 293,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 299,
+            "top": 50.3,
+            "right": 355,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 119.3,
+            "right": 163.7,
+            "bottom": 141.3,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 149.3,
+            "right": 355,
+            "bottom": 188.3,
+            "width": 320,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 58.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 72.8,
+            "right": 71,
+            "bottom": 104.8,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.8,
+            "right": 164.8,
+            "bottom": 102.8,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 233,
+            "top": 60.8,
+            "right": 289,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 295,
+            "top": 60.8,
+            "right": 351,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 129.8,
+            "right": 145,
+            "bottom": 151.8,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 159.8,
+            "right": 351,
+            "bottom": 198.8,
+            "width": 312,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 68.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "430x932",
+        "width": 430,
+        "height": 932,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 65,
+            "right": 67,
+            "bottom": 97,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 67,
+            "right": 178.3,
+            "bottom": 95,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 277,
+            "top": 53,
+            "right": 333,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 339,
+            "top": 53,
+            "right": 395,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 122,
+            "right": 163.7,
+            "bottom": 144,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 152,
+            "right": 359,
+            "bottom": 171.5,
+            "width": 324,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 98.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 76.3,
+            "right": 71,
+            "bottom": 108.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 78.3,
+            "right": 164.8,
+            "bottom": 106.3,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 273,
+            "top": 64.3,
+            "right": 329,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 335,
+            "top": 64.3,
+            "right": 391,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 133.3,
+            "right": 145,
+            "bottom": 155.3,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 163.3,
+            "right": 361.7,
+            "bottom": 182.8,
+            "width": 322.7,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 108.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "768x1024",
+        "width": 768,
+        "height": 1024,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 69,
+            "top": 81.7,
+            "right": 113,
+            "bottom": 117.7,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 123,
+            "top": 83.7,
+            "right": 263.4,
+            "bottom": 115.7,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 579,
+            "top": 71.7,
+            "right": 635,
+            "bottom": 127.7,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 643,
+            "top": 71.7,
+            "right": 699,
+            "bottom": 127.7,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 69,
+            "top": 141.1,
+            "right": 197.7,
+            "bottom": 163.1,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 205.7,
+            "top": 140.7,
+            "right": 583.7,
+            "bottom": 163.5,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 315.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 129,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 193.2,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 257.4,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 65,
+            "top": 92,
+            "right": 109,
+            "bottom": 128,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 117,
+            "top": 94,
+            "right": 234,
+            "bottom": 126,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 583,
+            "top": 82,
+            "right": 639,
+            "bottom": 138,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 647,
+            "top": 82,
+            "right": 703,
+            "bottom": 138,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 65,
+            "top": 151.3,
+            "right": 171,
+            "bottom": 173.3,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 179,
+            "top": 151,
+            "right": 555.5,
+            "bottom": 173.7,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 349,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 123,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 175.5,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 228,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "1024x1366",
+        "width": 1024,
+        "height": 1366,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 173,
+            "top": 210.4,
+            "right": 217,
+            "bottom": 246.4,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 227,
+            "top": 212.4,
+            "right": 367.4,
+            "bottom": 244.4,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 731,
+            "top": 200.4,
+            "right": 787,
+            "bottom": 256.4,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 795,
+            "top": 200.4,
+            "right": 851,
+            "bottom": 256.4,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 173,
+            "top": 269.8,
+            "right": 301.7,
+            "bottom": 291.8,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 309.7,
+            "top": 269.4,
+            "right": 687.7,
+            "bottom": 292.2,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 363.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 233,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 297.2,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 361.4,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 173,
+            "top": 105.6,
+            "right": 217,
+            "bottom": 141.6,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 225,
+            "top": 107.6,
+            "right": 342,
+            "bottom": 139.6,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 731,
+            "top": 95.6,
+            "right": 787,
+            "bottom": 151.6,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 795,
+            "top": 95.6,
+            "right": 851,
+            "bottom": 151.6,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 173,
+            "top": 165,
+            "right": 279,
+            "bottom": 187,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 287,
+            "top": 164.6,
+            "right": 663.5,
+            "bottom": 187.4,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 389,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 231,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 283.5,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 336,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      },
+      {
+        "viewport": "1440x900",
+        "width": 1440,
+        "height": 900,
+        "calmSpaceHeader": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 381,
+            "top": 78,
+            "right": 425,
+            "bottom": 114,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 435,
+            "top": 80,
+            "right": 575.4,
+            "bottom": 112,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 939,
+            "top": 68,
+            "right": 995,
+            "bottom": 124,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 1003,
+            "top": 68,
+            "right": 1059,
+            "bottom": 124,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 381,
+            "top": 137.4,
+            "right": 509.7,
+            "bottom": 159.4,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 517.7,
+            "top": 137,
+            "right": 895.7,
+            "bottom": 159.8,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 363.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 441,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 505.2,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 569.4,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "weatherStationHeader": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 381,
+            "top": 87,
+            "right": 425,
+            "bottom": 123,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 433,
+            "top": 89,
+            "right": 550,
+            "bottom": 121,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 939,
+            "top": 77,
+            "right": 995,
+            "bottom": 133,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 1003,
+            "top": 77,
+            "right": 1059,
+            "bottom": 133,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 381,
+            "top": 146.4,
+            "right": 487,
+            "bottom": 168.4,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 495,
+            "top": 146,
+            "right": 871.5,
+            "bottom": 168.8,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 389,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 439,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 491.5,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 544,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        }
+      }
+    ]
   },
   "e2eDetails": {
     "rainyDynamicPhraseState": {
@@ -179,14 +1946,14 @@
   },
   "distBundles": [
     {
-      "file": "dist/assets/index-C8sKZfxa.js",
-      "bytes": 2531672,
-      "kilobytes": 2472.34
+      "file": "dist/assets/index-Cak7vCv8.js",
+      "bytes": 2532587,
+      "kilobytes": 2473.23
     },
     {
-      "file": "dist/assets/index-CAMvN13F.css",
-      "bytes": 204229,
-      "kilobytes": 199.44
+      "file": "dist/assets/index-gCtTKnqC.css",
+      "bytes": 204476,
+      "kilobytes": 199.68
     }
   ],
   "viewportResults": [
@@ -206,12 +1973,107 @@
         "legacyDuplicatePrimaryCardCount": 0,
         "gateU2ZeroCropPass": true,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 71,
+            "right": 71,
+            "bottom": 103,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.3,
+            "right": 159.9,
+            "bottom": 99.8,
+            "width": 82.9,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 203,
+            "top": 59,
+            "right": 259,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 265,
+            "top": 59,
+            "right": 321,
+            "bottom": 115,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 128,
+            "right": 145,
+            "bottom": 150,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 158,
+            "right": 321,
+            "bottom": 197,
+            "width": 282,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 43.1,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 118.4,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 153.9,
+              "y": 87,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "情绪天气站",
-          "clientWidth": 90,
-          "scrollWidth": 90,
-          "height": 28,
-          "lineHeight": 28
+          "clientWidth": 83,
+          "scrollWidth": 83,
+          "height": 25.5,
+          "lineHeight": 25.5
         },
         "layers": [
           {
@@ -311,8 +2173,8 @@
             "totalExpected": 3,
             "loadedCount": 3,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 2.2,
-            "allAssetsLoadedMs": 2.2,
+            "firstAssetLoadedMs": 1.4,
+            "allAssetsLoadedMs": 1.4,
             "assets": {
               "weather_station/sunny/backplate": {
                 "assetId": "weather_station/sunny/backplate",
@@ -320,7 +2182,7 @@
                 "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
                 "bytes": 140812,
                 "status": "loaded",
-                "durationMs": 2.2,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               },
               "weather_station/sunny/weather_actor": {
@@ -329,7 +2191,7 @@
                 "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
                 "bytes": 69541,
                 "status": "loaded",
-                "durationMs": 2.2,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               },
               "weather_station/sunny/front_effect": {
@@ -338,7 +2200,7 @@
                 "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
                 "bytes": 101992,
                 "status": "loaded",
-                "durationMs": 2.2,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               }
             }
@@ -350,19 +2212,114 @@
         "innerWidth": 360,
         "horizontalOverflow": false,
         "stageLayout": "mobile-portrait-896x1200",
-        "stageClientWidth": 308,
-        "stageClientHeight": 412.5,
+        "stageClientWidth": 316,
+        "stageClientHeight": 423.2,
         "childUiFreeOfDebugDrawer": true,
         "zeroDuplicateColorButtons": true,
         "gateU2ZeroCropPass": true,
         "orbHorizontalCenterDeltaPx": 0,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 61,
+            "right": 67,
+            "bottom": 93,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 172.5,
+            "bottom": 89.8,
+            "width": 99.5,
+            "height": 25.5
+          },
+          "audioBtnRect": {
+            "left": 207,
+            "top": 49,
+            "right": 263,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 269,
+            "top": 49,
+            "right": 325,
+            "bottom": 105,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 118,
+            "right": 163.7,
+            "bottom": 140,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 148,
+            "right": 325,
+            "bottom": 187,
+            "width": 290,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 34.5,
+          "verticalGapPx": -40.7,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 122.7,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 166.5,
+              "y": 77,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "绿草冷静空间",
-          "clientWidth": 108,
-          "scrollWidth": 108,
-          "height": 28,
-          "lineHeight": 28
+          "clientWidth": 99,
+          "scrollWidth": 99,
+          "height": 25.5,
+          "lineHeight": 25.5
         },
         "layers": [
           {
@@ -371,8 +2328,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 308,
-            "clientHeight": 412.5,
+            "clientWidth": 316,
+            "clientHeight": 423.2,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -386,8 +2343,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 332.6,
-            "clientHeight": 445.5,
+            "clientWidth": 341.3,
+            "clientHeight": 457.1,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -404,26 +2361,26 @@
         "svgTargets": [
           {
             "testId": "v2-calm-svg-breathe-orb",
-            "width": 115.5,
-            "height": 115.5,
+            "width": 118.5,
+            "height": 118.5,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-red",
-            "width": 89.4,
-            "height": 63.3,
+            "width": 91.7,
+            "height": 64.9,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-yellow",
-            "width": 89.4,
-            "height": 63.3,
+            "width": 91.7,
+            "height": 64.9,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-blue",
-            "width": 89.4,
-            "height": 63.3,
+            "width": 91.7,
+            "height": 64.9,
             "meets56px": true
           }
         ],
@@ -435,8 +2392,8 @@
             "totalExpected": 2,
             "loadedCount": 2,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 7.7,
-            "allAssetsLoadedMs": 7.7,
+            "firstAssetLoadedMs": 15.3,
+            "allAssetsLoadedMs": 15.4,
             "assets": {
               "calm_corner/inhale/room": {
                 "assetId": "calm_corner/inhale/room",
@@ -444,7 +2401,7 @@
                 "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
                 "bytes": 242358,
                 "status": "loaded",
-                "durationMs": 7.7,
+                "durationMs": 15.3,
                 "isSharedGeometryFixture": false
               },
               "calm_corner/inhale/breathing_visual": {
@@ -453,7 +2410,7 @@
                 "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
                 "bytes": 58645,
                 "status": "loaded",
-                "durationMs": 7.7,
+                "durationMs": 15.4,
                 "isSharedGeometryFixture": false
               }
             }
@@ -477,10 +2434,105 @@
         "legacyDuplicatePrimaryCardCount": 0,
         "gateU2ZeroCropPass": true,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 72.8,
+            "right": 71,
+            "bottom": 104.8,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 74.8,
+            "right": 164.8,
+            "bottom": 102.8,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 233,
+            "top": 60.8,
+            "right": 289,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 295,
+            "top": 60.8,
+            "right": 351,
+            "bottom": 116.8,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 129.8,
+            "right": 145,
+            "bottom": 151.8,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 159.8,
+            "right": 351,
+            "bottom": 198.8,
+            "width": 312,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 68.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 88.8,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "情绪天气站",
-          "clientWidth": 90,
-          "scrollWidth": 90,
+          "clientWidth": 88,
+          "scrollWidth": 88,
           "height": 28,
           "lineHeight": 28
         },
@@ -582,8 +2634,8 @@
             "totalExpected": 3,
             "loadedCount": 3,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 1.3,
-            "allAssetsLoadedMs": 1.3,
+            "firstAssetLoadedMs": 1.4,
+            "allAssetsLoadedMs": 1.4,
             "assets": {
               "weather_station/sunny/backplate": {
                 "assetId": "weather_station/sunny/backplate",
@@ -591,7 +2643,7 @@
                 "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
                 "bytes": 140812,
                 "status": "loaded",
-                "durationMs": 1.3,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               },
               "weather_station/sunny/weather_actor": {
@@ -600,7 +2652,7 @@
                 "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
                 "bytes": 69541,
                 "status": "loaded",
-                "durationMs": 1.3,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               },
               "weather_station/sunny/front_effect": {
@@ -609,7 +2661,7 @@
                 "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
                 "bytes": 101992,
                 "status": "loaded",
-                "durationMs": 1.3,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               }
             }
@@ -621,17 +2673,112 @@
         "innerWidth": 390,
         "horizontalOverflow": false,
         "stageLayout": "mobile-portrait-896x1200",
-        "stageClientWidth": 338,
-        "stageClientHeight": 452.7,
+        "stageClientWidth": 346,
+        "stageClientHeight": 463.4,
         "childUiFreeOfDebugDrawer": true,
         "zeroDuplicateColorButtons": true,
         "gateU2ZeroCropPass": true,
         "orbHorizontalCenterDeltaPx": 0,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 62.3,
+            "right": 67,
+            "bottom": 94.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 64.3,
+            "right": 178.3,
+            "bottom": 92.3,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 237,
+            "top": 50.3,
+            "right": 293,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 299,
+            "top": 50.3,
+            "right": 355,
+            "bottom": 106.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 119.3,
+            "right": 163.7,
+            "bottom": 141.3,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 149.3,
+            "right": 355,
+            "bottom": 188.3,
+            "width": 320,
+            "height": 39
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 58.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 78.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "绿草冷静空间",
-          "clientWidth": 108,
-          "scrollWidth": 108,
+          "clientWidth": 105,
+          "scrollWidth": 105,
           "height": 28,
           "lineHeight": 28
         },
@@ -642,8 +2789,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 338,
-            "clientHeight": 452.7,
+            "clientWidth": 346,
+            "clientHeight": 463.4,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -657,8 +2804,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 365,
-            "clientHeight": 488.9,
+            "clientWidth": 373.7,
+            "clientHeight": 500.5,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -675,26 +2822,26 @@
         "svgTargets": [
           {
             "testId": "v2-calm-svg-breathe-orb",
-            "width": 126.7,
-            "height": 126.7,
+            "width": 129.7,
+            "height": 129.7,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-red",
-            "width": 98.1,
-            "height": 69.4,
+            "width": 100.4,
+            "height": 71.1,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-yellow",
-            "width": 98.1,
-            "height": 69.4,
+            "width": 100.4,
+            "height": 71.1,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-blue",
-            "width": 98.1,
-            "height": 69.4,
+            "width": 100.4,
+            "height": 71.1,
             "meets56px": true
           }
         ],
@@ -706,8 +2853,8 @@
             "totalExpected": 2,
             "loadedCount": 2,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 21.7,
-            "allAssetsLoadedMs": 21.8,
+            "firstAssetLoadedMs": 8.5,
+            "allAssetsLoadedMs": 8.6,
             "assets": {
               "calm_corner/inhale/room": {
                 "assetId": "calm_corner/inhale/room",
@@ -715,7 +2862,7 @@
                 "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
                 "bytes": 242358,
                 "status": "loaded",
-                "durationMs": 21.7,
+                "durationMs": 8.5,
                 "isSharedGeometryFixture": false
               },
               "calm_corner/inhale/breathing_visual": {
@@ -724,7 +2871,7 @@
                 "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
                 "bytes": 58645,
                 "status": "loaded",
-                "durationMs": 21.8,
+                "durationMs": 8.6,
                 "isSharedGeometryFixture": false
               }
             }
@@ -748,10 +2895,105 @@
         "legacyDuplicatePrimaryCardCount": 0,
         "gateU2ZeroCropPass": true,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 39,
+            "top": 76.3,
+            "right": 71,
+            "bottom": 108.3,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 77,
+            "top": 78.3,
+            "right": 164.8,
+            "bottom": 106.3,
+            "width": 87.8,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 273,
+            "top": 64.3,
+            "right": 329,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 335,
+            "top": 64.3,
+            "right": 391,
+            "bottom": 120.3,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 39,
+            "top": 133.3,
+            "right": 145,
+            "bottom": 155.3,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 39,
+            "top": 163.3,
+            "right": 361.7,
+            "bottom": 182.8,
+            "width": 322.7,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 108.2,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 83,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 120.9,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 158.8,
+              "y": 92.3,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "情绪天气站",
-          "clientWidth": 90,
-          "scrollWidth": 90,
+          "clientWidth": 88,
+          "scrollWidth": 88,
           "height": 28,
           "lineHeight": 28
         },
@@ -892,17 +3134,112 @@
         "innerWidth": 430,
         "horizontalOverflow": false,
         "stageLayout": "mobile-portrait-896x1200",
-        "stageClientWidth": 378,
-        "stageClientHeight": 506.3,
+        "stageClientWidth": 386,
+        "stageClientHeight": 517,
         "childUiFreeOfDebugDrawer": true,
         "zeroDuplicateColorButtons": true,
         "gateU2ZeroCropPass": true,
         "orbHorizontalCenterDeltaPx": 0,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 35,
+            "top": 65,
+            "right": 67,
+            "bottom": 97,
+            "width": 32,
+            "height": 32
+          },
+          "titleRect": {
+            "left": 73,
+            "top": 67,
+            "right": 178.3,
+            "bottom": 95,
+            "width": 105.3,
+            "height": 28
+          },
+          "audioBtnRect": {
+            "left": 277,
+            "top": 53,
+            "right": 333,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 339,
+            "top": 53,
+            "right": 395,
+            "bottom": 109,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 35,
+            "top": 122,
+            "right": 163.7,
+            "bottom": 144,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 35,
+            "top": 152,
+            "right": 359,
+            "bottom": 171.5,
+            "width": 324,
+            "height": 19.5
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 98.7,
+          "verticalGapPx": -42,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 79,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 125.7,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 172.3,
+              "y": 81,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "绿草冷静空间",
-          "clientWidth": 108,
-          "scrollWidth": 108,
+          "clientWidth": 105,
+          "scrollWidth": 105,
           "height": 28,
           "lineHeight": 28
         },
@@ -913,8 +3250,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 378,
-            "clientHeight": 506.3,
+            "clientWidth": 386,
+            "clientHeight": 517,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -928,8 +3265,8 @@
             "loaded": true,
             "naturalWidth": 896,
             "naturalHeight": 1200,
-            "clientWidth": 408.2,
-            "clientHeight": 546.8,
+            "clientWidth": 416.9,
+            "clientHeight": 558.3,
             "objectFit": "cover",
             "visibleHeightRatio": 1,
             "visibleWidthRatio": 1,
@@ -946,26 +3283,26 @@
         "svgTargets": [
           {
             "testId": "v2-calm-svg-breathe-orb",
-            "width": 141.8,
-            "height": 141.8,
+            "width": 144.7,
+            "height": 144.7,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-red",
-            "width": 109.7,
-            "height": 77.6,
+            "width": 112,
+            "height": 79.3,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-yellow",
-            "width": 109.7,
-            "height": 77.6,
+            "width": 112,
+            "height": 79.3,
             "meets56px": true
           },
           {
             "testId": "v2-calm-svg-color-blue",
-            "width": 109.7,
-            "height": 77.6,
+            "width": 112,
+            "height": 79.3,
             "meets56px": true
           }
         ],
@@ -977,8 +3314,8 @@
             "totalExpected": 2,
             "loadedCount": 2,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 7.4,
-            "allAssetsLoadedMs": 7.4,
+            "firstAssetLoadedMs": 16.2,
+            "allAssetsLoadedMs": 16.2,
             "assets": {
               "calm_corner/inhale/room": {
                 "assetId": "calm_corner/inhale/room",
@@ -986,7 +3323,7 @@
                 "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
                 "bytes": 242358,
                 "status": "loaded",
-                "durationMs": 7.4,
+                "durationMs": 16.2,
                 "isSharedGeometryFixture": false
               },
               "calm_corner/inhale/breathing_visual": {
@@ -995,7 +3332,7 @@
                 "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
                 "bytes": 58645,
                 "status": "loaded",
-                "durationMs": 7.4,
+                "durationMs": 16.2,
                 "isSharedGeometryFixture": false
               }
             }
@@ -1019,10 +3356,105 @@
         "legacyDuplicatePrimaryCardCount": 0,
         "gateU2ZeroCropPass": true,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 65,
+            "top": 92,
+            "right": 109,
+            "bottom": 128,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 117,
+            "top": 94,
+            "right": 234,
+            "bottom": 126,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 583,
+            "top": 82,
+            "right": 639,
+            "bottom": 138,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 647,
+            "top": 82,
+            "right": 703,
+            "bottom": 138,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 65,
+            "top": 151.3,
+            "right": 171,
+            "bottom": 173.3,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 179,
+            "top": 151,
+            "right": 555.5,
+            "bottom": 173.7,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 349,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 123,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 175.5,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 228,
+              "y": 110,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "情绪天气站",
-          "clientWidth": 120,
-          "scrollWidth": 120,
+          "clientWidth": 117,
+          "scrollWidth": 117,
           "height": 32,
           "lineHeight": 32
         },
@@ -1125,7 +3557,7 @@
             "loadedCount": 3,
             "fallbackCount": 0,
             "firstAssetLoadedMs": 1.3,
-            "allAssetsLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.4,
             "assets": {
               "weather_station/sunny/backplate": {
                 "assetId": "weather_station/sunny/backplate",
@@ -1142,7 +3574,7 @@
                 "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
                 "bytes": 69541,
                 "status": "loaded",
-                "durationMs": 1.3,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               },
               "weather_station/sunny/front_effect": {
@@ -1151,7 +3583,7 @@
                 "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
                 "bytes": 101992,
                 "status": "loaded",
-                "durationMs": 1.3,
+                "durationMs": 1.4,
                 "isSharedGeometryFixture": false
               }
             }
@@ -1170,10 +3602,105 @@
         "gateU2ZeroCropPass": true,
         "orbHorizontalCenterDeltaPx": 0,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 69,
+            "top": 81.7,
+            "right": 113,
+            "bottom": 117.7,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 123,
+            "top": 83.7,
+            "right": 263.4,
+            "bottom": 115.7,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 579,
+            "top": 71.7,
+            "right": 635,
+            "bottom": 127.7,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 643,
+            "top": 71.7,
+            "right": 699,
+            "bottom": 127.7,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 69,
+            "top": 141.1,
+            "right": 197.7,
+            "bottom": 163.1,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 205.7,
+            "top": 140.7,
+            "right": 583.7,
+            "bottom": 163.5,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 315.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 129,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 193.2,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 257.4,
+              "y": 99.7,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "绿草冷静空间",
-          "clientWidth": 144,
-          "scrollWidth": 144,
+          "clientWidth": 140,
+          "scrollWidth": 140,
           "height": 32,
           "lineHeight": 32
         },
@@ -1248,8 +3775,8 @@
             "totalExpected": 2,
             "loadedCount": 2,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 15.6,
-            "allAssetsLoadedMs": 15.7,
+            "firstAssetLoadedMs": 19,
+            "allAssetsLoadedMs": 19,
             "assets": {
               "calm_corner/inhale/room": {
                 "assetId": "calm_corner/inhale/room",
@@ -1257,7 +3784,7 @@
                 "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
                 "bytes": 242358,
                 "status": "loaded",
-                "durationMs": 15.6,
+                "durationMs": 19,
                 "isSharedGeometryFixture": false
               },
               "calm_corner/inhale/breathing_visual": {
@@ -1266,7 +3793,7 @@
                 "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
                 "bytes": 58645,
                 "status": "loaded",
-                "durationMs": 15.7,
+                "durationMs": 19,
                 "isSharedGeometryFixture": false
               }
             }
@@ -1290,10 +3817,566 @@
         "legacyDuplicatePrimaryCardCount": 0,
         "gateU2ZeroCropPass": true,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 173,
+            "top": 105.6,
+            "right": 217,
+            "bottom": 141.6,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 225,
+            "top": 107.6,
+            "right": 342,
+            "bottom": 139.6,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 731,
+            "top": 95.6,
+            "right": 787,
+            "bottom": 151.6,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 795,
+            "top": 95.6,
+            "right": 851,
+            "bottom": 151.6,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 173,
+            "top": 165,
+            "right": 279,
+            "bottom": 187,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 287,
+            "top": 164.6,
+            "right": 663.5,
+            "bottom": 187.4,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 389,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 231,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 283.5,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 336,
+              "y": 123.6,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "情绪天气站",
-          "clientWidth": 120,
-          "scrollWidth": 120,
+          "clientWidth": 117,
+          "scrollWidth": 117,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "backplate",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "weather_actor",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "front_effect",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTokens": [
+          {
+            "type": "sunny",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "cloudy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "rainy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "stormy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "foggy",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "type": "opt_out",
+            "width": 73.5,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTokensMeet56px": true,
+        "mediaMetrics": {
+          "weather_station:sunny": {
+            "sceneId": "weather_station:sunny",
+            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
+            "totalExpected": 3,
+            "loadedCount": 3,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 1.3,
+            "allAssetsLoadedMs": 1.3,
+            "assets": {
+              "weather_station/sunny/backplate": {
+                "assetId": "weather_station/sunny/backplate",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
+                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
+                "bytes": 140812,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/weather_actor": {
+                "assetId": "weather_station/sunny/weather_actor",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
+                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
+                "bytes": 69541,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              },
+              "weather_station/sunny/front_effect": {
+                "assetId": "weather_station/sunny/front_effect",
+                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
+                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
+                "bytes": 101992,
+                "status": "loaded",
+                "durationMs": 1.3,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      },
+      "calmCornerV2": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "zeroDuplicateColorButtons": true,
+        "gateU2ZeroCropPass": true,
+        "orbHorizontalCenterDeltaPx": 0,
+        "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 173,
+            "top": 210.4,
+            "right": 217,
+            "bottom": 246.4,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 227,
+            "top": 212.4,
+            "right": 367.4,
+            "bottom": 244.4,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 731,
+            "top": 200.4,
+            "right": 787,
+            "bottom": 256.4,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 795,
+            "top": 200.4,
+            "right": 851,
+            "bottom": 256.4,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 173,
+            "top": 269.8,
+            "right": 301.7,
+            "bottom": 291.8,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 309.7,
+            "top": 269.4,
+            "right": 687.7,
+            "bottom": 292.2,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 363.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 233,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 297.2,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 361.4,
+              "y": 228.4,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "headerTitleMetrics": {
+          "text": "绿草冷静空间",
+          "clientWidth": 140,
+          "scrollWidth": 140,
+          "height": 32,
+          "lineHeight": 32
+        },
+        "layers": [
+          {
+            "part": "room",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 712,
+            "clientHeight": 397.4,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          },
+          {
+            "part": "breathing_visual",
+            "exists": true,
+            "loaded": true,
+            "naturalWidth": 1376,
+            "naturalHeight": 768,
+            "clientWidth": 769,
+            "clientHeight": 429.2,
+            "objectFit": "cover",
+            "visibleHeightRatio": 1,
+            "visibleWidthRatio": 1,
+            "verticalCropLossPct": 0,
+            "horizontalCropLossPct": 0,
+            "fallbackActive": false
+          }
+        ],
+        "allLayersLoaded": true,
+        "companionId": "guoguo_squirrel",
+        "companionCutoutLoaded": true,
+        "mouthActiveIdle": false,
+        "allCompanionPartsLoaded": true,
+        "svgTargets": [
+          {
+            "testId": "v2-calm-svg-breathe-orb",
+            "width": 144.9,
+            "height": 144.9,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-red",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-yellow",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          },
+          {
+            "testId": "v2-calm-svg-color-blue",
+            "width": 120,
+            "height": 76.6,
+            "meets56px": true
+          }
+        ],
+        "allSvgTargetsMeet56px": true,
+        "mediaMetrics": {
+          "calm_corner:inhale": {
+            "sceneId": "calm_corner:inhale",
+            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
+            "totalExpected": 2,
+            "loadedCount": 2,
+            "fallbackCount": 0,
+            "firstAssetLoadedMs": 18.4,
+            "allAssetsLoadedMs": 18.5,
+            "assets": {
+              "calm_corner/inhale/room": {
+                "assetId": "calm_corner/inhale/room",
+                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
+                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
+                "bytes": 242358,
+                "status": "loaded",
+                "durationMs": 18.4,
+                "isSharedGeometryFixture": false
+              },
+              "calm_corner/inhale/breathing_visual": {
+                "assetId": "calm_corner/inhale/breathing_visual",
+                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
+                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
+                "bytes": 58645,
+                "status": "loaded",
+                "durationMs": 18.5,
+                "isSharedGeometryFixture": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "weatherStationV2": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "horizontalOverflow": false,
+        "stageLayout": "desktop-1376x768",
+        "stageClientWidth": 712,
+        "stageClientHeight": 397.4,
+        "childUiFreeOfDebugDrawer": true,
+        "gateU1SinglePrimarySelectorPass": true,
+        "legacyDuplicatePrimaryCardCount": 0,
+        "gateU2ZeroCropPass": true,
+        "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "weather_station",
+          "titleText": "情绪天气站",
+          "iconRect": {
+            "left": 381,
+            "top": 87,
+            "right": 425,
+            "bottom": 123,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 433,
+            "top": 89,
+            "right": 550,
+            "bottom": 121,
+            "width": 117,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 939,
+            "top": 77,
+            "right": 995,
+            "bottom": 133,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 1003,
+            "top": 77,
+            "right": 1059,
+            "bottom": 133,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 381,
+            "top": 146.4,
+            "right": 487,
+            "bottom": 168.4,
+            "width": 106,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 495,
+            "top": 146,
+            "right": 871.5,
+            "bottom": 168.8,
+            "width": 376.5,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 389,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 439,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 491.5,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 544,
+              "y": 105,
+              "hitTag": "H2",
+              "hitTestId": "v2-weather-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
+        "headerTitleMetrics": {
+          "text": "情绪天气站",
+          "clientWidth": 117,
+          "scrollWidth": 117,
           "height": 32,
           "lineHeight": 32
         },
@@ -1430,8 +4513,8 @@
         }
       },
       "calmCornerV2": {
-        "scrollWidth": 1024,
-        "innerWidth": 1024,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
         "horizontalOverflow": false,
         "stageLayout": "desktop-1376x768",
         "stageClientWidth": 712,
@@ -1441,10 +4524,105 @@
         "gateU2ZeroCropPass": true,
         "orbHorizontalCenterDeltaPx": 0,
         "gateU3HeaderTypographyPass": true,
+        "gateU3RHeaderCollisionAudit": {
+          "scene": "calm_corner",
+          "titleText": "绿草冷静空间",
+          "iconRect": {
+            "left": 381,
+            "top": 78,
+            "right": 425,
+            "bottom": 114,
+            "width": 44,
+            "height": 36
+          },
+          "titleRect": {
+            "left": 435,
+            "top": 80,
+            "right": 575.4,
+            "bottom": 112,
+            "width": 140.4,
+            "height": 32
+          },
+          "audioBtnRect": {
+            "left": 939,
+            "top": 68,
+            "right": 995,
+            "bottom": 124,
+            "width": 56,
+            "height": 56
+          },
+          "closeBtnRect": {
+            "left": 1003,
+            "top": 68,
+            "right": 1059,
+            "bottom": 124,
+            "width": 56,
+            "height": 56
+          },
+          "badgeRect": {
+            "left": 381,
+            "top": 137.4,
+            "right": 509.7,
+            "bottom": 159.4,
+            "width": 128.7,
+            "height": 22
+          },
+          "subtitleRect": {
+            "left": 517.7,
+            "top": 137,
+            "right": 895.7,
+            "bottom": 159.8,
+            "width": 378,
+            "height": 22.8
+          },
+          "intersectionAreas": {
+            "titleVsAudioBtn": 0,
+            "titleVsCloseBtn": 0,
+            "titleVsIcon": 0,
+            "audioBtnVsCloseBtn": 0,
+            "subtitleVsAudioBtn": 0,
+            "subtitleVsCloseBtn": 0,
+            "badgeVsAudioBtn": 0,
+            "badgeVsCloseBtn": 0
+          },
+          "zeroPairwiseIntersections": true,
+          "sameHorizontalRow": true,
+          "horizontalGapPx": 363.6,
+          "verticalGapPx": -44,
+          "clearanceGapPass": true,
+          "elementFromPointSamples": [
+            {
+              "point": "left",
+              "x": 441,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "center",
+              "x": 505.2,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            },
+            {
+              "point": "right",
+              "x": 569.4,
+              "y": 96,
+              "hitTag": "H2",
+              "hitTestId": "v2-calm-header-title",
+              "hitsTitleOrTextContainer": true
+            }
+          ],
+          "allHitSamplesPass": true,
+          "pass": true
+        },
         "headerTitleMetrics": {
           "text": "绿草冷静空间",
-          "clientWidth": 144,
-          "scrollWidth": 144,
+          "clientWidth": 140,
+          "scrollWidth": 140,
           "height": 32,
           "lineHeight": 32
         },
@@ -1519,8 +4697,8 @@
             "totalExpected": 2,
             "loadedCount": 2,
             "fallbackCount": 0,
-            "firstAssetLoadedMs": 14.2,
-            "allAssetsLoadedMs": 14.2,
+            "firstAssetLoadedMs": 16.5,
+            "allAssetsLoadedMs": 16.5,
             "assets": {
               "calm_corner/inhale/room": {
                 "assetId": "calm_corner/inhale/room",
@@ -1528,7 +4706,7 @@
                 "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
                 "bytes": 242358,
                 "status": "loaded",
-                "durationMs": 14.2,
+                "durationMs": 16.5,
                 "isSharedGeometryFixture": false
               },
               "calm_corner/inhale/breathing_visual": {
@@ -1537,278 +4715,7 @@
                 "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
                 "bytes": 58645,
                 "status": "loaded",
-                "durationMs": 14.2,
-                "isSharedGeometryFixture": false
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "viewport": "1440x900",
-      "width": 1440,
-      "height": 900,
-      "weatherStationV2": {
-        "scrollWidth": 1440,
-        "innerWidth": 1440,
-        "horizontalOverflow": false,
-        "stageLayout": "desktop-1376x768",
-        "stageClientWidth": 712,
-        "stageClientHeight": 397.4,
-        "childUiFreeOfDebugDrawer": true,
-        "gateU1SinglePrimarySelectorPass": true,
-        "legacyDuplicatePrimaryCardCount": 0,
-        "gateU2ZeroCropPass": true,
-        "gateU3HeaderTypographyPass": true,
-        "headerTitleMetrics": {
-          "text": "情绪天气站",
-          "clientWidth": 120,
-          "scrollWidth": 120,
-          "height": 32,
-          "lineHeight": 32
-        },
-        "layers": [
-          {
-            "part": "backplate",
-            "exists": true,
-            "loaded": true,
-            "naturalWidth": 1376,
-            "naturalHeight": 768,
-            "clientWidth": 712,
-            "clientHeight": 397.4,
-            "objectFit": "cover",
-            "visibleHeightRatio": 1,
-            "visibleWidthRatio": 1,
-            "verticalCropLossPct": 0,
-            "horizontalCropLossPct": 0,
-            "fallbackActive": false
-          },
-          {
-            "part": "weather_actor",
-            "exists": true,
-            "loaded": true,
-            "naturalWidth": 1376,
-            "naturalHeight": 768,
-            "clientWidth": 712,
-            "clientHeight": 397.4,
-            "objectFit": "cover",
-            "visibleHeightRatio": 1,
-            "visibleWidthRatio": 1,
-            "verticalCropLossPct": 0,
-            "horizontalCropLossPct": 0,
-            "fallbackActive": false
-          },
-          {
-            "part": "front_effect",
-            "exists": true,
-            "loaded": true,
-            "naturalWidth": 1376,
-            "naturalHeight": 768,
-            "clientWidth": 712,
-            "clientHeight": 397.4,
-            "objectFit": "cover",
-            "visibleHeightRatio": 1,
-            "visibleWidthRatio": 1,
-            "verticalCropLossPct": 0,
-            "horizontalCropLossPct": 0,
-            "fallbackActive": false
-          }
-        ],
-        "allLayersLoaded": true,
-        "companionId": "guoguo_squirrel",
-        "companionCutoutLoaded": true,
-        "mouthActiveIdle": false,
-        "allCompanionPartsLoaded": true,
-        "svgTokens": [
-          {
-            "type": "sunny",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "type": "cloudy",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "type": "rainy",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "type": "stormy",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "type": "foggy",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "type": "opt_out",
-            "width": 73.5,
-            "height": 76.6,
-            "meets56px": true
-          }
-        ],
-        "allSvgTokensMeet56px": true,
-        "mediaMetrics": {
-          "weather_station:sunny": {
-            "sceneId": "weather_station:sunny",
-            "assetSetSignature": "weather_station:sunny::weather_station/sunny/backplate|weather_station/sunny/weather_actor|weather_station/sunny/front_effect",
-            "totalExpected": 3,
-            "loadedCount": 3,
-            "fallbackCount": 0,
-            "firstAssetLoadedMs": 1.3,
-            "allAssetsLoadedMs": 1.4,
-            "assets": {
-              "weather_station/sunny/backplate": {
-                "assetId": "weather_station/sunny/backplate",
-                "publicUrl": "/visual-v2/batch01r-art/scenes/weather_sunny_backplate_desktop.webp",
-                "sha256": "ea6f0ee44f345820a44e4c808e03ef6cabdf34f937eda25696f08216dbb0d373",
-                "bytes": 140812,
-                "status": "loaded",
-                "durationMs": 1.3,
-                "isSharedGeometryFixture": false
-              },
-              "weather_station/sunny/weather_actor": {
-                "assetId": "weather_station/sunny/weather_actor",
-                "publicUrl": "/visual-v2/batch01r-art/layers/weather_actor_sunny_rgba.png",
-                "sha256": "89e1e332a83ddea2feb54d0796f3dee515ffa4eb69449750ec8f747a9c2d5ae1",
-                "bytes": 69541,
-                "status": "loaded",
-                "durationMs": 1.4,
-                "isSharedGeometryFixture": false
-              },
-              "weather_station/sunny/front_effect": {
-                "assetId": "weather_station/sunny/front_effect",
-                "publicUrl": "/visual-v2/batch01r-art/layers/weather_front_sunny_desktop.webp",
-                "sha256": "b633380608a73f28f05d2d8bc37af1fa9564ca140a9cfd93925af4112ab4732c",
-                "bytes": 101992,
-                "status": "loaded",
-                "durationMs": 1.4,
-                "isSharedGeometryFixture": false
-              }
-            }
-          }
-        }
-      },
-      "calmCornerV2": {
-        "scrollWidth": 1440,
-        "innerWidth": 1440,
-        "horizontalOverflow": false,
-        "stageLayout": "desktop-1376x768",
-        "stageClientWidth": 712,
-        "stageClientHeight": 397.4,
-        "childUiFreeOfDebugDrawer": true,
-        "zeroDuplicateColorButtons": true,
-        "gateU2ZeroCropPass": true,
-        "orbHorizontalCenterDeltaPx": 0,
-        "gateU3HeaderTypographyPass": true,
-        "headerTitleMetrics": {
-          "text": "绿草冷静空间",
-          "clientWidth": 144,
-          "scrollWidth": 144,
-          "height": 32,
-          "lineHeight": 32
-        },
-        "layers": [
-          {
-            "part": "room",
-            "exists": true,
-            "loaded": true,
-            "naturalWidth": 1376,
-            "naturalHeight": 768,
-            "clientWidth": 712,
-            "clientHeight": 397.4,
-            "objectFit": "cover",
-            "visibleHeightRatio": 1,
-            "visibleWidthRatio": 1,
-            "verticalCropLossPct": 0,
-            "horizontalCropLossPct": 0,
-            "fallbackActive": false
-          },
-          {
-            "part": "breathing_visual",
-            "exists": true,
-            "loaded": true,
-            "naturalWidth": 1376,
-            "naturalHeight": 768,
-            "clientWidth": 769,
-            "clientHeight": 429.2,
-            "objectFit": "cover",
-            "visibleHeightRatio": 1,
-            "visibleWidthRatio": 1,
-            "verticalCropLossPct": 0,
-            "horizontalCropLossPct": 0,
-            "fallbackActive": false
-          }
-        ],
-        "allLayersLoaded": true,
-        "companionId": "guoguo_squirrel",
-        "companionCutoutLoaded": true,
-        "mouthActiveIdle": false,
-        "allCompanionPartsLoaded": true,
-        "svgTargets": [
-          {
-            "testId": "v2-calm-svg-breathe-orb",
-            "width": 144.9,
-            "height": 144.9,
-            "meets56px": true
-          },
-          {
-            "testId": "v2-calm-svg-color-red",
-            "width": 120,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "testId": "v2-calm-svg-color-yellow",
-            "width": 120,
-            "height": 76.6,
-            "meets56px": true
-          },
-          {
-            "testId": "v2-calm-svg-color-blue",
-            "width": 120,
-            "height": 76.6,
-            "meets56px": true
-          }
-        ],
-        "allSvgTargetsMeet56px": true,
-        "mediaMetrics": {
-          "calm_corner:inhale": {
-            "sceneId": "calm_corner:inhale",
-            "assetSetSignature": "calm_corner:inhale::calm_corner/inhale/room|calm_corner/inhale/breathing_visual",
-            "totalExpected": 2,
-            "loadedCount": 2,
-            "fallbackCount": 0,
-            "firstAssetLoadedMs": 13.1,
-            "allAssetsLoadedMs": 13.2,
-            "assets": {
-              "calm_corner/inhale/room": {
-                "assetId": "calm_corner/inhale/room",
-                "publicUrl": "/visual-v2/batch01r-art/scenes/calm_inhale_room_desktop.webp",
-                "sha256": "1d504fa6cf23bc2a050db3dfc70c48ac2bb6135f7f784e541a1250ed88e86ea1",
-                "bytes": 242358,
-                "status": "loaded",
-                "durationMs": 13.1,
-                "isSharedGeometryFixture": false
-              },
-              "calm_corner/inhale/breathing_visual": {
-                "assetId": "calm_corner/inhale/breathing_visual",
-                "publicUrl": "/visual-v2/batch01r-art/layers/calm_breathing_halo_inhale_rgba.png",
-                "sha256": "07792d928f954f67a21aa65b8107a2eb217bd20a6cc8409eb8055509951ebcf3",
-                "bytes": 58645,
-                "status": "loaded",
-                "durationMs": 13.2,
+                "durationMs": 16.5,
                 "isSharedGeometryFixture": false
               }
             }
@@ -1823,210 +4730,210 @@
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_360x800_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_original_weather_station.png"
     },
     {
       "viewport": "360x800",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_360x800_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_original_calm_corner.png"
     },
     {
       "viewport": "360x800",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_360x800_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_station.png"
     },
     {
       "viewport": "360x800",
       "scene": "weather_station",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_360x800_v2_weather_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_v2_weather_hotspot_overlay.png"
     },
     {
       "viewport": "360x800",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_360x800_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_corner.png"
     },
     {
       "viewport": "360x800",
       "scene": "calm_corner",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_360x800_v2_calm_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_360x800_v2_calm_hotspot_overlay.png"
     },
     {
       "viewport": "390x844",
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_390x844_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_original_weather_station.png"
     },
     {
       "viewport": "390x844",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_390x844_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_original_calm_corner.png"
     },
     {
       "viewport": "390x844",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_390x844_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_station.png"
     },
     {
       "viewport": "390x844",
       "scene": "weather_station",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_390x844_v2_weather_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_v2_weather_hotspot_overlay.png"
     },
     {
       "viewport": "390x844",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_390x844_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_corner.png"
     },
     {
       "viewport": "390x844",
       "scene": "calm_corner",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_390x844_v2_calm_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_390x844_v2_calm_hotspot_overlay.png"
     },
     {
       "viewport": "430x932",
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_430x932_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_original_weather_station.png"
     },
     {
       "viewport": "430x932",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_430x932_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_original_calm_corner.png"
     },
     {
       "viewport": "430x932",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_430x932_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_station.png"
     },
     {
       "viewport": "430x932",
       "scene": "weather_station",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_430x932_v2_weather_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_v2_weather_hotspot_overlay.png"
     },
     {
       "viewport": "430x932",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_430x932_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_corner.png"
     },
     {
       "viewport": "430x932",
       "scene": "calm_corner",
       "mode": "v2_hotspot_overlay",
       "file": "v2_3_batch01r_430x932_v2_calm_hotspot_overlay.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_hotspot_overlay.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_430x932_v2_calm_hotspot_overlay.png"
     },
     {
       "viewport": "768x1024",
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_768x1024_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_768x1024_original_weather_station.png"
     },
     {
       "viewport": "768x1024",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_768x1024_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_768x1024_original_calm_corner.png"
     },
     {
       "viewport": "768x1024",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_768x1024_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_768x1024_v2_weather_station.png"
     },
     {
       "viewport": "768x1024",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_768x1024_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_768x1024_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_768x1024_v2_calm_corner.png"
     },
     {
       "viewport": "1024x1366",
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_1024x1366_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1024x1366_original_weather_station.png"
     },
     {
       "viewport": "1024x1366",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_1024x1366_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1024x1366_original_calm_corner.png"
     },
     {
       "viewport": "1024x1366",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_1024x1366_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1024x1366_v2_weather_station.png"
     },
     {
       "viewport": "1024x1366",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_1024x1366_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1024x1366_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1024x1366_v2_calm_corner.png"
     },
     {
       "viewport": "1440x900",
       "scene": "weather_station",
       "mode": "original",
       "file": "v2_3_batch01r_1440x900_original_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_original_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1440x900_original_weather_station.png"
     },
     {
       "viewport": "1440x900",
       "scene": "calm_corner",
       "mode": "original",
       "file": "v2_3_batch01r_1440x900_original_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_original_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1440x900_original_calm_corner.png"
     },
     {
       "viewport": "1440x900",
       "scene": "weather_station",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_1440x900_v2_weather_station.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_v2_weather_station.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1440x900_v2_weather_station.png"
     },
     {
       "viewport": "1440x900",
       "scene": "calm_corner",
       "mode": "v2_batch01r",
       "file": "v2_3_batch01r_1440x900_v2_calm_corner.png",
-      "repoPath": "docs/v2-3-batch01r-ux-closeout/evidence/screenshots/v2_3_batch01r_1440x900_v2_calm_corner.png"
+      "repoPath": "docs/v2-3-batch01r-u3r-final/evidence/screenshots/v2_3_batch01r_1440x900_v2_calm_corner.png"
     }
   ],
   "consoleErrors": [],
